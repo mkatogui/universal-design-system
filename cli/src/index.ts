@@ -16,7 +16,7 @@ import { searchCommand } from "./commands/search.js";
 import { generateCommand, tailwindCommand } from "./commands/generate.js";
 import { initCommand } from "./commands/init.js";
 
-const VERSION = "0.1.0";
+const VERSION = "0.1.1";
 
 function parseArgs(args: string[]): { command: string; positional: string[]; flags: Record<string, string | boolean> } {
   let command = "";
