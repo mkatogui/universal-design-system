@@ -2,9 +2,12 @@
 
 > Other tools tell AI what colors to use. We give it a complete, accessible, WCAG-validated design system it can ship.
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)]()
-[![WCAG 2.1 AA](https://img.shields.io/badge/WCAG_2.1-AA_Compliant-green.svg)]()
-[![Platforms](https://img.shields.io/badge/AI_Platforms-20-purple.svg)]()
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![WCAG 2.1 AA](https://img.shields.io/badge/WCAG_2.1-AA_Compliant-green.svg)](https://mkatogui.github.io/universal-design-system/)
+[![Platforms](https://img.shields.io/badge/AI_Platforms-20-purple.svg)](https://mkatogui.github.io/universal-design-system/)
+[![Zero Dependencies](https://img.shields.io/badge/Dependencies-0-brightgreen.svg)]()
+
+[Live Demo](https://mkatogui.github.io/universal-design-system/) · [Documentation](https://mkatogui.github.io/universal-design-system/docs.html) · [Component Library](https://mkatogui.github.io/universal-design-system/component-library.html) · [Token Reference](https://mkatogui.github.io/universal-design-system/reference.html)
 
 ---
 
@@ -21,30 +24,55 @@
 
 ## Quick Start
 
-```bash
-# Install via CLI
-npx uds install
+### CLI (zero dependencies)
 
-# Or manually copy the skill
-cp -r .claude/skills/universal-design-system ~/.claude/skills/
+```bash
+# Install on your AI coding platform (auto-detects)
+uds install
+
+# Or target a specific platform
+uds install --platform cursor
+
+# Interactive setup wizard
+uds init
 
 # Search the design system
-python src/scripts/search.py "fintech dashboard"
+uds search "fintech dashboard"
 
 # Generate a complete design system
-python src/scripts/design_system.py "saas landing page"
+uds generate "saas landing page"
 
 # Generate with Tailwind config
-python src/scripts/design_system.py "healthcare portal" --format tailwind
+uds generate "healthcare portal" --format tailwind
 
 # Generate with framework code
-python src/scripts/design_system.py "ecommerce store" --framework react
+uds generate "ecommerce store" --framework react
 ```
 
-Apply any palette with a single attribute:
+### Manual Install
+
+```bash
+# Clone and use directly
+git clone https://github.com/mkatogui/universal-design-system.git
+cd universal-design-system
+
+# Search with Python directly
+python3 src/scripts/search.py "fintech dashboard"
+
+# Generate a full spec
+python3 src/scripts/design_system.py "saas landing page"
+```
+
+### Apply a Palette
 
 ```html
 <html lang="en" data-theme="corporate">
+```
+
+Switch at runtime:
+
+```js
+document.documentElement.setAttribute('data-theme', 'ai-futuristic');
 ```
 
 ---
@@ -65,12 +93,6 @@ Each palette controls color, shadow, border-radius, and display font. Foundation
 | `bold-lifestyle` | 0px | hard | Clash Display | Fashion, media, lifestyle |
 | `minimal-corporate` | 6px | subtle | DM Sans | Legal, consulting, professional |
 
-Switch at runtime:
-
-```js
-document.documentElement.setAttribute('data-theme', 'ai-futuristic');
-```
-
 ---
 
 ## How It Works
@@ -79,7 +101,7 @@ document.documentElement.setAttribute('data-theme', 'ai-futuristic');
 2. **Describe** your product ("fintech dashboard", "kids education app", "saas landing page")
 3. **Get** a complete, shipping-ready design system -- tokens, components, typography, color palette, anti-patterns, and WCAG compliance baked in
 
-The engine doesn't guess. It reasons across 15 databases and 1200+ data rows to produce opinionated, domain-appropriate design decisions.
+The engine doesn't guess. It reasons across 16 databases and 1400+ data rows to produce opinionated, domain-appropriate design decisions.
 
 ---
 
@@ -87,13 +109,13 @@ The engine doesn't guess. It reasons across 15 databases and 1200+ data rows to 
 
 ```
 User Query -> Domain Detection -> BM25 Search -> Rule Application -> Output
-               (21 sectors,        (15 CSVs,       (165 rules,
-                8 product types)    1200+ rows)      55 anti-patterns)
+               (21 sectors,        (16 CSVs,       (165 rules,
+                8 product types)    1400+ rows)      55 anti-patterns)
 ```
 
 **Layer 1 -- Domain Detection:** Classifies your product across 21 industry sectors and 8 product types. Returns sector + product type with confidence scores.
 
-**Layer 2 -- BM25 Search:** Okapi BM25 ranking (k1=1.5, b=0.75) across 15 CSV databases. Surfaces the most relevant palettes, components, patterns, typography, and color schemes for your domain.
+**Layer 2 -- BM25 Search:** Okapi BM25 ranking (k1=1.5, b=0.75) across 16 CSV databases. Surfaces the most relevant palettes, components, patterns, typography, and color schemes for your domain.
 
 **Layer 3 -- Rule Application:** Evaluates 165 conditional rules (IF sector=finance THEN palette=corporate). Flags 55+ industry-specific anti-patterns (bright colors in finance, playful animations in healthcare).
 
@@ -120,19 +142,51 @@ All components use BEM naming (`.uds-{component}--{variant}`) and CSS custom pro
 
 ## Supported Platforms
 
-Install on any AI coding platform with one command:
+Install on any AI coding platform:
 
 ```bash
-npx uds install --platform cursor
+uds install --platform cursor
 ```
 
 | Platform | Platform | Platform | Platform |
 |----------|----------|----------|----------|
 | Claude Code | Cursor | Windsurf | VS Code (Copilot) |
 | Zed | Aider | Cline | Continue |
-| Bolt | Lovable | v0 | Devin |
-| Kiro | Gemini | Qoder | Roo Code |
-| Trae | OpenCode | Copilot | Droid |
+| Bolt | Lovable | Replit | OpenAI Codex |
+| Kiro | Gemini CLI | Qoder | Roo Code |
+| Trae | OpenCode | GitHub Copilot | Droid |
+
+---
+
+## CLI Commands
+
+```bash
+uds install              # Auto-detect platform and install
+uds install --platform X # Install for a specific platform
+uds install --dry-run    # Preview without changes
+uds init                 # Interactive setup wizard
+uds search "query"       # Search all databases
+uds search "query" -v    # Verbose output
+uds search "query" -j    # JSON output
+uds generate "query"     # Generate full design system spec
+uds generate "query" -f tailwind        # Tailwind CSS config
+uds generate "query" --framework react  # React components
+uds generate "query" --framework vue    # Vue components
+uds generate "query" --framework svelte # Svelte components
+uds tailwind "query"     # Shortcut for Tailwind generation
+```
+
+---
+
+## Validation
+
+```bash
+npm run check            # Full validation suite
+npm run validate         # W3C DTCG token format
+npm run audit            # WCAG 2.1 AA contrast (108 checks)
+npm run verify           # HTML docs integrity
+npm run sync-data        # CSV cross-reference validation
+```
 
 ---
 
@@ -140,31 +194,16 @@ npx uds install --platform cursor
 
 ```
 universal-design-system/
-  .claude/skills/         # Claude Code skill (auto-loaded)
   tokens/                 # W3C DTCG design tokens (source of truth)
   src/
-    data/                 # 15 CSV databases (1200+ rows)
+    data/                 # 16 CSV databases (1400+ rows)
     scripts/              # BM25 engine, search CLI, spec generator
-    templates/            # Platform configs and reference docs
-  cli/                    # TypeScript CLI installer
+  cli/                    # TypeScript CLI (zero dependencies)
   docs/                   # Interactive HTML documentation
   scripts/                # Validation scripts (WCAG, tokens, docs)
   audits/                 # WCAG audit results
+  .claude/skills/         # Claude Code skills (5 skills)
 ```
-
----
-
-## Commands
-
-| Command | Purpose |
-|---------|---------|
-| `python src/scripts/search.py "query"` | Search all databases with BM25 ranking |
-| `python src/scripts/design_system.py "query"` | Generate a full design system spec |
-| `python src/data/_sync_all.py` | Validate CSV cross-references |
-| `python scripts/wcag-audit.py` | WCAG contrast audit (all palettes) |
-| `python scripts/validate-tokens.py` | W3C DTCG token format validation |
-| `python scripts/verify-docs.py` | HTML docs integrity check |
-| `npm run check` | Run the full validation suite |
 
 ---
 
