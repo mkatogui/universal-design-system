@@ -40,7 +40,7 @@ python src/scripts/design_system.py "education app" --framework svelte
 npm run build             # runs style-dictionary build
 
 # CLI installer (for other AI coding platforms)
-npx universal-design-system install --platform cursor
+npx @mkatogui/universal-design-system install --platform cursor
 ```
 
 ## Architecture
