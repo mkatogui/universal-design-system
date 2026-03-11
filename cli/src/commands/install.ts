@@ -3,7 +3,7 @@
  * into the target platform's expected location.
  */
 
-import { existsSync, mkdirSync, cpSync, readdirSync } from "node:fs";
+import { existsSync, mkdirSync, cpSync, readdirSync, statSync } from "node:fs";
 import { join, resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -119,6 +119,13 @@ export async function installCommand(options: InstallOptions): Promise<void> {
     process.exit(1);
   }
 
+  // Detect if running from within the UDS package itself
+  if (resolve(targetDir) === resolve(PKG_ROOT)) {
+    console.log(green("  Already inside the Universal Design System project."));
+    console.log(dim("  No files need to be copied — everything is already in place.\n"));
+    return;
+  }
+
   if (options.dryRun) {
     console.log(yellow("  [DRY RUN] Would create:"));
     console.log(`    ${skillDir}/SKILL.md`);
@@ -140,31 +147,39 @@ export async function installCommand(options: InstallOptions): Promise<void> {
   cpSync(srcSkill, join(skillDir, "SKILL.md"));
   console.log(green("  +") + " SKILL.md");
 
-  // Copy CSV data files
+  // Copy data files (including subdirectories like stacks/)
   let dataCount = 0;
   if (existsSync(srcData)) {
-    const files = readdirSync(srcData);
-    for (const file of files) {
-      const src = join(srcData, file);
-      const dest = join(dataDir, file);
-      cpSync(src, dest);
+    const entries = readdirSync(srcData);
+    for (const entry of entries) {
+      const src = join(srcData, entry);
+      const dest = join(dataDir, entry);
+      if (statSync(src).isDirectory()) {
+        cpSync(src, dest, { recursive: true });
+      } else {
+        cpSync(src, dest);
+      }
       dataCount++;
     }
   }
-  console.log(green("  +") + ` data/ (${dataCount} files)`);
+  console.log(green("  +") + ` data/ (${dataCount} entries)`);
 
   // Copy Python scripts
   let scriptCount = 0;
   if (existsSync(srcScripts)) {
-    const files = readdirSync(srcScripts);
-    for (const file of files) {
-      const src = join(srcScripts, file);
-      const dest = join(scriptsDir, file);
-      cpSync(src, dest);
+    const entries = readdirSync(srcScripts);
+    for (const entry of entries) {
+      const src = join(srcScripts, entry);
+      const dest = join(scriptsDir, entry);
+      if (statSync(src).isDirectory()) {
+        cpSync(src, dest, { recursive: true });
+      } else {
+        cpSync(src, dest);
+      }
       scriptCount++;
     }
   }
-  console.log(green("  +") + ` scripts/ (${scriptCount} files)`);
+  console.log(green("  +") + ` scripts/ (${scriptCount} entries)`);
 
   // Copy tokens if they don't exist in target
   const targetTokens = join(targetDir, "tokens");
