@@ -11,7 +11,7 @@ Programmatic verification of the HTML documentation file:
 
 Usage:
     python scripts/verify-docs.py
-    python scripts/verify-docs.py --file docs/index.html
+    python scripts/verify-docs.py --file docs/docs.html
 """
 
 import re
@@ -86,8 +86,8 @@ def verify_section_ids(html: str) -> list:
     # Find all sidebar href links
     hrefs = re.findall(r'<a\s+href="#([^"]+)"', html)
 
-    # Find all section IDs
-    section_ids = re.findall(r'<section\s+id="([^"]+)"', html)
+    # Find all section and main IDs
+    section_ids = re.findall(r'<(?:section|main)\s+[^>]*id="([^"]+)"', html)
 
     for href in hrefs:
         if href not in section_ids and href not in ["top"]:
@@ -143,7 +143,7 @@ def verify_variant_css(html: str) -> list:
 
 def main():
     parser = argparse.ArgumentParser(description="Verify Design System Docs")
-    parser.add_argument("--file", default="docs/index.html", help="HTML file to verify")
+    parser.add_argument("--file", default="docs/docs.html", help="HTML file to verify")
     args = parser.parse_args()
 
     if not Path(args.file).exists():

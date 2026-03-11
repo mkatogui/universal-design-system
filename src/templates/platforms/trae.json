@@ -1,0 +1,11 @@
+{
+  "platform": "trae",
+  "name": "Trae",
+  "skillDir": ".trae/skills/universal-design-system",
+  "configFile": null,
+  "instructions": "SKILL.md is placed in .trae/skills/ for Trae.",
+  "postInstall": [
+    "Skill installed for Trae.",
+    "Try: Ask Trae to 'design a fintech dashboard'"
+  ]
+}

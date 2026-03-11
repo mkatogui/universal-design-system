@@ -1,0 +1,11 @@
+{
+  "platform": "qoder",
+  "name": "Qoder",
+  "skillDir": ".qoder/skills/universal-design-system",
+  "configFile": null,
+  "instructions": "SKILL.md is placed in .qoder/skills/ for Qoder.",
+  "postInstall": [
+    "Skill installed for Qoder.",
+    "Try: Ask Qoder to 'design a fintech dashboard'"
+  ]
+}

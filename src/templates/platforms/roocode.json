@@ -1,0 +1,11 @@
+{
+  "platform": "roocode",
+  "name": "Roo Code",
+  "skillDir": ".roocode/skills/universal-design-system",
+  "configFile": null,
+  "instructions": "SKILL.md is placed in .roocode/skills/ for Roo Code.",
+  "postInstall": [
+    "Skill installed for Roo Code.",
+    "Try: Ask Roo Code to 'design a fintech dashboard'"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "platform": "codex",
+  "name": "OpenAI Codex",
+  "skillDir": ".codex/skills/universal-design-system",
+  "configFile": "AGENTS.md",
+  "instructions": "OpenAI Codex reads instructions from AGENTS.md",
+  "postInstall": [
+    "Skill installed for OpenAI Codex.",
+    "Try: Ask Codex to 'design a fintech app'"
+  ]
+}

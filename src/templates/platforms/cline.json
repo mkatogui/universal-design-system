@@ -1,0 +1,11 @@
+{
+  "platform": "cline",
+  "name": "Cline",
+  "skillDir": ".cline/skills/universal-design-system",
+  "configFile": ".clinerules",
+  "instructions": "Cline reads project rules from .clinerules file",
+  "postInstall": [
+    "Skill installed for Cline.",
+    "Try: Ask Cline to 'design a startup landing page'"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "platform": "opencode",
+  "name": "OpenCode",
+  "skillDir": ".opencode/skills/universal-design-system",
+  "configFile": null,
+  "instructions": "SKILL.md is placed in .opencode/skills/ for OpenCode.",
+  "postInstall": [
+    "Skill installed for OpenCode.",
+    "Try: Ask OpenCode to 'design a fintech dashboard'"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "name": "universal-design-system",
+  "description": "Production-grade AI-native design system with 9 palettes, 496 W3C DTCG tokens, 31 components, BM25 reasoning engine, and WCAG 2.1 AA compliance. Reverse-engineered from 100 modern websites.",
+  "version": "0.1.0",
+  "author": {
+    "name": "universal-design-system"
+  },
+  "license": "MIT",
+  "keywords": ["design-system", "ui", "ux", "tokens", "components", "wcag", "accessibility", "tailwind", "react", "vue", "svelte", "figma", "design-tokens"],
+  "skills": ["./.claude/skills/universal-design-system"]
+}

@@ -1,0 +1,11 @@
+{
+  "platform": "windsurf",
+  "name": "Windsurf",
+  "skillDir": ".windsurf/skills/universal-design-system",
+  "configFile": ".windsurfrules",
+  "instructions": "Windsurf loads project-level rules from .windsurfrules",
+  "postInstall": [
+    "Skill installed for Windsurf.",
+    "Try: Ask Cascade to 'design a healthcare portal'"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "platform": "lovable",
+  "name": "Lovable",
+  "skillDir": ".lovable/skills/universal-design-system",
+  "configFile": null,
+  "instructions": "Lovable reads project rules from .lovable/ directory",
+  "postInstall": [
+    "Skill installed for Lovable.",
+    "Try: Ask Lovable to 'design a mobile app UI'"
+  ]
+}

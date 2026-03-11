@@ -1,0 +1,25 @@
+{
+  "name": "universal-design-system",
+  "id": "universal-design-system",
+  "owner": {
+    "name": "universal-design-system"
+  },
+  "metadata": {
+    "description": "Production-grade design system with 9 structural palettes, 496 W3C DTCG tokens, 31 BEM components, BM25 reasoning engine, WCAG 2.1 AA compliance, and industry-specific design rules. Reverse-engineered from 100 modern websites.",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "universal-design-system",
+      "source": "./",
+      "description": "AI-native design system that reasons about your product. 9 switchable palettes, 496 design tokens, 31 accessible components, BM25 search engine across 14 databases, 100+ industry rules, and automated WCAG validation. Other tools tell AI what colors to use — we give it a complete, accessible, WCAG-validated design system it can ship.",
+      "version": "0.1.0",
+      "author": {
+        "name": "universal-design-system"
+      },
+      "keywords": ["design-system", "ui", "ux", "design", "tokens", "components", "wcag", "accessibility", "color-palette", "typography", "tailwind", "react", "vue", "svelte", "figma"],
+      "category": "design",
+      "strict": false
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "platform": "vscode",
+  "name": "VS Code (GitHub Copilot)",
+  "skillDir": ".github/copilot-instructions/universal-design-system",
+  "configFile": ".github/copilot-instructions.md",
+  "instructions": "GitHub Copilot reads instructions from .github/copilot-instructions.md",
+  "postInstall": [
+    "Skill installed for GitHub Copilot in VS Code.",
+    "Try: Ask Copilot Chat to 'build a dashboard component'"
+  ]
+}

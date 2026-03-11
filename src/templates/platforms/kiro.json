@@ -1,0 +1,11 @@
+{
+  "platform": "kiro",
+  "name": "Kiro",
+  "skillDir": ".kiro/skills/universal-design-system",
+  "configFile": null,
+  "instructions": "SKILL.md is placed in .kiro/skills/ for Kiro to auto-detect.",
+  "postInstall": [
+    "Skill installed for Kiro.",
+    "Try: Ask Kiro to 'design a fintech dashboard'"
+  ]
+}

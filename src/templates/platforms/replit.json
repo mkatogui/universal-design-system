@@ -1,0 +1,11 @@
+{
+  "platform": "replit",
+  "name": "Replit Agent",
+  "skillDir": ".replit/skills/universal-design-system",
+  "configFile": ".replit",
+  "instructions": "Replit Agent reads project context from .replit/ directory",
+  "postInstall": [
+    "Skill installed for Replit Agent.",
+    "Try: Ask Replit Agent to 'build a portfolio site'"
+  ]
+}

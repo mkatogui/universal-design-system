@@ -1,0 +1,11 @@
+{
+  "platform": "continue",
+  "name": "Continue",
+  "skillDir": ".continue/skills/universal-design-system",
+  "configFile": ".continue/config.json",
+  "instructions": "Continue loads context providers from .continue/ directory",
+  "postInstall": [
+    "Skill installed for Continue.",
+    "Try: Ask Continue to 'build a SaaS pricing page'"
+  ]
+}

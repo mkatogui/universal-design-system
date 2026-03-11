@@ -1,0 +1,11 @@
+{
+  "platform": "bolt",
+  "name": "Bolt",
+  "skillDir": ".bolt/skills/universal-design-system",
+  "configFile": ".bolt/config.json",
+  "instructions": "Bolt loads project context from .bolt/ directory",
+  "postInstall": [
+    "Skill installed for Bolt.",
+    "Try: Ask Bolt to 'create an AI product landing page'"
+  ]
+}

@@ -1,184 +1,172 @@
 # Universal Design System
 
-A production-grade design system reverse-engineered from 100 modern websites, distilled into one governed brand foundation with 9 structural palettes, 31 components, 8 patterns, and automated WCAG 2.1 AA compliance.
+> Other tools tell AI what colors to use. We give it a complete, accessible, WCAG-validated design system it can ship.
 
-**Version:** 0.8.0 | **License:** MIT
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)]()
+[![WCAG 2.1 AA](https://img.shields.io/badge/WCAG_2.1-AA_Compliant-green.svg)]()
+[![Platforms](https://img.shields.io/badge/AI_Platforms-20-purple.svg)]()
 
 ---
 
-## What Makes This Different
+## At a Glance
 
-Most design systems give you one look. This one gives you **nine distinct visual identities** — each controlling color, shadow, border-radius, and display font — while sharing a single locked foundation for typography, spacing, motion, and layout. Switch palettes with one attribute change; every component adapts automatically.
+| | | |
+|---|---|---|
+| **9** structural palettes | **496** W3C DTCG tokens | **31** BEM components |
+| **165+** product category rules | **55+** anti-patterns | **200+** Google Fonts catalog |
+| **200+** icon library index | **20** AI platform support | **100%** WCAG 2.1 AA compliance |
+| **BM25** reasoning engine | **Tailwind CSS** config generation | **React, Vue, Svelte** output |
 
-| Palette | Identity | Best For |
-|---------|----------|----------|
-| Minimal SaaS | Balanced, neutral | Product UI, apps |
-| Gradient Startup | High-energy gradients | Marketing, landing pages |
-| AI Futuristic | Sharp, dark-native | Dev tools, AI products |
-| Corporate | Conservative, squared | Enterprise, regulated |
-| Apple Minimal | Smooth, refined | Premium consumer |
-| Illustration | Friendly, rounded | Education, creative |
-| Dashboard | Compact, data-dense | Analytics, admin panels |
-| Bold Lifestyle | Brutalist, 0px radius | Fashion, media |
-| Minimal Corporate | Subtle, understated | Professional services |
+---
 
 ## Quick Start
 
-### 1. Open the Docs
-
-Open `docs/index.html` in your browser for the full interactive documentation with live previews, palette switching, a component sandbox, and motion choreography demos.
-
-### 2. Use the Tokens
-
-**CSS Custom Properties (recommended):**
-```html
-<html lang="en" data-theme="minimal-saas">
-```
-
-**Style Dictionary build (CSS, JS, iOS, Android):**
 ```bash
-npm install
-npx style-dictionary build
+# Install via CLI
+npx uds install
+
+# Or manually copy the skill
+cp -r .claude/skills/universal-design-system ~/.claude/skills/
+
+# Search the design system
+python src/scripts/search.py "fintech dashboard"
+
+# Generate a complete design system
+python src/scripts/design_system.py "saas landing page"
+
+# Generate with Tailwind config
+python src/scripts/design_system.py "healthcare portal" --format tailwind
+
+# Generate with framework code
+python src/scripts/design_system.py "ecommerce store" --framework react
 ```
 
-**Figma (Tokens Studio):**
-Import `tokens/figma-tokens.json` into the Tokens Studio plugin.
-
-### 3. Use a Component
+Apply any palette with a single attribute:
 
 ```html
-<button class="btn btn--primary btn--md">Get Started</button>
+<html lang="en" data-theme="corporate">
 ```
 
-Switch themes at any time:
+---
+
+## 9 Structural Palettes
+
+Each palette controls color, shadow, border-radius, and display font. Foundation tokens (spacing, type scale, motion, z-index) stay locked across all palettes.
+
+| Palette | Radius | Shadow | Display Font | Best For |
+|---------|--------|--------|-------------|----------|
+| `minimal-saas` | 8px | subtle | Inter | SaaS, productivity tools |
+| `ai-futuristic` | 12px | glow | Space Grotesk | AI products, dev tools |
+| `gradient-startup` | 16px | medium | Plus Jakarta Sans | Startups, MVPs |
+| `corporate` | 4px | subtle | Inter | Enterprise, B2B, regulated |
+| `apple-minimal` | 12px | diffused | SF Pro Display | Premium, luxury brands |
+| `illustration` | 20px | playful | Nunito | Education, kids, creative |
+| `dashboard` | 8px | subtle | Inter | Analytics, admin panels |
+| `bold-lifestyle` | 0px | hard | Clash Display | Fashion, media, lifestyle |
+| `minimal-corporate` | 6px | subtle | DM Sans | Legal, consulting, professional |
+
+Switch at runtime:
+
 ```js
-document.documentElement.setAttribute('data-theme', 'corporate');
+document.documentElement.setAttribute('data-theme', 'ai-futuristic');
 ```
 
-## Repository Structure
+---
+
+## How It Works
+
+1. **Install** the skill on your AI coding platform
+2. **Describe** your product ("fintech dashboard", "kids education app", "saas landing page")
+3. **Get** a complete, shipping-ready design system -- tokens, components, typography, color palette, anti-patterns, and WCAG compliance baked in
+
+The engine doesn't guess. It reasons across 15 databases and 1200+ data rows to produce opinionated, domain-appropriate design decisions.
+
+---
+
+## Architecture: 3-Layer Reasoning Pipeline
+
+```
+User Query -> Domain Detection -> BM25 Search -> Rule Application -> Output
+               (21 sectors,        (15 CSVs,       (165 rules,
+                8 product types)    1200+ rows)      55 anti-patterns)
+```
+
+**Layer 1 -- Domain Detection:** Classifies your product across 21 industry sectors and 8 product types. Returns sector + product type with confidence scores.
+
+**Layer 2 -- BM25 Search:** Okapi BM25 ranking (k1=1.5, b=0.75) across 15 CSV databases. Surfaces the most relevant palettes, components, patterns, typography, and color schemes for your domain.
+
+**Layer 3 -- Rule Application:** Evaluates 165 conditional rules (IF sector=finance THEN palette=corporate). Flags 55+ industry-specific anti-patterns (bright colors in finance, playful animations in healthcare).
+
+---
+
+## 31 Components
+
+All components use BEM naming (`.uds-{component}--{variant}`) and CSS custom properties. No hardcoded values.
+
+| Category | Components |
+|----------|-----------|
+| **Navigation** | Button, Navbar, Sidebar, Tabs, Breadcrumb, Pagination |
+| **Data Input** | Input, Select, Checkbox, Radio, Toggle |
+| **Data Display** | Card, Table, Badge, Avatar, Tooltip, Stat |
+| **Feedback** | Alert, Toast, Modal, Progress |
+| **Layout** | Accordion, Divider, Grid, Drawer, Footer |
+| **Composite** | Hero, Pricing, Testimonial, Feature, CTA |
+
+```html
+<button class="uds-btn uds-btn--primary uds-btn--md">Get Started</button>
+```
+
+---
+
+## Supported Platforms
+
+Install on any AI coding platform with one command:
+
+```bash
+npx uds install --platform cursor
+```
+
+| Platform | Platform | Platform | Platform |
+|----------|----------|----------|----------|
+| Claude Code | Cursor | Windsurf | VS Code (Copilot) |
+| Zed | Aider | Cline | Continue |
+| Bolt | Lovable | v0 | Devin |
+| Kiro | Gemini | Qoder | Roo Code |
+| Trae | OpenCode | Copilot | Droid |
+
+---
+
+## Project Structure
 
 ```
 universal-design-system/
-  docs/
-    index.html                 # Interactive documentation (Storybook-style)
-    component-library.html     # Shadcn-style component library
-    reference.html             # Design reference comparisons
-    critique.html              # Design critique & analysis
-    evaluation.html            # Evaluation rubric
-    source-analysis.xlsx       # 100-website reverse-engineering data
-  tokens/
-    design-tokens.json         # W3C DTCG format (source of truth)
-    figma-tokens.json          # Figma Tokens Studio compatible
-  audits/
-    a11y-audit.json            # WCAG 2.1 AA contrast audit results
-  scripts/
-    wcag-audit.py              # Automated contrast ratio checker
-    validate-tokens.py         # Token format & sync validator
-    verify-docs.py             # HTML docs integrity checker
-  SPECIFICATION.md             # Full design system specification
-  CHANGELOG.md                 # Version history
-  CONTRIBUTING.md              # Contribution guidelines
-  style-dictionary.config.json # Style Dictionary build pipeline
-  package.json                 # NPM project metadata
+  .claude/skills/         # Claude Code skill (auto-loaded)
+  tokens/                 # W3C DTCG design tokens (source of truth)
+  src/
+    data/                 # 15 CSV databases (1200+ rows)
+    scripts/              # BM25 engine, search CLI, spec generator
+    templates/            # Platform configs and reference docs
+  cli/                    # TypeScript CLI installer
+  docs/                   # Interactive HTML documentation
+  scripts/                # Validation scripts (WCAG, tokens, docs)
+  audits/                 # WCAG audit results
 ```
 
-## Architecture
+---
 
-### Foundation (Locked)
+## Commands
 
-These tokens are governance-locked and shared across all palettes:
+| Command | Purpose |
+|---------|---------|
+| `python src/scripts/search.py "query"` | Search all databases with BM25 ranking |
+| `python src/scripts/design_system.py "query"` | Generate a full design system spec |
+| `python src/data/_sync_all.py` | Validate CSV cross-references |
+| `python scripts/wcag-audit.py` | WCAG contrast audit (all palettes) |
+| `python scripts/validate-tokens.py` | W3C DTCG token format validation |
+| `python scripts/verify-docs.py` | HTML docs integrity check |
+| `npm run check` | Run the full validation suite |
 
-- **Typography:** Inter (body), system font stack, 8-step modular scale
-- **Spacing:** 4px base unit, 12-step scale (2px–96px)
-- **Motion:** 4 duration tiers, 3 easing curves, 13 choreography presets
-- **Z-Index:** 6-tier stack (dropdown → toast → modal → popover → tooltip → overlay)
-- **Opacity:** disabled (0.5), overlay (0.6), subtle (0.08)
-
-### Palettes (Switchable)
-
-Each palette overrides these token categories:
-
-- **Color:** 20+ semantic color tokens (brand, text, background, border, status)
-- **Shadow:** 5-tier elevation scale (sm → 2xl)
-- **Border Radius:** 5-tier radius scale (sm → 2xl)
-- **Display Font:** h1–h3 typeface (DM Sans, Oswald, Source Serif 4, etc.)
-
-### Components (31)
-
-Buttons, Inputs, Cards, Alerts, Toasts, Badges, Toggles, Avatars, Dropdowns, Accordions, Tooltips, Modals, Tabs, Data Tables, Pagination, Breadcrumbs, Skeletons, Progress Bars, and more. Each has a CVA-style variant API with documented props, sizes, and states.
-
-### Patterns (8)
-
-Form layouts, navigation, hero sections, pricing tables, feature grids, testimonials, footer, and dashboard layouts.
-
-## Token Format
-
-Tokens follow the [W3C Design Token Community Group](https://design-tokens.github.io/community-group/format/) specification:
-
-```json
-{
-  "color": {
-    "brand-primary": {
-      "$value": "#2563EB",
-      "$type": "color",
-      "$description": "Primary brand color"
-    }
-  }
-}
-```
-
-## Accessibility
-
-Every palette x mode combination (18 total) passes WCAG 2.1 AA contrast requirements. The automated audit checks 6 critical color pairs per combination (62 checks total, 100% pass rate).
-
-Run the audit yourself:
-```bash
-python scripts/wcag-audit.py
-```
-
-Results are saved to `audits/a11y-audit.json`.
-
-## Motion Choreography
-
-The system includes 13 motion presets organized into 4 categories:
-
-- **Enter:** fade-in, slide-up, scale-in, expand
-- **Exit:** fade-out, slide-down, scale-out
-- **Stagger:** children-fast (40ms), children-normal (60ms), grid (80ms)
-- **Interaction:** hover-lift, press-down, focus-ring
-
-All animations respect `prefers-reduced-motion: reduce`.
-
-## Scripts
-
-| Script | Purpose |
-|--------|---------|
-| `scripts/wcag-audit.py` | Run WCAG contrast checks across all palettes |
-| `scripts/validate-tokens.py` | Validate token format and cross-file sync |
-| `scripts/verify-docs.py` | Verify HTML docs integrity (no hardcoded values, valid links) |
-
-## Development
-
-```bash
-# Install dependencies
-npm install
-
-# Build tokens for all platforms
-npx style-dictionary build
-
-# Run token validation
-python scripts/validate-tokens.py
-
-# Run accessibility audit
-python scripts/wcag-audit.py
-
-# Verify documentation integrity
-python scripts/verify-docs.py --file docs/index.html
-```
-
-## Version History
-
-See [CHANGELOG.md](CHANGELOG.md) for the full version history from v0.1.0 to v0.8.0.
+---
 
 ## Contributing
 
@@ -187,7 +175,3 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 ## License
 
 MIT License. See [LICENSE](LICENSE) for details.
-
----
-
-Built by reverse-engineering 100 websites into one universal system.

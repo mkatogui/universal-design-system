@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Design System v0.2.0 — Visual Reference</title>
+<title>Design System v__VERSION__ — Visual Reference</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Source+Serif+4:wght@600;700&display=swap" rel="stylesheet">
 <style>
 /* ============================================================
-   DESIGN TOKENS — v0.2.0
+   DESIGN TOKENS — v__VERSION__
    Fixed: contrast, shadows, RGB channels, z-index, opacity, icons
    ============================================================ */
 :root {
@@ -89,16 +89,17 @@
   --ease-out: cubic-bezier(0, 0, 0.2, 1);
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
   /* NEW: Opacity tokens */
-  --opacity-disabled: 0.5;
+  --opacity-disabled: 0.4;
   --opacity-muted: 0.6;
-  --opacity-subtle: 0.4;
+  --opacity-subtle: 0.8;
   /* NEW: Z-index tokens */
-  --z-dropdown: 10;
-  --z-sticky: 20;
-  --z-overlay: 30;
-  --z-modal: 40;
-  --z-toast: 50;
-  --z-system: 100;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-overlay: 300;
+  --z-modal: 400;
+  --z-toast: 500;
+  --z-tooltip: 600;
+  --z-system: 9999;
   /* NEW: Icon size tokens */
   --icon-sm: 16px; --icon-md: 20px; --icon-lg: 24px; --icon-xl: 32px;
 }
@@ -131,8 +132,12 @@
   --shadow-lg: 0 0 1px rgba(255,255,255,0.1), 0 12px 40px rgba(0,0,0,0.6);
   --shadow-xl: 0 0 2px rgba(255,255,255,0.1), 0 24px 64px rgba(0,0,0,0.7);
   --shadow-glow: 0 0 40px rgba(0, 255, 136, 0.15);
-  --font-display: 'Inter', system-ui, sans-serif;
-  --radius-md: 12px;
+  --font-display: 'DM Sans', system-ui, sans-serif;
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 6px;
+  --radius-xl: 8px;
+  --radius-2xl: 12px;
 }
 
 /* THEME: Gradient Startup ============================================= */
@@ -144,9 +149,11 @@
   --color-brand-muted: #F3E8FF;
   --gradient-hero: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   --gradient-cta: linear-gradient(135deg, #7C3AED, #EC4899);
+  --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 16px;
-  --radius-xl: 20px;
+  --radius-xl: 24px;
+  --radius-2xl: 32px;
 }
 
 /* THEME: Corporate Enterprise ========================================= */
@@ -196,6 +203,73 @@
   /* Smooth, subtle motion */
   --duration-normal: 300ms;
   --ease-default: cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+/* THEME: Illustration ================================================= */
+[data-theme="illustration"] {
+  --color-bg-secondary: #FFF8F0; --color-bg-tertiary: #FFF0E6;
+  --color-bg-inverse: #1A1523;
+  --color-text-primary: #1A1523; --color-text-secondary: #5C5470;
+  --color-text-tertiary: #7A7189;
+  --color-brand-primary: #E8590C; --color-brand-primary-rgb: 232, 89, 12;
+  --color-brand-secondary: #7048E8; --color-brand-accent: #12B886;
+  --color-brand-muted: #FFF4E6;
+  --color-border-default: #C4B5A4; --color-border-input: #9E8E7E;
+  --gradient-hero: linear-gradient(135deg, #FF6B2B 0%, #7048E8 50%, #12B886 100%);
+  --radius-sm: 10px; --radius-md: 14px; --radius-lg: 18px; --radius-xl: 24px; --radius-2xl: 32px;
+  --shadow-sm: 0 2px 6px rgba(26,21,35,0.06);
+  --shadow-md: 0 4px 16px rgba(26,21,35,0.10);
+  --shadow-lg: 0 12px 36px rgba(26,21,35,0.14);
+}
+
+/* THEME: Dashboard-Centric ============================================ */
+[data-theme="dashboard"] {
+  --color-bg-secondary: #F7F8FC; --color-bg-tertiary: #EEF0F8;
+  --color-bg-inverse: #0F1117;
+  --color-text-primary: #0F1117; --color-text-secondary: #525866;
+  --color-text-tertiary: #6E7585;
+  --color-brand-primary: #4F46E5; --color-brand-primary-rgb: 79, 70, 229;
+  --color-brand-secondary: #0EA5E9; --color-brand-accent: #06B6D4;
+  --color-brand-muted: #EEF2FF;
+  --color-border-default: #C5CAD4; --color-border-input: #8B92A0;
+  --radius-sm: 4px; --radius-md: 6px; --radius-lg: 8px; --radius-xl: 12px; --radius-2xl: 16px;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+  --shadow-md: 0 2px 6px rgba(0,0,0,0.08);
+  --shadow-lg: 0 6px 20px rgba(0,0,0,0.12);
+}
+
+/* THEME: Bold Lifestyle =============================================== */
+[data-theme="bold-lifestyle"] {
+  --color-bg-secondary: #F5F5F5; --color-bg-tertiary: #EBEBEB;
+  --color-bg-inverse: #111111;
+  --color-text-primary: #111111; --color-text-secondary: #525252;
+  --color-text-tertiary: #6B6B6B;
+  --color-brand-primary: #111111; --color-brand-primary-rgb: 17, 17, 17;
+  --color-brand-secondary: #FF4500; --color-brand-accent: #FFD700;
+  --color-border-default: #BFBFBF; --color-border-input: #8C8C8C;
+  --radius-sm: 0; --radius-md: 0; --radius-lg: 0; --radius-xl: 0; --radius-2xl: 0; --radius-full: 0;
+  --shadow-sm: none; --shadow-md: 2px 2px 0 rgba(0,0,0,0.15);
+  --shadow-lg: 4px 4px 0 rgba(0,0,0,0.2); --shadow-glow: none;
+  --gradient-hero: none; --gradient-cta: none;
+  --font-display: 'Oswald', sans-serif;
+}
+
+/* THEME: Minimal Corporate ============================================ */
+[data-theme="minimal-corporate"] {
+  --color-bg-primary: #FDFCFB; --color-bg-secondary: #F7F5F2;
+  --color-bg-tertiary: #EFECE8; --color-bg-inverse: #1C1917;
+  --color-text-primary: #1C1917; --color-text-secondary: #57534E;
+  --color-text-tertiary: #78716C;
+  --color-brand-primary: #B45309; --color-brand-primary-rgb: 180, 83, 9;
+  --color-brand-secondary: #92400E; --color-brand-accent: #D97706;
+  --color-brand-muted: #FEF3C7;
+  --color-border-default: #D6D3CD; --color-border-input: #A8A29E;
+  --color-border-subtle: #E7E5E4;
+  --radius-sm: 4px; --radius-md: 6px; --radius-lg: 8px; --radius-xl: 12px; --radius-2xl: 16px;
+  --shadow-sm: 0 1px 3px rgba(28,25,23,0.04);
+  --shadow-md: 0 3px 10px rgba(28,25,23,0.07);
+  --shadow-lg: 0 8px 24px rgba(28,25,23,0.10);
+  --font-display: 'Source Serif 4', Georgia, serif;
 }
 
 /* ============================================================
@@ -587,22 +661,39 @@ body {
   .pricing-grid { grid-template-columns: 1fr; }
   .demo-nav-links { display: none; }
 }
+/* === Site Navigation Bar === */
+.site-topnav { display: flex; align-items: center; gap: 0; background: #111; color: #fff; font-family: 'Inter', system-ui, sans-serif; font-size: 14px; padding: 0 24px; height: 44px; position: sticky; top: 0; z-index: 9999; }
+.site-topnav .nav-brand { font-weight: 700; margin-right: 32px; white-space: nowrap; font-size: 15px; letter-spacing: -0.02em; }
+.site-topnav a { color: #999; text-decoration: none; padding: 10px 14px; transition: color 0.15s; white-space: nowrap; }
+.site-topnav a:hover { color: #fff; }
+.site-topnav a.active { color: #fff; border-bottom: 2px solid #3b82f6; }
+@media (max-width: 640px) { .site-topnav { padding: 0 12px; gap: 0; overflow-x: auto; } .site-topnav a { padding: 10px 8px; font-size: 13px; } .site-topnav .nav-brand { margin-right: 16px; font-size: 13px; } }
 </style>
 </head>
 <body>
+<nav class="site-topnav" aria-label="Site navigation">
+  <span class="nav-brand">UDS v__VERSION__</span>
+  <a href="docs.html">Docs</a>
+  <a href="component-library.html">Components</a>
+  <a href="reference.html" class="active">Reference</a>
+</nav>
 
 <!-- SKIP LINK (FIXED: was missing) -->
 <a href="#main-content" class="skip-link">Skip to main content</a>
 
 <!-- SYSTEM BAR / THEME SWITCHER -->
 <nav class="system-bar" aria-label="Design system controls">
-  <span class="system-bar-title">Design System <span style="font-size:var(--text-label);font-weight:500;color:var(--color-text-tertiary);">v0.2.0</span></span>
+  <span class="system-bar-title">Design System <span style="font-size:var(--text-label);font-weight:500;color:var(--color-text-tertiary);">v__VERSION__</span></span>
   <div class="theme-switcher" role="tablist" aria-label="Theme selector">
     <button class="theme-btn" role="tab" aria-selected="true" data-theme="minimal-saas">Minimal SaaS</button>
     <button class="theme-btn" role="tab" aria-selected="false" data-theme="ai-futuristic">AI Futuristic</button>
     <button class="theme-btn" role="tab" aria-selected="false" data-theme="gradient-startup">Gradient Startup</button>
     <button class="theme-btn" role="tab" aria-selected="false" data-theme="corporate">Corporate</button>
     <button class="theme-btn" role="tab" aria-selected="false" data-theme="apple-minimal">Apple Minimal</button>
+    <button class="theme-btn" role="tab" aria-selected="false" data-theme="illustration">Illustration</button>
+    <button class="theme-btn" role="tab" aria-selected="false" data-theme="dashboard">Dashboard</button>
+    <button class="theme-btn" role="tab" aria-selected="false" data-theme="bold-lifestyle">Bold Lifestyle</button>
+    <button class="theme-btn" role="tab" aria-selected="false" data-theme="minimal-corporate">Minimal Corporate</button>
   </div>
 </nav>
 
@@ -614,11 +705,11 @@ body {
 <section class="ds-section" aria-labelledby="sect-overview">
   <div class="container">
     <h1 id="sect-overview" class="ds-section-title">Universal Design System</h1>
-    <p class="ds-section-subtitle">Derived from 100 production websites. 9 style categories. 5 live themes. Built for WCAG 2.2 AA compliance.</p>
+    <p class="ds-section-subtitle">Derived from 100 production websites. 9 structural palettes. 31 components. Built for WCAG 2.1 AA compliance.</p>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:var(--space-4);margin-top:var(--space-8);">
       <div style="text-align:center;padding:var(--space-5);background:var(--color-bg-tertiary);border-radius:var(--radius-lg);"><div style="font-size:var(--text-display-md);font-weight:800;color:var(--color-brand-primary);">100</div><div style="font-size:var(--text-body-sm);color:var(--color-text-secondary);">Sites Analyzed</div></div>
-      <div style="text-align:center;padding:var(--space-5);background:var(--color-bg-tertiary);border-radius:var(--radius-lg);"><div style="font-size:var(--text-display-md);font-weight:800;color:var(--color-brand-primary);">5</div><div style="font-size:var(--text-body-sm);color:var(--color-text-secondary);">Theme Presets</div></div>
-      <div style="text-align:center;padding:var(--space-5);background:var(--color-bg-tertiary);border-radius:var(--radius-lg);"><div style="font-size:var(--text-display-md);font-weight:800;color:var(--color-brand-primary);">12</div><div style="font-size:var(--text-body-sm);color:var(--color-text-secondary);">Components</div></div>
+      <div style="text-align:center;padding:var(--space-5);background:var(--color-bg-tertiary);border-radius:var(--radius-lg);"><div style="font-size:var(--text-display-md);font-weight:800;color:var(--color-brand-primary);">9</div><div style="font-size:var(--text-body-sm);color:var(--color-text-secondary);">Structural Palettes</div></div>
+      <div style="text-align:center;padding:var(--space-5);background:var(--color-bg-tertiary);border-radius:var(--radius-lg);"><div style="font-size:var(--text-display-md);font-weight:800;color:var(--color-brand-primary);">31</div><div style="font-size:var(--text-body-sm);color:var(--color-text-secondary);">Components</div></div>
       <div style="text-align:center;padding:var(--space-5);background:var(--color-bg-tertiary);border-radius:var(--radius-lg);"><div style="font-size:var(--text-display-md);font-weight:800;color:var(--color-brand-primary);">AA</div><div style="font-size:var(--text-body-sm);color:var(--color-text-secondary);">WCAG Compliant</div></div>
     </div>
   </div>

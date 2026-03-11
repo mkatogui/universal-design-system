@@ -1,0 +1,11 @@
+{
+  "platform": "zed",
+  "name": "Zed",
+  "skillDir": ".zed/skills/universal-design-system",
+  "configFile": null,
+  "instructions": "Zed loads project context from .zed/ directory",
+  "postInstall": [
+    "Skill installed for Zed.",
+    "Try: Ask Zed Assistant to 'create an e-commerce product page'"
+  ]
+}

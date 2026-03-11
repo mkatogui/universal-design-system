@@ -19,11 +19,11 @@ All design tokens live in `tokens/design-tokens.json` (source of truth) and `tok
 2. Mirror structural changes to `tokens/figma-tokens.json`
 3. Run `python scripts/validate-tokens.py` to verify format and sync
 4. Run `python scripts/wcag-audit.py` to check contrast ratios
-5. Update the HTML docs (`docs/index.html`) if the change affects component rendering
+5. Update the HTML docs (`docs/docs.html`) if the change affects component rendering
 
 ### Component Changes
 
-Components are defined in `docs/index.html` and `docs/component-library.html`. When adding or modifying components:
+Components are defined in `docs/docs.html` and `docs/component-library.html`. When adding or modifying components:
 
 1. Add the CSS using `var()` references to design tokens — never hardcode colors, radii, or shadows
 2. Ensure the component works across all 9 palettes and both appearance modes
@@ -32,7 +32,7 @@ Components are defined in `docs/index.html` and `docs/component-library.html`. W
 
 ### Documentation
 
-The interactive documentation (`docs/index.html`) is a self-contained HTML file. All CSS, JS, and content is inline. When editing:
+The interactive documentation (`docs/docs.html`) is a self-contained HTML file. All CSS, JS, and content is inline. When editing:
 
 1. Preserve the section structure and sidebar navigation
 2. Add new sidebar links when adding new sections

@@ -1,0 +1,11 @@
+{
+  "platform": "claude",
+  "name": "Claude Code",
+  "skillDir": ".claude/skills/universal-design-system",
+  "configFile": null,
+  "instructions": "SKILL.md is automatically loaded by Claude Code when placed in .claude/skills/",
+  "postInstall": [
+    "Skill installed. Claude Code will auto-detect SKILL.md.",
+    "Try: Ask Claude to 'design a fintech dashboard'"
+  ]
+}

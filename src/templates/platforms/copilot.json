@@ -1,0 +1,11 @@
+{
+  "platform": "copilot",
+  "name": "GitHub Copilot",
+  "skillDir": ".github/copilot-instructions/universal-design-system",
+  "configFile": null,
+  "instructions": "SKILL.md is placed in .github/copilot-instructions/ for GitHub Copilot.",
+  "postInstall": [
+    "Skill installed for GitHub Copilot.",
+    "Try: Ask Copilot to 'design a fintech dashboard'"
+  ]
+}

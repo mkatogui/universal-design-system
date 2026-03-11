@@ -2416,7 +2416,7 @@
       }
     }
   },
-  "z-index": {
+  "zIndex": {
     "$type": "number",
     "$description": "Z-index scale for layering. Values increase by 100 for clear separation.",
     "dropdown": {

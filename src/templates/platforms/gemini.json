@@ -1,0 +1,11 @@
+{
+  "platform": "gemini",
+  "name": "Gemini CLI",
+  "skillDir": ".gemini/skills/universal-design-system",
+  "configFile": null,
+  "instructions": "SKILL.md is placed in .gemini/skills/ for Gemini CLI.",
+  "postInstall": [
+    "Skill installed for Gemini CLI.",
+    "Try: Ask Gemini to 'design a fintech dashboard'"
+  ]
+}

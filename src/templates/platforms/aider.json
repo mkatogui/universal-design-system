@@ -1,0 +1,11 @@
+{
+  "platform": "aider",
+  "name": "Aider",
+  "skillDir": ".aider/skills/universal-design-system",
+  "configFile": ".aider.conf.yml",
+  "instructions": "Aider reads project conventions from .aider/ directory",
+  "postInstall": [
+    "Skill installed for Aider.",
+    "Try: /add .aider/skills/universal-design-system/SKILL.md"
+  ]
+}

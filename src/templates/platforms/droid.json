@@ -1,0 +1,11 @@
+{
+  "platform": "droid",
+  "name": "Droid",
+  "skillDir": ".factory/skills/universal-design-system",
+  "configFile": null,
+  "instructions": "SKILL.md is placed in .factory/skills/ for Droid.",
+  "postInstall": [
+    "Skill installed for Droid.",
+    "Try: Ask Droid to 'design a fintech dashboard'"
+  ]
+}

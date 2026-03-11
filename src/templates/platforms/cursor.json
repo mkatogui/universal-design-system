@@ -1,0 +1,11 @@
+{
+  "platform": "cursor",
+  "name": "Cursor",
+  "skillDir": ".cursor/skills/universal-design-system",
+  "configFile": ".cursorrules",
+  "instructions": "Cursor loads skills from .cursor/skills/ and project rules from .cursorrules",
+  "postInstall": [
+    "Skill installed. Cursor will load SKILL.md as a project rule.",
+    "Try: Ask Cursor to 'create a SaaS landing page'"
+  ]
+}

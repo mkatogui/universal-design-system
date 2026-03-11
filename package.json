@@ -1,14 +1,17 @@
 {
   "name": "universal-design-system",
-  "version": "0.8.0",
+  "version": "0.1.0",
   "description": "A production-grade design system with 9 structural palettes, 31 components, and automated WCAG 2.1 AA compliance. Reverse-engineered from 100 modern websites.",
   "main": "tokens/design-tokens.json",
   "scripts": {
     "build": "style-dictionary build",
     "validate": "python3 scripts/validate-tokens.py",
     "audit": "python3 scripts/wcag-audit.py",
-    "verify": "python3 scripts/verify-docs.py --file docs/index.html",
-    "check": "npm run validate && npm run audit && npm run verify"
+    "verify": "python3 scripts/verify-docs.py --file docs/docs.html",
+    "check": "npm run validate && npm run audit && npm run verify",
+    "search": "python3 src/scripts/search.py",
+    "generate": "python3 src/scripts/design_system.py",
+    "sync-data": "python3 src/data/_sync_all.py"
   },
   "keywords": [
     "design-system",
@@ -19,7 +22,13 @@
     "figma",
     "style-dictionary",
     "components",
-    "ui"
+    "ui",
+    "claude-code",
+    "cursor",
+    "windsurf",
+    "ai-coding",
+    "bm25",
+    "reasoning-engine"
   ],
   "author": "Marcelo Katogui",
   "license": "MIT",
@@ -30,10 +39,18 @@
     "tokens/",
     "docs/",
     "audits/",
-    "SPECIFICATION.md"
+    "src/",
+    ".claude/skills/",
+    "SPECIFICATION.md",
+    "SKILL.md",
+    "CLAUDE.md"
   ],
   "repository": {
     "type": "git",
     "url": ""
+  },
+  "claude-plugin": {
+    "marketplace": "nextlevelbuilder/ui-ux-pro-max-skill",
+    "install": "ui-ux-pro-max@ui-ux-pro-max-skill"
   }
 }

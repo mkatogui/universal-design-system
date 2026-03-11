@@ -1,0 +1,52 @@
+{
+  "name": "universal-design-system",
+  "version": "0.1.0",
+  "description": "Universal Design System — AI-powered design system for any product",
+  "type": "module",
+  "bin": {
+    "uds": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "start": "node dist/index.js",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "design-system",
+    "ui",
+    "ux",
+    "tokens",
+    "claude",
+    "cursor",
+    "windsurf",
+    "ai-coding",
+    "kiro",
+    "gemini",
+    "copilot",
+    "qoder",
+    "roocode",
+    "trae",
+    "opencode",
+    "droid",
+    "design-tokens",
+    "wcag",
+    "accessibility",
+    "tailwind",
+    "figma"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "commander": "^12.0.0",
+    "chalk": "^5.3.0",
+    "ora": "^8.1.1",
+    "prompts": "^2.4.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.4.0"
+  }
+}
