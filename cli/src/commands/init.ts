@@ -1,13 +1,23 @@
 /**
  * Init command — interactive setup wizard.
+ * Uses Node.js built-in readline (zero dependencies).
  */
 
-import prompts from "prompts";
-import chalk from "chalk";
-import ora from "ora";
+import { createInterface } from "node:readline";
 import { installCommand } from "./install.js";
 
-const PALETTES = [
+// ANSI helpers
+const bold = (s: string) => `\x1b[1m${s}\x1b[0m`;
+const dim = (s: string) => `\x1b[2m${s}\x1b[0m`;
+const green = (s: string) => `\x1b[32m${s}\x1b[0m`;
+
+interface Choice {
+  title: string;
+  value: string;
+  description?: string;
+}
+
+const PALETTES: Choice[] = [
   { title: "Minimal SaaS", value: "minimal-saas", description: "Clean, professional — SaaS, productivity" },
   { title: "AI Futuristic", value: "ai-futuristic", description: "Dark, neon — AI products, dev tools" },
   { title: "Gradient Startup", value: "gradient-startup", description: "Bold, vibrant — Startups, MVPs" },
@@ -19,7 +29,7 @@ const PALETTES = [
   { title: "Minimal Corporate", value: "minimal-corporate", description: "Warm neutrals — Legal, consulting" },
 ];
 
-const PLATFORMS = [
+const PLATFORMS: Choice[] = [
   { title: "Claude Code", value: "claude" },
   { title: "Cursor", value: "cursor" },
   { title: "Windsurf", value: "windsurf" },
@@ -41,62 +51,78 @@ const PLATFORMS = [
   { title: "Droid", value: "droid" },
 ];
 
+const FRAMEWORKS: Choice[] = [
+  { title: "HTML/CSS (vanilla)", value: "html" },
+  { title: "React + Tailwind", value: "react" },
+  { title: "Vue 3", value: "vue" },
+  { title: "Svelte 5", value: "svelte" },
+  { title: "Next.js", value: "nextjs" },
+  { title: "React Native", value: "react-native" },
+];
+
+async function selectPrompt(message: string, choices: Choice[]): Promise<string | null> {
+  const rl = createInterface({ input: process.stdin, output: process.stdout });
+
+  console.log(`\n  ${bold(message)}\n`);
+  choices.forEach((c, i) => {
+    const desc = c.description ? dim(` — ${c.description}`) : "";
+    console.log(`    ${dim(`${i + 1}.`)} ${c.title}${desc}`);
+  });
+  console.log();
+
+  return new Promise((resolve) => {
+    rl.question(`  Enter number (1-${choices.length}): `, (answer) => {
+      rl.close();
+      const num = parseInt(answer.trim(), 10);
+      if (num >= 1 && num <= choices.length) {
+        resolve(choices[num - 1].value);
+      } else {
+        resolve(null);
+      }
+    });
+  });
+}
+
 export async function initCommand(): Promise<void> {
-  console.log(chalk.bold("\n  Universal Design System — Setup Wizard\n"));
-  console.log(chalk.dim("  9 Palettes · 496 Tokens · 31 Components · WCAG 2.1 AA\n"));
+  console.log(bold("\n  Universal Design System — Setup Wizard"));
+  console.log(dim("  9 Palettes · 496 Tokens · 31 Components · WCAG 2.1 AA\n"));
 
-  const response = await prompts([
-    {
-      type: "select",
-      name: "platform",
-      message: "Which AI coding platform?",
-      choices: PLATFORMS,
-    },
-    {
-      type: "select",
-      name: "palette",
-      message: "Default palette?",
-      choices: PALETTES,
-    },
-    {
-      type: "select",
-      name: "framework",
-      message: "Primary framework?",
-      choices: [
-        { title: "HTML/CSS (vanilla)", value: "html" },
-        { title: "React + Tailwind", value: "react" },
-        { title: "Vue 3", value: "vue" },
-        { title: "Svelte 5", value: "svelte" },
-        { title: "Next.js", value: "nextjs" },
-        { title: "React Native", value: "react-native" },
-      ],
-    },
-  ]);
-
-  if (!response.platform) {
-    console.log(chalk.dim("\n  Setup cancelled.\n"));
+  const platform = await selectPrompt("Which AI coding platform?", PLATFORMS);
+  if (!platform) {
+    console.log(dim("\n  Setup cancelled.\n"));
     return;
   }
 
-  const spinner = ora("Installing design system skill...").start();
+  const palette = await selectPrompt("Default palette?", PALETTES);
+  if (!palette) {
+    console.log(dim("\n  Setup cancelled.\n"));
+    return;
+  }
+
+  const framework = await selectPrompt("Primary framework?", FRAMEWORKS);
+  if (!framework) {
+    console.log(dim("\n  Setup cancelled.\n"));
+    return;
+  }
+
+  console.log(dim("\n  Installing design system skill..."));
 
   try {
     await installCommand({
-      platform: response.platform,
+      platform,
       dir: ".",
     });
-    spinner.succeed("Skill installed");
   } catch {
-    spinner.fail("Installation failed");
+    console.error("\x1b[31m  Installation failed\x1b[0m");
     process.exit(1);
   }
 
-  console.log(chalk.bold.green("\n  Setup complete!\n"));
-  console.log(chalk.dim(`  Platform:  ${response.platform}`));
-  console.log(chalk.dim(`  Palette:   ${response.palette}`));
-  console.log(chalk.dim(`  Framework: ${response.framework}`));
+  console.log(bold(green("\n  Setup complete!\n")));
+  console.log(dim(`  Platform:  ${platform}`));
+  console.log(dim(`  Palette:   ${palette}`));
+  console.log(dim(`  Framework: ${framework}`));
   console.log();
-  console.log(chalk.dim('  Try: uds search "your product idea"'));
-  console.log(chalk.dim('  Try: uds generate "your product idea" --format tailwind'));
+  console.log(dim('  Try: uds search "your product idea"'));
+  console.log(dim('  Try: uds generate "your product idea" --format tailwind'));
   console.log();
 }

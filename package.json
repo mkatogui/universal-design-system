@@ -3,8 +3,13 @@
   "version": "0.1.0",
   "description": "A production-grade design system with 9 structural palettes, 31 components, and automated WCAG 2.1 AA compliance. Reverse-engineered from 100 modern websites.",
   "main": "tokens/design-tokens.json",
+  "bin": {
+    "uds": "./cli/dist/index.js"
+  },
   "scripts": {
     "build": "style-dictionary build",
+    "build:cli": "cd cli && npx tsc",
+    "prepublishOnly": "npm run build:cli",
     "validate": "python3 scripts/validate-tokens.py",
     "audit": "python3 scripts/wcag-audit.py",
     "verify": "python3 scripts/verify-docs.py --file docs/docs.html",
@@ -40,6 +45,7 @@
     "docs/",
     "audits/",
     "src/",
+    "cli/dist/",
     ".claude/skills/",
     "SPECIFICATION.md",
     "SKILL.md",
@@ -47,10 +53,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/mkatogui/universal-design-system"
   },
   "claude-plugin": {
-    "marketplace": "nextlevelbuilder/ui-ux-pro-max-skill",
-    "install": "ui-ux-pro-max@ui-ux-pro-max-skill"
+    "marketplace": "mkatogui/universal-design-system",
+    "install": "universal-design-system"
   }
 }

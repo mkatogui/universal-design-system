@@ -6,7 +6,9 @@ import { execSync } from "node:child_process";
 import { existsSync } from "node:fs";
 import { join, resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
-import chalk from "chalk";
+
+const red = (s: string) => `\x1b[31m${s}\x1b[0m`;
+const dim = (s: string) => `\x1b[2m${s}\x1b[0m`;
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -25,8 +27,8 @@ export async function searchCommand(
   const searchScript = join(PKG_ROOT, "src", "scripts", "search.py");
 
   if (!existsSync(searchScript)) {
-    console.error(chalk.red("Search engine not found."));
-    console.error(chalk.dim(`Expected: ${searchScript}`));
+    console.error(red("  Search engine not found."));
+    console.error(dim(`  Expected: ${searchScript}`));
     process.exit(1);
   }
 
@@ -39,7 +41,7 @@ export async function searchCommand(
     try {
       execSync(`${python} --version`, { stdio: "ignore" });
     } catch {
-      console.error(chalk.red("Python 3 is required but not found."));
+      console.error(red("  Python 3 is required but not found."));
       process.exit(1);
     }
   }
@@ -58,7 +60,7 @@ export async function searchCommand(
   } catch (err: unknown) {
     const error = err as { stderr?: string; status?: number };
     if (error.stderr) {
-      console.error(chalk.red(error.stderr));
+      console.error(red(error.stderr));
     }
     process.exit(error.status || 1);
   }

@@ -11,49 +11,151 @@
  *   uds search "fintech dashboard"
  */
 
-import { Command } from "commander";
 import { installCommand } from "./commands/install.js";
 import { searchCommand } from "./commands/search.js";
 import { generateCommand, tailwindCommand } from "./commands/generate.js";
 import { initCommand } from "./commands/init.js";
 
-const program = new Command();
+const VERSION = "0.1.0";
 
-program
-  .name("uds")
-  .description("Universal Design System — CLI")
-  .version("0.1.0");
+function parseArgs(args: string[]): { command: string; positional: string[]; flags: Record<string, string | boolean> } {
+  let command = "";
+  const positional: string[] = [];
+  const flags: Record<string, string | boolean> = {};
 
-program
-  .command("install")
-  .description("Install the design system skill into your AI coding platform")
-  .option("-p, --platform <platform>", "Target platform (auto-detected if omitted)")
-  .option("-d, --dir <directory>", "Target project directory", ".")
-  .option("--dry-run", "Show what would be installed without making changes")
-  .action(installCommand);
+  for (let i = 0; i < args.length; i++) {
+    // First non-flag arg is the command
+    if (!command && !args[i].startsWith("-")) {
+      command = args[i];
+      continue;
+    }
+    const arg = args[i];
+    if (arg.startsWith("--")) {
+      const key = arg.slice(2);
+      const next = args[i + 1];
+      if (next && !next.startsWith("-")) {
+        flags[key] = next;
+        i++;
+      } else {
+        flags[key] = true;
+      }
+    } else if (arg.startsWith("-")) {
+      const key = arg.slice(1);
+      const next = args[i + 1];
+      if (next && !next.startsWith("-")) {
+        flags[key] = next;
+        i++;
+      } else {
+        flags[key] = true;
+      }
+    } else {
+      positional.push(arg);
+    }
+  }
 
-program
-  .command("search <query>")
-  .description("Search the design system databases")
-  .option("-v, --verbose", "Show detailed results")
-  .option("-j, --json", "Output as JSON")
-  .action(searchCommand);
+  return { command, positional, flags };
+}
 
-program
-  .command("generate <query>")
-  .description("Generate a full design system specification")
-  .option("-f, --format <format>", "Output format (markdown, json, tailwind)", "markdown")
-  .option("--framework <framework>", "Framework-specific output (react, vue, svelte)")
-  .action(generateCommand);
+function showHelp(): void {
+  console.log(`
+  Universal Design System — CLI  v${VERSION}
 
-program
-  .command("tailwind <query>")
-  .description("Generate a Tailwind CSS config from design system tokens")
-  .action(tailwindCommand);
+  Usage: uds <command> [options]
 
-program
-  .command("init")
-  .description("Interactive setup — choose platform, palette, and framework")
-  .action(initCommand);
+  Commands:
+    install              Install the design system skill into your AI coding platform
+    search <query>       Search the design system databases
+    generate <query>     Generate a full design system specification
+    tailwind <query>     Generate a Tailwind CSS config from tokens
+    init                 Interactive setup — choose platform, palette, and framework
 
-program.parse();
+  Options (install):
+    -p, --platform <name>   Target platform (auto-detected if omitted)
+    -d, --dir <directory>   Target project directory (default: .)
+    --dry-run               Show what would be installed without making changes
+
+  Options (search):
+    -v, --verbose           Show detailed results
+    -j, --json              Output as JSON
+
+  Options (generate):
+    -f, --format <format>   Output format (markdown, json, tailwind)
+    --framework <name>      Framework-specific output (react, vue, svelte)
+
+  Global:
+    -V, --version           Show version number
+    -h, --help              Show this help
+`);
+}
+
+async function main(): Promise<void> {
+  const rawArgs = process.argv.slice(2);
+  const { command, positional, flags } = parseArgs(rawArgs);
+
+  if (flags.version || flags.V) {
+    console.log(VERSION);
+    return;
+  }
+
+  if (flags.help || flags.h || !command) {
+    showHelp();
+    return;
+  }
+
+  switch (command) {
+    case "install":
+      await installCommand({
+        platform: (flags.platform || flags.p) as string | undefined,
+        dir: ((flags.dir || flags.d) as string) || ".",
+        dryRun: !!flags["dry-run"],
+      });
+      break;
+
+    case "search":
+      if (!positional[0]) {
+        console.error("  Error: search requires a query argument\n  Usage: uds search \"your query\"");
+        process.exit(1);
+      }
+      await searchCommand(positional[0], {
+        verbose: !!(flags.verbose || flags.v),
+        json: !!(flags.json || flags.j),
+      });
+      break;
+
+    case "generate":
+      if (!positional[0]) {
+        console.error("  Error: generate requires a query argument\n  Usage: uds generate \"your query\"");
+        process.exit(1);
+      }
+      await generateCommand(positional[0], {
+        format: (flags.format || flags.f) as string | undefined,
+        framework: flags.framework as string | undefined,
+      });
+      break;
+
+    case "tailwind":
+      if (!positional[0]) {
+        console.error("  Error: tailwind requires a query argument\n  Usage: uds tailwind \"your query\"");
+        process.exit(1);
+      }
+      await tailwindCommand(positional[0]);
+      break;
+
+    case "init":
+      await initCommand();
+      break;
+
+    case "help":
+      showHelp();
+      break;
+
+    default:
+      console.error(`  Unknown command: ${command}\n  Run "uds --help" for usage.`);
+      process.exit(1);
+  }
+}
+
+main().catch((err) => {
+  console.error(err);
+  process.exit(1);
+});
