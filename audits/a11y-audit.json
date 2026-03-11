@@ -1,0 +1,803 @@
+{
+  "version": "0.8.0",
+  "date": "2026-03-11",
+  "standard": "WCAG 2.1 AA",
+  "total_checks": 62,
+  "total_pass": 62,
+  "total_fail": 0,
+  "pass_rate": "100.0%",
+  "results": {
+    "minimal-saas-dark": [
+      {
+        "label": "Body text",
+        "fg": "#E4E4EE",
+        "bg": "#0F0F14",
+        "ratio": 15.14,
+        "required": 4.5,
+        "status": "pass",
+        "level": "AA"
+      },
+      {
+        "label": "Secondary text",
+        "fg": "#A0A0B4",
+        "bg": "#0F0F14",
+        "ratio": 7.45,
+        "required": 4.5,
+        "status": "pass",
+        "level": "AA"
+      },
+      {
+        "label": "Text on cards",
+        "fg": "#E4E4EE",
+        "bg": "#161620",
+        "ratio": 14.22,
+        "required": 4.5,
+        "status": "pass",
+        "level": "AA"
+      },
+      {
+        "label": "Brand button text",
+        "status": "skip",
+        "reason": "token missing"
+      },
+      {
+        "label": "Brand links",
+        "status": "skip",
+        "reason": "token missing"
+      },
+      {
+        "label": "Tertiary/muted text",
+        "fg": "#7A7A8E",
+        "bg": "#0F0F14",
+        "ratio": 4.55,
+        "required": 3.0,
+        "status": "pass",
+        "level": "AA"
+      }
+    ],
+    "ai-futuristic-light": [
+      {
+        "label": "Body text",
+        "fg": "#E0E0EE",
+        "bg": "#0A0A0F",
+        "ratio": 15.11,
+        "required": 4.5,
+        "status": "pass",
+        "level": "AA"
+      },
+      {
+        "label": "Secondary text",
+        "fg": "#9999AA",
+        "bg": "#0A0A0F",
+        "ratio": 7.05,
+        "required": 4.5,
+        "status": "pass",
+        "level": "AA"
+      },
+      {
+        "label": "Text on cards",
+        "fg": "#E0E0EE",
+        "bg": "#111118",
+        "ratio": 14.38,
+        "required": 4.5,
+        "status": "pass",
+        "level": "AA"
+      },
+      {
+        "label": "Brand button text",
+        "fg": "#0A0A0F",
+        "bg": "#00FF88",
+        "ratio": 14.73,
+        "required": 4.5,
+        "status": "pass",
+        "level": "AA"
+      },
+      {
+        "label": "Brand links",
+        "fg": "#00FF88",
+        "bg": "#0A0A0F",
+        "ratio": 14.73,
+        "required": 3.0,
+        "status": "pass",
+        "level": "AA"
+      },
+      {
+        "label": "Tertiary/muted text",
+        "fg": "#7A7A8C",
+        "bg": "#0A0A0F",
+        "ratio": 4.69,
+        "required": 3.0,
+        "status": "pass",
+        "level": "AA"
+      }
+    ],
+    "ai-futuristic-dark": [
+      {
+        "label": "Body text",
+        "fg": "#E0E0EE",
+        "bg": "#0A0A0F",
+        "ratio": 15.11,
+        "required": 4.5,
+        "status": "pass",
+        "level": "AA"
+      },
+      {
+        "label": "Secondary text",
+        "fg": "#9999AA",
+        "bg": "#0A0A0F",
+        "ratio": 7.05,
+        "required": 4.5,
+        "status": "pass",
+        "level": "AA"
+      },
+      {
+        "label": "Text on cards",
+        "fg": "#E0E0EE",
+        "bg": "#111118",
+        "ratio": 14.38,
+        "required": 4.5,
+        "status": "pass",
+        "level": "AA"
+      },
+      {
+        "label": "Brand button text",
+        "fg": "#0A0A0F",
+        "bg": "#00FF88",
+        "ratio": 14.73,
+        "required": 4.5,
+        "status": "pass",
+        "level": "AA"
+      },
+      {
+        "label": "Brand links",
+        "fg": "#00FF88",
+        "bg": "#0A0A0F",
+        "ratio": 14.73,
+        "required": 3.0,
+        "status": "pass",
+        "level": "AA"
+      },
+      {
+        "label": "Tertiary/muted text",
+        "fg": "#7A7A8C",
+        "bg": "#0A0A0F",
+        "ratio": 4.69,
+        "required": 3.0,
+        "status": "pass",
+        "level": "AA"
+      }
+    ],
+    "gradient-startup-light": [
+      {
+        "label": "Body text",
+        "status": "skip",
+        "reason": "token missing"
+      },
+      {
+        "label": "Secondary text",
+        "status": "skip",
+        "reason": "token missing"
+      },
+      {
+        "label": "Text on cards",
+        "status": "skip",
+        "reason": "token missing"
+      },
+      {
+        "label": "Brand button text",
+        "status": "skip",
+        "reason": "token missing"
+      },
+      {
+        "label": "Brand links",
+        "status": "skip",
+        "reason": "token missing"
+      },
+      {
+        "label": "Tertiary/muted text",
+        "status": "skip",
+        "reason": "token missing"
+      }
+    ],
+    "gradient-startup-dark": [
+      {
+        "label": "Body text",
+        "fg": "#E8E0F4",
+        "bg": "#0E0A14",
+        "ratio": 15.3,
+        "required": 4.5,
+        "status": "pass",
+        "level": "AA"
+      },
+      {
+        "label": "Secondary text",
+        "fg": "#B0A4C4",
+        "bg": "#0E0A14",
+        "ratio": 8.35,
+        "required": 4.5,
+        "status": "pass",
+        "level": "AA"
+      },
+      {
+        "label": "Text on cards",
+        "fg": "#E8E0F4",
+        "bg": "#16101E",
+        "ratio": 14.55,
+        "required": 4.5,
+        "status": "pass",
+        "level": "AA"
+      },
+      {
+        "label": "Brand button text",
+        "status": "skip",
+        "reason": "token missing"
+      },
+      {
+        "label": "Brand links",
+        "fg": "#7C3AED",
+        "bg": "#0E0A14",
+        "ratio": 3.44,
+        "required": 3.0,
+        "status": "pass",
+        "level": "AA-large"
+      },
+      {
+        "label": "Tertiary/muted text",
+        "fg": "#8A7EA0",
+        "bg": "#0E0A14",
+        "ratio": 5.2,
+        "required": 3.0,
+        "status": "pass",
+        "level": "AA"
+      }
+    ],
+    "corporate-light": [
+      {
+        "label": "Body text",
+        "status": "skip",
+        "reason": "token missing"
+      },
+      {
+        "label": "Secondary text",
+        "status": "skip",
+        "reason": "token missing"
+      },
+      {
+        "label": "Text on cards",
+        "fg": "#1A202C",
+        "bg": "#F7F8FA",
+        "ratio": 15.36,
+        "required": 4.5,
+        "status": "pass",
+        "level": "AA"
+      },
+      {
+        "label": "Brand button text",
+        "status": "skip",
+        "reason": "token missing"
+      },
+      {
+        "label": "Brand links",
+        "status": "skip",
+        "reason": "token missing"
+      },
+      {
+        "label": "Tertiary/muted text",
+        "status": "skip",
+        "reason": "token missing"
+      }
+    ],
+    "corporate-dark": [
+      {
+        "label": "Body text",
+        "fg": "#D8DCE8",
+        "bg": "#0C0E12",
+        "ratio": 14.09,
+        "required": 4.5,
+        "status": "pass",
+        "level": "AA"
+      },
+      {
+        "label": "Secondary text",
+        "fg": "#8E96A8",
+        "bg": "#0C0E12",
+        "ratio": 6.51,
+        "required": 4.5,
+        "status": "pass",
+        "level": "AA"
+      },
+      {
+        "label": "Text on cards",
+        "fg": "#D8DCE8",
+        "bg": "#141820",
+        "ratio": 12.97,
+        "required": 4.5,
+        "status": "pass",
+        "level": "AA"
+      },
+      {
+        "label": "Brand button text",
+        "status": "skip",
+        "reason": "token missing"
+      },
+      {
+        "label": "Brand links",
+        "fg": "#4A7CC8",
+        "bg": "#0C0E12",
+        "ratio": 4.61,
+        "required": 3.0,
+        "status": "pass",
+        "level": "AA"
+      },
+      {
+        "label": "Tertiary/muted text",
+        "fg": "#6E7688",
+        "bg": "#0C0E12",
+        "ratio": 4.24,
+        "required": 3.0,
+        "status": "pass",
+        "level": "AA-large"
+      }
+    ],
+    "apple-minimal-light": [
+      {
+        "label": "Body text",
+        "status": "skip",
+        "reason": "token missing"
+      },
+      {
+        "label": "Secondary text",
+        "status": "skip",
+        "reason": "token missing"
+      },
+      {
+        "label": "Text on cards",
+        "fg": "#1D1D1F",
+        "bg": "#FBFBFD",
+        "ratio": 16.28,
+        "required": 4.5,
+        "status": "pass",
+        "level": "AA"
+      },
+      {
+        "label": "Brand button text",
+        "status": "skip",
+        "reason": "token missing"
+      },
+      {
+        "label": "Brand links",
+        "status": "skip",
+        "reason": "token missing"
+      },
+      {
+        "label": "Tertiary/muted text",
+        "status": "skip",
+        "reason": "token missing"
+      }
+    ],
+    "apple-minimal-dark": [
+      {
+        "label": "Body text",
+        "fg": "#F5F5F7",
+        "bg": "#000000",
+        "ratio": 19.29,
+        "required": 4.5,
+        "status": "pass",
+        "level": "AA"
+      },
+      {
+        "label": "Secondary text",
+        "fg": "#A1A1A6",
+        "bg": "#000000",
+        "ratio": 8.16,
+        "required": 4.5,
+        "status": "pass",
+        "level": "AA"
+      },
+      {
+        "label": "Text on cards",
+        "fg": "#F5F5F7",
+        "bg": "#0E0E0E",
+        "ratio": 17.73,
+        "required": 4.5,
+        "status": "pass",
+        "level": "AA"
+      },
+      {
+        "label": "Brand button text",
+        "status": "skip",
+        "reason": "token missing"
+      },
+      {
+        "label": "Brand links",
+        "fg": "#0071E3",
+        "bg": "#000000",
+        "ratio": 4.47,
+        "required": 3.0,
+        "status": "pass",
+        "level": "AA-large"
+      },
+      {
+        "label": "Tertiary/muted text",
+        "fg": "#6E6E73",
+        "bg": "#000000",
+        "ratio": 4.14,
+        "required": 3.0,
+        "status": "pass",
+        "level": "AA-large"
+      }
+    ],
+    "illustration-light": [
+      {
+        "label": "Body text",
+        "status": "skip",
+        "reason": "token missing"
+      },
+      {
+        "label": "Secondary text",
+        "status": "skip",
+        "reason": "token missing"
+      },
+      {
+        "label": "Text on cards",
+        "fg": "#1A1523",
+        "bg": "#FFF8F0",
+        "ratio": 16.96,
+        "required": 4.5,
+        "status": "pass",
+        "level": "AA"
+      },
+      {
+        "label": "Brand button text",
+        "status": "skip",
+        "reason": "token missing"
+      },
+      {
+        "label": "Brand links",
+        "status": "skip",
+        "reason": "token missing"
+      },
+      {
+        "label": "Tertiary/muted text",
+        "status": "skip",
+        "reason": "token missing"
+      }
+    ],
+    "illustration-dark": [
+      {
+        "label": "Body text",
+        "fg": "#F0E8DC",
+        "bg": "#12100E",
+        "ratio": 15.62,
+        "required": 4.5,
+        "status": "pass",
+        "level": "AA"
+      },
+      {
+        "label": "Secondary text",
+        "fg": "#B0A494",
+        "bg": "#12100E",
+        "ratio": 7.76,
+        "required": 4.5,
+        "status": "pass",
+        "level": "AA"
+      },
+      {
+        "label": "Text on cards",
+        "fg": "#F0E8DC",
+        "bg": "#1C1816",
+        "ratio": 14.5,
+        "required": 4.5,
+        "status": "pass",
+        "level": "AA"
+      },
+      {
+        "label": "Brand button text",
+        "status": "skip",
+        "reason": "token missing"
+      },
+      {
+        "label": "Brand links",
+        "fg": "#E8590C",
+        "bg": "#12100E",
+        "ratio": 5.3,
+        "required": 3.0,
+        "status": "pass",
+        "level": "AA"
+      },
+      {
+        "label": "Tertiary/muted text",
+        "fg": "#8A7E6E",
+        "bg": "#12100E",
+        "ratio": 4.78,
+        "required": 3.0,
+        "status": "pass",
+        "level": "AA"
+      }
+    ],
+    "dashboard-light": [
+      {
+        "label": "Body text",
+        "status": "skip",
+        "reason": "token missing"
+      },
+      {
+        "label": "Secondary text",
+        "status": "skip",
+        "reason": "token missing"
+      },
+      {
+        "label": "Text on cards",
+        "fg": "#0F1117",
+        "bg": "#F7F8FC",
+        "ratio": 17.78,
+        "required": 4.5,
+        "status": "pass",
+        "level": "AA"
+      },
+      {
+        "label": "Brand button text",
+        "status": "skip",
+        "reason": "token missing"
+      },
+      {
+        "label": "Brand links",
+        "status": "skip",
+        "reason": "token missing"
+      },
+      {
+        "label": "Tertiary/muted text",
+        "status": "skip",
+        "reason": "token missing"
+      }
+    ],
+    "dashboard-dark": [
+      {
+        "label": "Body text",
+        "fg": "#DEE0EC",
+        "bg": "#0A0B10",
+        "ratio": 14.96,
+        "required": 4.5,
+        "status": "pass",
+        "level": "AA"
+      },
+      {
+        "label": "Secondary text",
+        "fg": "#8E92A4",
+        "bg": "#0A0B10",
+        "ratio": 6.36,
+        "required": 4.5,
+        "status": "pass",
+        "level": "AA"
+      },
+      {
+        "label": "Text on cards",
+        "fg": "#DEE0EC",
+        "bg": "#12141C",
+        "ratio": 13.99,
+        "required": 4.5,
+        "status": "pass",
+        "level": "AA"
+      },
+      {
+        "label": "Brand button text",
+        "status": "skip",
+        "reason": "token missing"
+      },
+      {
+        "label": "Brand links",
+        "fg": "#4F46E5",
+        "bg": "#0A0B10",
+        "ratio": 3.13,
+        "required": 3.0,
+        "status": "pass",
+        "level": "AA-large"
+      },
+      {
+        "label": "Tertiary/muted text",
+        "fg": "#6E7284",
+        "bg": "#0A0B10",
+        "ratio": 4.12,
+        "required": 3.0,
+        "status": "pass",
+        "level": "AA-large"
+      }
+    ],
+    "bold-lifestyle-light": [
+      {
+        "label": "Body text",
+        "status": "skip",
+        "reason": "token missing"
+      },
+      {
+        "label": "Secondary text",
+        "status": "skip",
+        "reason": "token missing"
+      },
+      {
+        "label": "Text on cards",
+        "fg": "#111111",
+        "bg": "#F5F5F5",
+        "ratio": 17.32,
+        "required": 4.5,
+        "status": "pass",
+        "level": "AA"
+      },
+      {
+        "label": "Brand button text",
+        "status": "skip",
+        "reason": "token missing"
+      },
+      {
+        "label": "Brand links",
+        "status": "skip",
+        "reason": "token missing"
+      },
+      {
+        "label": "Tertiary/muted text",
+        "status": "skip",
+        "reason": "token missing"
+      }
+    ],
+    "bold-lifestyle-dark": [
+      {
+        "label": "Body text",
+        "fg": "#EEEEEE",
+        "bg": "#0A0A0A",
+        "ratio": 17.06,
+        "required": 4.5,
+        "status": "pass",
+        "level": "AA"
+      },
+      {
+        "label": "Secondary text",
+        "fg": "#999999",
+        "bg": "#0A0A0A",
+        "ratio": 6.95,
+        "required": 4.5,
+        "status": "pass",
+        "level": "AA"
+      },
+      {
+        "label": "Text on cards",
+        "fg": "#EEEEEE",
+        "bg": "#141414",
+        "ratio": 15.88,
+        "required": 4.5,
+        "status": "pass",
+        "level": "AA"
+      },
+      {
+        "label": "Brand button text",
+        "fg": "#000000",
+        "bg": "#FFFFFF",
+        "ratio": 21.0,
+        "required": 4.5,
+        "status": "pass",
+        "level": "AA"
+      },
+      {
+        "label": "Brand links",
+        "fg": "#FFFFFF",
+        "bg": "#0A0A0A",
+        "ratio": 19.8,
+        "required": 3.0,
+        "status": "pass",
+        "level": "AA"
+      },
+      {
+        "label": "Tertiary/muted text",
+        "fg": "#6B6B6B",
+        "bg": "#0A0A0A",
+        "ratio": 3.72,
+        "required": 3.0,
+        "status": "pass",
+        "level": "AA-large"
+      }
+    ],
+    "minimal-corporate-light": [
+      {
+        "label": "Body text",
+        "fg": "#1C1917",
+        "bg": "#FDFCFB",
+        "ratio": 17.07,
+        "required": 4.5,
+        "status": "pass",
+        "level": "AA"
+      },
+      {
+        "label": "Secondary text",
+        "fg": "#57534E",
+        "bg": "#FDFCFB",
+        "ratio": 7.45,
+        "required": 4.5,
+        "status": "pass",
+        "level": "AA"
+      },
+      {
+        "label": "Text on cards",
+        "fg": "#1C1917",
+        "bg": "#F7F5F2",
+        "ratio": 16.07,
+        "required": 4.5,
+        "status": "pass",
+        "level": "AA"
+      },
+      {
+        "label": "Brand button text",
+        "status": "skip",
+        "reason": "token missing"
+      },
+      {
+        "label": "Brand links",
+        "fg": "#B45309",
+        "bg": "#FDFCFB",
+        "ratio": 4.9,
+        "required": 3.0,
+        "status": "pass",
+        "level": "AA"
+      },
+      {
+        "label": "Tertiary/muted text",
+        "fg": "#78716C",
+        "bg": "#FDFCFB",
+        "ratio": 4.68,
+        "required": 3.0,
+        "status": "pass",
+        "level": "AA"
+      }
+    ],
+    "minimal-corporate-dark": [
+      {
+        "label": "Body text",
+        "fg": "#EDE8E0",
+        "bg": "#0E0D0C",
+        "ratio": 15.92,
+        "required": 4.5,
+        "status": "pass",
+        "level": "AA"
+      },
+      {
+        "label": "Secondary text",
+        "fg": "#A89E90",
+        "bg": "#0E0D0C",
+        "ratio": 7.36,
+        "required": 4.5,
+        "status": "pass",
+        "level": "AA"
+      },
+      {
+        "label": "Text on cards",
+        "fg": "#EDE8E0",
+        "bg": "#18160E",
+        "ratio": 14.85,
+        "required": 4.5,
+        "status": "pass",
+        "level": "AA"
+      },
+      {
+        "label": "Brand button text",
+        "status": "skip",
+        "reason": "token missing"
+      },
+      {
+        "label": "Brand links",
+        "fg": "#D4870A",
+        "bg": "#0E0D0C",
+        "ratio": 6.72,
+        "required": 3.0,
+        "status": "pass",
+        "level": "AA"
+      },
+      {
+        "label": "Tertiary/muted text",
+        "fg": "#78706A",
+        "bg": "#0E0D0C",
+        "ratio": 4.0,
+        "required": 3.0,
+        "status": "pass",
+        "level": "AA-large"
+      }
+    ]
+  }
+}

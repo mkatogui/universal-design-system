@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Design System Heuristic Evaluation — Expert Review Report</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #FAFAFA; --bg-card: #FFFFFF; --bg-dark: #1E1E2E;
+  --text: #111118; --text-2: #555566; --text-3: #7A7A8C;
+  --brand: #2563EB; --brand-light: #DBEAFE;
+  --green: #059669; --green-bg: #ECFDF5;
+  --yellow: #D97706; --yellow-bg: #FFFBEB;
+  --red: #DC2626; --red-bg: #FEF2F2;
+  --blue: #2563EB; --blue-bg: #EFF6FF;
+  --border: #E5E7EB; --radius: 12px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+.container { max-width: 900px; margin: 0 auto; padding: 48px 24px; }
+h1 { font-size: 2rem; font-weight: 800; margin-bottom: 8px; }
+.subtitle { color: var(--text-2); margin-bottom: 32px; font-size: 1rem; }
+h2 { font-size: 1.375rem; font-weight: 700; margin: 48px 0 16px; padding-bottom: 8px; border-bottom: 2px solid var(--border); }
+h3 { font-size: 1.125rem; font-weight: 600; margin: 24px 0 12px; }
+p { color: var(--text-2); margin-bottom: 12px; max-width: 720px; }
+
+/* Score cards */
+.scores { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin: 24px 0 32px; }
+.score-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; text-align: center; }
+.score-card .label { font-size: 0.75rem; font-weight: 600; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; }
+.score-card .value { font-size: 2.25rem; font-weight: 800; }
+.score-card .max { font-size: 0.875rem; color: var(--text-3); }
+.score-green .value { color: var(--green); }
+.score-yellow .value { color: var(--yellow); }
+.score-red .value { color: var(--red); }
+.score-blue .value { color: var(--brand); }
+
+/* Finding cards */
+.finding { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; margin: 12px 0; border-left: 4px solid; }
+.finding-critical { border-left-color: var(--red); }
+.finding-major { border-left-color: var(--yellow); }
+.finding-minor { border-left-color: var(--blue); }
+.finding-strength { border-left-color: var(--green); }
+.finding .tag { display: inline-block; padding: 2px 10px; border-radius: 9999px; font-size: 0.6875rem; font-weight: 700; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.03em; }
+.tag-critical { background: var(--red-bg); color: var(--red); }
+.tag-major { background: var(--yellow-bg); color: var(--yellow); }
+.tag-minor { background: var(--blue-bg); color: var(--blue); }
+.tag-strength { background: var(--green-bg); color: var(--green); }
+.finding h4 { font-size: 1rem; font-weight: 600; margin-bottom: 6px; }
+.finding p { font-size: 0.875rem; margin-bottom: 6px; }
+.finding .recommendation { background: var(--bg); border-radius: 8px; padding: 10px 14px; font-size: 0.8125rem; color: var(--text); margin-top: 8px; }
+.finding .recommendation::before { content: "\2192  Recommendation: "; font-weight: 600; color: var(--brand); }
+
+/* Comparison table */
+table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 0.875rem; }
+th { text-align: left; padding: 10px 14px; background: var(--bg); font-weight: 600; border-bottom: 2px solid var(--border); }
+td { padding: 10px 14px; border-bottom: 1px solid var(--border); }
+td:first-child { font-weight: 500; }
+.check { color: var(--green); font-weight: 700; }
+.cross { color: var(--red); font-weight: 700; }
+.partial { color: var(--yellow); font-weight: 700; }
+
+/* Summary */
+.summary-box { background: linear-gradient(135deg, #EFF6FF 0%, #F3E8FF 100%); border-radius: var(--radius); padding: 24px; margin: 24px 0; }
+.summary-box h3 { margin-top: 0; color: var(--brand); }
+
+/* Verdict */
+.verdict { background: var(--bg-card); border: 2px solid var(--brand); border-radius: var(--radius); padding: 28px; margin: 32px 0; text-align: center; }
+.verdict .grade { font-size: 3rem; font-weight: 800; color: var(--brand); }
+.verdict .label { font-size: 1rem; font-weight: 600; color: var(--text-2); margin-top: 4px; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>Design System Heuristic Evaluation</h1>
+<p class="subtitle">Expert review of the Universal Design System v0.3.0 against 2025-2026 industry best practices. Evaluating the Spec, Interactive Docs, Component Library, and Token Architecture.</p>
+
+<!-- ============================================================ -->
+<h2>Overall Scores</h2>
+<div class="scores">
+  <div class="score-card score-green"><div class="label">Token Architecture</div><div class="value">8.5</div><div class="max">/ 10</div></div>
+  <div class="score-card score-green"><div class="label">Spec Clarity</div><div class="value">7.5</div><div class="max">/ 10</div></div>
+  <div class="score-card score-yellow"><div class="label">Documentation</div><div class="value">7.0</div><div class="max">/ 10</div></div>
+  <div class="score-card score-green"><div class="label">Component Coverage</div><div class="value">7.5</div><div class="max">/ 10</div></div>
+  <div class="score-card score-green"><div class="label">Accessibility</div><div class="value">8.0</div><div class="max">/ 10</div></div>
+  <div class="score-card score-yellow"><div class="label">Figma Integration</div><div class="value">6.5</div><div class="max">/ 10</div></div>
+</div>
+
+<div class="verdict">
+  <div class="grade">B+</div>
+  <div class="label">Strong foundation with clear path to A-tier &mdash; 7.5 / 10 composite</div>
+</div>
+
+<!-- ============================================================ -->
+<h2>1. Token Architecture</h2>
+<p>Benchmarked against W3C DTCG 2025.10 stable spec, Style Dictionary, Tokens Studio, Material Design 3, and Open Props.</p>
+
+<div class="finding finding-strength">
+  <span class="tag tag-strength">Strength</span>
+  <h4>Correct 3-tier token model</h4>
+  <p>The system implements primitives &rarr; semantic aliases &rarr; component tokens exactly as recommended by DTCG and used by Salesforce Lightning, IBM Carbon, and Material Design 3. The JSON uses <code>$value</code>, <code>$type</code>, and <code>$description</code> fields correctly.</p>
+</div>
+
+<div class="finding finding-strength">
+  <span class="tag tag-strength">Strength</span>
+  <h4>Multi-theme token architecture</h4>
+  <p>9 themes with light + dark variants via <code>data-theme</code> attribute switching is more ambitious than most production systems. The glow-border shadow technique for dark mode is a sophisticated touch.</p>
+</div>
+
+<div class="finding finding-major">
+  <span class="tag tag-major">Major Gap</span>
+  <h4>No <code>$type</code> annotations on semantic/component tokens</h4>
+  <p>While primitives have <code>"$type": "color"</code>, the semantic and component token layers don't consistently annotate types. The DTCG spec requires <code>$type</code> on every token or inherited from a parent group. Style Dictionary and Tokens Studio rely on this for correct platform transforms.</p>
+  <div class="recommendation">Add <code>$type</code> to all token groups (spacing as "dimension", shadows as "shadow", durations as "duration"). This enables automatic platform-specific transforms via Style Dictionary.</div>
+</div>
+
+<div class="finding finding-major">
+  <span class="tag tag-major">Major Gap</span>
+  <h4>No token aliases / references ($value as reference)</h4>
+  <p>The DTCG spec allows references like <code>"$value": "{color.primitive.blue.600}"</code> to link semantic tokens to primitives. Currently, your semantic tokens duplicate raw hex values instead of referencing primitives. This breaks the single-source-of-truth principle &mdash; changing <code>blue.600</code> won't cascade.</p>
+  <div class="recommendation">Refactor semantic tokens to use DTCG reference syntax: <code>"$value": "{color.primitive.blue.600}"</code>. This is how Material Design 3, Salesforce, and Tokens Studio all work.</div>
+</div>
+
+<div class="finding finding-minor">
+  <span class="tag tag-minor">Minor</span>
+  <h4>No OKLCH color space tokens</h4>
+  <p>Leading systems (Open Props, Tailwind v4) are moving to OKLCH for better perceptual uniformity and wider gamut support. Your tokens use hex only, which limits P3 display support.</p>
+  <div class="recommendation">Consider adding OKLCH equivalents alongside hex for future-proofing, especially for the AI Futuristic and Gradient Startup themes where gamut matters.</div>
+</div>
+
+<!-- ============================================================ -->
+<h2>2. Spec Clarity (Design_System_Spec.md)</h2>
+<p>Evaluated for information architecture, developer onboarding, progressive disclosure, and alignment with how Radix, Polaris, and Carbon document their systems.</p>
+
+<div class="finding finding-strength">
+  <span class="tag tag-strength">Strength</span>
+  <h4>Excellent data density and consistency</h4>
+  <p>Every component follows the same pattern: Variants &rarr; Props table &rarr; States &rarr; Specs (with exact token references) &rarr; Accessibility. This predictability is exactly what developers need. The token tables are precise and include usage guidance.</p>
+</div>
+
+<div class="finding finding-strength">
+  <span class="tag tag-strength">Strength</span>
+  <h4>Real-world grounding with percentage data</h4>
+  <p>Pattern annotations like "used by 78% of sites" and "observed across 100 sites" provide unique credibility. No other design system spec we've seen does this &mdash; it turns subjective decisions into data-backed recommendations.</p>
+</div>
+
+<div class="finding finding-major">
+  <span class="tag tag-major">Major Gap</span>
+  <h4>No "Getting Started" section or onboarding path</h4>
+  <p>The spec jumps straight from Design Principles into token tables. A developer encountering this for the first time has no guidance on: (1) how to install/use the tokens, (2) which theme to start with, (3) how to build their first component. Industry standard is &lt;15 minutes to first working component.</p>
+  <div class="recommendation">Add a "Section 0: Getting Started" with: install instructions (npm/CDN), a 5-min quickstart (add tokens CSS, apply a theme, render a button), and separate paths for designers vs developers. See Polaris and Carbon for examples.</div>
+</div>
+
+<div class="finding finding-major">
+  <span class="tag tag-major">Major Gap</span>
+  <h4>No "When to use / When not to use" guidance per component</h4>
+  <p>Components are described technically but don't explain <em>when</em> to choose one over another. Should a developer use Alert or Toast for an error? Tabs or Accordion for content sections? Polaris, Atlassian, and Carbon all include decision trees and "Don't use this when..." sections.</p>
+  <div class="recommendation">Add a 2-3 line "When to Use" and "When Not to Use" section to each component spec. This is the #1 thing developers look for after seeing what a component looks like.</div>
+</div>
+
+<div class="finding finding-major">
+  <span class="tag tag-major">Major Gap</span>
+  <h4>Version inconsistency in the document header</h4>
+  <p>Line 1 says "v0.2.0" in the H1 title while the Version field on line 3 says "0.3.0". This is the first thing any reader sees, and it immediately creates uncertainty about which version they're reading.</p>
+  <div class="recommendation">Align the title to "v0.3.0" and establish a single-version convention. The H1 title and version field should always match.</div>
+</div>
+
+<div class="finding finding-minor">
+  <span class="tag tag-minor">Minor</span>
+  <h4>Tables dominate &mdash; few visual examples in the spec</h4>
+  <p>The spec is table-heavy, which is great for reference but poor for learning. Modern design system docs (Radix, shadcn/ui) lead with visual examples and code, then provide tables for reference. This spec does the inverse.</p>
+  <div class="recommendation">While the interactive docs (HTML) handle visual examples, the spec itself should include at least one annotated visual mockup per major component (even as ASCII art or a linked screenshot). This helps designers who primarily work from the Markdown spec.</div>
+</div>
+
+<div class="finding finding-minor">
+  <span class="tag tag-minor">Minor</span>
+  <h4>Component props use React terminology only</h4>
+  <p>Props like <code>iconLeft: ReactNode</code> assume React. A universal design system should be framework-agnostic. Radix and shadcn/ui solve this by documenting HTML attributes + framework-specific variants.</p>
+  <div class="recommendation">Rename the props column to "Attribute" and use framework-agnostic types (string, boolean, element). Add a note that React wrappers map these to typed props.</div>
+</div>
+
+<!-- ============================================================ -->
+<h2>3. Interactive Documentation (Design_System_Docs.html)</h2>
+<p>Evaluated as a "developer experience" product targeting front-end engineers and designers.</p>
+
+<div class="finding finding-strength">
+  <span class="tag tag-strength">Strength</span>
+  <h4>Live theme switching across all 9 themes</h4>
+  <p>The theme bar at the top with instant switching is excellent. Every component preview updates in real-time, which is rare even in production design system docs. This is on par with Radix Themes and ahead of most enterprise systems.</p>
+</div>
+
+<div class="finding finding-strength">
+  <span class="tag tag-strength">Strength</span>
+  <h4>Comprehensive component coverage with a11y notes</h4>
+  <p>Each component section includes an accessibility badge, code snippets, and do/don't examples. The IntersectionObserver-powered sidebar tracking is a nice UX touch. 26 component previews in a single-page doc is ambitious and well-organized.</p>
+</div>
+
+<div class="finding finding-major">
+  <span class="tag tag-major">Major Gap</span>
+  <h4>No interactive playground / prop controls</h4>
+  <p>Components are previewed with static defaults. A developer can't toggle between size variants, change colors, or test disabled states without editing code. Storybook, shadcn/ui, and Radix all provide prop knobs for live exploration.</p>
+  <div class="recommendation">Add a simple prop control panel below each component preview (buttons for size, variant, state). This doesn't require Storybook &mdash; a few &lt;select&gt; elements wired to JS attribute toggles would suffice.</div>
+</div>
+
+<div class="finding finding-major">
+  <span class="tag tag-major">Major Gap</span>
+  <h4>No search functionality</h4>
+  <p>With 26 components + tokens + patterns in a single HTML file, finding a specific component requires scrolling or using the sidebar. Industry standard for docs sites is a &#8984;K search dialog (Algolia-style or even a simple filter).</p>
+  <div class="recommendation">Add a search input to the sidebar header that filters the sidebar links by substring match. This takes ~30 lines of JS and dramatically improves navigation for repeat visitors.</div>
+</div>
+
+<div class="finding finding-minor">
+  <span class="tag tag-minor">Minor</span>
+  <h4>No dark mode toggle for the docs site itself</h4>
+  <p>The AI Futuristic theme makes the docs dark, but users on other themes can't switch the docs chrome to dark mode. A dark/light toggle for the documentation shell (independent of the design system theme) is standard in 2025-2026 docs.</p>
+  <div class="recommendation">Add a sun/moon toggle in the sidebar header that switches the docs layout between light and dark shells while keeping the component preview theme separate.</div>
+</div>
+
+<!-- ============================================================ -->
+<h2>4. Component Library (Component_Library.html)</h2>
+<p>Evaluated as a developer tool, comparable to shadcn/ui's copy-paste model.</p>
+
+<div class="finding finding-strength">
+  <span class="tag tag-strength">Strength</span>
+  <h4>Correct mental model: CSS + HTML copy-paste blocks</h4>
+  <p>The shadcn-style approach (copy the code, own it, customize it) is the dominant 2025-2026 pattern. Separating CSS and HTML with copy buttons per section is exactly right. The dark code-editor aesthetic signals "this is for developers."</p>
+</div>
+
+<div class="finding finding-major">
+  <span class="tag tag-major">Major Gap</span>
+  <h4>No live preview of each component</h4>
+  <p>The library shows only code blocks &mdash; no rendered preview of what the component looks like. Developers need to see the output before deciding to copy. shadcn/ui shows a live preview above every code block.</p>
+  <div class="recommendation">Add a rendered preview section above each component's code blocks, styled with the design system tokens. This is the single biggest improvement for developer adoption.</div>
+</div>
+
+<div class="finding finding-minor">
+  <span class="tag tag-minor">Minor</span>
+  <h4>No variant tabs or multi-framework output</h4>
+  <p>Code blocks show one variant only. React/Vue/Svelte developers would need to mentally translate HTML to their framework. Leading libraries offer framework tabs.</p>
+  <div class="recommendation">Add tab switchers (HTML / React / Vue) at least for the 5 most-used components. Even a "Usage with React" annotation would help.</div>
+</div>
+
+<!-- ============================================================ -->
+<h2>5. Accessibility Compliance</h2>
+<p>Benchmarked against WCAG 2.2 Level AA (mandatory for large public entities by April 2026).</p>
+
+<div class="finding finding-strength">
+  <span class="tag tag-strength">Strength</span>
+  <h4>Comprehensive a11y checklist with verified status</h4>
+  <p>Section 6 of the spec has a 12-point accessibility checklist with WCAG criterion references and &#x2705; verified status. This level of specificity is on par with Carbon Design System and ahead of most team-internal systems.</p>
+</div>
+
+<div class="finding finding-strength">
+  <span class="tag tag-strength">Strength</span>
+  <h4>ARIA patterns documented per component</h4>
+  <p>Tabs has <code>role="tablist"</code> + <code>aria-controls</code>, Accordion has <code>aria-expanded</code>, Toast uses <code>role="alert"</code> vs <code>role="status"</code> appropriately. Keyboard nav patterns are specified for all interactive components.</p>
+</div>
+
+<div class="finding finding-major">
+  <span class="tag tag-major">Major Gap</span>
+  <h4>WCAG version is 2.1, not 2.2</h4>
+  <p>The spec references "WCAG 2.1 AA" but the current standard is WCAG 2.2, which adds criteria for focus appearance (2.4.11), accessible authentication (3.3.8), and redundant entry (3.3.7). Since 2.2 AA compliance is mandatory for large entities by April 2026, this should be updated.</p>
+  <div class="recommendation">Update all WCAG references from 2.1 to 2.2. Add notes for the 3 new criteria that affect design systems: Focus Not Obscured (2.4.11), Accessible Authentication (3.3.8), and Redundant Entry (3.3.7).</div>
+</div>
+
+<div class="finding finding-minor">
+  <span class="tag tag-minor">Minor</span>
+  <h4>Touch targets are 44px (WCAG 2.1), not 48px (recommended)</h4>
+  <p>Material Design 3, iOS HIG, and Android all recommend 48&times;48dp as the minimum touch target. The spec uses 44px, which passes WCAG but is below the platform recommendation. Users on mobile will notice the difference.</p>
+  <div class="recommendation">Consider bumping mobile touch targets to 48px to align with Material Design 3 and iOS HIG recommendations. Keep 44px as the spec minimum for backward compatibility.</div>
+</div>
+
+<!-- ============================================================ -->
+<h2>6. Figma Integration</h2>
+<p>Evaluated against the Tokens Studio + Style Dictionary workflow, native Figma Variables, and Supernova.</p>
+
+<div class="finding finding-strength">
+  <span class="tag tag-strength">Strength</span>
+  <h4>Figma Tokens JSON export exists</h4>
+  <p>The <code>figma-tokens.json</code> file with <code>$metadata.tokenSetOrder</code> and 10 token sets (global + 9 themes) is compatible with Tokens Studio. This is a necessary deliverable that many design systems miss entirely.</p>
+</div>
+
+<div class="finding finding-major">
+  <span class="tag tag-major">Major Gap</span>
+  <h4>No Style Dictionary config or build pipeline</h4>
+  <p>The tokens exist as JSON but there's no <code>style-dictionary.config.json</code> or transformation pipeline to generate CSS custom properties, iOS Swift, Android Kotlin, or JS/TS exports. Tokens are useless without a build step.</p>
+  <div class="recommendation">Add a Style Dictionary config that transforms design-tokens.json into: (1) CSS custom properties per theme, (2) JS/TS constants, (3) a documented build command (<code>npx style-dictionary build</code>). This is the bridge between tokens and actual implementation.</div>
+</div>
+
+<div class="finding finding-major">
+  <span class="tag tag-major">Major Gap</span>
+  <h4>No CI/CD or sync documentation</h4>
+  <p>There's no documentation on how tokens flow from Figma &rarr; JSON &rarr; code. A designer changing a color in Figma has no documented path to propagate that change to the codebase.</p>
+  <div class="recommendation">Add a "Token Sync Workflow" section to the spec explaining: (1) the sync direction (Figma &rarr; Git or Git &rarr; Figma), (2) which tool runs the transform (Style Dictionary), (3) how to update tokens (PR to design-tokens.json). A simple flowchart in the spec would suffice.</div>
+</div>
+
+<!-- ============================================================ -->
+<h2>7. Competitive Benchmark</h2>
+
+<table>
+<tr><th>Criterion</th><th>Your System</th><th>shadcn/ui</th><th>Radix</th><th>Carbon</th></tr>
+<tr><td>Token format</td><td class="check">&#x2713; W3C DTCG</td><td class="partial">~ Tailwind vars</td><td class="partial">~ CSS vars</td><td class="check">&#x2713; DTCG</td></tr>
+<tr><td>3-tier tokens</td><td class="check">&#x2713;</td><td class="cross">&#x2717;</td><td class="partial">~ 2-tier</td><td class="check">&#x2713;</td></tr>
+<tr><td>Token references</td><td class="cross">&#x2717; Hardcoded</td><td class="partial">~ Via Tailwind</td><td class="partial">~ Via CSS</td><td class="check">&#x2713;</td></tr>
+<tr><td>Theme count</td><td class="check">&#x2713; 9 themes</td><td class="partial">~ 2 (light/dark)</td><td class="check">&#x2713; 6 themes</td><td class="partial">~ 4 themes</td></tr>
+<tr><td>Component count</td><td class="partial">~ 26</td><td class="check">&#x2713; 50+</td><td class="check">&#x2713; 30+</td><td class="check">&#x2713; 90+</td></tr>
+<tr><td>Interactive previews</td><td class="check">&#x2713;</td><td class="check">&#x2713;</td><td class="check">&#x2713;</td><td class="check">&#x2713;</td></tr>
+<tr><td>Prop playground</td><td class="cross">&#x2717;</td><td class="check">&#x2713;</td><td class="check">&#x2713;</td><td class="check">&#x2713;</td></tr>
+<tr><td>Search</td><td class="cross">&#x2717;</td><td class="check">&#x2713;</td><td class="check">&#x2713;</td><td class="check">&#x2713;</td></tr>
+<tr><td>WCAG 2.2</td><td class="partial">~ 2.1 only</td><td class="check">&#x2713;</td><td class="check">&#x2713;</td><td class="check">&#x2713;</td></tr>
+<tr><td>Figma tokens</td><td class="check">&#x2713;</td><td class="cross">&#x2717;</td><td class="cross">&#x2717;</td><td class="check">&#x2713;</td></tr>
+<tr><td>Style Dictionary pipeline</td><td class="cross">&#x2717;</td><td class="cross">&#x2717;</td><td class="cross">&#x2717;</td><td class="check">&#x2713;</td></tr>
+<tr><td>Getting started guide</td><td class="cross">&#x2717;</td><td class="check">&#x2713;</td><td class="check">&#x2713;</td><td class="check">&#x2713;</td></tr>
+<tr><td>When to use / not use</td><td class="cross">&#x2717;</td><td class="check">&#x2713;</td><td class="check">&#x2713;</td><td class="check">&#x2713;</td></tr>
+<tr><td>Data-backed decisions</td><td class="check">&#x2713; Unique!</td><td class="cross">&#x2717;</td><td class="cross">&#x2717;</td><td class="cross">&#x2717;</td></tr>
+</table>
+
+<!-- ============================================================ -->
+<h2>8. Executive Summary</h2>
+
+<div class="summary-box">
+<h3>What's Working Well</h3>
+<p style="color: var(--text);">The Universal Design System v0.3.0 has a <strong>genuinely strong foundation</strong>. The 3-tier token architecture, 9-theme coverage with dark mode, W3C DTCG JSON format, comprehensive accessibility checklist, and data-backed design decisions (from 100-site analysis) are all best-in-class choices. The Storybook-style interactive docs with live theme switching are ahead of many production systems. The spec's consistent component documentation pattern is excellent for reference use.</p>
+</div>
+
+<div class="summary-box" style="background: linear-gradient(135deg, #FFFBEB 0%, #FEF2F2 100%);">
+<h3>Priority Improvements (Ranked by Impact)</h3>
+<p style="color: var(--text);"><strong>1. Add "Getting Started" + onboarding path</strong> &mdash; Biggest adoption blocker. Without this, even a perfect spec won't get used.<br>
+<strong>2. Add token references ($value as alias)</strong> &mdash; Core architecture gap. Breaks cascading updates today.<br>
+<strong>3. Add live previews to Component Library</strong> &mdash; Developers need to see output before copying code.<br>
+<strong>4. Add prop playground to Docs</strong> &mdash; Let developers explore variants interactively.<br>
+<strong>5. Add "When to use" per component</strong> &mdash; Crucial decision-making guidance missing from spec.<br>
+<strong>6. Update WCAG 2.1 to 2.2</strong> &mdash; Compliance deadline is April 2026.<br>
+<strong>7. Add Style Dictionary pipeline</strong> &mdash; Tokens without transforms are unshippable.<br>
+<strong>8. Add search to docs</strong> &mdash; Standard UX for 26+ component docs.</p>
+</div>
+
+<h2>9. Finding Counts</h2>
+<div class="scores">
+  <div class="score-card" style="border-left: 4px solid var(--green);"><div class="label">Strengths</div><div class="value" style="color: var(--green);">9</div></div>
+  <div class="score-card" style="border-left: 4px solid var(--red);"><div class="label">Critical</div><div class="value" style="color: var(--red);">0</div></div>
+  <div class="score-card" style="border-left: 4px solid var(--yellow);"><div class="label">Major Gaps</div><div class="value" style="color: var(--yellow);">10</div></div>
+  <div class="score-card" style="border-left: 4px solid var(--blue);"><div class="label">Minor Issues</div><div class="value" style="color: var(--blue);">6</div></div>
+</div>
+
+<p>No critical blockers. The 10 major gaps are all addressable with targeted effort &mdash; none require rearchitecting. Implementing the top 4 priority items would move the system from <strong>B+</strong> to <strong>A-</strong> territory.</p>
+
+</div>
+</body>
+</html>

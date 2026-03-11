@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Component Library — Copy & Paste</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Source+Serif+4:wght@600;700&family=DM+Sans:wght@400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: Inter, system-ui, sans-serif; background: #0F0F14; color: #E0E0EE; line-height: 1.5; }
+.container { max-width: 960px; margin: 0 auto; padding: 40px 24px; }
+h1 { font-size: 2rem; font-weight: 800; margin-bottom: 8px; }
+.subtitle { color: #9999AA; margin-bottom: 48px; }
+.component { margin-bottom: 48px; border: 1px solid #2A2A36; border-radius: 12px; overflow: hidden; }
+.component-header { padding: 16px 20px; background: #16161E; display: flex; justify-content: space-between; align-items: center; }
+.component-name { font-size: 1.125rem; font-weight: 700; }
+.component-props { font-size: 0.75rem; color: #7A7A8C; }
+.component-code { position: relative; }
+.code-section { padding: 0; }
+.code-label { padding: 8px 20px; font-size: 0.6875rem; font-weight: 600; color: #7A7A8C; text-transform: uppercase; letter-spacing: 0.05em; background: #1A1A24; border-top: 1px solid #2A2A36; }
+pre { padding: 16px 20px; font-family: "JetBrains Mono", monospace; font-size: 12px; line-height: 1.6; overflow-x: auto; background: #1E1E2E; color: #D4D4E8; margin: 0; }
+.copy-btn { position: absolute; top: 8px; right: 8px; padding: 4px 10px; font-size: 11px; background: rgba(255,255,255,0.1); color: #9999AA; border: none; border-radius: 4px; cursor: pointer; z-index: 1; }
+.copy-btn:hover { background: rgba(255,255,255,0.2); color: #fff; }
+.count { background: #2563EB; color: white; padding: 2px 8px; border-radius: 9999px; font-size: 0.75rem; font-weight: 700; }
+a { color: #60A5FA; }
+
+
+:root {
+  /* Colors */
+  --color-brand-primary: #2563EB;
+  --color-brand-muted: rgba(37, 99, 235, 0.1);
+  --color-text-on-brand: #FFFFFF;
+  --color-text-primary: #1F2937;
+  --color-text-secondary: #6B7280;
+  --color-text-tertiary: #9CA3AF;
+  --color-bg-primary: #FFFFFF;
+  --color-bg-secondary: #F9FAFB;
+  --color-bg-tertiary: #F3F4F6;
+  --color-bg-inverse: #1F2937;
+  --color-border-default: #D1D5DB;
+  --color-border-input: #E5E7EB;
+  --color-border-subtle: #F3F4F6;
+  --color-success: #10B981;
+  --color-success-bg: rgba(16, 185, 129, 0.1);
+  --color-warning: #F59E0B;
+  --color-warning-bg: rgba(245, 158, 11, 0.1);
+  --color-error: #EF4444;
+  --color-error-bg: rgba(239, 68, 68, 0.1);
+  --color-info: #3B82F6;
+  --color-info-bg: rgba(59, 130, 246, 0.1);
+
+  /* Typography */
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Monaco', 'Courier New', monospace;
+  --font-display: 'DM Sans', sans-serif;
+  --text-label: 0.6875rem;
+  --text-body-sm: 0.875rem;
+  --text-body-md: 1rem;
+  --text-body-lg: 1.0625rem;
+  --text-heading-sm: 1.25rem;
+  --text-heading-md: 1.5rem;
+  --text-display-md: 2rem;
+
+  /* Spacing & Sizing */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
+
+  /* Animations */
+  --duration-fast: 150ms;
+  --duration-normal: 300ms;
+  --ease-default: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+
+  /* Shadows */
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.1);
+
+  /* Other */
+  --opacity-disabled: 0.5;
+  --color-brand-primary-rgb: 37, 99, 235;
+  --z-dropdown: 100;
+  --z-sticky: 50;
+  --z-modal: 200;
+  --z-toast: 150;
+}
+
+
+
+.component-preview {
+  background: #FFFFFF;
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  margin-bottom: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.preview-label {
+  display: block;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: #7A7A8C;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+.framework-tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid var(--color-border-default);
+  margin-bottom: 0;
+}
+
+.framework-tab {
+  padding: 12px 16px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #7A7A8C;
+  border-bottom: 2px solid transparent;
+  transition: all 150ms;
+}
+
+.framework-tab.active {
+  color: #2563EB;
+  border-bottom-color: #2563EB;
+}
+
+.framework-tab:hover:not(.active) {
+  color: #4B5563;
+}
+
+.framework-content {
+  display: none;
+}
+
+.framework-content.active {
+  display: block;
+}
+
+
+
+:root {
+  /* Colors */
+  --color-brand-primary: #2563EB;
+  --color-brand-muted: rgba(37, 99, 235, 0.1);
+  --color-text-on-brand: #FFFFFF;
+  --color-text-primary: #1F2937;
+  --color-text-secondary: #6B7280;
+  --color-text-tertiary: #9CA3AF;
+  --color-bg-primary: #FFFFFF;
+  --color-bg-secondary: #F9FAFB;
+  --color-bg-tertiary: #F3F4F6;
+  --color-bg-inverse: #1F2937;
+  --color-border-default: #D1D5DB;
+  --color-border-input: #E5E7EB;
+  --color-border-subtle: #F3F4F6;
+  --color-success: #10B981;
+  --color-success-bg: rgba(16, 185, 129, 0.1);
+  --color-warning: #F59E0B;
+  --color-warning-bg: rgba(245, 158, 11, 0.1);
+  --color-error: #EF4444;
+  --color-error-bg: rgba(239, 68, 68, 0.1);
+  --color-info: #3B82F6;
+  --color-info-bg: rgba(59, 130, 246, 0.1);
+
+  /* Typography */
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Monaco', 'Courier New', monospace;
+  --font-display: 'DM Sans', sans-serif;
+  --text-label: 0.6875rem;
+  --text-body-sm: 0.875rem;
+  --text-body-md: 1rem;
+  --text-body-lg: 1.0625rem;
+  --text-heading-sm: 1.25rem;
+  --text-heading-md: 1.5rem;
+  --text-display-md: 2rem;
+
+  /* Spacing & Sizing */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
+
+  /* Animations */
+  --duration-fast: 150ms;
+  --duration-normal: 300ms;
+  --ease-default: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+
+  /* Shadows */
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.1);
+
+  /* Other */
+  --opacity-disabled: 0.5;
+  --color-brand-primary-rgb: 37, 99, 235;
+  --z-dropdown: 100;
+  --z-sticky: 50;
+  --z-modal: 200;
+  --z-toast: 150;
+}
+
+
+.component-preview {
+  background: #FFFFFF;
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  margin-bottom: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.preview-label {
+  display: block;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: #7A7A8C;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+.framework-tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid #2A2A36;
+  margin-bottom: 0;
+}
+
+.framework-tab {
+  padding: 12px 16px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #7A7A8C;
+  border-bottom: 2px solid transparent;
+  transition: all 150ms;
+}
+
+.framework-tab.active {
+  color: #60A5FA;
+  border-bottom-color: #2563EB;
+}
+
+.framework-tab:hover:not(.active) {
+  color: #9999AA;
+}
+
+.framework-content {
+  display: none;
+}
+
+.framework-content.active {
+  display: block;
+}
+
+</style>
+</head><body>
+<div class="container">
+<h1>Component Library <span class="count">26</span></h1>
+<p class="subtitle">Copy-paste HTML + CSS for every component. Requires design system tokens (see design-tokens.json).</p>
+<div class="component" id="button">
+<div class="component-header"><span class="component-name">Button</span><span class="component-props">variant: primary|secondary|ghost|destructive, size: sm|md|lg, disabled: boolean</span></div><div class="component-preview">
+  <span class="preview-label">Preview</span>
+  <button class="btn btn--primary btn--md">Get Started</button><button class="btn btn--secondary btn--md">Learn More</button><button class="btn btn--ghost btn--md">Cancel</button>
+</div>
+
+<div class="framework-tabs">
+  <button class="framework-tab active" onclick="switchFramework(this, 'html')">HTML</button>
+  <button class="framework-tab" onclick="switchFramework(this, 'react')">React</button>
+  <button class="framework-tab" onclick="switchFramework(this, 'vue')">Vue</button>
+</div>
+
+<div class="framework-content active" id="button-html">
+  <div class="code-label">CSS</div>
+  <div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-family: var(--font-sans); font-weight: 600; border: none; border-radius: var(--radius-md); cursor: pointer; transition: all var(--duration-fast) var(--ease-default); text-decoration: none; }
+.btn--primary { background: var(--color-brand-primary); color: var(--color-text-on-brand); }
+.btn--primary:hover { filter: brightness(1.1); box-shadow: var(--shadow-md); }
+.btn--secondary { background: transparent; color: var(--color-text-primary); border: 1px solid var(--color-border-default); }
+.btn--secondary:hover { border-color: var(--color-brand-primary); color: var(--color-brand-primary); }
+.btn--ghost { background: transparent; color: var(--color-text-secondary); }
+.btn--ghost:hover { background: var(--color-bg-secondary); color: var(--color-text-primary); }
+.btn--destructive { background: var(--color-error); color: #fff; }
+.btn--sm { height: 36px; padding: 0 16px; font-size: var(--text-body-sm); min-width: 44px; }
+.btn--md { height: 44px; padding: 0 20px; font-size: var(--text-body-md); }
+.btn--lg { height: 52px; padding: 0 28px; font-size: var(--text-body-lg); }
+.btn:focus-visible { outline: 2px solid var(--color-brand-primary); outline-offset: 2px; }
+.btn:disabled { opacity: var(--opacity-disabled); cursor: not-allowed; }</pre></div>
+  <div class="code-label">HTML</div>
+  <div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>&lt;button class="btn btn--primary btn--md"&gt;Get Started&lt;/button&gt;
+&lt;button class="btn btn--secondary btn--md"&gt;Learn More&lt;/button&gt;
+&lt;button class="btn btn--ghost btn--md"&gt;Cancel&lt;/button&gt;
+&lt;button class="btn btn--destructive btn--md"&gt;Delete&lt;/button&gt;</pre></div>
+</div>
+
+<div class="framework-content" id="button-react">
+  <div class="code-label">React</div>
+  <div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>import React from 'react';
+
+export const Button = ({ variant = 'primary', size = 'md', children, disabled = false }) => {
+  return (
+    <button className={`btn btn--${variant} btn--${size}`} disabled={disabled}>
+      {children}
+    </button>
+  );
+};
+
+// Usage:
+// <Button variant="primary" size="md">Get Started</Button>
+// <Button variant="secondary">Learn More</Button></pre></div>
+</div>
+
+<div class="framework-content" id="button-vue">
+  <div class="code-label">Vue</div>
+  <div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre><template>
+  <button :class="['btn', `btn--${variant}`, `btn--${size}`]" :disabled="disabled">
+    <slot>Button</slot>
+  </button>
+</template>
+
+<script setup>
+defineProps({
+  variant: { type: String, default: 'primary' },
+  size: { type: String, default: 'md' },
+  disabled: { type: Boolean, default: false }
+});
+</script></pre></div>
+</div>
+sition: all var(--duration-fast) var(--ease-default); text-decoration: none; }
+.btn--primary { background: var(--color-brand-primary); color: var(--color-text-on-brand); }
+.btn--primary:hover { filter: brightness(1.1); box-shadow: var(--shadow-md); }
+.btn--secondary { background: transparent; color: var(--color-text-primary); border: 1px solid var(--color-border-default); }
+.btn--secondary:hover { border-color: var(--color-brand-primary); color: var(--color-brand-primary); }
+.btn--ghost { background: transparent; color: var(--color-text-secondary); }
+.btn--ghost:hover { background: var(--color-bg-secondary); color: var(--color-text-primary); }
+.btn--destructive { background: var(--color-error); color: #fff; }
+.btn--sm { height: 36px; padding: 0 16px; font-size: var(--text-body-sm); min-width: 44px; }
+.btn--md { height: 44px; padding: 0 20px; font-size: var(--text-body-md); }
+.btn--lg { height: 52px; padding: 0 28px; font-size: var(--text-body-lg); }
+.btn:focus-visible { outline: 2px solid var(--color-brand-primary); outline-offset: 2px; }
+.btn:disabled { opacity: var(--opacity-disabled); cursor: not-allowed; }</pre></div>
+<div class="code-label">HTML</div>
+<div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>&lt;button class="btn btn--primary btn--md"&gt;Get Started&lt;/button&gt;
+&lt;button class="btn btn--secondary btn--md"&gt;Learn More&lt;/button&gt;
+&lt;button class="btn btn--ghost btn--md"&gt;Cancel&lt;/button&gt;
+&lt;button class="btn btn--destructive btn--md"&gt;Delete&lt;/button&gt;</pre></div>
+
+<div class="component" id="input">
+<div class="component-header"><span class="component-name">Input</span><span class="component-props">variant: text|email|password|number|search|textarea, size: sm|md|lg, state: default|focus|error|disabled</span></div><div class="component-preview">
+  <span class="preview-label">Preview</span>
+  <div><label class="input-label">Full name</label><input class="input" type="text" placeholder="Enter your name"></div>
+</div>
+
+<div class="framework-tabs">
+  <button class="framework-tab active" onclick="switchFramework(this, 'html')">HTML</button>
+  <button class="framework-tab" onclick="switchFramework(this, 'react')">React</button>
+  <button class="framework-tab" onclick="switchFramework(this, 'vue')">Vue</button>
+</div>
+
+<div class="framework-content active" id="input-html">
+  <div class="code-label">CSS</div>
+  <div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>.input { height: 44px; width: 100%; padding: 0 12px; border: 1px solid var(--color-border-input); border-radius: var(--radius-md); font-family: var(--font-sans); font-size: 16px; color: var(--color-text-primary); background: var(--color-bg-primary); transition: border-color var(--duration-fast), box-shadow var(--duration-fast); }
+.input:focus { outline: none; border-color: var(--color-brand-primary); box-shadow: 0 0 0 3px rgba(var(--color-brand-primary-rgb), 0.15); }
+.input--error { border-color: var(--color-error); }
+.input-label { display: block; font-size: var(--text-body-sm); font-weight: 500; margin-bottom: 4px; }
+.input-helper { font-size: var(--text-body-sm); color: var(--color-text-tertiary); margin-top: 4px; }
+.input-error { font-size: var(--text-body-sm); color: var(--color-error); margin-top: 4px; }</pre></div>
+  <div class="code-label">HTML</div>
+  <div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>&lt;div&gt;
+  &lt;label class="input-label" for="name"&gt;Full name&lt;/label&gt;
+  &lt;input class="input" id="name" type="text" placeholder="Enter your name"&gt;
+  &lt;div class="input-helper"&gt;As it appears on your ID&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Error state --&gt;
+&lt;div&gt;
+  &lt;label class="input-label" for="email"&gt;Email&lt;/label&gt;
+  &lt;input class="input input--error" id="email" type="email" value="bad" aria-invalid="true" aria-describedby="email-err"&gt;
+  &lt;div class="input-error" id="email-err" role="alert"&gt;Please enter a valid email&lt;/div&gt;
+&lt;/div&gt;</pre></div>
+</div>
+
+<div class="framework-content" id="input-react">
+  <div class="code-label">React</div>
+  <div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>import React, { useState } from 'react';
+
+export const Input = ({ label, error, helper, type = 'text', placeholder = '', disabled = false }) => {
+  const [value, setValue] = useState('');
+  return (
+    <div>
+      {label && <label className="input-label">{label}</label>}
+      <input
+        className={`input ${error ? 'input--error' : ''}`}
+        type={type}
+        placeholder={placeholder}
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        disabled={disabled}
+      />
+      {error && <div className="input-error">{error}</div>}
+      {helper && <div className="input-helper">{helper}</div>}
+    </div>
+  );
+};</pre></div>
+</div>
+
+<div class="framework-content" id="input-vue">
+  <div class="code-label">Vue</div>
+  <div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre><template>
+  <div>
+    <label v-if="label" class="input-label">{{ label }}</label>
+    <input
+      :class="['input', { 'input--error': error }]"
+      :type="type"
+      :placeholder="placeholder"
+      :value="modelValue"
+      :disabled="disabled"
+      @input="$emit('update:modelValue', $event.target.value)"
+    />
+    <div v-if="error" class="input-error">{{ error }}</div>
+    <div v-if="helper" class="input-helper">{{ helper }}</div>
+  </div>
+</template>
+
+<script setup>
+defineProps({
+  label: String,
+  error: String,
+  helper: String,
+  type: { type: String, default: 'text' },
+  placeholder: String,
+  modelValue: String,
+  disabled: Boolean
+});
+defineEmits(['update:modelValue']);
+</script></pre></div>
+</div>
+size: 16px; color: var(--color-text-primary); background: var(--color-bg-primary); transition: border-color var(--duration-fast), box-shadow var(--duration-fast); }
+.input:focus { outline: none; border-color: var(--color-brand-primary); box-shadow: 0 0 0 3px rgba(var(--color-brand-primary-rgb), 0.15); }
+.input--error { border-color: var(--color-error); }
+.input-label { display: block; font-size: var(--text-body-sm); font-weight: 500; margin-bottom: 4px; }
+.input-helper { font-size: var(--text-body-sm); color: var(--color-text-tertiary); margin-top: 4px; }
+.input-error { font-size: var(--text-body-sm); color: var(--color-error); margin-top: 4px; }</pre></div>
+<div class="code-label">HTML</div>
+<div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>&lt;div&gt;
+  &lt;label class="input-label" for="name"&gt;Full name&lt;/label&gt;
+  &lt;input class="input" id="name" type="text" placeholder="Enter your name"&gt;
+  &lt;div class="input-helper"&gt;As it appears on your ID&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Error state --&gt;
+&lt;div&gt;
+  &lt;label class="input-label" for="email"&gt;Email&lt;/label&gt;
+  &lt;input class="input input--error" id="email" type="email" value="bad" aria-invalid="true" aria-describedby="email-err"&gt;
+  &lt;div class="input-error" id="email-err" role="alert"&gt;Please enter a valid email&lt;/div&gt;
+&lt;/div&gt;</pre></div>
+
+<div class="component" id="select">
+<div class="component-header"><span class="component-name">Select</span><span class="component-props">Same sizing and states as Input</span></div><div class="component-preview">
+  <span class="preview-label">Preview</span>
+  <label class="input-label">Country</label><select class="input"><option>United States</option><option>Canada</option></select>
+</div>
+
+<div class="component-code">
+<div class="code-label">CSS</div>
+<div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>/* Uses .input class from Input component */</pre></div>
+<div class="code-label">HTML</div>
+<div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>&lt;label class="input-label" for="country"&gt;Country&lt;/label&gt;
+&lt;select class="input" id="country"&gt;
+  &lt;option&gt;United States&lt;/option&gt;
+  &lt;option&gt;United Kingdom&lt;/option&gt;
+  &lt;option&gt;Canada&lt;/option&gt;
+&lt;/select&gt;</pre></div>
+</div></div>
+<div class="component" id="checkbox">
+<div class="component-header"><span class="component-name">Checkbox</span><span class="component-props">checked: boolean, disabled: boolean</span></div><div class="component-preview">
+  <span class="preview-label">Preview</span>
+  <div class="checkbox-group"><input type="checkbox" id="cb1"><label for="cb1">I agree to terms</label></div>
+</div>
+
+<div class="component-code">
+<div class="code-label">CSS</div>
+<div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>.checkbox-group { display: flex; align-items: center; gap: 8px; min-height: 44px; }
+.checkbox-group input[type="checkbox"] { width: 20px; height: 20px; accent-color: var(--color-brand-primary); cursor: pointer; }
+.checkbox-group label { font-size: var(--text-body-md); cursor: pointer; }</pre></div>
+<div class="code-label">HTML</div>
+<div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>&lt;div class="checkbox-group"&gt;
+  &lt;input type="checkbox" id="terms" /&gt;
+  &lt;label for="terms"&gt;I agree to the terms and conditions&lt;/label&gt;
+&lt;/div&gt;</pre></div>
+</div></div>
+<div class="component" id="toggle">
+<div class="component-header"><span class="component-name">Toggle</span><span class="component-props">checked: boolean, disabled: boolean</span></div><div class="component-preview">
+  <span class="preview-label">Preview</span>
+  <button class="toggle on" role="switch" aria-checked="true"></button>
+</div>
+
+<div class="component-code">
+<div class="code-label">CSS</div>
+<div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>.toggle { position: relative; width: 48px; height: 28px; background: var(--color-border-default); border-radius: var(--radius-full); border: none; cursor: pointer; transition: background var(--duration-fast); }
+.toggle::after { content: ""; position: absolute; top: 3px; left: 3px; width: 22px; height: 22px; background: white; border-radius: var(--radius-full); transition: transform var(--duration-fast); }
+.toggle.on { background: var(--color-brand-primary); }
+.toggle.on::after { transform: translateX(20px); }
+.toggle:focus-visible { outline: 2px solid var(--color-brand-primary); outline-offset: 2px; }</pre></div>
+<div class="code-label">HTML</div>
+<div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>&lt;button class="toggle on" role="switch" aria-checked="true" aria-label="Enable notifications"
+  onclick="this.classList.toggle('on'); this.setAttribute('aria-checked', this.classList.contains('on'))"&gt;
+&lt;/button&gt;</pre></div>
+</div></div>
+<div class="component" id="tabs">
+<div class="component-header"><span class="component-name">Tabs</span><span class="component-props">variant: line|pill|segmented, size: sm|md, orientation: horizontal|vertical</span></div><div class="component-preview">
+  <span class="preview-label">Preview</span>
+  <div role="tablist" class="tabs"><button class="tab active" role="tab">General</button><button class="tab" role="tab">Security</button></div>
+</div>
+
+<div class="component-code">
+<div class="code-label">CSS</div>
+<div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>.tabs { border-bottom: 1px solid var(--color-border-default); display: flex; }
+.tab { height: 44px; padding: 0 16px; border: none; background: none; font-family: var(--font-sans); font-size: var(--text-body-sm); font-weight: 500; color: var(--color-text-secondary); cursor: pointer; border-bottom: 2px solid transparent; transition: all var(--duration-fast); }
+.tab:hover { color: var(--color-text-primary); background: rgba(0,0,0,0.04); }
+.tab.active { color: var(--color-text-primary); border-bottom-color: var(--color-brand-primary); font-weight: 600; }
+.tab:focus-visible { outline: 2px solid var(--color-brand-primary); outline-offset: -2px; }
+.tab-panel { padding: 16px 0; }</pre></div>
+<div class="code-label">HTML</div>
+<div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>&lt;div role="tablist" class="tabs" aria-label="Settings"&gt;
+  &lt;button class="tab active" role="tab" aria-selected="true" id="tab-1" aria-controls="panel-1"&gt;General&lt;/button&gt;
+  &lt;button class="tab" role="tab" aria-selected="false" id="tab-2" aria-controls="panel-2"&gt;Security&lt;/button&gt;
+  &lt;button class="tab" role="tab" aria-selected="false" id="tab-3" aria-controls="panel-3"&gt;Billing&lt;/button&gt;
+&lt;/div&gt;
+&lt;div class="tab-panel" role="tabpanel" id="panel-1" aria-labelledby="tab-1"&gt;
+  General settings content...
+&lt;/div&gt;</pre></div>
+</div></div>
+<div class="component" id="accordion">
+<div class="component-header"><span class="component-name">Accordion</span><span class="component-props">type: single|multi, variant: bordered|flush</span></div><div class="component-preview">
+  <span class="preview-label">Preview</span>
+  <div class="accordion"><button class="accordion-trigger" aria-expanded="true"><span>Question</span><svg class="accordion-chevron" viewBox="0 0 20 20" fill="currentColor"><path d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"/></svg></button><div class="accordion-content">Answer content</div></div>
+</div>
+
+<div class="component-code">
+<div class="code-label">CSS</div>
+<div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>.accordion { border: 1px solid var(--color-border-default); border-radius: var(--radius-lg); overflow: hidden; }
+.accordion-trigger { width: 100%; display: flex; align-items: center; justify-content: space-between; height: 52px; padding: 0 16px; border: none; border-bottom: 1px solid var(--color-border-default); background: var(--color-bg-primary); font-family: var(--font-sans); font-size: var(--text-body-md); font-weight: 500; color: var(--color-text-primary); cursor: pointer; }
+.accordion-trigger:hover { background: var(--color-bg-secondary); }
+.accordion-trigger:focus-visible { outline: 2px solid var(--color-brand-primary); outline-offset: -2px; }
+.accordion-chevron { width: 20px; height: 20px; transition: transform var(--duration-fast); }
+.accordion-trigger[aria-expanded="true"] .accordion-chevron { transform: rotate(180deg); }
+.accordion-content { padding: 16px; font-size: var(--text-body-sm); color: var(--color-text-secondary); }</pre></div>
+<div class="code-label">HTML</div>
+<div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>&lt;div class="accordion"&gt;
+  &lt;button class="accordion-trigger" aria-expanded="true" aria-controls="acc-1"&gt;
+    &lt;span&gt;Question text&lt;/span&gt;
+    &lt;svg class="accordion-chevron" viewBox="0 0 20 20" fill="currentColor"&gt;&lt;path d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"/&gt;&lt;/svg&gt;
+  &lt;/button&gt;
+  &lt;div class="accordion-content" id="acc-1"&gt;Answer content...&lt;/div&gt;
+&lt;/div&gt;</pre></div>
+</div></div>
+<div class="component" id="card">
+<div class="component-header"><span class="component-name">Card</span><span class="component-props">elevation: flat|raised|interactive</span></div><div class="component-preview">
+  <span class="preview-label">Preview</span>
+  <div class="card"><h3>Card Title</h3><p>Card description with supporting text.</p></div>
+</div>
+
+<div class="framework-tabs">
+  <button class="framework-tab active" onclick="switchFramework(this, 'html')">HTML</button>
+  <button class="framework-tab" onclick="switchFramework(this, 'react')">React</button>
+  <button class="framework-tab" onclick="switchFramework(this, 'vue')">Vue</button>
+</div>
+
+<div class="framework-content active" id="card-html">
+  <div class="code-label">CSS</div>
+  <div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>.card { background: var(--color-bg-tertiary); border: 1px solid var(--color-border-default); border-radius: var(--radius-lg); padding: 24px; transition: transform var(--duration-normal) var(--ease-default), box-shadow var(--duration-normal) var(--ease-default); }
+.card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }</pre></div>
+  <div class="code-label">HTML</div>
+  <div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>&lt;div class="card"&gt;
+  &lt;h3&gt;Card Title&lt;/h3&gt;
+  &lt;p&gt;Card description with supporting text.&lt;/p&gt;
+&lt;/div&gt;</pre></div>
+</div>
+
+<div class="framework-content" id="card-react">
+  <div class="code-label">React</div>
+  <div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>import React from 'react';
+
+export const Card = ({ title, children }) => (
+  <div className="card">
+    {title && <h3>{title}</h3>}
+    {children}
+  </div>
+);</pre></div>
+</div>
+
+<div class="framework-content" id="card-vue">
+  <div class="code-label">Vue</div>
+  <div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre><template>
+  <div class="card">
+    <h3 v-if="title">{{ title }}</h3>
+    <slot />
+  </div>
+</template>
+
+<script setup>
+defineProps({ title: String });
+</script></pre></div>
+</div>
+r(--color-border-default); border-radius: var(--radius-lg); padding: 24px; transition: transform var(--duration-normal) var(--ease-default), box-shadow var(--duration-normal) var(--ease-default); }
+.card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }</pre></div>
+<div class="code-label">HTML</div>
+<div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>&lt;div class="card"&gt;
+  &lt;h3&gt;Card Title&lt;/h3&gt;
+  &lt;p&gt;Card description with supporting text.&lt;/p&gt;
+&lt;/div&gt;</pre></div>
+
+<div class="component" id="alert">
+<div class="component-header"><span class="component-name">Alert</span><span class="component-props">variant: success|warning|error|info, dismissible: boolean</span></div><div class="component-preview">
+  <span class="preview-label">Preview</span>
+  <div class="alert alert--success" role="status"><div><div class="alert-title">Success</div><div class="alert-body">Your changes have been saved.</div></div></div>
+</div>
+
+<div class="framework-tabs">
+  <button class="framework-tab active" onclick="switchFramework(this, 'html')">HTML</button>
+  <button class="framework-tab" onclick="switchFramework(this, 'react')">React</button>
+  <button class="framework-tab" onclick="switchFramework(this, 'vue')">Vue</button>
+</div>
+
+<div class="framework-content active" id="alert-html">
+  <div class="code-label">CSS</div>
+  <div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>.alert { display: flex; gap: 12px; padding: 16px; border-radius: var(--radius-md); border-left: 4px solid; }
+.alert--success { border-color: var(--color-success); background: var(--color-success-bg); }
+.alert--warning { border-color: var(--color-warning); background: var(--color-warning-bg); }
+.alert--error { border-color: var(--color-error); background: var(--color-error-bg); }
+.alert--info { border-color: var(--color-info); background: var(--color-info-bg); }
+.alert-title { font-weight: 600; margin-bottom: 4px; }
+.alert-body { font-size: var(--text-body-sm); color: var(--color-text-secondary); }</pre></div>
+  <div class="code-label">HTML</div>
+  <div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>&lt;div class="alert alert--success" role="status"&gt;
+  &lt;div&gt;
+    &lt;div class="alert-title"&gt;Success&lt;/div&gt;
+    &lt;div class="alert-body"&gt;Your changes have been saved.&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="alert alert--error" role="alert"&gt;
+  &lt;div&gt;
+    &lt;div class="alert-title"&gt;Error&lt;/div&gt;
+    &lt;div class="alert-body"&gt;Payment failed. Please try again.&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre></div>
+</div>
+
+<div class="framework-content" id="alert-react">
+  <div class="code-label">React</div>
+  <div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>import React, { useState } from 'react';
+
+export const Alert = ({ variant = 'info', title, message, dismissible = false }) => {
+  const [visible, setVisible] = useState(true);
+  return visible && (
+    <div className={`alert alert--${variant}`}>
+      <div>
+        {title && <div className="alert-title">{title}</div>}
+        {message && <div className="alert-body">{message}</div>}
+      </div>
+      {dismissible && <button onClick={() => setVisible(false)}>✕</button>}
+    </div>
+  );
+};</pre></div>
+</div>
+
+<div class="framework-content" id="alert-vue">
+  <div class="code-label">Vue</div>
+  <div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre><template>
+  <div v-if="visible" :class="['alert', `alert--${variant}`]">
+    <div>
+      <div v-if="title" class="alert-title">{{ title }}</div>
+      <div v-if="message" class="alert-body">{{ message }}</div>
+    </div>
+    <button v-if="dismissible" @click="visible = false">✕</button>
+  </div>
+</template>
+
+<script setup>
+import { ref } from 'vue';
+defineProps({ variant: { type: String, default: 'info' }, title: String, message: String, dismissible: Boolean });
+const visible = ref(true);
+</script></pre></div>
+</div>
+ackground: var(--color-success-bg); }
+.alert--warning { border-color: var(--color-warning); background: var(--color-warning-bg); }
+.alert--error { border-color: var(--color-error); background: var(--color-error-bg); }
+.alert--info { border-color: var(--color-info); background: var(--color-info-bg); }
+.alert-title { font-weight: 600; margin-bottom: 4px; }
+.alert-body { font-size: var(--text-body-sm); color: var(--color-text-secondary); }</pre></div>
+<div class="code-label">HTML</div>
+<div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>&lt;div class="alert alert--success" role="status"&gt;
+  &lt;div&gt;
+    &lt;div class="alert-title"&gt;Success&lt;/div&gt;
+    &lt;div class="alert-body"&gt;Your changes have been saved.&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="alert alert--error" role="alert"&gt;
+  &lt;div&gt;
+    &lt;div class="alert-title"&gt;Error&lt;/div&gt;
+    &lt;div class="alert-body"&gt;Payment failed. Please try again.&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre></div>
+
+<div class="component" id="badge">
+<div class="component-header"><span class="component-name">Badge</span><span class="component-props">variant: brand|success|warning|error|neutral, size: sm|md</span></div><div class="component-preview">
+  <span class="preview-label">Preview</span>
+  <span class="badge badge--brand">New</span><span class="badge badge--success">Active</span><span class="badge badge--error">Failed</span>
+</div>
+
+<div class="framework-tabs">
+  <button class="framework-tab active" onclick="switchFramework(this, 'html')">HTML</button>
+  <button class="framework-tab" onclick="switchFramework(this, 'react')">React</button>
+  <button class="framework-tab" onclick="switchFramework(this, 'vue')">Vue</button>
+</div>
+
+<div class="framework-content active" id="badge-html">
+  <div class="code-label">CSS</div>
+  <div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>.badge { display: inline-flex; align-items: center; gap: 4px; padding: 2px 10px; border-radius: var(--radius-full); font-size: var(--text-label); font-weight: 600; }
+.badge--brand { background: var(--color-brand-muted); color: var(--color-brand-primary); }
+.badge--success { background: var(--color-success-bg); color: var(--color-success); }
+.badge--error { background: var(--color-error-bg); color: var(--color-error); }
+.badge--neutral { background: var(--color-bg-tertiary); color: var(--color-text-secondary); }</pre></div>
+  <div class="code-label">HTML</div>
+  <div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>&lt;span class="badge badge--brand"&gt;New&lt;/span&gt;
+&lt;span class="badge badge--success"&gt;Active&lt;/span&gt;
+&lt;span class="badge badge--error"&gt;Failed&lt;/span&gt;
+&lt;span class="badge badge--neutral"&gt;Draft&lt;/span&gt;</pre></div>
+</div>
+
+<div class="framework-content" id="badge-react">
+  <div class="code-label">React</div>
+  <div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>import React from 'react';
+
+export const Badge = ({ variant = 'brand', children }) => (
+  <span className={`badge badge--${variant}`}>{children}</span>
+);</pre></div>
+</div>
+
+<div class="framework-content" id="badge-vue">
+  <div class="code-label">Vue</div>
+  <div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre><template>
+  <span :class="['badge', `badge--${variant}`]"><slot /></span>
+</template>
+
+<script setup>
+defineProps({ variant: { type: String, default: 'brand' } });
+</script></pre></div>
+</div>
+abel); font-weight: 600; }
+.badge--brand { background: var(--color-brand-muted); color: var(--color-brand-primary); }
+.badge--success { background: var(--color-success-bg); color: var(--color-success); }
+.badge--error { background: var(--color-error-bg); color: var(--color-error); }
+.badge--neutral { background: var(--color-bg-tertiary); color: var(--color-text-secondary); }</pre></div>
+<div class="code-label">HTML</div>
+<div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>&lt;span class="badge badge--brand"&gt;New&lt;/span&gt;
+&lt;span class="badge badge--success"&gt;Active&lt;/span&gt;
+&lt;span class="badge badge--error"&gt;Failed&lt;/span&gt;
+&lt;span class="badge badge--neutral"&gt;Draft&lt;/span&gt;</pre></div>
+
+<div class="component" id="avatar">
+<div class="component-header"><span class="component-name">Avatar</span><span class="component-props">size: xs|sm|md|lg|xl, shape: circle|square, status: online|offline|busy|away</span></div><div class="component-preview">
+  <span class="preview-label">Preview</span>
+  <div class="avatar avatar--md">MK</div><div class="avatar avatar--lg">JD</div>
+</div>
+
+<div class="component-code">
+<div class="code-label">CSS</div>
+<div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>.avatar { display: inline-flex; align-items: center; justify-content: center; border-radius: var(--radius-full); overflow: hidden; background: var(--color-brand-muted); color: var(--color-brand-primary); font-weight: 600; flex-shrink: 0; position: relative; }
+.avatar--xs { width: 24px; height: 24px; font-size: 10px; }
+.avatar--sm { width: 32px; height: 32px; font-size: 12px; }
+.avatar--md { width: 40px; height: 40px; font-size: 14px; }
+.avatar--lg { width: 48px; height: 48px; font-size: 16px; }
+.avatar--xl { width: 64px; height: 64px; font-size: 20px; }
+.avatar-group { display: flex; }
+.avatar-group .avatar { border: 2px solid var(--color-bg-primary); margin-left: -8px; }
+.avatar-group .avatar:first-child { margin-left: 0; }
+.avatar-status { position: absolute; bottom: 0; right: 0; width: 10px; height: 10px; border-radius: var(--radius-full); border: 2px solid var(--color-bg-primary); }
+.avatar-status--online { background: var(--color-success); }
+.avatar-status--busy { background: var(--color-error); }
+.avatar-status--away { background: var(--color-warning); }</pre></div>
+<div class="code-label">HTML</div>
+<div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>&lt;div class="avatar avatar--md"&gt;MK&lt;/div&gt;
+
+&lt;!-- With status --&gt;
+&lt;div class="avatar avatar--lg" style="position:relative"&gt;
+  JD
+  &lt;span class="avatar-status avatar-status--online"&gt;&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;!-- Group --&gt;
+&lt;div class="avatar-group"&gt;
+  &lt;div class="avatar avatar--md"&gt;A&lt;/div&gt;
+  &lt;div class="avatar avatar--md"&gt;B&lt;/div&gt;
+  &lt;div class="avatar avatar--md"&gt;C&lt;/div&gt;
+  &lt;div class="avatar avatar--md" style="background:var(--color-bg-tertiary);color:var(--color-text-secondary)"&gt;+5&lt;/div&gt;
+&lt;/div&gt;</pre></div>
+</div></div>
+<div class="component" id="tooltip">
+<div class="component-header"><span class="component-name">Tooltip</span><span class="component-props">position: top|bottom|left|right, delay: number (ms), maxWidth: number (px)</span></div><div class="component-preview">
+  <span class="preview-label">Preview</span>
+  <div class="tooltip-wrap"><button class="btn btn--secondary btn--sm">Hover me</button><div class="tooltip-content">Tooltip text</div></div>
+</div>
+
+<div class="component-code">
+<div class="code-label">CSS</div>
+<div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>.tooltip-wrap { position: relative; display: inline-block; }
+.tooltip-content { position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%); background: var(--color-bg-inverse); color: var(--color-bg-primary); padding: 6px 12px; border-radius: var(--radius-sm); font-size: var(--text-body-sm); white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity var(--duration-fast); z-index: var(--z-dropdown); }
+.tooltip-content::after { content: ""; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); border: 6px solid transparent; border-top-color: var(--color-bg-inverse); }
+.tooltip-wrap:hover .tooltip-content, .tooltip-wrap:focus-within .tooltip-content { opacity: 1; }</pre></div>
+<div class="code-label">HTML</div>
+<div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>&lt;div class="tooltip-wrap"&gt;
+  &lt;button class="btn btn--secondary btn--sm" aria-describedby="tip-1"&gt;Hover me&lt;/button&gt;
+  &lt;div class="tooltip-content" id="tip-1" role="tooltip"&gt;Tooltip text here&lt;/div&gt;
+&lt;/div&gt;</pre></div>
+</div></div>
+<div class="component" id="dropdownmenu">
+<div class="component-header"><span class="component-name">DropdownMenu</span><span class="component-props">align: start|center|end, side: top|bottom</span></div>
+<div class="component-code">
+<div class="code-label">CSS</div>
+<div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>.dropdown-panel { background: var(--color-bg-primary); border: 1px solid var(--color-border-default); border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); padding: 4px; min-width: 180px; }
+.dropdown-item { display: flex; align-items: center; height: 36px; padding: 0 12px; border-radius: var(--radius-sm); font-size: var(--text-body-sm); cursor: pointer; color: var(--color-text-primary); }
+.dropdown-item:hover { background: var(--color-bg-secondary); }
+.dropdown-item--destructive { color: var(--color-error); }
+.dropdown-sep { height: 1px; background: var(--color-border-subtle); margin: 4px 0; }</pre></div>
+<div class="code-label">HTML</div>
+<div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>&lt;div class="dropdown-panel" role="menu"&gt;
+  &lt;div class="dropdown-item" role="menuitem" tabindex="0"&gt;Edit&lt;/div&gt;
+  &lt;div class="dropdown-item" role="menuitem" tabindex="0"&gt;Duplicate&lt;/div&gt;
+  &lt;div class="dropdown-item" role="menuitem" tabindex="0"&gt;Share&lt;/div&gt;
+  &lt;div class="dropdown-sep" role="separator"&gt;&lt;/div&gt;
+  &lt;div class="dropdown-item dropdown-item--destructive" role="menuitem" tabindex="0"&gt;Delete&lt;/div&gt;
+&lt;/div&gt;</pre></div>
+</div></div>
+<div class="component" id="breadcrumb">
+<div class="component-header"><span class="component-name">Breadcrumb</span><span class="component-props">separator: string (default '/')</span></div><div class="component-preview">
+  <span class="preview-label">Preview</span>
+  <nav aria-label="Breadcrumb"><div class="breadcrumb"><a href="#">Home</a><span class="breadcrumb-sep">/</span><a href="#">Products</a><span class="breadcrumb-sep">/</span><span class="breadcrumb-current">Detail</span></div></nav>
+</div>
+
+<div class="component-code">
+<div class="code-label">CSS</div>
+<div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>.breadcrumb { display: flex; align-items: center; gap: 8px; font-size: var(--text-body-sm); }
+.breadcrumb a { color: var(--color-text-secondary); text-decoration: none; }
+.breadcrumb a:hover { color: var(--color-brand-primary); text-decoration: underline; }
+.breadcrumb-sep { color: var(--color-text-tertiary); }
+.breadcrumb-current { color: var(--color-text-primary); font-weight: 500; }</pre></div>
+<div class="code-label">HTML</div>
+<div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>&lt;nav aria-label="Breadcrumb"&gt;
+  &lt;div class="breadcrumb"&gt;
+    &lt;a href="#"&gt;Home&lt;/a&gt;
+    &lt;span class="breadcrumb-sep" aria-hidden="true"&gt;/&lt;/span&gt;
+    &lt;a href="#"&gt;Products&lt;/a&gt;
+    &lt;span class="breadcrumb-sep" aria-hidden="true"&gt;/&lt;/span&gt;
+    &lt;span class="breadcrumb-current" aria-current="page"&gt;Detail&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/nav&gt;</pre></div>
+</div></div>
+<div class="component" id="toast">
+<div class="component-header"><span class="component-name">Toast</span><span class="component-props">variant: success|error|warning|info|neutral, position: top-right|bottom-right|top-center|bottom-center, duration: number (ms)</span></div><div class="component-preview">
+  <span class="preview-label">Preview</span>
+  <div class="toast toast--success"><div><div class="toast-title">Saved</div><div class="toast-message">Changes saved.</div></div></div>
+</div>
+
+<div class="component-code">
+<div class="code-label">CSS</div>
+<div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>.toast-container { position: fixed; bottom: 16px; right: 16px; z-index: var(--z-toast); display: flex; flex-direction: column; gap: 8px; }
+.toast { display: flex; align-items: flex-start; gap: 12px; min-width: 320px; max-width: 420px; padding: 12px 16px; background: var(--color-bg-primary); border: 1px solid var(--color-border-default); border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); border-left: 4px solid; }
+.toast--success { border-left-color: var(--color-success); }
+.toast--error { border-left-color: var(--color-error); }
+.toast--warning { border-left-color: var(--color-warning); }
+.toast--info { border-left-color: var(--color-info); }
+.toast-title { font-weight: 600; font-size: var(--text-body-sm); }
+.toast-message { font-size: var(--text-body-sm); color: var(--color-text-secondary); margin-top: 2px; }</pre></div>
+<div class="code-label">HTML</div>
+<div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>&lt;div class="toast-container"&gt;
+  &lt;div class="toast toast--success" role="status"&gt;
+    &lt;div&gt;
+      &lt;div class="toast-title"&gt;Saved&lt;/div&gt;
+      &lt;div class="toast-message"&gt;Changes saved successfully.&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre></div>
+</div></div>
+<div class="component" id="pagination">
+<div class="component-header"><span class="component-name">Pagination</span><span class="component-props">variant: numbered|simple|load-more|infinite</span></div><div class="component-preview">
+  <span class="preview-label">Preview</span>
+  <nav aria-label="Pagination"><div class="pagination"><button class="page-btn" disabled>«</button><button class="page-btn active">1</button><button class="page-btn">2</button><button class="page-btn">3</button></div></nav>
+</div>
+
+<div class="component-code">
+<div class="code-label">CSS</div>
+<div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>.pagination { display: flex; align-items: center; gap: 4px; }
+.page-btn { width: 36px; height: 36px; display: inline-flex; align-items: center; justify-content: center; border: 1px solid var(--color-border-default); border-radius: var(--radius-md); background: var(--color-bg-primary); font-size: var(--text-body-sm); cursor: pointer; transition: all var(--duration-fast); }
+.page-btn:hover { background: var(--color-bg-secondary); }
+.page-btn.active { background: var(--color-brand-primary); color: var(--color-text-on-brand); border-color: var(--color-brand-primary); }
+.page-btn:disabled { opacity: var(--opacity-disabled); cursor: not-allowed; }
+.page-ellipsis { width: 36px; text-align: center; color: var(--color-text-tertiary); }</pre></div>
+<div class="code-label">HTML</div>
+<div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>&lt;nav aria-label="Pagination"&gt;
+  &lt;div class="pagination"&gt;
+    &lt;button class="page-btn" disabled aria-label="Previous"&gt;&amp;laquo;&lt;/button&gt;
+    &lt;button class="page-btn active" aria-current="page" aria-label="Page 1"&gt;1&lt;/button&gt;
+    &lt;button class="page-btn" aria-label="Page 2"&gt;2&lt;/button&gt;
+    &lt;button class="page-btn" aria-label="Page 3"&gt;3&lt;/button&gt;
+    &lt;span class="page-ellipsis"&gt;...&lt;/span&gt;
+    &lt;button class="page-btn" aria-label="Page 12"&gt;12&lt;/button&gt;
+    &lt;button class="page-btn" aria-label="Next"&gt;&amp;raquo;&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/nav&gt;</pre></div>
+</div></div>
+<div class="component" id="skeleton">
+<div class="component-header"><span class="component-name">Skeleton</span><span class="component-props">variant: text|circle|rectangle|custom</span></div><div class="component-preview">
+  <span class="preview-label">Preview</span>
+  <div style="display:flex;gap:16px"><div class="skeleton skeleton-circle" style="width:48px;height:48px"></div><div style="flex:1"><div class="skeleton skeleton-line" style="width:40%"></div><div class="skeleton skeleton-line"></div></div></div>
+</div>
+
+<div class="component-code">
+<div class="code-label">CSS</div>
+<div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>.skeleton { background: linear-gradient(90deg, var(--color-bg-tertiary) 25%, var(--color-bg-secondary) 50%, var(--color-bg-tertiary) 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; border-radius: 4px; }
+.skeleton-line { height: 16px; margin-bottom: 12px; }
+.skeleton-circle { border-radius: var(--radius-full); }
+@keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+@media (prefers-reduced-motion: reduce) { .skeleton { animation: none; } }</pre></div>
+<div class="code-label">HTML</div>
+<div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>&lt;div aria-busy="true"&gt;
+  &lt;div style="display:flex;gap:16px;align-items:flex-start"&gt;
+    &lt;div class="skeleton skeleton-circle" style="width:48px;height:48px;flex-shrink:0" aria-hidden="true"&gt;&lt;/div&gt;
+    &lt;div style="flex:1"&gt;
+      &lt;div class="skeleton skeleton-line" style="width:40%" aria-hidden="true"&gt;&lt;/div&gt;
+      &lt;div class="skeleton skeleton-line" style="width:100%" aria-hidden="true"&gt;&lt;/div&gt;
+      &lt;div class="skeleton skeleton-line" style="width:80%" aria-hidden="true"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre></div>
+</div></div>
+<div class="component" id="datatable">
+<div class="component-header"><span class="component-name">DataTable</span><span class="component-props">sortable: boolean, selectable: boolean, striped: boolean, stickyHeader: boolean, density: compact|default|comfortable</span></div><div class="component-preview">
+  <span class="preview-label">Preview</span>
+  <table class="data-table"><thead><tr><th>Name</th><th>Status</th><th>Role</th></tr></thead><tbody><tr><td>Alice</td><td><span class="badge badge--success">Active</span></td><td>Admin</td></tr></tbody></table>
+</div>
+
+<div class="component-code">
+<div class="code-label">CSS</div>
+<div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>.data-table { width: 100%; border-collapse: collapse; border: 1px solid var(--color-border-default); border-radius: var(--radius-lg); overflow: hidden; }
+.data-table th { padding: 0 16px; height: 44px; background: var(--color-bg-secondary); font-weight: 600; font-size: var(--text-body-sm); text-align: left; border-bottom: 2px solid var(--color-border-default); }
+.data-table td { padding: 0 16px; height: 48px; border-bottom: 1px solid var(--color-border-subtle); font-size: var(--text-body-sm); }
+.data-table tr:hover td { background: var(--color-bg-secondary); }
+.data-table--striped tr:nth-child(odd) td { background: var(--color-bg-secondary); }</pre></div>
+<div class="code-label">HTML</div>
+<div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>&lt;table class="data-table"&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Status&lt;/th&gt;&lt;th&gt;Role&lt;/th&gt;&lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;&lt;td&gt;Alice Johnson&lt;/td&gt;&lt;td&gt;&lt;span class="badge badge--success"&gt;Active&lt;/span&gt;&lt;/td&gt;&lt;td&gt;Admin&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td&gt;Bob Smith&lt;/td&gt;&lt;td&gt;&lt;span class="badge badge--brand"&gt;Pending&lt;/span&gt;&lt;/td&gt;&lt;td&gt;Editor&lt;/td&gt;&lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</pre></div>
+</div></div>
+<div class="component" id="modal">
+<div class="component-header"><span class="component-name">Modal</span><span class="component-props">open: boolean, onClose: function</span></div>
+<div class="component-code">
+<div class="code-label">CSS</div>
+<div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; z-index: var(--z-modal); }
+.modal { max-width: 560px; width: 90%; padding: 32px; background: var(--color-bg-primary); border-radius: var(--radius-xl); box-shadow: var(--shadow-xl); animation: modal-in var(--duration-normal) var(--ease-out); }
+.modal-title { font-size: var(--text-heading-md); font-weight: 600; margin-bottom: 8px; }
+.modal-body { color: var(--color-text-secondary); margin-bottom: 24px; }
+.modal-actions { display: flex; gap: 8px; justify-content: flex-end; }
+@keyframes modal-in { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }</pre></div>
+<div class="code-label">HTML</div>
+<div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>&lt;div class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title"&gt;
+  &lt;div class="modal"&gt;
+    &lt;h2 class="modal-title" id="modal-title"&gt;Confirm action&lt;/h2&gt;
+    &lt;p class="modal-body"&gt;Are you sure you want to proceed?&lt;/p&gt;
+    &lt;div class="modal-actions"&gt;
+      &lt;button class="btn btn--secondary btn--md"&gt;Cancel&lt;/button&gt;
+      &lt;button class="btn btn--primary btn--md"&gt;Confirm&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre></div>
+</div></div>
+<div class="component" id="navbar">
+<div class="component-header"><span class="component-name">NavBar</span><span class="component-props">sticky: boolean, transparent: boolean</span></div>
+<div class="component-code">
+<div class="code-label">CSS</div>
+<div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>.navbar { position: sticky; top: 0; height: 64px; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; background: var(--color-bg-primary); border-bottom: 1px solid var(--color-border-subtle); z-index: var(--z-sticky); }
+.navbar-logo { font-family: var(--font-display); font-weight: 700; font-size: var(--text-heading-sm); color: var(--color-text-primary); text-decoration: none; }
+.navbar-links { display: flex; gap: 24px; list-style: none; }
+.navbar-links a { font-size: var(--text-body-sm); font-weight: 500; color: var(--color-text-secondary); text-decoration: none; transition: color var(--duration-fast); }
+.navbar-links a:hover { color: var(--color-text-primary); }</pre></div>
+<div class="code-label">HTML</div>
+<div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>&lt;nav class="navbar" aria-label="Main navigation"&gt;
+  &lt;a class="navbar-logo" href="#"&gt;Brand&lt;/a&gt;
+  &lt;ul class="navbar-links"&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Features&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Pricing&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;About&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+  &lt;button class="btn btn--primary btn--sm"&gt;Get Started&lt;/button&gt;
+&lt;/nav&gt;</pre></div>
+</div></div>
+<div class="component" id="footer">
+<div class="component-header"><span class="component-name">Footer</span><span class="component-props">variant: simple|multi-column|mega-footer</span></div>
+<div class="component-code">
+<div class="code-label">CSS</div>
+<div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>.footer { background: var(--color-bg-inverse); color: var(--color-bg-primary); padding: 80px 24px 40px; }
+.footer-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; max-width: 1200px; margin: 0 auto; }
+.footer-col-title { font-size: var(--text-label); text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.6; margin-bottom: 16px; }
+.footer-col a { display: block; font-size: var(--text-body-sm); opacity: 0.8; text-decoration: none; color: inherit; margin-bottom: 8px; }
+.footer-col a:hover { opacity: 1; }
+.footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); margin-top: 40px; padding-top: 24px; text-align: center; font-size: var(--text-body-sm); opacity: 0.6; max-width: 1200px; margin-left: auto; margin-right: auto; }</pre></div>
+<div class="code-label">HTML</div>
+<div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>&lt;footer class="footer"&gt;
+  &lt;div class="footer-grid"&gt;
+    &lt;div class="footer-col"&gt;&lt;div class="footer-col-title"&gt;Product&lt;/div&gt;&lt;a href="#"&gt;Features&lt;/a&gt;&lt;a href="#"&gt;Pricing&lt;/a&gt;&lt;a href="#"&gt;API&lt;/a&gt;&lt;/div&gt;
+    &lt;div class="footer-col"&gt;&lt;div class="footer-col-title"&gt;Company&lt;/div&gt;&lt;a href="#"&gt;About&lt;/a&gt;&lt;a href="#"&gt;Blog&lt;/a&gt;&lt;a href="#"&gt;Careers&lt;/a&gt;&lt;/div&gt;
+    &lt;div class="footer-col"&gt;&lt;div class="footer-col-title"&gt;Resources&lt;/div&gt;&lt;a href="#"&gt;Docs&lt;/a&gt;&lt;a href="#"&gt;Support&lt;/a&gt;&lt;a href="#"&gt;Status&lt;/a&gt;&lt;/div&gt;
+    &lt;div class="footer-col"&gt;&lt;div class="footer-col-title"&gt;Legal&lt;/div&gt;&lt;a href="#"&gt;Privacy&lt;/a&gt;&lt;a href="#"&gt;Terms&lt;/a&gt;&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="footer-bottom"&gt;&amp;copy; 2026 Company. All rights reserved.&lt;/div&gt;
+&lt;/footer&gt;</pre></div>
+</div></div>
+<div class="component" id="codeblock">
+<div class="component-header"><span class="component-name">CodeBlock</span><span class="component-props">language: string, showLineNumbers: boolean</span></div>
+<div class="component-code">
+<div class="code-label">CSS</div>
+<div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>.code-block { background: #1E1E2E; color: #D4D4E8; border-radius: var(--radius-lg); overflow: hidden; }
+.code-block-header { display: flex; align-items: center; justify-content: space-between; padding: 8px 16px; background: #16161E; font-size: var(--text-label); }
+.code-block-lang { color: #9999AA; }
+.code-block-copy { padding: 4px 10px; font-size: 11px; background: rgba(255,255,255,0.1); color: #9999AA; border: none; border-radius: 4px; cursor: pointer; }
+.code-block pre { padding: 20px; font-family: var(--font-mono); font-size: 13px; line-height: 1.6; overflow-x: auto; margin: 0; }</pre></div>
+<div class="code-label">HTML</div>
+<div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>&lt;div class="code-block"&gt;
+  &lt;div class="code-block-header"&gt;
+    &lt;span class="code-block-lang"&gt;javascript&lt;/span&gt;
+    &lt;button class="code-block-copy"&gt;Copy&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;pre&gt;&lt;code&gt;const greeting = 'Hello, World!';&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;</pre></div>
+</div></div>
+<div class="component" id="pricingtable">
+<div class="component-header"><span class="component-name">PricingTable</span><span class="component-props">columns: 2|3|4, featured: index, toggle: boolean (monthly/annual)</span></div>
+<div class="component-code">
+<div class="code-label">CSS</div>
+<div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>.pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 1120px; }
+.pricing-card { padding: 40px; border: 1px solid var(--color-border-default); border-radius: var(--radius-lg); background: var(--color-bg-primary); }
+.pricing-card--featured { border: 2px solid var(--color-brand-primary); box-shadow: var(--shadow-lg); position: relative; }
+.pricing-name { font-size: var(--text-heading-sm); font-weight: 600; }
+.pricing-price { font-size: var(--text-display-md); font-weight: 800; margin: 16px 0; }
+.pricing-price span { font-size: var(--text-body-sm); font-weight: 400; color: var(--color-text-secondary); }
+.pricing-features { list-style: none; margin: 24px 0; }
+.pricing-features li { padding: 8px 0; font-size: var(--text-body-sm); color: var(--color-text-secondary); }</pre></div>
+<div class="code-label">HTML</div>
+<div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>&lt;div class="pricing-grid"&gt;
+  &lt;div class="pricing-card"&gt;
+    &lt;div class="pricing-name"&gt;Starter&lt;/div&gt;
+    &lt;div class="pricing-price"&gt;$9&lt;span&gt;/mo&lt;/span&gt;&lt;/div&gt;
+    &lt;ul class="pricing-features"&gt;&lt;li&gt;✓ 5 projects&lt;/li&gt;&lt;li&gt;✓ Basic analytics&lt;/li&gt;&lt;/ul&gt;
+    &lt;button class="btn btn--secondary btn--md" style="width:100%"&gt;Get Started&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;div class="pricing-card pricing-card--featured"&gt;
+    &lt;div class="pricing-name"&gt;Pro&lt;/div&gt;
+    &lt;div class="pricing-price"&gt;$29&lt;span&gt;/mo&lt;/span&gt;&lt;/div&gt;
+    &lt;ul class="pricing-features"&gt;&lt;li&gt;✓ Unlimited projects&lt;/li&gt;&lt;li&gt;✓ Advanced analytics&lt;/li&gt;&lt;/ul&gt;
+    &lt;button class="btn btn--primary btn--md" style="width:100%"&gt;Get Started&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre></div>
+</div></div>
+
+</div><!-- /.container -->
+
+<script>
+function switchFramework(tabBtn, framework) {
+  const tabsContainer = tabBtn.parentElement;
+  const componentDiv = tabsContainer.closest('.component');
+  const componentId = componentDiv.id;
+
+  tabsContainer.querySelectorAll('.framework-tab').forEach(t => t.classList.remove('active'));
+  componentDiv.querySelectorAll('.framework-content').forEach(c => c.classList.remove('active'));
+
+  tabBtn.classList.add('active');
+  const contentId = `${componentId}-${framework}`;
+  const contentDiv = document.getElementById(contentId);
+  if (contentDiv) contentDiv.classList.add('active');
+}
+</script>
+</body></html>

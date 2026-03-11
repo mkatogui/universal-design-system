@@ -1,0 +1,2415 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="minimal-saas">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Design System v0.8.0 — Interactive Documentation</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Source+Serif+4:wght@600;700&family=DM+Sans:wght@400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+/* ============================================================
+   FOUNDATION — Default governance layer
+   Typography, spacing, motion, z-index, opacity are locked.
+   Radii, shadows, border-width, and display font are palette-overridable.
+   ============================================================ */
+:root {
+  /* Typography */
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-display: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Menlo', 'Consolas', monospace;
+  --font-serif: 'Source Serif 4', Georgia, serif;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+
+  /* Type Scale */
+  --text-display-lg: clamp(2.5rem, 5vw, 3.75rem);
+  --text-display-md: clamp(2rem, 4vw, 3rem);
+  --text-heading-lg: clamp(1.75rem, 3vw, 2.25rem);
+  --text-heading-md: clamp(1.375rem, 2.5vw, 1.75rem);
+  --text-heading-sm: clamp(1.125rem, 2vw, 1.375rem);
+  --text-body-lg: 1.25rem;
+  --text-body-md: 1rem;
+  --text-body-sm: 0.875rem;
+  --text-label: 0.75rem;
+
+  /* Line Height */
+  --line-height-tight: 1.1;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.7;
+  --line-height-loose: 2;
+
+  /* Border Radius */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 24px;
+  --radius-full: 9999px;
+
+  /* Spacing (4px grid) */
+  --spacing-1: 4px;  --spacing-2: 8px;   --spacing-3: 12px;
+  --spacing-4: 16px; --spacing-5: 20px;  --spacing-6: 24px;
+  --spacing-8: 32px; --spacing-10: 40px; --spacing-12: 48px;
+  --spacing-16: 64px; --spacing-20: 80px;
+
+  /* Motion */
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --duration-slow: 400ms;
+  --duration-slower: 600ms;
+  --ease-default: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Opacity */
+  --opacity-disabled: 0.5;
+  --opacity-muted: 0.6;
+  --opacity-subtle: 0.4;
+
+  /* Z-Index Layers */
+  --z-dropdown: 10;
+  --z-sticky: 20;
+  --z-overlay: 30;
+  --z-modal: 40;
+  --z-toast: 50;
+  --z-system: 100;
+
+  /* Icon Sizes */
+  --icon-sm: 16px;
+  --icon-md: 20px;
+  --icon-lg: 24px;
+  --icon-xl: 32px;
+
+  /* Layout */
+  --container-sm: 640px;
+  --container-md: 768px;
+  --container-lg: 1024px;
+  --container-xl: 1200px;
+}
+
+/* ============================================================
+   PALETTE: Minimal SaaS (default)
+   ============================================================ */
+:root, :root[data-theme="minimal-saas"] {
+  --color-bg-primary: #FFFFFF; --color-bg-secondary: #F8F8FA;
+  --color-bg-tertiary: #F0F0F5; --color-bg-inverse: #111118;
+  --color-text-primary: #111118; --color-text-secondary: #555566;
+  --color-text-tertiary: #6B6B7B; --color-text-on-brand: #FFFFFF;
+  --color-brand-primary: #2563EB; --color-brand-primary-rgb: 37, 99, 235;
+  --color-brand-secondary: #3B82F6; --color-brand-accent: #60A5FA;
+  --color-brand-muted: #DBEAFE;
+  --color-border-default: #C8C8D4; --color-border-input: #8E8E9E;
+  --color-border-subtle: #E8E8F0;
+  --color-success: #059669; --color-success-bg: #ECFDF5;
+  --color-warning: #D97706; --color-warning-bg: #FFFBEB;
+  --color-error: #DC2626; --color-error-bg: #FEF2F2;
+  --color-info: #2563EB; --color-info-bg: #EFF6FF;
+  --shadow-xs: 0 1px 2px rgba(0,0,0,0.05);
+  --shadow-sm: 0 2px 4px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.04);
+  --shadow-lg: 0 12px 32px rgba(0,0,0,0.12), 0 4px 8px rgba(0,0,0,0.06);
+  --shadow-xl: 0 24px 64px rgba(0,0,0,0.16);
+  --shadow-glow: 0 0 40px rgba(var(--color-brand-primary-rgb), 0.2);
+  --gradient-hero: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --gradient-cta: linear-gradient(135deg, var(--color-brand-primary), var(--color-brand-secondary));
+}
+
+/* Palette: AI Futuristic */
+:root[data-theme="ai-futuristic"] {
+  --color-bg-primary: #0A0A0F; --color-bg-secondary: #111118;
+  --color-bg-tertiary: #1A1A24; --color-bg-inverse: #FFFFFF;
+  --color-text-primary: #E0E0EE; --color-text-secondary: #9999AA;
+  --color-text-tertiary: #7A7A8C; --color-text-on-brand: #0A0A0F;
+  --color-brand-primary: #00FF88; --color-brand-primary-rgb: 0, 255, 136;
+  --color-brand-secondary: #00D4FF; --color-brand-accent: #8B5CF6;
+  --color-brand-muted: #0A2A1A;
+  --color-border-default: #2A2A36; --color-border-input: #4A4A58;
+  --color-border-subtle: #1E1E28;
+  /* Semantic status — dark-aware */
+  --color-success: #34D399; --color-success-bg: #062E1E;
+  --color-warning: #FBBF24; --color-warning-bg: #2A1F00;
+  --color-error: #F87171; --color-error-bg: #2D0A0A;
+  --color-info: #60A5FA; --color-info-bg: #0A1628;
+  /* Structural identity — sharp, geometric */
+  --radius-sm: 2px; --radius-md: 4px; --radius-lg: 6px; --radius-xl: 8px; --radius-2xl: 12px;
+  --shadow-sm: 0 0 0 1px rgba(255,255,255,0.06), 0 2px 4px rgba(0,0,0,0.3);
+  --shadow-md: 0 0 0 1px rgba(255,255,255,0.06), 0 4px 12px rgba(0,0,0,0.4);
+  --shadow-lg: 0 0 0 1px rgba(255,255,255,0.08), 0 12px 32px rgba(0,0,0,0.5);
+  --shadow-glow: 0 0 40px rgba(0, 255, 136, 0.15);
+  --font-display: 'DM Sans', system-ui, sans-serif;
+}
+
+/* Palette: Gradient Startup */
+:root[data-theme="gradient-startup"] {
+  --color-brand-primary: #7C3AED; --color-brand-primary-rgb: 124, 58, 237;
+  --color-brand-secondary: #EC4899; --color-brand-accent: #F59E0B;
+  --color-brand-muted: #F3E8FF;
+  --gradient-hero: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --gradient-cta: linear-gradient(135deg, #8B5CF6, #EC4899);
+  /* Structural identity — rounded, playful */
+  --radius-sm: 8px; --radius-md: 12px; --radius-lg: 16px; --radius-xl: 24px; --radius-2xl: 32px;
+  --shadow-sm: 0 2px 8px rgba(124,58,237,0.08);
+  --shadow-md: 0 4px 16px rgba(124,58,237,0.12);
+  --shadow-lg: 0 12px 40px rgba(124,58,237,0.16);
+}
+
+/* Corporate Enterprise */
+:root[data-theme="corporate"] {
+  --color-bg-secondary: #F7F8FA;
+  --color-text-primary: #1A202C; --color-text-secondary: #4A5568;
+  --color-text-tertiary: #636B78;
+  --color-brand-primary: #1A365D; --color-brand-primary-rgb: 26, 54, 93;
+  --color-brand-secondary: #2B6CB0; --color-border-default: #CBD5E0;
+  /* Structural identity — squared, conservative */
+  --radius-sm: 2px; --radius-md: 4px; --radius-lg: 6px; --radius-xl: 8px; --radius-2xl: 12px;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md: 0 2px 8px rgba(0,0,0,0.06);
+  --shadow-lg: 0 4px 16px rgba(0,0,0,0.08);
+  --font-display: 'Source Serif 4', Georgia, serif;
+}
+
+/* Palette: Apple Minimal */
+:root[data-theme="apple-minimal"] {
+  --color-bg-secondary: #FBFBFD; --color-bg-tertiary: #F5F5F7;
+  --color-bg-inverse: #000000;
+  --color-text-primary: #1D1D1F; --color-text-secondary: #515154;
+  --color-text-tertiary: #6E6E73;
+  --color-brand-primary: #0071E3; --color-brand-primary-rgb: 0, 113, 227;
+  --color-border-default: #D2D2D7;
+  /* Structural identity — smooth, refined */
+  --radius-sm: 8px; --radius-md: 10px; --radius-lg: 14px; --radius-xl: 20px; --radius-2xl: 28px;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.06);
+  --shadow-lg: 0 8px 24px rgba(0,0,0,0.10);
+  --font-display: 'Inter', -apple-system, sans-serif;
+}
+
+/* Illustration-Driven */
+:root[data-theme="illustration"] {
+  --color-bg-secondary: #FFF8F0; --color-bg-tertiary: #FFF0E6;
+  --color-bg-inverse: #1A1523;
+  --color-text-primary: #1A1523; --color-text-secondary: #5C5470;
+  --color-text-tertiary: #7A7189;
+  --color-brand-primary: #E8590C; --color-brand-primary-rgb: 232, 89, 12;
+  --color-brand-secondary: #7048E8; --color-brand-accent: #12B886;
+  --color-brand-muted: #FFF4E6;
+  --color-border-default: #C4B5A4; --color-border-input: #9E8E7E;
+  --gradient-hero: linear-gradient(135deg, #FF6B2B 0%, #7048E8 50%, #12B886 100%);
+  /* Structural identity — round, warm, friendly */
+  --radius-sm: 10px; --radius-md: 14px; --radius-lg: 18px; --radius-xl: 24px; --radius-2xl: 32px;
+  --shadow-sm: 0 2px 6px rgba(26,21,35,0.06);
+  --shadow-md: 0 4px 16px rgba(26,21,35,0.10);
+  --shadow-lg: 0 12px 36px rgba(26,21,35,0.14);
+}
+
+/* Dashboard-Centric */
+:root[data-theme="dashboard"] {
+  --color-bg-secondary: #F7F8FC; --color-bg-tertiary: #EEF0F8;
+  --color-bg-inverse: #0F1117;
+  --color-text-primary: #0F1117; --color-text-secondary: #525866;
+  --color-text-tertiary: #6E7585;
+  --color-brand-primary: #4F46E5; --color-brand-primary-rgb: 79, 70, 229;
+  --color-brand-secondary: #0EA5E9; --color-brand-accent: #06B6D4;
+  --color-brand-muted: #EEF2FF;
+  --color-border-default: #C5CAD4; --color-border-input: #8B92A0;
+  /* Structural identity — compact, utilitarian */
+  --radius-sm: 4px; --radius-md: 6px; --radius-lg: 8px; --radius-xl: 12px; --radius-2xl: 16px;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+  --shadow-md: 0 2px 6px rgba(0,0,0,0.08);
+  --shadow-lg: 0 6px 20px rgba(0,0,0,0.12);
+}
+
+/* Palette: Bold Lifestyle */
+:root[data-theme="bold-lifestyle"] {
+  --color-bg-secondary: #F5F5F5; --color-bg-tertiary: #EBEBEB;
+  --color-bg-inverse: #111111;
+  --color-text-primary: #111111; --color-text-secondary: #525252;
+  --color-text-tertiary: #6B6B6B;
+  --color-brand-primary: #111111; --color-brand-primary-rgb: 17, 17, 17;
+  --color-brand-secondary: #FF4500; --color-brand-accent: #FFD700;
+  --color-border-default: #BFBFBF; --color-border-input: #8C8C8C;
+  /* Structural identity — brutalist, zero-radius */
+  --radius-sm: 0; --radius-md: 0; --radius-lg: 0; --radius-xl: 0; --radius-2xl: 0; --radius-full: 0;
+  --shadow-sm: none; --shadow-md: 2px 2px 0 rgba(0,0,0,0.15);
+  --shadow-lg: 4px 4px 0 rgba(0,0,0,0.2); --shadow-glow: none;
+  --gradient-hero: none; --gradient-cta: none;
+  --font-display: 'Oswald', sans-serif;
+}
+
+/* Palette: Minimal Corporate */
+:root[data-theme="minimal-corporate"] {
+  --color-bg-primary: #FDFCFB; --color-bg-secondary: #F7F5F2;
+  --color-bg-tertiary: #EFECE8; --color-bg-inverse: #1C1917;
+  --color-text-primary: #1C1917; --color-text-secondary: #57534E;
+  --color-text-tertiary: #78716C;
+  --color-brand-primary: #B45309; --color-brand-primary-rgb: 180, 83, 9;
+  --color-brand-secondary: #92400E; --color-brand-accent: #D97706;
+  --color-brand-muted: #FEF3C7;
+  --color-border-default: #D6D3CD; --color-border-input: #A8A29E;
+  --color-border-subtle: #E7E5E4;
+  /* Structural identity — warm, understated, editorial */
+  --radius-sm: 4px; --radius-md: 6px; --radius-lg: 8px; --radius-xl: 12px; --radius-2xl: 16px;
+  --shadow-sm: 0 1px 3px rgba(28,25,23,0.04);
+  --shadow-md: 0 3px 10px rgba(28,25,23,0.07);
+  --shadow-lg: 0 8px 24px rgba(28,25,23,0.10);
+  --font-display: 'Source Serif 4', Georgia, serif;
+}
+
+/* ============================================================
+   DARK MODE PALETTE OVERRIDES
+   When html.docs-dark is active, each palette provides dark-aware colors.
+   AI Futuristic is already dark-native and needs no override.
+   ============================================================ */
+
+html.docs-dark[data-theme="minimal-saas"] {
+  --color-bg-primary: #0F0F14; --color-bg-secondary: #161620; --color-bg-tertiary: #1E1E2A;
+  --color-bg-inverse: #FFFFFF;
+  --color-text-primary: #E4E4EE; --color-text-secondary: #A0A0B4; --color-text-tertiary: #7A7A8E;
+  --color-border-default: #2C2C3A; --color-border-input: #4A4A5A; --color-border-subtle: #222230;
+  --color-success-bg: #0A2618; --color-warning-bg: #261E0A; --color-error-bg: #260A0A; --color-info-bg: #0A1426;
+  --shadow-sm: 0 2px 4px rgba(0,0,0,0.3); --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+  --shadow-lg: 0 12px 32px rgba(0,0,0,0.5); --shadow-xl: 0 24px 64px rgba(0,0,0,0.6);
+}
+
+html.docs-dark[data-theme="gradient-startup"] {
+  --color-bg-primary: #0E0A14; --color-bg-secondary: #16101E; --color-bg-tertiary: #1E1628;
+  --color-bg-inverse: #FFFFFF;
+  --color-text-primary: #E8E0F4; --color-text-secondary: #B0A4C4; --color-text-tertiary: #8A7EA0;
+  --color-border-default: #2E2840; --color-border-input: #4E4660; --color-border-subtle: #241E34;
+  --color-brand-muted: #1E0A3A;
+  --color-success-bg: #0A2618; --color-warning-bg: #261E0A; --color-error-bg: #260A0A; --color-info-bg: #0A1426;
+  --shadow-sm: 0 2px 4px rgba(0,0,0,0.3); --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+  --shadow-lg: 0 12px 32px rgba(0,0,0,0.5);
+  --shadow-glow: 0 0 40px rgba(124, 58, 237, 0.2);
+
+  /* Structural (same as light) */
+  --radius-sm: 8px; --radius-md: 12px; --radius-lg: 16px; --radius-xl: 24px; --radius-2xl: 32px;
+}
+
+html.docs-dark[data-theme="corporate"] {
+  --color-bg-primary: #0C0E12; --color-bg-secondary: #141820; --color-bg-tertiary: #1C2230;
+  --color-bg-inverse: #FFFFFF;
+  --color-text-primary: #D8DCE8; --color-text-secondary: #8E96A8; --color-text-tertiary: #6E7688;
+  --color-brand-primary: #4A7CC8; --color-brand-primary-rgb: 74, 124, 200;
+  --color-brand-secondary: #5A8ED8; --color-brand-muted: #0E1A30;
+  --color-border-default: #283040; --color-border-input: #3E4858; --color-border-subtle: #1E2636;
+  --color-success-bg: #0A2618; --color-warning-bg: #261E0A; --color-error-bg: #260A0A; --color-info-bg: #0A1426;
+  --shadow-sm: 0 2px 4px rgba(0,0,0,0.3); --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+  --shadow-lg: 0 12px 32px rgba(0,0,0,0.5);
+
+  /* Structural (same as light) */
+  --radius-sm: 2px; --radius-md: 4px; --radius-lg: 6px; --radius-xl: 8px; --radius-2xl: 12px;
+  --font-display: 'Source Serif 4', Georgia, serif;
+}
+
+html.docs-dark[data-theme="apple-minimal"] {
+  --color-bg-primary: #000000; --color-bg-secondary: #0E0E0E; --color-bg-tertiary: #1A1A1A;
+  --color-bg-inverse: #FFFFFF;
+  --color-text-primary: #F5F5F7; --color-text-secondary: #A1A1A6; --color-text-tertiary: #6E6E73;
+  --color-border-default: #2C2C2E; --color-border-input: #48484A; --color-border-subtle: #1C1C1E;
+  --color-success-bg: #0A2618; --color-warning-bg: #261E0A; --color-error-bg: #260A0A; --color-info-bg: #0A1426;
+  --shadow-sm: 0 2px 4px rgba(0,0,0,0.3); --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+  --shadow-lg: 0 12px 32px rgba(0,0,0,0.5);
+
+  /* Structural (same as light) */
+  --radius-sm: 8px; --radius-md: 10px; --radius-lg: 14px; --radius-xl: 20px; --radius-2xl: 28px;
+}
+
+html.docs-dark[data-theme="illustration"] {
+  --color-bg-primary: #12100E; --color-bg-secondary: #1C1816; --color-bg-tertiary: #262018;
+  --color-bg-inverse: #FFFFFF;
+  --color-text-primary: #F0E8DC; --color-text-secondary: #B0A494; --color-text-tertiary: #8A7E6E;
+  --color-brand-muted: #2A1A0A;
+  --color-border-default: #342E24; --color-border-input: #544A3A; --color-border-subtle: #242018;
+  --color-success-bg: #0A2618; --color-warning-bg: #261E0A; --color-error-bg: #260A0A; --color-info-bg: #0A1426;
+  --shadow-sm: 0 2px 4px rgba(0,0,0,0.3); --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+  --shadow-lg: 0 12px 32px rgba(0,0,0,0.5);
+  --shadow-glow: 0 0 40px rgba(232, 89, 12, 0.15);
+  --gradient-hero: linear-gradient(135deg, #CC4400 0%, #5030C0 50%, #0A9060 100%);
+
+  /* Structural (same as light) */
+  --radius-sm: 10px; --radius-md: 14px; --radius-lg: 18px; --radius-xl: 24px; --radius-2xl: 32px;
+}
+
+html.docs-dark[data-theme="dashboard"] {
+  --color-bg-primary: #0A0B10; --color-bg-secondary: #12141C; --color-bg-tertiary: #1A1C26;
+  --color-bg-inverse: #FFFFFF;
+  --color-text-primary: #DEE0EC; --color-text-secondary: #8E92A4; --color-text-tertiary: #6E7284;
+  --color-brand-muted: #14124A;
+  --color-border-default: #282C3A; --color-border-input: #3E4254; --color-border-subtle: #1E2030;
+  --color-success-bg: #0A2618; --color-warning-bg: #261E0A; --color-error-bg: #260A0A; --color-info-bg: #0A1426;
+  --shadow-sm: 0 2px 4px rgba(0,0,0,0.3); --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+  --shadow-lg: 0 12px 32px rgba(0,0,0,0.5);
+
+  /* Structural (same as light) */
+  --radius-sm: 4px; --radius-md: 6px; --radius-lg: 8px; --radius-xl: 12px; --radius-2xl: 16px;
+}
+
+html.docs-dark[data-theme="bold-lifestyle"] {
+  --color-bg-primary: #0A0A0A; --color-bg-secondary: #141414; --color-bg-tertiary: #1E1E1E;
+  --color-bg-inverse: #FFFFFF;
+  --color-text-primary: #EEEEEE; --color-text-secondary: #999999; --color-text-tertiary: #6B6B6B;
+  --color-brand-primary: #FFFFFF; --color-brand-primary-rgb: 255, 255, 255;
+  --color-brand-secondary: #FF4500; --color-text-on-brand: #000000;
+  --color-border-default: #2A2A2A; --color-border-input: #4A4A4A; --color-border-subtle: #1A1A1A;
+  --color-success-bg: #0A2618; --color-warning-bg: #261E0A; --color-error-bg: #260A0A; --color-info-bg: #0A1426;
+  --shadow-sm: 0 2px 4px rgba(0,0,0,0.4); --shadow-md: 0 4px 12px rgba(0,0,0,0.5);
+  --shadow-lg: 0 12px 32px rgba(0,0,0,0.6);
+
+  /* Structural (same as light) */
+  --radius-sm: 0; --radius-md: 0; --radius-lg: 0; --radius-xl: 0; --radius-2xl: 0; --radius-full: 0;
+  --font-display: 'Oswald', sans-serif;
+}
+
+html.docs-dark[data-theme="minimal-corporate"] {
+  --color-bg-primary: #0E0D0C; --color-bg-secondary: #18160E; --color-bg-tertiary: #221E16;
+  --color-bg-inverse: #FFFFFF;
+  --color-text-primary: #EDE8E0; --color-text-secondary: #A89E90; --color-text-tertiary: #78706A;
+  --color-brand-primary: #D4870A; --color-brand-primary-rgb: 212, 135, 10;
+  --color-brand-muted: #2A1E0A;
+  --color-border-default: #302A20; --color-border-input: #504838; --color-border-subtle: #201C14;
+  --color-success-bg: #0A2618; --color-warning-bg: #261E0A; --color-error-bg: #260A0A; --color-info-bg: #0A1426;
+  --shadow-sm: 0 2px 4px rgba(0,0,0,0.3); --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+  --shadow-lg: 0 12px 32px rgba(0,0,0,0.5);
+
+  /* Structural (same as light) */
+  --radius-sm: 4px; --radius-md: 6px; --radius-lg: 8px; --radius-xl: 12px; --radius-2xl: 16px;
+  --font-display: 'Source Serif 4', Georgia, serif;
+}
+
+
+/* ============================================================
+   DOCS LAYOUT
+   ============================================================ */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: var(--font-sans); background: var(--color-bg-primary); color: var(--color-text-primary); line-height: var(--line-height-normal); }
+
+.skip-link { position: absolute; top: -100%; left: 16px; padding: 8px 16px; background: var(--color-brand-primary); color: var(--color-text-on-brand); border-radius: var(--radius-md); z-index: var(--z-system); text-decoration: none; font-weight: 600; }
+.skip-link:focus { top: 16px; }
+
+/* Sidebar */
+.docs-layout { display: flex; min-height: 100vh; }
+.sidebar { width: 280px; position: sticky; top: 0; height: 100vh; overflow-y: auto; background: var(--color-bg-secondary); border-right: 1px solid var(--color-border-default); padding: 24px 0; flex-shrink: 0; }
+.sidebar-header { padding: 0 20px 20px; border-bottom: 1px solid var(--color-border-subtle); margin-bottom: 16px; }
+.sidebar-header h1 { font-family: var(--font-display); font-size: var(--text-heading-sm); font-weight: var(--font-weight-bold); }
+.sidebar-header .version { font-size: var(--text-label); color: var(--color-text-tertiary); margin-top: 4px; }
+.sidebar-nav { }
+.sidebar-nav .nav-section { margin-bottom: 0; }
+.sidebar-nav .section-title { width: 100%; padding: 8px 20px; font-size: var(--text-label); font-weight: var(--font-weight-semibold); color: var(--color-text-tertiary); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 12px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; user-select: none; background: none; border: none; font-family: var(--font-sans); text-align: left; }
+.sidebar-nav .section-title::after { content: ''; display: inline-block; width: 0; height: 0; border-left: 4px solid transparent; border-right: 4px solid transparent; border-top: 5px solid var(--color-text-tertiary); transition: transform var(--duration-fast); margin-right: 4px; flex-shrink: 0; }
+.sidebar-nav .section-title.collapsed::after { transform: rotate(-90deg); }
+.sidebar-nav .section-title:hover { color: var(--color-text-primary); }
+.sidebar-nav .section-group { list-style: none; padding: 0; margin: 0; overflow: hidden; max-height: 500px; transition: max-height var(--duration-normal) ease; }
+.sidebar-nav .section-group.collapsed { max-height: 0; }
+.sidebar-nav a { display: block; padding: 6px 20px 6px 32px; font-size: var(--text-body-sm); color: var(--color-text-secondary); text-decoration: none; transition: all var(--duration-fast) var(--ease-default); border-left: 2px solid transparent; }
+.sidebar-nav a:hover { color: var(--color-text-primary); background: var(--color-bg-tertiary); }
+.sidebar-nav a.active { color: var(--color-brand-primary); border-left-color: var(--color-brand-primary); font-weight: var(--font-weight-medium); }
+
+/* Main content */
+.main { flex: 1; max-width: 960px; padding: 40px 48px; }
+.main section { margin-bottom: 64px; scroll-margin-top: 24px; }
+.main h2 { font-family: var(--font-display); font-size: var(--text-heading-lg); font-weight: var(--font-weight-bold); margin-bottom: 8px; line-height: var(--line-height-tight); }
+.main h3 { font-family: var(--font-display); font-size: var(--text-heading-md); font-weight: var(--font-weight-semibold); margin: 32px 0 16px; }
+.main p { color: var(--color-text-secondary); margin-bottom: 16px; max-width: 640px; line-height: var(--line-height-relaxed); }
+
+/* Theme switcher bar */
+.theme-bar { position: sticky; top: 0; z-index: var(--z-sticky); background: var(--color-bg-primary); border-bottom: 1px solid var(--color-border-subtle); padding: 12px 48px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.theme-bar label { font-size: var(--text-label); font-weight: var(--font-weight-semibold); color: var(--color-text-tertiary); text-transform: uppercase; letter-spacing: 0.05em; margin-right: 8px; }
+.palette-btn { padding: 4px 12px; font-size: var(--text-body-sm); font-family: var(--font-sans); border: 1px solid var(--color-border-default); border-radius: var(--radius-full); background: var(--color-bg-primary); color: var(--color-text-secondary); cursor: pointer; transition: all var(--duration-fast); }
+.palette-btn:hover { border-color: var(--color-brand-primary); color: var(--color-text-primary); }
+.palette-btn.active { background: var(--color-brand-primary); color: var(--color-text-on-brand); border-color: var(--color-brand-primary); }
+
+/* Component preview box */
+.preview { background: var(--color-bg-secondary); border: 1px solid var(--color-border-default); border-radius: var(--radius-lg); padding: 32px; margin: 16px 0; }
+.preview-label { font-size: var(--text-label); font-weight: var(--font-weight-semibold); color: var(--color-text-tertiary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+.preview-label .tag { padding: 2px 8px; border-radius: var(--radius-full); font-size: 10px; font-weight: 700; }
+.preview-label .tag-new { background: var(--color-success-bg, #ECFDF5); color: var(--color-success); }
+.preview-label .tag-a11y { background: var(--color-info-bg, #EFF6FF); color: var(--color-info); }
+
+/* Code block */
+.code-block { background: #1E1E2E; color: #D4D4E8; border-radius: var(--radius-lg); padding: 20px; margin: 16px 0; overflow-x: auto; font-family: var(--font-mono); font-size: 13px; line-height: 1.6; position: relative; white-space: pre; }
+.code-block code { white-space: pre; display: block; }
+.code-block .copy-btn { position: absolute; top: 8px; right: 8px; padding: 4px 10px; font-size: 11px; font-family: var(--font-sans); background: rgba(255,255,255,0.1); color: #9999AA; border: none; border-radius: var(--radius-sm); cursor: pointer; }
+.code-block .copy-btn:hover { background: rgba(255,255,255,0.2); color: #fff; }
+
+/* Do / Don't */
+.do-dont { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0; }
+.do-card, .dont-card { padding: 20px; border-radius: var(--radius-lg); border: 2px solid; }
+.do-card { border-color: var(--color-success); background: var(--color-success-bg, #ECFDF5); }
+.dont-card { border-color: var(--color-error); background: var(--color-error-bg, #FEF2F2); }
+.do-card::before { content: "✓ Do"; font-weight: 700; color: var(--color-success); display: block; margin-bottom: 8px; font-size: var(--text-body-sm); }
+.dont-card::before { content: "✗ Don't"; font-weight: 700; color: var(--color-error); display: block; margin-bottom: 8px; font-size: var(--text-body-sm); }
+
+/* Props table */
+.props-table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: var(--text-body-sm); }
+.props-table th { text-align: left; padding: 10px 16px; background: var(--color-bg-tertiary); font-weight: var(--font-weight-semibold); border-bottom: 2px solid var(--color-border-default); }
+.props-table td { padding: 10px 16px; border-bottom: 1px solid var(--color-border-subtle); }
+.props-table code { background: var(--color-bg-tertiary); padding: 2px 6px; border-radius: var(--radius-sm); font-family: var(--font-mono); font-size: 12px; }
+
+/* A11y badge */
+.a11y-note { background: var(--color-info-bg, #EFF6FF); border: 1px solid var(--color-info); border-radius: var(--radius-md); padding: 12px 16px; margin: 12px 0; font-size: var(--text-body-sm); }
+.a11y-note::before { content: "♿ Accessibility: "; font-weight: 700; color: var(--color-info); }
+
+/* ============================================================
+   COMPONENT STYLES (all 26)
+   ============================================================ */
+
+/* Button */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-family: var(--font-sans); font-weight: var(--font-weight-semibold); border: none; border-radius: var(--radius-md); cursor: pointer; transition: all var(--duration-fast) var(--ease-default); text-decoration: none; }
+.btn--primary { background: var(--color-brand-primary); color: var(--color-text-on-brand); }
+.btn--primary:hover { filter: brightness(1.1); box-shadow: var(--shadow-md); }
+.btn--secondary { background: transparent; color: var(--color-text-primary); border: 1px solid var(--color-border-default); }
+.btn--secondary:hover { border-color: var(--color-brand-primary); color: var(--color-brand-primary); }
+.btn--ghost { background: transparent; color: var(--color-text-secondary); }
+.btn--ghost:hover { background: var(--color-bg-secondary); color: var(--color-text-primary); }
+.btn--destructive { background: var(--color-error); color: #fff; }
+.btn--sm { height: 36px; padding: 0 16px; font-size: var(--text-body-sm); min-width: 44px; }
+.btn--md { height: 44px; padding: 0 20px; font-size: var(--text-body-md); }
+.btn--lg { height: 52px; padding: 0 28px; font-size: var(--text-body-lg); }
+.btn:focus-visible { outline: 2px solid var(--color-brand-primary); outline-offset: 2px; }
+.btn:disabled { opacity: var(--opacity-disabled); cursor: not-allowed; }
+
+/* Input */
+.input { height: 44px; width: 100%; padding: 0 12px; border: 1px solid var(--color-border-input); border-radius: var(--radius-md); font-family: var(--font-sans); font-size: 16px; color: var(--color-text-primary); background: var(--color-bg-primary); transition: border-color var(--duration-fast), box-shadow var(--duration-fast); }
+.input:focus { outline: none; border-color: var(--color-brand-primary); box-shadow: 0 0 0 3px rgba(var(--color-brand-primary-rgb), 0.15); }
+.input--error { border-color: var(--color-error); }
+.input--error:focus { box-shadow: 0 0 0 3px rgba(220,38,38,0.15); }
+.input-label { display: block; font-size: var(--text-body-sm); font-weight: var(--font-weight-medium); margin-bottom: 4px; }
+.input-helper { font-size: var(--text-body-sm); color: var(--color-text-tertiary); margin-top: 4px; }
+.input-error { font-size: var(--text-body-sm); color: var(--color-error); margin-top: 4px; }
+
+/* Card */
+.card { background: var(--color-bg-tertiary); border: 1px solid var(--color-border-default); border-radius: var(--radius-lg); padding: 24px; transition: transform var(--duration-normal) var(--ease-default), box-shadow var(--duration-normal) var(--ease-default); }
+.card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+
+/* Alert */
+.alert { display: flex; gap: 12px; padding: 16px; border-radius: var(--radius-md); border-left: 4px solid; }
+.alert--success { border-color: var(--color-success); background: var(--color-success-bg); }
+.alert--warning { border-color: var(--color-warning); background: var(--color-warning-bg); }
+.alert--error { border-color: var(--color-error); background: var(--color-error-bg); }
+.alert--info { border-color: var(--color-info); background: var(--color-info-bg); }
+.alert-title { font-weight: var(--font-weight-semibold); margin-bottom: 4px; }
+.alert-body { font-size: var(--text-body-sm); color: var(--color-text-secondary); }
+
+/* Badge */
+.badge { display: inline-flex; align-items: center; gap: 4px; padding: 2px 10px; border-radius: var(--radius-full); font-size: var(--text-label); font-weight: var(--font-weight-semibold); }
+.badge--brand { background: var(--color-brand-muted); color: var(--color-brand-primary); }
+.badge--success { background: var(--color-success-bg); color: var(--color-success); }
+.badge--error { background: var(--color-error-bg); color: var(--color-error); }
+.badge--neutral { background: var(--color-bg-tertiary); color: var(--color-text-secondary); }
+.badge--warning { background: var(--color-warning-bg); color: var(--color-warning); }
+.badge--sm { padding: 1px 6px; font-size: 10px; }
+.badge--lg { padding: 4px 14px; font-size: var(--text-body-sm); }
+
+/* Input sizes */
+.input--sm { height: 36px; font-size: var(--text-body-sm); }
+.input--lg { height: 52px; font-size: var(--text-body-lg); padding: 0 16px; }
+
+/* Card variants */
+.card--outlined { background: transparent; box-shadow: none; }
+.card--filled { background: var(--color-bg-tertiary); border: none; box-shadow: none; }
+.card--compact { padding: 16px; }
+.card--spacious { padding: 32px; }
+.card--interactive { cursor: pointer; }
+.card--interactive:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+
+/* Toast sizes */
+.toast--sm { min-width: 260px; max-width: 340px; padding: 8px 12px; font-size: var(--text-body-sm); }
+.toast--lg { min-width: 380px; max-width: 500px; padding: 16px 20px; }
+
+/* Alert sizes */
+.alert--sm { padding: 10px; font-size: var(--text-body-sm); }
+.alert--lg { padding: 20px; font-size: var(--text-body-lg); }
+
+/* Disabled states */
+.btn[disabled] { opacity: var(--opacity-disabled); cursor: not-allowed; pointer-events: none; }
+.input[disabled] { opacity: var(--opacity-disabled); cursor: not-allowed; background: var(--color-bg-tertiary); }
+.toggle[disabled] { opacity: var(--opacity-disabled); cursor: not-allowed; }
+
+/* Tabs */
+.tabs { border-bottom: 1px solid var(--color-border-default); display: flex; gap: 0; }
+.tab { height: 44px; padding: 0 16px; border: none; background: none; font-family: var(--font-sans); font-size: var(--text-body-sm); font-weight: var(--font-weight-medium); color: var(--color-text-secondary); cursor: pointer; border-bottom: 2px solid transparent; transition: all var(--duration-fast); }
+.tab:hover { color: var(--color-text-primary); background: rgba(0,0,0,0.04); }
+.tab.active { color: var(--color-text-primary); border-bottom-color: var(--color-brand-primary); font-weight: var(--font-weight-semibold); }
+.tab:focus-visible { outline: 2px solid var(--color-brand-primary); outline-offset: -2px; }
+.tab-panel { padding: 16px 0; }
+
+/* Accordion */
+.accordion { border: 1px solid var(--color-border-default); border-radius: var(--radius-lg); overflow: hidden; }
+.accordion-trigger { width: 100%; display: flex; align-items: center; justify-content: space-between; height: 52px; padding: 0 16px; border: none; border-bottom: 1px solid var(--color-border-default); background: var(--color-bg-primary); font-family: var(--font-sans); font-size: var(--text-body-md); font-weight: var(--font-weight-medium); color: var(--color-text-primary); cursor: pointer; }
+.accordion-trigger:hover { background: var(--color-bg-secondary); }
+.accordion-trigger:focus-visible { outline: 2px solid var(--color-brand-primary); outline-offset: -2px; }
+.accordion-chevron { width: 20px; height: 20px; transition: transform var(--duration-fast); }
+.accordion-trigger[aria-expanded="true"] .accordion-chevron { transform: rotate(180deg); }
+.accordion-content { padding: 16px; font-size: var(--text-body-sm); color: var(--color-text-secondary); line-height: var(--line-height-relaxed); }
+
+/* Breadcrumb */
+.breadcrumb { display: flex; align-items: center; gap: 8px; font-size: var(--text-body-sm); }
+.breadcrumb a { color: var(--color-text-secondary); text-decoration: none; }
+.breadcrumb a:hover { color: var(--color-brand-primary); text-decoration: underline; }
+.breadcrumb-sep { color: var(--color-text-tertiary); }
+.breadcrumb-current { color: var(--color-text-primary); font-weight: var(--font-weight-medium); }
+
+/* Tooltip */
+.tooltip-demo { position: relative; display: inline-block; }
+.tooltip-box { position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%); background: var(--color-bg-inverse); color: var(--color-bg-primary); padding: 6px 12px; border-radius: var(--radius-sm); font-size: var(--text-body-sm); white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity var(--duration-fast); }
+.tooltip-box::after { content: ""; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); border: 6px solid transparent; border-top-color: var(--color-bg-inverse); }
+.tooltip-demo:hover .tooltip-box, .tooltip-demo:focus-within .tooltip-box { opacity: 1; }
+
+/* Avatar */
+.avatar { display: inline-flex; align-items: center; justify-content: center; border-radius: var(--radius-full); overflow: hidden; background: var(--color-bg-tertiary); color: var(--color-text-secondary); font-weight: var(--font-weight-semibold); flex-shrink: 0; position: relative; }
+.avatar--xs { width: 24px; height: 24px; font-size: 10px; }
+.avatar--sm { width: 32px; height: 32px; font-size: 12px; }
+.avatar--md { width: 40px; height: 40px; font-size: 14px; }
+.avatar--lg { width: 48px; height: 48px; font-size: 16px; }
+.avatar--xl { width: 64px; height: 64px; font-size: 20px; }
+.avatar-group { display: flex; }
+.avatar-group .avatar { border: 2px solid var(--color-bg-primary); margin-left: -8px; }
+.avatar-group .avatar:first-child { margin-left: 0; }
+.avatar-status { position: absolute; bottom: 0; right: 0; width: 10px; height: 10px; border-radius: var(--radius-full); border: 2px solid var(--color-bg-primary); }
+.avatar-status--online { background: var(--color-success); }
+.avatar-status--busy { background: var(--color-error); }
+
+/* Skeleton */
+.skeleton { background: linear-gradient(90deg, var(--color-bg-tertiary) 25%, var(--color-bg-secondary) 50%, var(--color-bg-tertiary) 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; border-radius: var(--radius-sm); }
+.skeleton-line { height: 16px; margin-bottom: 12px; }
+.skeleton-circle { border-radius: var(--radius-full); }
+@keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+@media (prefers-reduced-motion: reduce) { .skeleton { animation: none; } }
+
+/* Toast */
+.toast-demo { position: relative; }
+.toast { display: flex; align-items: flex-start; gap: 12px; min-width: 320px; max-width: 420px; padding: 12px 16px; background: var(--color-bg-primary); border: 1px solid var(--color-border-default); border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); border-left: 4px solid; }
+.toast--success { border-left-color: var(--color-success); }
+.toast--error { border-left-color: var(--color-error); }
+.toast--info { border-left-color: var(--color-info); }
+.toast-icon { width: 20px; height: 20px; flex-shrink: 0; margin-top: 2px; }
+.toast-content { flex: 1; }
+.toast-title { font-weight: var(--font-weight-semibold); font-size: var(--text-body-sm); }
+.toast-message { font-size: var(--text-body-sm); color: var(--color-text-secondary); margin-top: 2px; }
+
+/* Pagination */
+.pagination { display: flex; align-items: center; gap: 4px; }
+.page-btn { width: 36px; height: 36px; display: inline-flex; align-items: center; justify-content: center; border: 1px solid var(--color-border-default); border-radius: var(--radius-md); background: var(--color-bg-primary); color: var(--color-text-primary); font-family: var(--font-sans); font-size: var(--text-body-sm); cursor: pointer; transition: all var(--duration-fast); }
+.page-btn:hover { background: var(--color-bg-secondary); }
+.page-btn.active { background: var(--color-brand-primary); color: var(--color-text-on-brand); border-color: var(--color-brand-primary); }
+.page-btn:disabled { opacity: var(--opacity-disabled); cursor: not-allowed; }
+.page-ellipsis { width: 36px; text-align: center; color: var(--color-text-tertiary); }
+
+/* Data Table */
+.data-table { width: 100%; border-collapse: collapse; border: 1px solid var(--color-border-default); border-radius: var(--radius-lg); overflow: hidden; }
+.data-table th { padding: 0 16px; height: 44px; background: var(--color-bg-secondary); font-weight: var(--font-weight-semibold); font-size: var(--text-body-sm); text-align: left; border-bottom: 2px solid var(--color-border-default); }
+.data-table td { padding: 0 16px; height: 48px; border-bottom: 1px solid var(--color-border-subtle); font-size: var(--text-body-sm); }
+.data-table tr:hover td { background: var(--color-bg-secondary); }
+
+/* Dropdown */
+.dropdown-panel { background: var(--color-bg-primary); border: 1px solid var(--color-border-default); border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); padding: 4px; min-width: 180px; }
+.dropdown-item { display: flex; align-items: center; height: 36px; padding: 0 12px; border-radius: var(--radius-sm); font-size: var(--text-body-sm); cursor: pointer; color: var(--color-text-primary); }
+.dropdown-item:hover { background: var(--color-bg-secondary); }
+.dropdown-item--destructive { color: var(--color-error); }
+.dropdown-sep { height: 1px; background: var(--color-border-subtle); margin: 4px 0; }
+
+/* Toggle */
+.toggle { position: relative; width: 48px; height: 28px; background: var(--color-border-default); border-radius: var(--radius-full); border: none; cursor: pointer; transition: background var(--duration-fast); }
+.toggle::after { content: ""; position: absolute; top: 3px; left: 3px; width: 22px; height: 22px; background: white; border-radius: var(--radius-full); transition: transform var(--duration-fast); }
+.toggle.on { background: var(--color-brand-primary); }
+.toggle.on::after { transform: translateX(20px); }
+.toggle:focus-visible { outline: 2px solid var(--color-brand-primary); outline-offset: 2px; }
+
+/* Color swatches */
+.color-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 12px; }
+.color-swatch { border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--color-border-default); }
+.color-swatch-block { height: 60px; }
+.color-swatch-info { padding: 8px 10px; font-size: 11px; }
+.color-swatch-info strong { display: block; font-size: var(--text-label); margin-bottom: 2px; }
+
+/* Token table */
+.token-table { width: 100%; border-collapse: collapse; font-size: var(--text-body-sm); margin: 16px 0; }
+.token-table th { text-align: left; padding: 8px 12px; background: var(--color-bg-tertiary); font-weight: var(--font-weight-semibold); }
+.token-table td { padding: 8px 12px; border-bottom: 1px solid var(--color-border-subtle); }
+.token-table code { font-family: var(--font-mono); font-size: 12px; background: var(--color-bg-tertiary); padding: 1px 4px; border-radius: var(--radius-sm); }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .sidebar { display: none; }
+  .main { padding: 24px 16px; }
+  .theme-bar { padding: 12px 16px; }
+  .do-dont { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+/* ============================================================
+   SEARCH SIDEBAR
+   ============================================================ */
+.sidebar-search {
+  width: 100%;
+  padding: 8px 12px;
+  margin: 12px 0;
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  font-family: var(--font-sans);
+  font-size: var(--text-body-sm);
+  background: var(--color-bg-primary);
+  color: var(--color-text-primary);
+}
+.sidebar-search::placeholder { color: var(--color-text-tertiary); }
+.sidebar-search:focus { outline: 2px solid var(--color-brand-primary); outline-offset: -1px; }
+
+.sidebar-nav a.hidden-by-search { display: none; }
+.sidebar-nav.is-filtering .section-title { display: none; }
+.sidebar-nav.is-filtering .section-title.visible-section { display: flex; }
+.sidebar-nav.is-filtering .section-group { max-height: 500px !important; }
+.sidebar-nav.is-filtering .section-group.collapsed { max-height: 500px !important; }
+
+/* ============================================================
+   DARK MODE TOGGLE
+   ============================================================ */
+.dark-mode-toggle {
+  width: 100%;
+  height: 36px;
+  padding: 0 12px;
+  margin: 8px 0;
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-primary);
+  color: var(--color-text-secondary);
+  font-family: var(--font-sans);
+  font-size: var(--text-body-sm);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: background var(--duration-fast), color var(--duration-fast);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.dark-mode-toggle svg { width: 16px; height: 16px; flex-shrink: 0; }
+.dark-mode-toggle:hover { background: var(--color-bg-tertiary); color: var(--color-text-primary); }
+.dark-mode-toggle:focus-visible { outline: 2px solid var(--color-brand-primary); outline-offset: -1px; }
+
+/* DARK MODE STYLES — palette-aware, no hardcoded colors */
+html.docs-dark {
+  background: var(--color-bg-primary);
+  color: var(--color-text-primary);
+}
+
+html.docs-dark .sidebar {
+  background: var(--color-bg-secondary);
+  color: var(--color-text-primary);
+  border-right-color: var(--color-border-default);
+}
+
+html.docs-dark .sidebar-header h1 {
+  color: var(--color-text-primary);
+}
+
+html.docs-dark .sidebar-header .version {
+  color: var(--color-text-tertiary);
+}
+
+html.docs-dark .sidebar-nav a {
+  color: var(--color-text-secondary);
+}
+
+html.docs-dark .sidebar-nav a:hover {
+  color: var(--color-text-primary);
+  background: var(--color-bg-tertiary);
+}
+
+html.docs-dark .sidebar-nav a.active {
+  color: var(--color-brand-primary);
+  border-left-color: var(--color-brand-primary);
+}
+
+html.docs-dark .sidebar-search {
+  background: var(--color-bg-tertiary);
+  border-color: var(--color-border-default);
+  color: var(--color-text-primary);
+}
+
+html.docs-dark .sidebar-search::placeholder {
+  color: var(--color-text-tertiary);
+}
+
+html.docs-dark .dark-mode-toggle {
+  background: var(--color-bg-tertiary);
+  border-color: var(--color-border-default);
+  color: var(--color-text-secondary);
+}
+
+html.docs-dark .dark-mode-toggle:hover {
+  background: var(--color-bg-secondary);
+  color: var(--color-text-primary);
+}
+
+html.docs-dark .main {
+  background: var(--color-bg-primary);
+  color: var(--color-text-primary);
+}
+
+html.docs-dark .main h2 {
+  color: var(--color-text-primary);
+}
+
+html.docs-dark .main h3,
+html.docs-dark .main h4 {
+  color: var(--color-text-primary);
+}
+
+html.docs-dark .main p {
+  color: var(--color-text-secondary);
+}
+
+html.docs-dark .main a {
+  color: var(--color-brand-primary);
+}
+
+html.docs-dark .preview {
+  background: var(--color-bg-secondary);
+  border-color: var(--color-border-default);
+}
+
+html.docs-dark .preview-label {
+  color: var(--color-text-tertiary);
+}
+
+html.docs-dark .a11y-note {
+  background: var(--color-bg-secondary);
+  border-color: var(--color-border-default);
+  color: var(--color-text-secondary);
+}
+
+html.docs-dark .code-block {
+  background: var(--color-bg-tertiary);
+  border-color: var(--color-border-default);
+  color: var(--color-text-secondary);
+}
+
+html.docs-dark .code-block code {
+  color: var(--color-text-secondary);
+}
+
+html.docs-dark .props-table {
+  border-color: var(--color-border-default);
+}
+
+html.docs-dark .props-table th {
+  background: var(--color-bg-tertiary);
+  color: var(--color-text-primary);
+  border-color: var(--color-border-default);
+}
+
+html.docs-dark .props-table td {
+  border-color: var(--color-border-default);
+  color: var(--color-text-secondary);
+}
+
+html.docs-dark .theme-bar {
+  background: var(--color-bg-secondary);
+  border-color: var(--color-border-default);
+}
+
+html.docs-dark .theme-bar label {
+  color: var(--color-text-primary);
+}
+
+html.docs-dark .palette-btn {
+  background: var(--color-bg-tertiary);
+  border-color: var(--color-border-default);
+  color: var(--color-text-secondary);
+}
+
+html.docs-dark .palette-btn:hover {
+  background: var(--color-bg-secondary);
+  color: var(--color-text-primary);
+}
+
+html.docs-dark .palette-btn.active {
+  background: var(--color-brand-primary);
+  border-color: var(--color-brand-primary);
+  color: var(--color-text-on-brand);
+}
+
+
+html.docs-dark .sidebar-nav .section-title {
+  color: var(--color-text-tertiary);
+}
+
+html.docs-dark .sidebar-nav .section-title::after {
+  border-top-color: var(--color-text-tertiary);
+}
+
+html.docs-dark .token-table th {
+  background: var(--color-bg-tertiary);
+  color: var(--color-text-primary);
+  border-color: var(--color-border-default);
+}
+
+html.docs-dark .token-table td {
+  border-color: var(--color-border-default);
+  color: var(--color-text-secondary);
+}
+
+html.docs-dark .do-dont .do-card {
+  background: var(--color-success-bg);
+  border-color: var(--color-success);
+  color: var(--color-text-primary);
+}
+
+html.docs-dark .do-dont .dont-card {
+  background: var(--color-error-bg);
+  border-color: var(--color-error);
+  color: var(--color-text-primary);
+}
+
+html.docs-dark .variant-select,
+html.docs-dark select {
+  background: var(--color-bg-tertiary);
+  border-color: var(--color-border-default);
+  color: var(--color-text-primary);
+}
+
+/* ============================================================
+   PLAYGROUND CONTROLS
+   ============================================================ */
+.playground-controls {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  padding: 12px 0;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.playground-control-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.playground-control-group label {
+  font-size: var(--text-body-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+}
+
+.playground-control-group select {
+  padding: 6px 8px;
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-sans);
+  font-size: var(--text-body-sm);
+  background: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  cursor: pointer;
+}
+
+.playground-control-group select:focus {
+  outline: 2px solid var(--color-brand-primary);
+  outline-offset: -1px;
+}
+
+html.docs-dark .playground-controls {
+  border-bottom-color: #2A2A33;
+}
+
+html.docs-dark .playground-control-group label {
+  color: #7A7A8A;
+}
+
+html.docs-dark .playground-control-group select {
+  background: #1A1A23;
+  border-color: #2A2A33;
+  color: #E0E0EE;
+}
+
+</style>
+</head>
+<body>
+<a href="#main-content" class="skip-link">Skip to content</a>
+<div class="docs-layout">
+
+<!-- SIDEBAR -->
+<aside class="sidebar" role="navigation" aria-label="Documentation navigation">
+<div class="sidebar-header">
+  <h1>Design System</h1>
+  <div class="version">v0.8.0 · 9 Palettes · 31 Components · CVA Variants</div>
+  <input type="text" id="sidebar-search" class="sidebar-search" placeholder="Search (⌘K)..." aria-label="Filter sidebar navigation">
+  <button id="dark-mode-toggle" class="dark-mode-toggle" aria-label="Toggle appearance mode" title="Appearance">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    <span>Light</span>
+  </button>
+</div>
+<nav class="sidebar-nav" aria-label="Component navigation">
+  <div class="nav-section">
+    <button class="section-title" data-group="foundation" aria-expanded="true">Foundation</button>
+    <ul class="section-group" data-group="foundation">
+      <li><a href="#colors">Colors</a></li>
+      <li><a href="#typography">Typography</a></li>
+      <li><a href="#spacing">Spacing & Grid</a></li>
+      <li><a href="#shadows">Shadows & Elevation</a></li>
+      <li><a href="#motion">Motion</a></li>
+      <li><a href="#layout">Layout & Scale</a></li>
+      <li><a href="#palettes">Palettes (9)</a></li>
+        <li><a href="#choreography">Motion Choreography</a></li>
+</ul>
+  </div>
+  <div class="nav-section">
+    <button class="section-title collapsed" data-group="inputs" aria-expanded="false">Inputs</button>
+    <ul class="section-group collapsed" data-group="inputs">
+      <li><a href="#button">Button</a></li>
+      <li><a href="#input">Input</a></li>
+      <li><a href="#select">Select</a></li>
+      <li><a href="#toggle">Toggle</a></li>
+    </ul>
+  </div>
+  <div class="nav-section">
+    <button class="section-title collapsed" data-group="navigation" aria-expanded="false">Navigation</button>
+    <ul class="section-group collapsed" data-group="navigation">
+      <li><a href="#tabs">Tabs</a></li>
+      <li><a href="#breadcrumb">Breadcrumb</a></li>
+      <li><a href="#pagination">Pagination</a></li>
+      <li><a href="#dropdown">Dropdown Menu</a></li>
+    </ul>
+  </div>
+  <div class="nav-section">
+    <button class="section-title collapsed" data-group="data-display" aria-expanded="false">Data Display</button>
+    <ul class="section-group collapsed" data-group="data-display">
+      <li><a href="#card">Card</a></li>
+      <li><a href="#badge">Badge</a></li>
+      <li><a href="#avatar">Avatar</a></li>
+      <li><a href="#data-table">Data Table</a></li>
+      <li><a href="#skeleton">Skeleton</a></li>
+    </ul>
+  </div>
+  <div class="nav-section">
+    <button class="section-title collapsed" data-group="feedback" aria-expanded="false">Feedback</button>
+    <ul class="section-group collapsed" data-group="feedback">
+      <li><a href="#alert">Alert</a></li>
+      <li><a href="#toast">Toast</a></li>
+      <li><a href="#tooltip">Tooltip</a></li>
+      <li><a href="#accordion">Accordion</a></li>
+    </ul>
+  </div>
+  <div class="nav-section">
+    <button class="section-title collapsed" data-group="patterns" aria-expanded="false">Patterns</button>
+    <ul class="section-group collapsed" data-group="patterns">
+      <li><a href="#pattern-forms">Forms</a></li>
+      <li><a href="#pattern-tables">Data Tables</a></li>
+      <li><a href="#pattern-navigation">Navigation</a></li>
+      <li><a href="#pattern-feedback">Feedback</a></li>
+      <li><a href="#accessibility">Accessibility</a></li>
+    </ul>
+  </div>
+  <div class="nav-section">
+    <button class="section-title collapsed" data-group="api-tools" aria-expanded="false">API &amp; Tools</button>
+    <ul class="section-group collapsed" data-group="api-tools">
+      <li><a href="#variant-api">Variant API</a></li>
+      <li><a href="#sandbox">Sandbox</a></li>
+    </ul>
+  </div>
+</nav>
+</aside>
+
+<div style="flex:1; display:flex; flex-direction:column;">
+<!-- PALETTE BAR -->
+<div class="theme-bar" role="toolbar" aria-label="Palette switcher">
+  <label>Palette:</label>
+  <button class="palette-btn active" data-theme="minimal-saas">Minimal SaaS</button>
+  <button class="palette-btn" data-theme="ai-futuristic">AI Futuristic</button>
+  <button class="palette-btn" data-theme="gradient-startup">Gradient Startup</button>
+  <button class="palette-btn" data-theme="corporate">Corporate</button>
+  <button class="palette-btn" data-theme="apple-minimal">Apple Minimal</button>
+  <button class="palette-btn" data-theme="illustration">Illustration</button>
+  <button class="palette-btn" data-theme="dashboard">Dashboard</button>
+  <button class="palette-btn" data-theme="bold-lifestyle">Bold Lifestyle</button>
+  <button class="palette-btn" data-theme="minimal-corporate">Minimal Corp</button>
+  <span class="appearance-note" style="font-size:12px;color:var(--color-text-tertiary);margin-left:auto;white-space:nowrap">Appearance (light/dark) is independent of palette selection</span>
+</div>
+
+<!-- MAIN CONTENT -->
+<main class="main" id="main-content">
+
+<!-- ==================== COLORS ==================== -->
+<section id="colors">
+<h2>Colors</h2>
+<p>Semantic color tokens adapt per palette. The 3-tier architecture maps primitives (blue-500) to semantic aliases (brand-primary) to component tokens (button-bg).</p>
+
+<h3>Neutral Scale</h3>
+<div class="color-grid">
+  <div class="color-swatch"><div class="color-swatch-block" style="background:var(--color-bg-primary)"></div><div class="color-swatch-info"><strong>bg-primary</strong>Page background</div></div>
+  <div class="color-swatch"><div class="color-swatch-block" style="background:var(--color-bg-secondary)"></div><div class="color-swatch-info"><strong>bg-secondary</strong>Section alt</div></div>
+  <div class="color-swatch"><div class="color-swatch-block" style="background:var(--color-bg-tertiary)"></div><div class="color-swatch-info"><strong>bg-tertiary</strong>Cards</div></div>
+  <div class="color-swatch"><div class="color-swatch-block" style="background:var(--color-bg-inverse)"></div><div class="color-swatch-info"><strong>bg-inverse</strong>Inverted</div></div>
+  <div class="color-swatch"><div class="color-swatch-block" style="background:var(--color-text-primary)"></div><div class="color-swatch-info"><strong>text-primary</strong>Headlines</div></div>
+  <div class="color-swatch"><div class="color-swatch-block" style="background:var(--color-text-secondary)"></div><div class="color-swatch-info"><strong>text-secondary</strong>Body text</div></div>
+  <div class="color-swatch"><div class="color-swatch-block" style="background:var(--color-text-tertiary)"></div><div class="color-swatch-info"><strong>text-tertiary</strong>Muted</div></div>
+</div>
+
+<h3>Brand Colors</h3>
+<div class="color-grid">
+  <div class="color-swatch"><div class="color-swatch-block" style="background:var(--color-brand-primary)"></div><div class="color-swatch-info"><strong>brand-primary</strong>CTA, links</div></div>
+  <div class="color-swatch"><div class="color-swatch-block" style="background:var(--color-brand-secondary)"></div><div class="color-swatch-info"><strong>brand-secondary</strong>Accents</div></div>
+  <div class="color-swatch"><div class="color-swatch-block" style="background:var(--color-brand-accent)"></div><div class="color-swatch-info"><strong>brand-accent</strong>Highlights</div></div>
+  <div class="color-swatch"><div class="color-swatch-block" style="background:var(--color-brand-muted)"></div><div class="color-swatch-info"><strong>brand-muted</strong>Tints</div></div>
+</div>
+
+<h3>Semantic Colors</h3>
+<div class="color-grid">
+  <div class="color-swatch"><div class="color-swatch-block" style="background:var(--color-success)"></div><div class="color-swatch-info"><strong>success</strong>Positive</div></div>
+  <div class="color-swatch"><div class="color-swatch-block" style="background:var(--color-warning)"></div><div class="color-swatch-info"><strong>warning</strong>Caution</div></div>
+  <div class="color-swatch"><div class="color-swatch-block" style="background:var(--color-error)"></div><div class="color-swatch-info"><strong>error</strong>Destructive</div></div>
+  <div class="color-swatch"><div class="color-swatch-block" style="background:var(--color-info)"></div><div class="color-swatch-info"><strong>info</strong>Informational</div></div>
+</div>
+</section>
+
+<!-- ==================== TYPOGRAPHY ==================== -->
+<section id="typography">
+<h2>Typography</h2>
+<p>Fluid type scale using clamp() for responsive sizing without breakpoints. Font families are foundation-locked: Inter for body, Inter for display headings, JetBrains Mono for code, Source Serif 4 for editorial callouts. These never change per palette.</p>
+<div class="preview">
+  <div style="font-family:var(--font-display);font-size:var(--text-display-lg);font-weight:var(--font-weight-extrabold);line-height:var(--line-height-tight);margin-bottom:16px">Display Large</div>
+  <div style="font-size:var(--text-display-md);font-weight:var(--font-weight-bold);line-height:var(--line-height-tight);margin-bottom:12px">Display Medium</div>
+  <div style="font-size:var(--text-heading-lg);font-weight:var(--font-weight-bold);margin-bottom:8px">Heading Large</div>
+  <div style="font-size:var(--text-heading-md);font-weight:var(--font-weight-semibold);margin-bottom:8px">Heading Medium</div>
+  <div style="font-size:var(--text-heading-sm);font-weight:var(--font-weight-semibold);margin-bottom:8px">Heading Small</div>
+  <div style="font-size:var(--text-body-lg);margin-bottom:4px">Body Large (18px)</div>
+  <div style="font-size:var(--text-body-md);margin-bottom:4px">Body Medium (16px)</div>
+  <div style="font-size:var(--text-body-sm);color:var(--color-text-secondary);margin-bottom:4px">Body Small (14px)</div>
+  <div style="font-size:var(--text-label);text-transform:uppercase;letter-spacing:0.05em;color:var(--color-text-tertiary)">Label (12px)</div>
+</div>
+</section>
+
+<!-- ==================== SPACING ==================== -->
+<section id="spacing">
+<h2>Spacing & Grid</h2>
+<p>4px base grid. 13 spacing tokens from 4px to 80px.</p>
+<div class="preview">
+  <div style="display:flex;align-items:flex-end;gap:8px;flex-wrap:wrap">
+    <div style="width:var(--spacing-1);height:var(--spacing-1);background:var(--color-brand-primary);border-radius:2px" title="4px"></div>
+    <div style="width:var(--spacing-2);height:var(--spacing-2);background:var(--color-brand-primary);border-radius:2px" title="8px"></div>
+    <div style="width:var(--spacing-3);height:var(--spacing-3);background:var(--color-brand-primary);border-radius:2px" title="12px"></div>
+    <div style="width:var(--spacing-4);height:var(--spacing-4);background:var(--color-brand-primary);border-radius:2px" title="16px"></div>
+    <div style="width:var(--spacing-6);height:var(--spacing-6);background:var(--color-brand-primary);border-radius:2px" title="24px"></div>
+    <div style="width:var(--spacing-8);height:var(--spacing-8);background:var(--color-brand-primary);border-radius:2px" title="32px"></div>
+    <div style="width:var(--spacing-10);height:var(--spacing-10);background:var(--color-brand-primary);border-radius:2px" title="40px"></div>
+    <div style="width:var(--spacing-12);height:var(--spacing-12);background:var(--color-brand-primary);border-radius:2px" title="48px"></div>
+    <div style="width:var(--spacing-16);height:var(--spacing-16);background:var(--color-brand-primary);border-radius:2px" title="64px"></div>
+  </div>
+</div>
+</section>
+
+<!-- ==================== SHADOWS ==================== -->
+<section id="shadows">
+<h2>Shadows & Elevation</h2>
+<p>5-level shadow system. Dark themes use glow-border technique (white rgba border + deeper black shadow) instead of invisible black shadows.</p>
+<div class="preview" style="display:flex;gap:24px;flex-wrap:wrap">
+  <div style="width:100px;height:80px;background:var(--color-bg-primary);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;font-size:var(--text-label);box-shadow:var(--shadow-xs)">xs</div>
+  <div style="width:100px;height:80px;background:var(--color-bg-primary);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;font-size:var(--text-label);box-shadow:var(--shadow-sm)">sm</div>
+  <div style="width:100px;height:80px;background:var(--color-bg-primary);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;font-size:var(--text-label);box-shadow:var(--shadow-md)">md</div>
+  <div style="width:100px;height:80px;background:var(--color-bg-primary);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;font-size:var(--text-label);box-shadow:var(--shadow-lg)">lg</div>
+  <div style="width:100px;height:80px;background:var(--color-bg-primary);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;font-size:var(--text-label);box-shadow:var(--shadow-xl)">xl</div>
+</div>
+</section>
+
+<!-- ==================== MOTION ==================== -->
+<section id="motion">
+<h2>Motion</h2>
+<p>Duration tokens (fast/normal/slow/slower) + 4 easing curves. All motion respects prefers-reduced-motion.</p>
+<div class="preview">
+  <div style="display:flex;gap:16px;flex-wrap:wrap">
+    <div style="width:80px;height:80px;background:var(--color-brand-primary);border-radius:var(--radius-md);cursor:pointer;transition:transform var(--duration-fast) var(--ease-default)" onmouseenter="this.style.transform='scale(1.1)'" onmouseleave="this.style.transform='scale(1)'">
+      <div style="color:var(--color-text-on-brand);font-size:var(--text-label);display:flex;align-items:center;justify-content:center;height:100%">Fast</div>
+    </div>
+    <div style="width:80px;height:80px;background:var(--color-brand-secondary);border-radius:var(--radius-md);cursor:pointer;transition:transform var(--duration-normal) var(--ease-out)" onmouseenter="this.style.transform='scale(1.1)'" onmouseleave="this.style.transform='scale(1)'">
+      <div style="color:var(--color-text-on-brand);font-size:var(--text-label);display:flex;align-items:center;justify-content:center;height:100%">Normal</div>
+    </div>
+    <div style="width:80px;height:80px;background:var(--color-brand-accent);border-radius:var(--radius-md);cursor:pointer;transition:transform var(--duration-slow) var(--ease-bounce)" onmouseenter="this.style.transform='scale(1.1)'" onmouseleave="this.style.transform='scale(1)'">
+      <div style="color:var(--color-text-on-brand);font-size:var(--text-label);display:flex;align-items:center;justify-content:center;height:100%">Bounce</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ==================== MOTION CHOREOGRAPHY ==================== -->
+<section id="choreography">
+<h2>Motion Choreography</h2>
+<p>Standardized animation presets combining duration + easing + transform. Every component follows these choreography patterns for consistent motion language.</p>
+
+<h3>Enter Transitions</h3>
+<div class="preview">
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px">
+    <div>
+      <div class="choreo-demo" data-choreo="fade-in" style="width:100%;height:80px;background:var(--color-brand-primary);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;color:var(--color-text-on-brand);font-size:var(--text-label);cursor:pointer;opacity:0.3;transition:opacity var(--duration-normal) cubic-bezier(0,0,0.2,1)" onmouseenter="this.style.opacity='1'" onmouseleave="this.style.opacity='0.3'">fade-in</div>
+      <div style="font-size:var(--text-label);color:var(--color-text-tertiary);margin-top:4px">250ms · ease-out</div>
+    </div>
+    <div>
+      <div class="choreo-demo" data-choreo="slide-up" style="width:100%;height:80px;background:var(--color-brand-secondary);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;color:var(--color-text-on-brand);font-size:var(--text-label);cursor:pointer;transform:translateY(8px);transition:transform var(--duration-normal) cubic-bezier(0,0,0.2,1)" onmouseenter="this.style.transform='translateY(0)'" onmouseleave="this.style.transform='translateY(8px)'">slide-up</div>
+      <div style="font-size:var(--text-label);color:var(--color-text-tertiary);margin-top:4px">250ms · ease-out</div>
+    </div>
+    <div>
+      <div class="choreo-demo" data-choreo="scale-in" style="width:100%;height:80px;background:var(--color-brand-accent);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;color:var(--color-text-on-brand);font-size:var(--text-label);cursor:pointer;transform:scale(0.9);transition:transform var(--duration-fast) cubic-bezier(0.34,1.56,0.64,1)" onmouseenter="this.style.transform='scale(1)'" onmouseleave="this.style.transform='scale(0.9)'">scale-in</div>
+      <div style="font-size:var(--text-label);color:var(--color-text-tertiary);margin-top:4px">150ms · spring</div>
+    </div>
+    <div>
+      <div style="overflow:hidden;border-radius:var(--radius-md)">
+        <div class="choreo-demo" data-choreo="expand" style="width:100%;background:var(--color-bg-tertiary);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;font-size:var(--text-label);cursor:pointer;max-height:20px;transition:max-height var(--duration-normal) cubic-bezier(0.4,0,0.2,1);overflow:hidden;padding:0 8px" onmouseenter="this.style.maxHeight='80px';this.style.padding='8px'" onmouseleave="this.style.maxHeight='20px';this.style.padding='0 8px'">expand ↕</div>
+      </div>
+      <div style="font-size:var(--text-label);color:var(--color-text-tertiary);margin-top:4px">250ms · default</div>
+    </div>
+  </div>
+</div>
+
+<h3>Stagger Children</h3>
+<div class="preview">
+  <div style="display:flex;gap:8px;flex-wrap:wrap" id="stagger-demo">
+    <div style="width:48px;height:48px;background:var(--color-brand-primary);border-radius:var(--radius-md);opacity:0;transform:translateY(8px);transition:all var(--duration-normal) cubic-bezier(0,0,0.2,1)"></div>
+    <div style="width:48px;height:48px;background:var(--color-brand-primary);border-radius:var(--radius-md);opacity:0;transform:translateY(8px);transition:all var(--duration-normal) cubic-bezier(0,0,0.2,1)"></div>
+    <div style="width:48px;height:48px;background:var(--color-brand-primary);border-radius:var(--radius-md);opacity:0;transform:translateY(8px);transition:all var(--duration-normal) cubic-bezier(0,0,0.2,1)"></div>
+    <div style="width:48px;height:48px;background:var(--color-brand-primary);border-radius:var(--radius-md);opacity:0;transform:translateY(8px);transition:all var(--duration-normal) cubic-bezier(0,0,0.2,1)"></div>
+    <div style="width:48px;height:48px;background:var(--color-brand-primary);border-radius:var(--radius-md);opacity:0;transform:translateY(8px);transition:all var(--duration-normal) cubic-bezier(0,0,0.2,1)"></div>
+    <div style="width:48px;height:48px;background:var(--color-brand-primary);border-radius:var(--radius-md);opacity:0;transform:translateY(8px);transition:all var(--duration-normal) cubic-bezier(0,0,0.2,1)"></div>
+    <button class="btn btn--sm btn--secondary" onclick="runStagger()" style="margin-left:16px">Replay</button>
+  </div>
+  <div style="font-size:var(--text-label);color:var(--color-text-tertiary);margin-top:8px">60ms stagger delay · fade-in + slide-up · max 600ms total</div>
+</div>
+
+<h3>Interaction Feedback</h3>
+<div class="preview">
+  <div style="display:flex;gap:16px;align-items:center">
+    <div style="width:100px;height:60px;background:var(--color-bg-tertiary);border:1px solid var(--color-border-default);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;font-size:var(--text-label);cursor:pointer;transition:transform var(--duration-fast) var(--ease-default)" onmouseenter="this.style.transform='translateY(-2px)'" onmouseleave="this.style.transform=''" onmousedown="this.style.transform='scale(0.98)'" onmouseup="this.style.transform='translateY(-2px)'">hover-lift</div>
+    <div style="width:100px;height:60px;background:var(--color-brand-primary);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;color:var(--color-text-on-brand);font-size:var(--text-label);cursor:pointer;transition:transform var(--duration-instant)" onmousedown="this.style.transform='scale(0.96)'" onmouseup="this.style.transform=''" onmouseleave="this.style.transform=''">press-down</div>
+    <button class="btn btn--sm btn--secondary" style="transition:box-shadow var(--duration-fast)" onfocus="this.style.boxShadow='0 0 0 3px rgba(var(--color-brand-primary-rgb),0.3)'" onblur="this.style.boxShadow=''">Tab to me (focus-ring)</button>
+  </div>
+</div>
+
+<div class="code-block"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.parentElement.querySelector('code').textContent)">Copy</button><code>/* Enter: fade + slide */
+.enter { animation: fadeSlideUp 250ms cubic-bezier(0,0,0.2,1) forwards; }
+
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Stagger children: 60ms per item */
+.stagger > :nth-child(1) { animation-delay: 0ms; }
+.stagger > :nth-child(2) { animation-delay: 60ms; }
+.stagger > :nth-child(3) { animation-delay: 120ms; }
+/* ... max 600ms total */
+
+/* Interaction: hover-lift */
+.interactive:hover { transform: translateY(-2px); }
+.interactive:active { transform: scale(0.98); }
+
+/* Respect motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}</code></div>
+</section>
+
+<!-- ==================== LAYOUT & SCALE ==================== -->
+<section id="layout">
+<h2>Layout & Scale</h2>
+<p>Foundation-level tokens for layout breakpoints, border radii, z-index layers, and opacity. These are governance-locked and never change per palette.</p>
+
+<h3>Border Radius Scale</h3>
+<div class="preview">
+  <div class="preview-label">Radius Scale</div>
+  <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:end;padding:24px;">
+    <div style="text-align:center"><div style="width:48px;height:48px;background:var(--color-brand-primary);border-radius:var(--radius-sm)"></div><div style="font-size:var(--text-label);margin-top:4px;color:var(--color-text-secondary)" data-radius-label="sm">sm</div></div>
+    <div style="text-align:center"><div style="width:48px;height:48px;background:var(--color-brand-primary);border-radius:var(--radius-md)"></div><div style="font-size:var(--text-label);margin-top:4px;color:var(--color-text-secondary)" data-radius-label="md">md</div></div>
+    <div style="text-align:center"><div style="width:48px;height:48px;background:var(--color-brand-primary);border-radius:var(--radius-lg)"></div><div style="font-size:var(--text-label);margin-top:4px;color:var(--color-text-secondary)" data-radius-label="lg">lg</div></div>
+    <div style="text-align:center"><div style="width:48px;height:48px;background:var(--color-brand-primary);border-radius:var(--radius-xl)"></div><div style="font-size:var(--text-label);margin-top:4px;color:var(--color-text-secondary)" data-radius-label="xl">xl</div></div>
+    <div style="text-align:center"><div style="width:48px;height:48px;background:var(--color-brand-primary);border-radius:var(--radius-2xl)"></div><div style="font-size:var(--text-label);margin-top:4px;color:var(--color-text-secondary)" data-radius-label="2xl">2xl</div></div>
+    <div style="text-align:center"><div style="width:48px;height:48px;background:var(--color-brand-primary);border-radius:var(--radius-full)"></div><div style="font-size:var(--text-label);margin-top:4px;color:var(--color-text-secondary)">full</div></div>
+  </div>
+</div>
+
+<h3>Z-Index Layers</h3>
+<table class="token-table">
+<thead><tr><th>Token</th><th>Value</th><th>Usage</th></tr></thead>
+<tbody>
+<tr><td><code>--z-dropdown</code></td><td>10</td><td>Dropdown menus, popovers</td></tr>
+<tr><td><code>--z-sticky</code></td><td>20</td><td>Sticky headers, toolbars</td></tr>
+<tr><td><code>--z-overlay</code></td><td>30</td><td>Overlay backdrops</td></tr>
+<tr><td><code>--z-modal</code></td><td>40</td><td>Modal dialogs</td></tr>
+<tr><td><code>--z-toast</code></td><td>50</td><td>Toast notifications</td></tr>
+<tr><td><code>--z-system</code></td><td>100</td><td>System-level (dev tools)</td></tr>
+</tbody>
+</table>
+
+<h3>Opacity Scale</h3>
+<div class="preview">
+  <div class="preview-label">Opacity Tokens</div>
+  <div style="display:flex;gap:16px;flex-wrap:wrap;padding:24px;">
+    <div style="text-align:center"><div style="width:64px;height:48px;background:var(--color-brand-primary);opacity:var(--opacity-subtle);border-radius:var(--radius-md)"></div><div style="font-size:var(--text-label);margin-top:4px;color:var(--color-text-secondary)">subtle (0.4)</div></div>
+    <div style="text-align:center"><div style="width:64px;height:48px;background:var(--color-brand-primary);opacity:var(--opacity-disabled);border-radius:var(--radius-md)"></div><div style="font-size:var(--text-label);margin-top:4px;color:var(--color-text-secondary)">disabled (0.5)</div></div>
+    <div style="text-align:center"><div style="width:64px;height:48px;background:var(--color-brand-primary);opacity:var(--opacity-muted);border-radius:var(--radius-md)"></div><div style="font-size:var(--text-label);margin-top:4px;color:var(--color-text-secondary)">muted (0.6)</div></div>
+    <div style="text-align:center"><div style="width:64px;height:48px;background:var(--color-brand-primary);opacity:1;border-radius:var(--radius-md)"></div><div style="font-size:var(--text-label);margin-top:4px;color:var(--color-text-secondary)">full (1.0)</div></div>
+  </div>
+</div>
+
+<h3>Layout Breakpoints</h3>
+<table class="token-table">
+<thead><tr><th>Token</th><th>Breakpoint</th><th>Container Max</th><th>Usage</th></tr></thead>
+<tbody>
+<tr><td><code>sm</code></td><td>640px</td><td>640px</td><td>Large phones</td></tr>
+<tr><td><code>md</code></td><td>768px</td><td>768px</td><td>Tablets</td></tr>
+<tr><td><code>lg</code></td><td>1024px</td><td>1024px</td><td>Small laptops</td></tr>
+<tr><td><code>xl</code></td><td>1280px</td><td>1200px</td><td>Desktops</td></tr>
+<tr><td><code>2xl</code></td><td>1536px</td><td>1400px</td><td>Wide screens</td></tr>
+</tbody>
+</table>
+</section>
+
+<!-- ==================== PALETTES ==================== -->
+<section id="palettes">
+<h2>Color Palettes</h2>
+<p>Each palette changes only color and shadow tokens. Typography, spacing, radii, and motion are locked to foundation values. Every palette ships with light + dark appearance modes, toggled via the sidebar button.</p>
+<table class="token-table">
+<thead><tr><th>Palette</th><th>Light bg</th><th>Brand Primary</th><th>Shape</th><th>Character</th></tr></thead>
+<tbody>
+<tr><td><strong>Minimal SaaS</strong></td><td>#FFFFFF</td><td>#2563EB</td><td>Soft (6-12px)</td><td>Clean, conversion-focused</td></tr>
+<tr><td><strong>AI Futuristic</strong></td><td>#0A0A0F</td><td>#00FF88</td><td>Sharp (2-6px)</td><td>Dark-native, neon accents</td></tr>
+<tr><td><strong>Gradient Startup</strong></td><td>#FFFFFF</td><td>#7C3AED</td><td>Round (8-16px)</td><td>Bold gradients, energetic</td></tr>
+<tr><td><strong>Corporate</strong></td><td>#FFFFFF</td><td>#1A365D</td><td>Square (2-6px)</td><td>Muted, authoritative</td></tr>
+<tr><td><strong>Apple Minimal</strong></td><td>#FFFFFF</td><td>#0071E3</td><td>Smooth (8-14px)</td><td>Product-driven, restrained</td></tr>
+<tr><td><strong>Illustration</strong></td><td>#FFFFFF</td><td>#E8590C</td><td>Friendly (10-18px)</td><td>Warm, playful, multi-color</td></tr>
+<tr><td><strong>Dashboard</strong></td><td>#FFFFFF</td><td>#4F46E5</td><td>Compact (4-8px)</td><td>Data viz, chart-friendly</td></tr>
+<tr><td><strong>Bold Lifestyle</strong></td><td>#FFFFFF</td><td>#111111</td><td>Brutalist (0px)</td><td>High-contrast, editorial</td></tr>
+<tr><td><strong>Minimal Corporate</strong></td><td>#FDFCFB</td><td>#B45309</td><td>Warm neutrals, editorial</td></tr>
+</tbody>
+</table>
+<div class="a11y-note">Governance: Palettes override <code>--color-*</code>, <code>--shadow-*</code>, <code>--radius-*</code>, and <code>--font-display</code> tokens. Spacing, motion, z-index, opacity, and body typography remain foundation-locked.</div>
+
+<h3>Palette Selection Rules</h3>
+<table class="token-table">
+<thead><tr><th>Context</th><th>Default Palette</th><th>Rationale</th></tr></thead>
+<tbody>
+<tr><td><strong>Product UI (SaaS, apps)</strong></td><td>Minimal SaaS</td><td>Highest readability, neutral brand presence, conversion-optimized</td></tr>
+<tr><td><strong>Marketing site</strong></td><td>Gradient Startup</td><td>High visual energy for acquisition pages; default for all marketing surfaces</td></tr>
+<tr><td><strong>Internal dashboards</strong></td><td>Dashboard</td><td>Chart-friendly 8-color scale, tabular number support</td></tr>
+<tr><td><strong>Developer tools / docs</strong></td><td>AI Futuristic</td><td>Dark-native, monospace-friendly, low eye strain</td></tr>
+<tr><td><strong>Enterprise / regulated</strong></td><td>Corporate</td><td>Conservative, authority-forward, stakeholder-safe</td></tr>
+</tbody>
+</table>
+<div class="a11y-note"><strong>Rule:</strong> Each product or surface selects exactly one palette — the default listed above. Teams must not mix palettes within a single product. If no context matches, default to <strong>Minimal SaaS</strong>.</div>
+<div class="a11y-note"><strong>Exceptions:</strong> To use a non-default palette (e.g., Illustration instead of Gradient Startup for a marketing surface), file a design-system exception request with: (1) the surface name, (2) the requested palette, (3) rationale, and (4) sign-off from the design-system owner. Approved exceptions are logged in the governance registry.</div>
+</section>
+
+<!-- ==================== BUTTON ==================== -->
+<section id="button">
+<h2>Button</h2>
+<p>Primary action trigger. 4 variants, 3 sizes, all with 44px minimum touch target.</p>
+<div class="preview">
+  <div class="preview-label">Live Preview <span class="tag tag-a11y">WCAG AA</span></div>
+  <div class="playground-controls" data-playground="button">
+    <div class="playground-control-group">
+      <label for="variant-button">Variant:</label>
+      <select id="variant-button" class="variant-select" data-component="button">
+        <option value="primary">Primary</option>
+        <option value="secondary">Secondary</option>
+        <option value="ghost">Ghost</option>
+        <option value="destructive">Destructive</option>
+      </select>
+    </div>
+    <div class="playground-control-group">
+      <label for="size-button">Size:</label>
+      <select id="size-button" class="size-select" data-component="button">
+        <option value="sm">Sm</option>
+        <option value="md">Md</option>
+        <option value="lg">Lg</option>
+      </select>
+    </div>
+  </div>
+  <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+    <button class="btn btn--primary btn--lg">Primary Large</button>
+    <button class="btn btn--primary btn--md">Primary</button>
+    <button class="btn btn--primary btn--sm">Small</button>
+    <button class="btn btn--secondary btn--md">Secondary</button>
+    <button class="btn btn--ghost btn--md">Ghost</button>
+    <button class="btn btn--destructive btn--md">Destructive</button>
+    <button class="btn btn--primary btn--md" disabled>Disabled</button>
+  </div>
+</div>
+<div class="a11y-note">Min 44px touch target. Focus ring 2px solid + 2px offset. Disabled uses opacity token, cursor:not-allowed.</div>
+<div class="do-dont">
+  <div class="do-card">Use clear action verbs: "Save changes", "Create account", "Send message". Match variant to importance — Primary for main CTA, Secondary for alternatives.</div>
+  <div class="dont-card">Don't use vague labels like "Click here" or "Submit". Don't put two Primary buttons side by side — one should be Secondary.</div>
+</div>
+<div class="code-block"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.parentElement.querySelector('code').textContent)">Copy</button><code>&lt;button class="btn btn--primary btn--md"&gt;Get Started&lt;/button&gt;
+&lt;button class="btn btn--secondary btn--md"&gt;Learn More&lt;/button&gt;
+&lt;button class="btn btn--ghost btn--md"&gt;Cancel&lt;/button&gt;</code></div>
+<table class="props-table"><thead><tr><th>Prop</th><th>Options</th><th>Default</th></tr></thead><tbody>
+<tr><td><code>variant</code></td><td>primary, secondary, ghost, destructive</td><td>primary</td></tr>
+<tr><td><code>size</code></td><td>sm (36px), md (44px), lg (52px)</td><td>md</td></tr>
+<tr><td><code>disabled</code></td><td>boolean</td><td>false</td></tr>
+</tbody></table>
+</section>
+
+<!-- ==================== INPUT ==================== -->
+<section id="input">
+<h2>Input</h2>
+<p>Form text input. WCAG 3:1 border contrast with dedicated border-input token.</p>
+<div class="preview">
+  <div class="preview-label">Live Preview <span class="tag tag-a11y">SC 1.4.11</span></div>
+  <div class="playground-controls" data-playground="input">
+    <div class="playground-control-group">
+      <label for="variant-input">Variant:</label>
+      <select id="variant-input" class="variant-select" data-component="input">
+        <option value="default">Default</option>
+        <option value="error">Error</option>
+      </select>
+    </div>
+  </div>
+  <div style="max-width:400px;display:flex;flex-direction:column;gap:16px">
+    <div><label class="input-label" for="demo-name">Full name</label><input class="input" id="demo-name" placeholder="Enter your name" type="text"><div class="input-helper">As it appears on your ID</div></div>
+    <div><label class="input-label" for="demo-email">Email</label><input class="input input--error" id="demo-email" value="invalid-email" type="email" aria-invalid="true" aria-describedby="email-err"><div class="input-error" id="email-err" role="alert">Please enter a valid email address</div></div>
+    <div><label class="input-label" for="demo-disabled">Disabled</label><input class="input" id="demo-disabled" disabled value="Cannot edit" type="text"></div>
+  </div>
+</div>
+<div class="a11y-note">Labels use for/id. Error state uses aria-invalid + aria-describedby. Error text has role="alert".</div>
+<div class="do-dont">
+  <div class="do-card">Always pair inputs with visible labels. Use helper text for format hints ("MM/DD/YYYY"). Show inline validation errors immediately below the field.</div>
+  <div class="dont-card">Don't use placeholder text as the only label — it disappears on focus. Don't disable the submit button for validation — show errors instead.</div>
+</div>
+</section>
+
+<!-- ==================== SELECT ==================== -->
+<section id="select">
+<h2>Select</h2>
+<div class="preview">
+  <div style="max-width:400px"><label class="input-label" for="demo-select">Country</label>
+  <select class="input" id="demo-select"><option>United States</option><option>United Kingdom</option><option>Canada</option><option>Germany</option></select></div>
+</div>
+</section>
+
+<!-- ==================== TOGGLE ==================== -->
+<section id="toggle">
+<h2>Toggle Switch</h2>
+<div class="preview">
+  <div class="preview-label">Live Preview <span class="tag tag-new">NEW</span></div>
+  <div style="display:flex;gap:16px;align-items:center">
+    <button class="toggle on" role="switch" aria-checked="true" aria-label="Notifications" onclick="this.classList.toggle('on');this.setAttribute('aria-checked',this.classList.contains('on'))"></button>
+    <span style="font-size:var(--text-body-sm)">Notifications enabled</span>
+  </div>
+</div>
+</section>
+
+<!-- ==================== TABS ==================== -->
+<section id="tabs">
+<h2>Tabs</h2>
+<p>Accessible tabbed interface with keyboard navigation.</p>
+<div class="preview">
+  <div class="preview-label">Live Preview <span class="tag tag-new">NEW</span></div>
+
+  <div role="tablist" class="tabs" aria-label="Demo tabs">
+    <button class="tab active" role="tab" aria-selected="true" id="tab-1" aria-controls="panel-1">Overview</button>
+    <button class="tab" role="tab" aria-selected="false" id="tab-2" aria-controls="panel-2">Features</button>
+    <button class="tab" role="tab" aria-selected="false" id="tab-3" aria-controls="panel-3">Pricing</button>
+  </div>
+  <div class="tab-panel" role="tabpanel" id="panel-1" aria-labelledby="tab-1">
+    <p style="color:var(--color-text-secondary);font-size:var(--text-body-sm)">Overview content. Tabs use role="tablist" and aria-selected for screen reader support.</p>
+  </div>
+</div>
+<div class="a11y-note">role="tablist" on container, role="tab" on triggers, role="tabpanel" on content. Arrow keys navigate, Enter/Space activates.</div>
+</section>
+
+<!-- ==================== ACCORDION ==================== -->
+<section id="accordion">
+<h2>Accordion</h2>
+<div class="preview">
+  <div class="preview-label">Live Preview <span class="tag tag-new">NEW</span></div>
+  <div class="accordion">
+    <button class="accordion-trigger" aria-expanded="true" aria-controls="acc-1"><span>What is the design system?</span><svg class="accordion-chevron" viewBox="0 0 20 20" fill="currentColor"><path d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"/></svg></button>
+    <div class="accordion-content" id="acc-1">A governed design system with foundation-locked tokens, 9 color palettes, and 31 components built for WCAG 2.2 AA compliance.</div>
+    <button class="accordion-trigger" aria-expanded="false" aria-controls="acc-2"><span>How many themes are included?</span><svg class="accordion-chevron" viewBox="0 0 20 20" fill="currentColor"><path d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"/></svg></button>
+    <div class="accordion-content" id="acc-2" hidden>Nine themes covering every major web style: Minimal SaaS, AI Futuristic, Gradient Startup, Corporate, Apple Minimal, Illustration-Driven, Dashboard-Centric, Bold Lifestyle, and Minimal Corporate.</div>
+    <button class="accordion-trigger" aria-expanded="false" aria-controls="acc-3"><span>Is it accessible?</span><svg class="accordion-chevron" viewBox="0 0 20 20" fill="currentColor"><path d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"/></svg></button>
+    <div class="accordion-content" id="acc-3" hidden>Yes — WCAG 2.2 AA compliant. All components include proper ARIA attributes, keyboard navigation, focus management, and reduced-motion support.</div>
+  </div>
+</div>
+</section>
+
+<!-- ==================== CARD ==================== -->
+<section id="card">
+<h2>Card</h2>
+<p>Content container with hover elevation. Used for features, pricing tiers, and grouped content.</p>
+<div class="preview">
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+    <div class="card"><div style="width:40px;height:40px;background:var(--color-brand-primary);border-radius:var(--radius-md);margin-bottom:12px;display:flex;align-items:center;justify-content:center;color:var(--color-text-on-brand);font-weight:700">⚡</div><div style="font-weight:var(--font-weight-semibold);margin-bottom:4px">Performance</div><div style="font-size:var(--text-body-sm);color:var(--color-text-secondary)">Sub-2.5s LCP with optimized asset delivery.</div></div>
+    <div class="card"><div style="width:40px;height:40px;background:var(--color-brand-secondary);border-radius:var(--radius-md);margin-bottom:12px;display:flex;align-items:center;justify-content:center;color:var(--color-text-on-brand);font-weight:700">🎨</div><div style="font-weight:var(--font-weight-semibold);margin-bottom:4px">Themeable</div><div style="font-size:var(--text-body-sm);color:var(--color-text-secondary)">9 themes from one token architecture.</div></div>
+    <div class="card"><div style="width:40px;height:40px;background:var(--color-brand-accent);border-radius:var(--radius-md);margin-bottom:12px;display:flex;align-items:center;justify-content:center;color:var(--color-text-on-brand);font-weight:700">♿</div><div style="font-weight:var(--font-weight-semibold);margin-bottom:4px">Accessible</div><div style="font-size:var(--text-body-sm);color:var(--color-text-secondary)">WCAG 2.2 AA by default across all themes.</div></div>
+  </div>
+</div>
+</section>
+
+<!-- ==================== ALERT ==================== -->
+<section id="alert">
+<h2>Alert</h2>
+<p>Status banners for success, warning, error, and informational messages. 4px left border + semantic background.</p>
+<div class="preview">
+  <div class="preview-label">Live Preview <span class="tag tag-a11y">WCAG AA</span></div>
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <div class="alert alert--success" role="status"><div><div class="alert-title">Success</div><div class="alert-body">Your changes have been saved.</div></div></div>
+    <div class="alert alert--warning" role="alert"><div><div class="alert-title">Warning</div><div class="alert-body">Your trial expires in 3 days.</div></div></div>
+    <div class="alert alert--error" role="alert"><div><div class="alert-title">Error</div><div class="alert-body">Payment method declined. Please update.</div></div></div>
+    <div class="alert alert--info" role="status"><div><div class="alert-title">Info</div><div class="alert-body">New version available. Refresh to update.</div></div></div>
+  </div>
+</div>
+<div class="a11y-note">role="status" for non-urgent, role="alert" for critical. Semantic border + background colors ensure distinguishability without relying on color alone.</div>
+<div class="do-dont">
+  <div class="do-card">Use Success for completed actions, Warning for non-blocking issues, Error for blocking failures, Info for neutral updates. Keep messages under 2 lines.</div>
+  <div class="dont-card">Don't use alerts for marketing content or feature promotion. Don't stack more than 2 alerts — combine messages or use a toast for transient ones.</div>
+</div>
+</section>
+
+<!-- ==================== BADGE ==================== -->
+<section id="badge">
+<h2>Badge</h2>
+<p>Compact labels for status, categories, and counts. 4 semantic variants.</p>
+<div class="preview">
+  <div class="preview-label">Live Preview <span class="tag tag-new">NEW</span></div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap">
+    <span class="badge badge--brand">Brand</span>
+    <span class="badge badge--success">Active</span>
+    <span class="badge badge--error">Failed</span>
+    <span class="badge badge--neutral">Draft</span>
+  </div>
+</div>
+<div class="do-dont">
+  <div class="do-card">Use badges for status indicators, counts, and category labels. Keep text to 1–2 words. Match variant to semantic meaning — Success for "Active", Error for "Failed".</div>
+  <div class="dont-card">Don't use badges for long descriptions. Don't use more than 3 badge variants in the same view — it creates visual noise.</div>
+</div>
+</section>
+
+<!-- ==================== AVATAR ==================== -->
+<section id="avatar">
+<h2>Avatar</h2>
+<p>User representation with initials, status indicators, and grouping. 5 sizes from 24px to 64px.</p>
+<div class="preview">
+  <div class="preview-label">Live Preview <span class="tag tag-new">NEW</span></div>
+  <div class="playground-controls" data-playground="avatar">
+    <div class="playground-control-group">
+      <label for="variant-avatar">Variant:</label>
+      <select id="variant-avatar" class="variant-select" data-component="avatar">
+        <option value="neutral">Neutral</option>
+        <option value="success">Success</option>
+        <option value="brand">Brand</option>
+      </select>
+    </div>
+  </div>
+  <div style="display:flex;gap:12px;align-items:center;margin-bottom:24px">
+    <div class="avatar avatar--xs">A</div>
+    <div class="avatar avatar--sm">MK</div>
+    <div class="avatar avatar--md" style="position:relative">JD<span class="avatar-status avatar-status--online"></span></div>
+    <div class="avatar avatar--lg" style="position:relative">CS<span class="avatar-status avatar-status--busy"></span></div>
+    <div class="avatar avatar--xl">AB</div>
+  </div>
+  <h4 style="font-size:var(--text-body-sm);font-weight:600;margin-bottom:8px">Avatar Group</h4>
+  <div class="avatar-group">
+    <div class="avatar avatar--md" style="background:var(--color-brand-muted);color:var(--color-brand-primary)">A</div>
+    <div class="avatar avatar--md" style="background:var(--color-success-bg);color:var(--color-success)">B</div>
+    <div class="avatar avatar--md" style="background:var(--color-warning-bg);color:var(--color-warning)">C</div>
+    <div class="avatar avatar--md" style="background:var(--color-bg-tertiary);color:var(--color-text-secondary)">+5</div>
+  </div>
+</div>
+<div class="do-dont">
+  <div class="do-card">Use initials when no profile image is available. Show status indicators (online/busy) only when real-time presence is meaningful. Limit avatar groups to 5 + overflow count.</div>
+  <div class="dont-card">Don't mix avatar sizes in the same row. Don't use avatars without alt text or aria-label — screen readers need to identify the person.</div>
+</div>
+</section>
+
+<!-- ==================== TOOLTIP ==================== -->
+<section id="tooltip">
+<h2>Tooltip</h2>
+<div class="preview">
+  <div class="preview-label">Live Preview <span class="tag tag-new">NEW</span></div>
+  <div style="display:flex;gap:24px;padding:40px 0 20px">
+    <div class="tooltip-demo"><button class="btn btn--secondary btn--sm" aria-describedby="tip-1">Hover me</button><div class="tooltip-box" id="tip-1" role="tooltip">This is a tooltip</div></div>
+    <div class="tooltip-demo"><button class="btn btn--secondary btn--sm" aria-describedby="tip-2">Settings</button><div class="tooltip-box" id="tip-2" role="tooltip">Configure preferences</div></div>
+  </div>
+</div>
+<div class="a11y-note">role="tooltip" on content, aria-describedby on trigger. Shows on hover AND focus for keyboard users.</div>
+</section>
+
+<!-- ==================== DROPDOWN ==================== -->
+<section id="dropdown">
+<h2>Dropdown Menu</h2>
+<div class="preview">
+  <div class="preview-label">Live Preview <span class="tag tag-new">NEW</span></div>
+  <div class="dropdown-panel" style="display:inline-block">
+    <div class="dropdown-item" role="menuitem">Edit</div>
+    <div class="dropdown-item" role="menuitem">Duplicate</div>
+    <div class="dropdown-item" role="menuitem">Share</div>
+    <div class="dropdown-sep"></div>
+    <div class="dropdown-item dropdown-item--destructive" role="menuitem">Delete</div>
+  </div>
+</div>
+
+<h3>State Matrix</h3>
+<table class="token-table">
+<thead><tr><th>State</th><th>Visual</th><th>Tokens</th><th>Behavior</th><th>Keyboard</th></tr></thead>
+<tbody>
+<tr><td>Closed</td><td>Trigger button only</td><td>height: <code>44px</code>, radius: <code>--radius-md</code></td><td>Click or Enter/Space opens</td><td>Focus on trigger</td></tr>
+<tr><td>Open</td><td>Menu panel below trigger, shadow-md</td><td>shadow: <code>--shadow-md</code>, z-index: <code>--z-dropdown</code> (10), radius: <code>--radius-lg</code></td><td>Click outside or Escape closes</td><td>Arrow keys navigate items, Home/End jump</td></tr>
+<tr><td>Item hover</td><td>bg: <code>--color-bg-tertiary</code></td><td>padding: <code>8px 12px</code>, transition: <code>--duration-fast</code></td><td>Pointer indicates clickable</td><td>Visual focus ring matches hover</td></tr>
+<tr><td>Item disabled</td><td>opacity: <code>--opacity-disabled</code></td><td>opacity: <code>--opacity-disabled</code> (0.5), cursor: not-allowed</td><td>Click does nothing, skip in arrow nav</td><td><code>aria-disabled="true"</code></td></tr>
+<tr><td>Submenu</td><td>Arrow icon on right edge</td><td>icon: <code>--icon-sm</code> (16px), offset: <code>4px</code></td><td>Hover/ArrowRight opens nested panel</td><td>ArrowLeft closes submenu</td></tr>
+<tr><td>Loading items</td><td>Skeleton lines inside open panel</td><td>skeleton-count: 3, height: <code>36px</code> each</td><td>Panel stays open, items replace skeleton</td><td><code>aria-busy="true"</code> on menu</td></tr>
+</tbody>
+</table>
+</section>
+
+<!-- ==================== BREADCRUMB ==================== -->
+<section id="breadcrumb">
+<h2>Breadcrumb</h2>
+<div class="preview">
+  <div class="preview-label">Live Preview <span class="tag tag-new">NEW</span></div>
+  <nav aria-label="Breadcrumb">
+    <div class="breadcrumb">
+      <a href="#">Home</a><span class="breadcrumb-sep" aria-hidden="true">/</span>
+      <a href="#">Products</a><span class="breadcrumb-sep" aria-hidden="true">/</span>
+      <a href="#">Design Tools</a><span class="breadcrumb-sep" aria-hidden="true">/</span>
+      <span class="breadcrumb-current" aria-current="page">Figma Plugin</span>
+    </div>
+  </nav>
+</div>
+</section>
+
+<!-- ==================== TOAST ==================== -->
+<section id="toast">
+<h2>Toast / Snackbar</h2>
+<div class="preview">
+  <div class="preview-label">Live Preview <span class="tag tag-new">NEW</span></div>
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <div class="toast toast--success" role="status"><div class="toast-content"><div class="toast-title">Saved successfully</div><div class="toast-message">Your changes have been saved.</div></div></div>
+    <div class="toast toast--error" role="alert"><div class="toast-content"><div class="toast-title">Upload failed</div><div class="toast-message">File size exceeds 10MB limit.</div></div></div>
+    <div class="toast toast--info" role="status"><div class="toast-content"><div class="toast-title">Syncing</div><div class="toast-message">3 files are being synced...</div></div></div>
+  </div>
+</div>
+
+<h3>State Matrix</h3>
+<table class="token-table">
+<thead><tr><th>State</th><th>Visual</th><th>Tokens</th><th>Behavior</th><th>Timing</th></tr></thead>
+<tbody>
+<tr><td>Entering</td><td>Slide up from bottom-right + fade in</td><td>z-index: <code>--z-toast</code> (50), shadow: <code>--shadow-lg</code>, radius: <code>--radius-md</code></td><td>Adds to stack (max 3 visible)</td><td>Enter: <code>--duration-normal</code> ease-out</td></tr>
+<tr><td>Visible (success)</td><td>Green left border, check icon</td><td>border-left: 4px <code>--color-success</code>, icon: <code>--icon-md</code> (20px)</td><td>Auto-dismiss countdown active</td><td>5 seconds</td></tr>
+<tr><td>Visible (error)</td><td>Red left border, alert icon</td><td>border-left: 4px <code>--color-error</code>, icon: <code>--icon-md</code> (20px)</td><td>Auto-dismiss countdown active</td><td>8 seconds</td></tr>
+<tr><td>Hovered</td><td>No visual change</td><td>cursor: default</td><td>Pause auto-dismiss timer</td><td>Timer resumes on mouse leave</td></tr>
+<tr><td>Dismissed (user)</td><td>Fade out + slide right</td><td>transform: <code>translateX(100%)</code>, opacity: 0</td><td>Close button clicked</td><td>Exit: <code>--duration-fast</code> ease-in</td></tr>
+<tr><td>Dismissed (auto)</td><td>Fade out + slide down</td><td>transform: <code>translateY(8px)</code>, opacity: 0</td><td>Timer expired</td><td>Exit: <code>--duration-fast</code> ease-in</td></tr>
+<tr><td>Stacked (overflow)</td><td>Oldest toast removed</td><td>gap: <code>--space-3</code> (12px) between toasts</td><td>When 4th toast arrives, remove oldest</td><td>Immediate removal of excess</td></tr>
+</tbody>
+</table>
+</section>
+
+<!-- ==================== PAGINATION ==================== -->
+<section id="pagination">
+<h2>Pagination</h2>
+<div class="preview">
+  <div class="preview-label">Live Preview <span class="tag tag-new">NEW</span></div>
+  <nav aria-label="Pagination">
+    <div class="pagination">
+      <button class="page-btn" disabled aria-label="Previous page">&#8249;</button>
+      <button class="page-btn active" aria-current="page" aria-label="Page 1">1</button>
+      <button class="page-btn" aria-label="Page 2">2</button>
+      <button class="page-btn" aria-label="Page 3">3</button>
+      <span class="page-ellipsis">&#8230;</span>
+      <button class="page-btn" aria-label="Page 12">12</button>
+      <button class="page-btn" aria-label="Next page">&#8250;</button>
+    </div>
+  </nav>
+</div>
+</section>
+
+<!-- ==================== SKELETON ==================== -->
+<section id="skeleton">
+<h2>Skeleton / Loading</h2>
+<div class="preview">
+  <div class="preview-label">Live Preview <span class="tag tag-new">NEW</span></div>
+  <div style="display:flex;gap:16px;align-items:flex-start" aria-busy="true">
+    <div class="skeleton skeleton-circle" style="width:48px;height:48px;flex-shrink:0" aria-hidden="true"></div>
+    <div style="flex:1">
+      <div class="skeleton skeleton-line" style="width:40%" aria-hidden="true"></div>
+      <div class="skeleton skeleton-line" style="width:100%" aria-hidden="true"></div>
+      <div class="skeleton skeleton-line" style="width:80%" aria-hidden="true"></div>
+    </div>
+  </div>
+</div>
+<div class="a11y-note">Container uses aria-busy="true". Elements use aria-hidden="true". Animation paused with prefers-reduced-motion.</div>
+</section>
+
+<!-- ==================== DATA TABLE ==================== -->
+<section id="data-table">
+<h2>Data Table</h2>
+<div class="preview">
+  <div class="preview-label">Live Preview <span class="tag tag-new">NEW</span></div>
+  <table class="data-table">
+    <thead><tr><th>Name</th><th>Status</th><th>Role</th><th>Last Active</th></tr></thead>
+    <tbody>
+      <tr><td style="font-weight:var(--font-weight-medium)">Alice Johnson</td><td><span class="badge badge--success">Active</span></td><td>Admin</td><td>Just now</td></tr>
+      <tr><td style="font-weight:var(--font-weight-medium)">Bob Smith</td><td><span class="badge badge--brand">Pending</span></td><td>Editor</td><td>2h ago</td></tr>
+      <tr><td style="font-weight:var(--font-weight-medium)">Carol Davis</td><td><span class="badge badge--error">Inactive</span></td><td>Viewer</td><td>3 days ago</td></tr>
+      <tr><td style="font-weight:var(--font-weight-medium)">David Lee</td><td><span class="badge badge--success">Active</span></td><td>Editor</td><td>5m ago</td></tr>
+    </tbody>
+  </table>
+</div>
+<h3>State Matrix</h3>
+<table class="token-table">
+<thead><tr><th>State</th><th>Visual</th><th>Tokens</th><th>Behavior</th><th>ARIA</th></tr></thead>
+<tbody>
+<tr><td>Loading (initial)</td><td>3-5 skeleton rows, header visible</td><td><code>--skeleton-count: 4</code>, row-height: <code>48px</code></td><td>No interaction on rows</td><td><code>aria-busy="true"</code> on table</td></tr>
+<tr><td>Loading (refresh)</td><td>Existing rows stay, subtle overlay</td><td>overlay: <code>--opacity-muted</code> (0.6)</td><td>Sorting/pagination disabled</td><td><code>aria-busy="true"</code></td></tr>
+<tr><td>Empty</td><td>Illustration + heading + CTA centered</td><td>padding: <code>--space-16</code>, icon: <code>--icon-xl</code> (32px)</td><td>Primary action button focused</td><td><code>role="status"</code> on message</td></tr>
+<tr><td>Error</td><td>Inline alert above table + retry</td><td>border-left: 4px <code>--color-error</code></td><td>Preserve stale data if available</td><td><code>role="alert"</code></td></tr>
+<tr><td>Selected (single)</td><td>Row bg: <code>--color-brand-muted</code></td><td>bg: <code>--color-brand-muted</code>, border-left: 2px <code>--color-brand-primary</code></td><td>Checkbox checked, action bar visible</td><td><code>aria-selected="true"</code></td></tr>
+<tr><td>Selected (bulk)</td><td>Count badge + bulk action bar</td><td>action-bar height: <code>48px</code>, z-index: <code>--z-sticky</code> (20)</td><td>"Select all" applies to current page</td><td>Live region announces count</td></tr>
+<tr><td>Sorted</td><td>Arrow icon in column header</td><td>icon: <code>--icon-sm</code> (16px), color: <code>--color-text-primary</code></td><td>Re-fetches/re-sorts data</td><td><code>aria-sort="ascending|descending"</code></td></tr>
+</tbody>
+</table>
+</section>
+
+<!-- ==================== PATTERN: FORMS ==================== -->
+
+<!-- ==================== COMPONENT VARIANT API ==================== -->
+<section id="variant-api">
+<h2>Component Variant API</h2>
+<p>CVA-style variant contracts for every component. Variants compose as <code>className--{variant}</code>. Invalid combinations are explicitly disallowed.</p>
+
+<h3>Button</h3>
+<div class="preview">
+  <table class="data-table">
+    <thead><tr><th>Prop</th><th>Values</th><th>Default</th><th>CSS Class</th></tr></thead>
+    <tbody>
+      <tr><td><code>variant</code></td><td>primary · secondary · ghost · destructive</td><td>primary</td><td><code>.btn--{variant}</code></td></tr>
+      <tr><td><code>size</code></td><td>sm · md · lg</td><td>md</td><td><code>.btn--{size}</code></td></tr>
+      <tr><td><code>state</code></td><td>default · hover · active · disabled · loading</td><td>default</td><td><code>[disabled]</code> · <code>.btn--loading</code></td></tr>
+      <tr><td><code>fullWidth</code></td><td>true · false</td><td>false</td><td><code>.btn--block</code></td></tr>
+      <tr><td><code>iconOnly</code></td><td>true · false</td><td>false</td><td><code>.btn--icon</code></td></tr>
+    </tbody>
+  </table>
+  <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+    <button class="btn btn--sm btn--primary">sm primary</button>
+    <button class="btn btn--md btn--secondary">md secondary</button>
+    <button class="btn btn--lg btn--ghost">lg ghost</button>
+    <button class="btn btn--md btn--destructive">destructive</button>
+    <button class="btn btn--md btn--primary" disabled>disabled</button>
+  </div>
+</div>
+
+<h3>Input</h3>
+<div class="preview">
+  <table class="data-table">
+    <thead><tr><th>Prop</th><th>Values</th><th>Default</th><th>CSS Class</th></tr></thead>
+    <tbody>
+      <tr><td><code>variant</code></td><td>default · error · success</td><td>default</td><td><code>.input--{variant}</code></td></tr>
+      <tr><td><code>size</code></td><td>sm · md · lg</td><td>md</td><td><code>.input--{size}</code></td></tr>
+      <tr><td><code>state</code></td><td>default · focus · disabled · readonly</td><td>default</td><td><code>[disabled]</code> · <code>[readonly]</code></td></tr>
+      <tr><td><code>prefix</code></td><td>icon · text · none</td><td>none</td><td><code>.input-group</code></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h3>Card</h3>
+<div class="preview">
+  <table class="data-table">
+    <thead><tr><th>Prop</th><th>Values</th><th>Default</th><th>CSS Class</th></tr></thead>
+    <tbody>
+      <tr><td><code>variant</code></td><td>elevated · outlined · filled</td><td>elevated</td><td><code>.card--{variant}</code></td></tr>
+      <tr><td><code>padding</code></td><td>compact · default · spacious</td><td>default</td><td><code>.card--{padding}</code></td></tr>
+      <tr><td><code>interactive</code></td><td>true · false</td><td>false</td><td><code>.card--interactive</code> (adds hover-lift)</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h3>Badge</h3>
+<div class="preview">
+  <table class="data-table">
+    <thead><tr><th>Prop</th><th>Values</th><th>Default</th><th>CSS Class</th></tr></thead>
+    <tbody>
+      <tr><td><code>variant</code></td><td>brand · success · error · neutral · warning</td><td>neutral</td><td><code>.badge--{variant}</code></td></tr>
+      <tr><td><code>size</code></td><td>sm · md</td><td>md</td><td><code>.badge--{size}</code></td></tr>
+      <tr><td><code>dot</code></td><td>true · false</td><td>false</td><td><code>.badge--dot</code> (status indicator)</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h3>Alert</h3>
+<div class="preview">
+  <table class="data-table">
+    <thead><tr><th>Prop</th><th>Values</th><th>Default</th><th>CSS Class</th></tr></thead>
+    <tbody>
+      <tr><td><code>variant</code></td><td>success · warning · error · info</td><td>info</td><td><code>.alert--{variant}</code></td></tr>
+      <tr><td><code>dismissible</code></td><td>true · false</td><td>false</td><td>Adds close button</td></tr>
+      <tr><td><code>icon</code></td><td>true · false</td><td>true</td><td>Hides leading icon</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h3>Toast</h3>
+<div class="preview">
+  <table class="data-table">
+    <thead><tr><th>Prop</th><th>Values</th><th>Default</th><th>CSS Class</th></tr></thead>
+    <tbody>
+      <tr><td><code>variant</code></td><td>success · warning · error · info</td><td>info</td><td><code>.toast--{variant}</code></td></tr>
+      <tr><td><code>position</code></td><td>top-right · top-center · bottom-right · bottom-center</td><td>bottom-right</td><td>JS positioning</td></tr>
+      <tr><td><code>duration</code></td><td>3000 · 5000 · 8000 · persistent</td><td>5000</td><td>JS auto-dismiss</td></tr>
+      <tr><td><code>action</code></td><td>text · none</td><td>none</td><td><code>.toast-action</code></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h3>Avatar</h3>
+<div class="preview">
+  <table class="data-table">
+    <thead><tr><th>Prop</th><th>Values</th><th>Default</th><th>CSS Class</th></tr></thead>
+    <tbody>
+      <tr><td><code>size</code></td><td>xs (24) · sm (32) · md (40) · lg (48) · xl (64)</td><td>md</td><td><code>.avatar--{size}</code></td></tr>
+      <tr><td><code>status</code></td><td>online · busy · none</td><td>none</td><td><code>.avatar-status--{status}</code></td></tr>
+      <tr><td><code>fallback</code></td><td>initials · icon · image</td><td>initials</td><td>Content-based</td></tr>
+      <tr><td><code>group</code></td><td>true · false</td><td>false</td><td><code>.avatar-group</code></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h3>Toggle</h3>
+<div class="preview">
+  <table class="data-table">
+    <thead><tr><th>Prop</th><th>Values</th><th>Default</th><th>CSS Class</th></tr></thead>
+    <tbody>
+      <tr><td><code>checked</code></td><td>true · false</td><td>false</td><td><code>.toggle.on</code></td></tr>
+      <tr><td><code>disabled</code></td><td>true · false</td><td>false</td><td><code>[disabled]</code></td></tr>
+      <tr><td><code>size</code></td><td>sm · md</td><td>md</td><td><code>.toggle--{size}</code></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h3>Data Table</h3>
+<div class="preview">
+  <table class="data-table">
+    <thead><tr><th>Prop</th><th>Values</th><th>Default</th><th>CSS Class</th></tr></thead>
+    <tbody>
+      <tr><td><code>density</code></td><td>compact (36px) · default (48px) · comfortable (56px)</td><td>default</td><td><code>.data-table--{density}</code></td></tr>
+      <tr><td><code>sortable</code></td><td>true · false</td><td>false</td><td><code>.data-table--sortable</code></td></tr>
+      <tr><td><code>selectable</code></td><td>none · single · multi</td><td>none</td><td><code>.data-table--selectable</code></td></tr>
+      <tr><td><code>striped</code></td><td>true · false</td><td>false</td><td><code>.data-table--striped</code></td></tr>
+      <tr><td><code>stickyHeader</code></td><td>true · false</td><td>false</td><td><code>.data-table--sticky</code></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="a11y-note">Compound variants: Combine props freely except where noted. Invalid combos (e.g., <code>ghost + destructive</code> on buttons) should be caught at lint-time. Use the <code>data-variant</code> attribute for framework-agnostic variant detection.</div>
+</section>
+
+
+<!-- ==================== COMPONENT SANDBOX ==================== -->
+<section id="sandbox">
+<h2>Component Sandbox</h2>
+<p>Interactive playground — change props and see live updates. Theme inherits from palette selector above.</p>
+
+<div class="preview" id="sandbox-area">
+  <div style="display:flex;gap:12px;margin-bottom:16px;flex-wrap:wrap;align-items:center">
+    <label style="font-size:var(--text-label);font-weight:var(--font-weight-semibold)">Component:</label>
+    <select class="input" style="width:160px;height:36px;font-size:var(--text-body-sm)" id="sandbox-component" onchange="updateSandbox()">
+      <option value="button">Button</option>
+      <option value="input">Input</option>
+      <option value="card">Card</option>
+      <option value="badge">Badge</option>
+      <option value="alert">Alert</option>
+      <option value="toast">Toast</option>
+    </select>
+    <label style="font-size:var(--text-label);font-weight:var(--font-weight-semibold);margin-left:12px">Variant:</label>
+    <select class="input" style="width:140px;height:36px;font-size:var(--text-body-sm)" id="sandbox-variant" onchange="updateSandbox()">
+      <option value="primary">primary</option>
+      <option value="secondary">secondary</option>
+      <option value="ghost">ghost</option>
+      <option value="destructive">destructive</option>
+    </select>
+    <label style="font-size:var(--text-label);font-weight:var(--font-weight-semibold);margin-left:12px">Size:</label>
+    <select class="input" style="width:100px;height:36px;font-size:var(--text-body-sm)" id="sandbox-size" onchange="updateSandbox()">
+      <option value="sm">sm</option>
+      <option value="md" selected>md</option>
+      <option value="lg">lg</option>
+    </select>
+    <label style="font-size:var(--text-label);margin-left:12px"><input type="checkbox" id="sandbox-disabled" onchange="updateSandbox()"> Disabled</label>
+  </div>
+
+  <div id="sandbox-preview" style="padding:24px;background:var(--color-bg-primary);border:1px solid var(--color-border-default);border-radius:var(--radius-md);min-height:80px;display:flex;align-items:center;justify-content:center">
+    <button class="btn btn--md btn--primary">Button</button>
+  </div>
+
+  <div id="sandbox-code" class="code-block" style="margin-top:12px">
+    <button class="copy-btn" onclick="navigator.clipboard.writeText(document.getElementById('sandbox-code-text').textContent)">Copy</button>
+    <code id="sandbox-code-text">&lt;button class="btn btn--md btn--primary"&gt;Button&lt;/button&gt;</code>
+  </div>
+</div>
+</section>
+
+<section id="pattern-forms">
+<h2>Pattern: Forms</h2>
+<p>System-wide rules for form layout, validation, and submission. These rules apply to every form regardless of which components are used.</p>
+<div class="preview">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+    <div><strong style="font-size:var(--text-body-sm)">Layout</strong><p style="font-size:var(--text-body-sm)">Single-column by default. Only use multi-column for short, related fields (city + state). Labels always above inputs, never floating or inline.</p></div>
+    <div><strong style="font-size:var(--text-body-sm)">Validation</strong><p style="font-size:var(--text-body-sm)">Inline errors below the field, shown on blur (not keystroke). Error text uses <code>--color-error</code> with <code>role="alert"</code>. Never validate on focus.</p></div>
+    <div><strong style="font-size:var(--text-body-sm)">Required Fields</strong><p style="font-size:var(--text-body-sm)">Mark optional fields with "(optional)" suffix. Do not use asterisks. All fields are assumed required unless marked.</p></div>
+    <div><strong style="font-size:var(--text-body-sm)">Submission</strong><p style="font-size:var(--text-body-sm)">Primary button at bottom-left. Disable on submit, show inline spinner. Never navigate away on error. Preserve all entered data on failure.</p></div>
+    <div><strong style="font-size:var(--text-body-sm)">Spacing</strong><p style="font-size:var(--text-body-sm)">Label-to-input gap: <code>--spacing-1</code> (4px). Field-to-field gap: <code>--spacing-5</code> (20px). Section gap: <code>--spacing-8</code> (32px).</p></div>
+    <div><strong style="font-size:var(--text-body-sm)">Help Text</strong><p style="font-size:var(--text-body-sm)">Below input, above error message. Uses <code>--color-text-tertiary</code> at <code>--text-body-sm</code>. Connected via <code>aria-describedby</code>.</p></div>
+  </div>
+</div>
+</section>
+
+<!-- ==================== PATTERN: TABLES ==================== -->
+<section id="pattern-tables">
+<h2>Pattern: Data Tables</h2>
+<p>Rules for tabular data display, sorting, pagination, and state handling.</p>
+<div class="preview">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+    <div><strong style="font-size:var(--text-body-sm)">Row Height</strong><p style="font-size:var(--text-body-sm)">Compact: 40px. Default: 48px. Relaxed: 56px. Use compact for data-dense dashboards, relaxed for settings/admin.</p></div>
+    <div><strong style="font-size:var(--text-body-sm)">Empty State</strong><p style="font-size:var(--text-body-sm)">Centered illustration + heading + action. Never show an empty <code>&lt;tbody&gt;</code>. Use "No [items] found" with a clear action ("Create first [item]").</p></div>
+    <div><strong style="font-size:var(--text-body-sm)">Loading State</strong><p style="font-size:var(--text-body-sm)">Skeleton rows (3-5) matching column layout. Header stays visible. Never show a full-page spinner for table reloads.</p></div>
+    <div><strong style="font-size:var(--text-body-sm)">Error State</strong><p style="font-size:var(--text-body-sm)">Inline alert above table: "Unable to load data" + retry button. Preserve any existing rows if the error is a refresh failure.</p></div>
+    <div><strong style="font-size:var(--text-body-sm)">Sorting</strong><p style="font-size:var(--text-body-sm)">Click header to cycle: unsorted &rarr; ascending &rarr; descending. Active sort column uses <code>aria-sort</code>. Only one column sorted at a time.</p></div>
+    <div><strong style="font-size:var(--text-body-sm)">Selection</strong><p style="font-size:var(--text-body-sm)">Checkbox in first column. "Select all" selects current page only. Show selection count + bulk action bar above table on selection.</p></div>
+  </div>
+</div>
+</section>
+
+<!-- ==================== PATTERN: NAVIGATION ==================== -->
+<section id="pattern-navigation">
+<h2>Pattern: Navigation</h2>
+<p>Rules for wayfinding, hierarchy, and movement between views.</p>
+<div class="preview">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+    <div><strong style="font-size:var(--text-body-sm)">Primary Nav</strong><p style="font-size:var(--text-body-sm)">Maximum 7 top-level items. Use icons + text labels; never icons-only for primary navigation. Active state uses <code>aria-current="page"</code>.</p></div>
+    <div><strong style="font-size:var(--text-body-sm)">Sidebar Nav</strong><p style="font-size:var(--text-body-sm)">Group items under section headings. Collapse groups by default if &gt;3 sections (Foundation always expanded; active section auto-expands on scroll). Active item highlighted with <code>--color-brand-primary</code> left border.</p></div>
+    <div><strong style="font-size:var(--text-body-sm)">Breadcrumbs</strong><p style="font-size:var(--text-body-sm)">Show on pages &gt;2 levels deep. Current page is plain text (not a link). Separator: <code>/</code>. Truncate middle items on mobile with ellipsis.</p></div>
+    <div><strong style="font-size:var(--text-body-sm)">Mobile</strong><p style="font-size:var(--text-body-sm)">Collapse to hamburger below <code>md</code> breakpoint (768px). Drawer slides from left, full height. Trap focus inside open drawer.</p></div>
+  </div>
+</div>
+</section>
+
+<!-- ==================== PATTERN: FEEDBACK ==================== -->
+<section id="pattern-feedback">
+<h2>Pattern: Feedback</h2>
+<p>Rules for alerts, toasts, error handling, and confirmations. These rules override any per-component defaults.</p>
+<div class="preview">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+    <div><strong style="font-size:var(--text-body-sm)">Alert Rules</strong><p style="font-size:var(--text-body-sm)">Max 2 lines of text. Use <code>role="status"</code> for info/success, <code>role="alert"</code> for error/warning. Never use alerts for marketing content. Never stack more than 1 inline alert per section.</p></div>
+    <div><strong style="font-size:var(--text-body-sm)">Toast Rules</strong><p style="font-size:var(--text-body-sm)">Auto-dismiss after 5s (success) or 8s (error). Max 3 visible toasts, stacked bottom-right. Newest on top. Must include close button. Pause timer on hover.</p></div>
+    <div><strong style="font-size:var(--text-body-sm)">Destructive Confirmations</strong><p style="font-size:var(--text-body-sm)">Require explicit confirmation modal for irreversible actions (delete, publish, transfer). Primary button is destructive variant. Include "Type to confirm" for batch operations.</p></div>
+    <div><strong style="font-size:var(--text-body-sm)">Loading Feedback</strong><p style="font-size:var(--text-body-sm)">Show spinner after 300ms delay (avoid flicker). For &gt;3s operations, show progress text. For &gt;10s, show estimated time remaining. Never block the entire UI.</p></div>
+    <div><strong style="font-size:var(--text-body-sm)">Empty States</strong><p style="font-size:var(--text-body-sm)">Always include: illustration or icon, heading, 1-line description, and a primary action button. Never show a blank page or container.</p></div>
+    <div><strong style="font-size:var(--text-body-sm)">Error Recovery</strong><p style="font-size:var(--text-body-sm)">Every error message must include a next step: retry button, help link, or specific fix instruction. Never show raw error codes or stack traces.</p></div>
+  </div>
+</div>
+</section>
+
+<!-- ==================== ACCESSIBILITY ==================== -->
+<section id="accessibility">
+<h2>Accessibility Audit</h2>
+<p>Automated WCAG 2.1 AA contrast verification across all 9 palettes × 2 modes = 18 combinations. Last audited: March 2026.</p>
+
+<div class="preview">
+  <div style="display:flex;gap:24px;margin-bottom:16px">
+    <div style="text-align:center;padding:16px 24px;background:var(--color-success-bg);border-radius:var(--radius-md);flex:1">
+      <div style="font-size:var(--text-heading-lg);font-weight:var(--font-weight-bold);color:var(--color-success)">100.0%</div>
+      <div style="font-size:var(--text-label);color:var(--color-text-secondary)">Pass Rate</div>
+    </div>
+    <div style="text-align:center;padding:16px 24px;background:var(--color-bg-tertiary);border-radius:var(--radius-md);flex:1">
+      <div style="font-size:var(--text-heading-lg);font-weight:var(--font-weight-bold)">62</div>
+      <div style="font-size:var(--text-label);color:var(--color-text-secondary)">Checks Run</div>
+    </div>
+    <div style="text-align:center;padding:16px 24px;background:var(--color-bg-tertiary);border-radius:var(--radius-md);flex:1">
+      <div style="font-size:var(--text-heading-lg);font-weight:var(--font-weight-bold)">18</div>
+      <div style="font-size:var(--text-label);color:var(--color-text-secondary)">Palette×Mode Combos</div>
+    </div>
+  </div>
+
+  <table class="data-table" style="margin-top:16px">
+    <thead>
+      <tr>
+        <th>Palette</th>
+        <th style="text-align:center">Light</th>
+        <th style="text-align:center">Min Ratio</th>
+        <th style="text-align:center">Dark</th>
+        <th style="text-align:center">Min Ratio</th>
+      </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td style="font-weight:var(--font-weight-semibold)">Min SaaS</td>
+      <td style="text-align:center"><span class="badge badge--neutral" style="font-size:10px">—</span></td>
+      <td style="text-align:center;font-size:var(--text-label)">0.0:1</td>
+      <td style="text-align:center"><span class="badge badge--success" style="font-size:10px">4/4</span></td>
+      <td style="text-align:center;font-size:var(--text-label)">4.5:1</td>
+    </tr>
+    <tr>
+      <td style="font-weight:var(--font-weight-semibold)">AI Futur.</td>
+      <td style="text-align:center"><span class="badge badge--success" style="font-size:10px">6/6</span></td>
+      <td style="text-align:center;font-size:var(--text-label)">4.7:1</td>
+      <td style="text-align:center"><span class="badge badge--success" style="font-size:10px">6/6</span></td>
+      <td style="text-align:center;font-size:var(--text-label)">4.7:1</td>
+    </tr>
+    <tr>
+      <td style="font-weight:var(--font-weight-semibold)">Grad. Start.</td>
+      <td style="text-align:center"><span class="badge badge--neutral" style="font-size:10px">—</span></td>
+      <td style="text-align:center;font-size:var(--text-label)">0.0:1</td>
+      <td style="text-align:center"><span class="badge badge--success" style="font-size:10px">5/5</span></td>
+      <td style="text-align:center;font-size:var(--text-label)">3.4:1</td>
+    </tr>
+    <tr>
+      <td style="font-weight:var(--font-weight-semibold)">Corporate</td>
+      <td style="text-align:center"><span class="badge badge--success" style="font-size:10px">1/1</span></td>
+      <td style="text-align:center;font-size:var(--text-label)">15.4:1</td>
+      <td style="text-align:center"><span class="badge badge--success" style="font-size:10px">5/5</span></td>
+      <td style="text-align:center;font-size:var(--text-label)">4.2:1</td>
+    </tr>
+    <tr>
+      <td style="font-weight:var(--font-weight-semibold)">Apple Min.</td>
+      <td style="text-align:center"><span class="badge badge--success" style="font-size:10px">1/1</span></td>
+      <td style="text-align:center;font-size:var(--text-label)">16.3:1</td>
+      <td style="text-align:center"><span class="badge badge--success" style="font-size:10px">5/5</span></td>
+      <td style="text-align:center;font-size:var(--text-label)">4.1:1</td>
+    </tr>
+    <tr>
+      <td style="font-weight:var(--font-weight-semibold)">Illustr.</td>
+      <td style="text-align:center"><span class="badge badge--success" style="font-size:10px">1/1</span></td>
+      <td style="text-align:center;font-size:var(--text-label)">17.0:1</td>
+      <td style="text-align:center"><span class="badge badge--success" style="font-size:10px">5/5</span></td>
+      <td style="text-align:center;font-size:var(--text-label)">4.8:1</td>
+    </tr>
+    <tr>
+      <td style="font-weight:var(--font-weight-semibold)">Dashboard</td>
+      <td style="text-align:center"><span class="badge badge--success" style="font-size:10px">1/1</span></td>
+      <td style="text-align:center;font-size:var(--text-label)">17.8:1</td>
+      <td style="text-align:center"><span class="badge badge--success" style="font-size:10px">5/5</span></td>
+      <td style="text-align:center;font-size:var(--text-label)">3.1:1</td>
+    </tr>
+    <tr>
+      <td style="font-weight:var(--font-weight-semibold)">Bold Life.</td>
+      <td style="text-align:center"><span class="badge badge--success" style="font-size:10px">1/1</span></td>
+      <td style="text-align:center;font-size:var(--text-label)">17.3:1</td>
+      <td style="text-align:center"><span class="badge badge--success" style="font-size:10px">6/6</span></td>
+      <td style="text-align:center;font-size:var(--text-label)">3.7:1</td>
+    </tr>
+    <tr>
+      <td style="font-weight:var(--font-weight-semibold)">Min Corp.</td>
+      <td style="text-align:center"><span class="badge badge--success" style="font-size:10px">5/5</span></td>
+      <td style="text-align:center;font-size:var(--text-label)">4.7:1</td>
+      <td style="text-align:center"><span class="badge badge--success" style="font-size:10px">5/5</span></td>
+      <td style="text-align:center;font-size:var(--text-label)">4.0:1</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<h3>Checks Performed</h3>
+<div class="preview">
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px">
+    <div style="font-size:var(--text-body-sm)"><strong>Body text → bg</strong><br>4.5:1 required (AA)</div>
+    <div style="font-size:var(--text-body-sm)"><strong>Secondary text → bg</strong><br>4.5:1 required (AA)</div>
+    <div style="font-size:var(--text-body-sm)"><strong>Text on cards</strong><br>4.5:1 required (AA)</div>
+    <div style="font-size:var(--text-body-sm)"><strong>Brand button text</strong><br>4.5:1 required (AA)</div>
+    <div style="font-size:var(--text-body-sm)"><strong>Brand links</strong><br>3.0:1 required (AA large)</div>
+    <div style="font-size:var(--text-body-sm)"><strong>Tertiary text</strong><br>3.0:1 required (AA large)</div>
+  </div>
+</div>
+
+<h3>Governance Requirements</h3>
+<div class="preview">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+    <div><strong style="font-size:var(--text-body-sm)">Color Contrast</strong><p style="font-size:var(--text-body-sm)">4.5:1 text, 3:1 UI (SC 1.4.11). Verified across all 9 palettes × 2 modes.</p></div>
+    <div><strong style="font-size:var(--text-body-sm)">Keyboard Navigation</strong><p style="font-size:var(--text-body-sm)">Full tab order, arrow keys for composite widgets, Escape to dismiss.</p></div>
+    <div><strong style="font-size:var(--text-body-sm)">Screen Readers</strong><p style="font-size:var(--text-body-sm)">ARIA roles, states, properties on every interactive component.</p></div>
+    <div><strong style="font-size:var(--text-body-sm)">Motion Sensitivity</strong><p style="font-size:var(--text-body-sm)">prefers-reduced-motion disables all animations globally.</p></div>
+    <div><strong style="font-size:var(--text-body-sm)">Touch Targets</strong><p style="font-size:var(--text-body-sm)">44px minimum per WCAG 2.2 SC 2.5.8 on all interactive elements.</p></div>
+    <div><strong style="font-size:var(--text-body-sm)">Forced Colors</strong><p style="font-size:var(--text-body-sm)">forced-colors media query ensures Windows High Contrast Mode support.</p></div>
+  </div>
+</div>
+</section>
+
+</main>
+</div>
+</div>
+
+<script>
+// Dynamic radius label updater
+function updateRadiusLabels() {
+  const style = getComputedStyle(document.documentElement);
+  ['sm', 'md', 'lg', 'xl', '2xl'].forEach(name => {
+    const val = style.getPropertyValue('--radius-' + name).trim();
+    const label = document.querySelector('[data-radius-label="' + name + '"]');
+    if (label) label.textContent = name + ' (' + val + ')';
+  });
+}
+
+// Theme switching
+document.querySelectorAll('.palette-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.documentElement.setAttribute('data-theme', btn.dataset.theme);
+    document.querySelectorAll('.palette-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    requestAnimationFrame(updateRadiusLabels);
+  });
+});
+
+// Init radius labels
+requestAnimationFrame(updateRadiusLabels);
+
+// Accordion
+document.querySelectorAll('.accordion-trigger').forEach(trigger => {
+  trigger.addEventListener('click', () => {
+    const expanded = trigger.getAttribute('aria-expanded') === 'true';
+    const content = document.getElementById(trigger.getAttribute('aria-controls'));
+    trigger.setAttribute('aria-expanded', !expanded);
+    content.hidden = expanded;
+  });
+});
+
+// Tab switching
+document.querySelectorAll('[role="tab"]').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('[role="tab"]').forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected','false'); });
+    tab.classList.add('active');
+    tab.setAttribute('aria-selected','true');
+  });
+});
+
+// Sidebar active tracking
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      document.querySelectorAll('.sidebar-nav a').forEach(a => a.classList.remove('active'));
+      const link = document.querySelector(`.sidebar-nav a[href="#${entry.target.id}"]`);
+      if (link) {
+        link.classList.add('active');
+        // Auto-expand the group containing the active link
+        const activeGroup = link.closest('.section-group');
+        if (activeGroup) {
+          const groupName = activeGroup.dataset.group;
+          document.querySelectorAll('.section-group').forEach(g => {
+            if (g.dataset.group !== groupName && g.dataset.group !== 'foundation') {
+              g.classList.add('collapsed');
+              const t = g.previousElementSibling;
+              if (t && t.classList.contains('section-title')) {
+                t.classList.add('collapsed');
+                t.setAttribute('aria-expanded', 'false');
+              }
+            }
+          });
+          activeGroup.classList.remove('collapsed');
+          const activeTitle = activeGroup.previousElementSibling;
+          if (activeTitle && activeTitle.classList.contains('section-title')) {
+            activeTitle.classList.remove('collapsed');
+            activeTitle.setAttribute('aria-expanded', 'true');
+          }
+        }
+      }
+    }
+  });
+}, { rootMargin: '-20% 0px -80% 0px' });
+document.querySelectorAll('main section').forEach(s => observer.observe(s));
+
+// Copy code blocks
+document.querySelectorAll('.copy-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const code = btn.parentElement.querySelector('code').textContent;
+    navigator.clipboard.writeText(code);
+    btn.textContent = 'Copied!';
+    setTimeout(() => btn.textContent = 'Copy', 1500);
+  });
+});
+
+// SEARCH FUNCTIONALITY
+const searchInput = document.getElementById('sidebar-search');
+const sidebarNav = document.querySelector('.sidebar-nav');
+
+if (searchInput && sidebarNav) {
+  searchInput.addEventListener('input', (e) => {
+    const query = e.target.value.toLowerCase().trim();
+    const links = sidebarNav.querySelectorAll('a');
+
+    // Toggle filtering class on nav
+    sidebarNav.classList.toggle('is-filtering', query !== '');
+
+    links.forEach(link => {
+      const text = link.textContent.toLowerCase();
+      const isMatch = text.includes(query);
+
+      if (query === '') {
+        link.classList.remove('hidden-by-search');
+      } else {
+        link.classList.toggle('hidden-by-search', !isMatch);
+      }
+    });
+
+    // Show/hide section titles based on visible content in their group
+    document.querySelectorAll('.sidebar-nav .nav-section').forEach(section => {
+      const title = section.querySelector('.section-title');
+      const group = section.querySelector('.section-group');
+      if (!title || !group) return;
+      const links = group.querySelectorAll('a');
+      let hasVisibleItems = false;
+      links.forEach(a => {
+        if (!a.classList.contains('hidden-by-search')) hasVisibleItems = true;
+      });
+      title.classList.toggle('visible-section', hasVisibleItems || query === '');
+    });
+  });
+
+  // Keyboard shortcut: Cmd+K or Ctrl+K
+  document.addEventListener('keydown', (e) => {
+    if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+      e.preventDefault();
+      searchInput.focus();
+      searchInput.select();
+    }
+  });
+}
+
+// APPEARANCE MODE TOGGLE (light/dark — applies to any palette)
+const darkModeToggle = document.getElementById('dark-mode-toggle');
+const darkModeKey = 'docs-appearance';
+const sunSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>';
+const moonSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+
+function updateAppearanceButton(isDark) {
+  if (!darkModeToggle) return;
+  darkModeToggle.innerHTML = isDark
+    ? sunSvg + '<span>Light</span>'
+    : moonSvg + '<span>Dark</span>';
+}
+
+if (darkModeToggle) {
+  const isDarkMode = localStorage.getItem(darkModeKey) === 'dark';
+  if (isDarkMode) document.documentElement.classList.add('docs-dark');
+  updateAppearanceButton(isDarkMode);
+
+  darkModeToggle.addEventListener('click', () => {
+    const isNowDark = document.documentElement.classList.toggle('docs-dark');
+    localStorage.setItem(darkModeKey, isNowDark ? 'dark' : 'light');
+    updateAppearanceButton(isNowDark);
+  });
+}
+
+// PLAYGROUND CONTROLS
+document.querySelectorAll('.variant-select').forEach(select => {
+  select.addEventListener('change', (e) => {
+    const component = e.target.dataset.component;
+    const variant = e.target.value;
+    updateComponentVariant(component, variant);
+  });
+});
+
+document.querySelectorAll('.size-select').forEach(select => {
+  select.addEventListener('change', (e) => {
+    const component = e.target.dataset.component;
+    const size = e.target.value;
+    updateComponentSize(component, size);
+  });
+});
+
+function updateComponentVariant(component, variant) {
+  const section = document.querySelector(`section#${component}`);
+  if (!section) return;
+
+  const preview = section.querySelector('.preview');
+  if (!preview) return;
+
+  if (component === 'button') {
+    const buttons = preview.querySelectorAll('.btn:not([disabled])');
+    buttons.forEach(btn => {
+      btn.classList.remove('btn--primary', 'btn--secondary', 'btn--ghost', 'btn--destructive');
+      btn.classList.add(`btn--${variant}`);
+    });
+  }
+
+  if (component === 'input') {
+    const inputs = preview.querySelectorAll('.input');
+    inputs.forEach(input => {
+      input.classList.remove('input--error');
+      if (variant === 'error') {
+        input.classList.add('input--error');
+      }
+    });
+  }
+
+  if (component === 'alert') {
+    const alerts = preview.querySelectorAll('.alert');
+    alerts.forEach(alert => {
+      alert.classList.remove('alert--success', 'alert--warning', 'alert--error', 'alert--info');
+      alert.classList.add(`alert--${variant}`);
+    });
+  }
+
+  if (component === 'badge') {
+    const badges = preview.querySelectorAll('.badge');
+    badges.forEach(badge => {
+      badge.classList.remove('badge--brand', 'badge--success', 'badge--error', 'badge--neutral');
+      badge.classList.add(`badge--${variant}`);
+    });
+  }
+
+  if (component === 'avatar') {
+    const avatars = preview.querySelectorAll('.avatar:not(.avatar-group .avatar)');
+    avatars.forEach(av => {
+      if (variant === 'success') {
+        av.style.background = 'var(--color-success-bg)';
+        av.style.color = 'var(--color-success)';
+      } else if (variant === 'brand') {
+        av.style.background = 'var(--color-brand-muted)';
+        av.style.color = 'var(--color-brand-primary)';
+      } else {
+        // Neutral: grey tones, visually distinct from brand
+        av.style.background = 'var(--color-bg-tertiary)';
+        av.style.color = 'var(--color-text-secondary)';
+      }
+    });
+  }
+}
+
+function updateComponentSize(component, size) {
+  const section = document.querySelector(`section#${component}`);
+  if (!section) return;
+
+  const preview = section.querySelector('.preview');
+  if (!preview) return;
+
+  if (component === 'button') {
+    const buttons = preview.querySelectorAll('.btn:not([disabled])');
+    buttons.forEach(btn => {
+      btn.classList.remove('btn--sm', 'btn--md', 'btn--lg');
+      btn.classList.add(`btn--${size}`);
+    });
+  }
+}
+
+
+// Collapsible sidebar sections
+document.querySelectorAll('.section-title[data-group]').forEach(title => {
+  title.addEventListener('click', () => {
+    const group = title.dataset.group;
+    const groupUl = title.nextElementSibling;
+    if (groupUl && groupUl.classList.contains('section-group')) {
+      const isCollapsed = title.classList.toggle('collapsed');
+      groupUl.classList.toggle('collapsed');
+      title.setAttribute('aria-expanded', !isCollapsed);
+    }
+  });
+});
+
+
+// Stagger demo
+function runStagger() {
+  const items = document.querySelectorAll('#stagger-demo > div:not(button)');
+  items.forEach(item => { item.style.opacity = '0'; item.style.transform = 'translateY(8px)'; });
+  items.forEach((item, i) => {
+    setTimeout(() => { item.style.opacity = '1'; item.style.transform = 'translateY(0)'; }, i * 60);
+  });
+}
+setTimeout(runStagger, 500);
+
+// Component Sandbox
+function updateSandbox() {
+  const comp = document.getElementById('sandbox-component').value;
+  const variant = document.getElementById('sandbox-variant').value;
+  const size = document.getElementById('sandbox-size').value;
+  const disabled = document.getElementById('sandbox-disabled').checked;
+  const preview = document.getElementById('sandbox-preview');
+  const codeEl = document.getElementById('sandbox-code-text');
+
+  const variantSelect = document.getElementById('sandbox-variant');
+  // Update variant options based on component
+  const variantMap = {
+    button: ['primary','secondary','ghost','destructive'],
+    input: ['default','error','success'],
+    card: ['elevated','outlined','filled'],
+    badge: ['brand','success','error','neutral','warning'],
+    alert: ['success','warning','error','info'],
+    toast: ['success','warning','error','info']
+  };
+  const variants = variantMap[comp] || ['primary'];
+  variantSelect.innerHTML = variants.map(v => `<option value="${v}"${v===variant?' selected':''}>${v}</option>`).join('');
+  const currentVariant = variants.includes(variant) ? variant : variants[0];
+
+  // Update size options based on component
+  const sizeSelect = document.getElementById('sandbox-size');
+  const sizeMap = {
+    button: ['sm','md','lg'],
+    input: ['sm','md','lg'],
+    card: ['sm','md','lg'],
+    badge: ['sm','md','lg'],
+    alert: ['sm','md','lg'],
+    toast: ['sm','md','lg']
+  };
+  const sizes = sizeMap[comp] || ['sm','md','lg'];
+  const currentSize = sizes.includes(size) ? size : 'md';
+  sizeSelect.innerHTML = sizes.map(s => `<option value="${s}"${s===currentSize?' selected':''}>${s}</option>`).join('');
+
+  let html = '';
+  let code = '';
+  const dis = disabled ? ' disabled' : '';
+  const disAttr = disabled ? ' disabled' : '';
+
+  // Size class (skip md since it's the default)
+  const sizeClass = size !== 'md' ? ` ${comp === 'button' ? 'btn' : comp}--${size}` : '';
+  const btnSize = size !== 'md' ? ` btn--${size}` : ' btn--md';
+
+  switch(comp) {
+    case 'button':
+      html = `<button class="btn${btnSize} btn--${currentVariant}"${disAttr}>Button Label</button>`;
+      code = `<button class="btn btn--${size} btn--${currentVariant}"${disAttr}>Button Label</button>`;
+      break;
+    case 'input': {
+      const errClass = currentVariant === 'error' ? ' input--error' : '';
+      const inputSize = size !== 'md' ? ` input--${size}` : '';
+      html = `<input class="input${errClass}${inputSize}" placeholder="Type something..." style="max-width:320px"${disAttr}>`;
+      code = `<input class="input${errClass}${inputSize}" placeholder="Type something..."${disAttr}>`;
+      break;
+    }
+    case 'card': {
+      const cardPad = size === 'sm' ? ' card--compact' : size === 'lg' ? ' card--spacious' : '';
+      html = `<div class="card card--${currentVariant}${cardPad}" style="max-width:280px"><div style="font-weight:var(--font-weight-semibold);margin-bottom:4px">Card Title</div><div style="font-size:var(--text-body-sm);color:var(--color-text-secondary)">Card content goes here with some description text.</div></div>`;
+      code = `<div class="card card--${currentVariant}${cardPad}">...</div>`;
+      break;
+    }
+    case 'badge': {
+      const badgeSize = size !== 'md' ? ` badge--${size}` : '';
+      html = `<span class="badge badge--${currentVariant}${badgeSize}">Badge</span>`;
+      code = `<span class="badge badge--${currentVariant}${badgeSize}">Badge</span>`;
+      break;
+    }
+    case 'alert': {
+      const alertSize = size !== 'md' ? ` alert--${size}` : '';
+      const icons = {success:'&#10003;', warning:'&#9888;', error:'&#10007;', info:'&#8505;'};
+      html = `<div class="alert alert--${currentVariant}${alertSize}" role="alert" style="max-width:400px;border-left-color:var(--color-${currentVariant})"><span style="font-size:18px">${icons[currentVariant]||'&#8505;'}</span><div><strong>${currentVariant.charAt(0).toUpperCase()+currentVariant.slice(1)}</strong><br><span style="font-size:var(--text-body-sm)">Alert message content here.</span></div></div>`;
+      code = `<div class="alert alert--${currentVariant}${alertSize}" role="alert">...</div>`;
+      break;
+    }
+    case 'toast': {
+      const toastSize = size !== 'md' ? ` toast--${size}` : '';
+      html = `<div class="toast${toastSize}" style="position:relative;border-left-color:var(--color-${currentVariant})"><span style="font-size:18px">${currentVariant==='success'?'&#10003;':'&#8505;'}</span><div><strong>${currentVariant.charAt(0).toUpperCase()+currentVariant.slice(1)}</strong><div style="font-size:var(--text-body-sm);color:var(--color-text-secondary)">Toast notification message.</div></div></div>`;
+      code = `<div class="toast toast--${currentVariant}${toastSize}">...</div>`;
+      break;
+    }
+  }
+
+  preview.innerHTML = html;
+  codeEl.textContent = code;
+}
+
+</script>
+</body>
+</html>

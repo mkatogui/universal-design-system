@@ -1,0 +1,65 @@
+{
+  "$schema": "https://styledictionary.com/schema.json",
+  "source": ["design-tokens.json"],
+  "platforms": {
+    "css": {
+      "transformGroup": "css",
+      "buildPath": "build/css/",
+      "files": [
+        {
+          "destination": "tokens.css",
+          "format": "css/variables",
+          "options": {
+            "outputReferences": true,
+            "selector": ":root"
+          }
+        }
+      ]
+    },
+    "js": {
+      "transformGroup": "js",
+      "buildPath": "build/js/",
+      "files": [
+        {
+          "destination": "tokens.js",
+          "format": "javascript/es6"
+        },
+        {
+          "destination": "tokens.d.ts",
+          "format": "typescript/es6-declarations"
+        }
+      ]
+    },
+    "json": {
+      "transformGroup": "web",
+      "buildPath": "build/json/",
+      "files": [
+        {
+          "destination": "tokens.json",
+          "format": "json/flat"
+        }
+      ]
+    },
+    "ios-swift": {
+      "transformGroup": "ios-swift",
+      "buildPath": "build/ios/",
+      "files": [
+        {
+          "destination": "DesignTokens.swift",
+          "format": "ios-swift/class.swift",
+          "className": "DesignTokens"
+        }
+      ]
+    },
+    "android": {
+      "transformGroup": "android",
+      "buildPath": "build/android/",
+      "files": [
+        {
+          "destination": "design_tokens.xml",
+          "format": "android/resources"
+        }
+      ]
+    }
+  }
+}
