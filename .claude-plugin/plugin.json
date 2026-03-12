@@ -7,12 +7,5 @@
     "email": "mkatogui@gmail.com"
   },
   "license": "MIT",
-  "keywords": ["design-system", "ui", "ux", "tokens", "components", "wcag", "accessibility", "tailwind", "react", "vue", "svelte", "figma", "design-tokens"],
-  "skills": [
-    "./.claude/skills/universal-design-system",
-    "./.claude/skills/brand-identity",
-    "./.claude/skills/design-audit",
-    "./.claude/skills/slides-design",
-    "./.claude/skills/ui-styling"
-  ]
+  "keywords": ["design-system", "ui", "ux", "tokens", "components", "wcag", "accessibility", "tailwind", "react", "vue", "svelte", "figma", "design-tokens"]
 }
