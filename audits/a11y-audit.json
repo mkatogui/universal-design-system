@@ -1,6 +1,6 @@
 {
-  "version": "0.8.0",
-  "generated": "2026-03-12T16:00:56.678677",
+  "version": "1.0.0",
+  "generated": "2026-03-12T16:51:33.234234",
   "standard": "WCAG 2.1 AA",
   "total_checks": 108,
   "passed": 88,

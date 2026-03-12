@@ -23,6 +23,8 @@ class TestPaletteTokens(unittest.TestCase):
         required_keys_hyphen = ["bg-primary", "text-primary", "brand-primary"]
 
         for palette_name, palette_data in self.themes.items():
+            if palette_name.startswith("$"):
+                continue
             with self.subTest(palette=palette_name):
                 if "light" in palette_data and isinstance(palette_data["light"], dict):
                     # Newer format
@@ -52,6 +54,8 @@ class TestPaletteTokens(unittest.TestCase):
 
     def test_all_palettes_have_dark_mode(self):
         for palette_name, palette_data in self.themes.items():
+            if palette_name.startswith("$"):
+                continue
             with self.subTest(palette=palette_name):
                 if "light" in palette_data and isinstance(palette_data["light"], dict):
                     self.assertIn("dark", palette_data, f"Palette '{palette_name}' missing 'dark' mode")

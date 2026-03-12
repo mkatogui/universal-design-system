@@ -36,6 +36,12 @@ export default {
         dictionary.allTokens.forEach((token) => {
           const name = token.name;
           let value = token.value ?? token.$value;
+          const type = token.$type ?? token.type;
+
+          // Skip object-type tokens (keyframes, starting-style) — not valid CSS variable values
+          if (type === 'object' || (typeof value === 'object' && value !== null)) {
+            return;
+          }
 
           // Resolve references when outputReferences is enabled
           if (options.outputReferences && token.original) {
@@ -84,10 +90,18 @@ export default {
         {
           destination: 'tokens.js',
           format: 'javascript/es6',
+          filter: (token) => {
+            const type = token.$type ?? token.type;
+            return type !== 'object';
+          },
         },
         {
           destination: 'tokens.d.ts',
           format: 'typescript/es6-declarations',
+          filter: (token) => {
+            const type = token.$type ?? token.type;
+            return type !== 'object';
+          },
         },
       ],
     },
