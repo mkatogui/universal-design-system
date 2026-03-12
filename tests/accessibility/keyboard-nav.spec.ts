@@ -303,6 +303,12 @@ test.describe('Keyboard navigation — Enter and Space activation', () => {
         // Press Space on the palette button — should change the theme
         await page.keyboard.press('Space');
 
+        // Verify the theme actually changed after Space activation
+        const themeAfter = await page.evaluate(() =>
+          document.documentElement.getAttribute('data-theme'),
+        );
+        expect(themeAfter, 'Space key should activate the palette button and change the theme').not.toBe(themeBefore);
+
         // Verify the button is still reachable (activation did not break the page)
         await expect(paletteBtn).toBeAttached();
       });
