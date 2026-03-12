@@ -50,9 +50,7 @@ describe('DataTable', () => {
   });
 
   it('applies loading modifier class when loading is true', () => {
-    const { container } = render(
-      <DataTable columns={defaultColumns} data={defaultData} loading />,
-    );
+    const { container } = render(<DataTable columns={defaultColumns} data={defaultData} loading />);
     expect(container.querySelector('.uds-data-table')).toHaveClass('uds-data-table--loading');
   });
 

@@ -21,12 +21,7 @@ const baseProps = {
 describe('CommandPalette', () => {
   it('does not render when open is false', () => {
     render(
-      <CommandPalette
-        open={false}
-        onClose={vi.fn()}
-        onSelect={vi.fn()}
-        actions={defaultActions}
-      />,
+      <CommandPalette open={false} onClose={vi.fn()} onSelect={vi.fn()} actions={defaultActions} />,
     );
     expect(screen.queryByRole('combobox')).not.toBeInTheDocument();
   });
