@@ -24,6 +24,24 @@ def _load_csv(filename: str) -> list[dict]:
         return list(csv.DictReader(f))
 
 
+def _extract_compound_field_values(rows: list[dict], target_field: str) -> set:
+    """Extract all values for *target_field* from compound_condition columns."""
+    values = set()
+    for row in rows:
+        compound = row.get("compound_condition", "").strip()
+        if not compound:
+            continue
+        for group in compound.split(" OR "):
+            for part in group.split(" AND "):
+                part = part.strip()
+                if "=" not in part:
+                    continue
+                field, value = part.split("=", 1)
+                if field.strip() == target_field:
+                    values.add(value.strip())
+    return values
+
+
 class TestTaxonomyAlignment(unittest.TestCase):
     """Verify DomainDetector sectors cover all CSV sector values."""
 
@@ -156,6 +174,54 @@ class TestTaxonomyAlignment(unittest.TestCase):
             orphans,
             set(),
             f"ui-reasoning.csv uses product_types not in PRODUCT_KEYWORDS: {sorted(orphans)}",
+        )
+
+    def test_compound_conditions_reference_valid_sectors(self):
+        """Sector values inside compound_condition must exist in DomainDetector."""
+        rows = _load_csv("ui-reasoning.csv")
+        compound_sectors = _extract_compound_field_values(rows, "sector")
+        orphans = compound_sectors - self.valid_sectors
+        self.assertEqual(
+            orphans,
+            set(),
+            f"compound_condition uses sectors not in DomainDetector: {sorted(orphans)}",
+        )
+
+    def test_compound_conditions_reference_valid_product_types(self):
+        """Product type values inside compound_condition must exist in PRODUCT_KEYWORDS."""
+        from core import PRODUCT_KEYWORDS
+        rows = _load_csv("ui-reasoning.csv")
+        compound_products = _extract_compound_field_values(rows, "product_type")
+        valid_products = set(PRODUCT_KEYWORDS.keys())
+        orphans = compound_products - valid_products
+        self.assertEqual(
+            orphans,
+            set(),
+            f"compound_condition uses product_types not in PRODUCT_KEYWORDS: {sorted(orphans)}",
+        )
+
+    def test_compound_condition_applies_for_finance_dashboard(self):
+        """Compound rules for finance+dashboard should fire and include compact spacing."""
+        from core import ReasoningEngine
+        engine = ReasoningEngine()
+        result = engine.reason("fintech dashboard")
+        applied_fields = [r["then_field"] for r in result["rules_applied"]]
+        self.assertIn(
+            "layout_density",
+            applied_fields,
+            "Expected compound rule for layout_density to fire for 'fintech dashboard'",
+        )
+
+    def test_compound_condition_applies_for_healthcare_mobile(self):
+        """Compound rules for healthcare+mobile-app should fire."""
+        from core import ReasoningEngine
+        engine = ReasoningEngine()
+        result = engine.reason("healthcare mobile app")
+        applied_fields = [r["then_field"] for r in result["rules_applied"]]
+        self.assertIn(
+            "touch_target",
+            applied_fields,
+            "Expected compound rule for touch_target to fire for 'healthcare mobile app'",
         )
 
 

@@ -576,13 +576,67 @@ class ReasoningEngine:
                         ["category", "issue", "keywords", "description"]
                     )
 
+    @staticmethod
+    def _evaluate_compound_condition(compound: str, domain: dict) -> bool:
+        """Evaluate a compound condition string against a domain dict.
+
+        Supports AND/OR boolean operators with ``field=value`` sub-expressions.
+        AND is evaluated before OR (standard precedence): the string is first
+        split on `` OR `` to produce OR-groups, then each group is split on
+        `` AND ``.  All sub-conditions in an AND-group must match for that
+        group to be true; any true group satisfies the whole expression.
+        """
+        or_groups = compound.split(" OR ")
+        for group in or_groups:
+            and_parts = group.split(" AND ")
+            all_match = True
+            for part in and_parts:
+                part = part.strip()
+                if "=" not in part:
+                    all_match = False
+                    break
+                field, value = part.split("=", 1)
+                field = field.strip()
+                value = value.strip()
+                if domain.get(field) != value:
+                    all_match = False
+                    break
+            if all_match:
+                return True
+        return False
+
+    @staticmethod
+    def _rule_to_applied(rule: dict) -> dict:
+        """Convert a raw CSV rule row into an applied-rule dict."""
+        return {
+            "rule_id": rule.get("id"),
+            "category": rule.get("category", ""),
+            "then_field": rule.get("then_field", ""),
+            "then_value": rule.get("then_value", ""),
+            "priority": int(rule.get("priority", 5)),
+            "reasoning": rule.get("reasoning", ""),
+        }
+
     def apply_rules(self, domain: dict) -> list[dict]:
-        """Apply conditional reasoning rules based on detected domain."""
+        """Apply conditional reasoning rules based on detected domain.
+
+        Rules with a non-empty ``compound_condition`` column are evaluated
+        using :meth:`_evaluate_compound_condition`.  When the column is empty
+        the original single-field evaluation logic is used.
+        """
         applied = []
         sector = domain["sector"]
         product_type = domain["product_type"]
 
         for rule in self.rules:
+            # --- Compound condition path (new) ---
+            compound = rule.get("compound_condition", "").strip()
+            if compound:
+                if self._evaluate_compound_condition(compound, domain):
+                    applied.append(self._rule_to_applied(rule))
+                continue
+
+            # --- Single-field condition path (original) ---
             field = rule.get("field", "")
             operator = rule.get("operator", "")
             value = rule.get("value", "")
@@ -612,14 +666,7 @@ class ReasoningEngine:
                     pass
 
             if match:
-                applied.append({
-                    "rule_id": rule.get("id"),
-                    "category": rule.get("category", ""),
-                    "then_field": rule.get("then_field", ""),
-                    "then_value": rule.get("then_value", ""),
-                    "priority": int(rule.get("priority", 5)),
-                    "reasoning": rule.get("reasoning", ""),
-                })
+                applied.append(self._rule_to_applied(rule))
 
         # Sort by priority descending
         applied.sort(key=lambda r: -r["priority"])
