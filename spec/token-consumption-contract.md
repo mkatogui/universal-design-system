@@ -11,7 +11,8 @@ All tokens are exposed as CSS custom properties (CSS variables) on the `:root` o
 |---|---|---|
 | `--color-*` | Brand, text, background, border, status colors | `--color-brand-primary`, `--color-text-secondary`, `--color-bg-primary` |
 | `--space-*` | Spacing scale (4px base grid) | `--space-1` (4px), `--space-4` (16px), `--space-8` (32px) |
-| `--font-size-*` | Typography size scale | `--font-size-sm`, `--font-size-base`, `--font-size-2xl` |
+| `--font-*` | Typography font families | `--font-sans`, `--font-display`, `--font-mono`, `--font-serif` |
+| `--text-*` | Typography size scale | `--text-body-sm`, `--text-body-md`, `--text-display-xl`, `--text-heading-lg` |
 | `--radius-*` | Border radius | `--radius-sm`, `--radius-md`, `--radius-lg`, `--radius-full` |
 | `--shadow-*` | Elevation shadows | `--shadow-xs`, `--shadow-sm`, `--shadow-md`, `--shadow-lg` |
 | `--motion-*` | Duration and easing | `--motion-duration-fast`, `--motion-easing-default` |
@@ -81,7 +82,7 @@ Components must always use `var(--token-name)` references. Never hardcode raw va
   padding: var(--space-2) var(--space-4);
   background: var(--color-brand-primary);
   border-radius: var(--radius-md);
-  font-size: var(--font-size-sm);
+  font-size: var(--text-body-sm);
   box-shadow: var(--shadow-sm);
 }
 
@@ -143,7 +144,7 @@ All animations must be wrapped in `@media (prefers-reduced-motion: no-preference
 
 Consumers should understand which tokens change per palette and which remain constant:
 
-- **Foundation (constant):** `--space-*`, `--font-size-*`, `--motion-*`, `--opacity-*`, `--z-index-*`
+- **Foundation (constant):** `--space-*`, `--font-*`, `--text-*`, `--motion-*`, `--opacity-*`, `--z-index-*`
 - **Palette-specific (varies):** `--color-*`, `--radius-*`, `--shadow-*`, display font family
 
 This means spacing, typography scale, motion, and layering are consistent across all palettes. Colors, border radius, shadows, and display headings change with the active palette.
@@ -206,7 +207,8 @@ tokens/design-tokens.json (source of truth, unchanged)
 |---|---|
 | `--color-brand-primary` | `--uds-color-brand-primary` |
 | `--space-4` | `--uds-space-4` |
-| `--font-size-base` | `--uds-font-size-base` |
+| `--font-sans` | `--uds-font-sans` |
+| `--text-body-md` | `--uds-text-body-md` |
 | `--radius-md` | `--uds-radius-md` |
 | `--shadow-sm` | `--uds-shadow-sm` |
 | `--motion-duration-fast` | `--uds-motion-duration-fast` |
