@@ -970,6 +970,22 @@ html.docs-dark .playground-control-group select {
 .site-topnav a:hover { color: #fff; }
 .site-topnav a.active { color: #fff; border-bottom: 2px solid #3b82f6; }
 @media (max-width: 640px) { .site-topnav { padding: 0 12px; gap: 0; overflow-x: auto; } .site-topnav a { padding: 10px 8px; font-size: 13px; } .site-topnav .nav-brand { margin-right: 16px; font-size: 13px; } }
+
+/* === In-Docs Search Widget === */
+.uds-search { position: relative; margin-left: auto; flex-shrink: 0; }
+.uds-search__input { height: 30px; width: 180px; padding: 0 10px; font-family: var(--font-sans); font-size: 13px; background: var(--color-bg-secondary); color: var(--color-text-primary); border: 1px solid var(--color-border-default); border-radius: var(--radius-md); outline: none; transition: border-color var(--duration-fast) var(--ease-default), box-shadow var(--duration-fast) var(--ease-default); }
+.uds-search__input::placeholder { color: var(--color-text-tertiary); }
+.uds-search__input:focus { border-color: var(--color-brand-primary); box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.3); }
+.uds-search__results { display: none; position: absolute; top: 100%; right: 0; margin-top: 6px; width: 340px; max-height: 360px; overflow-y: auto; background: var(--color-bg-primary); border: 1px solid var(--color-border-default); border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); list-style: none; padding: var(--spacing-1) 0; z-index: var(--z-dropdown); }
+.uds-search__results[aria-expanded="true"] { display: block; }
+.uds-search__result { padding: var(--spacing-2) var(--spacing-3); cursor: pointer; border-bottom: 1px solid var(--color-border-subtle); }
+.uds-search__result:last-child { border-bottom: none; }
+.uds-search__result:hover, .uds-search__result--active { background: var(--color-bg-secondary); }
+.uds-search__result-title { font-size: var(--text-body-sm); font-weight: var(--font-weight-semibold); color: var(--color-text-primary); margin: 0 0 2px; }
+.uds-search__result-snippet { font-size: var(--text-label); color: var(--color-text-secondary); margin: 0; line-height: var(--line-height-normal); }
+.uds-search__result mark { background: transparent; color: var(--color-brand-accent); font-weight: var(--font-weight-bold); }
+.uds-search__empty { padding: var(--spacing-3); text-align: center; color: var(--color-text-tertiary); font-size: var(--text-body-sm); }
+@media (max-width: 640px) { .uds-search__input { width: 120px; } .uds-search__results { width: 280px; } }
 </style>
 </head>
 <body>
@@ -982,6 +998,10 @@ html.docs-dark .playground-control-group select {
   <a href="case-studies.html">Case Studies</a>
   <a href="playground.html">Playground</a>
   <a href="conformance.html">Conformance</a>
+  <div class="uds-search" role="search">
+    <input type="text" class="uds-search__input" role="combobox" aria-expanded="false" aria-controls="search-results" aria-label="Search documentation" placeholder="Search docs..." autocomplete="off">
+    <ul id="search-results" class="uds-search__results" role="listbox"></ul>
+  </div>
 </nav>
 <a href="#main-content" class="skip-link">Skip to content</a>
 <div class="docs-layout">
@@ -1009,6 +1029,7 @@ html.docs-dark .playground-control-group select {
       <li><a href="#layout">Layout & Scale</a></li>
       <li><a href="#palettes">Palettes (9)</a></li>
         <li><a href="#choreography">Motion Choreography</a></li>
+      <li><a href="#modern-transitions">Modern CSS Transitions</a></li>
 </ul>
   </div>
   <div class="nav-section">
@@ -1063,6 +1084,7 @@ html.docs-dark .playground-control-group select {
     <ul class="section-group collapsed" data-group="api-tools">
       <li><a href="#variant-api">Variant API</a></li>
       <li><a href="#sandbox">Sandbox</a></li>
+      <li><a href="#cascade-layers">Cascade Layers</a></li>
     </ul>
   </div>
 </nav>
@@ -1267,6 +1289,141 @@ html.docs-dark .playground-control-group select {
     transition-duration: 0.01ms !important;
   }
 }</code></div>
+</section>
+
+<!-- ==================== MODERN CSS TRANSITIONS ==================== -->
+<section id="modern-transitions">
+<h2>Modern CSS Transitions</h2>
+<p>Tokens for the <strong>View Transitions API</strong> and <strong><code>@starting-style</code></strong> rule. These modern CSS features enable smooth page transitions and entry animations for elements that transition from <code>display: none</code>.</p>
+
+<h3>View Transition Names</h3>
+<p>Assign named view transitions to key UI elements so the browser can animate them across page navigations or DOM state changes.</p>
+<table class="token-table">
+<thead><tr><th>Token</th><th>Value</th><th>Usage</th></tr></thead>
+<tbody>
+<tr><td><code>--transition-view-transition-name-header</code></td><td>uds-header</td><td>Persistent header across navigations</td></tr>
+<tr><td><code>--transition-view-transition-name-hero</code></td><td>uds-hero</td><td>Hero sections with cross-fade</td></tr>
+<tr><td><code>--transition-view-transition-name-card</code></td><td>uds-card</td><td>Card morph transitions</td></tr>
+<tr><td><code>--transition-view-transition-name-sidebar</code></td><td>uds-sidebar</td><td>Sidebar navigation persistence</td></tr>
+<tr><td><code>--transition-view-transition-name-modal</code></td><td>uds-modal</td><td>Modal dialog transitions</td></tr>
+</tbody>
+</table>
+
+<h3>@starting-style Tokens</h3>
+<p>The <code>@starting-style</code> rule defines the initial state for elements entering the DOM or transitioning from <code>display: none</code>. This replaces the need for JavaScript-triggered animation classes.</p>
+<table class="token-table">
+<thead><tr><th>Element</th><th>Opacity</th><th>Transform</th><th>Description</th></tr></thead>
+<tbody>
+<tr><td>Modal</td><td>0</td><td><code>scale(0.95)</code></td><td>Scale-in entry for modal dialogs</td></tr>
+<tr><td>Dropdown</td><td>0</td><td><code>translateY(-8px)</code></td><td>Slide-down entry for dropdowns</td></tr>
+<tr><td>Toast</td><td>0</td><td><code>translateX(100%)</code></td><td>Slide-in from right for toasts</td></tr>
+<tr><td>Popover</td><td>0</td><td><code>scale(0.9) translateY(-4px)</code></td><td>Combined scale and slide for popovers</td></tr>
+</tbody>
+</table>
+
+<h3>Transition Styles</h3>
+<p>Domain-specific easing curves recommended by the reasoning engine based on sector context.</p>
+<div class="preview">
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px">
+    <div style="text-align:center">
+      <div style="width:100%;height:60px;background:var(--color-brand-primary);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;color:var(--color-text-on-brand);font-size:var(--text-label);cursor:pointer;transition:transform var(--duration-normal) cubic-bezier(0.4, 0, 0.2, 1)" onmouseenter="this.style.transform='scale(1.08)'" onmouseleave="this.style.transform='scale(1)'">Elegant</div>
+      <div style="font-size:var(--text-label);color:var(--color-text-tertiary);margin-top:4px">Luxury, premium</div>
+    </div>
+    <div style="text-align:center">
+      <div style="width:100%;height:60px;background:var(--color-brand-secondary);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;color:var(--color-text-on-brand);font-size:var(--text-label);cursor:pointer;transition:transform var(--duration-fast) cubic-bezier(0.2, 0, 0, 1)" onmouseenter="this.style.transform='scale(1.08)'" onmouseleave="this.style.transform='scale(1)'">Snappy</div>
+      <div style="font-size:var(--text-label);color:var(--color-text-tertiary);margin-top:4px">Finance, dashboards</div>
+    </div>
+    <div style="text-align:center">
+      <div style="width:100%;height:60px;background:var(--color-brand-accent);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;color:var(--color-text-on-brand);font-size:var(--text-label);cursor:pointer;transition:transform var(--duration-slow) cubic-bezier(0.4, 0, 0.6, 1)" onmouseenter="this.style.transform='scale(1.08)'" onmouseleave="this.style.transform='scale(1)'">Gentle</div>
+      <div style="font-size:var(--text-label);color:var(--color-text-tertiary);margin-top:4px">Healthcare, education</div>
+    </div>
+    <div style="text-align:center">
+      <div style="width:100%;height:60px;background:var(--color-bg-tertiary);border:1px solid var(--color-border-default);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;font-size:var(--text-label);cursor:pointer;transition:transform 0ms steps(1)" onmouseenter="this.style.transform='scale(1.08)'" onmouseleave="this.style.transform='scale(1)'">Instant</div>
+      <div style="font-size:var(--text-label);color:var(--color-text-tertiary);margin-top:4px">Data-dense UIs</div>
+    </div>
+  </div>
+</div>
+
+<h3>Usage Examples</h3>
+<div class="code-block"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.parentElement.querySelector('code').textContent)">Copy</button><code>/* View Transitions API — cross-page element morphing */
+.uds-header {
+  view-transition-name: var(--transition-view-transition-name-header);
+}
+
+.uds-card {
+  view-transition-name: var(--transition-view-transition-name-card);
+}
+
+/* Customize the transition animation */
+::view-transition-old(uds-card) {
+  animation: var(--duration-fast) var(--ease-out) fade-out;
+}
+::view-transition-new(uds-card) {
+  animation: var(--duration-normal) var(--ease-out) fade-in;
+}
+
+/* @starting-style — entry animation from display:none */
+.uds-modal {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity var(--duration-normal) var(--ease-out),
+              transform var(--duration-normal) var(--ease-out),
+              display var(--duration-normal) allow-discrete;
+
+  @starting-style {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}
+
+.uds-toast {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity var(--duration-normal) var(--ease-out),
+              transform var(--duration-normal) var(--ease-out),
+              display var(--duration-normal) allow-discrete;
+
+  @starting-style {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}
+
+/* Sector-specific transition styles from reasoning engine */
+/* Luxury: elegant curve */
+.transition-elegant { transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); }
+
+/* Finance: snappy curve */
+.transition-snappy { transition-timing-function: cubic-bezier(0.2, 0, 0, 1); }
+
+/* Healthcare: gentle curve */
+.transition-gentle { transition-timing-function: cubic-bezier(0.4, 0, 0.6, 1); }
+
+/* Data-dense: instant (no visible transition) */
+.transition-instant { transition-timing-function: steps(1); }
+
+/* Always respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    view-transition-name: none !important;
+  }
+}</code></div>
+
+<h3>Browser Support</h3>
+<div class="preview">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+    <div>
+      <strong style="font-size:var(--text-body-sm)">View Transitions API</strong>
+      <p style="font-size:var(--text-body-sm)">Chrome 111+, Edge 111+, Opera 97+. Safari 18+. Firefox behind flag. Use <code>document.startViewTransition()</code> with progressive enhancement &mdash; non-supporting browsers simply skip the animation.</p>
+    </div>
+    <div>
+      <strong style="font-size:var(--text-body-sm)">@starting-style</strong>
+      <p style="font-size:var(--text-body-sm)">Chrome 117+, Edge 117+, Opera 103+, Safari 17.5+. Firefox 129+. Graceful degradation &mdash; without support, elements appear without entry animation. Pair with <code>transition-behavior: allow-discrete</code> for <code>display</code> transitions.</p>
+    </div>
+  </div>
+</div>
 </section>
 
 <!-- ==================== LAYOUT & SCALE ==================== -->
@@ -1915,6 +2072,62 @@ html.docs-dark .playground-control-group select {
 </div>
 </section>
 
+<section id="cascade-layers">
+<h2>CSS Cascade Layers</h2>
+<p>All UDS token and component CSS is wrapped in <code>@layer</code> declarations for explicit cascade control. This prevents specificity conflicts between UDS styles and your application styles without resorting to <code>!important</code>.</p>
+
+<h3>Layer Hierarchy</h3>
+<p>UDS declares three ordered layers. Styles in later layers take precedence over earlier ones:</p>
+<div class="preview" style="padding:24px">
+  <ol style="font-family:var(--font-family-mono);font-size:var(--font-size-body-sm);margin:0;padding-left:24px;line-height:1.8">
+    <li><strong>uds.tokens</strong> &mdash; Design token custom properties (<code>:root</code> variables, palette overrides)</li>
+    <li><strong>uds.components</strong> &mdash; Component styles (<code>.btn</code>, <code>.card</code>, <code>.input</code>, etc.)</li>
+    <li><strong>uds.utilities</strong> &mdash; Utility classes and overrides</li>
+  </ol>
+</div>
+
+<h3>How It Works</h3>
+<p>The generated CSS output declares the layer order first, then places all tokens inside <code>@layer uds.tokens</code>:</p>
+<div class="code-block">
+  <button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent)">Copy</button>
+  <code>@layer uds.tokens, uds.components, uds.utilities;
+
+@layer uds.tokens {
+  :root {
+    --color-brand-primary: #2563eb;
+    --color-text-primary: #1a1a24;
+    --space-4: 16px;
+    /* ... all token custom properties */
+  }
+}</code>
+</div>
+
+<h3>Overriding UDS Styles</h3>
+<p>To override UDS styles cleanly, declare your own layer after the UDS layers. Styles in your layer automatically take precedence:</p>
+<div class="code-block">
+  <button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent)">Copy</button>
+  <code>@layer uds.tokens, uds.components, uds.utilities, app;
+
+@layer app {
+  /* Your styles here -- automatically override UDS without !important */
+  .custom-button {
+    background: var(--color-brand-primary);
+    border-radius: 999px;
+  }
+
+  .hero-section {
+    padding: var(--space-16);
+  }
+}</code>
+</div>
+
+<h3>Backward Compatibility</h3>
+<p>If your project does not use <code>@layer</code>, UDS styles still work correctly. Unlayered styles (styles not inside any <code>@layer</code>) always take precedence over layered styles in the CSS cascade. This means existing consumer stylesheets that do not use <code>@layer</code> will automatically override UDS defaults without any changes.</p>
+
+<h3>Browser Support</h3>
+<p><code>@layer</code> is supported in all modern browsers since 2022: Chrome 99+, Firefox 97+, Safari 15.4+, and Edge 99+. For older browsers, the layer declarations are ignored and styles apply in normal source order.</p>
+</section>
+
 <section id="pattern-forms">
 <h2>Pattern: Forms</h2>
 <p>System-wide rules for form layout, validation, and submission. These rules apply to every form regardless of which components are used.</p>
@@ -2480,6 +2693,193 @@ function updateSandbox() {
   codeEl.textContent = code;
 }
 
+</script>
+
+<script>
+/* === In-Docs Search Widget === */
+(function() {
+  'use strict';
+
+  var searchIndex = [];
+  var activeIndex = -1;
+  var debounceTimer = null;
+  var input = document.querySelector('.uds-search__input');
+  var resultsList = document.getElementById('search-results');
+
+  if (!input || !resultsList) return;
+
+  /* Build index from h2/h3 headings */
+  function buildIndex() {
+    var headings = document.querySelectorAll('h2, h3');
+    headings.forEach(function(heading) {
+      var id = heading.id || (heading.closest('section') && heading.closest('section').id) || '';
+      if (!id) return;
+
+      var text = heading.textContent.trim();
+      var snippet = '';
+      var next = heading.nextElementSibling;
+      while (next && snippet.length < 120) {
+        if (next.tagName === 'H2' || next.tagName === 'H3') break;
+        var content = next.textContent.trim();
+        if (content) snippet += (snippet ? ' ' : '') + content;
+        next = next.nextElementSibling;
+      }
+      snippet = snippet.substring(0, 120);
+
+      searchIndex.push({ id: id, text: text, snippet: snippet, lowerText: text.toLowerCase(), lowerSnippet: snippet.toLowerCase() });
+    });
+  }
+
+  /* Generate trigrams for a string */
+  function trigrams(str) {
+    var t = [];
+    var s = str.toLowerCase();
+    for (var i = 0; i <= s.length - 3; i++) {
+      t.push(s.substring(i, i + 3));
+    }
+    return t;
+  }
+
+  /* Search using prefix and trigram matching */
+  function search(query) {
+    if (!query || query.length < 2) return [];
+    var q = query.toLowerCase();
+    var qTrigrams = trigrams(q);
+
+    return searchIndex.map(function(entry) {
+      var score = 0;
+      /* Prefix matching */
+      if (entry.lowerText.indexOf(q) === 0) score += 10;
+      else if (entry.lowerText.indexOf(q) !== -1) score += 7;
+      if (entry.lowerSnippet.indexOf(q) !== -1) score += 3;
+
+      /* Trigram matching */
+      if (qTrigrams.length > 0) {
+        var combined = entry.lowerText + ' ' + entry.lowerSnippet;
+        var matches = 0;
+        qTrigrams.forEach(function(tg) {
+          if (combined.indexOf(tg) !== -1) matches++;
+        });
+        score += (matches / qTrigrams.length) * 4;
+      }
+
+      return { entry: entry, score: score };
+    }).filter(function(r) { return r.score > 0; })
+      .sort(function(a, b) { return b.score - a.score; })
+      .slice(0, 10)
+      .map(function(r) { return r.entry; });
+  }
+
+  /* Highlight matching text */
+  function highlight(text, query) {
+    if (!query) return text;
+    var escaped = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    return text.replace(new RegExp('(' + escaped + ')', 'gi'), '<mark>$1</mark>');
+  }
+
+  /* Render results */
+  function renderResults(results, query) {
+    activeIndex = -1;
+    if (results.length === 0) {
+      resultsList.innerHTML = '<li class="uds-search__empty">No results found</li>';
+      resultsList.setAttribute('aria-expanded', 'true');
+      input.setAttribute('aria-expanded', 'true');
+      return;
+    }
+
+    resultsList.innerHTML = results.map(function(r, i) {
+      return '<li id="search-result-' + i + '" class="uds-search__result" role="option" data-id="' + r.id + '">' +
+        '<div class="uds-search__result-title">' + highlight(r.text, query) + '</div>' +
+        (r.snippet ? '<div class="uds-search__result-snippet">' + highlight(r.snippet, query) + '</div>' : '') +
+        '</li>';
+    }).join('');
+
+    resultsList.setAttribute('aria-expanded', 'true');
+    input.setAttribute('aria-expanded', 'true');
+  }
+
+  /* Close results dropdown */
+  function closeResults() {
+    resultsList.innerHTML = '';
+    resultsList.setAttribute('aria-expanded', 'false');
+    input.setAttribute('aria-expanded', 'false');
+    input.removeAttribute('aria-activedescendant');
+    activeIndex = -1;
+  }
+
+  /* Navigate to a section */
+  function navigateTo(id) {
+    var el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      el.focus({ preventScroll: true });
+    }
+    closeResults();
+    input.value = '';
+  }
+
+  /* Update active item for keyboard navigation */
+  function setActive(index) {
+    var items = resultsList.querySelectorAll('.uds-search__result');
+    items.forEach(function(item) { item.classList.remove('uds-search__result--active'); });
+    if (index >= 0 && index < items.length) {
+      activeIndex = index;
+      items[index].classList.add('uds-search__result--active');
+      items[index].scrollIntoView({ block: 'nearest' });
+      input.setAttribute('aria-activedescendant', 'search-result-' + index);
+    } else {
+      activeIndex = -1;
+      input.removeAttribute('aria-activedescendant');
+    }
+  }
+
+  /* Debounced input handler */
+  input.addEventListener('input', function() {
+    clearTimeout(debounceTimer);
+    var q = input.value.trim();
+    debounceTimer = setTimeout(function() {
+      if (q.length < 2) { closeResults(); return; }
+      var results = search(q);
+      renderResults(results, q);
+    }, 150);
+  });
+
+  /* Keyboard navigation */
+  input.addEventListener('keydown', function(e) {
+    var items = resultsList.querySelectorAll('.uds-search__result');
+    var count = items.length;
+
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      setActive(activeIndex < count - 1 ? activeIndex + 1 : 0);
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      setActive(activeIndex > 0 ? activeIndex - 1 : count - 1);
+    } else if (e.key === 'Enter') {
+      e.preventDefault();
+      if (activeIndex >= 0 && items[activeIndex]) {
+        navigateTo(items[activeIndex].getAttribute('data-id'));
+      }
+    } else if (e.key === 'Escape') {
+      closeResults();
+      input.blur();
+    }
+  });
+
+  /* Click on result */
+  resultsList.addEventListener('click', function(e) {
+    var item = e.target.closest('.uds-search__result');
+    if (item) navigateTo(item.getAttribute('data-id'));
+  });
+
+  /* Close on outside click */
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.uds-search')) closeResults();
+  });
+
+  /* Build index on load */
+  buildIndex();
+})();
 </script>
 </body>
 </html>

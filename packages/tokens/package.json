@@ -12,7 +12,10 @@
       "types": "./dist/index.d.ts"
     },
     "./css": "./dist/tokens.css",
-    "./json": "./dist/tokens.json"
+    "./json": "./dist/tokens.json",
+    "./types": {
+      "types": "./dist/tokens.d.ts"
+    }
   },
   "files": ["dist/"],
   "keywords": ["design-tokens", "css-custom-properties", "wcag", "accessibility", "design-system"],
@@ -24,6 +27,7 @@
     "directory": "packages/tokens"
   },
   "scripts": {
-    "build": "node build.js"
+    "build": "node build.js",
+    "generate-types": "node build.js"
   }
 }
