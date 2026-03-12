@@ -80,7 +80,7 @@ export const FeatureSection: StoryObj = {
       <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;">
         <div class="uds-card uds-card--icon-top">
           <div class="uds-card__header"><h3 class="uds-card__title">AI-Native</h3></div>
-          <div class="uds-card__body"><p>BM25 reasoning engine with 17 databases and 1500+ data rows.</p></div>
+          <div class="uds-card__body"><p>BM25 reasoning engine with 16 databases and 1,528 data rows.</p></div>
         </div>
         <div class="uds-card uds-card--icon-top">
           <div class="uds-card__header"><h3 class="uds-card__title">Accessible</h3></div>
