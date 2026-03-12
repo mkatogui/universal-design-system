@@ -35,7 +35,10 @@
     "lint": "biome check .",
     "lint:fix": "biome check --write .",
     "format": "biome format --write .",
-    "format:check": "biome format ."
+    "format:check": "biome format .",
+    "changeset": "changeset",
+    "changeset:version": "changeset version",
+    "changeset:publish": "changeset publish"
   },
   "keywords": [
     "design-system",
@@ -67,6 +70,7 @@
   "license": "MIT",
   "devDependencies": {
     "@biomejs/biome": "^2.4.6",
+    "@changesets/cli": "^2.30.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.1.0",
     "@vitejs/plugin-react": "^6.0.0",
