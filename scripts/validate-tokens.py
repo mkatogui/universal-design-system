@@ -12,6 +12,7 @@ Usage:
 """
 
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -116,6 +117,55 @@ def validate_motion_choreography(tokens: dict, path: str) -> list:
     return errors
 
 
+def validate_keyframes(tokens: dict, path: str) -> list:
+    """Validate motion keyframe tokens structure.
+
+    Each keyframe must have at least 2 steps, and each step key must be
+    a valid CSS percentage (e.g. '0%', '50%', '100%').
+    """
+    errors = []
+    motion = tokens.get("motion", {})
+    keyframes = motion.get("keyframes", {})
+
+    if not keyframes:
+        errors.append(f"{path}: Missing motion.keyframes section")
+        return errors
+
+    # Skip metadata keys that start with '$'
+    keyframe_names = [k for k in keyframes if not k.startswith("$")]
+
+    if len(keyframe_names) < 1:
+        errors.append(f"{path}: motion.keyframes has no animation definitions")
+        return errors
+
+    pct_pattern = re.compile(r"^\d{1,3}%$")
+
+    for name in keyframe_names:
+        kf = keyframes[name]
+        value = kf.get("$value", {})
+        if not isinstance(value, dict):
+            errors.append(
+                f"{path}: Keyframe '{name}' $value must be an object"
+            )
+            continue
+
+        steps = list(value.keys())
+        if len(steps) < 2:
+            errors.append(
+                f"{path}: Keyframe '{name}' must have at least 2 steps, "
+                f"found {len(steps)}"
+            )
+
+        for step in steps:
+            if not pct_pattern.match(step):
+                errors.append(
+                    f"{path}: Keyframe '{name}' has invalid step key "
+                    f"'{step}' (must be a valid percentage like '0%', '50%', '100%')"
+                )
+
+    return errors
+
+
 def validate_figma_tokens(figma_tokens: dict, path: str) -> list:
     """Validate Figma token file structure."""
     errors = []
@@ -172,6 +222,9 @@ def main():
         )
         all_errors.extend(
             validate_motion_choreography(design_tokens, design_tokens_path)
+        )
+        all_errors.extend(
+            validate_keyframes(design_tokens, design_tokens_path)
         )
         print(f"  Validated {design_tokens_path}")
     else:

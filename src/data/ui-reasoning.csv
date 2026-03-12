@@ -164,3 +164,10 @@ id,condition,field,operator,value,then_field,then_value,priority,reasoning,categ
 163,layout,product_type,equals,streaming,layout_type,grid-media,7,"Streaming platforms use media grid layouts for content discovery",product-layout
 164,layout,product_type,equals,community,layout_type,feed-sidebar,6,"Community platforms use feed-with-sidebar layouts for content and context",product-layout
 165,layout,product_type,equals,marketplace,layout_type,grid-browsing,7,"Marketplace platforms use product grid layouts with filter sidebars",product-layout
+166,motion_style,sector,equals,finance,motion_style,conservative,8,"Financial services require conservative minimal animation to maintain trust",sector-motion-style
+167,motion_style,sector,equals,gaming,motion_style,expressive,7,"Gaming platforms benefit from dynamic expressive animations for engagement",sector-motion-style
+168,motion_style,sector,equals,healthcare,motion_style,conservative,8,"Healthcare interfaces need calm conservative motion to avoid patient anxiety",sector-motion-style
+169,motion_style,sector,equals,education,motion_style,moderate,7,"Education platforms use moderate motion for engagement without distraction",sector-motion-style
+170,motion_style,sector,equals,ecommerce,motion_style,moderate,7,"E-commerce uses moderate motion for product reveals and cart interactions",sector-motion-style
+171,motion_style,product_type,equals,dashboard,motion_style,instant,8,"Dashboards should use no animation to avoid distracting from data",product-motion-style
+172,motion_style,sector,equals,entertainment,motion_style,expressive,7,"Entertainment platforms benefit from dynamic expressive animations",sector-motion-style

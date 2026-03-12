@@ -1129,6 +1129,92 @@
           "easing": "{motion.easing.out}"
         }
       }
+    },
+    "keyframes": {
+      "$description": "Named animation keyframes for common UI transitions. Use with @media (prefers-reduced-motion: no-preference).",
+      "fade-in": {
+        "$value": { "0%": { "opacity": "0" }, "100%": { "opacity": "1" } },
+        "$type": "object",
+        "$description": "Fade in animation"
+      },
+      "fade-out": {
+        "$value": { "0%": { "opacity": "1" }, "100%": { "opacity": "0" } },
+        "$type": "object",
+        "$description": "Fade out animation"
+      },
+      "slide-up": {
+        "$value": { "0%": { "transform": "translateY(16px)", "opacity": "0" }, "100%": { "transform": "translateY(0)", "opacity": "1" } },
+        "$type": "object",
+        "$description": "Slide up entrance animation"
+      },
+      "slide-down": {
+        "$value": { "0%": { "transform": "translateY(-16px)", "opacity": "0" }, "100%": { "transform": "translateY(0)", "opacity": "1" } },
+        "$type": "object",
+        "$description": "Slide down entrance animation"
+      },
+      "slide-left": {
+        "$value": { "0%": { "transform": "translateX(16px)", "opacity": "0" }, "100%": { "transform": "translateX(0)", "opacity": "1" } },
+        "$type": "object",
+        "$description": "Slide left entrance animation"
+      },
+      "slide-right": {
+        "$value": { "0%": { "transform": "translateX(-16px)", "opacity": "0" }, "100%": { "transform": "translateX(0)", "opacity": "1" } },
+        "$type": "object",
+        "$description": "Slide right entrance animation"
+      },
+      "scale-in": {
+        "$value": { "0%": { "transform": "scale(0.95)", "opacity": "0" }, "100%": { "transform": "scale(1)", "opacity": "1" } },
+        "$type": "object",
+        "$description": "Scale in entrance animation"
+      },
+      "scale-out": {
+        "$value": { "0%": { "transform": "scale(1)", "opacity": "1" }, "100%": { "transform": "scale(1.05)", "opacity": "0" } },
+        "$type": "object",
+        "$description": "Scale out exit animation"
+      },
+      "spin": {
+        "$value": { "0%": { "transform": "rotate(0deg)" }, "100%": { "transform": "rotate(360deg)" } },
+        "$type": "object",
+        "$description": "Continuous spinning animation for loaders"
+      },
+      "pulse": {
+        "$value": { "0%": { "opacity": "1" }, "50%": { "opacity": "0.5" }, "100%": { "opacity": "1" } },
+        "$type": "object",
+        "$description": "Pulsing opacity animation for loading states"
+      },
+      "bounce": {
+        "$value": { "0%": { "transform": "translateY(0)" }, "50%": { "transform": "translateY(-8px)" }, "100%": { "transform": "translateY(0)" } },
+        "$type": "object",
+        "$description": "Bouncing animation for attention-drawing elements"
+      },
+      "shake": {
+        "$value": { "0%": { "transform": "translateX(0)" }, "25%": { "transform": "translateX(-4px)" }, "75%": { "transform": "translateX(4px)" }, "100%": { "transform": "translateX(0)" } },
+        "$type": "object",
+        "$description": "Shake animation for error feedback"
+      }
+    },
+    "style": {
+      "$description": "Motion style presets mapped to product domain via reasoning rules.",
+      "conservative": {
+        "$value": "fade-in",
+        "$type": "string",
+        "$description": "Minimal motion for professional contexts"
+      },
+      "moderate": {
+        "$value": "slide-up",
+        "$type": "string",
+        "$description": "Standard motion for general use"
+      },
+      "expressive": {
+        "$value": "scale-in",
+        "$type": "string",
+        "$description": "Dynamic motion for creative contexts"
+      },
+      "instant": {
+        "$value": "none",
+        "$type": "string",
+        "$description": "No animation for data-dense UIs"
+      }
     }
   },
   "opacity": {
