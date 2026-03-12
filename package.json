@@ -24,7 +24,8 @@
     "audit:axe": "node scripts/axe-audit.js",
     "audit:apca": "python3 scripts/apca-audit.py",
     "test:a11y": "node scripts/axe-audit.js",
-    "test:visual": "npx playwright test --config=playwright.config.ts",
+    "test:visual": "playwright test tests/visual/",
+    "test:visual:update": "playwright test tests/visual/ --update-snapshots",
     "storybook": "npx storybook dev -p 6006",
     "build:storybook": "npx storybook build -o docs/storybook",
     "test:contracts": "python3 -m unittest discover tests/contracts/ -v"
