@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 
 /**
  * Describes a single tab in a multi-tab {@link CodeBlock}.

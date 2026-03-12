@@ -1,8 +1,6 @@
 {
-  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
-  "organizeImports": {
-    "enabled": true
-  },
+  "$schema": "https://biomejs.dev/schemas/2.4.6/schema.json",
+  "assist": { "actions": { "source": { "organizeImports": "on" } } },
   "linter": {
     "enabled": true,
     "rules": {
@@ -14,7 +12,9 @@
         "useAriaPropsForRole": "warn",
         "useKeyWithClickEvents": "warn",
         "useButtonType": "warn",
-        "noSvgWithoutTitle": "warn"
+        "noSvgWithoutTitle": "warn",
+        "useAriaPropsSupportedByRole": "warn",
+        "noStaticElementInteractions": "warn"
       },
       "suspicious": {
         "noArrayIndexKey": "warn",
@@ -24,7 +24,8 @@
         "noForEach": "warn"
       },
       "correctness": {
-        "noSelfAssign": "warn"
+        "noSelfAssign": "warn",
+        "noUnusedVariables": "warn"
       },
       "style": {
         "noNonNullAssertion": "warn"
@@ -49,15 +50,20 @@
     }
   },
   "files": {
-    "include": [
-      "cli/src/**",
-      "packages/react/src/**",
-      "src/mcp/**/*.ts",
-      "packages/tokens/build.js",
-      "tests/components/**",
-      "style-dictionary.config.mjs",
-      "vitest.config.ts"
-    ],
-    "ignore": ["node_modules", "dist", "build", "docs", "coverage", ".scannerwork"]
+    "includes": [
+      "**/cli/src/**",
+      "**/packages/react/src/**",
+      "**/src/mcp/**/*.ts",
+      "**/packages/tokens/build.js",
+      "**/tests/components/**",
+      "**/style-dictionary.config.mjs",
+      "**/vitest.config.ts",
+      "!**/node_modules",
+      "!**/dist",
+      "!**/build",
+      "!**/docs",
+      "!**/coverage",
+      "!**/.scannerwork"
+    ]
   }
 }

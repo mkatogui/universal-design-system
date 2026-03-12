@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef, useId } from 'react';
+import React, { useCallback, useId, useRef, useState } from 'react';
 
 /**
  * Props for the {@link Tooltip} component.
@@ -44,7 +44,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
 }) => {
   const [visible, setVisible] = useState(false);
   const tooltipId = useId();
-  const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
+  const timeoutRef = useRef<ReturnType<typeof setTimeout>>(undefined);
 
   const show = useCallback(() => {
     clearTimeout(timeoutRef.current);
@@ -68,7 +68,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
 
   return (
     <div className={classes} onMouseEnter={show} onMouseLeave={hide} onFocus={show} onBlur={hide}>
-      {React.cloneElement(children, {
+      {React.cloneElement(children as React.ReactElement<Record<string, unknown>>, {
         'aria-describedby': tooltipId,
       })}
       <div id={tooltipId} className="uds-tooltip__content" role="tooltip" aria-hidden={!visible}>

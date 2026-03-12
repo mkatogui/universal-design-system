@@ -1,2 +1,2 @@
+export type { SideNavItem, SideNavProps, SideNavSection } from './SideNav';
 export { SideNav } from './SideNav';
-export type { SideNavProps, SideNavItem, SideNavSection } from './SideNav';
