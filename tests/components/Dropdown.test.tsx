@@ -1,5 +1,4 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import React from 'react';
 import '@testing-library/jest-dom/vitest';
 import { describe, expect, it, vi } from 'vitest';
 import { Dropdown } from '../../packages/react/src/components/Dropdown/Dropdown';
@@ -152,7 +151,9 @@ describe('Dropdown', () => {
   });
 
   it('renders item icons when provided', () => {
-    const itemsWithIcons = [{ label: 'Edit', value: 'edit', icon: <span data-testid="edit-icon" /> }];
+    const itemsWithIcons = [
+      { label: 'Edit', value: 'edit', icon: <span data-testid="edit-icon" /> },
+    ];
     render(<Dropdown trigger="Actions" items={itemsWithIcons} />);
     fireEvent.click(screen.getByRole('button', { name: 'Actions' }));
     expect(screen.getByTestId('edit-icon')).toBeInTheDocument();
