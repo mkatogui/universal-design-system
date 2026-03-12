@@ -1,10 +1,17 @@
 # Changelog
 
+## 0.3.1
+
+### Patch Changes
+
+- Fix number inconsistencies across docs and config files, add 274 component tests covering all 23 previously untested React components, add Husky pre-commit hooks with lint-staged, and add Changesets for release automation.
+
 All notable changes to the Universal Design System.
 
 ## [0.3.0] - 2026-03-12
 
 ### Added
+
 - **BM25 Fuzzy Search** — Porter stemmer, synonym expansion (ecommerce/e-commerce, ai/artificial-intelligence), and hyphen-aware tokenization for cross-form matching
 - **15 New Sectors** — sustainability, proptech, automotive, regtech, legaltech, agritech, govtech, cleantech, insurtech, sporttech, fashiontech, foodtech, musictech, pettech, spacetech (42 -> 57 sectors)
 - **MCP Server Enhancements** — `resources/list`, `resources/read`, `prompts/list`, `prompts/get` handlers; `get_anti_patterns` and `get_foundation_tokens` tools
@@ -22,6 +29,7 @@ All notable changes to the Universal Design System.
 - **@layer CSS Cascade Control** — all CSS output wrapped in `@layer uds.tokens, uds.components, uds.utilities` for explicit cascade ordering
 
 ### Changed
+
 - **DTCG v1 Alignment** — `$version` updated to 1.0.0, mandatory `$type` on all leaf tokens, spacing converted to `dimension` type, `{reference}` paths validated
 - Style Dictionary config migrated from JSON to ESM (`style-dictionary.config.mjs`) with v4 hooks system
 - Object-type tokens (keyframes, @starting-style) excluded from JS/TS/CSS variable output to prevent build crashes
@@ -31,11 +39,13 @@ All notable changes to the Universal Design System.
 ## [0.2.1] - 2026-03-12
 
 ### Fixed
+
 - Improved domain detection scoring and tiebreaking for niche queries
 - Design token refinements for semantic color accuracy
 - Install CLI dependencies before TypeScript build in CI
 
 ### Added
+
 - GitHub Actions CI pipeline with token validation, WCAG audit, and contract tests
 - SECURITY.md with vulnerability reporting guidelines
 - Contract test suite (test_taxonomy.py, test_palettes.py, test_tokens.py)
@@ -43,6 +53,7 @@ All notable changes to the Universal Design System.
 ## [0.2.0] - 2026-03-11
 
 ### Added
+
 - Custom palette injection tool (`npm run inject-palettes`)
 - React component package (`@mkatogui/uds-react`)
 - Visual framework guide (`docs/visual-framework.html`)
@@ -56,6 +67,7 @@ All notable changes to the Universal Design System.
 ## [0.1.0] - 2026-03-11
 
 ### Added
+
 - 9 structural palettes (minimal-saas, ai-futuristic, gradient-startup, corporate, apple-minimal, illustration, dashboard, bold-lifestyle, minimal-corporate)
 - ~530 W3C DTCG design tokens with 3-tier architecture (primitive > semantic > palette-overrides)
 - 32 BEM components with CVA variant API, full ARIA support, keyboard navigation
