@@ -18,6 +18,9 @@ const PAGES = [
   { name: 'component-library', path: 'docs/component-library.html' },
   { name: 'visual-framework', path: 'docs/visual-framework.html' },
   { name: 'reference', path: 'docs/reference.html' },
+  { name: 'case-studies', path: 'docs/case-studies.html' },
+  { name: 'playground', path: 'docs/playground.html' },
+  { name: 'conformance', path: 'docs/conformance.html' },
 ];
 
 export default defineConfig({
@@ -26,14 +29,63 @@ export default defineConfig({
   snapshotDir: 'tests/visual/snapshots',
   timeout: 30000,
   retries: 0,
+  expect: {
+    toHaveScreenshot: {
+      maxDiffPixelRatio: 0.001,
+      animations: 'disabled',
+    },
+  },
   use: {
-    viewport: { width: 1280, height: 720 },
     screenshot: 'off',
   },
   projects: [
+    // Desktop viewports
     {
-      name: 'chromium',
-      use: { browserName: 'chromium' },
+      name: 'desktop-light',
+      use: {
+        browserName: 'chromium',
+        viewport: { width: 1440, height: 900 },
+      },
+    },
+    {
+      name: 'desktop-dark',
+      use: {
+        browserName: 'chromium',
+        viewport: { width: 1440, height: 900 },
+        colorScheme: 'dark',
+      },
+    },
+    // Tablet viewports
+    {
+      name: 'tablet-light',
+      use: {
+        browserName: 'chromium',
+        viewport: { width: 768, height: 1024 },
+      },
+    },
+    {
+      name: 'tablet-dark',
+      use: {
+        browserName: 'chromium',
+        viewport: { width: 768, height: 1024 },
+        colorScheme: 'dark',
+      },
+    },
+    // Mobile viewports
+    {
+      name: 'mobile-light',
+      use: {
+        browserName: 'chromium',
+        viewport: { width: 375, height: 812 },
+      },
+    },
+    {
+      name: 'mobile-dark',
+      use: {
+        browserName: 'chromium',
+        viewport: { width: 375, height: 812 },
+        colorScheme: 'dark',
+      },
     },
   ],
 });
