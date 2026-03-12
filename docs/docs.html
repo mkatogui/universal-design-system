@@ -1009,6 +1009,7 @@ html.docs-dark .playground-control-group select {
       <li><a href="#layout">Layout & Scale</a></li>
       <li><a href="#palettes">Palettes (9)</a></li>
         <li><a href="#choreography">Motion Choreography</a></li>
+      <li><a href="#modern-transitions">Modern CSS Transitions</a></li>
 </ul>
   </div>
   <div class="nav-section">
@@ -1268,6 +1269,141 @@ html.docs-dark .playground-control-group select {
     transition-duration: 0.01ms !important;
   }
 }</code></div>
+</section>
+
+<!-- ==================== MODERN CSS TRANSITIONS ==================== -->
+<section id="modern-transitions">
+<h2>Modern CSS Transitions</h2>
+<p>Tokens for the <strong>View Transitions API</strong> and <strong><code>@starting-style</code></strong> rule. These modern CSS features enable smooth page transitions and entry animations for elements that transition from <code>display: none</code>.</p>
+
+<h3>View Transition Names</h3>
+<p>Assign named view transitions to key UI elements so the browser can animate them across page navigations or DOM state changes.</p>
+<table class="token-table">
+<thead><tr><th>Token</th><th>Value</th><th>Usage</th></tr></thead>
+<tbody>
+<tr><td><code>--transition-view-transition-name-header</code></td><td>uds-header</td><td>Persistent header across navigations</td></tr>
+<tr><td><code>--transition-view-transition-name-hero</code></td><td>uds-hero</td><td>Hero sections with cross-fade</td></tr>
+<tr><td><code>--transition-view-transition-name-card</code></td><td>uds-card</td><td>Card morph transitions</td></tr>
+<tr><td><code>--transition-view-transition-name-sidebar</code></td><td>uds-sidebar</td><td>Sidebar navigation persistence</td></tr>
+<tr><td><code>--transition-view-transition-name-modal</code></td><td>uds-modal</td><td>Modal dialog transitions</td></tr>
+</tbody>
+</table>
+
+<h3>@starting-style Tokens</h3>
+<p>The <code>@starting-style</code> rule defines the initial state for elements entering the DOM or transitioning from <code>display: none</code>. This replaces the need for JavaScript-triggered animation classes.</p>
+<table class="token-table">
+<thead><tr><th>Element</th><th>Opacity</th><th>Transform</th><th>Description</th></tr></thead>
+<tbody>
+<tr><td>Modal</td><td>0</td><td><code>scale(0.95)</code></td><td>Scale-in entry for modal dialogs</td></tr>
+<tr><td>Dropdown</td><td>0</td><td><code>translateY(-8px)</code></td><td>Slide-down entry for dropdowns</td></tr>
+<tr><td>Toast</td><td>0</td><td><code>translateX(100%)</code></td><td>Slide-in from right for toasts</td></tr>
+<tr><td>Popover</td><td>0</td><td><code>scale(0.9) translateY(-4px)</code></td><td>Combined scale and slide for popovers</td></tr>
+</tbody>
+</table>
+
+<h3>Transition Styles</h3>
+<p>Domain-specific easing curves recommended by the reasoning engine based on sector context.</p>
+<div class="preview">
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px">
+    <div style="text-align:center">
+      <div style="width:100%;height:60px;background:var(--color-brand-primary);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;color:var(--color-text-on-brand);font-size:var(--text-label);cursor:pointer;transition:transform var(--duration-normal) cubic-bezier(0.4, 0, 0.2, 1)" onmouseenter="this.style.transform='scale(1.08)'" onmouseleave="this.style.transform='scale(1)'">Elegant</div>
+      <div style="font-size:var(--text-label);color:var(--color-text-tertiary);margin-top:4px">Luxury, premium</div>
+    </div>
+    <div style="text-align:center">
+      <div style="width:100%;height:60px;background:var(--color-brand-secondary);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;color:var(--color-text-on-brand);font-size:var(--text-label);cursor:pointer;transition:transform var(--duration-fast) cubic-bezier(0.2, 0, 0, 1)" onmouseenter="this.style.transform='scale(1.08)'" onmouseleave="this.style.transform='scale(1)'">Snappy</div>
+      <div style="font-size:var(--text-label);color:var(--color-text-tertiary);margin-top:4px">Finance, dashboards</div>
+    </div>
+    <div style="text-align:center">
+      <div style="width:100%;height:60px;background:var(--color-brand-accent);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;color:var(--color-text-on-brand);font-size:var(--text-label);cursor:pointer;transition:transform var(--duration-slow) cubic-bezier(0.4, 0, 0.6, 1)" onmouseenter="this.style.transform='scale(1.08)'" onmouseleave="this.style.transform='scale(1)'">Gentle</div>
+      <div style="font-size:var(--text-label);color:var(--color-text-tertiary);margin-top:4px">Healthcare, education</div>
+    </div>
+    <div style="text-align:center">
+      <div style="width:100%;height:60px;background:var(--color-bg-tertiary);border:1px solid var(--color-border-default);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;font-size:var(--text-label);cursor:pointer;transition:transform 0ms steps(1)" onmouseenter="this.style.transform='scale(1.08)'" onmouseleave="this.style.transform='scale(1)'">Instant</div>
+      <div style="font-size:var(--text-label);color:var(--color-text-tertiary);margin-top:4px">Data-dense UIs</div>
+    </div>
+  </div>
+</div>
+
+<h3>Usage Examples</h3>
+<div class="code-block"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.parentElement.querySelector('code').textContent)">Copy</button><code>/* View Transitions API — cross-page element morphing */
+.uds-header {
+  view-transition-name: var(--transition-view-transition-name-header);
+}
+
+.uds-card {
+  view-transition-name: var(--transition-view-transition-name-card);
+}
+
+/* Customize the transition animation */
+::view-transition-old(uds-card) {
+  animation: var(--duration-fast) var(--ease-out) fade-out;
+}
+::view-transition-new(uds-card) {
+  animation: var(--duration-normal) var(--ease-out) fade-in;
+}
+
+/* @starting-style — entry animation from display:none */
+.uds-modal {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity var(--duration-normal) var(--ease-out),
+              transform var(--duration-normal) var(--ease-out),
+              display var(--duration-normal) allow-discrete;
+
+  @starting-style {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}
+
+.uds-toast {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity var(--duration-normal) var(--ease-out),
+              transform var(--duration-normal) var(--ease-out),
+              display var(--duration-normal) allow-discrete;
+
+  @starting-style {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}
+
+/* Sector-specific transition styles from reasoning engine */
+/* Luxury: elegant curve */
+.transition-elegant { transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); }
+
+/* Finance: snappy curve */
+.transition-snappy { transition-timing-function: cubic-bezier(0.2, 0, 0, 1); }
+
+/* Healthcare: gentle curve */
+.transition-gentle { transition-timing-function: cubic-bezier(0.4, 0, 0.6, 1); }
+
+/* Data-dense: instant (no visible transition) */
+.transition-instant { transition-timing-function: steps(1); }
+
+/* Always respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    view-transition-name: none !important;
+  }
+}</code></div>
+
+<h3>Browser Support</h3>
+<div class="preview">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+    <div>
+      <strong style="font-size:var(--text-body-sm)">View Transitions API</strong>
+      <p style="font-size:var(--text-body-sm)">Chrome 111+, Edge 111+, Opera 97+. Safari 18+. Firefox behind flag. Use <code>document.startViewTransition()</code> with progressive enhancement &mdash; non-supporting browsers simply skip the animation.</p>
+    </div>
+    <div>
+      <strong style="font-size:var(--text-body-sm)">@starting-style</strong>
+      <p style="font-size:var(--text-body-sm)">Chrome 117+, Edge 117+, Opera 103+, Safari 17.5+. Firefox 129+. Graceful degradation &mdash; without support, elements appear without entry animation. Pair with <code>transition-behavior: allow-discrete</code> for <code>display</code> transitions.</p>
+    </div>
+  </div>
+</div>
 </section>
 
 <!-- ==================== LAYOUT & SCALE ==================== -->
