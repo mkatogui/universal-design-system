@@ -3,7 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Design System v__VERSION__ — Interactive Documentation</title>
+<meta name="description" content="Interactive documentation for the Universal Design System. Explore 31 components, 9 palettes, and 496 design tokens with live previews.">
+<title>Documentation — Universal Design System v__VERSION__</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Source+Serif+4:wght@600;700&family=DM+Sans:wght@400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 
@@ -898,6 +901,8 @@ html.docs-dark select {
   color: var(--color-text-primary);
 }
 
+html.docs-dark .page-footer { border-color: var(--color-border-default); color: var(--color-text-tertiary); }
+
 /* ============================================================
    PLAYGROUND CONTROLS
    ============================================================ */
@@ -953,6 +958,11 @@ html.docs-dark .playground-control-group select {
   color: #E0E0EE;
 }
 
+/* Page footer */
+.page-footer { text-align: center; padding: 48px 24px; color: var(--color-text-tertiary); font-size: var(--text-body-sm); border-top: 1px solid var(--color-border-subtle); }
+.page-footer a { color: var(--color-brand-primary); text-decoration: none; }
+.page-footer a:hover { text-decoration: underline; }
+
 /* === Site Navigation Bar === */
 .site-topnav { display: flex; align-items: center; gap: 0; background: #111; color: #fff; font-family: 'Inter', system-ui, sans-serif; font-size: 14px; padding: 0 24px; height: 44px; position: sticky; top: 0; z-index: 9999; }
 .site-topnav .nav-brand { font-weight: 700; margin-right: 32px; white-space: nowrap; font-size: 15px; letter-spacing: -0.02em; }
@@ -964,7 +974,7 @@ html.docs-dark .playground-control-group select {
 </head>
 <body>
 <nav class="site-topnav" aria-label="Site navigation">
-  <span class="nav-brand">UDS v__VERSION__</span>
+  <a href="index.html" class="nav-brand">UDS v__VERSION__</a>
   <a href="docs.html" class="active">Docs</a>
   <a href="component-library.html">Components</a>
   <a href="visual-framework.html">Visual Framework</a>
@@ -2090,6 +2100,10 @@ html.docs-dark .playground-control-group select {
 </main>
 </div>
 </div>
+
+<footer class="page-footer">
+  <p>Universal Design System v__VERSION__ &middot; <a href="https://github.com/mkatogui/universal-design-system">GitHub</a> &middot; MIT License</p>
+</footer>
 
 <script>
 // Dynamic radius label updater

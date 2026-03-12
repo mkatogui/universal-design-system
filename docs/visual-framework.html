@@ -35,8 +35,8 @@
   --duration-slow:400ms;--duration-slower:600ms;
   --ease-default:cubic-bezier(0.4,0,0.2,1);--ease-out:cubic-bezier(0,0,0.2,1);
   --ease-spring:cubic-bezier(0.34,1.56,0.64,1);
-  --opacity-disabled:0.5;--opacity-muted:0.6;
-  --z-dropdown:10;--z-sticky:20;--z-overlay:30;--z-modal:40;--z-toast:50;--z-system:100;
+  --opacity-disabled:0.4;--opacity-muted:0.6;--opacity-subtle:0.8;
+  --z-dropdown:100;--z-sticky:200;--z-overlay:300;--z-modal:400;--z-toast:500;--z-tooltip:600;--z-system:9999;
   /* Default palette (Minimal SaaS) */
   --color-bg-primary:#FFFFFF;--color-bg-secondary:#F8F8FA;--color-bg-tertiary:#F0F0F5;
   --color-bg-inverse:#111118;--color-text-primary:#111118;--color-text-secondary:#555566;
@@ -66,6 +66,181 @@
 [data-theme="dashboard"]{--color-bg-primary:#FFFFFF;--color-bg-secondary:#F7F8FC;--color-bg-tertiary:#EEF0F8;--color-bg-inverse:#0F1117;--color-text-primary:#0F1117;--color-text-secondary:#525866;--color-text-tertiary:#6E7585;--color-text-on-brand:#FFFFFF;--color-border-default:#C5CAD4;--color-border-input:#8B92A0;--color-border-subtle:#E0E3EB;--color-brand-primary:#4F46E5;--color-brand-primary-rgb:79,70,229;--color-brand-secondary:#0EA5E9;--color-brand-accent:#06B6D4;--color-brand-muted:#EEF2FF;--shadow-glow:0 0 40px rgba(79,70,229,0.15);--font-display:'Inter',system-ui,sans-serif;--radius-sm:4px;--radius-md:6px;--radius-lg:8px;--radius-xl:12px;--radius-2xl:16px;}
 [data-theme="bold-lifestyle"]{--color-bg-primary:#FFFFFF;--color-bg-secondary:#F5F5F5;--color-bg-tertiary:#EBEBEB;--color-bg-inverse:#111111;--color-text-primary:#111111;--color-text-secondary:#525252;--color-text-tertiary:#6B6B6B;--color-text-on-brand:#FFFFFF;--color-border-default:#BFBFBF;--color-border-input:#8C8C8C;--color-border-subtle:#D9D9D9;--color-brand-primary:#111111;--color-brand-primary-rgb:17,17,17;--color-brand-secondary:#FF4500;--color-brand-accent:#FFD700;--color-brand-muted:#F5F5F5;--shadow-sm:none;--shadow-md:2px 2px 0 rgba(0,0,0,0.15);--shadow-lg:4px 4px 0 rgba(0,0,0,0.2);--shadow-glow:none;--font-display:'Inter',system-ui,sans-serif;--radius-sm:0;--radius-md:0;--radius-lg:0;--radius-xl:0;--radius-2xl:0;--radius-full:0;}
 [data-theme="minimal-corporate"]{--color-bg-primary:#FDFCFB;--color-bg-secondary:#F7F5F2;--color-bg-tertiary:#EFECE8;--color-bg-inverse:#1C1917;--color-text-primary:#1C1917;--color-text-secondary:#57534E;--color-text-tertiary:#78716C;--color-text-on-brand:#FFFFFF;--color-border-default:#D6D3CD;--color-border-input:#A8A29E;--color-border-subtle:#E7E5E4;--color-brand-primary:#B45309;--color-brand-primary-rgb:180,83,9;--color-brand-secondary:#92400E;--color-brand-accent:#D97706;--color-brand-muted:#FEF3C7;--shadow-glow:0 0 40px rgba(180,83,9,0.12);--font-display:'Source Serif 4',Georgia,serif;--radius-sm:4px;--radius-md:6px;--radius-lg:8px;--radius-xl:12px;--radius-2xl:16px;}
+
+/* ============================================================
+   DARK MODE PALETTE OVERRIDES
+   When html.docs-dark is active, each palette provides dark-aware colors.
+   ============================================================ */
+
+/* AI Futuristic is already dark-native; override adjusts slightly for docs-dark consistency */
+html.docs-dark[data-theme="ai-futuristic"] {
+  --color-bg-primary: #08080D; --color-bg-secondary: #0F0F16; --color-bg-tertiary: #16161F;
+  --color-bg-inverse: #FFFFFF;
+  --color-text-primary: #E0E0EE; --color-text-secondary: #9999AA; --color-text-tertiary: #7A7A8C;
+  --color-text-on-brand: #0A0A0F;
+  --color-brand-primary: #00FF88; --color-brand-primary-rgb: 0, 255, 136;
+  --color-brand-secondary: #00D4FF; --color-brand-accent: #8B5CF6;
+  --color-brand-muted: #0A2A1A;
+  --color-border-default: #2A2A36; --color-border-input: #4A4A58; --color-border-subtle: #1E1E28;
+  --color-success-bg: #062E1E; --color-warning-bg: #2A1F00; --color-error-bg: #2D0A0A; --color-info-bg: #0A1628;
+  --shadow-sm: 0 0 0 1px rgba(255,255,255,0.06), 0 2px 4px rgba(0,0,0,0.3);
+  --shadow-md: 0 0 0 1px rgba(255,255,255,0.06), 0 4px 12px rgba(0,0,0,0.4);
+  --shadow-lg: 0 0 0 1px rgba(255,255,255,0.08), 0 12px 32px rgba(0,0,0,0.5);
+  --shadow-glow: 0 0 40px rgba(0, 255, 136, 0.15);
+
+  /* Structural (same as light) */
+  --radius-sm: 2px; --radius-md: 4px; --radius-lg: 6px; --radius-xl: 8px; --radius-2xl: 12px;
+  --font-display: 'DM Sans', system-ui, sans-serif;
+}
+
+html.docs-dark[data-theme="minimal-saas"] {
+  --color-bg-primary: #0F0F14; --color-bg-secondary: #161620; --color-bg-tertiary: #1E1E2A;
+  --color-bg-inverse: #FFFFFF;
+  --color-text-primary: #E4E4EE; --color-text-secondary: #A0A0B4; --color-text-tertiary: #7A7A8E;
+  --color-border-default: #2C2C3A; --color-border-input: #4A4A5A; --color-border-subtle: #222230;
+  --color-success-bg: #0A2618; --color-warning-bg: #261E0A; --color-error-bg: #260A0A; --color-info-bg: #0A1426;
+  --shadow-sm: 0 2px 4px rgba(0,0,0,0.3); --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+  --shadow-lg: 0 12px 32px rgba(0,0,0,0.5); --shadow-xl: 0 24px 64px rgba(0,0,0,0.6);
+}
+
+html.docs-dark[data-theme="gradient-startup"] {
+  --color-bg-primary: #0E0A14; --color-bg-secondary: #16101E; --color-bg-tertiary: #1E1628;
+  --color-bg-inverse: #FFFFFF;
+  --color-text-primary: #E8E0F4; --color-text-secondary: #B0A4C4; --color-text-tertiary: #8A7EA0;
+  --color-border-default: #2E2840; --color-border-input: #4E4660; --color-border-subtle: #241E34;
+  --color-brand-muted: #1E0A3A;
+  --color-success-bg: #0A2618; --color-warning-bg: #261E0A; --color-error-bg: #260A0A; --color-info-bg: #0A1426;
+  --shadow-sm: 0 2px 4px rgba(0,0,0,0.3); --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+  --shadow-lg: 0 12px 32px rgba(0,0,0,0.5);
+  --shadow-glow: 0 0 40px rgba(124, 58, 237, 0.2);
+
+  /* Structural (same as light) */
+  --radius-sm: 8px; --radius-md: 12px; --radius-lg: 16px; --radius-xl: 24px; --radius-2xl: 32px;
+}
+
+html.docs-dark[data-theme="corporate"] {
+  --color-bg-primary: #0C0E12; --color-bg-secondary: #141820; --color-bg-tertiary: #1C2230;
+  --color-bg-inverse: #FFFFFF;
+  --color-text-primary: #D8DCE8; --color-text-secondary: #8E96A8; --color-text-tertiary: #6E7688;
+  --color-brand-primary: #4A7CC8; --color-brand-primary-rgb: 74, 124, 200;
+  --color-brand-secondary: #5A8ED8; --color-brand-muted: #0E1A30;
+  --color-border-default: #283040; --color-border-input: #3E4858; --color-border-subtle: #1E2636;
+  --color-success-bg: #0A2618; --color-warning-bg: #261E0A; --color-error-bg: #260A0A; --color-info-bg: #0A1426;
+  --shadow-sm: 0 2px 4px rgba(0,0,0,0.3); --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+  --shadow-lg: 0 12px 32px rgba(0,0,0,0.5);
+
+  /* Structural (same as light) */
+  --radius-sm: 2px; --radius-md: 4px; --radius-lg: 6px; --radius-xl: 8px; --radius-2xl: 12px;
+  --font-display: 'Source Serif 4', Georgia, serif;
+}
+
+html.docs-dark[data-theme="apple-minimal"] {
+  --color-bg-primary: #000000; --color-bg-secondary: #0E0E0E; --color-bg-tertiary: #1A1A1A;
+  --color-bg-inverse: #FFFFFF;
+  --color-text-primary: #F5F5F7; --color-text-secondary: #A1A1A6; --color-text-tertiary: #6E6E73;
+  --color-border-default: #2C2C2E; --color-border-input: #48484A; --color-border-subtle: #1C1C1E;
+  --color-success-bg: #0A2618; --color-warning-bg: #261E0A; --color-error-bg: #260A0A; --color-info-bg: #0A1426;
+  --shadow-sm: 0 2px 4px rgba(0,0,0,0.3); --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+  --shadow-lg: 0 12px 32px rgba(0,0,0,0.5);
+
+  /* Structural (same as light) */
+  --radius-sm: 8px; --radius-md: 10px; --radius-lg: 14px; --radius-xl: 20px; --radius-2xl: 28px;
+}
+
+html.docs-dark[data-theme="illustration"] {
+  --color-bg-primary: #12100E; --color-bg-secondary: #1C1816; --color-bg-tertiary: #262018;
+  --color-bg-inverse: #FFFFFF;
+  --color-text-primary: #F0E8DC; --color-text-secondary: #B0A494; --color-text-tertiary: #8A7E6E;
+  --color-brand-muted: #2A1A0A;
+  --color-border-default: #342E24; --color-border-input: #544A3A; --color-border-subtle: #242018;
+  --color-success-bg: #0A2618; --color-warning-bg: #261E0A; --color-error-bg: #260A0A; --color-info-bg: #0A1426;
+  --shadow-sm: 0 2px 4px rgba(0,0,0,0.3); --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+  --shadow-lg: 0 12px 32px rgba(0,0,0,0.5);
+  --shadow-glow: 0 0 40px rgba(232, 89, 12, 0.15);
+  --gradient-hero: linear-gradient(135deg, #CC4400 0%, #5030C0 50%, #0A9060 100%);
+
+  /* Structural (same as light) */
+  --radius-sm: 10px; --radius-md: 14px; --radius-lg: 18px; --radius-xl: 24px; --radius-2xl: 32px;
+}
+
+html.docs-dark[data-theme="dashboard"] {
+  --color-bg-primary: #0A0B10; --color-bg-secondary: #12141C; --color-bg-tertiary: #1A1C26;
+  --color-bg-inverse: #FFFFFF;
+  --color-text-primary: #DEE0EC; --color-text-secondary: #8E92A4; --color-text-tertiary: #6E7284;
+  --color-brand-muted: #14124A;
+  --color-border-default: #282C3A; --color-border-input: #3E4254; --color-border-subtle: #1E2030;
+  --color-success-bg: #0A2618; --color-warning-bg: #261E0A; --color-error-bg: #260A0A; --color-info-bg: #0A1426;
+  --shadow-sm: 0 2px 4px rgba(0,0,0,0.3); --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+  --shadow-lg: 0 12px 32px rgba(0,0,0,0.5);
+
+  /* Structural (same as light) */
+  --radius-sm: 4px; --radius-md: 6px; --radius-lg: 8px; --radius-xl: 12px; --radius-2xl: 16px;
+}
+
+html.docs-dark[data-theme="bold-lifestyle"] {
+  --color-bg-primary: #0A0A0A; --color-bg-secondary: #141414; --color-bg-tertiary: #1E1E1E;
+  --color-bg-inverse: #FFFFFF;
+  --color-text-primary: #EEEEEE; --color-text-secondary: #999999; --color-text-tertiary: #6B6B6B;
+  --color-brand-primary: #FFFFFF; --color-brand-primary-rgb: 255, 255, 255;
+  --color-brand-secondary: #FF4500; --color-text-on-brand: #000000;
+  --color-border-default: #2A2A2A; --color-border-input: #4A4A4A; --color-border-subtle: #1A1A1A;
+  --color-success-bg: #0A2618; --color-warning-bg: #261E0A; --color-error-bg: #260A0A; --color-info-bg: #0A1426;
+  --shadow-sm: 0 2px 4px rgba(0,0,0,0.4); --shadow-md: 0 4px 12px rgba(0,0,0,0.5);
+  --shadow-lg: 0 12px 32px rgba(0,0,0,0.6);
+
+  /* Structural (same as light) */
+  --radius-sm: 0; --radius-md: 0; --radius-lg: 0; --radius-xl: 0; --radius-2xl: 0; --radius-full: 0;
+  --font-display: 'Oswald', sans-serif;
+}
+
+html.docs-dark[data-theme="minimal-corporate"] {
+  --color-bg-primary: #0E0D0C; --color-bg-secondary: #18160E; --color-bg-tertiary: #221E16;
+  --color-bg-inverse: #FFFFFF;
+  --color-text-primary: #EDE8E0; --color-text-secondary: #A89E90; --color-text-tertiary: #78706A;
+  --color-brand-primary: #D4870A; --color-brand-primary-rgb: 212, 135, 10;
+  --color-brand-muted: #2A1E0A;
+  --color-border-default: #302A20; --color-border-input: #504838; --color-border-subtle: #201C14;
+  --color-success-bg: #0A2618; --color-warning-bg: #261E0A; --color-error-bg: #260A0A; --color-info-bg: #0A1426;
+  --shadow-sm: 0 2px 4px rgba(0,0,0,0.3); --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+  --shadow-lg: 0 12px 32px rgba(0,0,0,0.5);
+
+  /* Structural (same as light) */
+  --radius-sm: 4px; --radius-md: 6px; --radius-lg: 8px; --radius-xl: 12px; --radius-2xl: 16px;
+  --font-display: 'Source Serif 4', Georgia, serif;
+}
+
+/* Dark mode for visual framework page */
+html.docs-dark body { background: var(--color-bg-primary); color: var(--color-text-primary); }
+html.docs-dark .page-header { color: var(--color-text-primary); }
+html.docs-dark .page-header p { color: var(--color-text-secondary); }
+html.docs-dark .section { border-color: var(--color-border-subtle); }
+html.docs-dark .section__title { color: var(--color-text-primary); }
+html.docs-dark .section__desc { color: var(--color-text-secondary); }
+html.docs-dark .section__label { color: var(--color-text-tertiary); }
+html.docs-dark .palette-switcher { background: var(--color-bg-secondary); border-color: var(--color-border-subtle); }
+html.docs-dark .palette-pill { background: var(--color-bg-primary); border-color: var(--color-border-default); color: var(--color-text-secondary); }
+html.docs-dark .palette-pill:hover { color: var(--color-text-primary); border-color: var(--color-brand-primary); }
+html.docs-dark .palette-pill.active { background: var(--color-brand-primary); color: var(--color-text-on-brand); border-color: var(--color-brand-primary); }
+html.docs-dark .spacing-row__label { color: var(--color-text-tertiary); }
+html.docs-dark .spacing-row__value { color: var(--color-text-tertiary); }
+html.docs-dark .type-row { border-color: var(--color-border-subtle); }
+html.docs-dark .type-row__label { color: var(--color-text-tertiary); }
+html.docs-dark .type-row__sample { color: var(--color-text-primary); }
+html.docs-dark .palette-card { border-color: var(--color-border-default); }
+html.docs-dark .shadow-card { background: var(--color-bg-secondary); border-color: var(--color-border-subtle); }
+html.docs-dark .shadow-card__label { color: var(--color-text-tertiary); }
+html.docs-dark .radius-card { border-color: var(--color-border-default); }
+html.docs-dark .radius-card__name { color: var(--color-text-primary); }
+html.docs-dark .radius-card__value { color: var(--color-text-tertiary); }
+html.docs-dark .anatomy-card { background: var(--color-bg-secondary); border-color: var(--color-border-default); }
+html.docs-dark .anatomy-card__title { color: var(--color-text-primary); }
+html.docs-dark .anatomy-demo-card { background: var(--color-bg-primary); border-color: var(--color-border-default); }
+html.docs-dark .anatomy-demo-card__title { color: var(--color-text-primary); }
+html.docs-dark .anatomy-demo-card__text { color: var(--color-text-secondary); }
+html.docs-dark .page-footer { border-color: var(--color-border-default); color: var(--color-text-tertiary); }
+html.docs-dark .dark-mode-toggle { background: var(--color-bg-primary); border-color: var(--color-border-default); color: var(--color-text-secondary); }
+html.docs-dark .dark-mode-toggle:hover { background: var(--color-bg-tertiary); color: var(--color-text-primary); }
+html.docs-dark .site-topnav { background: var(--color-bg-inverse); }
 
 /* ==============================================================
    ACCESSIBILITY
@@ -97,12 +272,12 @@
   font-size: var(--text-body-sm);
   position: sticky;
   top: 0;
-  z-index: var(--z-sticky);
+  z-index: 9999;
 }
 .site-topnav .nav-brand {
   font-weight: 700;
   color: var(--color-text-primary);
-  margin-right: auto;
+  margin-right: 32px;
 }
 .site-topnav a {
   color: var(--color-text-secondary);
@@ -451,21 +626,36 @@ body {
   .anatomy-grid { grid-template-columns: 1fr; }
   .palette-grid { grid-template-columns: 1fr; }
 }
+
+/* ==============================================================
+   SKIP LINK
+   ============================================================== */
+.skip-link { position: absolute; top: -100%; left: 16px; padding: 8px 16px; background: var(--color-brand-primary); color: var(--color-text-on-brand); border-radius: var(--radius-md); z-index: 9999; text-decoration: none; font-weight: 600; }
+.skip-link:focus { top: 16px; }
+
+/* ==============================================================
+   DARK MODE TOGGLE
+   ============================================================== */
+.dark-mode-toggle { padding: var(--space-2) var(--space-3); font-family: var(--font-sans); font-size: var(--text-body-sm); font-weight: 500; border: 1px solid var(--color-border-default); border-radius: var(--radius-full); background: var(--color-bg-primary); color: var(--color-text-secondary); cursor: pointer; display: flex; align-items: center; gap: 8px; margin-left: auto; transition: all var(--duration-fast); white-space: nowrap; }
+.dark-mode-toggle svg { width: 16px; height: 16px; flex-shrink: 0; }
+.dark-mode-toggle:hover { color: var(--color-text-primary); border-color: var(--color-brand-primary); }
+.dark-mode-toggle:focus-visible { outline: 2px solid var(--color-brand-primary); outline-offset: 2px; }
 </style>
 </head>
 <body>
 
 <!-- NAV -->
 <nav class="site-topnav" aria-label="Site navigation">
-  <span class="nav-brand">UDS v__VERSION__</span>
+  <a href="index.html" class="nav-brand">UDS v__VERSION__</a>
   <a href="docs.html">Docs</a>
   <a href="component-library.html">Components</a>
   <a href="visual-framework.html" class="active">Visual Framework</a>
   <a href="reference.html">Reference</a>
 </nav>
+<a href="#main-content" class="skip-link">Skip to content</a>
 
 <!-- HEADER -->
-<header class="page-header">
+<header class="page-header" id="main-content">
   <h1>Visual Framework</h1>
   <p>Screenshot-friendly reference for spacing, typography, colors, shadows, radii, and component anatomy. Every value comes from design tokens.</p>
 </header>
@@ -482,6 +672,10 @@ body {
     <button class="palette-pill" data-palette="dashboard" role="radio" aria-checked="false">Dashboard</button>
     <button class="palette-pill" data-palette="bold-lifestyle" role="radio" aria-checked="false">Bold Lifestyle</button>
     <button class="palette-pill" data-palette="minimal-corporate" role="radio" aria-checked="false">Minimal Corporate</button>
+    <button id="dark-mode-toggle" class="dark-mode-toggle" aria-label="Toggle appearance mode" title="Appearance">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <span>Dark</span>
+    </button>
   </div>
 </div>
 
@@ -774,6 +968,33 @@ document.querySelectorAll('.palette-pill').forEach(function(pill) {
     card.innerHTML = '<div class="radius-card__name">' + r.name + '</div><div class="radius-card__value">--radius-md: ' + r.md + '</div>';
     grid.appendChild(card);
   });
+})();
+
+// Dark mode toggle
+(function() {
+  var darkModeToggle = document.getElementById('dark-mode-toggle');
+  var darkModeKey = 'docs-appearance';
+  var sunSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>';
+  var moonSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+
+  function updateBtn(isDark) {
+    if (!darkModeToggle) return;
+    darkModeToggle.innerHTML = isDark
+      ? sunSvg + '<span>Light</span>'
+      : moonSvg + '<span>Dark</span>';
+  }
+
+  if (darkModeToggle) {
+    var isDark = localStorage.getItem(darkModeKey) === 'dark';
+    if (isDark) document.documentElement.classList.add('docs-dark');
+    updateBtn(isDark);
+
+    darkModeToggle.addEventListener('click', function() {
+      var isNowDark = document.documentElement.classList.toggle('docs-dark');
+      localStorage.setItem(darkModeKey, isNowDark ? 'dark' : 'light');
+      updateBtn(isNowDark);
+    });
+  }
 })();
 </script>
 </body>
