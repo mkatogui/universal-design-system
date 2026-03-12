@@ -387,6 +387,8 @@ def run_expanded_audit(tokens_path: str, output_path: str):
             for name, cls in token_classes.items():
                 if cls["skip"]:
                     skipped_tokens_set.add(name)
+                    skip_count += 1
+                    mode_stats["skipped"] += 1
 
             # Test every fg x bg combination
             for fg_name in sorted(fg_tokens):
@@ -446,6 +448,7 @@ def run_expanded_audit(tokens_path: str, output_path: str):
             "total_pairs_tested": total_pairs,
             "passed": pass_count,
             "failed": fail_count,
+            "skipped_token_occurrences": skip_count,
             "skipped_tokens": sorted(skipped_tokens_set),
             "coverage_percentage": coverage_pct,
         },
@@ -470,6 +473,7 @@ def run_expanded_audit(tokens_path: str, output_path: str):
     print(f"  Total pairs tested:  {total_pairs}")
     print(f"  Passed:              {pass_count}")
     print(f"  Failed:              {fail_count}")
+    print(f"  Skipped (tokens):    {skip_count}")
     print(f"  Coverage:            {coverage_pct}%")
     print()
 

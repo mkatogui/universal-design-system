@@ -47,12 +47,23 @@ export default {
             return;
           }
 
-          // Resolve references when outputReferences is enabled
+          // Resolve references when outputReferences is enabled.
+          // Look up the referenced token by path so that token.name is used,
+          // which already has the platform prefix applied (e.g. --uds-color-*
+          // in the css-namespaced build).
           if (options.outputReferences && token.original) {
             const orig = token.original.value ?? token.original.$value;
             if (typeof orig === 'string' && orig.startsWith('{') && orig.endsWith('}')) {
-              const refName = orig.slice(1, -1).replace(/\./g, '-');
-              value = `var(--${refName})`;
+              const refPath = orig.slice(1, -1).split('.');
+              const refToken = dictionary.allTokens.find(
+                (t) => t.path && t.path.join('.') === refPath.join('.')
+              );
+              if (refToken) {
+                value = `var(--${refToken.name})`;
+              } else {
+                // Fallback: reconstruct the name from the path (no prefix)
+                value = `var(--${refPath.join('-')})`;
+              }
             }
           }
 

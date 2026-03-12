@@ -11,7 +11,8 @@ All tokens are exposed as CSS custom properties (CSS variables) on the `:root` o
 |---|---|---|
 | `--color-*` | Brand, text, background, border, status colors | `--color-brand-primary`, `--color-text-secondary`, `--color-bg-primary` |
 | `--space-*` | Spacing scale (4px base grid) | `--space-1` (4px), `--space-4` (16px), `--space-8` (32px) |
-| `--font-size-*` | Typography size scale | `--font-size-sm`, `--font-size-base`, `--font-size-2xl` |
+| `--font-*` | Typography font families | `--font-sans`, `--font-display`, `--font-mono`, `--font-serif` |
+| `--text-*` | Typography size scale | `--text-body-sm`, `--text-body-md`, `--text-display-xl`, `--text-heading-lg` |
 | `--radius-*` | Border radius | `--radius-sm`, `--radius-md`, `--radius-lg`, `--radius-full` |
 | `--shadow-*` | Elevation shadows | `--shadow-xs`, `--shadow-sm`, `--shadow-md`, `--shadow-lg` |
 | `--motion-*` | Duration and easing | `--motion-duration-fast`, `--motion-easing-default` |
@@ -81,7 +82,7 @@ Components must always use `var(--token-name)` references. Never hardcode raw va
   padding: var(--space-2) var(--space-4);
   background: var(--color-brand-primary);
   border-radius: var(--radius-md);
-  font-size: var(--font-size-sm);
+  font-size: var(--text-body-sm);
   box-shadow: var(--shadow-sm);
 }
 
@@ -143,7 +144,7 @@ All animations must be wrapped in `@media (prefers-reduced-motion: no-preference
 
 Consumers should understand which tokens change per palette and which remain constant:
 
-- **Foundation (constant):** `--space-*`, `--font-size-*`, `--motion-*`, `--opacity-*`, `--z-index-*`
+- **Foundation (constant):** `--space-*`, `--font-*`, `--text-*`, `--motion-*`, `--opacity-*`, `--z-index-*`
 - **Palette-specific (varies):** `--color-*`, `--radius-*`, `--shadow-*`, display font family
 
 This means spacing, typography scale, motion, and layering are consistent across all palettes. Colors, border radius, shadows, and display headings change with the active palette.
@@ -186,15 +187,18 @@ In addition to HTML docs, the current naming is used in:
 
 ### 4.1 Strategy: Additive Build Artifact
 
-Rather than renaming existing tokens, the planned approach is to add `--uds-*` prefixed tokens as an **additional** Style Dictionary build output:
+Rather than renaming existing tokens, `--uds-*` prefixed tokens have been added as an **additional** Style Dictionary build output via the `css-namespaced` platform in `style-dictionary.config.mjs`:
 
 ```
 tokens/design-tokens.json (source of truth, unchanged)
     |
-    +--> build/css/tokens.css          (current: --color-*, --space-*, etc.)
-    +--> build/css/tokens-uds.css      (new: --uds-color-*, --uds-space-*, etc.)
-    +--> build/js/tokens.js            (current)
-    +--> build/js/tokens-uds.js        (new)
+    +--> build/css/tokens.css               (current: --color-*, --space-*, etc.)
+    +--> build/css-namespaced/tokens.css    (new: --uds-color-*, --uds-space-*, etc.)
+    +--> build/js/tokens.js                 (current)
+    +--> build/js/tokens.d.ts               (TypeScript declarations)
+    +--> build/json/tokens.json             (flat JSON export)
+    +--> build/ios/DesignTokens.swift       (iOS Swift)
+    +--> build/android/design_tokens.xml    (Android)
 ```
 
 ### 4.2 Migration Mapping
@@ -203,16 +207,17 @@ tokens/design-tokens.json (source of truth, unchanged)
 |---|---|
 | `--color-brand-primary` | `--uds-color-brand-primary` |
 | `--space-4` | `--uds-space-4` |
-| `--font-size-base` | `--uds-font-size-base` |
+| `--font-sans` | `--uds-font-sans` |
+| `--text-body-md` | `--uds-text-body-md` |
 | `--radius-md` | `--uds-radius-md` |
 | `--shadow-sm` | `--uds-shadow-sm` |
 | `--motion-duration-fast` | `--uds-motion-duration-fast` |
 | `--opacity-disabled` | `--uds-opacity-disabled` |
 | `--z-index-modal` | `--uds-z-index-modal` |
 
-### 4.3 Implementation Steps (Future)
+### 4.3 Implementation Steps
 
-1. **Add Style Dictionary transform** to produce `--uds-*` prefixed output alongside current output
+1. ~~**Add Style Dictionary transform** to produce `--uds-*` prefixed output alongside current output~~ ✅ Done — `css-namespaced` platform in `style-dictionary.config.mjs` outputs `build/css-namespaced/tokens.css`
 2. **Publish both artifacts** in the npm package so consumers can opt-in
 3. **Add compatibility layer** that maps `--uds-*` to current names (or vice versa) for gradual migration
 4. **Update docs incrementally** to reference `--uds-*` tokens with backward-compatible fallbacks: `var(--uds-color-brand-primary, var(--color-brand-primary))`

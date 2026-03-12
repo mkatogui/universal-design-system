@@ -228,7 +228,7 @@ function extractPaletteTokens(tokens, paletteName) {
 
   const result = {
     name: paletteName,
-    description: paletteData.$description || PALETTE_DESCRIPTIONS[paletteName] || "",
+    description: paletteData.$description || "",
     light: {},
     dark: {},
     structural: {},
@@ -757,7 +757,7 @@ async function handleListPalettes() {
     const structural = paletteData.$structural || {};
     return {
       name,
-      description: PALETTE_DESCRIPTIONS[name] || paletteData.$description || "",
+      description: paletteData.$description || "",
       shape: structural.shape || null,
       radius: structural["radius-md"] || null,
       font_display: structural["font-display"] || null,
