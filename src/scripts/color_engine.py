@@ -1,11 +1,14 @@
 """
 Color math library for the Universal Design System.
 
-Pure Python color manipulation: hex/RGB/HSL conversions, WCAG contrast,
-luminance calculations, and color adjustment utilities.
+Pure Python color manipulation: hex/RGB/HSL/oklch conversions, WCAG contrast,
+luminance calculations, color adjustment utilities, and batch oklch propagation.
 """
 
+import json
 import math
+import re
+from pathlib import Path
 
 
 # --- Conversions ---
@@ -82,6 +85,222 @@ def hsl_to_rgb(h: float, s: float, l: float) -> tuple:
         max(0, min(255, round((g1 + m) * 255))),
         max(0, min(255, round((b1 + m) * 255))),
     )
+
+
+# --- oklch Conversions ---
+# Pipeline: hex -> sRGB -> linear RGB -> XYZ (D65) -> oklab -> oklch
+
+def _srgb_to_linear(c: float) -> float:
+    """Convert a single sRGB channel (0-1) to linear RGB."""
+    if c <= 0.04045:
+        return c / 12.92
+    return ((c + 0.055) / 1.055) ** 2.4
+
+
+def _linear_to_srgb(c: float) -> float:
+    """Convert a single linear RGB channel (0-1) to sRGB."""
+    if c <= 0.0031308:
+        return c * 12.92
+    return 1.055 * (c ** (1.0 / 2.4)) - 0.055
+
+
+def _linear_rgb_to_xyz(r: float, g: float, b: float) -> tuple:
+    """Convert linear RGB to CIE XYZ (D65 illuminant)."""
+    x = 0.4124564 * r + 0.3575761 * g + 0.1804375 * b
+    y = 0.2126729 * r + 0.7151522 * g + 0.0721750 * b
+    z = 0.0193339 * r + 0.1191920 * g + 0.9503041 * b
+    return (x, y, z)
+
+
+def _xyz_to_oklab(x: float, y: float, z: float) -> tuple:
+    """Convert CIE XYZ to oklab (L, a, b)."""
+    l_ = 0.8189330101 * x + 0.3618667424 * y - 0.1288597137 * z
+    m_ = 0.0329845436 * x + 0.9293118715 * y + 0.0361456387 * z
+    s_ = 0.0482003018 * x + 0.2643662691 * y + 0.6338517070 * z
+
+    l_c = math.copysign(abs(l_) ** (1.0 / 3.0), l_) if l_ != 0 else 0.0
+    m_c = math.copysign(abs(m_) ** (1.0 / 3.0), m_) if m_ != 0 else 0.0
+    s_c = math.copysign(abs(s_) ** (1.0 / 3.0), s_) if s_ != 0 else 0.0
+
+    L = 0.2104542553 * l_c + 0.7936177850 * m_c - 0.0040720468 * s_c
+    a = 1.9779984951 * l_c - 2.4285922050 * m_c + 0.4505937099 * s_c
+    b = 0.0259040371 * l_c + 0.7827717662 * m_c - 0.8086757660 * s_c
+
+    return (L, a, b)
+
+
+def _oklab_to_oklch(L: float, a: float, b: float) -> tuple:
+    """Convert oklab (L, a, b) to oklch (L, C, H)."""
+    C = math.sqrt(a * a + b * b)
+    H = math.degrees(math.atan2(b, a)) % 360.0
+    return (L, C, H)
+
+
+def hex_to_oklch(hex_color: str) -> dict:
+    """Convert '#RRGGBB' hex color to oklch dict with L, C, H values.
+
+    Returns:
+        dict with keys 'l' (0-1 lightness), 'c' (chroma), 'h' (hue 0-360)
+    """
+    r, g, b = hex_to_rgb(hex_color)
+    # sRGB 0-1
+    r_s, g_s, b_s = r / 255.0, g / 255.0, b / 255.0
+    # linear RGB
+    r_l, g_l, b_l = _srgb_to_linear(r_s), _srgb_to_linear(g_s), _srgb_to_linear(b_s)
+    # XYZ
+    x, y, z = _linear_rgb_to_xyz(r_l, g_l, b_l)
+    # oklab
+    L, a, ob = _xyz_to_oklab(x, y, z)
+    # oklch
+    L, C, H = _oklab_to_oklch(L, a, ob)
+    return {"l": round(L, 4), "c": round(C, 4), "h": round(H, 1)}
+
+
+def rgba_to_oklch(rgba_str: str) -> dict:
+    """Convert 'rgba(r, g, b, a)' string to oklch dict with L, C, H, alpha.
+
+    Returns:
+        dict with keys 'l', 'c', 'h', 'alpha'
+    """
+    match = re.match(
+        r"rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*(?:,\s*([\d.]+))?\s*\)",
+        rgba_str.strip(),
+    )
+    if not match:
+        raise ValueError(f"Cannot parse rgba value: {rgba_str}")
+    r, g, b = int(match.group(1)), int(match.group(2)), int(match.group(3))
+    alpha = float(match.group(4)) if match.group(4) else 1.0
+    hex_color = rgb_to_hex(r, g, b)
+    result = hex_to_oklch(hex_color)
+    result["alpha"] = round(alpha, 2)
+    return result
+
+
+def oklch_to_css(oklch_dict: dict) -> str:
+    """Format oklch dict as CSS oklch() string.
+
+    Example: 'oklch(54.6% 0.2152 262.9)'
+    """
+    L_pct = round(oklch_dict["l"] * 100, 1)
+    C = round(oklch_dict["c"], 4)
+    H = round(oklch_dict["h"], 1)
+    return f"oklch({L_pct}% {C} {H})"
+
+
+# --- Batch Token Converter ---
+
+def _is_hex_color(value: str) -> bool:
+    """Check if a string is a hex color like #RGB or #RRGGBB."""
+    if not isinstance(value, str):
+        return False
+    return bool(re.match(r"^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$", value.strip()))
+
+
+def _is_token_reference(value: str) -> bool:
+    """Check if a value is a design token reference like {color.primitive.blue.600}."""
+    if not isinstance(value, str):
+        return False
+    return bool(re.match(r"^\{.*\}$", value.strip()))
+
+
+def _walk_and_add_oklch(node: dict, path: str = "") -> int:
+    """Recursively walk token tree and add oklch extensions to color tokens.
+
+    Only processes tokens that:
+    - Have a $value that is a hex color (#RRGGBB)
+    - Have $type == 'color' (either directly or inherited)
+    - Do NOT already have a com.tokens.oklch extension
+
+    Returns count of tokens updated.
+    """
+    count = 0
+    inherited_type = node.get("$type", "")
+
+    for key, value in node.items():
+        if key.startswith("$"):
+            continue
+        if not isinstance(value, dict):
+            continue
+
+        current_path = f"{path}.{key}" if path else key
+
+        # Check if this is a leaf token (has $value)
+        if "$value" in value:
+            token_type = value.get("$type", inherited_type)
+            token_value = value["$value"]
+
+            # Only process color tokens with hex values
+            if token_type == "color" and _is_hex_color(token_value):
+                # Check if already has oklch extension
+                extensions = value.get("$extensions", {})
+                if "com.tokens.oklch" not in extensions:
+                    oklch = hex_to_oklch(token_value)
+                    css_str = oklch_to_css(oklch)
+                    if "$extensions" not in value:
+                        value["$extensions"] = {}
+                    value["$extensions"]["com.tokens.oklch"] = css_str
+                    count += 1
+        else:
+            # Recurse into nested groups
+            count += _walk_and_add_oklch(value, current_path)
+
+    return count
+
+
+def batch_convert(tokens_path: str = None) -> int:
+    """Read design-tokens.json, add oklch extensions to all color tokens missing them.
+
+    Args:
+        tokens_path: Path to design-tokens.json. Auto-detected if None.
+
+    Returns:
+        Number of tokens updated.
+    """
+    if tokens_path is None:
+        tokens_path = str(
+            Path(__file__).parent.parent.parent / "tokens" / "design-tokens.json"
+        )
+
+    with open(tokens_path, "r", encoding="utf-8") as f:
+        tokens = json.load(f)
+
+    count = _walk_and_add_oklch(tokens)
+
+    with open(tokens_path, "w", encoding="utf-8") as f:
+        json.dump(tokens, f, indent=2, ensure_ascii=False)
+        f.write("\n")
+
+    return count
+
+
+def batch_convert_figma(figma_path: str = None) -> int:
+    """Read figma-tokens.json, add oklch extensions to all color tokens missing them.
+
+    Args:
+        figma_path: Path to figma-tokens.json. Auto-detected if None.
+
+    Returns:
+        Number of tokens updated.
+    """
+    if figma_path is None:
+        figma_path = str(
+            Path(__file__).parent.parent.parent / "tokens" / "figma-tokens.json"
+        )
+
+    with open(figma_path, "r", encoding="utf-8") as f:
+        tokens = json.load(f)
+
+    count = 0
+    for section_key, section_data in tokens.items():
+        if not isinstance(section_data, dict):
+            continue
+        count += _walk_and_add_oklch(section_data)
+
+    with open(figma_path, "w", encoding="utf-8") as f:
+        json.dump(tokens, f, indent=2, ensure_ascii=False)
+        f.write("\n")
+
+    return count
 
 
 # --- Adjustments ---
@@ -441,7 +660,8 @@ class PaletteDeriver:
 
 # --- Self-test ---
 
-if __name__ == "__main__":
+def _run_self_tests():
+    """Run self-tests for color engine functions."""
     print("Color Engine Self-Test")
     print("=" * 50)
 
@@ -466,8 +686,28 @@ if __name__ == "__main__":
             f"HSL roundtrip failed for {hex_val}: ({r},{g},{b}) -> ({r2},{g2},{b2})"
     print("[PASS] HSL roundtrip")
 
+    # Test oklch conversion
+    oklch_blue = hex_to_oklch("#2563EB")
+    assert 0.4 < oklch_blue["l"] < 0.7, f"oklch blue lightness out of range: {oklch_blue['l']}"
+    assert oklch_blue["c"] > 0.1, f"oklch blue chroma too low: {oklch_blue['c']}"
+    assert 200 < oklch_blue["h"] < 300, f"oklch blue hue out of range: {oklch_blue['h']}"
+    print(f"[PASS] hex_to_oklch: #2563EB -> {oklch_to_css(oklch_blue)}")
+
+    # Test oklch for white and black
+    oklch_white = hex_to_oklch("#FFFFFF")
+    assert oklch_white["l"] > 0.99, f"oklch white L should be ~1.0, got {oklch_white['l']}"
+    assert oklch_white["c"] < 0.001, f"oklch white C should be ~0, got {oklch_white['c']}"
+    oklch_black = hex_to_oklch("#000000")
+    assert oklch_black["l"] < 0.01, f"oklch black L should be ~0, got {oklch_black['l']}"
+    print(f"[PASS] oklch white={oklch_to_css(oklch_white)}, black={oklch_to_css(oklch_black)}")
+
+    # Test rgba_to_oklch
+    oklch_rgba = rgba_to_oklch("rgba(0, 0, 0, 0.5)")
+    assert oklch_rgba["alpha"] == 0.5, f"rgba alpha should be 0.5, got {oklch_rgba['alpha']}"
+    assert oklch_rgba["l"] < 0.01, f"rgba black L should be ~0, got {oklch_rgba['l']}"
+    print(f"[PASS] rgba_to_oklch: rgba(0,0,0,0.5) -> alpha={oklch_rgba['alpha']}")
+
     # Test contrast_ratio
-    # White on black should be 21:1
     ratio = contrast_ratio("#FFFFFF", "#000000")
     assert abs(ratio - 21.0) < 0.1, f"contrast_ratio white/black = {ratio}"
     print(f"[PASS] contrast_ratio white/black = {ratio:.2f}")
@@ -509,7 +749,6 @@ if __name__ == "__main__":
     print("PaletteDeriver Tests")
     print("-" * 50)
 
-    # 1-color derivation
     pd1 = PaletteDeriver(["#3B82F6"])
     result = pd1.derive()
     assert "light" in result and "dark" in result, "derive() must return light+dark"
@@ -517,22 +756,18 @@ if __name__ == "__main__":
     assert len(result["dark"]) >= 20, f"dark tokens should be >= 20, got {len(result['dark'])}"
     print(f"[PASS] 1-color: {len(result['light'])} light + {len(result['dark'])} dark tokens")
 
-    # 2-color derivation
     pd2 = PaletteDeriver(["#E8590C", "#7048E8"])
     result2 = pd2.derive()
     assert result2["light"]["brand_primary"] == "#E8590C"
     assert result2["light"]["brand_secondary"] == "#7048E8"
     print(f"[PASS] 2-color: primary={result2['light']['brand_primary']}, secondary={result2['light']['brand_secondary']}")
 
-    # WCAG validation
     wcag = pd1.validate_wcag()
-    all_pass = all(passed for _, _, passed in wcag)
     print(f"[PASS] WCAG validation: {sum(1 for _,_,p in wcag if p)}/{len(wcag)} pairs pass")
     for pair, ratio, passed in wcag:
         status = "OK" if passed else "FAIL"
         print(f"       {status} {pair}: {ratio:.2f}")
 
-    # Shape presets
     for shape_name in SHAPE_PRESETS:
         pd = PaletteDeriver(["#3B82F6"], shape=shape_name)
         r = pd.derive()
@@ -541,3 +776,26 @@ if __name__ == "__main__":
 
     print()
     print("All tests passed!")
+
+
+if __name__ == "__main__":
+    import sys
+
+    if len(sys.argv) > 1 and sys.argv[1] == "--test":
+        _run_self_tests()
+    else:
+        # Default: batch-convert design tokens and figma tokens
+        root = Path(__file__).parent.parent.parent
+        dt_path = str(root / "tokens" / "design-tokens.json")
+        fg_path = str(root / "tokens" / "figma-tokens.json")
+
+        print("oklch batch converter")
+        print("=" * 50)
+
+        dt_count = batch_convert(dt_path)
+        print(f"  design-tokens.json: {dt_count} tokens updated with oklch extensions")
+
+        fg_count = batch_convert_figma(fg_path)
+        print(f"  figma-tokens.json:  {fg_count} tokens updated with oklch extensions")
+
+        print(f"\nTotal: {dt_count + fg_count} tokens updated")

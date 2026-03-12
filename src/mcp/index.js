@@ -25,6 +25,10 @@ import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js"
 import {
   CallToolRequestSchema,
   ListToolsRequestSchema,
+  ListResourcesRequestSchema,
+  ReadResourceRequestSchema,
+  ListPromptsRequestSchema,
+  GetPromptRequestSchema,
 } from "@modelcontextprotocol/sdk/types.js";
 import { execFile } from "node:child_process";
 import { readFile } from "node:fs/promises";
@@ -39,7 +43,12 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const PROJECT_ROOT = resolve(__dirname, "..", "..");
 const TOKENS_PATH = resolve(PROJECT_ROOT, "tokens", "design-tokens.json");
+const FIGMA_TOKENS_PATH = resolve(PROJECT_ROOT, "tokens", "figma-tokens.json");
 const COMPONENTS_CSV = resolve(PROJECT_ROOT, "src", "data", "components.csv");
+const PRODUCTS_CSV = resolve(PROJECT_ROOT, "src", "data", "products.csv");
+const PATTERNS_CSV = resolve(PROJECT_ROOT, "src", "data", "patterns.csv");
+const UI_REASONING_CSV = resolve(PROJECT_ROOT, "src", "data", "ui-reasoning.csv");
+const ANTI_PATTERNS_CSV = resolve(PROJECT_ROOT, "src", "data", "anti-patterns.csv");
 const SEARCH_SCRIPT = resolve(PROJECT_ROOT, "src", "scripts", "search.py");
 const GENERATE_SCRIPT = resolve(
   PROJECT_ROOT,
@@ -215,6 +224,17 @@ async function loadComponents() {
 }
 
 /**
+ * Load and cache the anti-patterns CSV.
+ */
+let _antiPatternsCache = null;
+async function loadAntiPatterns() {
+  if (_antiPatternsCache) return _antiPatternsCache;
+  const raw = await readFile(ANTI_PATTERNS_CSV, "utf-8");
+  _antiPatternsCache = parseCSV(raw);
+  return _antiPatternsCache;
+}
+
+/**
  * Extract palette tokens from the design-tokens.json theme section.
  * Returns an object with color, structural, and dark-mode tokens.
  */
@@ -249,6 +269,236 @@ function extractPaletteTokens(tokens, paletteName) {
   }
 
   return result;
+}
+
+// ---------------------------------------------------------------------------
+// Resource definitions
+// ---------------------------------------------------------------------------
+
+/**
+ * Resource registry — single source of truth for URI, file path, and metadata.
+ * The MCP-facing resource list is derived from this via RESOURCES below.
+ */
+const RESOURCE_REGISTRY = [
+  {
+    uri: "tokens://design-tokens",
+    filePath: TOKENS_PATH,
+    name: "Design Tokens",
+    description: "W3C DTCG design tokens — 496 tokens across 9 palettes, 2 modes (light/dark). Source of truth for all colors, typography, spacing, motion, shadows, and structural tokens.",
+    mimeType: "application/json",
+  },
+  {
+    uri: "tokens://figma-tokens",
+    filePath: FIGMA_TOKENS_PATH,
+    name: "Figma Tokens",
+    description: "Figma-compatible design tokens for import into Figma Token Studio. Mirrors design-tokens.json in Figma's expected format.",
+    mimeType: "application/json",
+  },
+  {
+    uri: "csv://components",
+    filePath: COMPONENTS_CSV,
+    name: "Components Database",
+    description: "31+ UI components with variants, sizes, states, accessibility requirements, and usage guidance.",
+    mimeType: "text/csv",
+  },
+  {
+    uri: "csv://products",
+    filePath: PRODUCTS_CSV,
+    name: "Products Database",
+    description: "Product templates mapping domains to recommended components, patterns, and palettes.",
+    mimeType: "text/csv",
+  },
+  {
+    uri: "csv://patterns",
+    filePath: PATTERNS_CSV,
+    name: "Patterns Database",
+    description: "UI/UX patterns with descriptions, use cases, and component compositions.",
+    mimeType: "text/csv",
+  },
+  {
+    uri: "csv://ui-reasoning",
+    filePath: UI_REASONING_CSV,
+    name: "UI Reasoning Rules",
+    description: "165 conditional rules (IF sector=X THEN palette=Y) that drive the reasoning engine. Sorted by priority.",
+    mimeType: "text/csv",
+  },
+];
+
+/** MCP-facing resource list (without internal filePath). */
+const RESOURCES = RESOURCE_REGISTRY.map(({ filePath: _, ...rest }) => rest);
+
+/** O(1) URI lookup for resource reads. */
+const RESOURCE_BY_URI = new Map(RESOURCE_REGISTRY.map((r) => [r.uri, r]));
+
+// ---------------------------------------------------------------------------
+// Prompt definitions
+// ---------------------------------------------------------------------------
+
+const PROMPTS = [
+  {
+    name: "design-system-for-domain",
+    description: "Design a complete UI for a given domain. Instructs the AI to use UDS tools to generate a full design system specification.",
+    arguments: [
+      {
+        name: "domain",
+        description: "The product domain, e.g. 'fintech dashboard', 'healthcare portal', 'saas landing page'",
+        required: true,
+      },
+    ],
+  },
+  {
+    name: "wcag-audit",
+    description: "Audit a component for WCAG 2.1 AA compliance. Checks contrast ratios, keyboard navigation, ARIA attributes, and focus management.",
+    arguments: [
+      {
+        name: "component",
+        description: "The component slug to audit, e.g. 'button', 'modal', 'data-table'",
+        required: true,
+      },
+    ],
+  },
+  {
+    name: "palette-comparison",
+    description: "Compare UDS palettes for a given domain. Analyzes which palettes are suitable and why, with token-level differences.",
+    arguments: [
+      {
+        name: "domain",
+        description: "The product domain to compare palettes for, e.g. 'fintech', 'education', 'ecommerce'",
+        required: true,
+      },
+    ],
+  },
+  {
+    name: "component-selection",
+    description: "Select the right UDS components for a product type. Returns a prioritized list with rationale.",
+    arguments: [
+      {
+        name: "product_type",
+        description: "The product type, e.g. 'dashboard', 'landing-page', 'mobile-app', 'admin-panel'",
+        required: true,
+      },
+    ],
+  },
+];
+
+/**
+ * Generate prompt messages for a given prompt name and arguments.
+ */
+function buildPromptMessages(name, args) {
+  switch (name) {
+    case "design-system-for-domain":
+      return {
+        description: `Design a complete UI system for: ${args.domain}`,
+        messages: [
+          {
+            role: "user",
+            content: {
+              type: "text",
+              text:
+                `Design a complete UI for "${args.domain}" using the Universal Design System.\n\n` +
+                `Follow these steps:\n` +
+                `1. Use the search_design_system tool with query "${args.domain}" to detect the domain and get recommendations.\n` +
+                `2. Use get_palette to retrieve the full token set for the recommended palette.\n` +
+                `3. Use list_components to see all available components, then use get_component for each recommended component.\n` +
+                `4. Use get_anti_patterns to check what to avoid for this sector.\n` +
+                `5. Use get_foundation_tokens to get the spacing, typography, motion, and z-index tokens.\n\n` +
+                `Compile everything into a complete design system specification including:\n` +
+                `- Palette tokens (light + dark mode)\n` +
+                `- Component list with variants and accessibility notes\n` +
+                `- Layout patterns and spacing rules\n` +
+                `- Typography scale and font pairings\n` +
+                `- Anti-patterns to avoid\n` +
+                `- Implementation notes for the chosen framework`,
+            },
+          },
+        ],
+      };
+
+    case "wcag-audit":
+      return {
+        description: `WCAG 2.1 AA audit for component: ${args.component}`,
+        messages: [
+          {
+            role: "user",
+            content: {
+              type: "text",
+              text:
+                `Perform a WCAG 2.1 AA accessibility audit on the "${args.component}" component from the Universal Design System.\n\n` +
+                `Steps:\n` +
+                `1. Use get_component with slug "${args.component}" to retrieve its full specification.\n` +
+                `2. Use list_palettes to get all palettes, then check the component's contrast ratios against each palette.\n` +
+                `3. Use get_foundation_tokens to verify spacing meets touch-target minimums.\n\n` +
+                `Audit checklist:\n` +
+                `- Color contrast: 4.5:1 for body text, 3:1 for large text and UI elements\n` +
+                `- Keyboard navigation: Tab order, focus indicators, escape to close\n` +
+                `- ARIA attributes: Roles, labels, live regions, state announcements\n` +
+                `- Focus management: Focus trap for modals, return focus on close\n` +
+                `- Motion: All animations wrapped in prefers-reduced-motion\n` +
+                `- Touch targets: Minimum 44x44px for interactive elements\n\n` +
+                `Provide a pass/fail verdict for each criterion with specific remediation steps for any failures.`,
+            },
+          },
+        ],
+      };
+
+    case "palette-comparison":
+      return {
+        description: `Compare palettes for domain: ${args.domain}`,
+        messages: [
+          {
+            role: "user",
+            content: {
+              type: "text",
+              text:
+                `Compare all Universal Design System palettes for the "${args.domain}" domain.\n\n` +
+                `Steps:\n` +
+                `1. Use search_design_system with query "${args.domain}" to see which palette the reasoning engine recommends.\n` +
+                `2. Use list_palettes to get all 9 palettes with descriptions.\n` +
+                `3. Use get_palette for the top 3 most relevant palettes to compare their tokens side-by-side.\n` +
+                `4. Use get_anti_patterns to check if any palette choices would trigger anti-patterns for this sector.\n\n` +
+                `For each palette, evaluate:\n` +
+                `- Brand alignment: Does the visual tone match the domain's expectations?\n` +
+                `- Contrast compliance: Will it pass WCAG 2.1 AA in both light and dark mode?\n` +
+                `- Structural fit: Is the border-radius, shadow style, and font-display appropriate?\n` +
+                `- Dark mode quality: Does the dark variant maintain readability?\n\n` +
+                `Provide a ranked recommendation with reasoning for the top choice.`,
+            },
+          },
+        ],
+      };
+
+    case "component-selection":
+      return {
+        description: `Select components for product type: ${args.product_type}`,
+        messages: [
+          {
+            role: "user",
+            content: {
+              type: "text",
+              text:
+                `Select the right Universal Design System components for a "${args.product_type}" product.\n\n` +
+                `Steps:\n` +
+                `1. Use search_design_system with query "${args.product_type}" to get domain-matched component recommendations.\n` +
+                `2. Use list_components to see all available components.\n` +
+                `3. Use get_component for each recommended component to get full details.\n` +
+                `4. Use get_foundation_tokens to understand the spacing and layout system.\n\n` +
+                `Organize the components into:\n` +
+                `- **Must-have**: Core components essential for this product type\n` +
+                `- **Recommended**: Components that enhance the experience\n` +
+                `- **Optional**: Nice-to-have components for advanced features\n\n` +
+                `For each component, include:\n` +
+                `- Which variants to use and why\n` +
+                `- Accessibility requirements specific to this product type\n` +
+                `- Layout placement recommendations\n` +
+                `- State management considerations`,
+            },
+          },
+        ],
+      };
+
+    default:
+      return null;
+  }
 }
 
 // ---------------------------------------------------------------------------
@@ -318,7 +568,7 @@ const TOOLS = [
       "Generate a complete design system specification for a given domain query. " +
       "Runs the full reasoning pipeline: domain detection, BM25 search, rule application, " +
       "and token resolution. Returns palette tokens, recommended components, patterns, " +
-      "typography, anti-patterns, and design rules. Supports JSON or Tailwind CSS output.",
+      "typography, anti-patterns, and design rules. Supports JSON, Tailwind CSS, or CSS-in-JS output.",
     inputSchema: {
       type: "object",
       properties: {
@@ -329,8 +579,8 @@ const TOOLS = [
         },
         format: {
           type: "string",
-          description: "Output format: 'json' for structured data, 'tailwind' for Tailwind CSS config preset",
-          enum: ["json", "tailwind"],
+          description: "Output format: 'json' for structured data, 'tailwind' for Tailwind CSS config preset, 'css-in-js' for styled-components/Emotion theme object",
+          enum: ["json", "tailwind", "css-in-js"],
           default: "json",
         },
       },
@@ -352,6 +602,36 @@ const TOOLS = [
     description:
       "List all 31+ UDS components with their names, slugs, and categories. " +
       "Use this to discover available components before requesting details with get_component.",
+    inputSchema: {
+      type: "object",
+      properties: {},
+    },
+  },
+  {
+    name: "get_anti_patterns",
+    description:
+      "Get anti-patterns to avoid for a given sector. Returns patterns that are inappropriate or harmful " +
+      "for the sector, with severity levels (critical, high, medium), descriptions, and recommended alternatives. " +
+      "Example sectors: finance, healthcare, education, ecommerce, government.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        sector: {
+          type: "string",
+          description:
+            "The sector to filter anti-patterns for, e.g. 'finance', 'healthcare', 'education', 'ecommerce'",
+        },
+      },
+      required: ["sector"],
+    },
+  },
+  {
+    name: "get_foundation_tokens",
+    description:
+      "Get the palette-independent foundation tokens from the design system. Returns spacing (4px base, 12-step scale), " +
+      "motion (durations and easing curves), typography (body font, font sizes, line heights, font weights), " +
+      "z-index layers (dropdown=10 through system=100), and opacity values. " +
+      "These tokens are locked and consistent across all 9 palettes.",
     inputSchema: {
       type: "object",
       properties: {},
@@ -464,10 +744,10 @@ async function handleGenerateTokens(args) {
   }
 
   const format = args.format || "json";
-  if (!["json", "tailwind"].includes(format)) {
+  if (!["json", "tailwind", "css-in-js"].includes(format)) {
     return {
       isError: true,
-      content: [{ type: "text", text: "Parameter 'format' must be 'json' or 'tailwind'." }],
+      content: [{ type: "text", text: "Parameter 'format' must be 'json', 'tailwind', or 'css-in-js'." }],
     };
   }
 
@@ -481,7 +761,7 @@ async function handleGenerateTokens(args) {
     };
   }
 
-  // Tailwind output is plain text (JS config)
+  // Tailwind and CSS-in-JS output are plain text (JS config/module)
   return {
     content: [{ type: "text", text: stdout }],
   };
@@ -521,6 +801,71 @@ async function handleListComponents() {
   };
 }
 
+async function handleGetAntiPatterns(args) {
+  const sector = args.sector;
+  if (!sector || typeof sector !== "string") {
+    return { isError: true, content: [{ type: "text", text: "Parameter 'sector' is required and must be a string." }] };
+  }
+
+  const rows = await loadAntiPatterns();
+  const needle = sector.toLowerCase();
+  const matches = rows.filter(
+    (r) => r.sector && r.sector.toLowerCase() === needle,
+  );
+
+  if (matches.length === 0) {
+    const sectors = [...new Set(rows.map((r) => r.sector).filter(Boolean))];
+    return {
+      isError: true,
+      content: [
+        {
+          type: "text",
+          text: `No anti-patterns found for sector '${sector}'. Available sectors: ${sectors.join(", ")}`,
+        },
+      ],
+    };
+  }
+
+  const result = matches.map((r) => ({
+    id: r.id,
+    sector: r.sector,
+    anti_pattern: r.anti_pattern,
+    severity: r.severity,
+    description: r.description,
+    alternative: r.alternative,
+    example: r.example,
+  }));
+
+  return {
+    content: [{ type: "text", text: JSON.stringify(result, null, 2) }],
+  };
+}
+
+async function handleGetFoundationTokens() {
+  const tokens = await loadTokens();
+
+  const foundation = {};
+  const foundationKeys = [
+    "spacing",
+    "motion",
+    "typography",
+    "zIndex",
+    "opacity",
+    "font-weight",
+    "line-height",
+  ];
+
+  for (const key of foundationKeys) {
+    if (tokens[key]) {
+      foundation[key] = tokens[key];
+    }
+  }
+
+  return {
+    content: [{ type: "text", text: JSON.stringify(foundation, null, 2) }],
+  };
+}
+
 // ---------------------------------------------------------------------------
 // Server setup
 // ---------------------------------------------------------------------------
@@ -528,11 +873,13 @@ async function handleListComponents() {
 const server = new Server(
   {
     name: "universal-design-system",
-    version: "0.1.1",
+    version: "0.2.0",
   },
   {
     capabilities: {
       tools: {},
+      resources: {},
+      prompts: {},
     },
   },
 );
@@ -540,6 +887,66 @@ const server = new Server(
 // List available tools
 server.setRequestHandler(ListToolsRequestSchema, async () => {
   return { tools: TOOLS };
+});
+
+// List available resources
+server.setRequestHandler(ListResourcesRequestSchema, async () => {
+  return { resources: RESOURCES };
+});
+
+// Read a resource by URI
+server.setRequestHandler(ReadResourceRequestSchema, async (request) => {
+  const { uri } = request.params;
+  const entry = RESOURCE_BY_URI.get(uri);
+
+  if (!entry) {
+    throw new Error(
+      `Unknown resource URI: ${uri}. Available: ${RESOURCES.map((r) => r.uri).join(", ")}`,
+    );
+  }
+
+  const content = await readFile(entry.filePath, "utf-8");
+
+  return {
+    contents: [
+      {
+        uri,
+        mimeType: entry.mimeType,
+        text: content,
+      },
+    ],
+  };
+});
+
+// List available prompts
+server.setRequestHandler(ListPromptsRequestSchema, async () => {
+  return { prompts: PROMPTS };
+});
+
+// Get a prompt by name
+server.setRequestHandler(GetPromptRequestSchema, async (request) => {
+  const { name, arguments: args } = request.params;
+
+  const prompt = PROMPTS.find((p) => p.name === name);
+  if (!prompt) {
+    throw new Error(
+      `Unknown prompt: ${name}. Available: ${PROMPTS.map((p) => p.name).join(", ")}`,
+    );
+  }
+
+  // Validate required arguments
+  for (const arg of prompt.arguments || []) {
+    if (arg.required && (!args || !args[arg.name])) {
+      throw new Error(`Missing required argument '${arg.name}' for prompt '${name}'.`);
+    }
+  }
+
+  const result = buildPromptMessages(name, args || {});
+  if (!result) {
+    throw new Error(`Failed to build prompt messages for '${name}'.`);
+  }
+
+  return result;
 });
 
 // Handle tool calls
@@ -560,6 +967,10 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
         return await handleListPalettes();
       case "list_components":
         return await handleListComponents();
+      case "get_anti_patterns":
+        return await handleGetAntiPatterns(args);
+      case "get_foundation_tokens":
+        return await handleGetFoundationTokens();
       default:
         return {
           isError: true,
