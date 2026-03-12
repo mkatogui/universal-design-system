@@ -1,4 +1,5 @@
 import { act, fireEvent, render, screen, within } from '@testing-library/react';
+import React from 'react';
 import '@testing-library/jest-dom/vitest';
 import { describe, expect, it, vi } from 'vitest';
 
@@ -228,6 +229,28 @@ describe('Modal', () => {
       </Modal>,
     );
     expect(screen.getByRole('button', { name: 'Confirm' })).toBeInTheDocument();
+  });
+
+  it('forwards a ref object to the dialog element', () => {
+    const ref = React.createRef<HTMLDivElement>();
+    render(
+      <Modal ref={ref} open={true} onClose={vi.fn()} title="Ref Test">
+        Body
+      </Modal>,
+    );
+    expect(ref.current).toBeInstanceOf(HTMLDivElement);
+    expect(ref.current).toHaveAttribute('role', 'dialog');
+  });
+
+  it('forwards a callback ref to the dialog element', () => {
+    const callbackRef = vi.fn();
+    render(
+      <Modal ref={callbackRef} open={true} onClose={vi.fn()} title="Callback Ref">
+        Body
+      </Modal>,
+    );
+    expect(callbackRef).toHaveBeenCalled();
+    expect(callbackRef.mock.calls[0][0]).toBeInstanceOf(HTMLDivElement);
   });
 });
 
