@@ -751,6 +751,48 @@
           "$value": "320px"
         }
       }
+    },
+    "container": {
+      "$description": "Container query breakpoints and configuration",
+      "breakpoint": {
+        "sm": {
+          "$value": "320px"
+        },
+        "md": {
+          "$value": "480px"
+        },
+        "lg": {
+          "$value": "640px"
+        },
+        "xl": {
+          "$value": "800px"
+        }
+      },
+      "type": {
+        "card": {
+          "$value": "inline-size"
+        },
+        "sidebar": {
+          "$value": "inline-size"
+        },
+        "layout": {
+          "$value": "size"
+        }
+      },
+      "name": {
+        "card": {
+          "$value": "uds-card"
+        },
+        "sidebar": {
+          "$value": "uds-sidebar"
+        },
+        "main": {
+          "$value": "uds-main"
+        },
+        "header": {
+          "$value": "uds-header"
+        }
+      }
     }
   },
   "theme/minimal-saas": {
