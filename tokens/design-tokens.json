@@ -1,7 +1,7 @@
 {
   "$schema": "https://design-tokens.github.io/community-group/format/",
   "$version": "0.8.0",
-  "$description": "Universal Design System \u2014 9 structural palettes, 2 appearance modes",
+  "$description": "Universal Design System — 9 structural palettes, 2 appearance modes",
   "color": {
     "$type": "color",
     "primitive": {
@@ -314,99 +314,159 @@
       "neon-green": {
         "500": {
           "$value": "#00FF88",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(87.6% 0.2278 152.6)"
+          }
         },
         "$type": "color"
       },
       "pink": {
         "500": {
           "$value": "#EC4899",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(65.6% 0.2118 354.3)"
+          }
         },
         "600": {
           "$value": "#DB2777",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(59.2% 0.218 0.6)"
+          }
         },
         "$type": "color"
       },
       "neutral": {
         "0": {
           "$value": "#FFFFFF",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(100.0% 0.0001 263.3)"
+          }
         },
         "50": {
           "$value": "#FBFBFD",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(98.9% 0.0027 285.6)"
+          }
         },
         "100": {
           "$value": "#F8F8FA",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(98.0% 0.0027 285.7)"
+          }
         },
         "150": {
           "$value": "#F0F0F5",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(95.7% 0.0067 286.0)"
+          }
         },
         "200": {
           "$value": "#E8E8F0",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(93.3% 0.0108 286.0)"
+          }
         },
         "300": {
           "$value": "#C8C8D4",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(83.6% 0.0166 285.9)"
+          }
         },
         "400": {
           "$value": "#999999",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(68.3% 0.0001 263.3)"
+          }
         },
         "500": {
           "$value": "#6B6B7B",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(53.3% 0.0249 285.5)"
+          }
         },
         "600": {
           "$value": "#555566",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(45.6% 0.0275 285.2)"
+          }
         },
         "700": {
           "$value": "#3A3A4A",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(35.5% 0.0276 284.9)"
+          }
         },
         "800": {
           "$value": "#1A1A24",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(22.2% 0.0194 284.7)"
+          }
         },
         "850": {
           "$value": "#111118",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(18.1% 0.0143 284.9)"
+          }
         },
         "900": {
           "$value": "#0A0A0F",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(14.7% 0.0107 285.0)"
+          }
         },
         "1000": {
           "$value": "#000000",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(0.0% 0.0 0.0)"
+          }
         },
         "$type": "color"
       },
       "navy": {
         "700": {
           "$value": "#2B6CB0",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(52.4% 0.126 252.3)"
+          }
         },
         "800": {
           "$value": "#1A365D",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(33.3% 0.0772 257.1)"
+          }
         },
         "900": {
           "$value": "#1A202C",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(24.3% 0.0247 264.0)"
+          }
         },
         "$type": "color"
       },
       "$type": "color"
     },
     "semantic": {
-      "$description": "Semantic aliases (tier 2) \u2014 light theme defaults",
+      "$description": "Semantic aliases (tier 2) — light theme defaults",
       "bg": {
         "primary": {
           "$value": "{color.primitive.neutral.0}",
@@ -515,27 +575,39 @@
       "surface-default": {
         "$value": "{color.primitive.neutral.0}",
         "$type": "color",
-        "$description": "Default surface \u2014 cards, panels"
+        "$description": "Default surface — cards, panels"
       },
       "surface-hover": {
         "$value": "#F5F5FA",
         "$type": "color",
-        "$description": "Surface hover state"
+        "$description": "Surface hover state",
+        "$extensions": {
+          "com.tokens.oklch": "oklch(97.2% 0.0067 286.0)"
+        }
       },
       "surface-active": {
         "$value": "#EDEDF5",
         "$type": "color",
-        "$description": "Surface active/pressed state"
+        "$description": "Surface active/pressed state",
+        "$extensions": {
+          "com.tokens.oklch": "oklch(94.8% 0.0108 286.0)"
+        }
       },
       "text-disabled": {
         "$value": "#A0A0B0",
         "$type": "color",
-        "$description": "Disabled text \u2014 meets 3:1 against white for non-text"
+        "$description": "Disabled text — meets 3:1 against white for non-text",
+        "$extensions": {
+          "com.tokens.oklch": "oklch(71.1% 0.0231 285.7)"
+        }
       },
       "border-strong": {
         "$value": "#6E6E7E",
         "$type": "color",
-        "$description": "High-emphasis borders \u2014 active inputs, focused elements"
+        "$description": "High-emphasis borders — active inputs, focused elements",
+        "$extensions": {
+          "com.tokens.oklch": "oklch(54.4% 0.0248 285.5)"
+        }
       },
       "overlay": {
         "$value": "rgba(0, 0, 0, 0.5)",
@@ -548,35 +620,83 @@
       "$description": "Data visualization palette (Dashboard theme)",
       "1": {
         "$value": "#4F46E5",
-        "$type": "color"
+        "$type": "color",
+        "$extensions": {
+          "com.tokens.oklch": "oklch(51.1% 0.2301 277.0)"
+        }
       },
       "2": {
         "$value": "#0EA5E9",
-        "$type": "color"
+        "$type": "color",
+        "$extensions": {
+          "com.tokens.oklch": "oklch(68.5% 0.1479 237.3)"
+        }
       },
       "3": {
         "$value": "#10B981",
-        "$type": "color"
+        "$type": "color",
+        "$extensions": {
+          "com.tokens.oklch": "oklch(69.6% 0.1491 162.5)"
+        }
       },
       "4": {
         "$value": "#F59E0B",
-        "$type": "color"
+        "$type": "color",
+        "$extensions": {
+          "com.tokens.oklch": "oklch(76.9% 0.1646 70.1)"
+        }
       },
       "5": {
         "$value": "#EF4444",
-        "$type": "color"
+        "$type": "color",
+        "$extensions": {
+          "com.tokens.oklch": "oklch(63.7% 0.2078 25.3)"
+        }
       },
       "6": {
         "$value": "#8B5CF6",
-        "$type": "color"
+        "$type": "color",
+        "$extensions": {
+          "com.tokens.oklch": "oklch(60.6% 0.219 292.7)"
+        }
       },
       "7": {
         "$value": "#EC4899",
-        "$type": "color"
+        "$type": "color",
+        "$extensions": {
+          "com.tokens.oklch": "oklch(65.6% 0.2118 354.3)"
+        }
       },
       "8": {
         "$value": "#06B6D4",
-        "$type": "color"
+        "$type": "color",
+        "$extensions": {
+          "com.tokens.oklch": "oklch(71.5% 0.1258 215.2)"
+        }
+      }
+    },
+    "utility": {
+      "$type": "color",
+      "$description": "color-mix() utility patterns for interactive states (oklch color space)",
+      "hover-tint": {
+        "$value": "color-mix(in oklch, var(--color-brand-primary) 85%, white)",
+        "$type": "color",
+        "$description": "Brand primary lightened for hover states"
+      },
+      "hover-shade": {
+        "$value": "color-mix(in oklch, var(--color-brand-primary) 85%, black)",
+        "$type": "color",
+        "$description": "Brand primary darkened for active states"
+      },
+      "disabled-overlay": {
+        "$value": "color-mix(in oklch, var(--color-bg-primary) 50%, transparent)",
+        "$type": "color",
+        "$description": "Semi-transparent overlay for disabled states"
+      },
+      "focus-ring": {
+        "$value": "color-mix(in oklch, var(--color-brand-accent) 40%, transparent)",
+        "$type": "color",
+        "$description": "Focus ring color with transparency"
       }
     }
   },
@@ -680,7 +800,7 @@
     },
     "fontSize": {
       "$type": "dimension",
-      "$description": "Desktop sizes \u2014 mobile uses CSS clamp()",
+      "$description": "Desktop sizes — mobile uses CSS clamp()",
       "display-xl": {
         "$value": "4.5rem"
       },
@@ -810,7 +930,7 @@
   },
   "shadow": {
     "$type": "shadow",
-    "$description": "Light theme shadows \u2014 dark themes override with glow-border variants",
+    "$description": "Light theme shadows — dark themes override with glow-border variants",
     "xs": {
       "$value": [
         {
@@ -1136,7 +1256,7 @@
     "$description": "Opacity scale for UI states.",
     "disabled": {
       "$value": 0.4,
-      "$description": "Disabled controls \u2014 buttons, inputs"
+      "$description": "Disabled controls — buttons, inputs"
     },
     "muted": {
       "$value": 0.6,
@@ -1153,7 +1273,7 @@
   },
   "breakpoint": {
     "$type": "dimension",
-    "$description": "Documentation-only \u2014 CSS custom properties cannot be used in @media queries. Use PostCSS @custom-media or Sass variables.",
+    "$description": "Documentation-only — CSS custom properties cannot be used in @media queries. Use PostCSS @custom-media or Sass variables.",
     "sm": {
       "$value": "640px"
     },
@@ -1719,19 +1839,31 @@
       "light": {
         "bg-primary": {
           "$value": "#FFFFFF",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(100.0% 0.0001 263.3)"
+          }
         },
         "bg-secondary": {
           "$value": "#F8F8FA",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(98.0% 0.0027 285.7)"
+          }
         },
         "text-primary": {
           "$value": "#111118",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(18.1% 0.0143 284.9)"
+          }
         },
         "text-secondary": {
           "$value": "#555566",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(45.6% 0.0275 285.2)"
+          }
         },
         "brand-primary": {
           "$value": "{color.primitive.blue.600}",
@@ -1745,19 +1877,31 @@
       "dark": {
         "bg-primary": {
           "$value": "#0A0A0F",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(14.7% 0.0107 285.0)"
+          }
         },
         "bg-secondary": {
           "$value": "#111118",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(18.1% 0.0143 284.9)"
+          }
         },
         "text-primary": {
           "$value": "#F0F0F5",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(95.7% 0.0067 286.0)"
+          }
         },
         "text-secondary": {
           "$value": "#9999AA",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(68.8% 0.0248 285.7)"
+          }
         },
         "brand-primary": {
           "$value": "{color.primitive.blue.600}",
@@ -1778,85 +1922,145 @@
       "light": {
         "bg-primary": {
           "$value": "#0A0A0F",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(14.7% 0.0107 285.0)"
+          }
         },
         "bg-secondary": {
           "$value": "#111118",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(18.1% 0.0143 284.9)"
+          }
         },
         "text-primary": {
           "$value": "#E0E0EE",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(91.1% 0.019 285.9)"
+          }
         },
         "text-secondary": {
           "$value": "#9999AA",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(68.8% 0.0248 285.7)"
+          }
         },
         "brand-primary": {
           "$value": "#00FF88",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(87.6% 0.2278 152.6)"
+          }
         },
         "brand-secondary": {
           "$value": "#00D4FF",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(80.4% 0.146 219.5)"
+          }
         },
         "success": {
           "$value": "#34D399",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(77.3% 0.1535 163.3)"
+          }
         },
         "success-bg": {
           "$value": "#062E1E",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(26.9% 0.0531 162.0)"
+          }
         },
         "warning": {
           "$value": "#FBBF24",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(83.7% 0.1643 84.4)"
+          }
         },
         "warning-bg": {
           "$value": "#2A1F00",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(24.6% 0.0502 89.5)"
+          }
         },
         "error": {
           "$value": "#F87171",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(71.1% 0.1661 22.2)"
+          }
         },
         "error-bg": {
           "$value": "#2D0A0A",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(20.7% 0.0579 23.6)"
+          }
         },
         "info": {
           "$value": "#60A5FA",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(71.4% 0.1435 254.6)"
+          }
         },
         "info-bg": {
           "$value": "#0A1628",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(20.0% 0.0403 258.3)"
+          }
         }
       },
       "dark": {
         "bg-primary": {
           "$value": "#050508",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(11.7% 0.0089 284.9)"
+          }
         },
         "bg-secondary": {
           "$value": "#0A0A0F",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(14.7% 0.0107 285.0)"
+          }
         },
         "text-primary": {
           "$value": "#E8E8F0",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(93.3% 0.0108 286.0)"
+          }
         },
         "text-secondary": {
           "$value": "#AAAABC",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(74.4% 0.0257 285.7)"
+          }
         },
         "brand-primary": {
           "$value": "#00FF88",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(87.6% 0.2278 152.6)"
+          }
         },
         "brand-secondary": {
           "$value": "#00D4FF",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(80.4% 0.146 219.5)"
+          }
         }
       },
       "$structural": {
@@ -1869,19 +2073,31 @@
       "light": {
         "bg-primary": {
           "$value": "#FFFFFF",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(100.0% 0.0001 263.3)"
+          }
         },
         "bg-secondary": {
           "$value": "#F8F8FA",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(98.0% 0.0027 285.7)"
+          }
         },
         "text-primary": {
           "$value": "#111118",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(18.1% 0.0143 284.9)"
+          }
         },
         "text-secondary": {
           "$value": "#555566",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(45.6% 0.0275 285.2)"
+          }
         },
         "brand-primary": {
           "$value": "{color.primitive.purple.600}",
@@ -1889,25 +2105,40 @@
         },
         "brand-secondary": {
           "$value": "#EC4899",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(65.6% 0.2118 354.3)"
+          }
         }
       },
       "dark": {
         "bg-primary": {
           "$value": "#0A0A0F",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(14.7% 0.0107 285.0)"
+          }
         },
         "bg-secondary": {
           "$value": "#111118",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(18.1% 0.0143 284.9)"
+          }
         },
         "text-primary": {
           "$value": "#F0F0F5",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(95.7% 0.0067 286.0)"
+          }
         },
         "text-secondary": {
           "$value": "#9999AA",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(68.8% 0.0248 285.7)"
+          }
         },
         "brand-primary": {
           "$value": "{color.primitive.purple.600}",
@@ -1915,7 +2146,10 @@
         },
         "brand-secondary": {
           "$value": "#EC4899",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(65.6% 0.2118 354.3)"
+          }
         }
       },
       "$structural": {
@@ -1928,53 +2162,89 @@
       "light": {
         "bg-primary": {
           "$value": "#FFFFFF",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(100.0% 0.0001 263.3)"
+          }
         },
         "bg-secondary": {
           "$value": "#F7F8FA",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(97.9% 0.003 264.5)"
+          }
         },
         "text-primary": {
           "$value": "#1A202C",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(24.3% 0.0247 264.0)"
+          }
         },
         "text-secondary": {
           "$value": "#4A5568",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(44.7% 0.0343 261.3)"
+          }
         },
         "brand-primary": {
           "$value": "#1A365D",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(33.3% 0.0772 257.1)"
+          }
         },
         "brand-secondary": {
           "$value": "#2B6CB0",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(52.4% 0.126 252.3)"
+          }
         }
       },
       "dark": {
         "bg-primary": {
           "$value": "#0D1117",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(17.6% 0.014 258.4)"
+          }
         },
         "bg-secondary": {
           "$value": "#161B22",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(22.0% 0.0157 256.8)"
+          }
         },
         "text-primary": {
           "$value": "#E6EDF3",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(94.2% 0.0111 243.8)"
+          }
         },
         "text-secondary": {
           "$value": "#8B949E",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(66.2% 0.0182 251.0)"
+          }
         },
         "brand-primary": {
           "$value": "#4A7AB5",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(57.2% 0.1058 254.4)"
+          }
         },
         "brand-secondary": {
           "$value": "#58A6FF",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(71.5% 0.1519 253.3)"
+          }
         }
       },
       "$structural": {
@@ -1987,53 +2257,89 @@
       "light": {
         "bg-primary": {
           "$value": "#FFFFFF",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(100.0% 0.0001 263.3)"
+          }
         },
         "bg-secondary": {
           "$value": "#FBFBFD",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(98.9% 0.0027 285.6)"
+          }
         },
         "text-primary": {
           "$value": "#1D1D1F",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(23.2% 0.0038 286.0)"
+          }
         },
         "text-secondary": {
           "$value": "#515154",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(43.6% 0.0049 286.0)"
+          }
         },
         "brand-primary": {
           "$value": "#0071E3",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(56.3% 0.1934 256.2)"
+          }
         },
         "brand-secondary": {
           "$value": "#0077ED",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(58.3% 0.1989 256.0)"
+          }
         }
       },
       "dark": {
         "bg-primary": {
           "$value": "#000000",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(0.0% 0.0 0.0)"
+          }
         },
         "bg-secondary": {
           "$value": "#1C1C1E",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(22.7% 0.0038 286.0)"
+          }
         },
         "text-primary": {
           "$value": "#F5F5F7",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(97.1% 0.0027 285.7)"
+          }
         },
         "text-secondary": {
           "$value": "#A1A1A6",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(71.0% 0.0072 286.0)"
+          }
         },
         "brand-primary": {
           "$value": "#2997FF",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(66.9% 0.1809 251.8)"
+          }
         },
         "brand-secondary": {
           "$value": "#64D2FF",
-          "$type": "color"
+          "$type": "color",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(81.7% 0.1186 227.8)"
+          }
         }
       },
       "$structural": {
@@ -2175,15 +2481,15 @@
     "$description": "Border radius scale. Foundation defaults shown below; each palette overrides these values with its structural identity.",
     "sm": {
       "$value": "6px",
-      "$description": "Subtle rounding \u2014 inputs, badges"
+      "$description": "Subtle rounding — inputs, badges"
     },
     "md": {
       "$value": "8px",
-      "$description": "Default \u2014 buttons, cards, dropdowns"
+      "$description": "Default — buttons, cards, dropdowns"
     },
     "lg": {
       "$value": "12px",
-      "$description": "Larger containers \u2014 modals, panels"
+      "$description": "Larger containers — modals, panels"
     },
     "xl": {
       "$value": "16px",
@@ -2195,7 +2501,7 @@
     },
     "full": {
       "$value": "9999px",
-      "$description": "Circles \u2014 avatars, pills, toggles"
+      "$description": "Circles — avatars, pills, toggles"
     },
     "palette-overrides": {
       "ai-futuristic": {
@@ -2497,7 +2803,7 @@
     "$description": "Border widths. Border colors use color.semantic.border-* tokens.",
     "width-thin": {
       "$value": "1px",
-      "$description": "Default borders \u2014 cards, inputs, dividers"
+      "$description": "Default borders — cards, inputs, dividers"
     },
     "width-medium": {
       "$value": "2px",
@@ -2559,7 +2865,7 @@
       "$description": "Max-width containers for page content.",
       "sm": {
         "$value": "640px",
-        "$description": "Narrow content \u2014 forms, articles"
+        "$description": "Narrow content — forms, articles"
       },
       "md": {
         "$value": "768px",
@@ -2571,11 +2877,11 @@
       },
       "xl": {
         "$value": "1280px",
-        "$description": "Wide layouts \u2014 dashboards"
+        "$description": "Wide layouts — dashboards"
       },
       "full": {
         "$value": "100%",
-        "$description": "Full-width \u2014 edge-to-edge"
+        "$description": "Full-width — edge-to-edge"
       }
     },
     "sidebar": {
@@ -2593,6 +2899,47 @@
         "$value": "320px",
         "$description": "Sidebar with secondary nav"
       }
+    }
+  },
+  "transition": {
+    "$description": "View Transitions and @starting-style token definitions",
+    "view-transition-name": {
+      "header": { "$value": "uds-header", "$type": "string", "$description": "View transition name for header elements" },
+      "hero": { "$value": "uds-hero", "$type": "string", "$description": "View transition name for hero sections" },
+      "card": { "$value": "uds-card", "$type": "string", "$description": "View transition name for card components" },
+      "sidebar": { "$value": "uds-sidebar", "$type": "string", "$description": "View transition name for sidebar navigation" },
+      "modal": { "$value": "uds-modal", "$type": "string", "$description": "View transition name for modal dialogs" }
+    },
+    "starting-style": {
+      "modal": {
+        "$value": { "opacity": "0", "transform": "scale(0.95)" },
+        "$type": "object",
+        "$description": "@starting-style for modal entry animation"
+      },
+      "dropdown": {
+        "$value": { "opacity": "0", "transform": "translateY(-8px)" },
+        "$type": "object",
+        "$description": "@starting-style for dropdown entry animation"
+      },
+      "toast": {
+        "$value": { "opacity": "0", "transform": "translateX(100%)" },
+        "$type": "object",
+        "$description": "@starting-style for toast notification entry"
+      },
+      "popover": {
+        "$value": { "opacity": "0", "transform": "scale(0.9) translateY(-4px)" },
+        "$type": "object",
+        "$description": "@starting-style for popover entry animation"
+      }
+    },
+    "behavior": {
+      "allow-discrete": { "$value": "allow-discrete", "$type": "string", "$description": "Enable transition for discrete properties (display, overlay)" }
+    },
+    "style": {
+      "elegant": { "$value": "cubic-bezier(0.4, 0, 0.2, 1)", "$type": "string", "$description": "Elegant transition for luxury/premium contexts" },
+      "snappy": { "$value": "cubic-bezier(0.2, 0, 0, 1)", "$type": "string", "$description": "Snappy transition for interactive/dashboard contexts" },
+      "gentle": { "$value": "cubic-bezier(0.4, 0, 0.6, 1)", "$type": "string", "$description": "Gentle transition for healthcare/education contexts" },
+      "instant": { "$value": "steps(1)", "$type": "string", "$description": "No visible transition for data-dense UIs" }
     }
   }
 }
