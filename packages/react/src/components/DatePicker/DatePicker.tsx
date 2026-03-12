@@ -43,7 +43,23 @@ export interface DatePickerProps extends Omit<React.HTMLAttributes<HTMLDivElemen
  * ```
  */
 export const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>(
-  ({ variant = 'single', size = 'md', value, min, max, disabledDates, locale, onChange, label, disabled, className, ...props }, ref) => {
+  (
+    {
+      variant = 'single',
+      size = 'md',
+      value,
+      min,
+      max,
+      disabledDates,
+      locale,
+      onChange,
+      label,
+      disabled,
+      className,
+      ...props
+    },
+    ref,
+  ) => {
     const [open, setOpen] = useState(false);
     const inputId = useId();
 
@@ -51,7 +67,7 @@ export const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>(
       (e: React.ChangeEvent<HTMLInputElement>) => {
         onChange?.(e.target.value);
       },
-      [onChange]
+      [onChange],
     );
 
     const classes = [
@@ -61,7 +77,9 @@ export const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>(
       open && 'uds-date-picker--open',
       disabled && 'uds-date-picker--disabled',
       className,
-    ].filter(Boolean).join(' ');
+    ]
+      .filter(Boolean)
+      .join(' ');
 
     const inputType = variant === 'with-time' ? 'datetime-local' : 'date';
 
@@ -87,7 +105,7 @@ export const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>(
         />
       </div>
     );
-  }
+  },
 );
 
 DatePicker.displayName = 'DatePicker';

@@ -50,7 +50,21 @@ export interface CodeBlockProps extends React.HTMLAttributes<HTMLDivElement> {
  * ```
  */
 export const CodeBlock = React.forwardRef<HTMLDivElement, CodeBlockProps>(
-  ({ variant = 'syntax-highlighted', size = 'md', language, code, showLineNumbers, showCopy = true, tabs, className, children, ...props }, ref) => {
+  (
+    {
+      variant = 'syntax-highlighted',
+      size = 'md',
+      language,
+      code,
+      showLineNumbers,
+      showCopy = true,
+      tabs,
+      className,
+      children,
+      ...props
+    },
+    ref,
+  ) => {
     const [copied, setCopied] = useState(false);
     const [activeTab, setActiveTab] = useState(0);
 
@@ -68,7 +82,9 @@ export const CodeBlock = React.forwardRef<HTMLDivElement, CodeBlockProps>(
       `uds-code-block--${variant}`,
       `uds-code-block--${size}`,
       className,
-    ].filter(Boolean).join(' ');
+    ]
+      .filter(Boolean)
+      .join(' ');
 
     const activeCode = tabs ? tabs[activeTab]?.code : code;
     const activeLanguage = tabs ? tabs[activeTab]?.language : language;
@@ -82,7 +98,9 @@ export const CodeBlock = React.forwardRef<HTMLDivElement, CodeBlockProps>(
             {tabs.map((tab, i) => (
               <button
                 key={i}
-                className={['uds-code-block__tab', i === activeTab && 'uds-code-block__tab--active'].filter(Boolean).join(' ')}
+                className={['uds-code-block__tab', i === activeTab && 'uds-code-block__tab--active']
+                  .filter(Boolean)
+                  .join(' ')}
                 role="tab"
                 aria-selected={i === activeTab}
                 onClick={() => setActiveTab(i)}
@@ -96,7 +114,12 @@ export const CodeBlock = React.forwardRef<HTMLDivElement, CodeBlockProps>(
         <div className="uds-code-block__header">
           {activeLanguage && <span className="uds-code-block__language">{activeLanguage}</span>}
           {showCopy && (
-            <button className="uds-code-block__copy" onClick={handleCopy} aria-label="Copy code" type="button">
+            <button
+              className="uds-code-block__copy"
+              onClick={handleCopy}
+              aria-label="Copy code"
+              type="button"
+            >
               {copied ? 'Copied' : 'Copy'}
             </button>
           )}
@@ -106,7 +129,9 @@ export const CodeBlock = React.forwardRef<HTMLDivElement, CodeBlockProps>(
             {showLineNumbers
               ? lines.map((line, i) => (
                   <span key={i} className="uds-code-block__line">
-                    <span className="uds-code-block__line-number" aria-hidden="true">{i + 1}</span>
+                    <span className="uds-code-block__line-number" aria-hidden="true">
+                      {i + 1}
+                    </span>
                     {line}
                     {'\n'}
                   </span>
@@ -117,7 +142,7 @@ export const CodeBlock = React.forwardRef<HTMLDivElement, CodeBlockProps>(
         {children}
       </div>
     );
-  }
+  },
 );
 
 CodeBlock.displayName = 'CodeBlock';

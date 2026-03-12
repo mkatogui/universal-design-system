@@ -1,0 +1,51 @@
+name: Code Quality
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  quality:
+    name: Lint, Test & Scan
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # SonarCloud needs full history
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Biome lint
+        run: npx biome check .
+
+      - name: Biome format
+        run: npx biome format .
+
+      - name: TypeScript type-check (CLI)
+        run: cd cli && npm install && npx tsc --noEmit
+
+      - name: TypeScript type-check (React)
+        run: cd packages/react && npm install && npx tsc --noEmit
+
+      - name: Primitives tests
+        run: node --test tests/components/primitives.test.js
+
+      - name: React tests with coverage
+        run: npx vitest run --coverage
+
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

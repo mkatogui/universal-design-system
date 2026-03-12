@@ -10,8 +10,8 @@
  * Run: node --test tests/components/primitives.test.js
  */
 
-import { describe, it, beforeEach, afterEach } from 'node:test';
 import assert from 'node:assert/strict';
+import { afterEach, beforeEach, describe, it } from 'node:test';
 
 // ---------------------------------------------------------------------------
 // Minimal DOM Mock
@@ -28,9 +28,15 @@ class MockClassList {
   constructor() {
     this._classes = new Set();
   }
-  add(cls) { this._classes.add(cls); }
-  remove(cls) { this._classes.delete(cls); }
-  contains(cls) { return this._classes.has(cls); }
+  add(cls) {
+    this._classes.add(cls);
+  }
+  remove(cls) {
+    this._classes.delete(cls);
+  }
+  contains(cls) {
+    return this._classes.has(cls);
+  }
   toggle(cls) {
     if (this._classes.has(cls)) {
       this._classes.delete(cls);
@@ -251,7 +257,7 @@ function matchesSingleSelector(el, selector) {
       if (el.hasAttribute(attr)) return false;
     }
     // Handle chained :not selectors.
-    if (rest && rest.startsWith(':not(')) {
+    if (rest?.startsWith(':not(')) {
       return matchesSingleSelector(el, base + rest);
     }
     return true;
@@ -320,10 +326,10 @@ function setupGlobals() {
 }
 
 function teardownGlobals() {
-  delete globalThis.document;
-  delete globalThis.window;
-  delete globalThis.HTMLElement;
-  delete globalThis.getComputedStyle;
+  globalThis.document = undefined;
+  globalThis.window = undefined;
+  globalThis.HTMLElement = undefined;
+  globalThis.getComputedStyle = undefined;
 }
 
 // ---------------------------------------------------------------------------
@@ -373,7 +379,9 @@ describe('Dialog Primitive', () => {
   beforeEach(async () => {
     setupGlobals();
     // Dynamic import to pick up fresh global state.
-    const mod = await import(`../../packages/primitives/src/dialog.js?v=${Date.now()}_${Math.random()}`);
+    const mod = await import(
+      `../../packages/primitives/src/dialog.js?v=${Date.now()}_${Math.random()}`
+    );
     createDialog = mod.createDialog;
   });
 
@@ -491,7 +499,11 @@ describe('Dialog Primitive', () => {
 
     // Tab from last button should be prevented (focus trap wraps).
     const event = pressKey(dialog, 'Tab');
-    assert.equal(event.defaultPrevented, true, 'Tab on last element should be prevented (focus trap)');
+    assert.equal(
+      event.defaultPrevented,
+      true,
+      'Tab on last element should be prevented (focus trap)',
+    );
   });
 
   it('traps focus: Shift+Tab on first focusable wraps to last', () => {
@@ -512,7 +524,11 @@ describe('Dialog Primitive', () => {
 
     // Shift+Tab from first button should be prevented.
     const event = pressKey(dialog, 'Tab', { shiftKey: true });
-    assert.equal(event.defaultPrevented, true, 'Shift+Tab on first element should be prevented (focus trap)');
+    assert.equal(
+      event.defaultPrevented,
+      true,
+      'Shift+Tab on first element should be prevented (focus trap)',
+    );
   });
 
   it('fires onOpen and onClose callbacks', () => {
@@ -524,8 +540,12 @@ describe('Dialog Primitive', () => {
 
     const ctrl = createDialog(dialog, {
       lockScroll: false,
-      onOpen: () => { opened = true; },
-      onClose: () => { closed = true; },
+      onOpen: () => {
+        opened = true;
+      },
+      onClose: () => {
+        closed = true;
+      },
     });
 
     ctrl.open();
@@ -589,7 +609,9 @@ describe('Combobox Primitive', () => {
 
   beforeEach(async () => {
     setupGlobals();
-    const mod = await import(`../../packages/primitives/src/combobox.js?v=${Date.now()}_${Math.random()}`);
+    const mod = await import(
+      `../../packages/primitives/src/combobox.js?v=${Date.now()}_${Math.random()}`
+    );
     createCombobox = mod.createCombobox;
   });
 
@@ -666,7 +688,11 @@ describe('Combobox Primitive', () => {
     // ArrowDown again to move to second option.
     pressKey(input, 'ArrowDown');
     assert.equal(options[1].getAttribute('aria-selected'), 'true');
-    assert.equal(options[0].hasAttribute('aria-selected'), false, 'previous option should be deselected');
+    assert.equal(
+      options[0].hasAttribute('aria-selected'),
+      false,
+      'previous option should be deselected',
+    );
   });
 
   it('ArrowUp navigates backward through options', () => {
@@ -686,7 +712,9 @@ describe('Combobox Primitive', () => {
     const { input, listbox, options } = buildCombobox();
     let selected = null;
     const ctrl = createCombobox(input, listbox, {
-      onSelect: (el) => { selected = el; },
+      onSelect: (el) => {
+        selected = el;
+      },
     });
 
     // Navigate to first option and select.
@@ -734,8 +762,11 @@ describe('Combobox Primitive', () => {
     assert.ok(input.getAttribute('aria-activedescendant'));
 
     ctrl.close();
-    assert.equal(input.hasAttribute('aria-activedescendant'), false,
-      'aria-activedescendant should be removed on close');
+    assert.equal(
+      input.hasAttribute('aria-activedescendant'),
+      false,
+      'aria-activedescendant should be removed on close',
+    );
   });
 
   it('getActiveOption() returns the highlighted option', () => {
@@ -774,7 +805,9 @@ describe('Tabs Primitive', () => {
 
   beforeEach(async () => {
     setupGlobals();
-    const mod = await import(`../../packages/primitives/src/tabs.js?v=${Date.now()}_${Math.random()}`);
+    const mod = await import(
+      `../../packages/primitives/src/tabs.js?v=${Date.now()}_${Math.random()}`
+    );
     createTabs = mod.createTabs;
   });
 
@@ -1042,7 +1075,9 @@ describe('Menu Primitive', () => {
 
   beforeEach(async () => {
     setupGlobals();
-    const mod = await import(`../../packages/primitives/src/menu.js?v=${Date.now()}_${Math.random()}`);
+    const mod = await import(
+      `../../packages/primitives/src/menu.js?v=${Date.now()}_${Math.random()}`
+    );
     createMenu = mod.createMenu;
   });
 
@@ -1172,7 +1207,9 @@ describe('Menu Primitive', () => {
     const { trigger, menu, items } = buildMenu();
     let selected = null;
     const ctrl = createMenu(trigger, menu, {
-      onSelect: (item) => { selected = item; },
+      onSelect: (item) => {
+        selected = item;
+      },
     });
 
     ctrl.open();
@@ -1184,7 +1221,9 @@ describe('Menu Primitive', () => {
     const { trigger, menu, items } = buildMenu();
     let selected = null;
     const ctrl = createMenu(trigger, menu, {
-      onSelect: (item) => { selected = item; },
+      onSelect: (item) => {
+        selected = item;
+      },
     });
 
     ctrl.open();
@@ -1244,8 +1283,12 @@ describe('Menu Primitive', () => {
     let closed = false;
 
     const ctrl = createMenu(trigger, menu, {
-      onOpen: () => { opened = true; },
-      onClose: () => { closed = true; },
+      onOpen: () => {
+        opened = true;
+      },
+      onClose: () => {
+        closed = true;
+      },
     });
 
     ctrl.open();
@@ -1278,7 +1321,9 @@ describe('Tooltip Primitive', () => {
 
   beforeEach(async () => {
     setupGlobals();
-    const mod = await import(`../../packages/primitives/src/tooltip.js?v=${Date.now()}_${Math.random()}`);
+    const mod = await import(
+      `../../packages/primitives/src/tooltip.js?v=${Date.now()}_${Math.random()}`
+    );
     createTooltip = mod.createTooltip;
   });
 
@@ -1403,8 +1448,12 @@ describe('Tooltip Primitive', () => {
     const ctrl = createTooltip(trigger, tooltip, {
       showDelay: 0,
       hideDelay: 0,
-      onShow: () => { shown = true; },
-      onHide: () => { hidden = true; },
+      onShow: () => {
+        shown = true;
+      },
+      onHide: () => {
+        hidden = true;
+      },
     });
 
     ctrl.show();

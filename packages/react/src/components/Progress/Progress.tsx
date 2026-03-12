@@ -38,7 +38,20 @@ export interface ProgressProps extends React.HTMLAttributes<HTMLDivElement> {
  * ```
  */
 export const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
-  ({ variant = 'bar', size = 'md', value = 0, max = 100, label, showValue, indeterminate, className, ...props }, ref) => {
+  (
+    {
+      variant = 'bar',
+      size = 'md',
+      value = 0,
+      max = 100,
+      label,
+      showValue,
+      indeterminate,
+      className,
+      ...props
+    },
+    ref,
+  ) => {
     const percentage = Math.min(100, Math.max(0, (value / max) * 100));
 
     const classes = [
@@ -47,7 +60,9 @@ export const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
       `uds-progress--${size}`,
       indeterminate && 'uds-progress--indeterminate',
       className,
-    ].filter(Boolean).join(' ');
+    ]
+      .filter(Boolean)
+      .join(' ');
 
     if (variant === 'circular') {
       const radius = size === 'sm' ? 16 : size === 'lg' ? 28 : 22;
@@ -66,7 +81,12 @@ export const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
           aria-label={label}
           {...props}
         >
-          <svg className="uds-progress__svg" width={svgSize} height={svgSize} viewBox={`0 0 ${svgSize} ${svgSize}`}>
+          <svg
+            className="uds-progress__svg"
+            width={svgSize}
+            height={svgSize}
+            viewBox={`0 0 ${svgSize} ${svgSize}`}
+          >
             <circle
               className="uds-progress__track"
               cx={svgSize / 2}
@@ -117,7 +137,7 @@ export const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
         )}
       </div>
     );
-  }
+  },
 );
 
 Progress.displayName = 'Progress';

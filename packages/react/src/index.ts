@@ -20,7 +20,12 @@ export type { PricingProps, PricingPlan } from './components/Pricing';
 
 // Trust
 export { SocialProof } from './components/SocialProof';
-export type { SocialProofProps, SocialProofStat, SocialProofLogo, SocialProofTestimonial } from './components/SocialProof';
+export type {
+  SocialProofProps,
+  SocialProofStat,
+  SocialProofLogo,
+  SocialProofTestimonial,
+} from './components/SocialProof';
 
 export { Testimonial } from './components/Testimonial';
 export type { TestimonialProps } from './components/Testimonial';
@@ -93,7 +98,11 @@ export { Pagination } from './components/Pagination';
 export type { PaginationProps } from './components/Pagination';
 
 export { CommandPalette } from './components/CommandPalette';
-export type { CommandPaletteProps, CommandPaletteAction, CommandPaletteGroup } from './components/CommandPalette';
+export type {
+  CommandPaletteProps,
+  CommandPaletteAction,
+  CommandPaletteGroup,
+} from './components/CommandPalette';
 
 export { SideNav } from './components/SideNav';
 export type { SideNavProps, SideNavItem, SideNavSection } from './components/SideNav';

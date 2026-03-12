@@ -34,7 +34,14 @@ export interface TooltipProps {
  * </Tooltip>
  * ```
  */
-export const Tooltip: React.FC<TooltipProps> = ({ variant = 'simple', size = 'sm', content, position = 'top', children, className }) => {
+export const Tooltip: React.FC<TooltipProps> = ({
+  variant = 'simple',
+  size = 'sm',
+  content,
+  position = 'top',
+  children,
+  className,
+}) => {
   const [visible, setVisible] = useState(false);
   const tooltipId = useId();
   const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
@@ -55,7 +62,9 @@ export const Tooltip: React.FC<TooltipProps> = ({ variant = 'simple', size = 'sm
     `uds-tooltip--${position}`,
     visible && 'uds-tooltip--visible',
     className,
-  ].filter(Boolean).join(' ');
+  ]
+    .filter(Boolean)
+    .join(' ');
 
   return (
     <div className={classes} onMouseEnter={show} onMouseLeave={hide} onFocus={show} onBlur={hide}>

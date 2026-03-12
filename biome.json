@@ -1,0 +1,63 @@
+{
+  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+  "organizeImports": {
+    "enabled": true
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true,
+      "a11y": {
+        "recommended": true,
+        "useSemanticElements": "warn",
+        "useFocusableInteractive": "warn",
+        "useAriaPropsForRole": "warn",
+        "useKeyWithClickEvents": "warn",
+        "useButtonType": "warn",
+        "noSvgWithoutTitle": "warn"
+      },
+      "suspicious": {
+        "noArrayIndexKey": "warn",
+        "noPrototypeBuiltins": "warn"
+      },
+      "complexity": {
+        "noForEach": "warn"
+      },
+      "correctness": {
+        "noSelfAssign": "warn"
+      },
+      "style": {
+        "noNonNullAssertion": "warn"
+      }
+    }
+  },
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineWidth": 100
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "single",
+      "trailingCommas": "all"
+    }
+  },
+  "json": {
+    "formatter": {
+      "trailingCommas": "none"
+    }
+  },
+  "files": {
+    "include": [
+      "cli/src/**",
+      "packages/react/src/**",
+      "src/mcp/**/*.ts",
+      "packages/tokens/build.js",
+      "tests/components/**",
+      "style-dictionary.config.mjs",
+      "vitest.config.ts"
+    ],
+    "ignore": ["node_modules", "dist", "build", "docs", "coverage", ".scannerwork"]
+  }
+}

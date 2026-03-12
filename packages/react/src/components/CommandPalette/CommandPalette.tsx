@@ -33,7 +33,8 @@ export interface CommandPaletteGroup {
  *
  * Extends native `<div>` attributes (with `onSelect` replaced).
  */
-export interface CommandPaletteProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onSelect'> {
+export interface CommandPaletteProps
+  extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onSelect'> {
   /** Whether the command palette is currently visible. */
   open: boolean;
   /** Called when the palette should close (Escape, overlay click). */
@@ -76,15 +77,27 @@ export interface CommandPaletteProps extends Omit<React.HTMLAttributes<HTMLDivEl
  * ```
  */
 export const CommandPalette = React.forwardRef<HTMLDivElement, CommandPaletteProps>(
-  ({ open, onClose, size = 'md', actions, groups, onSelect, placeholder = 'Type a command...', recentLimit, className, ...props }, ref) => {
+  (
+    {
+      open,
+      onClose,
+      size = 'md',
+      actions,
+      groups,
+      onSelect,
+      placeholder = 'Type a command...',
+      recentLimit,
+      className,
+      ...props
+    },
+    ref,
+  ) => {
     const [query, setQuery] = useState('');
     const [activeIndex, setActiveIndex] = useState(0);
     const inputRef = useRef<HTMLInputElement>(null);
     const listboxId = useId();
 
-    const filtered = actions.filter(
-      (a) => a.label.toLowerCase().includes(query.toLowerCase())
-    );
+    const filtered = actions.filter((a) => a.label.toLowerCase().includes(query.toLowerCase()));
 
     useEffect(() => {
       if (open) {
@@ -123,16 +136,14 @@ export const CommandPalette = React.forwardRef<HTMLDivElement, CommandPalettePro
           }
         }
       },
-      [filtered, activeIndex, onSelect, onClose]
+      [filtered, activeIndex, onSelect, onClose],
     );
 
     if (!open) return null;
 
-    const classes = [
-      'uds-command-palette',
-      `uds-command-palette--${size}`,
-      className,
-    ].filter(Boolean).join(' ');
+    const classes = ['uds-command-palette', `uds-command-palette--${size}`, className]
+      .filter(Boolean)
+      .join(' ');
 
     const groupedActions = groups
       ? groups.map((g) => ({
@@ -142,27 +153,48 @@ export const CommandPalette = React.forwardRef<HTMLDivElement, CommandPalettePro
       : [{ id: 'all', label: '', actions: filtered }];
 
     return (
-      <div className="uds-command-palette-overlay" onClick={(e) => { if (e.target === e.currentTarget) onClose(); }} role="presentation">
-        <div ref={ref} className={classes} role="combobox" aria-expanded="true" aria-haspopup="listbox" aria-owns={listboxId} {...props}>
+      <div
+        className="uds-command-palette-overlay"
+        onClick={(e) => {
+          if (e.target === e.currentTarget) onClose();
+        }}
+        role="presentation"
+      >
+        <div
+          ref={ref}
+          className={classes}
+          role="combobox"
+          aria-expanded="true"
+          aria-haspopup="listbox"
+          aria-owns={listboxId}
+          {...props}
+        >
           <div className="uds-command-palette__input-wrapper">
             <input
               ref={inputRef}
               className="uds-command-palette__input"
               type="text"
               value={query}
-              onChange={(e) => { setQuery(e.target.value); setActiveIndex(0); }}
+              onChange={(e) => {
+                setQuery(e.target.value);
+                setActiveIndex(0);
+              }}
               onKeyDown={handleKeyDown}
               placeholder={placeholder}
               role="searchbox"
               aria-autocomplete="list"
               aria-controls={listboxId}
-              aria-activedescendant={filtered[activeIndex] ? `cmd-${filtered[activeIndex].id}` : undefined}
+              aria-activedescendant={
+                filtered[activeIndex] ? `cmd-${filtered[activeIndex].id}` : undefined
+              }
             />
           </div>
           <div id={listboxId} className="uds-command-palette__list" role="listbox">
             {groupedActions.map((group) => (
               <div key={group.id} className="uds-command-palette__group">
-                {group.label && <div className="uds-command-palette__group-label">{group.label}</div>}
+                {group.label && (
+                  <div className="uds-command-palette__group-label">{group.label}</div>
+                )}
                 {group.actions.map((action, i) => {
                   const globalIndex = filtered.indexOf(action);
                   return (
@@ -173,7 +205,9 @@ export const CommandPalette = React.forwardRef<HTMLDivElement, CommandPalettePro
                         'uds-command-palette__item',
                         globalIndex === activeIndex && 'uds-command-palette__item--active',
                         action.disabled && 'uds-command-palette__item--disabled',
-                      ].filter(Boolean).join(' ')}
+                      ]
+                        .filter(Boolean)
+                        .join(' ')}
                       role="option"
                       aria-selected={globalIndex === activeIndex}
                       aria-disabled={action.disabled}
@@ -184,9 +218,13 @@ export const CommandPalette = React.forwardRef<HTMLDivElement, CommandPalettePro
                         }
                       }}
                     >
-                      {action.icon && <span className="uds-command-palette__item-icon">{action.icon}</span>}
+                      {action.icon && (
+                        <span className="uds-command-palette__item-icon">{action.icon}</span>
+                      )}
                       <span className="uds-command-palette__item-label">{action.label}</span>
-                      {action.shortcut && <kbd className="uds-command-palette__item-shortcut">{action.shortcut}</kbd>}
+                      {action.shortcut && (
+                        <kbd className="uds-command-palette__item-shortcut">{action.shortcut}</kbd>
+                      )}
                     </div>
                   );
                 })}
@@ -199,7 +237,7 @@ export const CommandPalette = React.forwardRef<HTMLDivElement, CommandPalettePro
         </div>
       </div>
     );
-  }
+  },
 );
 
 CommandPalette.displayName = 'CommandPalette';

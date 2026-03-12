@@ -1,4 +1,5 @@
-import React, { useState, useRef, useCallback, useId } from 'react';
+import type React from 'react';
+import { useCallback, useId, useRef, useState } from 'react';
 
 /**
  * Describes a single tab and its associated panel content.
@@ -49,7 +50,14 @@ export interface TabsProps {
  * ]} />
  * ```
  */
-export const Tabs: React.FC<TabsProps> = ({ tabs, defaultIndex = 0, variant = 'line', size = 'md', className, onChange }) => {
+export const Tabs: React.FC<TabsProps> = ({
+  tabs,
+  defaultIndex = 0,
+  variant = 'line',
+  size = 'md',
+  className,
+  onChange,
+}) => {
   const [activeIndex, setActiveIndex] = useState(defaultIndex);
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const baseId = useId();
@@ -59,7 +67,7 @@ export const Tabs: React.FC<TabsProps> = ({ tabs, defaultIndex = 0, variant = 'l
       setActiveIndex(index);
       onChange?.(index);
     },
-    [onChange]
+    [onChange],
   );
 
   const handleKeyDown = useCallback(
@@ -73,7 +81,8 @@ export const Tabs: React.FC<TabsProps> = ({ tabs, defaultIndex = 0, variant = 'l
         nextIndex = enabledIndices[(currentPos + 1) % enabledIndices.length];
       } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
         e.preventDefault();
-        nextIndex = enabledIndices[(currentPos - 1 + enabledIndices.length) % enabledIndices.length];
+        nextIndex =
+          enabledIndices[(currentPos - 1 + enabledIndices.length) % enabledIndices.length];
       } else if (e.key === 'Home') {
         e.preventDefault();
         nextIndex = enabledIndices[0];
@@ -87,23 +96,27 @@ export const Tabs: React.FC<TabsProps> = ({ tabs, defaultIndex = 0, variant = 'l
         tabRefs.current[nextIndex]?.focus();
       }
     },
-    [tabs, activeIndex, handleSelect]
+    [tabs, activeIndex, handleSelect],
   );
 
-  const classes = [
-    'uds-tabs',
-    `uds-tabs--${variant}`,
-    `uds-tabs--${size}`,
-    className,
-  ].filter(Boolean).join(' ');
+  const classes = ['uds-tabs', `uds-tabs--${variant}`, `uds-tabs--${size}`, className]
+    .filter(Boolean)
+    .join(' ');
 
   return (
     <div className={classes}>
-      <div className="uds-tabs__list" role="tablist" aria-orientation="horizontal" onKeyDown={handleKeyDown}>
+      <div
+        className="uds-tabs__list"
+        role="tablist"
+        aria-orientation="horizontal"
+        onKeyDown={handleKeyDown}
+      >
         {tabs.map((tab, index) => (
           <button
             key={index}
-            ref={(el) => { tabRefs.current[index] = el; }}
+            ref={(el) => {
+              tabRefs.current[index] = el;
+            }}
             className="uds-tabs__trigger"
             role="tab"
             id={`${baseId}-tab-${index}`}
@@ -125,7 +138,6 @@ export const Tabs: React.FC<TabsProps> = ({ tabs, defaultIndex = 0, variant = 'l
           id={`${baseId}-panel-${index}`}
           aria-labelledby={`${baseId}-tab-${index}`}
           hidden={activeIndex !== index}
-          tabIndex={0}
         >
           {tab.content}
         </div>

@@ -48,13 +48,23 @@ export interface FooterProps extends React.HTMLAttributes<HTMLElement> {
  * ```
  */
 export const Footer = React.forwardRef<HTMLElement, FooterProps>(
-  ({ variant = 'simple', size = 'standard', columns, newsletter, legal, copyright, className, children, ...props }, ref) => {
-    const classes = [
-      'uds-footer',
-      `uds-footer--${variant}`,
-      `uds-footer--${size}`,
+  (
+    {
+      variant = 'simple',
+      size = 'standard',
+      columns,
+      newsletter,
+      legal,
+      copyright,
       className,
-    ].filter(Boolean).join(' ');
+      children,
+      ...props
+    },
+    ref,
+  ) => {
+    const classes = ['uds-footer', `uds-footer--${variant}`, `uds-footer--${size}`, className]
+      .filter(Boolean)
+      .join(' ');
 
     return (
       <footer ref={ref} className={classes} aria-label="Site footer" {...props}>
@@ -65,7 +75,11 @@ export const Footer = React.forwardRef<HTMLElement, FooterProps>(
                 <h3 className="uds-footer__column-title">{col.title}</h3>
                 <ul className="uds-footer__links">
                   {col.links.map((link, j) => (
-                    <li key={j}><a href={link.href} className="uds-footer__link">{link.label}</a></li>
+                    <li key={j}>
+                      <a href={link.href} className="uds-footer__link">
+                        {link.label}
+                      </a>
+                    </li>
                   ))}
                 </ul>
               </div>
@@ -78,7 +92,7 @@ export const Footer = React.forwardRef<HTMLElement, FooterProps>(
         {copyright && <p className="uds-footer__copyright">{copyright}</p>}
       </footer>
     );
-  }
+  },
 );
 
 Footer.displayName = 'Footer';

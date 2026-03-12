@@ -1,4 +1,5 @@
-import React, { useState, useCallback, useRef, useEffect, useId } from 'react';
+import type React from 'react';
+import { useCallback, useEffect, useId, useRef, useState } from 'react';
 
 /**
  * A single item inside a {@link Dropdown} menu.
@@ -54,7 +55,15 @@ export interface DropdownProps {
  * />
  * ```
  */
-export const Dropdown: React.FC<DropdownProps> = ({ variant = 'action', size = 'md', items, trigger, onSelect, position = 'bottom-start', className }) => {
+export const Dropdown: React.FC<DropdownProps> = ({
+  variant = 'action',
+  size = 'md',
+  items,
+  trigger,
+  onSelect,
+  position = 'bottom-start',
+  className,
+}) => {
   const [open, setOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -111,7 +120,7 @@ export const Dropdown: React.FC<DropdownProps> = ({ variant = 'action', size = '
         }
       }
     },
-    [open, activeIndex, items, onSelect, close]
+    [open, activeIndex, items, onSelect, close],
   );
 
   const classes = [
@@ -121,7 +130,9 @@ export const Dropdown: React.FC<DropdownProps> = ({ variant = 'action', size = '
     `uds-dropdown--${position}`,
     open && 'uds-dropdown--open',
     className,
-  ].filter(Boolean).join(' ');
+  ]
+    .filter(Boolean)
+    .join(' ');
 
   return (
     <div ref={menuRef} className={classes} onKeyDown={handleKeyDown}>
@@ -141,7 +152,12 @@ export const Dropdown: React.FC<DropdownProps> = ({ variant = 'action', size = '
           {items.map((item, index) => (
             <button
               key={item.value}
-              className={['uds-dropdown__item', index === activeIndex && 'uds-dropdown__item--active'].filter(Boolean).join(' ')}
+              className={[
+                'uds-dropdown__item',
+                index === activeIndex && 'uds-dropdown__item--active',
+              ]
+                .filter(Boolean)
+                .join(' ')}
               role="menuitem"
               disabled={item.disabled}
               tabIndex={-1}

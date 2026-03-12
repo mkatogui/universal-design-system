@@ -62,7 +62,23 @@ export interface DataTableProps extends React.HTMLAttributes<HTMLDivElement> {
  * ```
  */
 export const DataTable = React.forwardRef<HTMLDivElement, DataTableProps>(
-  ({ variant = 'basic', density = 'default', columns, data, sortable, selectable, onSort, onSelectionChange, emptyMessage = 'No data', loading, className, ...props }, ref) => {
+  (
+    {
+      variant = 'basic',
+      density = 'default',
+      columns,
+      data,
+      sortable,
+      selectable,
+      onSort,
+      onSelectionChange,
+      emptyMessage = 'No data',
+      loading,
+      className,
+      ...props
+    },
+    ref,
+  ) => {
     const [sortKey, setSortKey] = useState<string | null>(null);
     const [sortDir, setSortDir] = useState<'asc' | 'desc'>('asc');
     const [selected, setSelected] = useState<Set<number>>(new Set());
@@ -74,7 +90,7 @@ export const DataTable = React.forwardRef<HTMLDivElement, DataTableProps>(
         setSortDir(dir);
         onSort?.(key, dir);
       },
-      [sortKey, sortDir, onSort]
+      [sortKey, sortDir, onSort],
     );
 
     const handleSelectAll = useCallback(
@@ -83,7 +99,7 @@ export const DataTable = React.forwardRef<HTMLDivElement, DataTableProps>(
         setSelected(next);
         onSelectionChange?.(Array.from(next));
       },
-      [data, onSelectionChange]
+      [data, onSelectionChange],
     );
 
     const handleSelectRow = useCallback(
@@ -96,7 +112,7 @@ export const DataTable = React.forwardRef<HTMLDivElement, DataTableProps>(
           return next;
         });
       },
-      [onSelectionChange]
+      [onSelectionChange],
     );
 
     const classes = [
@@ -105,7 +121,9 @@ export const DataTable = React.forwardRef<HTMLDivElement, DataTableProps>(
       `uds-data-table--${density}`,
       loading && 'uds-data-table--loading',
       className,
-    ].filter(Boolean).join(' ');
+    ]
+      .filter(Boolean)
+      .join(' ');
 
     const ariaSort = (key: string): 'ascending' | 'descending' | 'none' => {
       if (sortKey !== key) return 'none';
@@ -114,7 +132,7 @@ export const DataTable = React.forwardRef<HTMLDivElement, DataTableProps>(
 
     return (
       <div ref={ref} className={classes} {...props}>
-        <table className="uds-data-table__table" role="table">
+        <table className="uds-data-table__table">
           <thead>
             <tr>
               {selectable && (
@@ -135,7 +153,11 @@ export const DataTable = React.forwardRef<HTMLDivElement, DataTableProps>(
                   aria-sort={sortable && col.sortable ? ariaSort(col.key) : undefined}
                 >
                   {sortable && col.sortable ? (
-                    <button className="uds-data-table__sort-btn" onClick={() => handleSort(col.key)} type="button">
+                    <button
+                      className="uds-data-table__sort-btn"
+                      onClick={() => handleSort(col.key)}
+                      type="button"
+                    >
                       {col.header}
                       <span className="uds-data-table__sort-icon" aria-hidden="true" />
                     </button>
@@ -149,13 +171,19 @@ export const DataTable = React.forwardRef<HTMLDivElement, DataTableProps>(
           <tbody>
             {data.length === 0 ? (
               <tr>
-                <td className="uds-data-table__empty" colSpan={columns.length + (selectable ? 1 : 0)}>
+                <td
+                  className="uds-data-table__empty"
+                  colSpan={columns.length + (selectable ? 1 : 0)}
+                >
                   {emptyMessage}
                 </td>
               </tr>
             ) : (
               data.map((row, rowIndex) => (
-                <tr key={rowIndex} className={selected.has(rowIndex) ? 'uds-data-table__row--selected' : undefined}>
+                <tr
+                  key={rowIndex}
+                  className={selected.has(rowIndex) ? 'uds-data-table__row--selected' : undefined}
+                >
                   {selectable && (
                     <td className="uds-data-table__td uds-data-table__td--checkbox">
                       <input
@@ -178,7 +206,7 @@ export const DataTable = React.forwardRef<HTMLDivElement, DataTableProps>(
         </table>
       </div>
     );
-  }
+  },
 );
 
 DataTable.displayName = 'DataTable';

@@ -40,13 +40,25 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
  * ```
  */
 export const Card = React.forwardRef<HTMLDivElement, CardProps>(
-  ({ variant = 'icon-top', size = 'md', icon, image, imageAlt, title, description, link, className, children, ...props }, ref) => {
-    const classes = [
-      'uds-card',
-      `uds-card--${variant}`,
-      `uds-card--${size}`,
+  (
+    {
+      variant = 'icon-top',
+      size = 'md',
+      icon,
+      image,
+      imageAlt,
+      title,
+      description,
+      link,
       className,
-    ].filter(Boolean).join(' ');
+      children,
+      ...props
+    },
+    ref,
+  ) => {
+    const classes = ['uds-card', `uds-card--${variant}`, `uds-card--${size}`, className]
+      .filter(Boolean)
+      .join(' ');
 
     return (
       <div ref={ref} className={classes} {...props}>
@@ -62,7 +74,7 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
         )}
       </div>
     );
-  }
+  },
 );
 Card.displayName = 'Card';
 
@@ -72,27 +84,32 @@ export const CardHeader = React.forwardRef<HTMLDivElement, React.HTMLAttributes<
     <div ref={ref} className={['uds-card__header', className].filter(Boolean).join(' ')} {...props}>
       {children}
     </div>
-  )
+  ),
 );
 CardHeader.displayName = 'CardHeader';
 
 /** Card sub-component for the title (`<h3>`). */
-export const CardTitle = React.forwardRef<HTMLHeadingElement, React.HTMLAttributes<HTMLHeadingElement>>(
-  ({ className, children, ...props }, ref) => (
-    <h3 ref={ref} className={['uds-card__title', className].filter(Boolean).join(' ')} {...props}>
-      {children}
-    </h3>
-  )
-);
+export const CardTitle = React.forwardRef<
+  HTMLHeadingElement,
+  React.HTMLAttributes<HTMLHeadingElement>
+>(({ className, children, ...props }, ref) => (
+  <h3 ref={ref} className={['uds-card__title', className].filter(Boolean).join(' ')} {...props}>
+    {children}
+  </h3>
+));
 CardTitle.displayName = 'CardTitle';
 
 /** Card sub-component for the body content area. */
 export const CardContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   ({ className, children, ...props }, ref) => (
-    <div ref={ref} className={['uds-card__content', className].filter(Boolean).join(' ')} {...props}>
+    <div
+      ref={ref}
+      className={['uds-card__content', className].filter(Boolean).join(' ')}
+      {...props}
+    >
       {children}
     </div>
-  )
+  ),
 );
 CardContent.displayName = 'CardContent';
 
@@ -102,6 +119,6 @@ export const CardFooter = React.forwardRef<HTMLDivElement, React.HTMLAttributes<
     <div ref={ref} className={['uds-card__footer', className].filter(Boolean).join(' ')} {...props}>
       {children}
     </div>
-  )
+  ),
 );
 CardFooter.displayName = 'CardFooter';

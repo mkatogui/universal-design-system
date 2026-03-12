@@ -36,7 +36,21 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
  * ```
  */
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ variant = 'primary', size = 'md', loading, fullWidth, iconLeft, iconRight, className, children, disabled, ...props }, ref) => {
+  (
+    {
+      variant = 'primary',
+      size = 'md',
+      loading,
+      fullWidth,
+      iconLeft,
+      iconRight,
+      className,
+      children,
+      disabled,
+      ...props
+    },
+    ref,
+  ) => {
     const classes = [
       'uds-btn',
       `uds-btn--${variant}`,
@@ -44,7 +58,9 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       fullWidth && 'uds-btn--full-width',
       loading && 'uds-btn--loading',
       className,
-    ].filter(Boolean).join(' ');
+    ]
+      .filter(Boolean)
+      .join(' ');
 
     return (
       <button
@@ -61,7 +77,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         {iconRight && <span className="uds-btn__icon-right">{iconRight}</span>}
       </button>
     );
-  }
+  },
 );
 
 Button.displayName = 'Button';

@@ -5,7 +5,8 @@ import React from 'react';
  *
  * Extends native `<input>` attributes (with `type` and `size` omitted).
  */
-export interface RadioProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type' | 'size'> {
+export interface RadioProps
+  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type' | 'size'> {
   /** Visual variant. @default 'standard' */
   variant?: 'standard' | 'card';
   /** Label text rendered next to the radio button. */
@@ -28,14 +29,15 @@ export interface RadioProps extends Omit<React.InputHTMLAttributes<HTMLInputElem
  * ```
  */
 export const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
-  ({ variant = 'standard', label, checked, disabled, className, id, name, value, ...props }, ref) => {
-    const inputId = id || (label ? `uds-radio-${name}-${String(value).toLowerCase().replace(/\s+/g, '-')}` : undefined);
+  (
+    { variant = 'standard', label, checked, disabled, className, id, name, value, ...props },
+    ref,
+  ) => {
+    const inputId =
+      id ||
+      (label ? `uds-radio-${name}-${String(value).toLowerCase().replace(/\s+/g, '-')}` : undefined);
 
-    const classes = [
-      'uds-radio',
-      `uds-radio--${variant}`,
-      className,
-    ].filter(Boolean).join(' ');
+    const classes = ['uds-radio', `uds-radio--${variant}`, className].filter(Boolean).join(' ');
 
     return (
       <div className={classes}>
@@ -58,7 +60,7 @@ export const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
         )}
       </div>
     );
-  }
+  },
 );
 
 Radio.displayName = 'Radio';

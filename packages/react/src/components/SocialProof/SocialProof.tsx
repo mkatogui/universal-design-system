@@ -61,13 +61,27 @@ export interface SocialProofProps extends React.HTMLAttributes<HTMLDivElement> {
  * ```
  */
 export const SocialProof = React.forwardRef<HTMLDivElement, SocialProofProps>(
-  ({ variant = 'logo-strip', size = 'standard', logos, stats, testimonials, className, children, ...props }, ref) => {
+  (
+    {
+      variant = 'logo-strip',
+      size = 'standard',
+      logos,
+      stats,
+      testimonials,
+      className,
+      children,
+      ...props
+    },
+    ref,
+  ) => {
     const classes = [
       'uds-social-proof',
       `uds-social-proof--${variant}`,
       `uds-social-proof--${size}`,
       className,
-    ].filter(Boolean).join(' ');
+    ]
+      .filter(Boolean)
+      .join(' ');
 
     return (
       <div ref={ref} className={classes} {...props}>
@@ -93,7 +107,10 @@ export const SocialProof = React.forwardRef<HTMLDivElement, SocialProofProps>(
             {testimonials.map((t, i) => (
               <div key={i} className="uds-social-proof__testimonial">
                 <p className="uds-social-proof__quote">{t.quote}</p>
-                <cite className="uds-social-proof__cite">{t.name}{t.title && `, ${t.title}`}</cite>
+                <cite className="uds-social-proof__cite">
+                  {t.name}
+                  {t.title && `, ${t.title}`}
+                </cite>
               </div>
             ))}
           </div>
@@ -101,7 +118,7 @@ export const SocialProof = React.forwardRef<HTMLDivElement, SocialProofProps>(
         {children}
       </div>
     );
-  }
+  },
 );
 
 SocialProof.displayName = 'SocialProof';

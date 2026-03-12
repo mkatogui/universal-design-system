@@ -50,7 +50,24 @@ export interface FileUploadProps extends Omit<React.HTMLAttributes<HTMLDivElemen
  * ```
  */
 export const FileUpload = React.forwardRef<HTMLDivElement, FileUploadProps>(
-  ({ variant = 'dropzone', size = 'md', accept, maxSize, maxFiles, multiple, onUpload, onRemove, disabled, label, className, children, ...props }, ref) => {
+  (
+    {
+      variant = 'dropzone',
+      size = 'md',
+      accept,
+      maxSize,
+      maxFiles,
+      multiple,
+      onUpload,
+      onRemove,
+      disabled,
+      label,
+      className,
+      children,
+      ...props
+    },
+    ref,
+  ) => {
     const [dragOver, setDragOver] = useState(false);
     const [files, setFiles] = useState<File[]>([]);
     const [error, setError] = useState<string | null>(null);
@@ -72,7 +89,7 @@ export const FileUpload = React.forwardRef<HTMLDivElement, FileUploadProps>(
         }
         return valid;
       },
-      [maxSize, maxFiles, files.length]
+      [maxSize, maxFiles, files.length],
     );
 
     const handleFiles = useCallback(
@@ -83,7 +100,7 @@ export const FileUpload = React.forwardRef<HTMLDivElement, FileUploadProps>(
           onUpload?.(valid);
         }
       },
-      [validateFiles, onUpload]
+      [validateFiles, onUpload],
     );
 
     const handleDrop = useCallback(
@@ -94,7 +111,7 @@ export const FileUpload = React.forwardRef<HTMLDivElement, FileUploadProps>(
         const dropped = Array.from(e.dataTransfer.files);
         handleFiles(dropped);
       },
-      [disabled, handleFiles]
+      [disabled, handleFiles],
     );
 
     const handleChange = useCallback(
@@ -103,7 +120,7 @@ export const FileUpload = React.forwardRef<HTMLDivElement, FileUploadProps>(
           handleFiles(Array.from(e.target.files));
         }
       },
-      [handleFiles]
+      [handleFiles],
     );
 
     const handleRemove = useCallback(
@@ -111,7 +128,7 @@ export const FileUpload = React.forwardRef<HTMLDivElement, FileUploadProps>(
         setFiles((prev) => prev.filter((f) => f !== file));
         onRemove?.(file);
       },
-      [onRemove]
+      [onRemove],
     );
 
     const classes = [
@@ -121,7 +138,9 @@ export const FileUpload = React.forwardRef<HTMLDivElement, FileUploadProps>(
       dragOver && 'uds-file-upload--drag-over',
       disabled && 'uds-file-upload--disabled',
       className,
-    ].filter(Boolean).join(' ');
+    ]
+      .filter(Boolean)
+      .join(' ');
 
     return (
       <div ref={ref} className={classes} {...props}>
@@ -130,11 +149,19 @@ export const FileUpload = React.forwardRef<HTMLDivElement, FileUploadProps>(
           role="button"
           tabIndex={disabled ? -1 : 0}
           aria-label={label || 'Upload files'}
-          onDragOver={(e) => { e.preventDefault(); if (!disabled) setDragOver(true); }}
+          onDragOver={(e) => {
+            e.preventDefault();
+            if (!disabled) setDragOver(true);
+          }}
           onDragLeave={() => setDragOver(false)}
           onDrop={handleDrop}
           onClick={() => !disabled && inputRef.current?.click()}
-          onKeyDown={(e) => { if ((e.key === 'Enter' || e.key === ' ') && !disabled) { e.preventDefault(); inputRef.current?.click(); } }}
+          onKeyDown={(e) => {
+            if ((e.key === 'Enter' || e.key === ' ') && !disabled) {
+              e.preventDefault();
+              inputRef.current?.click();
+            }
+          }}
         >
           <input
             ref={inputRef}
@@ -149,12 +176,18 @@ export const FileUpload = React.forwardRef<HTMLDivElement, FileUploadProps>(
           {children || (
             <div className="uds-file-upload__placeholder">
               <p className="uds-file-upload__text">
-                {variant === 'button' ? 'Choose file' : 'Drag and drop files here, or click to browse'}
+                {variant === 'button'
+                  ? 'Choose file'
+                  : 'Drag and drop files here, or click to browse'}
               </p>
             </div>
           )}
         </div>
-        {error && <p className="uds-file-upload__error" role="alert" aria-live="polite">{error}</p>}
+        {error && (
+          <p className="uds-file-upload__error" role="alert" aria-live="polite">
+            {error}
+          </p>
+        )}
         {files.length > 0 && (
           <ul className="uds-file-upload__list" aria-live="polite">
             {files.map((file, i) => (
@@ -174,7 +207,7 @@ export const FileUpload = React.forwardRef<HTMLDivElement, FileUploadProps>(
         )}
       </div>
     );
-  }
+  },
 );
 
 FileUpload.displayName = 'FileUpload';

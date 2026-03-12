@@ -11,54 +11,58 @@
  *   uds search "fintech dashboard"
  */
 
-import { installCommand } from "./commands/install.js";
-import { searchCommand } from "./commands/search.js";
-import { generateCommand, tailwindCommand } from "./commands/generate.js";
-import { initCommand } from "./commands/init.js";
-import { paletteCommand } from "./commands/palette.js";
-import { validateCommand } from "./commands/validate.js";
-import { doctorCommand } from "./commands/doctor.js";
-import { readFileSync } from "node:fs";
-import { dirname, resolve } from "node:path";
-import { fileURLToPath } from "node:url";
+import { readFileSync } from 'node:fs';
+import { dirname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { doctorCommand } from './commands/doctor.js';
+import { generateCommand, tailwindCommand } from './commands/generate.js';
+import { initCommand } from './commands/init.js';
+import { installCommand } from './commands/install.js';
+import { paletteCommand } from './commands/palette.js';
+import { searchCommand } from './commands/search.js';
+import { validateCommand } from './commands/validate.js';
 
 function getVersion(): string {
   try {
     const __dirname = dirname(fileURLToPath(import.meta.url));
-    const pkg = JSON.parse(readFileSync(resolve(__dirname, "..", "..", "package.json"), "utf-8"));
-    return pkg.version || "0.0.0";
+    const pkg = JSON.parse(readFileSync(resolve(__dirname, '..', '..', 'package.json'), 'utf-8'));
+    return pkg.version || '0.0.0';
   } catch {
-    return "0.0.0";
+    return '0.0.0';
   }
 }
 
 const VERSION = getVersion();
 
-function parseArgs(args: string[]): { command: string; positional: string[]; flags: Record<string, string | boolean> } {
-  let command = "";
+function parseArgs(args: string[]): {
+  command: string;
+  positional: string[];
+  flags: Record<string, string | boolean>;
+} {
+  let command = '';
   const positional: string[] = [];
   const flags: Record<string, string | boolean> = {};
 
   for (let i = 0; i < args.length; i++) {
     // First non-flag arg is the command
-    if (!command && !args[i].startsWith("-")) {
+    if (!command && !args[i].startsWith('-')) {
       command = args[i];
       continue;
     }
     const arg = args[i];
-    if (arg.startsWith("--")) {
+    if (arg.startsWith('--')) {
       const key = arg.slice(2);
       const next = args[i + 1];
-      if (next && !next.startsWith("-")) {
+      if (next && !next.startsWith('-')) {
         flags[key] = next;
         i++;
       } else {
         flags[key] = true;
       }
-    } else if (arg.startsWith("-")) {
+    } else if (arg.startsWith('-')) {
       const key = arg.slice(1);
       const next = args[i + 1];
-      if (next && !next.startsWith("-")) {
+      if (next && !next.startsWith('-')) {
         flags[key] = next;
         i++;
       } else {
@@ -128,17 +132,19 @@ async function main(): Promise<void> {
   }
 
   switch (command) {
-    case "install":
+    case 'install':
       await installCommand({
         platform: (flags.platform || flags.p) as string | undefined,
-        dir: ((flags.dir || flags.d) as string) || ".",
-        dryRun: !!flags["dry-run"],
+        dir: ((flags.dir || flags.d) as string) || '.',
+        dryRun: !!flags['dry-run'],
       });
       break;
 
-    case "search":
+    case 'search':
       if (!positional[0]) {
-        console.error("  Error: search requires a query argument\n  Usage: uds search \"your query\"");
+        console.error(
+          '  Error: search requires a query argument\n  Usage: uds search "your query"',
+        );
         process.exit(1);
       }
       await searchCommand(positional[0], {
@@ -147,9 +153,11 @@ async function main(): Promise<void> {
       });
       break;
 
-    case "generate":
+    case 'generate':
       if (!positional[0]) {
-        console.error("  Error: generate requires a query argument\n  Usage: uds generate \"your query\"");
+        console.error(
+          '  Error: generate requires a query argument\n  Usage: uds generate "your query"',
+        );
         process.exit(1);
       }
       await generateCommand(positional[0], {
@@ -158,21 +166,25 @@ async function main(): Promise<void> {
       });
       break;
 
-    case "tailwind":
+    case 'tailwind':
       if (!positional[0]) {
-        console.error("  Error: tailwind requires a query argument\n  Usage: uds tailwind \"your query\"");
+        console.error(
+          '  Error: tailwind requires a query argument\n  Usage: uds tailwind "your query"',
+        );
         process.exit(1);
       }
       await tailwindCommand(positional[0]);
       break;
 
-    case "init":
+    case 'init':
       await initCommand();
       break;
 
-    case "palette":
+    case 'palette':
       if (!positional[0]) {
-        console.error("  Error: palette requires a subcommand\n  Usage: uds palette <create|preview|list|remove|export> [options]");
+        console.error(
+          '  Error: palette requires a subcommand\n  Usage: uds palette <create|preview|list|remove|export> [options]',
+        );
         process.exit(1);
       }
       await paletteCommand(positional[0], {
@@ -183,15 +195,15 @@ async function main(): Promise<void> {
       });
       break;
 
-    case "validate":
+    case 'validate':
       await validateCommand();
       break;
 
-    case "doctor":
+    case 'doctor':
       await doctorCommand();
       break;
 
-    case "help":
+    case 'help':
       showHelp();
       break;
 

@@ -48,7 +48,10 @@ export interface AccordionProps extends React.HTMLAttributes<HTMLDivElement> {
  * ```
  */
 export const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>(
-  ({ variant = 'single', items, defaultExpanded = [], allowMultiple = false, className, ...props }, ref) => {
+  (
+    { variant = 'single', items, defaultExpanded = [], allowMultiple = false, className, ...props },
+    ref,
+  ) => {
     const [expanded, setExpanded] = useState<Set<number>>(new Set(defaultExpanded));
     const baseId = useId();
 
@@ -65,12 +68,14 @@ export const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>(
           return next;
         });
       },
-      [allowMultiple]
+      [allowMultiple],
     );
 
     const handleKeyDown = useCallback(
       (e: React.KeyboardEvent, index: number) => {
-        const enabledIndices = items.map((item, i) => (item.disabled ? -1 : i)).filter((i) => i >= 0);
+        const enabledIndices = items
+          .map((item, i) => (item.disabled ? -1 : i))
+          .filter((i) => i >= 0);
         const currentPos = enabledIndices.indexOf(index);
         let targetIndex: number | undefined;
 
@@ -79,7 +84,8 @@ export const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>(
           targetIndex = enabledIndices[(currentPos + 1) % enabledIndices.length];
         } else if (e.key === 'ArrowUp') {
           e.preventDefault();
-          targetIndex = enabledIndices[(currentPos - 1 + enabledIndices.length) % enabledIndices.length];
+          targetIndex =
+            enabledIndices[(currentPos - 1 + enabledIndices.length) % enabledIndices.length];
         } else if (e.key === 'Home') {
           e.preventDefault();
           targetIndex = enabledIndices[0];
@@ -93,21 +99,24 @@ export const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>(
           btn?.focus();
         }
       },
-      [items, baseId]
+      [items, baseId],
     );
 
-    const classes = [
-      'uds-accordion',
-      `uds-accordion--${variant}`,
-      className,
-    ].filter(Boolean).join(' ');
+    const classes = ['uds-accordion', `uds-accordion--${variant}`, className]
+      .filter(Boolean)
+      .join(' ');
 
     return (
       <div ref={ref} className={classes} {...props}>
         {items.map((item, index) => {
           const isExpanded = expanded.has(index);
           return (
-            <div key={index} className={['uds-accordion__item', isExpanded && 'uds-accordion__item--expanded'].filter(Boolean).join(' ')}>
+            <div
+              key={index}
+              className={['uds-accordion__item', isExpanded && 'uds-accordion__item--expanded']
+                .filter(Boolean)
+                .join(' ')}
+            >
               <h3 className="uds-accordion__header">
                 <button
                   id={`${baseId}-trigger-${index}`}
@@ -137,7 +146,7 @@ export const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>(
         })}
       </div>
     );
-  }
+  },
 );
 
 Accordion.displayName = 'Accordion';

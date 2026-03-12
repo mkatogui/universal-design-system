@@ -41,11 +41,7 @@ export const Toggle = React.forwardRef<HTMLButtonElement, ToggleProps>(
       if (!disabled) onChange(!checked);
     }, [checked, disabled, onChange]);
 
-    const classes = [
-      'uds-toggle',
-      `uds-toggle--${variant}`,
-      className,
-    ].filter(Boolean).join(' ');
+    const classes = ['uds-toggle', `uds-toggle--${variant}`, className].filter(Boolean).join(' ');
 
     return (
       <div className={classes}>
@@ -69,7 +65,7 @@ export const Toggle = React.forwardRef<HTMLButtonElement, ToggleProps>(
         )}
       </div>
     );
-  }
+  },
 );
 
 Toggle.displayName = 'Toggle';

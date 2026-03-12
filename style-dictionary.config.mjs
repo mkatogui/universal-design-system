@@ -24,7 +24,7 @@ export default {
        * Custom format: wraps the built-in css/variables output inside
        * @layer uds.tokens { ... } so consumers get explicit cascade control.
        */
-      'css/variables-layered': function ({ dictionary, options }) {
+      'css/variables-layered': ({ dictionary, options }) => {
         const selector = options.selector || ':root';
         const lines = [];
 
@@ -56,7 +56,7 @@ export default {
             if (typeof orig === 'string' && orig.startsWith('{') && orig.endsWith('}')) {
               const refPath = orig.slice(1, -1).split('.');
               const refToken = dictionary.allTokens.find(
-                (t) => t.path && t.path.join('.') === refPath.join('.')
+                (t) => t.path && t.path.join('.') === refPath.join('.'),
               );
               if (refToken) {
                 value = `var(--${refToken.name})`;

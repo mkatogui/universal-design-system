@@ -46,13 +46,30 @@ export interface TestimonialProps extends React.HTMLAttributes<HTMLDivElement> {
  * ```
  */
 export const Testimonial = React.forwardRef<HTMLDivElement, TestimonialProps>(
-  ({ variant = 'quote-card', size = 'md', quote, avatar, name, title, company, rating, className, children, ...props }, ref) => {
+  (
+    {
+      variant = 'quote-card',
+      size = 'md',
+      quote,
+      avatar,
+      name,
+      title,
+      company,
+      rating,
+      className,
+      children,
+      ...props
+    },
+    ref,
+  ) => {
     const classes = [
       'uds-testimonial',
       `uds-testimonial--${variant}`,
       `uds-testimonial--${size}`,
       className,
-    ].filter(Boolean).join(' ');
+    ]
+      .filter(Boolean)
+      .join(' ');
 
     return (
       <div ref={ref} className={classes} {...props}>
@@ -64,14 +81,26 @@ export const Testimonial = React.forwardRef<HTMLDivElement, TestimonialProps>(
         {rating !== undefined && (
           <div className="uds-testimonial__rating" aria-label={`${rating} out of 5 stars`}>
             {Array.from({ length: 5 }, (_, i) => (
-              <span key={i} className={['uds-testimonial__star', i < rating && 'uds-testimonial__star--filled'].filter(Boolean).join(' ')} aria-hidden="true">
+              <span
+                key={i}
+                className={['uds-testimonial__star', i < rating && 'uds-testimonial__star--filled']
+                  .filter(Boolean)
+                  .join(' ')}
+                aria-hidden="true"
+              >
                 &#9733;
               </span>
             ))}
           </div>
         )}
         <div className="uds-testimonial__author">
-          {avatar && <img className="uds-testimonial__avatar" src={avatar} alt={name ? `${name}'s avatar` : ''} />}
+          {avatar && (
+            <img
+              className="uds-testimonial__avatar"
+              src={avatar}
+              alt={name ? `${name}'s avatar` : ''}
+            />
+          )}
           <div className="uds-testimonial__info">
             {name && <cite className="uds-testimonial__name">{name}</cite>}
             {title && <span className="uds-testimonial__title">{title}</span>}
@@ -81,7 +110,7 @@ export const Testimonial = React.forwardRef<HTMLDivElement, TestimonialProps>(
         {children}
       </div>
     );
-  }
+  },
 );
 
 Testimonial.displayName = 'Testimonial';

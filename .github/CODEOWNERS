@@ -1,0 +1,18 @@
+# Default owner for all files
+* @mkatogui
+
+# Design tokens
+/tokens/ @mkatogui
+
+# CLI
+/cli/ @mkatogui
+
+# React components
+/packages/react/ @mkatogui
+
+# CI/CD
+/.github/ @mkatogui
+
+# Reasoning engine
+/src/scripts/ @mkatogui
+/src/data/ @mkatogui

@@ -15,8 +15,8 @@
  * produces separate platform outputs in build/.
  */
 
-const fs = require('fs');
-const path = require('path');
+const fs = require('node:fs');
+const path = require('node:path');
 
 const SOURCE = path.resolve(__dirname, '../../tokens/design-tokens.json');
 const DIST = path.resolve(__dirname, 'dist');
@@ -108,7 +108,7 @@ function resolveAll(flatMap) {
  */
 function toCssVarName(dotPath) {
   // Apply semantic renaming for better CSS ergonomics
-  let p = dotPath
+  const p = dotPath
     .replace(/^typography\.fontFamily\./, 'font-family-')
     .replace(/^typography\.fontWeight\./, 'font-weight-')
     .replace(/^typography\.fontSize\./, 'font-size-')
@@ -126,17 +126,17 @@ function toCssVarName(dotPath) {
 function toCssValue(val) {
   if (Array.isArray(val)) {
     // Font family arrays -> comma-separated quoted list
-    if (val.every(v => typeof v === 'string')) {
-      return val.map(f => (f.includes(' ') ? `"${f}"` : f)).join(', ');
+    if (val.every((v) => typeof v === 'string')) {
+      return val.map((f) => (f.includes(' ') ? `"${f}"` : f)).join(', ');
     }
     // Numeric arrays (easing) -> cubic-bezier()
-    if (val.every(v => typeof v === 'number')) {
+    if (val.every((v) => typeof v === 'number')) {
       return `cubic-bezier(${val.join(', ')})`;
     }
     // Shadow arrays -> comma-separated shadow layers
-    if (val.every(v => typeof v === 'object' && v !== null && 'offsetX' in v)) {
+    if (val.every((v) => typeof v === 'object' && v !== null && 'offsetX' in v)) {
       return val
-        .map(s => `${s.offsetX} ${s.offsetY} ${s.blur} ${s.spread} ${s.color}`)
+        .map((s) => `${s.offsetX} ${s.offsetY} ${s.blur} ${s.spread} ${s.color}`)
         .join(', ');
     }
     return String(val);
@@ -154,7 +154,13 @@ function toCssValue(val) {
 // ── Token Categories ─────────────────────────────────────────────────────────
 
 /** Keys that should be excluded from the root CSS (they go in palette selectors) */
-const PALETTE_SECTION_PREFIXES = ['theme.', 'color.palette-overrides.', 'shadow.palette-overrides.', 'radius.palette-overrides.', 'typography.fontFamily.palette-overrides.'];
+const PALETTE_SECTION_PREFIXES = [
+  'theme.',
+  'color.palette-overrides.',
+  'shadow.palette-overrides.',
+  'radius.palette-overrides.',
+  'typography.fontFamily.palette-overrides.',
+];
 
 /** Keys that are structural metadata, not real tokens */
 const SKIP_PREFIXES = ['motion.choreography.'];
@@ -164,7 +170,7 @@ const SKIP_PREFIXES = ['motion.choreography.'];
  */
 function shouldSkip(dotPath) {
   // Skip choreography (complex structured data, not simple tokens)
-  if (SKIP_PREFIXES.some(p => dotPath.startsWith(p))) return true;
+  if (SKIP_PREFIXES.some((p) => dotPath.startsWith(p))) return true;
   // Skip $structural entries that leak through
   if (dotPath.includes('.$structural.') || dotPath.includes('$structural')) return true;
   return false;
@@ -174,7 +180,7 @@ function shouldSkip(dotPath) {
  * Check whether this is a palette-override token (goes in [data-theme] selector).
  */
 function isPaletteToken(dotPath) {
-  return PALETTE_SECTION_PREFIXES.some(p => dotPath.startsWith(p));
+  return PALETTE_SECTION_PREFIXES.some((p) => dotPath.startsWith(p));
 }
 
 // ── Palette Extraction ───────────────────────────────────────────────────────
@@ -254,7 +260,6 @@ function extractPaletteOverrides(resolvedMap) {
       const paletteMap = palettes.get(paletteName);
       if (!paletteMap) continue;
       paletteMap.set('--font-family-display', toCssValue(val));
-      continue;
     }
   }
 
@@ -291,7 +296,6 @@ function extractPaletteOverrides(resolvedMap) {
       const normalized = tokenTail.replace(/_dark$/, '').replace(/_/g, '-');
       const cssVar = `--color-${normalized}`;
       darkMap.set(cssVar, toCssValue(val));
-      continue;
     }
   }
 
@@ -501,7 +505,7 @@ function generateTypeDeclarations(varRefObj) {
     const inner = entries.map(([key, val]) => {
       const safeKey = /^[a-zA-Z_$][a-zA-Z0-9_$]*$/.test(key) ? key : `'${key}'`;
       if (typeof val === 'object' && val !== null && !Array.isArray(val)) {
-        return `${indent}  readonly ${safeKey}: ${typeFromObj(val, indent + '  ')}`;
+        return `${indent}  readonly ${safeKey}: ${typeFromObj(val, `${indent}  `)}`;
       }
       return `${indent}  readonly ${safeKey}: string`;
     });
@@ -514,7 +518,9 @@ function generateTypeDeclarations(varRefObj) {
   lines.push('export type Tokens = typeof tokens;');
   lines.push('');
   lines.push('// Re-export palette and token name types from tokens.d.ts');
-  lines.push('export { TokenName, PaletteName, isPalette, PaletteTokens, ThemeConfig } from \'./tokens\';');
+  lines.push(
+    "export { TokenName, PaletteName, isPalette, PaletteTokens, ThemeConfig } from './tokens';",
+  );
   lines.push('');
 
   return lines.join('\n');
@@ -591,7 +597,7 @@ function generateTokenTypes(resolvedMap) {
   lines.push(' * Union of the 9 structural palette names.');
   lines.push(' * Apply via data-theme attribute: <div data-theme="minimal-saas">');
   lines.push(' */');
-  const paletteUnion = PALETTES.map(p => `'${p}'`).join(' | ');
+  const paletteUnion = PALETTES.map((p) => `'${p}'`).join(' | ');
   lines.push(`export type PaletteName = ${paletteUnion};`);
   lines.push('');
 
@@ -637,7 +643,7 @@ function generateTokenTypes(resolvedMap) {
   lines.push('      readonly primary: string;');
   lines.push('      readonly secondary: string;');
   lines.push('      readonly tertiary: string;');
-  lines.push('      readonly \'on-brand\': string;');
+  lines.push("      readonly 'on-brand': string;");
   lines.push('    };');
   lines.push('    readonly border: {');
   lines.push('      readonly default: string;');
@@ -668,7 +674,7 @@ function generateTokenTypes(resolvedMap) {
  * Returns { cjs, esm } with the appropriate export syntax for each format.
  */
 function generateIsPaletteCode() {
-  const arr = PALETTES.map(p => `'${p}'`).join(', ');
+  const arr = PALETTES.map((p) => `'${p}'`).join(', ');
   return {
     cjs: `const PALETTES = [${arr}];\nfunction isPalette(name) { return PALETTES.indexOf(name) !== -1; }`,
     esm: `export const PALETTES = [${arr}];\nexport function isPalette(name) { return PALETTES.indexOf(name) !== -1; }`,
@@ -685,7 +691,7 @@ function objToJSLiteral(obj, indent = '  ') {
   const lines = entries.map(([key, val]) => {
     const safeKey = /^[a-zA-Z_$][a-zA-Z0-9_$]*$/.test(key) ? key : `'${key}'`;
     if (typeof val === 'object' && val !== null && !Array.isArray(val)) {
-      return `${indent}${safeKey}: ${objToJSLiteral(val, indent + '  ')}`;
+      return `${indent}${safeKey}: ${objToJSLiteral(val, `${indent}  `)}`;
     }
     // String value
     const escaped = String(val).replace(/\\/g, '\\\\').replace(/'/g, "\\'");
@@ -759,7 +765,9 @@ function main() {
     '',
     `export const tokens = ${jsLiteral};`,
     '',
-    isPaletteCode.replace('const PALETTES', 'export const PALETTES').replace('function isPalette', 'export function isPalette'),
+    isPaletteCode
+      .replace('const PALETTES', 'export const PALETTES')
+      .replace('function isPalette', 'export function isPalette'),
     '',
   ].join('\n');
 

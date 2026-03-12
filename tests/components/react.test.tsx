@@ -1,3 +1,4 @@
+import { act, fireEvent, render, screen, within } from '@testing-library/react';
 /**
  * React component tests for the Universal Design System.
  *
@@ -5,17 +6,17 @@
  * Button, Card, Modal, Tabs, Input, Select, Toast, Alert.
  */
 import React from 'react';
-import { render, screen, fireEvent, within, act } from '@testing-library/react';
-import '@testing-library/jest-dom';
+import '@testing-library/jest-dom/vitest';
+import { describe, expect, it, vi } from 'vitest';
 
+import { Alert } from '../../packages/react/src/components/Alert/Alert';
 import { Button } from '../../packages/react/src/components/Button/Button';
 import { Card } from '../../packages/react/src/components/Card/Card';
-import { Modal } from '../../packages/react/src/components/Modal/Modal';
-import { Tabs } from '../../packages/react/src/components/Tabs/Tabs';
 import { Input } from '../../packages/react/src/components/Input/Input';
+import { Modal } from '../../packages/react/src/components/Modal/Modal';
 import { Select } from '../../packages/react/src/components/Select/Select';
+import { Tabs } from '../../packages/react/src/components/Tabs/Tabs';
 import { Toast } from '../../packages/react/src/components/Toast/Toast';
-import { Alert } from '../../packages/react/src/components/Alert/Alert';
 
 // ---------------------------------------------------------------------------
 // Button
@@ -27,7 +28,7 @@ describe('Button', () => {
   });
 
   it('fires onClick when clicked', () => {
-    const handleClick = jest.fn();
+    const handleClick = vi.fn();
     render(<Button onClick={handleClick}>Go</Button>);
     fireEvent.click(screen.getByRole('button', { name: 'Go' }));
     expect(handleClick).toHaveBeenCalledTimes(1);
@@ -95,7 +96,11 @@ describe('Button', () => {
 // ---------------------------------------------------------------------------
 describe('Card', () => {
   it('renders children', () => {
-    render(<Card><p>Card content</p></Card>);
+    render(
+      <Card>
+        <p>Card content</p>
+      </Card>,
+    );
     expect(screen.getByText('Card content')).toBeInTheDocument();
   });
 
@@ -124,7 +129,11 @@ describe('Card', () => {
   });
 
   it('applies variant and size classes', () => {
-    const { container } = render(<Card variant="horizontal" size="lg">X</Card>);
+    const { container } = render(
+      <Card variant="horizontal" size="lg">
+        X
+      </Card>,
+    );
     const card = container.querySelector('.uds-card');
     expect(card).toHaveClass('uds-card--horizontal');
     expect(card).toHaveClass('uds-card--lg');
@@ -142,12 +151,20 @@ describe('Card', () => {
 // ---------------------------------------------------------------------------
 describe('Modal', () => {
   it('does not render when open is false', () => {
-    render(<Modal open={false} onClose={jest.fn()}>Hidden</Modal>);
+    render(
+      <Modal open={false} onClose={vi.fn()}>
+        Hidden
+      </Modal>,
+    );
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
   });
 
   it('renders the dialog when open is true', () => {
-    render(<Modal open={true} onClose={jest.fn()} title="Test Modal">Content</Modal>);
+    render(
+      <Modal open={true} onClose={vi.fn()} title="Test Modal">
+        Content
+      </Modal>,
+    );
     const dialog = screen.getByRole('dialog');
     expect(dialog).toBeInTheDocument();
     expect(dialog).toHaveAttribute('aria-modal', 'true');
@@ -156,31 +173,31 @@ describe('Modal', () => {
 
   it('renders title heading and body content', () => {
     render(
-      <Modal open={true} onClose={jest.fn()} title="My Dialog">
+      <Modal open={true} onClose={vi.fn()} title="My Dialog">
         <p>Dialog body</p>
-      </Modal>
+      </Modal>,
     );
     expect(screen.getByRole('heading', { name: 'My Dialog' })).toBeInTheDocument();
     expect(screen.getByText('Dialog body')).toBeInTheDocument();
   });
 
   it('calls onClose when the close button is clicked', () => {
-    const handleClose = jest.fn();
+    const handleClose = vi.fn();
     render(
       <Modal open={true} onClose={handleClose} title="Close Me">
         Body
-      </Modal>
+      </Modal>,
     );
     fireEvent.click(screen.getByRole('button', { name: 'Close dialog' }));
     expect(handleClose).toHaveBeenCalledTimes(1);
   });
 
   it('calls onClose when Escape is pressed', () => {
-    const handleClose = jest.fn();
+    const handleClose = vi.fn();
     render(
       <Modal open={true} onClose={handleClose} title="Escape Test">
         Body
-      </Modal>
+      </Modal>,
     );
     fireEvent.keyDown(document, { key: 'Escape' });
     expect(handleClose).toHaveBeenCalledTimes(1);
@@ -188,9 +205,9 @@ describe('Modal', () => {
 
   it('renders an overlay', () => {
     const { container } = render(
-      <Modal open={true} onClose={jest.fn()} title="Overlay">
+      <Modal open={true} onClose={vi.fn()} title="Overlay">
         Body
-      </Modal>
+      </Modal>,
     );
     // The overlay is portaled to document.body
     const overlay = document.querySelector('.uds-modal-overlay');
@@ -198,11 +215,11 @@ describe('Modal', () => {
   });
 
   it('calls onClose when the overlay is clicked', () => {
-    const handleClose = jest.fn();
+    const handleClose = vi.fn();
     render(
       <Modal open={true} onClose={handleClose} title="Overlay Click">
         Body
-      </Modal>
+      </Modal>,
     );
     const overlay = document.querySelector('.uds-modal-overlay')!;
     // Click on overlay itself (not children)
@@ -212,14 +229,9 @@ describe('Modal', () => {
 
   it('renders action buttons in the footer', () => {
     render(
-      <Modal
-        open={true}
-        onClose={jest.fn()}
-        title="With Actions"
-        actions={<button>Confirm</button>}
-      >
+      <Modal open={true} onClose={vi.fn()} title="With Actions" actions={<button>Confirm</button>}>
         Body
-      </Modal>
+      </Modal>,
     );
     expect(screen.getByRole('button', { name: 'Confirm' })).toBeInTheDocument();
   });
@@ -270,7 +282,7 @@ describe('Tabs', () => {
   });
 
   it('calls onChange with the new index when a tab is clicked', () => {
-    const handleChange = jest.fn();
+    const handleChange = vi.fn();
     render(<Tabs tabs={defaultTabs} onChange={handleChange} />);
     fireEvent.click(screen.getAllByRole('tab')[2]);
     expect(handleChange).toHaveBeenCalledWith(2);
@@ -323,7 +335,7 @@ describe('Input', () => {
   });
 
   it('fires onChange when the user types', () => {
-    const handleChange = jest.fn();
+    const handleChange = vi.fn();
     render(<Input label="Email" onChange={handleChange} />);
     fireEvent.change(screen.getByLabelText('Email'), { target: { value: 'test@example.com' } });
     expect(handleChange).toHaveBeenCalledTimes(1);
@@ -395,7 +407,7 @@ describe('Select', () => {
   });
 
   it('fires onChange when an option is selected', () => {
-    const handleChange = jest.fn();
+    const handleChange = vi.fn();
     render(<Select label="Country" options={options} onChange={handleChange} />);
     fireEvent.change(screen.getByLabelText('Country'), { target: { value: 'ca' } });
     expect(handleChange).toHaveBeenCalledTimes(1);
@@ -451,19 +463,21 @@ describe('Toast', () => {
   });
 
   it('auto-dismisses after the specified duration', () => {
-    jest.useFakeTimers();
-    const handleDismiss = jest.fn();
+    vi.useFakeTimers();
+    const handleDismiss = vi.fn();
     render(<Toast message="Bye" duration={3000} onDismiss={handleDismiss} />);
 
     expect(handleDismiss).not.toHaveBeenCalled();
-    act(() => { jest.advanceTimersByTime(3000); });
+    act(() => {
+      vi.advanceTimersByTime(3000);
+    });
     expect(handleDismiss).toHaveBeenCalledTimes(1);
 
-    jest.useRealTimers();
+    vi.useRealTimers();
   });
 
   it('renders a close button that fires onDismiss', () => {
-    const handleDismiss = jest.fn();
+    const handleDismiss = vi.fn();
     render(<Toast message="Close me" onDismiss={handleDismiss} />);
     fireEvent.click(screen.getByRole('button', { name: 'Dismiss notification' }));
     expect(handleDismiss).toHaveBeenCalledTimes(1);
@@ -564,7 +578,7 @@ describe('Alert', () => {
   });
 
   it('removes itself from the DOM when dismissed', () => {
-    const handleDismiss = jest.fn();
+    const handleDismiss = vi.fn();
     render(<Alert message="Bye" dismissible onDismiss={handleDismiss} />);
 
     fireEvent.click(screen.getByRole('button', { name: 'Dismiss alert' }));
@@ -577,7 +591,7 @@ describe('Alert', () => {
     render(
       <Alert message="With children">
         <a href="/details">Learn more</a>
-      </Alert>
+      </Alert>,
     );
     expect(screen.getByRole('link', { name: 'Learn more' })).toBeInTheDocument();
   });

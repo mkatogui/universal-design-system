@@ -5,7 +5,8 @@ import React from 'react';
  *
  * Extends native `<input>` attributes (with `type` and `size` omitted).
  */
-export interface CheckboxProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type' | 'size'> {
+export interface CheckboxProps
+  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type' | 'size'> {
   /** Visual variant. @default 'standard' */
   variant?: 'standard' | 'indeterminate';
   /** Label text rendered next to the checkbox. */
@@ -30,8 +31,22 @@ export interface CheckboxProps extends Omit<React.InputHTMLAttributes<HTMLInputE
  * ```
  */
 export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
-  ({ variant = 'standard', label, indeterminate, checked, disabled, className, id, name, ...props }, ref) => {
-    const inputId = id || (label ? `uds-checkbox-${label.toLowerCase().replace(/\s+/g, '-')}` : undefined);
+  (
+    {
+      variant = 'standard',
+      label,
+      indeterminate,
+      checked,
+      disabled,
+      className,
+      id,
+      name,
+      ...props
+    },
+    ref,
+  ) => {
+    const inputId =
+      id || (label ? `uds-checkbox-${label.toLowerCase().replace(/\s+/g, '-')}` : undefined);
 
     const internalRef = React.useCallback(
       (node: HTMLInputElement | null) => {
@@ -41,7 +56,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
         if (typeof ref === 'function') ref(node);
         else if (ref) (ref as React.MutableRefObject<HTMLInputElement | null>).current = node;
       },
-      [ref, indeterminate]
+      [ref, indeterminate],
     );
 
     const classes = [
@@ -49,7 +64,9 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
       `uds-checkbox--${variant}`,
       indeterminate && 'uds-checkbox--indeterminate',
       className,
-    ].filter(Boolean).join(' ');
+    ]
+      .filter(Boolean)
+      .join(' ');
 
     return (
       <div className={classes}>
@@ -71,7 +88,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
         )}
       </div>
     );
-  }
+  },
 );
 
 Checkbox.displayName = 'Checkbox';

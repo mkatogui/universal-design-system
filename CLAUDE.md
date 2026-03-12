@@ -95,6 +95,31 @@ One palette per surface. No mixing.
 - All animations must be wrapped in `@media (prefers-reduced-motion: no-preference)`
 - CSV validation is permissive — only required columns are checked, extra columns allowed
 
+## Code Quality
+
+```bash
+# Lint (Biome — covers ESLint + Prettier in one tool)
+npm run lint              # check for lint issues
+npm run lint:fix          # auto-fix lint issues
+npm run format:check      # check formatting
+npm run format            # auto-fix formatting
+
+# Tests
+npm run test:react        # run React component tests (Vitest)
+npm run test:react:coverage  # run with V8 coverage (outputs to coverage/)
+npm run test:primitives   # run primitives tests (Node.js test runner)
+
+# Type-checking
+cd cli && npx tsc --noEmit        # CLI type-check
+cd packages/react && npx tsc --noEmit  # React type-check
+```
+
+**CI pipelines:** `ci.yml` (validation matrix) runs in parallel with `quality.yml` (Biome lint + Vitest coverage + SonarCloud scan) and `codeql.yml` (security scanning).
+
+**SonarCloud:** Requires `SONAR_TOKEN` GitHub secret. Config in `sonar-project.properties`. Coverage uploaded from `coverage/lcov.info`.
+
+**Dependabot:** Configured in `.github/dependabot.yml` for npm (root, cli, packages/react, src/mcp) and GitHub Actions. Weekly schedule, minor/patch grouped.
+
 ## Adding to the System
 
 **New palette:** Add overrides in `tokens/design-tokens.json` (color, shadow, radius, font-display) + `tokens/figma-tokens.json` → add to valid palette lists in `_sync_all.py`, `validate-tokens.py`, `wcag-audit.py` → add CSS defs (light + dark) to `docs/docs.html` → add rules to `ui-reasoning.csv` → run `npm run check`.

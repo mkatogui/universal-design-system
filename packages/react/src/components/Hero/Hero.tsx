@@ -7,7 +7,13 @@ import React from 'react';
  */
 export interface HeroProps extends React.HTMLAttributes<HTMLElement> {
   /** Layout variant for the hero section. @default 'centered' */
-  variant?: 'centered' | 'product-screenshot' | 'video-bg' | 'gradient-mesh' | 'search-forward' | 'split';
+  variant?:
+    | 'centered'
+    | 'product-screenshot'
+    | 'video-bg'
+    | 'gradient-mesh'
+    | 'search-forward'
+    | 'split';
   /** Height mode. @default 'full' */
   size?: 'full' | 'compact';
   /** Primary heading text (`<h1>`). */
@@ -41,13 +47,24 @@ export interface HeroProps extends React.HTMLAttributes<HTMLElement> {
  * ```
  */
 export const Hero = React.forwardRef<HTMLElement, HeroProps>(
-  ({ variant = 'centered', size = 'full', headline, subheadline, cta, socialProof, visual, className, children, ...props }, ref) => {
-    const classes = [
-      'uds-hero',
-      `uds-hero--${variant}`,
-      `uds-hero--${size}`,
+  (
+    {
+      variant = 'centered',
+      size = 'full',
+      headline,
+      subheadline,
+      cta,
+      socialProof,
+      visual,
       className,
-    ].filter(Boolean).join(' ');
+      children,
+      ...props
+    },
+    ref,
+  ) => {
+    const classes = ['uds-hero', `uds-hero--${variant}`, `uds-hero--${size}`, className]
+      .filter(Boolean)
+      .join(' ');
 
     return (
       <section ref={ref} className={classes} {...props}>
@@ -61,7 +78,7 @@ export const Hero = React.forwardRef<HTMLElement, HeroProps>(
         {children}
       </section>
     );
-  }
+  },
 );
 
 Hero.displayName = 'Hero';

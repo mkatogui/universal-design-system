@@ -57,7 +57,7 @@ export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
         }
         if (e.key === 'Tab' && modalRef.current) {
           const focusable = modalRef.current.querySelectorAll<HTMLElement>(
-            'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+            'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
           );
           if (focusable.length === 0) return;
           const first = focusable[0];
@@ -71,7 +71,7 @@ export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
           }
         }
       },
-      [onClose]
+      [onClose],
     );
 
     useEffect(() => {
@@ -81,7 +81,7 @@ export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
         document.body.style.overflow = 'hidden';
         requestAnimationFrame(() => {
           const focusable = modalRef.current?.querySelectorAll<HTMLElement>(
-            'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+            'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
           );
           if (focusable && focusable.length > 0) {
             focusable[0].focus();
@@ -97,15 +97,18 @@ export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
 
     if (!open) return null;
 
-    const classes = [
-      'uds-modal',
-      `uds-modal--${variant}`,
-      `uds-modal--${size}`,
-      className,
-    ].filter(Boolean).join(' ');
+    const classes = ['uds-modal', `uds-modal--${variant}`, `uds-modal--${size}`, className]
+      .filter(Boolean)
+      .join(' ');
 
     return createPortal(
-      <div className="uds-modal-overlay" onClick={(e) => { if (e.target === e.currentTarget) onClose(); }} role="presentation">
+      <div
+        className="uds-modal-overlay"
+        onClick={(e) => {
+          if (e.target === e.currentTarget) onClose();
+        }}
+        role="presentation"
+      >
         <div
           ref={(node) => {
             (modalRef as React.MutableRefObject<HTMLDivElement | null>).current = node;
@@ -120,8 +123,21 @@ export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
           {title && (
             <div className="uds-modal__header">
               <h2 className="uds-modal__title">{title}</h2>
-              <button className="uds-modal__close" onClick={onClose} aria-label="Close dialog" type="button">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+              <button
+                className="uds-modal__close"
+                onClick={onClose}
+                aria-label="Close dialog"
+                type="button"
+              >
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  aria-hidden="true"
+                >
                   <path d="M18 6L6 18M6 6l12 12" />
                 </svg>
               </button>
@@ -131,9 +147,9 @@ export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
           {actions && <div className="uds-modal__footer">{actions}</div>}
         </div>
       </div>,
-      document.body
+      document.body,
     );
-  }
+  },
 );
 
 Modal.displayName = 'Modal';

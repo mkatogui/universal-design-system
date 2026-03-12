@@ -46,10 +46,7 @@ export interface BreadcrumbProps extends React.HTMLAttributes<HTMLElement> {
  */
 export const Breadcrumb = React.forwardRef<HTMLElement, BreadcrumbProps>(
   ({ items, separator = '/', maxItems, className, ...props }, ref) => {
-    const classes = [
-      'uds-breadcrumb',
-      className,
-    ].filter(Boolean).join(' ');
+    const classes = ['uds-breadcrumb', className].filter(Boolean).join(' ');
 
     let displayItems = items;
     const truncated = maxItems && items.length > maxItems;
@@ -72,10 +69,7 @@ export const Breadcrumb = React.forwardRef<HTMLElement, BreadcrumbProps>(
                     {item.label}
                   </a>
                 ) : (
-                  <span
-                    className="uds-breadcrumb__text"
-                    aria-current={isLast ? 'page' : undefined}
-                  >
+                  <span className="uds-breadcrumb__text" aria-current={isLast ? 'page' : undefined}>
                     {item.label}
                   </span>
                 )}
@@ -90,7 +84,7 @@ export const Breadcrumb = React.forwardRef<HTMLElement, BreadcrumbProps>(
         </ol>
       </nav>
     );
-  }
+  },
 );
 
 Breadcrumb.displayName = 'Breadcrumb';

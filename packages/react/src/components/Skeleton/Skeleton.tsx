@@ -39,7 +39,9 @@ export const Skeleton = React.forwardRef<HTMLDivElement, SkeletonProps>(
       `uds-skeleton--${size}`,
       animated && 'uds-skeleton--animated',
       className,
-    ].filter(Boolean).join(' ');
+    ]
+      .filter(Boolean)
+      .join(' ');
 
     const renderContent = () => {
       switch (variant) {
@@ -51,7 +53,11 @@ export const Skeleton = React.forwardRef<HTMLDivElement, SkeletonProps>(
               <div className="uds-skeleton__image" aria-hidden="true" />
               <div className="uds-skeleton__lines" aria-hidden="true">
                 {Array.from({ length: lines }, (_, i) => (
-                  <div key={i} className="uds-skeleton__line" style={{ width: i === lines - 1 ? '60%' : '100%' }} />
+                  <div
+                    key={i}
+                    className="uds-skeleton__line"
+                    style={{ width: i === lines - 1 ? '60%' : '100%' }}
+                  />
                 ))}
               </div>
             </>
@@ -72,7 +78,11 @@ export const Skeleton = React.forwardRef<HTMLDivElement, SkeletonProps>(
           return (
             <div className="uds-skeleton__lines" aria-hidden="true">
               {Array.from({ length: lines }, (_, i) => (
-                <div key={i} className="uds-skeleton__line" style={{ width: i === lines - 1 ? '60%' : '100%' }} />
+                <div
+                  key={i}
+                  className="uds-skeleton__line"
+                  style={{ width: i === lines - 1 ? '60%' : '100%' }}
+                />
               ))}
             </div>
           );
@@ -84,7 +94,7 @@ export const Skeleton = React.forwardRef<HTMLDivElement, SkeletonProps>(
         {renderContent()}
       </div>
     );
-  }
+  },
 );
 
 Skeleton.displayName = 'Skeleton';

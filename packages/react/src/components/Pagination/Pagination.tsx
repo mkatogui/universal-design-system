@@ -34,7 +34,18 @@ export interface PaginationProps extends React.HTMLAttributes<HTMLElement> {
  * ```
  */
 export const Pagination = React.forwardRef<HTMLElement, PaginationProps>(
-  ({ variant = 'numbered', size = 'md', currentPage, totalPages, onPageChange, className, ...props }, ref) => {
+  (
+    {
+      variant = 'numbered',
+      size = 'md',
+      currentPage,
+      totalPages,
+      onPageChange,
+      className,
+      ...props
+    },
+    ref,
+  ) => {
     const handlePrev = useCallback(() => {
       if (currentPage > 1) onPageChange(currentPage - 1);
     }, [currentPage, onPageChange]);
@@ -48,7 +59,9 @@ export const Pagination = React.forwardRef<HTMLElement, PaginationProps>(
       `uds-pagination--${variant}`,
       `uds-pagination--${size}`,
       className,
-    ].filter(Boolean).join(' ');
+    ]
+      .filter(Boolean)
+      .join(' ');
 
     if (variant === 'load-more') {
       return (
@@ -68,13 +81,25 @@ export const Pagination = React.forwardRef<HTMLElement, PaginationProps>(
     if (variant === 'simple') {
       return (
         <nav ref={ref} className={classes} aria-label="Pagination" {...props}>
-          <button className="uds-pagination__prev" onClick={handlePrev} disabled={currentPage <= 1} aria-label="Previous page" type="button">
+          <button
+            className="uds-pagination__prev"
+            onClick={handlePrev}
+            disabled={currentPage <= 1}
+            aria-label="Previous page"
+            type="button"
+          >
             Previous
           </button>
           <span className="uds-pagination__info">
             Page {currentPage} of {totalPages}
           </span>
-          <button className="uds-pagination__next" onClick={handleNext} disabled={currentPage >= totalPages} aria-label="Next page" type="button">
+          <button
+            className="uds-pagination__next"
+            onClick={handleNext}
+            disabled={currentPage >= totalPages}
+            aria-label="Next page"
+            type="button"
+          >
             Next
           </button>
         </nav>
@@ -97,17 +122,30 @@ export const Pagination = React.forwardRef<HTMLElement, PaginationProps>(
 
     return (
       <nav ref={ref} className={classes} aria-label="Pagination" {...props}>
-        <button className="uds-pagination__prev" onClick={handlePrev} disabled={currentPage <= 1} aria-label="Previous page" type="button">
+        <button
+          className="uds-pagination__prev"
+          onClick={handlePrev}
+          disabled={currentPage <= 1}
+          aria-label="Previous page"
+          type="button"
+        >
           Previous
         </button>
         <ol className="uds-pagination__list">
           {getPageNumbers().map((page, i) =>
             page === '...' ? (
-              <li key={`ellipsis-${i}`} className="uds-pagination__ellipsis" aria-hidden="true">...</li>
+              <li key={`ellipsis-${i}`} className="uds-pagination__ellipsis" aria-hidden="true">
+                ...
+              </li>
             ) : (
               <li key={page}>
                 <button
-                  className={['uds-pagination__page', page === currentPage && 'uds-pagination__page--active'].filter(Boolean).join(' ')}
+                  className={[
+                    'uds-pagination__page',
+                    page === currentPage && 'uds-pagination__page--active',
+                  ]
+                    .filter(Boolean)
+                    .join(' ')}
                   onClick={() => onPageChange(page)}
                   aria-current={page === currentPage ? 'page' : undefined}
                   aria-label={`Page ${page}`}
@@ -116,15 +154,21 @@ export const Pagination = React.forwardRef<HTMLElement, PaginationProps>(
                   {page}
                 </button>
               </li>
-            )
+            ),
           )}
         </ol>
-        <button className="uds-pagination__next" onClick={handleNext} disabled={currentPage >= totalPages} aria-label="Next page" type="button">
+        <button
+          className="uds-pagination__next"
+          onClick={handleNext}
+          disabled={currentPage >= totalPages}
+          aria-label="Next page"
+          type="button"
+        >
           Next
         </button>
       </nav>
     );
-  }
+  },
 );
 
 Pagination.displayName = 'Pagination';

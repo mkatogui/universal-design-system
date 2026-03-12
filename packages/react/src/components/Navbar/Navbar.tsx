@@ -45,7 +45,23 @@ export interface NavbarProps extends React.HTMLAttributes<HTMLElement> {
  * ```
  */
 export const Navbar = React.forwardRef<HTMLElement, NavbarProps>(
-  ({ variant = 'standard', size = 'desktop', sticky, blurOnScroll, ctaButton, darkModeToggle, logo, mobileOpen, onMobileToggle, className, children, ...props }, ref) => {
+  (
+    {
+      variant = 'standard',
+      size = 'desktop',
+      sticky,
+      blurOnScroll,
+      ctaButton,
+      darkModeToggle,
+      logo,
+      mobileOpen,
+      onMobileToggle,
+      className,
+      children,
+      ...props
+    },
+    ref,
+  ) => {
     const classes = [
       'uds-navbar',
       `uds-navbar--${variant}`,
@@ -53,7 +69,9 @@ export const Navbar = React.forwardRef<HTMLElement, NavbarProps>(
       sticky && 'uds-navbar--sticky',
       blurOnScroll && 'uds-navbar--blur',
       className,
-    ].filter(Boolean).join(' ');
+    ]
+      .filter(Boolean)
+      .join(' ');
 
     return (
       <nav ref={ref} className={classes} aria-label="Main navigation" {...props}>
@@ -67,7 +85,11 @@ export const Navbar = React.forwardRef<HTMLElement, NavbarProps>(
         >
           <span className="uds-navbar__hamburger" aria-hidden="true" />
         </button>
-        <div className={['uds-navbar__menu', mobileOpen && 'uds-navbar__menu--open'].filter(Boolean).join(' ')}>
+        <div
+          className={['uds-navbar__menu', mobileOpen && 'uds-navbar__menu--open']
+            .filter(Boolean)
+            .join(' ')}
+        >
           {children}
         </div>
         <div className="uds-navbar__actions">
@@ -76,7 +98,7 @@ export const Navbar = React.forwardRef<HTMLElement, NavbarProps>(
         </div>
       </nav>
     );
-  }
+  },
 );
 
 Navbar.displayName = 'Navbar';

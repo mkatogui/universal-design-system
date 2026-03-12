@@ -40,20 +40,38 @@ export interface AvatarProps extends React.HTMLAttributes<HTMLDivElement> {
  * ```
  */
 export const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>(
-  ({ variant = 'image', size = 'md', src, alt, initials, status, fallback, className, children, ...props }, ref) => {
+  (
+    {
+      variant = 'image',
+      size = 'md',
+      src,
+      alt,
+      initials,
+      status,
+      fallback,
+      className,
+      children,
+      ...props
+    },
+    ref,
+  ) => {
     const [imgError, setImgError] = React.useState(false);
 
-    const classes = [
-      'uds-avatar',
-      `uds-avatar--${variant}`,
-      `uds-avatar--${size}`,
-      className,
-    ].filter(Boolean).join(' ');
+    const classes = ['uds-avatar', `uds-avatar--${variant}`, `uds-avatar--${size}`, className]
+      .filter(Boolean)
+      .join(' ');
 
     const renderContent = () => {
       if (variant === 'group') return children;
       if (src && !imgError) {
-        return <img className="uds-avatar__image" src={src} alt={alt || ''} onError={() => setImgError(true)} />;
+        return (
+          <img
+            className="uds-avatar__image"
+            src={src}
+            alt={alt || ''}
+            onError={() => setImgError(true)}
+          />
+        );
       }
       if (initials) {
         return <span className="uds-avatar__initials">{initials}</span>;
@@ -66,11 +84,14 @@ export const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>(
       <div ref={ref} className={classes} aria-label={alt || initials || undefined} {...props}>
         {renderContent()}
         {status && (
-          <span className={`uds-avatar__status uds-avatar__status--${status}`} aria-label={status} />
+          <span
+            className={`uds-avatar__status uds-avatar__status--${status}`}
+            aria-label={status}
+          />
         )}
       </div>
     );
-  }
+  },
 );
 
 Avatar.displayName = 'Avatar';

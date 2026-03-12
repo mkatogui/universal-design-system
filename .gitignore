@@ -29,6 +29,12 @@ __pycache__/
 venv/
 .env
 
+# Coverage
+coverage/
+
+# SonarCloud
+.scannerwork/
+
 # Temporary
 *.tmp
 *.log

@@ -37,8 +37,22 @@ export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElem
  * ```
  */
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ variant = 'text', size = 'md', label, helperText, errorText, required, className, id, ...props }, ref) => {
-    const inputId = id || (label ? `uds-input-${label.toLowerCase().replace(/\s+/g, '-')}` : undefined);
+  (
+    {
+      variant = 'text',
+      size = 'md',
+      label,
+      helperText,
+      errorText,
+      required,
+      className,
+      id,
+      ...props
+    },
+    ref,
+  ) => {
+    const inputId =
+      id || (label ? `uds-input-${label.toLowerCase().replace(/\s+/g, '-')}` : undefined);
     const errorId = inputId ? `${inputId}-error` : undefined;
     const helperId = inputId ? `${inputId}-helper` : undefined;
 
@@ -47,7 +61,9 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
       `uds-input--${size}`,
       errorText && 'uds-input--error',
       className,
-    ].filter(Boolean).join(' ');
+    ]
+      .filter(Boolean)
+      .join(' ');
 
     const describedBy = errorText ? errorId : helperText ? helperId : undefined;
 
@@ -56,7 +72,12 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
         {label && (
           <label className="uds-input__label" htmlFor={inputId}>
             {label}
-            {required && <span className="uds-input__required" aria-hidden="true"> *</span>}
+            {required && (
+              <span className="uds-input__required" aria-hidden="true">
+                {' '}
+                *
+              </span>
+            )}
           </label>
         )}
         {variant === 'textarea' ? (
@@ -82,11 +103,19 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
             {...props}
           />
         )}
-        {errorText && <p className="uds-input__error" id={errorId} role="alert">{errorText}</p>}
-        {!errorText && helperText && <p className="uds-input__helper" id={helperId}>{helperText}</p>}
+        {errorText && (
+          <p className="uds-input__error" id={errorId} role="alert">
+            {errorText}
+          </p>
+        )}
+        {!errorText && helperText && (
+          <p className="uds-input__helper" id={helperId}>
+            {helperText}
+          </p>
+        )}
       </div>
     );
-  }
+  },
 );
 
 Input.displayName = 'Input';

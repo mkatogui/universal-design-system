@@ -70,7 +70,21 @@ export interface SideNavProps extends React.HTMLAttributes<HTMLElement> {
  * ```
  */
 export const SideNav = React.forwardRef<HTMLElement, SideNavProps>(
-  ({ variant = 'default', size = 'default', items, sections, collapsed, activeItem, onNavigate, className, children, ...props }, ref) => {
+  (
+    {
+      variant = 'default',
+      size = 'default',
+      items,
+      sections,
+      collapsed,
+      activeItem,
+      onNavigate,
+      className,
+      children,
+      ...props
+    },
+    ref,
+  ) => {
     const handleClick = useCallback(
       (href: string | undefined, e: React.MouseEvent) => {
         if (href && onNavigate) {
@@ -78,7 +92,7 @@ export const SideNav = React.forwardRef<HTMLElement, SideNavProps>(
           onNavigate(href);
         }
       },
-      [onNavigate]
+      [onNavigate],
     );
 
     const classes = [
@@ -87,12 +101,19 @@ export const SideNav = React.forwardRef<HTMLElement, SideNavProps>(
       `uds-side-nav--${size}`,
       collapsed && 'uds-side-nav--collapsed',
       className,
-    ].filter(Boolean).join(' ');
+    ]
+      .filter(Boolean)
+      .join(' ');
 
     const renderItem = (item: SideNavItem, index: number) => {
       const isActive = item.active || item.href === activeItem;
       return (
-        <li key={index} className={['uds-side-nav__item', isActive && 'uds-side-nav__item--active'].filter(Boolean).join(' ')}>
+        <li
+          key={index}
+          className={['uds-side-nav__item', isActive && 'uds-side-nav__item--active']
+            .filter(Boolean)
+            .join(' ')}
+        >
           <a
             className="uds-side-nav__link"
             href={item.href || '#'}
@@ -125,14 +146,12 @@ export const SideNav = React.forwardRef<HTMLElement, SideNavProps>(
             </div>
           ))
         ) : items ? (
-          <ul className="uds-side-nav__list">
-            {items.map((item, i) => renderItem(item, i))}
-          </ul>
+          <ul className="uds-side-nav__list">{items.map((item, i) => renderItem(item, i))}</ul>
         ) : null}
         {children}
       </nav>
     );
-  }
+  },
 );
 
 SideNav.displayName = 'SideNav';
