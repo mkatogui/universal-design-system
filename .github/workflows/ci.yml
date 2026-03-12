@@ -71,10 +71,13 @@ jobs:
       - name: Check for accessibility tests
         id: check
         run: |
-          if ls tests/accessibility/*.spec.ts 1>/dev/null 2>&1; then
+          count=$(find tests/accessibility -name '*.spec.ts' 2>/dev/null | wc -l)
+          echo "count=$count" >> "$GITHUB_OUTPUT"
+          if [ "$count" -gt 0 ]; then
             echo "has_tests=true" >> "$GITHUB_OUTPUT"
           else
             echo "has_tests=false" >> "$GITHUB_OUTPUT"
+            echo "No accessibility test files found, skipping."
           fi
 
       - name: Setup Node.js
