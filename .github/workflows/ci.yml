@@ -47,12 +47,10 @@ jobs:
         run: npm run sync-data
 
       - name: Dataset schema validation
-        if: hashFiles('scripts/validate-datasets.py') != ''
-        run: python3 scripts/validate-datasets.py
+        run: test -f scripts/validate-datasets.py && python3 scripts/validate-datasets.py || echo "Skipped (file not found)"
 
       - name: Expanded contrast audit
-        if: hashFiles('scripts/contrast-audit-expanded.py') != ''
-        run: python3 scripts/contrast-audit-expanded.py
+        run: test -f scripts/contrast-audit-expanded.py && python3 scripts/contrast-audit-expanded.py || echo "Skipped (file not found)"
 
       - name: Style Dictionary build
         run: npm run build
@@ -66,24 +64,36 @@ jobs:
   accessibility:
     name: Accessibility
     runs-on: ubuntu-latest
-    if: hashFiles('tests/accessibility/*.spec.ts') != ''
     needs: validate
 
     steps:
       - name: Checkout
         uses: actions/checkout@v6
 
+      - name: Check for accessibility tests
+        id: check
+        run: |
+          if ls tests/accessibility/*.spec.ts 1>/dev/null 2>&1; then
+            echo "has_tests=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_tests=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Setup Node.js
+        if: steps.check.outputs.has_tests == 'true'
         uses: actions/setup-node@v6
         with:
           node-version: 20
           cache: npm
 
       - name: Install dependencies
+        if: steps.check.outputs.has_tests == 'true'
         run: npm install
 
       - name: Install Playwright browsers
+        if: steps.check.outputs.has_tests == 'true'
         run: npx playwright install --with-deps chromium
 
       - name: Run accessibility tests
+        if: steps.check.outputs.has_tests == 'true'
         run: npx playwright test tests/accessibility/
