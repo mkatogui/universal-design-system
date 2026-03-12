@@ -125,15 +125,15 @@
 
   <!-- Stats row -->
   <g font-family="'SF Pro Text', 'Inter', system-ui, -apple-system, sans-serif" text-anchor="middle" transform="translate(0, 385)">
-    <!-- 496 Tokens -->
-    <text x="280" y="0" font-size="32" font-weight="700" fill="#ffffff">496</text>
+    <!-- 530 Tokens -->
+    <text x="280" y="0" font-size="32" font-weight="700" fill="#ffffff">530</text>
     <text x="280" y="24" font-size="14" font-weight="500" fill="#93C5FD" letter-spacing="1.5" text-transform="uppercase">TOKENS</text>
 
     <!-- Divider -->
     <line x1="400" y1="-20" x2="400" y2="30" stroke="#ffffff" stroke-opacity="0.15" stroke-width="1"/>
 
-    <!-- 31 Components -->
-    <text x="507" y="0" font-size="32" font-weight="700" fill="#ffffff">31</text>
+    <!-- 32 Components -->
+    <text x="507" y="0" font-size="32" font-weight="700" fill="#ffffff">32</text>
     <text x="507" y="24" font-size="14" font-weight="500" fill="#93C5FD" letter-spacing="1.5">COMPONENTS</text>
 
     <!-- Divider -->

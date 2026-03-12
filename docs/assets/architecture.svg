@@ -58,8 +58,8 @@
   <text x="326" y="103" class="layer-label">LAYER 2</text>
   <text x="326" y="120" class="stage-title">BM25</text>
   <text x="326" y="133" class="stage-title">Search</text>
-  <text x="326" y="151" class="stage-stat">17 CSV databases</text>
-  <text x="326" y="164" class="stage-stat">1,500+ rows</text>
+  <text x="326" y="151" class="stage-stat">16 CSV databases</text>
+  <text x="326" y="164" class="stage-stat">1,528 rows</text>
 
   <!-- Arrow 3 -->
   <line x1="384" y1="130" x2="406" y2="130" class="arrow" />
@@ -71,7 +71,7 @@
   <text x="465" y="103" class="layer-label">LAYER 3</text>
   <text x="465" y="120" class="stage-title">Rule</text>
   <text x="465" y="133" class="stage-title">Engine</text>
-  <text x="465" y="151" class="stage-stat">165 rules</text>
+  <text x="465" y="151" class="stage-stat">~170 rules</text>
   <text x="465" y="164" class="stage-stat">55 anti-patterns</text>
 
   <!-- Arrow 4 -->
@@ -83,9 +83,9 @@
   </g>
   <text x="604" y="110" class="stage-title">Token</text>
   <text x="604" y="123" class="stage-title">Resolution</text>
-  <text x="604" y="141" class="stage-stat">496 tokens</text>
+  <text x="604" y="141" class="stage-stat">530 tokens</text>
   <text x="604" y="154" class="stage-stat">9 palettes</text>
-  <text x="604" y="167" class="stage-stat">31 components</text>
+  <text x="604" y="167" class="stage-stat">32 components</text>
 
   <!-- Arrow 5 -->
   <line x1="662" y1="130" x2="684" y2="130" class="arrow" />
