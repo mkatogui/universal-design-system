@@ -4,7 +4,15 @@
  */
 
 import { createInterface } from "node:readline";
+import { readFileSync, existsSync } from "node:fs";
+import { resolve, dirname } from "node:path";
+import { fileURLToPath } from "node:url";
 import { installCommand } from "./install.js";
+
+const __filename_init = fileURLToPath(import.meta.url);
+const __dirname_init = dirname(__filename_init);
+const CLI_ROOT = resolve(__dirname_init, "..", "..");
+const PKG_ROOT = resolve(CLI_ROOT, "..");
 
 // ANSI helpers
 const bold = (s: string) => `\x1b[1m${s}\x1b[0m`;
@@ -17,7 +25,7 @@ interface Choice {
   description?: string;
 }
 
-const PALETTES: Choice[] = [
+const BUILTIN_PALETTES: Choice[] = [
   { title: "Minimal SaaS", value: "minimal-saas", description: "Clean, professional — SaaS, productivity" },
   { title: "AI Futuristic", value: "ai-futuristic", description: "Dark, neon — AI products, dev tools" },
   { title: "Gradient Startup", value: "gradient-startup", description: "Bold, vibrant — Startups, MVPs" },
@@ -28,6 +36,23 @@ const PALETTES: Choice[] = [
   { title: "Bold Lifestyle", value: "bold-lifestyle", description: "Hard edges — Fashion, media" },
   { title: "Minimal Corporate", value: "minimal-corporate", description: "Warm neutrals — Legal, consulting" },
 ];
+
+function loadPalettes(): Choice[] {
+  const palettes = [...BUILTIN_PALETTES];
+  try {
+    const registryPath = resolve(PKG_ROOT, "tokens", "palette-registry.json");
+    if (existsSync(registryPath)) {
+      const registry = JSON.parse(readFileSync(registryPath, "utf-8"));
+      const custom = registry.custom || [];
+      for (const p of custom) {
+        const name = p.name as string;
+        const title = name.split("-").map((w: string) => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
+        palettes.push({ title: `${title} (custom)`, value: name, description: `Custom palette — ${(p.source_colors || []).join(", ")}` });
+      }
+    }
+  } catch { /* fallback to built-in only */ }
+  return palettes;
+}
 
 const PLATFORMS: Choice[] = [
   { title: "Claude Code", value: "claude" },
@@ -93,7 +118,7 @@ export async function initCommand(): Promise<void> {
     return;
   }
 
-  const palette = await selectPrompt("Default palette?", PALETTES);
+  const palette = await selectPrompt("Default palette?", loadPalettes());
   if (!palette) {
     console.log(dim("\n  Setup cancelled.\n"));
     return;

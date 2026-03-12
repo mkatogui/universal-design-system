@@ -13,8 +13,16 @@ import json
 import argparse
 import math
 import re
+import sys
 from datetime import datetime
 from pathlib import Path
+
+# Dynamic palette registry
+sys.path.insert(0, str(Path(__file__).parent.parent / "src" / "scripts"))
+try:
+    from registry import get_all_palettes
+except ImportError:
+    get_all_palettes = None
 
 
 def hex_to_rgb(hex_color: str) -> tuple:
@@ -99,17 +107,20 @@ def run_audit(tokens_path: str, output_path: str):
 
     # Extract palette data from the HTML docs if tokens don't have
     # structured palette data — fall back to known palette definitions
-    palette_names = [
-        "ai-futuristic",
-        "gradient-startup",
-        "corporate",
-        "apple-minimal",
-        "illustration",
-        "dashboard",
-        "bold-lifestyle",
-        "minimal-corporate",
-        "minimal-saas",
-    ]
+    if get_all_palettes:
+        palette_names = get_all_palettes()
+    else:
+        palette_names = [
+            "ai-futuristic",
+            "gradient-startup",
+            "corporate",
+            "apple-minimal",
+            "illustration",
+            "dashboard",
+            "bold-lifestyle",
+            "minimal-corporate",
+            "minimal-saas",
+        ]
 
     modes = ["light", "dark"]
 

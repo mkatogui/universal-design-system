@@ -21,3 +21,5 @@ export type { ToggleProps } from './components/Toggle';
 
 export { Tabs } from './components/Tabs';
 export type { TabsProps, TabItem } from './components/Tabs';
+
+export { loadCustomPalette, unloadCustomPalette } from './utils/loadPalette';

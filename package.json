@@ -17,6 +17,8 @@
     "search": "python3 src/scripts/search.py",
     "generate": "python3 src/scripts/design_system.py",
     "sync-data": "python3 src/data/_sync_all.py",
+    "inject-palettes": "python3 scripts/inject-custom-palettes.py",
+    "palette": "python3 src/scripts/palette.py",
     "build:react": "cd packages/react && npm run build"
   },
   "keywords": [

@@ -15,6 +15,7 @@ import { installCommand } from "./commands/install.js";
 import { searchCommand } from "./commands/search.js";
 import { generateCommand, tailwindCommand } from "./commands/generate.js";
 import { initCommand } from "./commands/init.js";
+import { paletteCommand } from "./commands/palette.js";
 
 const VERSION = "0.1.1";
 
@@ -68,6 +69,7 @@ function showHelp(): void {
     generate <query>     Generate a full design system specification
     tailwind <query>     Generate a Tailwind CSS config from tokens
     init                 Interactive setup — choose platform, palette, and framework
+    palette <sub>        Manage custom palettes (create, preview, list, remove, export)
 
   Options (install):
     -p, --platform <name>   Target platform (auto-detected if omitted)
@@ -81,6 +83,12 @@ function showHelp(): void {
   Options (generate):
     -f, --format <format>   Output format (markdown, json, tailwind)
     --framework <name>      Framework-specific output (react, vue, svelte)
+
+  Options (palette):
+    --name <name>           Palette name (slug, e.g. 'my-brand')
+    --colors <hex,...>      Comma-separated hex colors (1-5)
+    --shape <preset>        Shape preset (sharp, balanced, round, brutalist)
+    --format <format>       Export format (css, json)
 
   Global:
     -V, --version           Show version number
@@ -143,6 +151,19 @@ async function main(): Promise<void> {
 
     case "init":
       await initCommand();
+      break;
+
+    case "palette":
+      if (!positional[0]) {
+        console.error("  Error: palette requires a subcommand\n  Usage: uds palette <create|preview|list|remove|export> [options]");
+        process.exit(1);
+      }
+      await paletteCommand(positional[0], {
+        name: (flags.name || flags.n) as string | undefined,
+        colors: flags.colors as string | undefined,
+        shape: flags.shape as string | undefined,
+        format: (flags.format || flags.f) as string | undefined,
+      });
       break;
 
     case "help":

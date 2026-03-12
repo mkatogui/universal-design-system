@@ -15,6 +15,14 @@ import json
 import sys
 from pathlib import Path
 
+# Dynamic palette registry
+sys.path.insert(0, str(Path(__file__).parent.parent / "src" / "scripts"))
+try:
+    from registry import get_all_palettes, get_builtin_palettes
+except ImportError:
+    get_all_palettes = None
+    get_builtin_palettes = None
+
 
 def validate_dtcg_format(tokens: dict, path: str) -> list:
     """Validate W3C Design Token Community Group format."""
@@ -61,17 +69,22 @@ def validate_palette_structural_tokens(tokens: dict, path: str) -> list:
         tokens.get("typography", {}).get("fontFamily", {}).get("palette-overrides", {})
     )
 
-    expected_palettes = [
-        "ai-futuristic",
-        "gradient-startup",
-        "corporate",
-        "apple-minimal",
-        "illustration",
-        "dashboard",
-        "bold-lifestyle",
-        "minimal-corporate",
-        "minimal-saas",
-    ]
+    # Only check built-in palettes for radius palette-overrides
+    # (custom palettes store radius in their figma-tokens theme entry)
+    if get_builtin_palettes:
+        expected_palettes = get_builtin_palettes()
+    else:
+        expected_palettes = [
+            "ai-futuristic",
+            "gradient-startup",
+            "corporate",
+            "apple-minimal",
+            "illustration",
+            "dashboard",
+            "bold-lifestyle",
+            "minimal-corporate",
+            "minimal-saas",
+        ]
 
     for palette in expected_palettes:
         if palette not in radius_overrides and palette != "minimal-saas":
@@ -107,17 +120,20 @@ def validate_figma_tokens(figma_tokens: dict, path: str) -> list:
     """Validate Figma token file structure."""
     errors = []
 
-    expected_themes = [
-        "theme/ai-futuristic",
-        "theme/gradient-startup",
-        "theme/corporate",
-        "theme/apple-minimal",
-        "theme/illustration",
-        "theme/dashboard",
-        "theme/bold-lifestyle",
-        "theme/minimal-corporate",
-        "theme/minimal-saas",
-    ]
+    if get_all_palettes:
+        expected_themes = [f"theme/{p}" for p in get_all_palettes()]
+    else:
+        expected_themes = [
+            "theme/ai-futuristic",
+            "theme/gradient-startup",
+            "theme/corporate",
+            "theme/apple-minimal",
+            "theme/illustration",
+            "theme/dashboard",
+            "theme/bold-lifestyle",
+            "theme/minimal-corporate",
+            "theme/minimal-saas",
+        ]
 
     for theme in expected_themes:
         if theme not in figma_tokens:

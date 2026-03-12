@@ -18,17 +18,23 @@ from pathlib import Path
 
 DATA_DIR = Path(__file__).parent
 
-VALID_PALETTES = [
-    "minimal-saas",
-    "ai-futuristic",
-    "gradient-startup",
-    "corporate",
-    "apple-minimal",
-    "illustration",
-    "dashboard",
-    "bold-lifestyle",
-    "minimal-corporate",
-]
+# Dynamic palette registry
+sys.path.insert(0, str(Path(__file__).parent.parent / "scripts"))
+try:
+    from registry import get_all_palettes
+    VALID_PALETTES = get_all_palettes()
+except ImportError:
+    VALID_PALETTES = [
+        "minimal-saas",
+        "ai-futuristic",
+        "gradient-startup",
+        "corporate",
+        "apple-minimal",
+        "illustration",
+        "dashboard",
+        "bold-lifestyle",
+        "minimal-corporate",
+    ]
 
 FILE_SCHEMAS = {
     "products.csv": {

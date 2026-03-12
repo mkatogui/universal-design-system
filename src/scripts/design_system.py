@@ -23,6 +23,11 @@ from pathlib import Path
 # Add parent dir to path for imports
 sys.path.insert(0, str(Path(__file__).parent))
 from core import ReasoningEngine, load_csv
+try:
+    from registry import get_all_palettes, get_custom_palette_names
+except ImportError:
+    get_all_palettes = None
+    get_custom_palette_names = None
 
 TOKENS_PATH = Path(__file__).parent.parent.parent / "tokens" / "design-tokens.json"
 
@@ -188,6 +193,13 @@ PALETTE_DISPLAY_NAMES = {
     "bold-lifestyle": "Bold Lifestyle",
     "minimal-corporate": "Minimal Corporate",
 }
+
+# Add custom palettes from registry
+if get_custom_palette_names:
+    for name in get_custom_palette_names():
+        if name not in PALETTE_DISPLAY_NAMES:
+            display = " ".join(w.capitalize() for w in name.split("-"))
+            PALETTE_DISPLAY_NAMES[name] = display
 
 
 def load_tokens() -> dict:

@@ -19,6 +19,14 @@ import sys
 import argparse
 from pathlib import Path
 
+# Dynamic palette registry
+sys.path.insert(0, str(Path(__file__).parent.parent / "src" / "scripts"))
+try:
+    from registry import get_all_palettes, get_builtin_palettes
+except ImportError:
+    get_all_palettes = None
+    get_builtin_palettes = None
+
 
 def verify_no_hardcoded_radius(html: str) -> list:
     """Check that component CSS uses var(--radius-*) not hardcoded px."""
@@ -55,17 +63,21 @@ def verify_no_hardcoded_radius(html: str) -> list:
 def verify_palette_definitions(html: str) -> list:
     """Verify all 9 palettes have CSS definitions."""
     errors = []
-    palettes = [
-        "ai-futuristic",
-        "gradient-startup",
-        "corporate",
-        "apple-minimal",
-        "illustration",
-        "dashboard",
-        "bold-lifestyle",
-        "minimal-corporate",
-        "minimal-saas",
-    ]
+    # Only check built-in palettes in docs (custom palettes injected separately)
+    if get_builtin_palettes:
+        palettes = get_builtin_palettes()
+    else:
+        palettes = [
+            "ai-futuristic",
+            "gradient-startup",
+            "corporate",
+            "apple-minimal",
+            "illustration",
+            "dashboard",
+            "bold-lifestyle",
+            "minimal-corporate",
+            "minimal-saas",
+        ]
 
     for palette in palettes:
         light_pattern = f'[data-theme="{palette}"]'
