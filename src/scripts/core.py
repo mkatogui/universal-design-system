@@ -171,6 +171,21 @@ SECTOR_KEYWORDS = {
     "professional": ["consulting", "accounting", "hr", "recruiting", "staffing", "legal-tech"],
     "productivity": ["productivity", "project-management", "crm", "email", "notes", "collaboration"],
     "startup": ["startup", "mvp", "launch", "early-stage", "seed", "pitch"],
+    "sustainability": ["sustainability", "green", "eco", "carbon", "renewable", "climate", "environmental"],
+    "proptech": ["proptech", "property", "real-estate", "realestate", "rental", "tenant", "landlord", "mortgage"],
+    "automotive": ["automotive", "car", "vehicle", "fleet", "dealership", "auto", "ev", "electric-vehicle"],
+    "regtech": ["regtech", "regulation", "regulatory", "compliance-tech", "aml", "kyc"],
+    "legaltech": ["legaltech", "legal", "law", "attorney", "contract", "litigation", "paralegal"],
+    "agritech": ["agritech", "agriculture", "farming", "crop", "livestock", "harvest", "agronomic"],
+    "govtech": ["govtech", "government", "civic", "municipal", "public-sector", "citizen", "e-government"],
+    "cleantech": ["cleantech", "clean-energy", "solar", "wind-energy", "recycling", "waste-management"],
+    "insurtech": ["insurtech", "insurance-tech", "claims", "underwriting", "actuarial", "policy-management"],
+    "sporttech": ["sporttech", "sports", "athletics", "fitness-tech", "coaching", "training-analytics"],
+    "fashiontech": ["fashiontech", "fashion", "apparel", "clothing", "wardrobe", "style-tech", "textile"],
+    "foodtech": ["foodtech", "food", "recipe", "meal-planning", "nutrition-tech", "food-delivery"],
+    "musictech": ["musictech", "music", "audio", "streaming-music", "podcast", "sound-engineering"],
+    "pettech": ["pettech", "pet", "veterinary", "animal", "pet-care", "grooming"],
+    "spacetech": ["spacetech", "space", "satellite", "aerospace", "orbital", "rocket", "astronautic"],
 }
 
 PRODUCT_KEYWORDS = {

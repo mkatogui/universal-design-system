@@ -94,6 +94,48 @@ class TestTaxonomyAlignment(unittest.TestCase):
             f"'resort booking' detected as '{result['sector']}', expected 'hospitality'",
         )
 
+    def test_new_sectors_detected_correctly(self):
+        """Verify the 15 new sectors are detected from representative queries."""
+        detector = DomainDetector()
+        test_cases = [
+            ("sustainability green carbon renewable", "sustainability"),
+            ("proptech rental tenant landlord", "proptech"),
+            ("automotive vehicle fleet dealership", "automotive"),
+            ("regtech regulation aml kyc", "regtech"),
+            ("legaltech litigation paralegal", "legaltech"),
+            ("agritech agriculture farming crop", "agritech"),
+            ("govtech public-sector e-government", "govtech"),
+            ("cleantech clean-energy solar recycling", "cleantech"),
+            ("insurtech actuarial policy-management", "insurtech"),
+            ("sporttech athletics coaching training-analytics", "sporttech"),
+            ("fashiontech wardrobe style-tech textile", "fashiontech"),
+            ("foodtech meal-planning nutrition-tech food-delivery", "foodtech"),
+            ("musictech streaming-music sound-engineering", "musictech"),
+            ("pettech veterinary pet-care grooming", "pettech"),
+            ("spacetech satellite aerospace orbital rocket", "spacetech"),
+        ]
+        for query, expected in test_cases:
+            result = detector.detect(query)
+            self.assertEqual(
+                result["sector"],
+                expected,
+                f"Query '{query}' detected as '{result['sector']}', expected '{expected}'",
+            )
+
+    def test_new_sectors_exist_in_sector_keywords(self):
+        """Verify all 15 new sectors are present in SECTOR_KEYWORDS."""
+        new_sectors = [
+            "sustainability", "proptech", "automotive", "regtech", "legaltech",
+            "agritech", "govtech", "cleantech", "insurtech", "sporttech",
+            "fashiontech", "foodtech", "musictech", "pettech", "spacetech",
+        ]
+        for sector in new_sectors:
+            self.assertIn(
+                sector,
+                self.valid_sectors,
+                f"Sector '{sector}' missing from SECTOR_KEYWORDS",
+            )
+
     def test_product_keywords_cover_reasoning_rules(self):
         """Every product_type in ui-reasoning.csv must exist in PRODUCT_KEYWORDS."""
         from core import PRODUCT_KEYWORDS
