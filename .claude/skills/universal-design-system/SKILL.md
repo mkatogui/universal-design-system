@@ -1,6 +1,6 @@
 ---
 name: Universal Design System
-description: Production-grade AI-native design system with 9 structural palettes, 496 W3C DTCG tokens, 31 BEM components, BM25 reasoning engine, WCAG 2.1 AA compliance, Tailwind CSS generation, React/Vue/Svelte output, and industry-specific design rules across 1500+ data rows. Reverse-engineered from 100 modern websites.
+description: Production-grade AI-native design system with 9 structural palettes, 530 W3C DTCG tokens, 32 BEM components, BM25 reasoning engine, WCAG 2.1 AA compliance, Tailwind CSS generation, React/Vue/Svelte output, and industry-specific design rules across 1,528 data rows. Reverse-engineered from 100 modern websites.
 version: 0.1.0
 triggers:
   - design system
@@ -81,9 +81,9 @@ triggers:
 
 > Other tools tell AI what colors to use. We give it a complete, accessible, WCAG-validated design system it can ship.
 
-A production-grade AI-native design system reverse-engineered from 100 modern websites, distilled into one governed brand foundation with 9 structural palettes, 31 components, 8 patterns, and automated WCAG 2.1 AA compliance.
+A production-grade AI-native design system reverse-engineered from 100 modern websites, distilled into one governed brand foundation with 9 structural palettes, 32 components, 8 patterns, and automated WCAG 2.1 AA compliance.
 
-**Key stats:** 496 tokens | 31 components | 9 palettes | 100% WCAG AA | 1500+ data rows across 17 databases | BM25 reasoning engine | 165 product rules | 75 font pairings | 200+ icon libraries | Tailwind config generation | React/Vue/Svelte output | 20 AI platform support
+**Key stats:** 530 tokens | 32 components | 9 palettes | 100% WCAG AA | 1,528 data rows across 16 databases | BM25 reasoning engine | 170 product rules | 75 font pairings | 200+ icon libraries | Tailwind config generation | React/Vue/Svelte output | 20 AI platform support
 
 ---
 
@@ -99,12 +99,12 @@ Classify the user's request into sector and product type using keyword detection
 **Product types:** dashboard, landing-page, mobile-app, documentation, ecommerce, blog, saas-app, portfolio
 
 ### Step 2: Search Databases
-Use the BM25 reasoning engine (`src/scripts/core.py`) to search across 17 CSV databases and find relevant:
+Use the BM25 reasoning engine (`src/scripts/core.py`) to search across 16 CSV databases and find relevant:
 - Product category matches (165 products)
 - Style recommendations (60 styles)
 - Color palettes (165 industry palettes)
 - Typography pairings (75 font pairs)
-- Components needed (31 components)
+- Components needed (32 components)
 - Patterns to follow (15 patterns)
 - UX guidelines (80 guidelines)
 - Anti-patterns to avoid (55 anti-patterns)
@@ -115,7 +115,7 @@ Use the BM25 reasoning engine (`src/scripts/core.py`) to search across 17 CSV da
 - React Native component patterns (50 patterns)
 
 ### Step 3: Apply Rules
-Apply conditional design rules from `src/data/ui-reasoning.csv` (165 rules):
+Apply conditional design rules from `src/data/ui-reasoning.csv` (170 rules):
 - Sector → palette mapping
 - Product type → layout/component requirements
 - Audience → accessibility constraints
@@ -162,7 +162,7 @@ When generating a design system, evaluate and score each category (1-10):
 | Priority | Category | Weight | Description |
 |----------|----------|--------|-------------|
 | 1 | Palette Selection | 10 | The single most impactful decision. Determines color, shadow, radius, display font. |
-| 2 | Component Selection | 9 | Which of the 31 components are needed for this product. |
+| 2 | Component Selection | 9 | Which of the 32 components are needed for this product. |
 | 3 | Accessibility | 9 | WCAG 2.1 AA minimum. Color contrast, keyboard nav, screen readers. |
 | 4 | Typography | 8 | Font pairing, scale, weights. Must match palette mood. |
 | 5 | Layout & Spacing | 8 | Grid system, container widths, section spacing. |
@@ -690,7 +690,7 @@ Before presenting a design system to the user, verify:
 
 1. **Palette selected** — One of the 9 structural palettes chosen based on sector rules
 2. **Tokens resolved** — All CSS custom properties use `var()` (no hardcoded values)
-3. **Components listed** — Only components from the 31 in the library are referenced
+3. **Components listed** — Only components from the 32 in the library are referenced
 4. **Patterns applied** — Page layout follows one of the 8 pattern templates
 5. **Typography paired** — Font pairing matches palette mood from typography database
 6. **Accessibility checked** — WCAG AA contrast ratios verified for all color pairs
@@ -733,7 +733,7 @@ Before presenting a design system to the user, verify:
 ### Tokens
 | File | Description |
 |------|-------------|
-| tokens/design-tokens.json | W3C DTCG format (source of truth, 496 tokens) |
+| tokens/design-tokens.json | W3C DTCG format (source of truth, 530 tokens) |
 | tokens/figma-tokens.json | Figma Tokens Studio compatible |
 
 ### Validation
