@@ -81,7 +81,7 @@ function showHelp(): void {
     -j, --json              Output as JSON
 
   Options (generate):
-    -f, --format <format>   Output format (markdown, json, tailwind)
+    -f, --format <format>   Output format (markdown, json, tailwind, css-in-js)
     --framework <name>      Framework-specific output (react, vue, svelte)
 
   Options (palette):

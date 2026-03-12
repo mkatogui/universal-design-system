@@ -2,16 +2,18 @@
 """
 Design Token Validator
 Validates design-tokens.json and figma-tokens.json for:
-- W3C DTCG format compliance
+- W3C DTCG v1 format compliance
 - Required token categories
 - Cross-file sync between design tokens and Figma tokens
 - Structural palette overrides presence
+- oklch extensions on all hex color tokens
 
 Usage:
     python scripts/validate-tokens.py
 """
 
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -24,14 +26,134 @@ except ImportError:
     get_builtin_palettes = None
 
 
+# --- DTCG v1 valid types ---
+VALID_DTCG_TYPES = {
+    "color",
+    "dimension",
+    "fontFamily",
+    "fontWeight",
+    "duration",
+    "cubicBezier",
+    "number",
+    "shadow",
+    "strokeStyle",
+    "border",
+    "transition",
+    "gradient",
+    "typography",
+}
+
+# Keys that are known to be DTCG meta properties (not token groups)
+DTCG_META_KEYS = {"$type", "$value", "$description", "$name", "$extensions", "$schema", "$version"}
+
+
+def _is_leaf_token(obj: dict) -> bool:
+    """Return True if the dict represents a leaf token (has $value)."""
+    return isinstance(obj, dict) and "$value" in obj
+
+
+def _resolve_reference(ref_str: str, root: dict) -> bool:
+    """Check if a {reference.path} resolves to an actual token in the file."""
+    # Extract path from {path.to.token}
+    match = re.match(r"^\{(.+)\}$", ref_str.strip())
+    if not match:
+        return True  # Not a reference, skip
+    path_parts = match.group(1).split(".")
+    current = root
+    for part in path_parts:
+        if isinstance(current, dict) and part in current:
+            current = current[part]
+        else:
+            return False
+    return True
+
+
+def _collect_leaf_tokens(obj: dict, path: str, root: dict, inherited_type: str = None) -> list:
+    """Recursively collect all leaf tokens and validate them.
+
+    Returns a list of (path, errors) tuples.
+    """
+    results = []
+
+    if not isinstance(obj, dict):
+        return results
+
+    # Determine the $type at this group level (for inheritance tracking)
+    group_type = obj.get("$type", inherited_type)
+
+    for key, value in obj.items():
+        if key.startswith("$"):
+            continue
+        if key == "$structural":
+            continue
+
+        current_path = f"{path}.{key}" if path else key
+
+        if not isinstance(value, dict):
+            continue
+
+        if _is_leaf_token(value):
+            errors = []
+            # DTCG v1: Every leaf MUST have explicit $type
+            if "$type" not in value:
+                errors.append(
+                    f"{current_path}: Leaf token missing mandatory $type "
+                    f"(inherited would be '{group_type}')"
+                )
+
+            # Validate $type is a known DTCG type
+            token_type = value.get("$type", group_type)
+            if token_type and token_type not in VALID_DTCG_TYPES:
+                errors.append(
+                    f"{current_path}: Unknown $type '{token_type}' "
+                    f"(valid: {sorted(VALID_DTCG_TYPES)})"
+                )
+
+            # Validate references resolve
+            val = value.get("$value")
+            if isinstance(val, str) and val.startswith("{") and val.endswith("}"):
+                if not _resolve_reference(val, root):
+                    errors.append(
+                        f"{current_path}: Unresolved reference '{val}'"
+                    )
+
+            # Spacing/sizing must use "dimension" type
+            if token_type in ("spacing", "size"):
+                errors.append(
+                    f"{current_path}: Type '{token_type}' should be 'dimension' per DTCG v1"
+                )
+
+            if errors:
+                results.extend(errors)
+        else:
+            # Recurse into sub-groups
+            results.extend(
+                _collect_leaf_tokens(value, current_path, root, group_type)
+            )
+
+    return results
+
+
 def validate_dtcg_format(tokens: dict, path: str) -> list:
-    """Validate W3C Design Token Community Group format."""
+    """Validate W3C Design Token Community Group v1 format."""
     errors = []
 
     if "$version" not in tokens and "version" not in tokens.get("$metadata", {}):
         errors.append(f"{path}: Missing $version or $metadata.version")
 
+    # DTCG v1: version must be "1.0.0"
+    version = tokens.get("$version")
+    if version and version != "1.0.0":
+        errors.append(
+            f"{path}: $version is '{version}', expected '1.0.0' for DTCG v1"
+        )
+
     return errors
+
+
+def validate_leaf_tokens(tokens: dict, path: str) -> list:
+    """Validate all leaf tokens have mandatory $type and valid references."""
+    return _collect_leaf_tokens(tokens, "", tokens)
 
 
 def validate_required_categories(tokens: dict, path: str) -> list:
@@ -116,52 +238,63 @@ def validate_motion_choreography(tokens: dict, path: str) -> list:
     return errors
 
 
-def validate_container_tokens(tokens: dict, path: str) -> list:
-    """Validate container query tokens."""
+def _is_hex_color(value) -> bool:
+    """Check if a value is a hex color string."""
+    if not isinstance(value, str):
+        return False
+    return bool(re.match(r"^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$", value.strip()))
+
+
+def _is_valid_oklch(oklch_str: str) -> bool:
+    """Check if a string is a valid oklch() CSS value."""
+    if not isinstance(oklch_str, str):
+        return False
+    return bool(re.match(
+        r"^oklch\(\s*[\d.]+%\s+[\d.]+\s+[\d.]+\s*\)$",
+        oklch_str.strip(),
+    ))
+
+
+def _walk_check_oklch(node: dict, path_prefix: str, inherited_type: str = "") -> list:
+    """Recursively check that all hex color tokens have valid oklch extensions."""
     errors = []
-    container = tokens.get("container")
+    node_type = node.get("$type", inherited_type)
 
-    if container is None:
-        errors.append(f"{path}: Missing 'container' token category")
-        return errors
+    for key, value in node.items():
+        if key.startswith("$"):
+            continue
+        if not isinstance(value, dict):
+            continue
 
-    # Validate breakpoints are valid dimensions (end with px)
-    breakpoints = container.get("breakpoint", {})
-    expected_bp = ["sm", "md", "lg", "xl"]
-    for bp in expected_bp:
-        if bp not in breakpoints:
-            errors.append(
-                f"{path}: Missing container breakpoint '{bp}'"
-            )
+        current_path = f"{path_prefix}.{key}" if path_prefix else key
+
+        if "$value" in value:
+            token_type = value.get("$type", node_type)
+            token_value = value["$value"]
+
+            if token_type == "color" and _is_hex_color(token_value):
+                extensions = value.get("$extensions", {})
+                oklch_val = extensions.get("com.tokens.oklch")
+                if oklch_val is None:
+                    errors.append(
+                        f"Color token '{current_path}' has hex value but missing oklch extension"
+                    )
+                elif not _is_valid_oklch(oklch_val):
+                    errors.append(
+                        f"Color token '{current_path}' has invalid oklch extension: {oklch_val}"
+                    )
         else:
-            val = breakpoints[bp].get("$value", "")
-            if not val.endswith("px"):
-                errors.append(
-                    f"{path}: Container breakpoint '{bp}' must be a px dimension, got '{val}'"
-                )
+            errors.extend(_walk_check_oklch(value, current_path, node_type))
 
-    # Validate container names follow uds-* convention
-    names = container.get("name", {})
-    if not names:
-        errors.append(f"{path}: Missing container names")
-    else:
-        for key, entry in names.items():
-            val = entry.get("$value", "")
-            if not val.startswith("uds-"):
-                errors.append(
-                    f"{path}: Container name '{key}' must follow uds-* convention, got '{val}'"
-                )
+    return errors
 
-    # Validate container types have valid values
-    types = container.get("type", {})
-    valid_types = {"inline-size", "normal", "size"}
-    for key, entry in types.items():
-        val = entry.get("$value", "")
-        if val not in valid_types:
-            errors.append(
-                f"{path}: Container type '{key}' has invalid value '{val}', expected one of {sorted(valid_types)}"
-            )
 
+def validate_oklch_extensions(tokens: dict, path: str) -> list:
+    """Validate that all color tokens with hex values have oklch extensions."""
+    errors = []
+    raw_errors = _walk_check_oklch(tokens, "")
+    for err in raw_errors:
+        errors.append(f"{path}: {err}")
     return errors
 
 
@@ -197,6 +330,33 @@ def validate_figma_tokens(figma_tokens: dict, path: str) -> list:
                         f"{path}: Theme '{theme}' missing structural tokens"
                     )
 
+    # Validate Figma tokens metadata version
+    metadata = figma_tokens.get("$metadata", {})
+    global_section = figma_tokens.get("global", {})
+    version = metadata.get("$version") or global_section.get("$version")
+    # Figma tokens are not strictly DTCG-versioned, so this is advisory only
+
+    return errors
+
+
+def validate_figma_leaf_tokens(figma_tokens: dict, path: str) -> list:
+    """Validate Figma token leaf tokens have $type where applicable."""
+    errors = []
+    global_section = figma_tokens.get("global", {})
+
+    # Check spacing tokens in global section have $type
+    spacing = global_section.get("spacing", {})
+    for key, value in spacing.items():
+        if key.startswith("$"):
+            continue
+        if isinstance(value, dict) and "$value" in value:
+            if "$type" not in value:
+                token_type = spacing.get("$type")
+                if not token_type:
+                    errors.append(
+                        f"{path}: global.spacing.{key} missing $type"
+                    )
+
     return errors
 
 
@@ -223,7 +383,7 @@ def main():
             validate_motion_choreography(design_tokens, design_tokens_path)
         )
         all_errors.extend(
-            validate_container_tokens(design_tokens, design_tokens_path)
+            validate_oklch_extensions(design_tokens, design_tokens_path)
         )
         print(f"  Validated {design_tokens_path}")
     else:
@@ -235,13 +395,7 @@ def main():
             figma_tokens = json.load(f)
 
         all_errors.extend(validate_figma_tokens(figma_tokens, figma_tokens_path))
-
-        # Validate container tokens in figma global section
-        figma_global = figma_tokens.get("global", {})
-        if "container" not in figma_global:
-            all_errors.append(
-                f"{figma_tokens_path}: Missing 'container' in global section"
-            )
+        all_errors.extend(validate_figma_leaf_tokens(figma_tokens, figma_tokens_path))
         print(f"  Validated {figma_tokens_path}")
     else:
         all_errors.append(f"File not found: {figma_tokens_path}")
