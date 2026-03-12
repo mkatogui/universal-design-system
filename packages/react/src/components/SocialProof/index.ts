@@ -1,7 +1,7 @@
-export { SocialProof } from './SocialProof';
 export type {
+  SocialProofLogo,
   SocialProofProps,
   SocialProofStat,
-  SocialProofLogo,
   SocialProofTestimonial,
 } from './SocialProof';
+export { SocialProof } from './SocialProof';

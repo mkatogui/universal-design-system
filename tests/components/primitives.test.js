@@ -90,7 +90,7 @@ class MockElement {
 
   getAttribute(name) {
     if (name === 'id') return this.id || null;
-    return this._attributes.hasOwnProperty(name) ? this._attributes[name] : null;
+    return Object.hasOwn(this._attributes, name) ? this._attributes[name] : null;
   }
 
   setAttribute(name, value) {
@@ -109,7 +109,7 @@ class MockElement {
 
   hasAttribute(name) {
     if (name === 'id') return !!this.id;
-    return this._attributes.hasOwnProperty(name);
+    return Object.hasOwn(this._attributes, name);
   }
 
   appendChild(child) {

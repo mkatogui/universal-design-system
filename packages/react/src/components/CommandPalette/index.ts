@@ -1,6 +1,6 @@
-export { CommandPalette } from './CommandPalette';
 export type {
-  CommandPaletteProps,
   CommandPaletteAction,
   CommandPaletteGroup,
+  CommandPaletteProps,
 } from './CommandPalette';
+export { CommandPalette } from './CommandPalette';

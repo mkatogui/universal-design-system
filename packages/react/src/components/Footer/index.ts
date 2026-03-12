@@ -1,2 +1,2 @@
+export type { FooterColumn, FooterProps } from './Footer';
 export { Footer } from './Footer';
-export type { FooterProps, FooterColumn } from './Footer';

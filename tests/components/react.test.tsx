@@ -1,11 +1,4 @@
 import { act, fireEvent, render, screen, within } from '@testing-library/react';
-/**
- * React component tests for the Universal Design System.
- *
- * Tests the 8 core components using React Testing Library patterns:
- * Button, Card, Modal, Tabs, Input, Select, Toast, Alert.
- */
-import React from 'react';
 import '@testing-library/jest-dom/vitest';
 import { describe, expect, it, vi } from 'vitest';
 

@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useId } from 'react';
+import React, { useCallback, useId, useState } from 'react';
 
 /**
  * Describes a single collapsible section inside an {@link Accordion}.

@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef, useEffect, useId } from 'react';
+import React, { useCallback, useEffect, useId, useRef, useState } from 'react';
 
 /**
  * A single action/command available in the {@link CommandPalette}.
@@ -195,7 +195,7 @@ export const CommandPalette = React.forwardRef<HTMLDivElement, CommandPalettePro
                 {group.label && (
                   <div className="uds-command-palette__group-label">{group.label}</div>
                 )}
-                {group.actions.map((action, i) => {
+                {group.actions.map((action, _i) => {
                   const globalIndex = filtered.indexOf(action);
                   return (
                     <div
