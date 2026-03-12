@@ -36,9 +36,7 @@ describe('SocialProof', () => {
   });
 
   it('applies custom className and variant modifier', () => {
-    const { container } = render(
-      <SocialProof variant="combined" className="my-custom-class" />,
-    );
+    const { container } = render(<SocialProof variant="combined" className="my-custom-class" />);
     const root = container.firstChild as HTMLElement;
     expect(root).toHaveClass('uds-social-proof');
     expect(root).toHaveClass('uds-social-proof--combined');
