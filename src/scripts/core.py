@@ -156,7 +156,7 @@ SECTOR_KEYWORDS = {
     "creative": ["agency", "portfolio", "photography", "design", "architecture", "art", "studio"],
     "fashion": ["fashion", "apparel", "clothing", "streetwear", "runway", "couture", "outfit"],
     "luxury": ["luxury", "premium", "high-end", "exclusive", "bespoke", "upscale"],
-    "hospitality": ["hotel", "restaurant", "travel", "tourism", "booking", "hospitality"],
+    "hospitality": ["hotel", "restaurant", "travel", "tourism", "booking", "hospitality", "marina", "yacht", "dock", "waterfront", "resort", "spa", "lodge", "inn", "villa", "cruise"],
     "food": ["food", "recipe", "cooking", "delivery", "meal", "catering", "menu"],
     "gaming": ["gaming", "game", "game-dev", "gamer", "multiplayer"],
     "esports": ["esports", "e-sports", "competitive-gaming", "tournament", "league", "twitch"],
@@ -182,11 +182,26 @@ PRODUCT_KEYWORDS = {
     "blog": ["blog", "article", "editorial", "content", "magazine"],
     "saas-app": ["saas", "platform", "tool", "software", "web-app"],
     "portfolio": ["portfolio", "showcase", "gallery", "work", "projects"],
+    "admin-panel": ["admin", "admin-panel", "backoffice", "cms", "management"],
+    "community": ["community", "forum", "social", "discussion", "members"],
+    "data-table": ["data-table", "spreadsheet", "grid", "table", "tabular"],
+    "marketplace": ["marketplace", "listing", "vendor", "seller", "buyer"],
+    "streaming": ["streaming", "video", "audio", "live", "player"],
+    "telehealth": ["telehealth", "telemedicine", "virtual-care", "patient-portal", "remote-health"],
 }
 
 
 class DomainDetector:
     """Detect sector and product type from query text."""
+
+    @staticmethod
+    def _keyword_specificity(keywords: list[str], query_lower: str, tokens: set) -> int:
+        """Sum of matched keyword lengths — longer keywords are more specific."""
+        total = 0
+        for kw in keywords:
+            if kw in query_lower or kw in tokens:
+                total += len(kw)
+        return total
 
     def detect(self, query: str) -> dict:
         """Return detected sector, product_type, and confidence."""
@@ -195,22 +210,43 @@ class DomainDetector:
 
         # Detect sector
         sector_scores = {}
+        sector_specificity = {}
         for sector, keywords in SECTOR_KEYWORDS.items():
             score = sum(1 for kw in keywords if kw in query_lower or kw in tokens)
             if score > 0:
                 sector_scores[sector] = score
+                sector_specificity[sector] = self._keyword_specificity(
+                    keywords, query_lower, tokens
+                )
 
-        sector = max(sector_scores, key=sector_scores.get) if sector_scores else "general"
+        # Tiebreaker: when scores tie, prefer sector with higher keyword specificity
+        if sector_scores:
+            sector = max(
+                sector_scores,
+                key=lambda s: (sector_scores[s], sector_specificity.get(s, 0)),
+            )
+        else:
+            sector = "general"
         sector_confidence = min(sector_scores.get(sector, 0) / 3.0, 1.0)
 
         # Detect product type
         product_scores = {}
+        product_specificity = {}
         for ptype, keywords in PRODUCT_KEYWORDS.items():
             score = sum(1 for kw in keywords if kw in query_lower or kw in tokens)
             if score > 0:
                 product_scores[ptype] = score
+                product_specificity[ptype] = self._keyword_specificity(
+                    keywords, query_lower, tokens
+                )
 
-        product_type = max(product_scores, key=product_scores.get) if product_scores else "general"
+        if product_scores:
+            product_type = max(
+                product_scores,
+                key=lambda p: (product_scores[p], product_specificity.get(p, 0)),
+            )
+        else:
+            product_type = "general"
         product_confidence = min(product_scores.get(product_type, 0) / 2.0, 1.0)
 
         return {

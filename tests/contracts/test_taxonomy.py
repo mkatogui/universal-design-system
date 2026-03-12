@@ -74,6 +74,45 @@ class TestTaxonomyAlignment(unittest.TestCase):
                 f"Query '{query}' detected as '{result['sector']}', expected '{expected}'",
             )
 
+    def test_marina_booking_detects_hospitality(self):
+        """Niche queries with domain-specific keywords should beat generic sectors."""
+        detector = DomainDetector()
+        result = detector.detect("marina booking saas")
+        self.assertEqual(
+            result["sector"],
+            "hospitality",
+            f"'marina booking saas' detected as '{result['sector']}', expected 'hospitality'",
+        )
+
+    def test_tiebreaker_prefers_specific_keywords(self):
+        """When scores tie, longer keyword matches should win."""
+        detector = DomainDetector()
+        result = detector.detect("resort booking")
+        self.assertEqual(
+            result["sector"],
+            "hospitality",
+            f"'resort booking' detected as '{result['sector']}', expected 'hospitality'",
+        )
+
+    def test_product_keywords_cover_reasoning_rules(self):
+        """Every product_type in ui-reasoning.csv must exist in PRODUCT_KEYWORDS."""
+        from core import PRODUCT_KEYWORDS
+        rows = _load_csv("ui-reasoning.csv")
+        csv_product_types = set()
+        for row in rows:
+            if row.get("field", "").strip() == "product_type":
+                val = row.get("value", "").strip()
+                if val:
+                    csv_product_types.add(val)
+
+        valid_products = set(PRODUCT_KEYWORDS.keys())
+        orphans = csv_product_types - valid_products
+        self.assertEqual(
+            orphans,
+            set(),
+            f"ui-reasoning.csv uses product_types not in PRODUCT_KEYWORDS: {sorted(orphans)}",
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

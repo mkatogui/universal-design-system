@@ -19,6 +19,7 @@ import json
 import sys
 import argparse
 from pathlib import Path
+from typing import Optional
 
 # Add parent dir to path for imports
 sys.path.insert(0, str(Path(__file__).parent))
@@ -226,6 +227,136 @@ def _resolve_reference(tokens: dict, ref: str) -> str:
     return ref
 
 
+def _format_shadow_value(layers) -> str:
+    """Convert DTCG shadow token (list of layer dicts) to CSS box-shadow string.
+
+    Each layer: {"color": "rgba(...)", "offsetX": "0px", "offsetY": "2px",
+                 "blur": "4px", "spread": "0px"}
+    Multi-layer shadows are joined with ', '.
+    If the value is already a plain string, return it as-is.
+    """
+    if isinstance(layers, str):
+        return layers
+    if not isinstance(layers, list):
+        return str(layers)
+    parts = []
+    for layer in layers:
+        if isinstance(layer, dict):
+            parts.append(
+                f"{layer.get('offsetX', '0px')} {layer.get('offsetY', '0px')} "
+                f"{layer.get('blur', '0px')} {layer.get('spread', '0px')} "
+                f"{layer.get('color', 'rgba(0,0,0,0.1)')}"
+            )
+        elif isinstance(layer, str):
+            parts.append(layer)
+    return ", ".join(parts) if parts else "none"
+
+
+def resolve_foundation_tokens(tokens: dict) -> dict:
+    """Extract all foundation (non-palette) tokens from design-tokens.json.
+
+    Returns a dict with keys: spacing, shadow, radius, motion_duration,
+    motion_easing, font_family, font_size, font_weight, opacity, z_index.
+    """
+    result = {}
+
+    # --- spacing (13 values) ---
+    spacing_raw = tokens.get("spacing", {})
+    result["spacing"] = {
+        k: v["$value"]
+        for k, v in spacing_raw.items()
+        if not k.startswith("$") and isinstance(v, dict) and "$value" in v
+    }
+
+    # --- shadow (6 levels) — convert DTCG arrays to CSS strings ---
+    shadow_raw = tokens.get("shadow", {})
+    result["shadow"] = {}
+    for k, v in shadow_raw.items():
+        if k.startswith("$") or k == "palette-overrides":
+            continue
+        if isinstance(v, dict) and "$value" in v:
+            result["shadow"][k] = _format_shadow_value(v["$value"])
+
+    # --- radius (foundation defaults) ---
+    radius_raw = tokens.get("radius", {})
+    result["radius"] = {
+        k: v["$value"]
+        for k, v in radius_raw.items()
+        if not k.startswith("$") and k != "palette-overrides"
+        and isinstance(v, dict) and "$value" in v
+    }
+
+    # --- motion.duration ---
+    motion = tokens.get("motion", {})
+    dur_raw = motion.get("duration", {})
+    result["motion_duration"] = {
+        k: v["$value"]
+        for k, v in dur_raw.items()
+        if not k.startswith("$") and isinstance(v, dict) and "$value" in v
+    }
+
+    # --- motion.easing (cubicBezier → CSS string) ---
+    ease_raw = motion.get("easing", {})
+    result["motion_easing"] = {}
+    for k, v in ease_raw.items():
+        if k.startswith("$"):
+            continue
+        if isinstance(v, dict) and "$value" in v:
+            vals = v["$value"]
+            if isinstance(vals, list) and len(vals) == 4:
+                result["motion_easing"][k] = (
+                    f"cubic-bezier({vals[0]}, {vals[1]}, {vals[2]}, {vals[3]})"
+                )
+
+    # --- typography.fontFamily (4 stacks) ---
+    typo = tokens.get("typography", {})
+    ff_raw = typo.get("fontFamily", {})
+    result["font_family"] = {}
+    for k, v in ff_raw.items():
+        if k.startswith("$") or k == "palette-overrides":
+            continue
+        if isinstance(v, dict) and "$value" in v:
+            val = v["$value"]
+            if isinstance(val, list):
+                result["font_family"][k] = ", ".join(val)
+            else:
+                result["font_family"][k] = str(val)
+
+    # --- typography.fontSize (10 values) ---
+    fs_raw = typo.get("fontSize", {})
+    result["font_size"] = {
+        k: v["$value"]
+        for k, v in fs_raw.items()
+        if not k.startswith("$") and isinstance(v, dict) and "$value" in v
+    }
+
+    # --- typography.fontWeight (5 values) ---
+    fw_raw = typo.get("fontWeight", {})
+    result["font_weight"] = {
+        k: str(v["$value"])
+        for k, v in fw_raw.items()
+        if not k.startswith("$") and isinstance(v, dict) and "$value" in v
+    }
+
+    # --- opacity (4 values) ---
+    op_raw = tokens.get("opacity", {})
+    result["opacity"] = {
+        k: str(v["$value"])
+        for k, v in op_raw.items()
+        if not k.startswith("$") and isinstance(v, dict) and "$value" in v
+    }
+
+    # --- zIndex (7 values) ---
+    zi_raw = tokens.get("zIndex", {})
+    result["z_index"] = {
+        k: str(v["$value"])
+        for k, v in zi_raw.items()
+        if not k.startswith("$") and isinstance(v, dict) and "$value" in v
+    }
+
+    return result
+
+
 def resolve_palette_tokens(tokens: dict, palette: str) -> dict:
     """Extract token values for a specific palette from design-tokens.json."""
     theme_data = tokens.get("theme", {}).get(palette, {})
@@ -294,17 +425,17 @@ def resolve_palette_tokens(tokens: dict, palette: str) -> dict:
     return resolved
 
 
-def generate_tailwind_config(palette_tokens: dict, palette: str) -> str:
-    """Generate a Tailwind CSS config preset from palette tokens."""
+def generate_tailwind_config(palette_tokens: dict, palette: str,
+                             foundation: Optional[dict] = None) -> str:
+    """Generate a Tailwind CSS config preset from palette + foundation tokens."""
+    foundation = foundation or {}
     colors = {}
-    shadows = {}
-    radii = {}
+    palette_shadows = {}
+    palette_radii = {}
     font_display = ""
 
     for token, value in palette_tokens.items():
         if token.startswith("--color-"):
-            key = token.replace("--color-", "").replace("-", ".")
-            # Convert nested keys: brand.primary, text.primary, etc.
             parts = token.replace("--color-", "").split("-")
             if len(parts) >= 2:
                 group = parts[0]
@@ -315,74 +446,126 @@ def generate_tailwind_config(palette_tokens: dict, palette: str) -> str:
             else:
                 colors[parts[0]] = value
         elif token.startswith("--shadow-"):
-            key = token.replace("--shadow-", "")
-            shadows[key] = value
+            palette_shadows[token.replace("--shadow-", "")] = value
         elif token.startswith("--radius-"):
-            key = token.replace("--radius-", "")
-            radii[key] = value
+            palette_radii[token.replace("--radius-", "")] = value
         elif token == "--font-display":
             font_display = value
 
-    config = {
-        "theme": {
-            "extend": {
-                "colors": colors,
-                "boxShadow": shadows,
-                "borderRadius": radii,
-            }
-        }
-    }
+    # Merge foundation + palette overrides
+    shadows = {**foundation.get("shadow", {}), **palette_shadows}
+    radii = {**foundation.get("radius", {}), **palette_radii}
+    spacing = foundation.get("spacing", {})
+    durations = foundation.get("motion_duration", {})
+    easings = foundation.get("motion_easing", {})
+    font_sizes = foundation.get("font_size", {})
+    font_weights = foundation.get("font_weight", {})
+    opacity = foundation.get("opacity", {})
+    z_index = foundation.get("z_index", {})
 
+    # Build font families: foundation stacks + palette display override
+    font_families = {}
+    for name, stack in foundation.get("font_family", {}).items():
+        font_families[name] = [s.strip() for s in stack.split(",")]
     if font_display:
-        config["theme"]["extend"]["fontFamily"] = {
-            "display": [font_display, "sans-serif"]
-        }
+        font_families["display"] = [font_display, "sans-serif"]
 
     lines = []
-    lines.append(f"// Universal Design System — Tailwind Preset")
+    lines.append("// Universal Design System — Tailwind Preset")
     lines.append(f"// Palette: {PALETTE_DISPLAY_NAMES.get(palette, palette)}")
-    lines.append(f"// Generated by: python src/scripts/design_system.py")
-    lines.append(f"")
+    lines.append("// Generated by: python src/scripts/design_system.py")
+    lines.append("")
     lines.append(f"/** @type {{import('tailwindcss').Config}} */")
-    lines.append(f"export default {{")
-    lines.append(f"  theme: {{")
-    lines.append(f"    extend: {{")
+    lines.append("export default {")
+    lines.append("  theme: {")
+    lines.append("    extend: {")
 
     # Colors
-    lines.append(f"      colors: {{")
+    lines.append("      colors: {")
     for group, values in sorted(colors.items()):
         if isinstance(values, dict):
             lines.append(f"        '{group}': {{")
             for name, hex_val in sorted(values.items()):
                 lines.append(f"          '{name}': '{hex_val}',")
-            lines.append(f"        }},")
+            lines.append("        },")
         else:
             lines.append(f"        '{group}': '{values}',")
-    lines.append(f"      }},")
+    lines.append("      },")
+
+    # Spacing
+    if spacing:
+        lines.append("      spacing: {")
+        for name, val in sorted(spacing.items(), key=lambda x: int(x[0]) if x[0].isdigit() else 0):
+            lines.append(f"        '{name}': '{val}',")
+        lines.append("      },")
 
     # Shadows
     if shadows:
-        lines.append(f"      boxShadow: {{")
+        lines.append("      boxShadow: {")
         for name, val in sorted(shadows.items()):
             lines.append(f"        '{name}': '{val}',")
-        lines.append(f"      }},")
+        lines.append("      },")
 
     # Radii
     if radii:
-        lines.append(f"      borderRadius: {{")
+        lines.append("      borderRadius: {")
         for name, val in sorted(radii.items()):
             lines.append(f"        '{name}': '{val}',")
-        lines.append(f"      }},")
+        lines.append("      },")
 
-    # Font
-    if font_display:
-        lines.append(f"      fontFamily: {{")
-        lines.append(f"        display: ['{font_display}', 'sans-serif'],")
-        lines.append(f"      }},")
+    # Transition duration
+    if durations:
+        lines.append("      transitionDuration: {")
+        for name, val in sorted(durations.items()):
+            lines.append(f"        '{name}': '{val}',")
+        lines.append("      },")
 
-    lines.append(f"    }},")
-    lines.append(f"  }},")
-    lines.append(f"}};")
+    # Transition timing function
+    if easings:
+        lines.append("      transitionTimingFunction: {")
+        for name, val in sorted(easings.items()):
+            lines.append(f"        '{name}': '{val}',")
+        lines.append("      },")
+
+    # Font families
+    if font_families:
+        lines.append("      fontFamily: {")
+        for name, stack in sorted(font_families.items()):
+            formatted = ", ".join(f"'{s}'" for s in stack)
+            lines.append(f"        '{name}': [{formatted}],")
+        lines.append("      },")
+
+    # Font sizes
+    if font_sizes:
+        lines.append("      fontSize: {")
+        for name, val in sorted(font_sizes.items()):
+            lines.append(f"        '{name}': '{val}',")
+        lines.append("      },")
+
+    # Font weights
+    if font_weights:
+        lines.append("      fontWeight: {")
+        for name, val in sorted(font_weights.items()):
+            lines.append(f"        '{name}': '{val}',")
+        lines.append("      },")
+
+    # Opacity
+    if opacity:
+        lines.append("      opacity: {")
+        for name, val in sorted(opacity.items()):
+            lines.append(f"        '{name}': '{val}',")
+        lines.append("      },")
+
+    # Z-index
+    if z_index:
+        lines.append("      zIndex: {")
+        for name, val in sorted(z_index.items()):
+            lines.append(f"        '{name}': '{val}',")
+        lines.append("      },")
+
+    lines.append("    },")
+    lines.append("  },")
+    lines.append("};")
 
     return "\n".join(lines)
 
@@ -547,22 +730,48 @@ def main():
     result = engine.reason(args.query)
     tokens = load_tokens()
     palette_tokens = resolve_palette_tokens(tokens, result["recommended_palette"])
+    foundation = resolve_foundation_tokens(tokens)
 
     if args.format == "tailwind":
-        print(generate_tailwind_config(palette_tokens, result["recommended_palette"]))
+        print(generate_tailwind_config(palette_tokens, result["recommended_palette"], foundation))
     elif args.framework:
         print(generate_framework_output(result, palette_tokens, args.framework))
     elif args.format == "json":
+        # Determine palette source for explainability
+        palette_source = "default"
+        palette_rule_id = None
+        for rule in result["rules_applied"]:
+            if rule["then_field"] == "palette":
+                palette_source = "rule"
+                palette_rule_id = rule.get("rule_id")
+                break
+        if palette_source == "default" and result["search_results"]["products"]:
+            top_product = result["search_results"]["products"][0]
+            if top_product.get("palette") == result["recommended_palette"]:
+                palette_source = "product_search"
+
         output = {
             "query": result["query"],
             "palette": result["recommended_palette"],
             "palette_display": PALETTE_DISPLAY_NAMES.get(result["recommended_palette"], result["recommended_palette"]),
+            "palette_source": palette_source,
+            "palette_rule_id": palette_rule_id,
             "domain": result["domain"],
             "tokens": palette_tokens,
-            "components": [c.get("name") for c in result["search_results"]["components"]],
-            "patterns": [p.get("name") for p in result["search_results"]["patterns"]],
+            "components": [
+                {"name": c.get("name"), "score": c.get("_score"), "source": c.get("_source")}
+                for c in result["search_results"]["components"]
+            ],
+            "patterns": [
+                {"name": p.get("name"), "score": p.get("_score"), "source": p.get("_source")}
+                for p in result["search_results"]["patterns"]
+            ],
+            "products": [
+                {"name": p.get("name"), "palette": p.get("palette"), "score": p.get("_score")}
+                for p in result["search_results"]["products"]
+            ],
             "typography": [
-                {"heading": t.get("heading_font"), "body": t.get("body_font")}
+                {"heading": t.get("heading_font"), "body": t.get("body_font"), "score": t.get("_score")}
                 for t in result["search_results"]["typography"]
             ],
             "anti_patterns": result["anti_patterns"],
