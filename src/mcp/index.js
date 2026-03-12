@@ -318,7 +318,7 @@ const TOOLS = [
       "Generate a complete design system specification for a given domain query. " +
       "Runs the full reasoning pipeline: domain detection, BM25 search, rule application, " +
       "and token resolution. Returns palette tokens, recommended components, patterns, " +
-      "typography, anti-patterns, and design rules. Supports JSON or Tailwind CSS output.",
+      "typography, anti-patterns, and design rules. Supports JSON, Tailwind CSS, or CSS-in-JS output.",
     inputSchema: {
       type: "object",
       properties: {
@@ -329,8 +329,8 @@ const TOOLS = [
         },
         format: {
           type: "string",
-          description: "Output format: 'json' for structured data, 'tailwind' for Tailwind CSS config preset",
-          enum: ["json", "tailwind"],
+          description: "Output format: 'json' for structured data, 'tailwind' for Tailwind CSS config preset, 'css-in-js' for styled-components/Emotion theme object",
+          enum: ["json", "tailwind", "css-in-js"],
           default: "json",
         },
       },
@@ -464,10 +464,10 @@ async function handleGenerateTokens(args) {
   }
 
   const format = args.format || "json";
-  if (!["json", "tailwind"].includes(format)) {
+  if (!["json", "tailwind", "css-in-js"].includes(format)) {
     return {
       isError: true,
-      content: [{ type: "text", text: "Parameter 'format' must be 'json' or 'tailwind'." }],
+      content: [{ type: "text", text: "Parameter 'format' must be 'json', 'tailwind', or 'css-in-js'." }],
     };
   }
 
@@ -481,7 +481,7 @@ async function handleGenerateTokens(args) {
     };
   }
 
-  // Tailwind output is plain text (JS config)
+  // Tailwind and CSS-in-JS output are plain text (JS config/module)
   return {
     content: [{ type: "text", text: stdout }],
   };

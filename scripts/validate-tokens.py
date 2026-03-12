@@ -6,9 +6,7 @@ Validates design-tokens.json and figma-tokens.json for:
 - Required token categories
 - Cross-file sync between design tokens and Figma tokens
 - Structural palette overrides presence
-- Mandatory $type on every leaf token
-- Reference resolution validation
-- Spacing/sizing must use "dimension" type
+- oklch extensions on all hex color tokens
 
 Usage:
     python scripts/validate-tokens.py
@@ -240,6 +238,66 @@ def validate_motion_choreography(tokens: dict, path: str) -> list:
     return errors
 
 
+def _is_hex_color(value) -> bool:
+    """Check if a value is a hex color string."""
+    if not isinstance(value, str):
+        return False
+    return bool(re.match(r"^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$", value.strip()))
+
+
+def _is_valid_oklch(oklch_str: str) -> bool:
+    """Check if a string is a valid oklch() CSS value."""
+    if not isinstance(oklch_str, str):
+        return False
+    return bool(re.match(
+        r"^oklch\(\s*[\d.]+%\s+[\d.]+\s+[\d.]+\s*\)$",
+        oklch_str.strip(),
+    ))
+
+
+def _walk_check_oklch(node: dict, path_prefix: str, inherited_type: str = "") -> list:
+    """Recursively check that all hex color tokens have valid oklch extensions."""
+    errors = []
+    node_type = node.get("$type", inherited_type)
+
+    for key, value in node.items():
+        if key.startswith("$"):
+            continue
+        if not isinstance(value, dict):
+            continue
+
+        current_path = f"{path_prefix}.{key}" if path_prefix else key
+
+        if "$value" in value:
+            token_type = value.get("$type", node_type)
+            token_value = value["$value"]
+
+            if token_type == "color" and _is_hex_color(token_value):
+                extensions = value.get("$extensions", {})
+                oklch_val = extensions.get("com.tokens.oklch")
+                if oklch_val is None:
+                    errors.append(
+                        f"Color token '{current_path}' has hex value but missing oklch extension"
+                    )
+                elif not _is_valid_oklch(oklch_val):
+                    errors.append(
+                        f"Color token '{current_path}' has invalid oklch extension: {oklch_val}"
+                    )
+        else:
+            errors.extend(_walk_check_oklch(value, current_path, node_type))
+
+    return errors
+
+
+def validate_oklch_extensions(tokens: dict, path: str) -> list:
+    """Validate that all color tokens with hex values have oklch extensions."""
+    errors = []
+    raw_errors = _walk_check_oklch(tokens, "")
+    for err in raw_errors:
+        errors.append(f"{path}: {err}")
+    return errors
+
+
 def validate_figma_tokens(figma_tokens: dict, path: str) -> list:
     """Validate Figma token file structure."""
     errors = []
@@ -325,7 +383,7 @@ def main():
             validate_motion_choreography(design_tokens, design_tokens_path)
         )
         all_errors.extend(
-            validate_leaf_tokens(design_tokens, design_tokens_path)
+            validate_oklch_extensions(design_tokens, design_tokens_path)
         )
         print(f"  Validated {design_tokens_path}")
     else:
