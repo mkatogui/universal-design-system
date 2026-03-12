@@ -52,7 +52,9 @@ describe('Toggle', () => {
   });
 
   it('renders the visible label text when variant is with-label', () => {
-    render(<Toggle checked={false} onChange={vi.fn()} variant="with-label" label="Notifications" />);
+    render(
+      <Toggle checked={false} onChange={vi.fn()} variant="with-label" label="Notifications" />,
+    );
     expect(screen.getByText('Notifications')).toBeInTheDocument();
   });
 

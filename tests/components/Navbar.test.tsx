@@ -61,9 +61,7 @@ describe('Navbar', () => {
 
   it('does not apply open modifier class when mobileOpen is false', () => {
     const { container } = render(<Navbar mobileOpen={false} />);
-    expect(container.querySelector('.uds-navbar__menu')).not.toHaveClass(
-      'uds-navbar__menu--open',
-    );
+    expect(container.querySelector('.uds-navbar__menu')).not.toHaveClass('uds-navbar__menu--open');
   });
 
   it('applies the sticky modifier class when sticky is true', () => {
