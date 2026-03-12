@@ -116,6 +116,55 @@ def validate_motion_choreography(tokens: dict, path: str) -> list:
     return errors
 
 
+def validate_container_tokens(tokens: dict, path: str) -> list:
+    """Validate container query tokens."""
+    errors = []
+    container = tokens.get("container")
+
+    if container is None:
+        errors.append(f"{path}: Missing 'container' token category")
+        return errors
+
+    # Validate breakpoints are valid dimensions (end with px)
+    breakpoints = container.get("breakpoint", {})
+    expected_bp = ["sm", "md", "lg", "xl"]
+    for bp in expected_bp:
+        if bp not in breakpoints:
+            errors.append(
+                f"{path}: Missing container breakpoint '{bp}'"
+            )
+        else:
+            val = breakpoints[bp].get("$value", "")
+            if not val.endswith("px"):
+                errors.append(
+                    f"{path}: Container breakpoint '{bp}' must be a px dimension, got '{val}'"
+                )
+
+    # Validate container names follow uds-* convention
+    names = container.get("name", {})
+    if not names:
+        errors.append(f"{path}: Missing container names")
+    else:
+        for key, entry in names.items():
+            val = entry.get("$value", "")
+            if not val.startswith("uds-"):
+                errors.append(
+                    f"{path}: Container name '{key}' must follow uds-* convention, got '{val}'"
+                )
+
+    # Validate container types have valid values
+    types = container.get("type", {})
+    valid_types = {"inline-size", "normal", "size"}
+    for key, entry in types.items():
+        val = entry.get("$value", "")
+        if val not in valid_types:
+            errors.append(
+                f"{path}: Container type '{key}' has invalid value '{val}', expected one of {sorted(valid_types)}"
+            )
+
+    return errors
+
+
 def validate_figma_tokens(figma_tokens: dict, path: str) -> list:
     """Validate Figma token file structure."""
     errors = []
@@ -173,6 +222,9 @@ def main():
         all_errors.extend(
             validate_motion_choreography(design_tokens, design_tokens_path)
         )
+        all_errors.extend(
+            validate_container_tokens(design_tokens, design_tokens_path)
+        )
         print(f"  Validated {design_tokens_path}")
     else:
         all_errors.append(f"File not found: {design_tokens_path}")
@@ -183,6 +235,13 @@ def main():
             figma_tokens = json.load(f)
 
         all_errors.extend(validate_figma_tokens(figma_tokens, figma_tokens_path))
+
+        # Validate container tokens in figma global section
+        figma_global = figma_tokens.get("global", {})
+        if "container" not in figma_global:
+            all_errors.append(
+                f"{figma_tokens_path}: Missing 'container' in global section"
+            )
         print(f"  Validated {figma_tokens_path}")
     else:
         all_errors.append(f"File not found: {figma_tokens_path}")

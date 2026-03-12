@@ -2594,5 +2594,69 @@
         "$description": "Sidebar with secondary nav"
       }
     }
+  },
+  "container": {
+    "$description": "Container query breakpoints and configuration",
+    "breakpoint": {
+      "sm": {
+        "$value": "320px",
+        "$type": "dimension",
+        "$description": "Small container breakpoint"
+      },
+      "md": {
+        "$value": "480px",
+        "$type": "dimension",
+        "$description": "Medium container breakpoint"
+      },
+      "lg": {
+        "$value": "640px",
+        "$type": "dimension",
+        "$description": "Large container breakpoint"
+      },
+      "xl": {
+        "$value": "800px",
+        "$type": "dimension",
+        "$description": "Extra-large container breakpoint"
+      }
+    },
+    "type": {
+      "card": {
+        "$value": "inline-size",
+        "$type": "string",
+        "$description": "Container type for cards"
+      },
+      "sidebar": {
+        "$value": "inline-size",
+        "$type": "string",
+        "$description": "Container type for sidebars"
+      },
+      "layout": {
+        "$value": "size",
+        "$type": "string",
+        "$description": "Container type for full layouts"
+      }
+    },
+    "name": {
+      "card": {
+        "$value": "uds-card",
+        "$type": "string",
+        "$description": "Container name for card components"
+      },
+      "sidebar": {
+        "$value": "uds-sidebar",
+        "$type": "string",
+        "$description": "Container name for sidebar components"
+      },
+      "main": {
+        "$value": "uds-main",
+        "$type": "string",
+        "$description": "Container name for main content area"
+      },
+      "header": {
+        "$value": "uds-header",
+        "$type": "string",
+        "$description": "Container name for header components"
+      }
+    }
   }
 }
