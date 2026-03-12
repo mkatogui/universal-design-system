@@ -44,7 +44,7 @@ jobs:
         run: npm run build
 
       - name: CLI compilation check
-        run: cd cli && npx tsc
+        run: cd cli && npm install && npx tsc
 
       - name: Contract tests
         run: npm run test:contracts

@@ -8,7 +8,7 @@
   },
   "scripts": {
     "build": "style-dictionary build --config style-dictionary.config.json",
-    "build:cli": "cd cli && npx tsc",
+    "build:cli": "cd cli && npm install && npx tsc",
     "prepublishOnly": "npm run build:cli",
     "validate": "python3 scripts/validate-tokens.py",
     "audit": "python3 scripts/wcag-audit.py",
