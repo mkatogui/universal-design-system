@@ -111,9 +111,9 @@ export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
       >
         <div
           ref={(node) => {
-            (modalRef as React.MutableRefObject<HTMLDivElement | null>).current = node;
+            modalRef.current = node;
             if (typeof ref === 'function') ref(node);
-            else if (ref) (ref as React.MutableRefObject<HTMLDivElement | null>).current = node;
+            else if (ref) ref.current = node;
           }}
           className={classes}
           role="dialog"

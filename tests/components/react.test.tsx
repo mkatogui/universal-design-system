@@ -10,6 +10,7 @@ import { Modal } from '../../packages/react/src/components/Modal/Modal';
 import { Select } from '../../packages/react/src/components/Select/Select';
 import { Tabs } from '../../packages/react/src/components/Tabs/Tabs';
 import { Toast } from '../../packages/react/src/components/Toast/Toast';
+import { Tooltip } from '../../packages/react/src/components/Tooltip/Tooltip';
 
 // ---------------------------------------------------------------------------
 // Button
@@ -507,6 +508,117 @@ describe('Toast', () => {
   it('renders an action element', () => {
     render(<Toast message="Deleted" action={<button>Undo</button>} />);
     expect(screen.getByRole('button', { name: 'Undo' })).toBeInTheDocument();
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Tooltip
+// ---------------------------------------------------------------------------
+describe('Tooltip', () => {
+  it('renders the trigger child', () => {
+    render(
+      <Tooltip content="Help text">
+        <button>Hover me</button>
+      </Tooltip>,
+    );
+    expect(screen.getByRole('button', { name: 'Hover me' })).toBeInTheDocument();
+  });
+
+  it('adds aria-describedby to the trigger', () => {
+    render(
+      <Tooltip content="Descriptive text">
+        <button>Trigger</button>
+      </Tooltip>,
+    );
+    const trigger = screen.getByRole('button', { name: 'Trigger' });
+    expect(trigger).toHaveAttribute('aria-describedby');
+  });
+
+  it('renders tooltip content with role="tooltip"', () => {
+    render(
+      <Tooltip content="Tooltip text">
+        <button>Trigger</button>
+      </Tooltip>,
+    );
+    expect(screen.getByRole('tooltip', { hidden: true })).toHaveTextContent('Tooltip text');
+  });
+
+  it('shows tooltip on mouse enter and hides on mouse leave', () => {
+    render(
+      <Tooltip content="Visible tooltip">
+        <button>Hover</button>
+      </Tooltip>,
+    );
+    const wrapper = screen.getByRole('tooltip', { hidden: true }).closest('.uds-tooltip')!;
+
+    expect(wrapper).not.toHaveClass('uds-tooltip--visible');
+
+    fireEvent.mouseEnter(wrapper);
+    expect(wrapper).toHaveClass('uds-tooltip--visible');
+
+    vi.useFakeTimers();
+    fireEvent.mouseLeave(wrapper);
+    act(() => {
+      vi.advanceTimersByTime(100);
+    });
+    expect(wrapper).not.toHaveClass('uds-tooltip--visible');
+    vi.useRealTimers();
+  });
+
+  it('shows tooltip on focus and hides on blur', () => {
+    render(
+      <Tooltip content="Focus tooltip">
+        <button>Focus me</button>
+      </Tooltip>,
+    );
+    const wrapper = screen.getByRole('tooltip', { hidden: true }).closest('.uds-tooltip')!;
+
+    fireEvent.focus(wrapper);
+    expect(wrapper).toHaveClass('uds-tooltip--visible');
+
+    vi.useFakeTimers();
+    fireEvent.blur(wrapper);
+    act(() => {
+      vi.advanceTimersByTime(100);
+    });
+    expect(wrapper).not.toHaveClass('uds-tooltip--visible');
+    vi.useRealTimers();
+  });
+
+  it('applies variant, size, and position classes', () => {
+    render(
+      <Tooltip content="Styled" variant="rich" size="md" position="bottom">
+        <button>Trigger</button>
+      </Tooltip>,
+    );
+    const wrapper = screen.getByRole('tooltip', { hidden: true }).closest('.uds-tooltip')!;
+    expect(wrapper).toHaveClass('uds-tooltip--rich');
+    expect(wrapper).toHaveClass('uds-tooltip--md');
+    expect(wrapper).toHaveClass('uds-tooltip--bottom');
+  });
+
+  it('applies additional className', () => {
+    render(
+      <Tooltip content="Custom" className="my-tooltip">
+        <button>Trigger</button>
+      </Tooltip>,
+    );
+    const wrapper = screen.getByRole('tooltip', { hidden: true }).closest('.uds-tooltip')!;
+    expect(wrapper).toHaveClass('my-tooltip');
+  });
+
+  it('sets aria-hidden based on visibility', () => {
+    render(
+      <Tooltip content="Hidden state">
+        <button>Trigger</button>
+      </Tooltip>,
+    );
+    const tooltip = screen.getByRole('tooltip', { hidden: true });
+    expect(tooltip).toHaveAttribute('aria-hidden', 'true');
+
+    const wrapper = tooltip.closest('.uds-tooltip')!;
+    fireEvent.mouseEnter(wrapper);
+    expect(tooltip).toHaveAttribute('aria-hidden', 'false');
   });
 });
 
