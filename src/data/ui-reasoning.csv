@@ -164,18 +164,8 @@ id,condition,field,operator,value,then_field,then_value,priority,reasoning,categ
 163,layout,product_type,equals,streaming,layout_type,grid-media,7,"Streaming platforms use media grid layouts for content discovery",product-layout
 164,layout,product_type,equals,community,layout_type,feed-sidebar,6,"Community platforms use feed-with-sidebar layouts for content and context",product-layout
 165,layout,product_type,equals,marketplace,layout_type,grid-browsing,7,"Marketplace platforms use product grid layouts with filter sidebars",product-layout
-166,sector,sector,equals,sustainability,palette,illustration,7,"Sustainability products benefit from organic nature-inspired illustration style",sector-palette
-167,sector,sector,equals,proptech,palette,minimal-corporate,7,"Property technology platforms need professional understated design for buyer trust",sector-palette
-168,sector,sector,equals,automotive,palette,corporate,8,"Automotive platforms require industrial trustworthy corporate design",sector-palette
-169,sector,sector,equals,regtech,palette,corporate,8,"Regulatory technology demands maximum trust and compliance-forward design",sector-palette
-170,sector,sector,equals,legaltech,palette,minimal-corporate,8,"Legal technology platforms need formal professional authority",sector-palette
-171,sector,sector,equals,agritech,palette,illustration,7,"Agricultural technology benefits from organic natural visual language",sector-palette
-172,sector,sector,equals,govtech,palette,corporate,9,"Government technology portals need institutional conservative accessible design",sector-palette
-173,sector,sector,equals,cleantech,palette,ai-futuristic,7,"Clean technology products signal innovation with futuristic design",sector-palette
-174,sector,sector,equals,insurtech,palette,corporate,8,"Insurance technology needs trust stability and conservative design",sector-palette
-175,sector,sector,equals,sporttech,palette,bold-lifestyle,7,"Sports technology platforms need energetic bold visual presence",sector-palette
-176,sector,sector,equals,fashiontech,palette,apple-minimal,8,"Fashion technology demands elegant refined minimal aesthetics",sector-palette
-177,sector,sector,equals,foodtech,palette,bold-lifestyle,7,"Food technology benefits from warm appetizing bold design",sector-palette
-178,sector,sector,equals,musictech,palette,gradient-startup,7,"Music technology uses vibrant creative gradient-forward design",sector-palette
-179,sector,sector,equals,pettech,palette,illustration,7,"Pet technology benefits from friendly playful illustration style",sector-palette
-180,sector,sector,equals,spacetech,palette,ai-futuristic,8,"Space technology products signal cutting-edge innovation with dark futuristic themes",sector-palette
+166,transition,sector,equals,luxury,transition_style,elegant,7,"Luxury brands benefit from smooth elegant transitions that convey premium feel",sector-transition
+167,transition,sector,equals,dashboard,transition_style,instant,7,"Dashboard UIs use instant transitions to avoid slowing down data-dense workflows",sector-transition
+168,transition,sector,equals,healthcare,transition_style,gentle,7,"Healthcare interfaces use gentle transitions to maintain calm user experience",sector-transition
+169,transition,sector,equals,finance,transition_style,snappy,7,"Finance UIs use snappy transitions for responsive data-driven interactions",sector-transition
+170,transition,sector,equals,entertainment,transition_style,elegant,6,"Entertainment platforms use elegant transitions for immersive visual experiences",sector-transition

@@ -25,11 +25,211 @@ DATA_DIR = Path(__file__).parent.parent / "data"
 
 
 # ---------------------------------------------------------------------------
+# Synonym Dictionary
+# ---------------------------------------------------------------------------
+
+SYNONYMS: dict[str, list[str]] = {
+    "ecommerce": ["e-commerce", "online-store", "webshop"],
+    "e-commerce": ["ecommerce", "online-store", "webshop"],
+    "ai": ["artificial-intelligence", "machine-learning"],
+    "artificial-intelligence": ["ai", "machine-learning"],
+    "ml": ["machine-learning", "ai"],
+    "machine-learning": ["ml", "ai"],
+    "saas": ["software-as-a-service", "cloud-software"],
+    "software-as-a-service": ["saas", "cloud-software"],
+    "ui": ["user-interface"],
+    "user-interface": ["ui"],
+    "ux": ["user-experience"],
+    "user-experience": ["ux"],
+    "b2b": ["business-to-business"],
+    "business-to-business": ["b2b"],
+    "b2c": ["business-to-consumer"],
+    "business-to-consumer": ["b2c"],
+    "iot": ["internet-of-things", "connected-device"],
+    "internet-of-things": ["iot", "connected-device"],
+    "devops": ["dev-ops", "cicd"],
+    "dev-ops": ["devops", "cicd"],
+    "crm": ["customer-relationship-management"],
+    "customer-relationship-management": ["crm"],
+    "cms": ["content-management-system"],
+    "content-management-system": ["cms"],
+    "api": ["application-programming-interface"],
+    "fintech": ["financial-technology"],
+    "financial-technology": ["fintech"],
+    "defi": ["decentralized-finance"],
+    "decentralized-finance": ["defi"],
+    "nft": ["non-fungible-token"],
+    "non-fungible-token": ["nft"],
+    "seo": ["search-engine-optimization"],
+    "search-engine-optimization": ["seo"],
+}
+
+
+# ---------------------------------------------------------------------------
+# Porter Stemmer (lightweight, no external dependencies)
+# ---------------------------------------------------------------------------
+
+class PorterStemmer:
+    """Minimal Porter stemmer for common English suffixes."""
+
+    _VOWELS = frozenset("aeiou")
+
+    _STEP2_MAP = (
+        ("ational", "ate"), ("tional", "tion"), ("enci", "ence"),
+        ("anci", "ance"), ("izer", "ize"), ("abli", "able"),
+        ("alli", "al"), ("entli", "ent"), ("eli", "e"),
+        ("ousli", "ous"), ("ization", "ize"), ("ation", "ate"),
+        ("ator", "ate"), ("alism", "al"), ("iveness", "ive"),
+        ("fulness", "ful"), ("ousness", "ous"), ("aliti", "al"),
+        ("iviti", "ive"), ("biliti", "ble"),
+    )
+
+    _STEP3_MAP = (
+        ("icate", "ic"), ("ative", ""), ("alize", "al"),
+        ("iciti", "ic"), ("ical", "ic"), ("ful", ""), ("ness", ""),
+    )
+
+    _STEP4_SUFFIXES = (
+        "al", "ance", "ence", "er", "ic", "able", "ible",
+        "ant", "ement", "ment", "ent", "ion", "ou", "ism",
+        "ate", "iti", "ous", "ive", "ize",
+    )
+
+    @staticmethod
+    def _measure(stem: str) -> int:
+        """Count consonant-vowel sequences (the 'm' value in Porter)."""
+        if not stem:
+            return 0
+        vowels = PorterStemmer._VOWELS
+        cv = "".join("v" if ch in vowels else "c" for ch in stem)
+        return cv.count("cv")
+
+    @staticmethod
+    def _has_vowel(stem: str) -> bool:
+        return any(ch in PorterStemmer._VOWELS for ch in stem)
+
+    @staticmethod
+    def _ends_double_consonant(word: str) -> bool:
+        if len(word) < 2:
+            return False
+        return (
+            word[-1] == word[-2]
+            and word[-1] not in PorterStemmer._VOWELS
+        )
+
+    @staticmethod
+    def _ends_cvc(word: str) -> bool:
+        """True if word ends consonant-vowel-consonant (and last is not w/x/y)."""
+        if len(word) < 3:
+            return False
+        v = PorterStemmer._VOWELS
+        return (
+            word[-1] not in v
+            and word[-2] in v
+            and word[-3] not in v
+            and word[-1] not in "wxy"
+        )
+
+    def stem(self, word: str) -> str:
+        """Return the stemmed form of a single word."""
+        if len(word) <= 2:
+            return word
+
+        word = word.lower()
+
+        # Step 1a: plurals
+        if word.endswith("sses"):
+            word = word[:-2]
+        elif word.endswith("ies"):
+            word = word[:-2]
+        elif word.endswith("ss"):
+            pass
+        elif word.endswith("s") and len(word) > 3:
+            word = word[:-1]
+
+        # Step 1b: -eed, -ed, -ing
+        if word.endswith("eed"):
+            stem = word[:-3]
+            if self._measure(stem) > 0:
+                word = word[:-1]
+        elif word.endswith("ed"):
+            stem = word[:-2]
+            if self._has_vowel(stem) and len(stem) > 1:
+                word = stem
+                word = self._step1b_fixup(word)
+        elif word.endswith("ing"):
+            stem = word[:-3]
+            if self._has_vowel(stem) and len(stem) > 1:
+                word = stem
+                word = self._step1b_fixup(word)
+
+        # Step 1c: y -> i
+        if word.endswith("y") and self._has_vowel(word[:-1]) and len(word) > 2:
+            word = word[:-1] + "i"
+
+        # Step 2: suffix mapping (m > 0)
+        for suffix, replacement in self._STEP2_MAP:
+            if word.endswith(suffix):
+                stem = word[: -len(suffix)]
+                if self._measure(stem) > 0:
+                    word = stem + replacement
+                break
+
+        # Step 3: further suffix reduction (m > 0)
+        for suffix, replacement in self._STEP3_MAP:
+            if word.endswith(suffix):
+                stem = word[: -len(suffix)]
+                if self._measure(stem) > 0:
+                    word = stem + replacement
+                break
+
+        # Step 4: remove known suffixes when m > 1
+        for suffix in self._STEP4_SUFFIXES:
+            if word.endswith(suffix):
+                stem = word[: -len(suffix)]
+                if self._measure(stem) > 1:
+                    if suffix == "ion" and stem and stem[-1] in "st":
+                        word = stem
+                    elif suffix != "ion":
+                        word = stem
+                break
+
+        # Step 5a: remove trailing 'e' when m > 1, or m == 1 and not *o
+        if word.endswith("e"):
+            stem = word[:-1]
+            m = self._measure(stem)
+            if m > 1 or (m == 1 and not self._ends_cvc(stem)):
+                word = stem
+
+        # Step 5b: double consonant + m > 1 -> remove last letter
+        if (
+            self._ends_double_consonant(word)
+            and word[-1] == "l"
+            and self._measure(word[:-1]) > 1
+        ):
+            word = word[:-1]
+
+        return word
+
+    def _step1b_fixup(self, word: str) -> str:
+        """Fix up word after removing -ed / -ing in step 1b."""
+        if word.endswith(("at", "bl", "iz")):
+            word += "e"
+        elif self._ends_double_consonant(word) and word[-1] not in "lsz":
+            word = word[:-1]
+        elif self._measure(word) == 1 and self._ends_cvc(word):
+            word += "e"
+        return word
+
+
+# ---------------------------------------------------------------------------
 # BM25 Index
 # ---------------------------------------------------------------------------
 
 class BM25Index:
-    """Okapi BM25 ranking function over CSV rows."""
+    """Okapi BM25 ranking function over CSV rows with stemming and synonyms."""
+
+    _stemmer = PorterStemmer()
 
     def __init__(self, k1: float = 1.5, b: float = 0.75):
         self.k1 = k1
@@ -43,11 +243,53 @@ class BM25Index:
         self.sources: list[str] = []
 
     @staticmethod
-    def tokenize(text: str) -> list[str]:
-        """Lowercase tokenization with basic normalization."""
+    def tokenize(text: str, expand: bool = False) -> list[str]:
+        """Lowercase, hyphen-aware tokenization with optional synonym expansion.
+
+        Hyphenated terms produce both the hyphenated form and joined form, plus
+        any sub-parts longer than 1 character.  When *expand* is True, each
+        token is also looked up in the SYNONYMS dictionary and its synonyms are
+        appended.  Stemmed forms of every token are added as well.
+        """
         text = text.lower()
+        # Keep hyphens in a first pass, split on everything else
         text = re.sub(r"[^a-z0-9\-/]", " ", text)
-        return [t for t in text.split() if len(t) > 1]
+        raw_tokens = [t for t in text.split() if len(t) > 1]
+
+        tokens: list[str] = []
+        stemmer = BM25Index._stemmer
+        for tok in raw_tokens:
+            tokens.append(tok)
+            # Compute the de-hyphenated form once for reuse
+            joined = tok.replace("-", "") if "-" in tok else tok
+            # Hyphen-aware expansion: "e-commerce" -> ["e-commerce", "ecommerce", "commerce"]
+            if "-" in tok:
+                if len(joined) > 1:
+                    tokens.append(joined)
+                for part in tok.split("-"):
+                    if len(part) > 1:
+                        tokens.append(part)
+            # Add stemmed form
+            stemmed = stemmer.stem(joined)
+            if stemmed and len(stemmed) > 1 and stemmed != tok:
+                tokens.append(stemmed)
+
+        if expand:
+            expanded: list[str] = list(tokens)
+            seen = set(tokens)
+            for tok in tokens:
+                for syn in SYNONYMS.get(tok, []):
+                    if syn not in seen:
+                        expanded.append(syn)
+                        seen.add(syn)
+                        # Also add joined form of hyphenated synonyms
+                        if "-" in syn:
+                            joined_syn = syn.replace("-", "")
+                            if len(joined_syn) > 1 and joined_syn not in seen:
+                                expanded.append(joined_syn)
+                                seen.add(joined_syn)
+            return expanded
+        return tokens
 
     def add_documents(self, rows: list[dict], source: str, text_fields: list[str]):
         """Index a set of CSV rows with specified text fields."""
@@ -58,7 +300,7 @@ class BM25Index:
                 if val:
                     text_parts.append(str(val))
             combined = " ".join(text_parts)
-            tokens = self.tokenize(combined)
+            tokens = self.tokenize(combined, expand=False)
 
             self.corpus.append(row)
             self.doc_tokens.append(tokens)
@@ -72,8 +314,17 @@ class BM25Index:
         self.avg_dl = sum(self.doc_len) / max(self.n_docs, 1)
 
     def search(self, query: str, top_k: int = 10, source_filter: Optional[str] = None) -> list[dict]:
-        """Search the index and return top-k results with scores."""
-        query_tokens = self.tokenize(query)
+        """Search the index with synonym expansion and return top-k results."""
+        query_tokens = self.tokenize(query, expand=True)
+        # Deduplicate while preserving order for scoring
+        seen: set[str] = set()
+        unique_tokens: list[str] = []
+        for qt in query_tokens:
+            if qt not in seen:
+                seen.add(qt)
+                unique_tokens.append(qt)
+        query_tokens = unique_tokens
+
         scores = []
 
         for i in range(self.n_docs):
