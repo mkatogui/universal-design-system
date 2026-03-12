@@ -1,8 +1,9 @@
 {
-  "$schema": "https://design-tokens.github.io/community-group/format/",
-  "$version": "0.8.0",
+  "$schema": "https://tr.designtokens.org/format/",
+  "$version": "1.0.0",
   "$description": "Universal Design System \u2014 9 structural palettes, 2 appearance modes",
   "color": {
+    "$name": "Color Tokens",
     "$type": "color",
     "primitive": {
       "$description": "Raw color primitives (tier 1)",
@@ -581,6 +582,7 @@
     }
   },
   "typography": {
+    "$name": "Typography Tokens",
     "fontFamily": {
       "$type": "fontFamily",
       "sans": {
@@ -729,6 +731,7 @@
     }
   },
   "spacing": {
+    "$name": "Spacing Tokens",
     "$type": "dimension",
     "$description": "4px base grid",
     "1": {
@@ -785,6 +788,7 @@
     }
   },
   "size": {
+    "$name": "Size Tokens",
     "$type": "dimension",
     "container-max": {
       "$value": "1280px"
@@ -809,6 +813,7 @@
     }
   },
   "shadow": {
+    "$name": "Shadow Tokens",
     "$type": "shadow",
     "$description": "Light theme shadows \u2014 dark themes override with glow-border variants",
     "xs": {
@@ -963,6 +968,7 @@
     }
   },
   "motion": {
+    "$name": "Motion Tokens",
     "duration": {
       "$type": "duration",
       "instant": {
@@ -1132,6 +1138,7 @@
     }
   },
   "opacity": {
+    "$name": "Opacity Tokens",
     "$type": "number",
     "$description": "Opacity scale for UI states.",
     "disabled": {
@@ -1152,6 +1159,7 @@
     }
   },
   "breakpoint": {
+    "$name": "Breakpoint Tokens",
     "$type": "dimension",
     "$description": "Documentation-only \u2014 CSS custom properties cannot be used in @media queries. Use PostCSS @custom-media or Sass variables.",
     "sm": {
@@ -1171,6 +1179,7 @@
     }
   },
   "theme": {
+    "$name": "Theme Tokens",
     "bold-lifestyle": {
       "$description": "High-energy editorial-meets-commerce. Video-forward, campaign-driven, athletic/energetic with strong brand identity.",
       "bg_primary": {
@@ -2044,6 +2053,7 @@
     }
   },
   "component": {
+    "$name": "Component Tokens",
     "$description": "Component-level tokens (tier 3)",
     "tabs": {
       "height_md": {
@@ -2171,6 +2181,7 @@
     }
   },
   "radius": {
+    "$name": "Border Radius Tokens",
     "$type": "dimension",
     "$description": "Border radius scale. Foundation defaults shown below; each palette overrides these values with its structural identity.",
     "sm": {
@@ -2417,6 +2428,7 @@
     }
   },
   "zIndex": {
+    "$name": "Z-Index Tokens",
     "$type": "number",
     "$description": "Z-index scale for layering. Values increase by 100 for clear separation.",
     "dropdown": {
@@ -2449,6 +2461,7 @@
     }
   },
   "font-weight": {
+    "$name": "Font Weight Tokens",
     "$type": "number",
     "$description": "Font weight scale.",
     "regular": {
@@ -2473,6 +2486,7 @@
     }
   },
   "line-height": {
+    "$name": "Line Height Tokens",
     "$type": "number",
     "$description": "Line height scale for readability across text sizes.",
     "tight": {
@@ -2493,6 +2507,7 @@
     }
   },
   "border": {
+    "$name": "Border Tokens",
     "$type": "dimension",
     "$description": "Border widths. Border colors use color.semantic.border-* tokens.",
     "width-thin": {
@@ -2509,6 +2524,7 @@
     }
   },
   "icon": {
+    "$name": "Icon Tokens",
     "$type": "dimension",
     "$description": "Icon size scale aligned with text sizes.",
     "sm": {
