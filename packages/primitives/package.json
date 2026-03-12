@@ -1,6 +1,6 @@
 {
   "name": "@mkatogui/uds-primitives",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Unstyled, accessible component primitives — Dialog, Combobox, Tabs, Menu, Tooltip",
   "main": "src/index.js",
   "module": "src/index.js",

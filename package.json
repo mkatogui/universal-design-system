@@ -1,6 +1,6 @@
 {
   "name": "@mkatogui/universal-design-system",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "A production-grade design system with 9 structural palettes, 31 components, and automated WCAG 2.1 AA compliance. Reverse-engineered from 100 modern websites.",
   "main": "tokens/design-tokens.json",
   "bin": {
@@ -63,7 +63,11 @@
     "tokens/",
     "docs/",
     "audits/",
-    "src/",
+    "src/data/",
+    "src/scripts/",
+    "src/mcp/index.js",
+    "src/mcp/package.json",
+    "src/mcp/README.md",
     "cli/dist/",
     ".claude/skills/",
     "SPECIFICATION.md",

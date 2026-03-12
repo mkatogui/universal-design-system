@@ -14,7 +14,7 @@ export interface CommandPaletteGroup {
   id: string;
 }
 
-export interface CommandPaletteProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface CommandPaletteProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onSelect'> {
   open: boolean;
   onClose: () => void;
   size?: 'md' | 'lg';
