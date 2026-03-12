@@ -49,11 +49,11 @@ npx @mkatogui/universal-design-system install --platform cursor
 
 ```
 User Query → DomainDetector → BM25 Search → Rule Application → Token Resolution → Output
-              (21 sectors,     (17 CSVs)     (165 rules from     (design-tokens.json
+              (40 sectors,     (17 CSVs)     (165 rules from     (design-tokens.json
                8 product types)               ui-reasoning.csv)   palette overrides)
 ```
 
-**Layer 1 — Domain Detection** (`src/scripts/core.py: DomainDetector`): Regex keyword matching against 21 sectors (finance, healthcare, etc.) and 8 product types (dashboard, landing-page, etc.). Returns sector + product_type with confidence scores.
+**Layer 1 — Domain Detection** (`src/scripts/core.py: DomainDetector`): Regex keyword matching against 40 sectors (finance, fintech, healthcare, etc.) and 8 product types (dashboard, landing-page, etc.). Returns sector + product_type with confidence scores.
 
 **Layer 2 — BM25 Search** (`src/scripts/core.py: BM25Index`): Okapi BM25 ranking (k1=1.5, b=0.75) across all CSV databases. Tokenizes text (lowercase, non-alphanumeric removal, min length 2). Exact token matching only — no fuzzy/typo correction.
 

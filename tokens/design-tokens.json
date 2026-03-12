@@ -513,7 +513,7 @@
       },
       "$type": "color",
       "surface-default": {
-        "$value": "{color.primitive.neutral.white}",
+        "$value": "{color.primitive.neutral.0}",
         "$type": "color",
         "$description": "Default surface \u2014 cards, panels"
       },
@@ -1402,7 +1402,7 @@
         "$description": "Dark mode"
       },
       "text_on_brand_dark": {
-        "$value": "#FFFFFF",
+        "$value": "#1C1917",
         "$description": "Dark mode"
       },
       "brand_primary_dark": {
@@ -1474,7 +1474,7 @@
         "$description": "Light mode"
       },
       "text_on_brand": {
-        "$value": "#FFFFFF",
+        "$value": "#1A1523",
         "$description": "Light mode"
       },
       "brand_primary": {
@@ -1538,7 +1538,7 @@
         "$description": "Dark mode"
       },
       "text_on_brand_dark": {
-        "$value": "#FFFFFF",
+        "$value": "#1A0D00",
         "$description": "Dark mode"
       },
       "brand_primary_dark": {
@@ -1678,7 +1678,7 @@
         "$description": "Dark mode"
       },
       "brand_primary_dark": {
-        "$value": "#6366F1",
+        "$value": "#5B52E0",
         "$description": "Dark mode"
       },
       "brand_primary_rgb_dark": {

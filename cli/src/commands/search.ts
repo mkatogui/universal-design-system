@@ -2,7 +2,7 @@
  * Search command — wraps the Python search engine for terminal use.
  */
 
-import { execSync } from "node:child_process";
+import { execFileSync, execSync } from "node:child_process";
 import { existsSync } from "node:fs";
 import { join, resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -46,12 +46,12 @@ export async function searchCommand(
     }
   }
 
-  const args: string[] = [searchScript, JSON.stringify(query)];
+  const args: string[] = [searchScript, query];
   if (options.verbose) args.push("--verbose");
   if (options.json) args.push("--json");
 
   try {
-    const result = execSync(`${python} ${args.join(" ")}`, {
+    const result = execFileSync(python, args, {
       encoding: "utf-8",
       cwd: PKG_ROOT,
       stdio: ["ignore", "pipe", "pipe"],

@@ -3,7 +3,7 @@
 > The first AI-native design system. Describe your product — get a complete, accessible, shipping-ready design system in seconds.
 
 [![npm](https://img.shields.io/npm/v/@mkatogui/universal-design-system)](https://www.npmjs.com/package/@mkatogui/universal-design-system)
-[![WCAG 2.1 AA](https://img.shields.io/badge/WCAG_2.1-AA_Compliant-green.svg)](https://mkatogui.github.io/universal-design-system/)
+[![WCAG 2.1 AA](https://img.shields.io/badge/WCAG_2.1-AA-green.svg)](https://mkatogui.github.io/universal-design-system/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![9 Palettes](https://img.shields.io/badge/Palettes-9-blue.svg)](#9-palettes)
 [![31 Components](https://img.shields.io/badge/Components-31-blue.svg)](#31-components)
@@ -33,8 +33,8 @@ One command. Full design system. WCAG-validated. Domain-appropriate.
 | Feature | UDS | Material UI | DaisyUI | Style Dictionary | Radix UI |
 |---------|-----|-------------|---------|-----------------|----------|
 | AI-native reasoning engine | Yes | No | No | No | No |
-| Domain-aware recommendations | 21 sectors, 8 product types | Manual selection | Manual selection | N/A | N/A |
-| WCAG 2.1 AA automated audit | 108 checks, every build | Partial | No | No | Yes (runtime) |
+| Domain-aware recommendations | 40 sectors, 8 product types | Manual selection | Manual selection | N/A | N/A |
+| WCAG 2.1 AA automated audit | Automated contrast validation (108 pairs) | Partial | No | No | Yes (runtime) |
 | Anti-pattern detection | 55+ domain-specific rules | No | No | No | No |
 | Multi-framework output | React, Vue, Svelte | React only | CSS only | Platform tokens | React only |
 | AI platform support | 20 platforms | N/A | N/A | N/A | N/A |
@@ -51,11 +51,11 @@ One command. Full design system. WCAG-validated. Domain-appropriate.
 
 ```
 User Query -> Domain Detection -> BM25 Search -> Rule Application -> Output
-               (21 sectors,        (17 CSVs,       (165 rules,
+               (40 sectors,        (17 CSVs,       (165 rules,
                 8 product types)    1500+ rows)      55 anti-patterns)
 ```
 
-**Layer 1 -- Domain Detection:** Classifies your product across 21 industry sectors and 8 product types with confidence scores.
+**Layer 1 -- Domain Detection:** Classifies your product across 40 industry sectors and 8 product types with confidence scores.
 
 **Layer 2 -- BM25 Search:** Okapi BM25 ranking (k1=1.5, b=0.75) across 17 CSV databases. Surfaces the most relevant palettes, components, patterns, typography, and color schemes.
 

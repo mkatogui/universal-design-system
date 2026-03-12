@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Universal Design System — 166 Rules. 21 Industries. Zero Guesswork.</title>
-<meta name="description" content="The AI-native design system that cross-references 17 databases to recommend palettes, components, and anti-patterns by industry. 166 rules, 21 sectors, 100% WCAG AA.">
+<meta name="description" content="The AI-native design system that cross-references 17 databases to recommend palettes, components, and anti-patterns by industry. 166 rules, 40 sectors, targeting WCAG 2.1 AA compliance.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&family=Source+Serif+4:wght@600;700&display=swap" rel="stylesheet">
@@ -724,7 +724,7 @@ code{font-family:var(--font-mono);font-size:0.9em;padding:2px 6px;border-radius:
         <span class="hero__stat-sep" aria-hidden="true"></span>
         <span class="hero__stat"><strong>55</strong>&nbsp;Anti-patterns</span>
         <span class="hero__stat-sep" aria-hidden="true"></span>
-        <span class="hero__stat"><strong>100%</strong>&nbsp;WCAG AA</span>
+        <span class="hero__stat"><strong>WCAG 2.1</strong>&nbsp;AA Validated</span>
       </div>
       <div class="hero__ctas">
         <a href="#quickstart" class="uds-btn uds-btn--primary uds-btn--lg">Get Started</a>
@@ -741,6 +741,7 @@ code{font-family:var(--font-mono);font-size:0.9em;padding:2px 6px;border-radius:
       <span class="section__eyebrow">Interactive Demo</span>
       <h2 class="section__title" id="playground-heading">Live Playground</h2>
       <p class="section__subtitle section__subtitle--center">Type a product description and watch the engine recommend palettes, components, and design rules in real-time.</p>
+      <p style="font-size:0.85rem;color:var(--color-text-tertiary);margin-top:var(--space-2);">This is a preview with pre-computed results. Install the CLI for the full BM25 reasoning engine: <code style="font-size:0.8rem;">npx @mkatogui/universal-design-system search</code></p>
     </div>
     <div class="playground__grid reveal">
       <div class="playground__input-wrap">
@@ -904,7 +905,7 @@ code{font-family:var(--font-mono);font-size:0.9em;padding:2px 6px;border-radius:
         <thead><tr><th scope="col">Feature</th><th scope="col">Universal DS</th><th scope="col">Others</th></tr></thead>
         <tbody>
           <tr><td>Implementable tokens</td><td><span class="check" aria-label="Yes">&#10003;</span> W3C DTCG + CSS variables</td><td><span class="cross" aria-label="No">&#10007;</span> Just recommendations</td></tr>
-          <tr><td>WCAG validation</td><td><span class="check" aria-label="Yes">&#10003;</span> Automated 108 checks</td><td><span class="cross" aria-label="No">&#10007;</span> Manual or none</td></tr>
+          <tr><td>WCAG validation</td><td><span class="check" aria-label="Yes">&#10003;</span> Automated contrast validation (108 pairs)</td><td><span class="cross" aria-label="No">&#10007;</span> Manual or none</td></tr>
           <tr><td>Runtime palette switching</td><td><span class="check" aria-label="Yes">&#10003;</span> <code>data-theme</code> attribute</td><td><span class="cross" aria-label="No">&#10007;</span> Rebuild required</td></tr>
           <tr><td>Reasoning engine</td><td><span class="check" aria-label="Yes">&#10003;</span> BM25 + 17 databases</td><td><span class="cross" aria-label="No">&#10007;</span> Relies on AI model</td></tr>
           <tr><td>Framework output</td><td><span class="check" aria-label="Yes">&#10003;</span> React, Vue, Svelte, Tailwind</td><td><span class="cross" aria-label="No">&#10007;</span> Generic only</td></tr>
@@ -1010,7 +1011,7 @@ palette with accessible components."</span>
         <span class="proof__badge">&#9733; Open Source</span>
         <span class="proof__badge">MIT License</span>
         <span class="proof__badge">v__VERSION__</span>
-        <span class="proof__badge">100% WCAG AA</span>
+        <span class="proof__badge">WCAG 2.1 AA Validated</span>
       </div>
     </div>
   </div>
@@ -1022,7 +1023,7 @@ palette with accessible components."</span>
     <div class="footer__grid">
       <div>
         <div class="footer__brand">Universal Design System</div>
-        <p class="footer__desc">The AI-native design system that cross-references 17 databases to recommend palettes, components, and anti-patterns by industry. 166 rules, 21 sectors, 100% WCAG AA.</p>
+        <p class="footer__desc">The AI-native design system that cross-references 17 databases to recommend palettes, components, and anti-patterns by industry. 166 rules, 40 sectors, targeting WCAG 2.1 AA compliance.</p>
       </div>
       <div>
         <div class="footer__col-title">Product</div>
@@ -1056,7 +1057,7 @@ palette with accessible components."</span>
     </div>
     <div class="footer__bottom">
       <span>&copy; 2026 Universal Design System. MIT License.</span>
-      <span>v__VERSION__ &middot; 21 industries &middot; 166 rules &middot; 55 anti-patterns</span>
+      <span>v__VERSION__ &middot; 40 industries &middot; 166 rules &middot; 55 anti-patterns</span>
     </div>
   </div>
 </footer>

@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    name: Validate
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Validate tokens (W3C DTCG format)
+        run: npm run validate
+
+      - name: WCAG contrast audit
+        run: npm run audit
+
+      - name: Docs integrity check
+        run: npm run verify
+
+      - name: CSV cross-reference validation
+        run: npm run sync-data
+
+      - name: Style Dictionary build
+        run: npm run build
+
+      - name: CLI compilation check
+        run: cd cli && npx tsc
+
+      - name: Contract tests
+        run: npm run test:contracts

@@ -2,7 +2,7 @@
  * Generate command — produces a full design system specification.
  */
 
-import { execSync } from "node:child_process";
+import { execFileSync, execSync } from "node:child_process";
 import { existsSync } from "node:fs";
 import { join, resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -43,12 +43,12 @@ export async function generateCommand(
     }
   }
 
-  const args: string[] = [script, JSON.stringify(query)];
+  const args: string[] = [script, query];
   if (options.format) args.push("--format", options.format);
   if (options.framework) args.push("--framework", options.framework);
 
   try {
-    const result = execSync(`${python} ${args.join(" ")}`, {
+    const result = execFileSync(python, args, {
       encoding: "utf-8",
       cwd: PKG_ROOT,
       stdio: ["ignore", "pipe", "pipe"],

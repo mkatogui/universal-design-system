@@ -1,6 +1,6 @@
 {
   "$schema": "https://styledictionary.com/schema.json",
-  "source": ["design-tokens.json"],
+  "source": ["tokens/design-tokens.json"],
   "platforms": {
     "css": {
       "transformGroup": "css",

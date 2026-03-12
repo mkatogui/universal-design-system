@@ -234,49 +234,62 @@ def resolve_palette_tokens(tokens: dict, palette: str) -> dict:
 
     resolved = {}
 
-    # Tokens are flat under light/dark mode, not nested by category
-    light = theme_data.get("light", {})
-    structural = theme_data.get("$structural", {})
+    def _categorize(key: str, raw):
+        """Map a token key to the correct CSS custom property."""
+        if key.startswith(("bg", "text", "brand", "border", "status", "error", "success", "warning", "info")):
+            css_key = key.replace("_", "-")
+            resolved[f"--color-{css_key}"] = raw
+        elif key.startswith("shadow"):
+            resolved[f"--shadow-{key.replace('_', '-')}"] = raw
+        elif key.startswith("radius"):
+            resolved[f"--radius-{key.replace('_', '-')}"] = raw
+        elif key.startswith("font"):
+            resolved[f"--{key.replace('_', '-')}"] = raw
+        else:
+            css_key = key.replace("_", "-")
+            resolved[f"--color-{css_key}"] = raw
 
-    # Process light mode tokens (flat: bg-primary, text-primary, brand-primary, etc.)
-    for key, val in light.items():
-        if isinstance(val, dict) and "$value" in val:
-            raw = val["$value"]
-            token_type = val.get("$type", "")
-            # Resolve DTCG references
+    # Detect format: newer palettes have "light"/"dark" sub-dicts
+    if "light" in theme_data and isinstance(theme_data["light"], dict):
+        # Newer format: light/dark sub-objects with hyphenated keys
+        light = theme_data.get("light", {})
+        for key, val in light.items():
+            if isinstance(val, dict) and "$value" in val:
+                raw = val["$value"]
+                if isinstance(raw, str) and raw.startswith("{"):
+                    raw = _resolve_reference(tokens, raw)
+                _categorize(key, raw)
+
+        # Process structural tokens (radius, shadow, font-display)
+        structural = theme_data.get("$structural", {})
+        for key, val in structural.items():
+            if isinstance(val, dict) and "$value" in val:
+                raw = val["$value"]
+            elif isinstance(val, str):
+                raw = val
+            else:
+                continue
             if isinstance(raw, str) and raw.startswith("{"):
                 raw = _resolve_reference(tokens, raw)
-            # Categorize by key name
-            if key.startswith(("bg-", "text-", "brand-", "border-", "status-", "error", "success", "warning", "info")):
-                resolved[f"--color-{key}"] = raw
-            elif key.startswith("shadow"):
-                resolved[f"--shadow-{key}"] = raw
-            elif key.startswith("radius"):
-                resolved[f"--radius-{key}"] = raw
-            elif key.startswith("font"):
-                resolved[f"--{key}"] = raw
+            if key != "shape":
+                _categorize(key, raw)
+    else:
+        # Older format: flat underscore keys (bg_primary, text_primary_dark, etc.)
+        for key, val in theme_data.items():
+            if key.startswith("$"):
+                continue
+            # Skip dark-mode tokens (use light only for output)
+            if key.endswith("_dark"):
+                continue
+            if isinstance(val, dict) and "$value" in val:
+                raw = val["$value"]
+            elif isinstance(val, str):
+                raw = val
             else:
-                resolved[f"--color-{key}"] = raw
-
-    # Process structural tokens (radius, shadow, font-display)
-    # These may be plain values or DTCG formatted
-    for key, val in structural.items():
-        if isinstance(val, dict) and "$value" in val:
-            raw = val["$value"]
-        elif isinstance(val, str):
-            raw = val
-        else:
-            continue
-        if isinstance(raw, str) and raw.startswith("{"):
-            raw = _resolve_reference(tokens, raw)
-        if key.startswith("radius"):
-            resolved[f"--{key}"] = raw
-        elif key.startswith("shadow"):
-            resolved[f"--{key}"] = raw
-        elif key.startswith("font"):
-            resolved[f"--{key}"] = raw
-        elif key != "shape":  # skip non-CSS values
-            resolved[f"--{key}"] = raw
+                continue
+            if isinstance(raw, str) and raw.startswith("{"):
+                raw = _resolve_reference(tokens, raw)
+            _categorize(key, raw)
 
     return resolved
 

@@ -158,6 +158,48 @@ def validate_file(filename: str, schema: dict, components: set, patterns: set) -
     return errors
 
 
+def validate_taxonomy() -> list[str]:
+    """Check that all sector values in CSV rules exist in DomainDetector."""
+    errors = []
+    # Import the authoritative sector list from core.py
+    scripts_dir = DATA_DIR.parent / "scripts"
+    sys.path.insert(0, str(scripts_dir))
+    try:
+        from core import SECTOR_KEYWORDS
+    except ImportError:
+        errors.append("taxonomy: Cannot import SECTOR_KEYWORDS from core.py")
+        return errors
+
+    valid_sectors = set(SECTOR_KEYWORDS.keys())
+
+    # Check ui-reasoning.csv
+    reasoning_rows = load_csv("ui-reasoning.csv")
+    reasoning_sectors = set()
+    for row in reasoning_rows:
+        if row.get("field", "").strip() == "sector":
+            val = row.get("value", "").strip()
+            if val:
+                reasoning_sectors.add(val)
+
+    orphan_reasoning = reasoning_sectors - valid_sectors
+    for s in sorted(orphan_reasoning):
+        errors.append(f"taxonomy: ui-reasoning.csv uses sector '{s}' not in DomainDetector")
+
+    # Check anti-patterns.csv
+    ap_rows = load_csv("anti-patterns.csv")
+    ap_sectors = set()
+    for row in ap_rows:
+        val = row.get("sector", "").strip()
+        if val:
+            ap_sectors.add(val)
+
+    orphan_ap = ap_sectors - valid_sectors
+    for s in sorted(orphan_ap):
+        errors.append(f"taxonomy: anti-patterns.csv uses sector '{s}' not in DomainDetector")
+
+    return errors
+
+
 def main():
     print("CSV Data Validation")
     print("=" * 50)
@@ -184,6 +226,17 @@ def main():
             all_errors.extend(errors)
         else:
             print(f"  PASS: {filename} ({row_count} rows)")
+
+    # Taxonomy validation
+    print()
+    print("Taxonomy Validation")
+    print("=" * 50)
+    taxonomy_errors = validate_taxonomy()
+    if taxonomy_errors:
+        print(f"  FAIL: {len(taxonomy_errors)} orphan sector(s)")
+        all_errors.extend(taxonomy_errors)
+    else:
+        print("  PASS: All CSV sectors exist in DomainDetector")
 
     print()
     print(f"Total: {len(FILE_SCHEMAS)} files, {total_rows} rows")
