@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Universal Design System v0.1.0 — an AI-native design system with a BM25 reasoning engine that recommends palettes, components, patterns, and anti-patterns based on product domain. 9 structural palettes, 31 components, 496 tokens, 17 CSV databases (1500+ rows), Tailwind CSS generation, React/Vue/Svelte output, 20 AI platform support.
+Universal Design System v0.3.0 — a deterministic UI recommendation engine powered by retrieval and rule evaluation that recommends palettes, components, patterns, and anti-patterns based on product domain. 9 structural palettes, 32 components, ~530 tokens, 16 CSV databases (1,528 rows), Tailwind CSS generation, React/Vue/Svelte output, 20 AI platform support.
 
 ## Key Commands
 
@@ -49,11 +49,11 @@ npx @mkatogui/universal-design-system install --platform cursor
 
 ```
 User Query → DomainDetector → BM25 Search → Rule Application → Token Resolution → Output
-              (40 sectors,     (17 CSVs)     (165 rules from     (design-tokens.json
-               8 product types)               ui-reasoning.csv)   palette overrides)
+              (55 sectors,     (16 CSVs)     (~170 rules from    (design-tokens.json
+               14 product types)              ui-reasoning.csv)   palette overrides)
 ```
 
-**Layer 1 — Domain Detection** (`src/scripts/core.py: DomainDetector`): Regex keyword matching against 40 sectors (finance, fintech, healthcare, etc.) and 8 product types (dashboard, landing-page, etc.). Returns sector + product_type with confidence scores.
+**Layer 1 — Domain Detection** (`src/scripts/core.py: DomainDetector`): Regex keyword matching against 55 sectors (finance, fintech, healthcare, etc.) and 14 product types (dashboard, landing-page, etc.). Returns sector + product_type with confidence scores.
 
 **Layer 2 — BM25 Search** (`src/scripts/core.py: BM25Index`): Okapi BM25 ranking (k1=1.5, b=0.75) across all CSV databases. Tokenizes text (lowercase, non-alphanumeric removal, min length 2). Exact token matching only — no fuzzy/typo correction.
 
@@ -64,7 +64,7 @@ User Query → DomainDetector → BM25 Search → Rule Application → Token Res
 ### Directory Structure
 
 - **tokens/** — W3C DTCG design tokens (source of truth). 3-tier: primitive (raw color scales) → semantic (functional names) → palette-overrides (per-palette customizations)
-- **src/data/** — 17 CSV databases (1500+ rows). `products.csv` references `components.csv` and `patterns.csv` via slug. Includes mobile-native databases (`app-interface.csv`, `react-performance.csv`, `stacks/react-native.csv`)
+- **src/data/** — 16 CSV databases (1,528 rows). `products.csv` references `components.csv` and `patterns.csv` via slug. Includes mobile-native databases (`app-interface.csv`, `react-performance.csv`, `stacks/react-native.csv`)
 - **src/scripts/** — Python: `core.py` (BM25 engine + domain detector + reasoning), `search.py` (CLI search), `design_system.py` (full spec generator with Tailwind/React/Vue/Svelte output)
 - **cli/** — TypeScript CLI (Commander.js). Commands: `install` (20 platforms), `search`, `init`, `generate`. Auto-detects platform by checking for `.claude/`, `.cursor/`, etc. directories
 - **docs/** — Self-contained HTML docs: `index.html` (landing/showcase), `docs.html` (interactive documentation), `component-library.html` (sandbox), `reference.html` (token reference)

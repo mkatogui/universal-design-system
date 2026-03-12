@@ -1,25 +1,66 @@
 import React, { useState, useCallback } from 'react';
 
+/**
+ * Describes a single column in a {@link DataTable}.
+ */
 export interface DataTableColumn {
+  /** Key used to look up the value from each data row object. */
   key: string;
+  /** Visible header text. */
   header: string;
+  /** Allow sorting by this column. */
   sortable?: boolean;
+  /** Custom render function for cell content. */
   render?: (value: unknown, row: Record<string, unknown>) => React.ReactNode;
 }
 
+/**
+ * Props for the {@link DataTable} component.
+ *
+ * Extends native `<div>` attributes.
+ */
 export interface DataTableProps extends React.HTMLAttributes<HTMLDivElement> {
+  /** Feature variant. @default 'basic' */
   variant?: 'basic' | 'sortable' | 'selectable' | 'expandable';
+  /** Row density. @default 'default' */
   density?: 'compact' | 'default' | 'comfortable';
+  /** Column definitions. */
   columns: DataTableColumn[];
+  /** Array of row objects keyed by column `key`. */
   data: Record<string, unknown>[];
+  /** Enable column sorting controls. */
   sortable?: boolean;
+  /** Enable row selection checkboxes. */
   selectable?: boolean;
+  /** Called when a sortable column header is clicked. */
   onSort?: (key: string, direction: 'asc' | 'desc') => void;
+  /** Called when the set of selected rows changes. */
   onSelectionChange?: (selectedRows: number[]) => void;
+  /** Message shown when `data` is empty. @default 'No data' */
   emptyMessage?: string;
+  /** Show a loading state. */
   loading?: boolean;
 }
 
+/**
+ * A data table with optional column sorting, row selection, and custom
+ * cell renderers.
+ *
+ * Renders a semantic `<table>` with `role="table"`, `scope="col"` headers,
+ * and `aria-sort` attributes on sortable columns.
+ *
+ * Uses BEM class `uds-data-table` with variant and density modifiers.
+ * Forwards its ref to the root wrapper `<div>`.
+ *
+ * @example
+ * ```tsx
+ * <DataTable
+ *   columns={[{ key: 'name', header: 'Name', sortable: true }]}
+ *   data={[{ name: 'Alice' }, { name: 'Bob' }]}
+ *   sortable
+ * />
+ * ```
+ */
 export const DataTable = React.forwardRef<HTMLDivElement, DataTableProps>(
   ({ variant = 'basic', density = 'default', columns, data, sortable, selectable, onSort, onSelectionChange, emptyMessage = 'No data', loading, className, ...props }, ref) => {
     const [sortKey, setSortKey] = useState<string | null>(null);

@@ -29,7 +29,7 @@ function uniqueId(prefix) {
 /**
  * Create an accessible combobox primitive.
  *
- * @param {HTMLElement} inputElement - The text input element (role="combobox" will be set).
+ * @param {HTMLInputElement} inputElement - The text input element (role="combobox" will be set).
  * @param {HTMLElement} listboxElement - The container for options (role="listbox" will be set).
  * @param {Object} [options]
  * @param {Function} [options.onSelect] - Called with the selected option element when an option is chosen.
@@ -120,6 +120,14 @@ export function createCombobox(inputElement, listboxElement, options = {}) {
 
   // --- Open / Close ---
 
+  /**
+   * Open the listbox dropdown.
+   *
+   * Sets `aria-expanded="true"` on the input, removes the `hidden`
+   * attribute from the listbox, and fires the `onOpen` callback.
+   *
+   * No-op if the listbox is already open.
+   */
   function open() {
     if (isOpen) return;
     isOpen = true;
@@ -131,6 +139,15 @@ export function createCombobox(inputElement, listboxElement, options = {}) {
     }
   }
 
+  /**
+   * Close the listbox dropdown.
+   *
+   * Sets `aria-expanded="false"` on the input, adds the `hidden`
+   * attribute to the listbox, clears the active descendant, and fires
+   * the `onClose` callback.
+   *
+   * No-op if the listbox is already closed.
+   */
   function close() {
     if (!isOpen) return;
     isOpen = false;
@@ -164,6 +181,15 @@ export function createCombobox(inputElement, listboxElement, options = {}) {
     }
   }
 
+  /**
+   * Select an option element.
+   *
+   * Sets the input value to the option's `textContent`, closes the
+   * listbox, and fires the `onSelect` callback with the option element
+   * and its value (from `data-value` attribute or `textContent`).
+   *
+   * @param {HTMLElement} optionElement - The option element to select.
+   */
   function selectOption(optionElement) {
     if (!optionElement) return;
 
@@ -318,6 +344,15 @@ export function createCombobox(inputElement, listboxElement, options = {}) {
 
   // --- Public API ---
 
+  /**
+   * Destroy the combobox primitive.
+   *
+   * Closes the listbox (if open), removes all event listeners, and
+   * removes all ARIA attributes that were set during initialization
+   * (`role`, `aria-autocomplete`, `aria-expanded`, `aria-controls`,
+   * `aria-activedescendant`). After calling `destroy()`, the combobox
+   * instance should not be reused.
+   */
   function destroy() {
     close();
     inputElement.removeEventListener('input', handleInput);
@@ -339,11 +374,29 @@ export function createCombobox(inputElement, listboxElement, options = {}) {
     open,
     close,
     destroy,
+    /**
+     * Returns `true` if the listbox is currently open, `false` otherwise.
+     * @returns {boolean}
+     */
     isOpen: () => isOpen,
+    /**
+     * Returns the currently highlighted option element, or `null` if no
+     * option is active.
+     * @returns {HTMLElement | null}
+     */
     getActiveOption: () => {
       const opts = getOptions();
       return activeIndex >= 0 && activeIndex < opts.length ? opts[activeIndex] : null;
     },
+    /**
+     * Run an external function to update the option list, then
+     * re-highlight the first option if `autoSelect` is enabled.
+     *
+     * Use this when you dynamically add/remove option elements from the
+     * listbox DOM and need the combobox to pick up the changes.
+     *
+     * @param {Function} filterFn - A function that mutates the DOM options.
+     */
     setOptions: (filterFn) => {
       if (typeof filterFn === 'function') {
         filterFn();

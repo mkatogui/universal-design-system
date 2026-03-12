@@ -1,0 +1,558 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/mkatogui/universal-design-system/spec/token-schema.json",
+  "title": "Universal Design System Token Schema",
+  "description": "JSON Schema for tokens/design-tokens.json. Validates the W3C Design Tokens Community Group (DTCG) format used by Universal Design System with 9 structural palettes and ~530 tokens.",
+  "type": "object",
+  "required": ["$schema", "$version", "color", "typography", "spacing", "theme"],
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "const": "https://design-tokens.github.io/community-group/format/",
+      "description": "W3C DTCG format schema URL"
+    },
+    "$version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "description": "Semantic version of the token file format"
+    },
+    "$description": {
+      "type": "string",
+      "description": "Human-readable description of the token file"
+    },
+    "color": {
+      "$ref": "#/$defs/colorSection"
+    },
+    "typography": {
+      "$ref": "#/$defs/typographySection"
+    },
+    "spacing": {
+      "$ref": "#/$defs/spacingSection"
+    },
+    "size": {
+      "$ref": "#/$defs/dimensionGroup",
+      "description": "Size tokens for containers and icons"
+    },
+    "shadow": {
+      "$ref": "#/$defs/shadowSection"
+    },
+    "motion": {
+      "$ref": "#/$defs/motionSection"
+    },
+    "opacity": {
+      "$ref": "#/$defs/numberGroup",
+      "description": "Opacity scale for UI states (disabled, muted, subtle, overlay)"
+    },
+    "breakpoint": {
+      "$ref": "#/$defs/dimensionGroup",
+      "description": "Responsive breakpoints (documentation-only; cannot be used in @media queries as CSS custom properties)"
+    },
+    "theme": {
+      "$ref": "#/$defs/themeSection"
+    },
+    "component": {
+      "$ref": "#/$defs/componentSection"
+    },
+    "radius": {
+      "$ref": "#/$defs/radiusSection"
+    },
+    "zIndex": {
+      "$ref": "#/$defs/numberGroup",
+      "description": "Z-index scale for layering (dropdown=100 to system=9999)"
+    },
+    "font-weight": {
+      "$ref": "#/$defs/numberGroup",
+      "description": "Font weight scale (regular=400 to extrabold=800)"
+    },
+    "line-height": {
+      "$ref": "#/$defs/numberGroup",
+      "description": "Line height scale (tight=1.2 to loose=1.8)"
+    },
+    "border": {
+      "$ref": "#/$defs/dimensionGroup",
+      "description": "Border width tokens (thin=1px, medium=2px, thick=4px)"
+    },
+    "icon": {
+      "$ref": "#/$defs/dimensionGroup",
+      "description": "Icon size scale aligned with text sizes (sm=16px to xl=32px)"
+    },
+    "layout": {
+      "$ref": "#/$defs/layoutSection"
+    },
+    "transition": {
+      "$ref": "#/$defs/transitionSection"
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "tokenValue": {
+      "description": "A single design token with a $value and optional $type and $description. This is the leaf node of the token tree.",
+      "type": "object",
+      "required": ["$value"],
+      "properties": {
+        "$value": {
+          "description": "The token value. Can be a string (color hex, dimension), number (opacity, z-index, font-weight), array (font family stack, cubic bezier, shadow layers), or object (keyframe definitions).",
+          "oneOf": [
+            { "type": "string" },
+            { "type": "number" },
+            { "type": "array" },
+            { "type": "object" }
+          ]
+        },
+        "$type": {
+          "$ref": "#/$defs/tokenType"
+        },
+        "$description": {
+          "type": "string"
+        },
+        "$extensions": {
+          "type": "object",
+          "description": "Vendor extensions (e.g., com.tokens.oklch for OKLCH color values)",
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "tokenType": {
+      "description": "Valid W3C DTCG token types used in this design system",
+      "type": "string",
+      "enum": [
+        "color",
+        "dimension",
+        "fontFamily",
+        "fontWeight",
+        "duration",
+        "cubicBezier",
+        "number",
+        "shadow",
+        "string",
+        "object"
+      ]
+    },
+    "paletteEnum": {
+      "description": "The 9 structural palettes in Universal Design System",
+      "type": "string",
+      "enum": [
+        "minimal-saas",
+        "ai-futuristic",
+        "gradient-startup",
+        "corporate",
+        "apple-minimal",
+        "illustration",
+        "dashboard",
+        "bold-lifestyle",
+        "minimal-corporate"
+      ]
+    },
+    "tokenGroup": {
+      "description": "A group of tokens (intermediate node in the token tree). May contain nested groups or leaf token values.",
+      "type": "object",
+      "properties": {
+        "$name": { "type": "string" },
+        "$type": { "$ref": "#/$defs/tokenType" },
+        "$description": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "colorSection": {
+      "description": "Color tokens organized in 3 tiers: primitive (raw color scales), semantic (functional names), and palette-specific status colors.",
+      "type": "object",
+      "required": ["primitive", "semantic"],
+      "properties": {
+        "$name": { "type": "string" },
+        "$type": {
+          "type": "string",
+          "const": "color"
+        },
+        "primitive": {
+          "type": "object",
+          "description": "Tier 1: Raw color primitives. Organized by color family (blue, purple, green, etc.) with shade scales (50-950).",
+          "properties": {
+            "$description": { "type": "string" }
+          },
+          "additionalProperties": true
+        },
+        "semantic": {
+          "type": "object",
+          "description": "Tier 2: Functional color names (brand, text, bg, border, status). These reference primitive tokens and are overridden per palette in the theme section.",
+          "properties": {
+            "$description": { "type": "string" }
+          },
+          "additionalProperties": true
+        },
+        "status": {
+          "type": "object",
+          "description": "Status colors (success, warning, error, info) with semantic and dark variants.",
+          "additionalProperties": true
+        },
+        "chart": {
+          "type": "object",
+          "description": "Chart-specific color sequence tokens.",
+          "additionalProperties": true
+        },
+        "focus": {
+          "type": "object",
+          "description": "Focus ring color tokens.",
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": true
+    },
+    "typographySection": {
+      "description": "Typography tokens including font families (with palette overrides), font weights, and font size scale.",
+      "type": "object",
+      "required": ["fontFamily"],
+      "properties": {
+        "$name": { "type": "string" },
+        "fontFamily": {
+          "type": "object",
+          "description": "Font family stacks. Includes base families (sans, display, mono, serif) and palette-overrides for display fonts.",
+          "properties": {
+            "$type": {
+              "type": "string",
+              "const": "fontFamily"
+            },
+            "sans": { "$ref": "#/$defs/tokenValue" },
+            "display": { "$ref": "#/$defs/tokenValue" },
+            "mono": { "$ref": "#/$defs/tokenValue" },
+            "serif": { "$ref": "#/$defs/tokenValue" },
+            "palette-overrides": {
+              "type": "object",
+              "description": "Per-palette display font overrides. Only palettes with non-default display fonts are listed.",
+              "properties": {
+                "ai-futuristic": { "$ref": "#/$defs/tokenValue" },
+                "corporate": { "$ref": "#/$defs/tokenValue" },
+                "apple-minimal": { "$ref": "#/$defs/tokenValue" },
+                "bold-lifestyle": { "$ref": "#/$defs/tokenValue" },
+                "minimal-corporate": { "$ref": "#/$defs/tokenValue" }
+              },
+              "additionalProperties": { "$ref": "#/$defs/tokenValue" }
+            }
+          },
+          "additionalProperties": true
+        },
+        "fontWeight": {
+          "type": "object",
+          "description": "Font weight scale (regular=400 through extrabold=800).",
+          "additionalProperties": true
+        },
+        "fontSize": {
+          "type": "object",
+          "description": "Font size scale from xs through 5xl.",
+          "additionalProperties": true
+        },
+        "lineHeight": {
+          "type": "object",
+          "description": "Line height scale for readability.",
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": true
+    },
+    "spacingSection": {
+      "description": "Spacing tokens on a 4px base grid. 13-step scale from 4px (space-1) to 128px (space-32).",
+      "type": "object",
+      "properties": {
+        "$name": { "type": "string" },
+        "$type": {
+          "type": "string",
+          "const": "dimension"
+        },
+        "$description": { "type": "string" }
+      },
+      "patternProperties": {
+        "^[0-9]+$": { "$ref": "#/$defs/tokenValue" }
+      },
+      "additionalProperties": true
+    },
+    "shadowSection": {
+      "description": "Shadow/elevation tokens. Light theme uses drop shadows; dark themes use glow-border variants. Includes palette-overrides.",
+      "type": "object",
+      "properties": {
+        "$name": { "type": "string" },
+        "$type": {
+          "type": "string",
+          "const": "shadow"
+        },
+        "$description": { "type": "string" },
+        "xs": { "$ref": "#/$defs/tokenValue" },
+        "sm": { "$ref": "#/$defs/tokenValue" },
+        "md": { "$ref": "#/$defs/tokenValue" },
+        "lg": { "$ref": "#/$defs/tokenValue" },
+        "xl": { "$ref": "#/$defs/tokenValue" },
+        "2xl": { "$ref": "#/$defs/tokenValue" },
+        "palette-overrides": {
+          "type": "object",
+          "description": "Per-palette shadow overrides (e.g., glow-border shadows for dark palettes).",
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": true
+    },
+    "motionSection": {
+      "description": "Motion tokens including durations, easing curves, choreography presets, keyframes, and motion style presets.",
+      "type": "object",
+      "properties": {
+        "$name": { "type": "string" },
+        "$type": { "$ref": "#/$defs/tokenType" },
+        "duration": {
+          "type": "object",
+          "description": "Duration scale: instant (100ms), fast (150ms), normal (250ms), slow (400ms), slower (600ms), slowest (1000ms).",
+          "additionalProperties": true
+        },
+        "easing": {
+          "type": "object",
+          "description": "Cubic bezier easing curves: default, in, out, spring.",
+          "additionalProperties": true
+        },
+        "choreography": {
+          "type": "object",
+          "description": "Choreography presets combining duration + easing + transform for enter/exit transitions.",
+          "additionalProperties": true
+        },
+        "keyframe": {
+          "type": "object",
+          "description": "Keyframe animation definitions (pulse, bounce, shake, etc.).",
+          "additionalProperties": true
+        },
+        "style": {
+          "type": "object",
+          "description": "Motion style presets mapped to product domains: conservative, moderate, expressive, instant.",
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": true
+    },
+    "themeSection": {
+      "description": "Per-palette theme tokens. Each of the 9 palettes defines light and dark mode color tokens plus $structural metadata.",
+      "type": "object",
+      "required": [],
+      "properties": {
+        "$name": { "type": "string" },
+        "bold-lifestyle": { "$ref": "#/$defs/paletteTheme" },
+        "minimal-corporate": { "$ref": "#/$defs/paletteTheme" },
+        "corporate": { "$ref": "#/$defs/paletteTheme" },
+        "ai-futuristic": { "$ref": "#/$defs/paletteTheme" },
+        "apple-minimal": { "$ref": "#/$defs/paletteTheme" },
+        "gradient-startup": { "$ref": "#/$defs/paletteTheme" },
+        "minimal-saas": { "$ref": "#/$defs/paletteTheme" },
+        "illustration": { "$ref": "#/$defs/paletteTheme" },
+        "dashboard": { "$ref": "#/$defs/paletteTheme" }
+      },
+      "additionalProperties": false
+    },
+    "paletteTheme": {
+      "description": "A single palette's theme tokens. Contains light mode tokens (e.g., bg_primary), dark mode tokens (e.g., bg_primary_dark), and $structural metadata.",
+      "type": "object",
+      "required": [
+        "bg_primary", "bg_secondary", "bg_tertiary", "bg_inverse",
+        "text_primary", "text_secondary", "text_tertiary", "text_on_brand",
+        "brand_primary", "brand_primary_rgb", "brand_secondary", "brand_accent", "brand_muted",
+        "border_default", "border_input", "border_subtle",
+        "bg_primary_dark", "bg_secondary_dark", "bg_tertiary_dark", "bg_inverse_dark",
+        "text_primary_dark", "text_secondary_dark", "text_tertiary_dark", "text_on_brand_dark",
+        "brand_primary_dark", "brand_primary_rgb_dark", "brand_secondary_dark", "brand_accent_dark", "brand_muted_dark",
+        "border_default_dark", "border_input_dark", "border_subtle_dark",
+        "$structural"
+      ],
+      "properties": {
+        "$description": { "type": "string" },
+        "bg_primary": { "$ref": "#/$defs/tokenValue" },
+        "bg_secondary": { "$ref": "#/$defs/tokenValue" },
+        "bg_tertiary": { "$ref": "#/$defs/tokenValue" },
+        "bg_inverse": { "$ref": "#/$defs/tokenValue" },
+        "text_primary": { "$ref": "#/$defs/tokenValue" },
+        "text_secondary": { "$ref": "#/$defs/tokenValue" },
+        "text_tertiary": { "$ref": "#/$defs/tokenValue" },
+        "text_on_brand": { "$ref": "#/$defs/tokenValue" },
+        "brand_primary": { "$ref": "#/$defs/tokenValue" },
+        "brand_primary_rgb": { "$ref": "#/$defs/tokenValue" },
+        "brand_secondary": { "$ref": "#/$defs/tokenValue" },
+        "brand_accent": { "$ref": "#/$defs/tokenValue" },
+        "brand_muted": { "$ref": "#/$defs/tokenValue" },
+        "border_default": { "$ref": "#/$defs/tokenValue" },
+        "border_input": { "$ref": "#/$defs/tokenValue" },
+        "border_subtle": { "$ref": "#/$defs/tokenValue" },
+        "bg_primary_dark": { "$ref": "#/$defs/tokenValue" },
+        "bg_secondary_dark": { "$ref": "#/$defs/tokenValue" },
+        "bg_tertiary_dark": { "$ref": "#/$defs/tokenValue" },
+        "bg_inverse_dark": { "$ref": "#/$defs/tokenValue" },
+        "text_primary_dark": { "$ref": "#/$defs/tokenValue" },
+        "text_secondary_dark": { "$ref": "#/$defs/tokenValue" },
+        "text_tertiary_dark": { "$ref": "#/$defs/tokenValue" },
+        "text_on_brand_dark": { "$ref": "#/$defs/tokenValue" },
+        "brand_primary_dark": { "$ref": "#/$defs/tokenValue" },
+        "brand_primary_rgb_dark": { "$ref": "#/$defs/tokenValue" },
+        "brand_secondary_dark": { "$ref": "#/$defs/tokenValue" },
+        "brand_accent_dark": { "$ref": "#/$defs/tokenValue" },
+        "brand_muted_dark": { "$ref": "#/$defs/tokenValue" },
+        "border_default_dark": { "$ref": "#/$defs/tokenValue" },
+        "border_input_dark": { "$ref": "#/$defs/tokenValue" },
+        "border_subtle_dark": { "$ref": "#/$defs/tokenValue" },
+        "$structural": {
+          "$ref": "#/$defs/structuralMetadata"
+        }
+      },
+      "additionalProperties": { "$ref": "#/$defs/tokenValue" }
+    },
+    "structuralMetadata": {
+      "description": "Palette structural identity metadata. Defines the shape, default border-radius, and display font for the palette.",
+      "type": "object",
+      "required": ["shape", "radius-md", "font-display"],
+      "properties": {
+        "shape": {
+          "type": "string",
+          "description": "Shape identity keyword",
+          "enum": ["default", "sharp", "round", "squared", "smooth", "soft", "compact", "brutalist", "subtle"]
+        },
+        "radius-md": {
+          "type": "string",
+          "description": "Default medium border-radius for this palette"
+        },
+        "font-display": {
+          "type": "string",
+          "description": "Display font family name for h1-h3 headings"
+        }
+      },
+      "additionalProperties": false
+    },
+    "componentSection": {
+      "description": "Component-level tokens (tier 3). Per-component sizing, spacing, and timing tokens.",
+      "type": "object",
+      "properties": {
+        "$name": { "type": "string" },
+        "$description": { "type": "string" },
+        "tabs": { "$ref": "#/$defs/tokenGroup" },
+        "accordion": { "$ref": "#/$defs/tokenGroup" },
+        "tooltip": { "$ref": "#/$defs/tokenGroup" },
+        "toast": { "$ref": "#/$defs/tokenGroup" },
+        "avatar": { "$ref": "#/$defs/tokenGroup" },
+        "data_table": { "$ref": "#/$defs/tokenGroup" },
+        "pagination": { "$ref": "#/$defs/tokenGroup" },
+        "skeleton": { "$ref": "#/$defs/tokenGroup" }
+      },
+      "additionalProperties": { "$ref": "#/$defs/tokenGroup" }
+    },
+    "radiusSection": {
+      "description": "Border radius tokens with foundation defaults and per-palette overrides defining shape identity.",
+      "type": "object",
+      "properties": {
+        "$name": { "type": "string" },
+        "$type": {
+          "type": "string",
+          "const": "dimension"
+        },
+        "$description": { "type": "string" },
+        "sm": { "$ref": "#/$defs/tokenValue" },
+        "md": { "$ref": "#/$defs/tokenValue" },
+        "lg": { "$ref": "#/$defs/tokenValue" },
+        "xl": { "$ref": "#/$defs/tokenValue" },
+        "2xl": { "$ref": "#/$defs/tokenValue" },
+        "full": { "$ref": "#/$defs/tokenValue" },
+        "palette-overrides": {
+          "type": "object",
+          "description": "Per-palette border-radius overrides. Each palette key contains sm through full radius values.",
+          "properties": {
+            "ai-futuristic": { "$ref": "#/$defs/radiusPaletteOverride" },
+            "gradient-startup": { "$ref": "#/$defs/radiusPaletteOverride" },
+            "corporate": { "$ref": "#/$defs/radiusPaletteOverride" },
+            "apple-minimal": { "$ref": "#/$defs/radiusPaletteOverride" },
+            "illustration": { "$ref": "#/$defs/radiusPaletteOverride" },
+            "dashboard": { "$ref": "#/$defs/radiusPaletteOverride" },
+            "bold-lifestyle": { "$ref": "#/$defs/radiusPaletteOverride" },
+            "minimal-corporate": { "$ref": "#/$defs/radiusPaletteOverride" }
+          },
+          "additionalProperties": { "$ref": "#/$defs/radiusPaletteOverride" }
+        }
+      },
+      "additionalProperties": true
+    },
+    "radiusPaletteOverride": {
+      "description": "A single palette's border-radius override values.",
+      "type": "object",
+      "required": ["sm", "md", "lg", "xl", "2xl", "full"],
+      "properties": {
+        "$description": { "type": "string" },
+        "sm": { "$ref": "#/$defs/tokenValue" },
+        "md": { "$ref": "#/$defs/tokenValue" },
+        "lg": { "$ref": "#/$defs/tokenValue" },
+        "xl": { "$ref": "#/$defs/tokenValue" },
+        "2xl": { "$ref": "#/$defs/tokenValue" },
+        "full": { "$ref": "#/$defs/tokenValue" }
+      },
+      "additionalProperties": false
+    },
+    "layoutSection": {
+      "description": "Responsive layout tokens for breakpoints, containers, and sidebar widths.",
+      "type": "object",
+      "properties": {
+        "$description": { "type": "string" },
+        "breakpoint": {
+          "type": "object",
+          "description": "Responsive breakpoints (min-width): sm=640px, md=768px, lg=1024px, xl=1280px, 2xl=1536px.",
+          "additionalProperties": true
+        },
+        "container": {
+          "type": "object",
+          "description": "Max-width containers: sm=640px through full=100%.",
+          "additionalProperties": true
+        },
+        "sidebar": {
+          "type": "object",
+          "description": "Sidebar widths: collapsed=64px, default=240px, wide=320px.",
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": true
+    },
+    "transitionSection": {
+      "description": "View Transitions API names and @starting-style definitions for CSS-native animations.",
+      "type": "object",
+      "properties": {
+        "$description": { "type": "string" },
+        "view-transition-name": {
+          "type": "object",
+          "description": "Named view transitions for header, hero, card, sidebar, modal elements.",
+          "additionalProperties": true
+        },
+        "starting-style": {
+          "type": "object",
+          "description": "@starting-style definitions for entry animations (modal, dropdown, toast, popover).",
+          "additionalProperties": true
+        },
+        "behavior": {
+          "type": "object",
+          "description": "Transition behavior tokens (e.g., allow-discrete).",
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": true
+    },
+    "dimensionGroup": {
+      "description": "A group of dimension-typed tokens.",
+      "type": "object",
+      "properties": {
+        "$name": { "type": "string" },
+        "$type": {
+          "type": "string",
+          "const": "dimension"
+        },
+        "$description": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "numberGroup": {
+      "description": "A group of number-typed tokens.",
+      "type": "object",
+      "properties": {
+        "$name": { "type": "string" },
+        "$type": {
+          "type": "string",
+          "const": "number"
+        },
+        "$description": { "type": "string" }
+      },
+      "additionalProperties": true
+    }
+  }
+}

@@ -1,17 +1,49 @@
 import React, { useEffect, useRef, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 
+/**
+ * Props for the {@link Modal} component.
+ */
 export interface ModalProps {
+  /** Whether the modal is currently visible. */
   open: boolean;
+  /** Callback fired when the modal should close (Escape key, overlay click, close button). */
   onClose: () => void;
+  /** Purpose-specific visual variant. @default 'task' */
   variant?: 'confirmation' | 'task' | 'alert';
+  /** Width constraint of the dialog panel. @default 'md' */
   size?: 'sm' | 'md' | 'lg';
+  /** Dialog heading rendered in the header; also used as `aria-label`. */
   title?: string;
+  /** Body content of the dialog. */
   children: React.ReactNode;
+  /** Action buttons rendered in the footer area. */
   actions?: React.ReactNode;
+  /** Additional CSS class for the dialog panel. */
   className?: string;
 }
 
+/**
+ * An accessible modal dialog rendered via React Portal into `document.body`.
+ *
+ * Features:
+ * - Focus trap (Tab / Shift+Tab cycles within the dialog)
+ * - Escape key closes the dialog
+ * - Clicking the overlay backdrop closes the dialog
+ * - Restores focus to the previously-focused element on close
+ * - Sets `aria-modal="true"` and `role="dialog"`
+ * - Locks body scroll while open
+ *
+ * Uses BEM class `uds-modal` with variant and size modifiers.
+ * Forwards its ref to the dialog panel `<div>`.
+ *
+ * @example
+ * ```tsx
+ * <Modal open={isOpen} onClose={() => setOpen(false)} title="Confirm">
+ *   <p>Are you sure?</p>
+ * </Modal>
+ * ```
+ */
 export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
   ({ open, onClose, variant = 'task', size = 'md', title, children, actions, className }, ref) => {
     const modalRef = useRef<HTMLDivElement>(null);

@@ -227,7 +227,12 @@ class PorterStemmer:
 # ---------------------------------------------------------------------------
 
 class BM25Index:
-    """Okapi BM25 ranking function over CSV rows with stemming and synonyms."""
+    """Okapi BM25 ranking function over CSV rows with stemming and synonyms.
+
+    Uses an inverted index for O(k) search time where k is the number of
+    posting list entries for the query tokens, instead of O(n) iteration
+    over all documents.
+    """
 
     _stemmer = PorterStemmer()
 
@@ -235,12 +240,13 @@ class BM25Index:
         self.k1 = k1
         self.b = b
         self.corpus: list[dict] = []
-        self.doc_tokens: list[list[str]] = []
         self.doc_len: list[int] = []
         self.avg_dl: float = 0.0
         self.df: Counter = Counter()
         self.n_docs: int = 0
         self.sources: list[str] = []
+        # Inverted index: token -> list of (doc_id, term_frequency)
+        self._inverted: dict[str, list[tuple[int, int]]] = {}
 
     @staticmethod
     def tokenize(text: str, expand: bool = False) -> list[str]:
@@ -302,19 +308,28 @@ class BM25Index:
             combined = " ".join(text_parts)
             tokens = self.tokenize(combined, expand=False)
 
+            doc_id = len(self.corpus)
             self.corpus.append(row)
-            self.doc_tokens.append(tokens)
             self.doc_len.append(len(tokens))
             self.sources.append(source)
 
-            for token in set(tokens):
+            # Build inverted index: for each unique token, record (doc_id, tf)
+            tf_counts = Counter(tokens)
+            for token, tf in tf_counts.items():
                 self.df[token] += 1
+                if token not in self._inverted:
+                    self._inverted[token] = []
+                self._inverted[token].append((doc_id, tf))
 
         self.n_docs = len(self.corpus)
         self.avg_dl = sum(self.doc_len) / max(self.n_docs, 1)
 
     def search(self, query: str, top_k: int = 10, source_filter: Optional[str] = None) -> list[dict]:
-        """Search the index with synonym expansion and return top-k results."""
+        """Search the index with synonym expansion and return top-k results.
+
+        Uses the inverted index to iterate only over posting lists for query
+        tokens (O(k) where k = total postings) instead of scanning all docs.
+        """
         query_tokens = self.tokenize(query, expand=True)
         # Deduplicate while preserving order for scoring
         seen: set[str] = set()
@@ -325,37 +340,30 @@ class BM25Index:
                 unique_tokens.append(qt)
         query_tokens = unique_tokens
 
-        scores = []
+        # Accumulate scores via inverted index traversal
+        doc_scores: dict[int, float] = {}
 
-        for i in range(self.n_docs):
-            if source_filter and self.sources[i] != source_filter:
+        for qt in query_tokens:
+            postings = self._inverted.get(qt)
+            if not postings:
                 continue
 
-            score = 0.0
-            doc_toks = self.doc_tokens[i]
-            dl = self.doc_len[i]
-            tf_map = Counter(doc_toks)
+            idf = math.log(
+                (self.n_docs - self.df[qt] + 0.5) / (self.df[qt] + 0.5) + 1
+            )
 
-            for qt in query_tokens:
-                if qt not in self.df:
+            for doc_id, tf in postings:
+                if source_filter and self.sources[doc_id] != source_filter:
                     continue
-                tf = tf_map.get(qt, 0)
-                if tf == 0:
-                    continue
-
-                idf = math.log(
-                    (self.n_docs - self.df[qt] + 0.5) / (self.df[qt] + 0.5) + 1
-                )
+                dl = self.doc_len[doc_id]
                 numerator = tf * (self.k1 + 1)
                 denominator = tf + self.k1 * (1 - self.b + self.b * dl / self.avg_dl)
-                score += idf * numerator / denominator
+                doc_scores[doc_id] = doc_scores.get(doc_id, 0.0) + idf * numerator / denominator
 
-            if score > 0:
-                scores.append((score, i))
-
-        scores.sort(key=lambda x: -x[0])
+        # Sort by score descending
+        scored = sorted(doc_scores.items(), key=lambda x: -x[1])
         results = []
-        for score, idx in scores[:top_k]:
+        for idx, score in scored[:top_k]:
             result = dict(self.corpus[idx])
             result["_score"] = round(score, 3)
             result["_source"] = self.sources[idx]

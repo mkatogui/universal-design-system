@@ -1,19 +1,52 @@
 import React from 'react';
 
+/**
+ * Describes a single link column displayed in the {@link Footer} grid.
+ */
 export interface FooterColumn {
+  /** Column heading. */
   title: string;
+  /** Links rendered under this column. */
   links: { label: string; href: string }[];
 }
 
+/**
+ * Props for the {@link Footer} component.
+ *
+ * Extends native `<footer>` attributes.
+ */
 export interface FooterProps extends React.HTMLAttributes<HTMLElement> {
+  /** Layout variant. @default 'simple' */
   variant?: 'simple' | 'multi-column' | 'newsletter' | 'mega-footer';
+  /** Density. @default 'standard' */
   size?: 'standard' | 'compact';
+  /** Array of link columns to render. */
   columns?: FooterColumn[];
+  /** Newsletter subscription form element. */
   newsletter?: React.ReactNode;
+  /** Legal/fine-print content. */
   legal?: React.ReactNode;
+  /** Copyright text rendered at the very bottom. */
   copyright?: string;
 }
 
+/**
+ * A site footer with optional multi-column link grid, newsletter form,
+ * legal section, and copyright notice.
+ *
+ * Renders a `<footer>` with `aria-label="Site footer"`.
+ * Uses BEM class `uds-footer` with variant and size modifiers.
+ * Forwards its ref to the root `<footer>` element.
+ *
+ * @example
+ * ```tsx
+ * <Footer
+ *   variant="multi-column"
+ *   columns={[{ title: 'Product', links: [{ label: 'Features', href: '/features' }] }]}
+ *   copyright="2024 Acme Inc."
+ * />
+ * ```
+ */
 export const Footer = React.forwardRef<HTMLElement, FooterProps>(
   ({ variant = 'simple', size = 'standard', columns, newsletter, legal, copyright, className, children, ...props }, ref) => {
     const classes = [

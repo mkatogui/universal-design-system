@@ -1,16 +1,50 @@
 import React from 'react';
 
+/**
+ * Props for the {@link Testimonial} component.
+ *
+ * Extends native `<div>` attributes.
+ */
 export interface TestimonialProps extends React.HTMLAttributes<HTMLDivElement> {
+  /** Layout variant. @default 'quote-card' */
   variant?: 'quote-card' | 'video' | 'metric' | 'carousel';
+  /** Controls card sizing. @default 'md' */
   size?: 'sm' | 'md' | 'lg';
+  /** The testimonial quote text. */
   quote?: string;
+  /** URL of the author's avatar image. */
   avatar?: string;
+  /** Author's full name. */
   name?: string;
+  /** Author's job title. */
   title?: string;
+  /** Author's company name. */
   company?: string;
+  /** Star rating from 0 to 5. */
   rating?: number;
 }
 
+/**
+ * A testimonial card displaying a customer quote with optional author
+ * avatar, name, title, company, and star rating.
+ *
+ * Uses a `<blockquote>` for the quote and an accessible star-rating
+ * widget with `aria-label`.
+ *
+ * Uses BEM class `uds-testimonial` with variant and size modifiers.
+ * Forwards its ref to the root `<div>` element.
+ *
+ * @example
+ * ```tsx
+ * <Testimonial
+ *   quote="Incredible design system!"
+ *   name="Jane Doe"
+ *   title="CTO"
+ *   company="Acme"
+ *   rating={5}
+ * />
+ * ```
+ */
 export const Testimonial = React.forwardRef<HTMLDivElement, TestimonialProps>(
   ({ variant = 'quote-card', size = 'md', quote, avatar, name, title, company, rating, className, children, ...props }, ref) => {
     const classes = [

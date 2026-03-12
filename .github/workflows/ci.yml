@@ -10,6 +10,9 @@ jobs:
   validate:
     name: Validate
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18, 20]
 
     steps:
       - name: Checkout
@@ -18,12 +21,15 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: ${{ matrix.node-version }}
+          cache: npm
 
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.x"
+          cache: pip
+          cache-dependency-path: "**/requirements*.txt"
 
       - name: Install dependencies
         run: npm install
@@ -40,6 +46,14 @@ jobs:
       - name: CSV cross-reference validation
         run: npm run sync-data
 
+      - name: Dataset schema validation
+        if: hashFiles('scripts/validate-datasets.py') != ''
+        run: python3 scripts/validate-datasets.py
+
+      - name: Expanded contrast audit
+        if: hashFiles('scripts/contrast-audit-expanded.py') != ''
+        run: python3 scripts/contrast-audit-expanded.py
+
       - name: Style Dictionary build
         run: npm run build
 
@@ -48,3 +62,28 @@ jobs:
 
       - name: Contract tests
         run: npm run test:contracts
+
+  accessibility:
+    name: Accessibility
+    runs-on: ubuntu-latest
+    if: hashFiles('tests/accessibility/*.spec.ts') != ''
+    needs: validate
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Run accessibility tests
+        run: npx playwright test tests/accessibility/

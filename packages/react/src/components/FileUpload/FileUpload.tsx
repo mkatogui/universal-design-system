@@ -1,18 +1,54 @@
 import React, { useState, useCallback, useRef } from 'react';
 
+/**
+ * Props for the {@link FileUpload} component.
+ *
+ * Extends native `<div>` attributes (with `onDrop` replaced).
+ */
 export interface FileUploadProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onDrop'> {
+  /** Upload interaction style. @default 'dropzone' */
   variant?: 'dropzone' | 'button' | 'avatar-upload';
+  /** Controls the zone dimensions. @default 'md' */
   size?: 'sm' | 'md' | 'lg';
+  /** Accepted file types (MIME types or extensions, e.g. ".png,.jpg"). */
   accept?: string;
+  /** Maximum file size in bytes. */
   maxSize?: number;
+  /** Maximum number of files that can be uploaded. */
   maxFiles?: number;
+  /** Allow selecting multiple files at once. */
   multiple?: boolean;
+  /** Called with the validated files when new files are added. */
   onUpload?: (files: File[]) => void;
+  /** Called when a file is removed from the list. */
   onRemove?: (file: File) => void;
+  /** Disables the upload zone. */
   disabled?: boolean;
+  /** Accessible label for the upload zone. @default 'Upload files' */
   label?: string;
 }
 
+/**
+ * A file upload zone supporting drag-and-drop and click-to-browse,
+ * with built-in file-size and file-count validation.
+ *
+ * Displays an uploaded file list with remove buttons.
+ * Uses `role="button"` on the drop zone for keyboard accessibility,
+ * and `role="alert"` / `aria-live` for error and file-list updates.
+ *
+ * Uses BEM class `uds-file-upload` with variant, size, drag-over,
+ * and disabled modifiers.
+ * Forwards its ref to the root `<div>` element.
+ *
+ * @example
+ * ```tsx
+ * <FileUpload
+ *   accept=".png,.jpg"
+ *   maxSize={5 * 1024 * 1024}
+ *   onUpload={(files) => upload(files)}
+ * />
+ * ```
+ */
 export const FileUpload = React.forwardRef<HTMLDivElement, FileUploadProps>(
   ({ variant = 'dropzone', size = 'md', accept, maxSize, maxFiles, multiple, onUpload, onRemove, disabled, label, className, children, ...props }, ref) => {
     const [dragOver, setDragOver] = useState(false);

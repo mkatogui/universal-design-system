@@ -124,6 +124,16 @@ export function createMenu(triggerElement, menuElement, options = {}) {
 
   // --- Open / Close ---
 
+  /**
+   * Open the menu.
+   *
+   * Sets `aria-expanded="true"` on the trigger, removes the `hidden`
+   * attribute from the menu, focuses the first menu item, and fires
+   * the `onOpen` callback. Registers a document-level click listener
+   * to close the menu when clicking outside.
+   *
+   * No-op if the menu is already open.
+   */
   function open() {
     if (isOpen) return;
     isOpen = true;
@@ -147,6 +157,16 @@ export function createMenu(triggerElement, menuElement, options = {}) {
     }
   }
 
+  /**
+   * Close the menu.
+   *
+   * Sets `aria-expanded="false"` on the trigger, hides the menu (sets
+   * `hidden`), clears the active item state, removes the outside-click
+   * listener, returns focus to the trigger, and fires the `onClose`
+   * callback.
+   *
+   * No-op if the menu is already closed.
+   */
   function close() {
     if (!isOpen) return;
     isOpen = false;
@@ -173,6 +193,9 @@ export function createMenu(triggerElement, menuElement, options = {}) {
     }
   }
 
+  /**
+   * Toggle the menu open or closed.
+   */
   function toggle() {
     if (isOpen) {
       close();
@@ -303,6 +326,14 @@ export function createMenu(triggerElement, menuElement, options = {}) {
     }
   }
 
+  /**
+   * Select a menu item.
+   *
+   * Fires the `onSelect` callback, triggers a native click on the item,
+   * and closes the menu if `closeOnSelect` is enabled.
+   *
+   * @param {HTMLElement} item - The menuitem element to select.
+   */
   function selectItem(item) {
     if (typeof onSelect === 'function') {
       onSelect(item);
@@ -359,6 +390,16 @@ export function createMenu(triggerElement, menuElement, options = {}) {
 
   // --- Public API ---
 
+  /**
+   * Destroy the menu primitive.
+   *
+   * Closes the menu (if open), removes all event listeners (trigger
+   * click, trigger keydown, menu keydown, menu click, outside click),
+   * removes all ARIA attributes (`aria-haspopup`, `aria-expanded`,
+   * `aria-controls`, `role`), un-hides the menu element, and clears
+   * the first-letter search timeout. After calling `destroy()`, the
+   * menu instance should not be reused.
+   */
   function destroy() {
     close();
     triggerElement.removeEventListener('click', handleTriggerClick);
@@ -381,7 +422,18 @@ export function createMenu(triggerElement, menuElement, options = {}) {
     close,
     toggle,
     destroy,
+    /**
+     * Returns `true` if the menu is currently open, `false` otherwise.
+     * @returns {boolean}
+     */
     isOpen: () => isOpen,
+    /**
+     * Re-initialize menu items after DOM changes.
+     *
+     * Call this after dynamically adding or removing menuitem elements.
+     * Ensures all items have `role="menuitem"` and `tabindex="-1"`, and
+     * re-activates the current item if the menu is open.
+     */
     refresh: () => {
       // Re-initialize items after DOM changes.
       Array.from(menuElement.querySelectorAll(itemSelector)).forEach((item) => {

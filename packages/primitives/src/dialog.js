@@ -166,6 +166,16 @@ export function createDialog(dialogElement, options = {}) {
 
   // --- Public API ---
 
+  /**
+   * Open the dialog.
+   *
+   * Sets `aria-modal="true"`, removes the `hidden` attribute, traps focus
+   * inside the dialog, locks body scroll (if configured), and moves focus
+   * to the first focusable element within the dialog. If no focusable
+   * element exists, the dialog container itself receives focus.
+   *
+   * No-op if the dialog is already open.
+   */
   function open() {
     if (isOpen) return;
     isOpen = true;
@@ -212,6 +222,15 @@ export function createDialog(dialogElement, options = {}) {
     }
   }
 
+  /**
+   * Close the dialog.
+   *
+   * Removes event listeners, hides the dialog (sets `hidden`), restores
+   * body scroll, and returns focus to the element that was focused before
+   * the dialog was opened (typically the trigger element).
+   *
+   * No-op if the dialog is already closed.
+   */
   function close() {
     if (!isOpen) return;
     isOpen = false;
@@ -244,6 +263,15 @@ export function createDialog(dialogElement, options = {}) {
     }
   }
 
+  /**
+   * Destroy the dialog primitive.
+   *
+   * Closes the dialog (if open), removes all ARIA attributes that were
+   * set during initialization (`role`, `aria-modal`, `aria-labelledby`,
+   * `aria-describedby`), and cleans up the trigger element's
+   * `aria-haspopup` and `aria-expanded` attributes. After calling
+   * `destroy()`, the dialog instance should not be reused.
+   */
   function destroy() {
     close();
 
@@ -285,6 +313,10 @@ export function createDialog(dialogElement, options = {}) {
     open,
     close,
     destroy,
+    /**
+     * Returns `true` if the dialog is currently open, `false` otherwise.
+     * @returns {boolean}
+     */
     isOpen: () => isOpen,
   };
 }
