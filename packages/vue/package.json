@@ -1,6 +1,6 @@
 {
   "name": "@mkatogui/uds-vue",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Vue 3 components for Universal Design System — 31 accessible, themeable components",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
