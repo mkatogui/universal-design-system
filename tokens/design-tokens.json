@@ -2039,6 +2039,7 @@
       }
     },
     "minimal-saas": {
+      "$description": "Clean SaaS aesthetic with neutral tones and blue accents. Best for B2B software, productivity tools, and developer platforms.",
       "light": {
         "bg-primary": {
           "$value": "#FFFFFF",
@@ -2122,6 +2123,7 @@
       }
     },
     "ai-futuristic": {
+      "$description": "Dark-mode forward with neon accents and deep purples. Best for AI/ML products, developer tools, and crypto platforms.",
       "light": {
         "bg-primary": {
           "$value": "#0A0A0F",
@@ -2273,6 +2275,7 @@
       }
     },
     "gradient-startup": {
+      "$description": "Vibrant gradients with purple-to-pink energy. Best for consumer startups, creative tools, and social platforms.",
       "light": {
         "bg-primary": {
           "$value": "#FFFFFF",
@@ -2362,6 +2365,7 @@
       }
     },
     "corporate": {
+      "$description": "Traditional business palette with navy and conservative tones. Best for finance, insurance, enterprise, and government.",
       "light": {
         "bg-primary": {
           "$value": "#FFFFFF",
@@ -2457,6 +2461,7 @@
       }
     },
     "apple-minimal": {
+      "$description": "Ultra-clean with generous whitespace and precise typography. Best for premium consumer products, hardware, and luxury.",
       "light": {
         "bg-primary": {
           "$value": "#FFFFFF",
