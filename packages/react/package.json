@@ -1,7 +1,7 @@
 {
   "name": "@mkatogui/uds-react",
-  "version": "0.1.0",
-  "description": "React components for Universal Design System — 8 accessible components, 9 palettes, 496 tokens",
+  "version": "0.1.1",
+  "description": "React components for Universal Design System — 32 accessible components, 9 palettes, 496 tokens",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",

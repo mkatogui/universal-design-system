@@ -1,14 +1,47 @@
 # Universal Design System
 
-> Other tools tell AI what colors to use. We give it a complete, accessible, WCAG-validated design system it can ship.
+> The first AI-native design system. Describe your product — get a complete, accessible, shipping-ready design system in seconds.
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![WCAG 2.1 AA](https://img.shields.io/badge/WCAG_2.1-AA_Compliant-green.svg)](https://mkatogui.github.io/universal-design-system/)
-[![Platforms](https://img.shields.io/badge/AI_Platforms-20-purple.svg)](https://mkatogui.github.io/universal-design-system/)
-[![Zero Dependencies](https://img.shields.io/badge/Dependencies-0-brightgreen.svg)]()
 [![npm](https://img.shields.io/npm/v/@mkatogui/universal-design-system)](https://www.npmjs.com/package/@mkatogui/universal-design-system)
+[![WCAG 2.1 AA](https://img.shields.io/badge/WCAG_2.1-AA_Compliant-green.svg)](https://mkatogui.github.io/universal-design-system/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![9 Palettes](https://img.shields.io/badge/Palettes-9-blue.svg)](#9-palettes)
+[![31 Components](https://img.shields.io/badge/Components-31-blue.svg)](#31-components)
+[![496 Tokens](https://img.shields.io/badge/Tokens-496-blue.svg)](#token-architecture)
+[![AI Platforms](https://img.shields.io/badge/AI_Platforms-20-purple.svg)](#supported-platforms)
+[![Zero Dependencies](https://img.shields.io/badge/Dependencies-0-brightgreen.svg)]()
 
 [Live Demo](https://mkatogui.github.io/universal-design-system/) · [Documentation](https://mkatogui.github.io/universal-design-system/docs.html) · [Component Library](https://mkatogui.github.io/universal-design-system/component-library.html) · [Token Reference](https://mkatogui.github.io/universal-design-system/reference.html)
+
+---
+
+## Why Universal Design System?
+
+Most design systems give you components. We give AI a **reasoning engine** that understands your domain and makes design decisions for you.
+
+```bash
+python3 src/scripts/design_system.py "fintech dashboard"
+# => palette: corporate, components: data-table, tabs, badge, side-nav
+#    anti-patterns: playful-animations (CRITICAL), neon-colors (CRITICAL)
+#    tokens: 4px radius, subtle shadows, Inter font, minimal motion
+```
+
+One command. Full design system. WCAG-validated. Domain-appropriate.
+
+### How it compares
+
+| Feature | UDS | Material UI | DaisyUI | Style Dictionary | Radix UI |
+|---------|-----|-------------|---------|-----------------|----------|
+| AI-native reasoning engine | Yes | No | No | No | No |
+| Domain-aware recommendations | 21 sectors, 8 product types | Manual selection | Manual selection | N/A | N/A |
+| WCAG 2.1 AA automated audit | 108 checks, every build | Partial | No | No | Yes (runtime) |
+| Anti-pattern detection | 55+ domain-specific rules | No | No | No | No |
+| Multi-framework output | React, Vue, Svelte | React only | CSS only | Platform tokens | React only |
+| AI platform support | 20 platforms | N/A | N/A | N/A | N/A |
+| Design tokens (W3C DTCG) | 496 tokens | Custom format | CSS vars | Yes (tooling) | CSS vars |
+| Zero-config palette system | 9 palettes + custom | Theming API | 30+ themes | N/A | N/A |
+| BM25 search across 17 databases | Yes (1500+ rows) | No | No | No | No |
+| Tailwind CSS generation | Built-in | Community | Built-in | Plugin | No |
 
 ---
 
@@ -16,60 +49,86 @@
 
 ![Architecture](docs/assets/architecture.svg)
 
-The 3-layer reasoning pipeline: Domain Detection, BM25 Search, and Rule Application transform a plain-text product description into a complete, shipping-ready design system.
+```
+User Query -> Domain Detection -> BM25 Search -> Rule Application -> Output
+               (21 sectors,        (17 CSVs,       (165 rules,
+                8 product types)    1500+ rows)      55 anti-patterns)
+```
+
+**Layer 1 -- Domain Detection:** Classifies your product across 21 industry sectors and 8 product types with confidence scores.
+
+**Layer 2 -- BM25 Search:** Okapi BM25 ranking (k1=1.5, b=0.75) across 17 CSV databases. Surfaces the most relevant palettes, components, patterns, typography, and color schemes.
+
+**Layer 3 -- Rule Application:** Evaluates 165 conditional rules and flags 55+ industry-specific anti-patterns. First match wins for palette; all matching rules accumulate.
 
 ---
 
-## At a Glance
+## Quick Start
 
-| | | |
-|---|---|---|
-| **9** structural palettes | **496** W3C DTCG tokens | **31** BEM components |
-| **165+** product category rules | **55+** anti-patterns | **200+** Google Fonts catalog |
-| **200+** icon library index | **17** CSV databases (1500+ rows) | **Custom palette** support |
-| **20** AI platform support | **Tailwind CSS** config generation | **React, Vue, Svelte** output |
+### Install on any AI coding platform
+
+```bash
+npx @mkatogui/universal-design-system install
+# Auto-detects: Claude Code, Cursor, Windsurf, VS Code, Zed, and 15 more
+```
+
+### Use the reasoning engine
+
+```bash
+# Search across all 17 databases
+python3 src/scripts/search.py "fintech dashboard"
+
+# Generate a full design system specification
+python3 src/scripts/design_system.py "saas landing page"
+
+# Generate with Tailwind CSS config
+python3 src/scripts/design_system.py "healthcare portal" --format tailwind
+
+# Generate with framework components
+python3 src/scripts/design_system.py "ecommerce store" --framework react
+python3 src/scripts/design_system.py "education app" --framework vue
+python3 src/scripts/design_system.py "fintech dashboard" --framework svelte
+```
+
+### Apply a palette
+
+```html
+<html lang="en" data-theme="corporate">
+```
+
+```js
+// Switch at runtime
+document.documentElement.setAttribute('data-theme', 'ai-futuristic');
+```
+
+### Use tokens in your CSS
+
+```css
+.my-card {
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: var(--space-4);
+  box-shadow: var(--shadow-sm);
+}
+```
+
+### Install standalone tokens
+
+```bash
+npm install @mkatogui/uds-tokens
+```
+
+```js
+import '@mkatogui/uds-tokens/css';           // CSS custom properties
+import { tokens } from '@mkatogui/uds-tokens'; // JS/TS object
+```
 
 ---
 
 ## What You Get
 
-Describe your product in plain English. The engine reasons across 17 databases and 1500+ data rows to produce opinionated, domain-appropriate design decisions.
-
-### Search the reasoning engine
-
-```
-$ python3 src/scripts/search.py "fintech dashboard"
-
-============================================================
-  Universal Design System — Search Results
-============================================================
-  Query:   fintech dashboard
-  Sector:  finance (confidence: 0.33)
-  Product: dashboard (confidence: 0.5)
-  Palette: corporate
-
-  Rules Applied (16)
-  ----------------------------------------
-  [9] palette = corporate
-  [9] anti_pattern = playful-animations
-  [8] required_components = data-table;tabs;badge;side-navigation
-  [8] motion_level = minimal
-
-  Anti-Patterns (5)
-  ----------------------------------------
-  [CRITICAL] playful-animations
-  [CRITICAL] neon-colors
-  [HIGH] dark-themes
-
-  Product Matches (5)
-  ----------------------------------------
-  [5.5] Fintech Dashboard — corporate
-  [3.2] Fintech Landing Page — corporate
-  [2.9] Medical Dashboard — dashboard
-============================================================
-```
-
-### Generate a full design system
+Describe your product in plain English. The engine reasons across 17 databases and 1500+ data rows:
 
 ```
 $ python3 src/scripts/design_system.py "fintech dashboard"
@@ -99,22 +158,22 @@ $ python3 src/scripts/design_system.py "fintech dashboard"
 
   ANTI-PATTERNS
   ----------------------------------------
-  [CRITICAL] playful-animations — Finance users expect stability
-  [CRITICAL] neon-colors — Undermines trust in regulated sectors
-  [HIGH]     dark-themes — Reduces data readability in dashboards
+  [CRITICAL] playful-animations -- Finance users expect stability
+  [CRITICAL] neon-colors -- Undermines trust in regulated sectors
+  [HIGH]     dark-themes -- Reduces data readability in dashboards
 
   DESIGN RULES
   ----------------------------------------
-  • Use 4px border-radius (corporate precision)
-  • Subtle shadows only (no dramatic elevation)
-  • Inter for body, Inter for display headings
-  • Minimal motion — transitions under 200ms
+  * Use 4px border-radius (corporate precision)
+  * Subtle shadows only (no dramatic elevation)
+  * Inter for body, Inter for display headings
+  * Minimal motion -- transitions under 200ms
 ========================================
 ```
 
 ---
 
-## 9 Palettes at a Glance
+## 9 Palettes
 
 ![Palettes](docs/assets/palettes.svg)
 
@@ -132,114 +191,16 @@ Each palette controls color, shadow, border-radius, and display font. Foundation
 | `bold-lifestyle` | 0px | hard | Clash Display | Fashion, media, lifestyle |
 | `minimal-corporate` | 6px | subtle | DM Sans | Legal, consulting, professional |
 
----
+### Custom Palettes
 
-## Quick Start
-
-### CLI (zero dependencies)
+Create palettes from your brand colors:
 
 ```bash
-# Install on your AI coding platform (auto-detects)
-uds install
-
-# Or target a specific platform
-uds install --platform cursor
-
-# Interactive setup wizard
-uds init
-
-# Search the design system
-uds search "fintech dashboard"
-
-# Generate a complete design system
-uds generate "saas landing page"
-
-# Generate with Tailwind config
-uds generate "healthcare portal" --format tailwind
-
-# Generate with framework code
-uds generate "ecommerce store" --framework react
-```
-
-### Manual Install
-
-```bash
-# Clone and use directly
-git clone https://github.com/mkatogui/universal-design-system.git
-cd universal-design-system
-
-# Search with Python directly
-python3 src/scripts/search.py "fintech dashboard"
-
-# Generate a full spec
-python3 src/scripts/design_system.py "saas landing page"
-```
-
-### Apply a Palette
-
-```html
-<html lang="en" data-theme="corporate">
-```
-
-Switch at runtime:
-
-```js
-document.documentElement.setAttribute('data-theme', 'ai-futuristic');
-```
-
----
-
-## Custom Palettes
-
-Create palettes from your brand colors. The color engine generates a full accessible palette (light + dark mode, WCAG-validated) from one or more hex values.
-
-```bash
-# Create a custom palette from brand colors
 python3 src/scripts/palette.py create --name my-brand --colors "#8B5CF6"
-
-# Multi-color palette with shape override
 python3 src/scripts/palette.py create --name duo-tone --colors "#E8590C,#7048E8" --shape round
-
-# Preview a palette before committing
 python3 src/scripts/palette.py preview --colors "#8B5CF6"
-
-# List all palettes (built-in + custom)
 python3 src/scripts/palette.py list
-
-# Export to CSS or JSON
-python3 src/scripts/palette.py export --name my-brand --format css
-
-# Use in design system generation
-python3 src/scripts/design_system.py "my product" --palette my-brand
 ```
-
----
-
-## How It Works
-
-1. **Install** the skill on your AI coding platform
-2. **Describe** your product ("fintech dashboard", "kids education app", "saas landing page")
-3. **Get** a complete, shipping-ready design system -- tokens, components, typography, color palette, anti-patterns, and WCAG compliance baked in
-
-The engine doesn't guess. It reasons across 17 databases and 1500+ data rows to produce opinionated, domain-appropriate design decisions.
-
----
-
-## Architecture: 3-Layer Reasoning Pipeline
-
-> The diagram above (`docs/assets/architecture.svg`) visualizes this pipeline. The ASCII version below serves as a text fallback.
-
-```
-User Query -> Domain Detection -> BM25 Search -> Rule Application -> Output
-               (21 sectors,        (17 CSVs,       (165 rules,
-                8 product types)    1500+ rows)      55 anti-patterns)
-```
-
-**Layer 1 -- Domain Detection:** Classifies your product across 21 industry sectors and 8 product types. Returns sector + product type with confidence scores.
-
-**Layer 2 -- BM25 Search:** Okapi BM25 ranking (k1=1.5, b=0.75) across 17 CSV databases. Surfaces the most relevant palettes, components, patterns, typography, and color schemes for your domain.
-
-**Layer 3 -- Rule Application:** Evaluates 165 conditional rules (IF sector=finance THEN palette=corporate). Flags 55+ industry-specific anti-patterns (bright colors in finance, playful animations in healthcare).
 
 ---
 
@@ -250,27 +211,50 @@ All components use BEM naming (`.uds-{component}--{variant}`) and CSS custom pro
 | Category | Components |
 |----------|-----------|
 | **Navigation** | Button, Navbar, Sidebar, Tabs, Breadcrumb, Pagination |
-| **Data Input** | Input, Select, Checkbox, Radio, Toggle |
-| **Data Display** | Card, Table, Badge, Avatar, Tooltip, Stat |
-| **Feedback** | Alert, Toast, Modal, Progress |
-| **Layout** | Accordion, Divider, Grid, Drawer, Footer |
-| **Composite** | Hero, Pricing, Testimonial, Feature, CTA |
+| **Data Input** | Input, Select, Checkbox, Radio, Toggle, Date Picker, File Upload |
+| **Data Display** | Card, Table, Badge, Avatar, Tooltip, Stat, Skeleton |
+| **Feedback** | Alert, Toast, Modal, Progress, Command Palette |
+| **Layout** | Hero, Accordion, Divider, Footer, Dropdown Menu |
+| **Composite** | Pricing, Testimonial, Feature Card, Code Block |
 
 ```html
 <button class="uds-btn uds-btn--primary uds-btn--md">Get Started</button>
+
+<div class="uds-card">
+  <h3 class="uds-card__title">Feature</h3>
+  <p class="uds-card__body">Description using design tokens.</p>
+</div>
 ```
+
+---
+
+## Token Architecture
+
+496 W3C DTCG tokens across 3 tiers:
+
+```
+Primitive (raw values)  ->  Semantic (functional names)  ->  Palette Overrides (per-palette)
+  color.blue.700              color.brand                      corporate.color.brand
+  space.4                     space.md                         (locked across palettes)
+```
+
+**Foundation tokens (locked):** body typography (Inter), 12-step spacing scale (4px base), motion durations/easing, z-index layers, opacity.
+
+**Palette tokens (vary):** color (brand, text, bg, border, status), shadow (elevation), border-radius (shape), display font (h1-h3 only).
+
+**Dark mode:** CSS variable override — same `--color-*` tokens redefined under `[data-theme="X"].docs-dark`.
 
 ---
 
 ## Supported Platforms
 
-Install on any AI coding platform:
+Install on any AI coding platform with one command:
 
 ```bash
-uds install --platform cursor
+npx @mkatogui/universal-design-system install --platform <name>
 ```
 
-| Platform | Platform | Platform | Platform |
+| | | | |
 |----------|----------|----------|----------|
 | Claude Code | Cursor | Windsurf | VS Code (Copilot) |
 | Zed | Aider | Cline | Continue |
@@ -296,29 +280,24 @@ uds generate "query" --framework react  # React components
 uds generate "query" --framework vue    # Vue components
 uds generate "query" --framework svelte # Svelte components
 uds tailwind "query"     # Shortcut for Tailwind generation
-```
-
----
-
-## Examples
-
-```
-examples/
-  basic-html/       — Self-contained HTML with palette switching
-  react-app/        — React app with @mkatogui/uds-react components
-  tailwind-config/  — Generated Tailwind CSS configuration
+uds palette create       # Create custom palette from brand colors
+uds palette list         # List all palettes
 ```
 
 ---
 
 ## Validation
 
+Every change is validated against 3 automated checks:
+
 ```bash
-npm run check            # Full validation suite
-npm run validate         # W3C DTCG token format
-npm run audit            # WCAG 2.1 AA contrast (108 checks)
-npm run verify           # HTML docs integrity
+npm run check            # Full validation suite (runs all 3 below)
+npm run validate         # W3C DTCG token format validation
+npm run audit            # WCAG 2.1 AA contrast (108 checks: 9 palettes x 2 modes)
+npm run verify           # HTML docs integrity (no hardcoded values)
 npm run sync-data        # CSV cross-reference validation
+npm run test:a11y        # axe-core accessibility audit (5 docs pages)
+npm run audit:apca       # APCA/WCAG 3.0 contrast analysis
 ```
 
 ---
@@ -331,21 +310,45 @@ universal-design-system/
   src/
     data/                 # 17 CSV databases (1500+ rows)
     scripts/              # BM25 engine, search CLI, spec generator, palette CLI
+    mcp/                  # MCP server for AI coding tool integration
   cli/                    # TypeScript CLI (zero dependencies)
-  packages/               # Framework packages (React)
-  docs/                   # Interactive HTML documentation
+  packages/
+    tokens/               # Standalone token package (@mkatogui/uds-tokens)
+    react/                # React components (@mkatogui/uds-react)
+    vue/                  # Vue 3 components (@mkatogui/uds-vue)
+    svelte/               # Svelte 5 components (@mkatogui/uds-svelte)
+    primitives/           # Headless accessible primitives (@mkatogui/uds-primitives)
+  docs/                   # Interactive HTML documentation (5 pages)
     assets/               # Architecture diagram, palette swatches
-  examples/               # Starter projects (HTML, React, Tailwind)
-  scripts/                # Validation scripts (WCAG, tokens, docs)
-  audits/                 # WCAG audit results
+  scripts/                # Validation scripts (WCAG, tokens, docs, axe-core, APCA)
+  audits/                 # Audit results (WCAG, axe-core, APCA)
   .claude/skills/         # Claude Code skills (5 skills)
 ```
 
 ---
 
+## MCP Server
+
+Expose the design system to any AI coding tool via Model Context Protocol:
+
+```json
+{
+  "mcpServers": {
+    "universal-design-system": {
+      "command": "node",
+      "args": ["src/mcp/index.js"]
+    }
+  }
+}
+```
+
+Available tools: `search_design_system`, `get_palette`, `get_component`, `generate_tokens`.
+
+---
+
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on adding palettes, components, and reasoning rules.
 
 ## License
 

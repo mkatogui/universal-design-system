@@ -1,12 +1,120 @@
 {
   "version": "0.8.0",
-  "generated": "2026-03-11T20:36:37.315919",
+  "generated": "2026-03-12T10:38:29.393763",
   "standard": "WCAG 2.1 AA",
   "total_checks": 108,
   "passed": 108,
   "failed": 0,
   "results": [
     {
+      "palette": "minimal-saas",
+      "mode": "light",
+      "pair": "text-primary / bg-primary",
+      "description": "Body text on background",
+      "min_ratio": 4.5,
+      "skipped": true,
+      "reason": "Color values not resolved"
+    },
+    {
+      "palette": "minimal-saas",
+      "mode": "light",
+      "pair": "text-secondary / bg-primary",
+      "description": "Secondary text on background",
+      "min_ratio": 4.5,
+      "skipped": true,
+      "reason": "Color values not resolved"
+    },
+    {
+      "palette": "minimal-saas",
+      "mode": "light",
+      "pair": "text-primary / bg-secondary",
+      "description": "Text on card surface",
+      "min_ratio": 4.5,
+      "skipped": true,
+      "reason": "Color values not resolved"
+    },
+    {
+      "palette": "minimal-saas",
+      "mode": "light",
+      "pair": "text-on-brand / brand-primary",
+      "description": "Button label on brand",
+      "min_ratio": 4.5,
+      "skipped": true,
+      "reason": "Color values not resolved"
+    },
+    {
+      "palette": "minimal-saas",
+      "mode": "light",
+      "pair": "brand-primary / bg-primary",
+      "description": "Brand link on background",
+      "min_ratio": 3.0,
+      "skipped": true,
+      "reason": "Color values not resolved"
+    },
+    {
+      "palette": "minimal-saas",
+      "mode": "light",
+      "pair": "text-tertiary / bg-primary",
+      "description": "Tertiary text on background",
+      "min_ratio": 3.0,
+      "skipped": true,
+      "reason": "Color values not resolved"
+    },
+    {
+      "palette": "minimal-saas",
+      "mode": "dark",
+      "pair": "text-primary / bg-primary",
+      "description": "Body text on background",
+      "min_ratio": 4.5,
+      "skipped": true,
+      "reason": "Color values not resolved"
+    },
+    {
+      "palette": "minimal-saas",
+      "mode": "dark",
+      "pair": "text-secondary / bg-primary",
+      "description": "Secondary text on background",
+      "min_ratio": 4.5,
+      "skipped": true,
+      "reason": "Color values not resolved"
+    },
+    {
+      "palette": "minimal-saas",
+      "mode": "dark",
+      "pair": "text-primary / bg-secondary",
+      "description": "Text on card surface",
+      "min_ratio": 4.5,
+      "skipped": true,
+      "reason": "Color values not resolved"
+    },
+    {
+      "palette": "minimal-saas",
+      "mode": "dark",
+      "pair": "text-on-brand / brand-primary",
+      "description": "Button label on brand",
+      "min_ratio": 4.5,
+      "skipped": true,
+      "reason": "Color values not resolved"
+    },
+    {
+      "palette": "minimal-saas",
+      "mode": "dark",
+      "pair": "brand-primary / bg-primary",
+      "description": "Brand link on background",
+      "min_ratio": 3.0,
+      "skipped": true,
+      "reason": "Color values not resolved"
+    },
+    {
+      "palette": "minimal-saas",
+      "mode": "dark",
+      "pair": "text-tertiary / bg-primary",
+      "description": "Tertiary text on background",
+      "min_ratio": 3.0,
+      "skipped": true,
+      "reason": "Color values not resolved"
+    },
+    {
       "palette": "ai-futuristic",
       "mode": "light",
       "pair": "text-primary / bg-primary",
@@ -863,114 +971,6 @@
     },
     {
       "palette": "minimal-corporate",
-      "mode": "dark",
-      "pair": "text-tertiary / bg-primary",
-      "description": "Tertiary text on background",
-      "min_ratio": 3.0,
-      "skipped": true,
-      "reason": "Color values not resolved"
-    },
-    {
-      "palette": "minimal-saas",
-      "mode": "light",
-      "pair": "text-primary / bg-primary",
-      "description": "Body text on background",
-      "min_ratio": 4.5,
-      "skipped": true,
-      "reason": "Color values not resolved"
-    },
-    {
-      "palette": "minimal-saas",
-      "mode": "light",
-      "pair": "text-secondary / bg-primary",
-      "description": "Secondary text on background",
-      "min_ratio": 4.5,
-      "skipped": true,
-      "reason": "Color values not resolved"
-    },
-    {
-      "palette": "minimal-saas",
-      "mode": "light",
-      "pair": "text-primary / bg-secondary",
-      "description": "Text on card surface",
-      "min_ratio": 4.5,
-      "skipped": true,
-      "reason": "Color values not resolved"
-    },
-    {
-      "palette": "minimal-saas",
-      "mode": "light",
-      "pair": "text-on-brand / brand-primary",
-      "description": "Button label on brand",
-      "min_ratio": 4.5,
-      "skipped": true,
-      "reason": "Color values not resolved"
-    },
-    {
-      "palette": "minimal-saas",
-      "mode": "light",
-      "pair": "brand-primary / bg-primary",
-      "description": "Brand link on background",
-      "min_ratio": 3.0,
-      "skipped": true,
-      "reason": "Color values not resolved"
-    },
-    {
-      "palette": "minimal-saas",
-      "mode": "light",
-      "pair": "text-tertiary / bg-primary",
-      "description": "Tertiary text on background",
-      "min_ratio": 3.0,
-      "skipped": true,
-      "reason": "Color values not resolved"
-    },
-    {
-      "palette": "minimal-saas",
-      "mode": "dark",
-      "pair": "text-primary / bg-primary",
-      "description": "Body text on background",
-      "min_ratio": 4.5,
-      "skipped": true,
-      "reason": "Color values not resolved"
-    },
-    {
-      "palette": "minimal-saas",
-      "mode": "dark",
-      "pair": "text-secondary / bg-primary",
-      "description": "Secondary text on background",
-      "min_ratio": 4.5,
-      "skipped": true,
-      "reason": "Color values not resolved"
-    },
-    {
-      "palette": "minimal-saas",
-      "mode": "dark",
-      "pair": "text-primary / bg-secondary",
-      "description": "Text on card surface",
-      "min_ratio": 4.5,
-      "skipped": true,
-      "reason": "Color values not resolved"
-    },
-    {
-      "palette": "minimal-saas",
-      "mode": "dark",
-      "pair": "text-on-brand / brand-primary",
-      "description": "Button label on brand",
-      "min_ratio": 4.5,
-      "skipped": true,
-      "reason": "Color values not resolved"
-    },
-    {
-      "palette": "minimal-saas",
-      "mode": "dark",
-      "pair": "brand-primary / bg-primary",
-      "description": "Brand link on background",
-      "min_ratio": 3.0,
-      "skipped": true,
-      "reason": "Color values not resolved"
-    },
-    {
-      "palette": "minimal-saas",
       "mode": "dark",
       "pair": "text-tertiary / bg-primary",
       "description": "Tertiary text on background",

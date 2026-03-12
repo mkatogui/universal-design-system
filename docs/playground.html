@@ -1,0 +1,1747 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="minimal-saas">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Playground — Universal Design System v__VERSION__</title>
+<meta name="description" content="Interactive component playground for the Universal Design System. Build, preview, and copy component code across 9 palettes with live dark mode toggling.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Source+Serif+4:wght@600;700&family=DM+Sans:wght@400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+/* ============================================================
+   FOUNDATION — Default governance layer
+   Typography, spacing, motion, z-index, opacity are locked.
+   Radii, shadows, border-width, and display font are palette-overridable.
+   ============================================================ */
+:root {
+  /* Typography */
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-display: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Menlo', 'Consolas', monospace;
+  --font-serif: 'Source Serif 4', Georgia, serif;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+
+  /* Type Scale */
+  --text-display-lg: clamp(2.5rem, 5vw, 3.75rem);
+  --text-display-md: clamp(2rem, 4vw, 3rem);
+  --text-heading-lg: clamp(1.75rem, 3vw, 2.25rem);
+  --text-heading-md: clamp(1.375rem, 2.5vw, 1.75rem);
+  --text-heading-sm: clamp(1.125rem, 2vw, 1.375rem);
+  --text-body-lg: 1.25rem;
+  --text-body-md: 1rem;
+  --text-body-sm: 0.875rem;
+  --text-label: 0.75rem;
+
+  /* Line Height */
+  --line-height-tight: 1.1;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.7;
+  --line-height-loose: 2;
+
+  /* Border Radius */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 24px;
+  --radius-full: 9999px;
+
+  /* Spacing (4px grid) */
+  --spacing-1: 4px;  --spacing-2: 8px;   --spacing-3: 12px;
+  --spacing-4: 16px; --spacing-5: 20px;  --spacing-6: 24px;
+  --spacing-8: 32px; --spacing-10: 40px; --spacing-12: 48px;
+  --spacing-16: 64px; --spacing-20: 80px;
+
+  /* Motion */
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --duration-slow: 400ms;
+  --duration-slower: 600ms;
+  --ease-default: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Opacity */
+  --opacity-disabled: 0.4;
+  --opacity-muted: 0.6;
+  --opacity-subtle: 0.8;
+
+  /* Z-Index Layers */
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-overlay: 300;
+  --z-modal: 400;
+  --z-toast: 500;
+  --z-tooltip: 600;
+  --z-system: 9999;
+
+  /* Icon Sizes */
+  --icon-sm: 16px;
+  --icon-md: 20px;
+  --icon-lg: 24px;
+  --icon-xl: 32px;
+
+  /* Layout */
+  --container-sm: 640px;
+  --container-md: 768px;
+  --container-lg: 1024px;
+  --container-xl: 1200px;
+}
+
+/* ============================================================
+   PALETTE: Minimal SaaS (default)
+   ============================================================ */
+:root, :root[data-theme="minimal-saas"] {
+  --color-bg-primary: #FFFFFF; --color-bg-secondary: #F8F8FA;
+  --color-bg-tertiary: #F0F0F5; --color-bg-inverse: #111118;
+  --color-text-primary: #111118; --color-text-secondary: #555566;
+  --color-text-tertiary: #6B6B7B; --color-text-on-brand: #FFFFFF;
+  --color-brand-primary: #2563EB; --color-brand-primary-rgb: 37, 99, 235;
+  --color-brand-secondary: #3B82F6; --color-brand-accent: #60A5FA;
+  --color-brand-muted: #DBEAFE;
+  --color-border-default: #C8C8D4; --color-border-input: #8E8E9E;
+  --color-border-subtle: #E8E8F0;
+  --color-success: #059669; --color-success-bg: #ECFDF5;
+  --color-warning: #D97706; --color-warning-bg: #FFFBEB;
+  --color-error: #DC2626; --color-error-bg: #FEF2F2;
+  --color-info: #2563EB; --color-info-bg: #EFF6FF;
+  --shadow-xs: 0 1px 2px rgba(0,0,0,0.05);
+  --shadow-sm: 0 2px 4px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.04);
+  --shadow-lg: 0 12px 32px rgba(0,0,0,0.12), 0 4px 8px rgba(0,0,0,0.06);
+  --shadow-xl: 0 24px 64px rgba(0,0,0,0.16);
+  --shadow-glow: 0 0 40px rgba(var(--color-brand-primary-rgb), 0.2);
+  --gradient-hero: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --gradient-cta: linear-gradient(135deg, var(--color-brand-primary), var(--color-brand-secondary));
+}
+
+/* Palette: AI Futuristic */
+:root[data-theme="ai-futuristic"] {
+  --color-bg-primary: #0A0A0F; --color-bg-secondary: #111118;
+  --color-bg-tertiary: #1A1A24; --color-bg-inverse: #FFFFFF;
+  --color-text-primary: #E0E0EE; --color-text-secondary: #9999AA;
+  --color-text-tertiary: #7A7A8C; --color-text-on-brand: #0A0A0F;
+  --color-brand-primary: #00FF88; --color-brand-primary-rgb: 0, 255, 136;
+  --color-brand-secondary: #00D4FF; --color-brand-accent: #8B5CF6;
+  --color-brand-muted: #0A2A1A;
+  --color-border-default: #2A2A36; --color-border-input: #4A4A58;
+  --color-border-subtle: #1E1E28;
+  --color-success: #34D399; --color-success-bg: #062E1E;
+  --color-warning: #FBBF24; --color-warning-bg: #2A1F00;
+  --color-error: #F87171; --color-error-bg: #2D0A0A;
+  --color-info: #60A5FA; --color-info-bg: #0A1628;
+  --radius-sm: 2px; --radius-md: 4px; --radius-lg: 6px; --radius-xl: 8px; --radius-2xl: 12px;
+  --shadow-sm: 0 0 0 1px rgba(255,255,255,0.06), 0 2px 4px rgba(0,0,0,0.3);
+  --shadow-md: 0 0 0 1px rgba(255,255,255,0.06), 0 4px 12px rgba(0,0,0,0.4);
+  --shadow-lg: 0 0 0 1px rgba(255,255,255,0.08), 0 12px 32px rgba(0,0,0,0.5);
+  --shadow-glow: 0 0 40px rgba(0, 255, 136, 0.15);
+  --font-display: 'DM Sans', system-ui, sans-serif;
+}
+
+/* Palette: Gradient Startup */
+:root[data-theme="gradient-startup"] {
+  --color-brand-primary: #7C3AED; --color-brand-primary-rgb: 124, 58, 237;
+  --color-brand-secondary: #EC4899; --color-brand-accent: #F59E0B;
+  --color-brand-muted: #F3E8FF;
+  --gradient-hero: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --gradient-cta: linear-gradient(135deg, #8B5CF6, #EC4899);
+  --radius-sm: 8px; --radius-md: 12px; --radius-lg: 16px; --radius-xl: 24px; --radius-2xl: 32px;
+  --shadow-sm: 0 2px 8px rgba(124,58,237,0.08);
+  --shadow-md: 0 4px 16px rgba(124,58,237,0.12);
+  --shadow-lg: 0 12px 40px rgba(124,58,237,0.16);
+}
+
+/* Corporate Enterprise */
+:root[data-theme="corporate"] {
+  --color-bg-secondary: #F7F8FA;
+  --color-text-primary: #1A202C; --color-text-secondary: #4A5568;
+  --color-text-tertiary: #636B78;
+  --color-brand-primary: #1A365D; --color-brand-primary-rgb: 26, 54, 93;
+  --color-brand-secondary: #2B6CB0; --color-border-default: #CBD5E0;
+  --radius-sm: 2px; --radius-md: 4px; --radius-lg: 6px; --radius-xl: 8px; --radius-2xl: 12px;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md: 0 2px 8px rgba(0,0,0,0.06);
+  --shadow-lg: 0 4px 16px rgba(0,0,0,0.08);
+  --font-display: 'Source Serif 4', Georgia, serif;
+}
+
+/* Palette: Apple Minimal */
+:root[data-theme="apple-minimal"] {
+  --color-bg-secondary: #FBFBFD; --color-bg-tertiary: #F5F5F7;
+  --color-bg-inverse: #000000;
+  --color-text-primary: #1D1D1F; --color-text-secondary: #515154;
+  --color-text-tertiary: #6E6E73;
+  --color-brand-primary: #0071E3; --color-brand-primary-rgb: 0, 113, 227;
+  --color-border-default: #D2D2D7;
+  --radius-sm: 8px; --radius-md: 10px; --radius-lg: 14px; --radius-xl: 20px; --radius-2xl: 28px;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.06);
+  --shadow-lg: 0 8px 24px rgba(0,0,0,0.10);
+  --font-display: 'Inter', -apple-system, sans-serif;
+}
+
+/* Illustration-Driven */
+:root[data-theme="illustration"] {
+  --color-bg-secondary: #FFF8F0; --color-bg-tertiary: #FFF0E6;
+  --color-bg-inverse: #1A1523;
+  --color-text-primary: #1A1523; --color-text-secondary: #5C5470;
+  --color-text-tertiary: #7A7189;
+  --color-brand-primary: #E8590C; --color-brand-primary-rgb: 232, 89, 12;
+  --color-brand-secondary: #7048E8; --color-brand-accent: #12B886;
+  --color-brand-muted: #FFF4E6;
+  --color-border-default: #C4B5A4; --color-border-input: #9E8E7E;
+  --gradient-hero: linear-gradient(135deg, #FF6B2B 0%, #7048E8 50%, #12B886 100%);
+  --radius-sm: 10px; --radius-md: 14px; --radius-lg: 18px; --radius-xl: 24px; --radius-2xl: 32px;
+  --shadow-sm: 0 2px 6px rgba(26,21,35,0.06);
+  --shadow-md: 0 4px 16px rgba(26,21,35,0.10);
+  --shadow-lg: 0 12px 36px rgba(26,21,35,0.14);
+}
+
+/* Dashboard-Centric */
+:root[data-theme="dashboard"] {
+  --color-bg-secondary: #F7F8FC; --color-bg-tertiary: #EEF0F8;
+  --color-bg-inverse: #0F1117;
+  --color-text-primary: #0F1117; --color-text-secondary: #525866;
+  --color-text-tertiary: #6E7585;
+  --color-brand-primary: #4F46E5; --color-brand-primary-rgb: 79, 70, 229;
+  --color-brand-secondary: #0EA5E9; --color-brand-accent: #06B6D4;
+  --color-brand-muted: #EEF2FF;
+  --color-border-default: #C5CAD4; --color-border-input: #8B92A0;
+  --radius-sm: 4px; --radius-md: 6px; --radius-lg: 8px; --radius-xl: 12px; --radius-2xl: 16px;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+  --shadow-md: 0 2px 6px rgba(0,0,0,0.08);
+  --shadow-lg: 0 6px 20px rgba(0,0,0,0.12);
+}
+
+/* Palette: Bold Lifestyle */
+:root[data-theme="bold-lifestyle"] {
+  --color-bg-secondary: #F5F5F5; --color-bg-tertiary: #EBEBEB;
+  --color-bg-inverse: #111111;
+  --color-text-primary: #111111; --color-text-secondary: #525252;
+  --color-text-tertiary: #6B6B6B;
+  --color-brand-primary: #111111; --color-brand-primary-rgb: 17, 17, 17;
+  --color-brand-secondary: #FF4500; --color-brand-accent: #FFD700;
+  --color-border-default: #BFBFBF; --color-border-input: #8C8C8C;
+  --radius-sm: 0; --radius-md: 0; --radius-lg: 0; --radius-xl: 0; --radius-2xl: 0; --radius-full: 0;
+  --shadow-sm: none; --shadow-md: 2px 2px 0 rgba(0,0,0,0.15);
+  --shadow-lg: 4px 4px 0 rgba(0,0,0,0.2); --shadow-glow: none;
+  --gradient-hero: none; --gradient-cta: none;
+  --font-display: 'Oswald', sans-serif;
+}
+
+/* Palette: Minimal Corporate */
+:root[data-theme="minimal-corporate"] {
+  --color-bg-primary: #FDFCFB; --color-bg-secondary: #F7F5F2;
+  --color-bg-tertiary: #EFECE8; --color-bg-inverse: #1C1917;
+  --color-text-primary: #1C1917; --color-text-secondary: #57534E;
+  --color-text-tertiary: #78716C;
+  --color-brand-primary: #B45309; --color-brand-primary-rgb: 180, 83, 9;
+  --color-brand-secondary: #92400E; --color-brand-accent: #D97706;
+  --color-brand-muted: #FEF3C7;
+  --color-border-default: #D6D3CD; --color-border-input: #A8A29E;
+  --color-border-subtle: #E7E5E4;
+  --radius-sm: 4px; --radius-md: 6px; --radius-lg: 8px; --radius-xl: 12px; --radius-2xl: 16px;
+  --shadow-sm: 0 1px 3px rgba(28,25,23,0.04);
+  --shadow-md: 0 3px 10px rgba(28,25,23,0.07);
+  --shadow-lg: 0 8px 24px rgba(28,25,23,0.10);
+  --font-display: 'Source Serif 4', Georgia, serif;
+}
+
+/* ============================================================
+   DARK MODE PALETTE OVERRIDES
+   ============================================================ */
+html.docs-dark[data-theme="ai-futuristic"] {
+  --color-bg-primary: #08080D; --color-bg-secondary: #0F0F16; --color-bg-tertiary: #16161F;
+  --color-bg-inverse: #FFFFFF;
+  --color-text-primary: #E0E0EE; --color-text-secondary: #9999AA; --color-text-tertiary: #7A7A8C;
+  --color-text-on-brand: #0A0A0F;
+  --color-brand-primary: #00FF88; --color-brand-primary-rgb: 0, 255, 136;
+  --color-brand-secondary: #00D4FF; --color-brand-accent: #8B5CF6;
+  --color-brand-muted: #0A2A1A;
+  --color-border-default: #2A2A36; --color-border-input: #4A4A58; --color-border-subtle: #1E1E28;
+  --color-success-bg: #062E1E; --color-warning-bg: #2A1F00; --color-error-bg: #2D0A0A; --color-info-bg: #0A1628;
+  --shadow-sm: 0 0 0 1px rgba(255,255,255,0.06), 0 2px 4px rgba(0,0,0,0.3);
+  --shadow-md: 0 0 0 1px rgba(255,255,255,0.06), 0 4px 12px rgba(0,0,0,0.4);
+  --shadow-lg: 0 0 0 1px rgba(255,255,255,0.08), 0 12px 32px rgba(0,0,0,0.5);
+  --shadow-glow: 0 0 40px rgba(0, 255, 136, 0.15);
+  --radius-sm: 2px; --radius-md: 4px; --radius-lg: 6px; --radius-xl: 8px; --radius-2xl: 12px;
+  --font-display: 'DM Sans', system-ui, sans-serif;
+}
+
+html.docs-dark[data-theme="minimal-saas"] {
+  --color-bg-primary: #0F0F14; --color-bg-secondary: #161620; --color-bg-tertiary: #1E1E2A;
+  --color-bg-inverse: #FFFFFF;
+  --color-text-primary: #E4E4EE; --color-text-secondary: #A0A0B4; --color-text-tertiary: #7A7A8E;
+  --color-border-default: #2C2C3A; --color-border-input: #4A4A5A; --color-border-subtle: #222230;
+  --color-success-bg: #0A2618; --color-warning-bg: #261E0A; --color-error-bg: #260A0A; --color-info-bg: #0A1426;
+  --shadow-sm: 0 2px 4px rgba(0,0,0,0.3); --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+  --shadow-lg: 0 12px 32px rgba(0,0,0,0.5); --shadow-xl: 0 24px 64px rgba(0,0,0,0.6);
+}
+
+html.docs-dark[data-theme="gradient-startup"] {
+  --color-bg-primary: #0E0A14; --color-bg-secondary: #16101E; --color-bg-tertiary: #1E1628;
+  --color-bg-inverse: #FFFFFF;
+  --color-text-primary: #E8E0F4; --color-text-secondary: #B0A4C4; --color-text-tertiary: #8A7EA0;
+  --color-border-default: #2E2840; --color-border-input: #4E4660; --color-border-subtle: #241E34;
+  --color-brand-muted: #1E0A3A;
+  --color-success-bg: #0A2618; --color-warning-bg: #261E0A; --color-error-bg: #260A0A; --color-info-bg: #0A1426;
+  --shadow-sm: 0 2px 4px rgba(0,0,0,0.3); --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+  --shadow-lg: 0 12px 32px rgba(0,0,0,0.5);
+  --shadow-glow: 0 0 40px rgba(124, 58, 237, 0.2);
+  --radius-sm: 8px; --radius-md: 12px; --radius-lg: 16px; --radius-xl: 24px; --radius-2xl: 32px;
+}
+
+html.docs-dark[data-theme="corporate"] {
+  --color-bg-primary: #0C0E12; --color-bg-secondary: #141820; --color-bg-tertiary: #1C2230;
+  --color-bg-inverse: #FFFFFF;
+  --color-text-primary: #D8DCE8; --color-text-secondary: #8E96A8; --color-text-tertiary: #6E7688;
+  --color-brand-primary: #4A7CC8; --color-brand-primary-rgb: 74, 124, 200;
+  --color-brand-secondary: #5A8ED8; --color-brand-muted: #0E1A30;
+  --color-border-default: #283040; --color-border-input: #3E4858; --color-border-subtle: #1E2636;
+  --color-success-bg: #0A2618; --color-warning-bg: #261E0A; --color-error-bg: #260A0A; --color-info-bg: #0A1426;
+  --shadow-sm: 0 2px 4px rgba(0,0,0,0.3); --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+  --shadow-lg: 0 12px 32px rgba(0,0,0,0.5);
+  --radius-sm: 2px; --radius-md: 4px; --radius-lg: 6px; --radius-xl: 8px; --radius-2xl: 12px;
+  --font-display: 'Source Serif 4', Georgia, serif;
+}
+
+html.docs-dark[data-theme="apple-minimal"] {
+  --color-bg-primary: #000000; --color-bg-secondary: #0E0E0E; --color-bg-tertiary: #1A1A1A;
+  --color-bg-inverse: #FFFFFF;
+  --color-text-primary: #F5F5F7; --color-text-secondary: #A1A1A6; --color-text-tertiary: #6E6E73;
+  --color-border-default: #2C2C2E; --color-border-input: #48484A; --color-border-subtle: #1C1C1E;
+  --color-success-bg: #0A2618; --color-warning-bg: #261E0A; --color-error-bg: #260A0A; --color-info-bg: #0A1426;
+  --shadow-sm: 0 2px 4px rgba(0,0,0,0.3); --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+  --shadow-lg: 0 12px 32px rgba(0,0,0,0.5);
+  --radius-sm: 8px; --radius-md: 10px; --radius-lg: 14px; --radius-xl: 20px; --radius-2xl: 28px;
+}
+
+html.docs-dark[data-theme="illustration"] {
+  --color-bg-primary: #12100E; --color-bg-secondary: #1C1816; --color-bg-tertiary: #262018;
+  --color-bg-inverse: #FFFFFF;
+  --color-text-primary: #F0E8DC; --color-text-secondary: #B0A494; --color-text-tertiary: #8A7E6E;
+  --color-brand-muted: #2A1A0A;
+  --color-border-default: #342E24; --color-border-input: #544A3A; --color-border-subtle: #242018;
+  --color-success-bg: #0A2618; --color-warning-bg: #261E0A; --color-error-bg: #260A0A; --color-info-bg: #0A1426;
+  --shadow-sm: 0 2px 4px rgba(0,0,0,0.3); --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+  --shadow-lg: 0 12px 32px rgba(0,0,0,0.5);
+  --shadow-glow: 0 0 40px rgba(232, 89, 12, 0.15);
+  --gradient-hero: linear-gradient(135deg, #CC4400 0%, #5030C0 50%, #0A9060 100%);
+  --radius-sm: 10px; --radius-md: 14px; --radius-lg: 18px; --radius-xl: 24px; --radius-2xl: 32px;
+}
+
+html.docs-dark[data-theme="dashboard"] {
+  --color-bg-primary: #0A0B10; --color-bg-secondary: #12141C; --color-bg-tertiary: #1A1C26;
+  --color-bg-inverse: #FFFFFF;
+  --color-text-primary: #DEE0EC; --color-text-secondary: #8E92A4; --color-text-tertiary: #6E7284;
+  --color-brand-muted: #14124A;
+  --color-border-default: #282C3A; --color-border-input: #3E4254; --color-border-subtle: #1E2030;
+  --color-success-bg: #0A2618; --color-warning-bg: #261E0A; --color-error-bg: #260A0A; --color-info-bg: #0A1426;
+  --shadow-sm: 0 2px 4px rgba(0,0,0,0.3); --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+  --shadow-lg: 0 12px 32px rgba(0,0,0,0.5);
+  --radius-sm: 4px; --radius-md: 6px; --radius-lg: 8px; --radius-xl: 12px; --radius-2xl: 16px;
+}
+
+html.docs-dark[data-theme="bold-lifestyle"] {
+  --color-bg-primary: #0A0A0A; --color-bg-secondary: #141414; --color-bg-tertiary: #1E1E1E;
+  --color-bg-inverse: #FFFFFF;
+  --color-text-primary: #EEEEEE; --color-text-secondary: #999999; --color-text-tertiary: #6B6B6B;
+  --color-brand-primary: #FFFFFF; --color-brand-primary-rgb: 255, 255, 255;
+  --color-brand-secondary: #FF4500; --color-text-on-brand: #000000;
+  --color-border-default: #2A2A2A; --color-border-input: #4A4A4A; --color-border-subtle: #1A1A1A;
+  --color-success-bg: #0A2618; --color-warning-bg: #261E0A; --color-error-bg: #260A0A; --color-info-bg: #0A1426;
+  --shadow-sm: 0 2px 4px rgba(0,0,0,0.4); --shadow-md: 0 4px 12px rgba(0,0,0,0.5);
+  --shadow-lg: 0 12px 32px rgba(0,0,0,0.6);
+  --radius-sm: 0; --radius-md: 0; --radius-lg: 0; --radius-xl: 0; --radius-2xl: 0; --radius-full: 0;
+  --font-display: 'Oswald', sans-serif;
+}
+
+html.docs-dark[data-theme="minimal-corporate"] {
+  --color-bg-primary: #0E0D0C; --color-bg-secondary: #18160E; --color-bg-tertiary: #221E16;
+  --color-bg-inverse: #FFFFFF;
+  --color-text-primary: #EDE8E0; --color-text-secondary: #A89E90; --color-text-tertiary: #78706A;
+  --color-brand-primary: #D4870A; --color-brand-primary-rgb: 212, 135, 10;
+  --color-brand-muted: #2A1E0A;
+  --color-border-default: #302A20; --color-border-input: #504838; --color-border-subtle: #201C14;
+  --color-success-bg: #0A2618; --color-warning-bg: #261E0A; --color-error-bg: #260A0A; --color-info-bg: #0A1426;
+  --shadow-sm: 0 2px 4px rgba(0,0,0,0.3); --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+  --shadow-lg: 0 12px 32px rgba(0,0,0,0.5);
+  --radius-sm: 4px; --radius-md: 6px; --radius-lg: 8px; --radius-xl: 12px; --radius-2xl: 16px;
+  --font-display: 'Source Serif 4', Georgia, serif;
+}
+
+/* ============================================================
+   BASE RESET & LAYOUT
+   ============================================================ */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: var(--font-sans); background: var(--color-bg-primary); color: var(--color-text-primary); line-height: var(--line-height-normal); }
+
+.skip-link { position: absolute; top: -100%; left: 16px; padding: 8px 16px; background: var(--color-brand-primary); color: var(--color-text-on-brand); border-radius: var(--radius-md); z-index: var(--z-system); text-decoration: none; font-weight: 600; }
+.skip-link:focus { top: 16px; }
+
+/* === Site Navigation Bar === */
+.site-topnav { display: flex; align-items: center; gap: 0; background: #111; color: #fff; font-family: 'Inter', system-ui, sans-serif; font-size: 14px; padding: 0 24px; height: 44px; position: sticky; top: 0; z-index: 9999; }
+.site-topnav .nav-brand { font-weight: 700; margin-right: 32px; white-space: nowrap; font-size: 15px; letter-spacing: -0.02em; }
+.site-topnav a { color: #999; text-decoration: none; padding: 10px 14px; transition: color 0.15s; white-space: nowrap; }
+.site-topnav a:hover { color: #fff; }
+.site-topnav a.active { color: #fff; border-bottom: 2px solid #3b82f6; }
+@media (max-width: 640px) { .site-topnav { padding: 0 12px; gap: 0; overflow-x: auto; } .site-topnav a { padding: 10px 8px; font-size: 13px; } .site-topnav .nav-brand { margin-right: 16px; font-size: 13px; } }
+
+/* ============================================================
+   PLAYGROUND LAYOUT
+   ============================================================ */
+.playground-layout {
+  display: grid;
+  grid-template-columns: 280px 1fr 360px;
+  grid-template-rows: 1fr;
+  min-height: calc(100vh - 44px);
+}
+
+.playground-sidebar {
+  background: var(--color-bg-secondary);
+  border-right: 1px solid var(--color-border-subtle);
+  padding: var(--spacing-6);
+  overflow-y: auto;
+}
+
+.playground-preview {
+  padding: var(--spacing-8);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.playground-code-panel {
+  background: var(--color-bg-secondary);
+  border-left: 1px solid var(--color-border-subtle);
+  padding: var(--spacing-6);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Sidebar controls */
+.sidebar-title {
+  font-size: var(--text-heading-sm);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-6);
+  font-family: var(--font-display);
+}
+
+.control-group {
+  margin-bottom: var(--spacing-6);
+}
+
+.control-group label {
+  display: block;
+  font-size: var(--text-label);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--spacing-2);
+}
+
+.control-group select {
+  width: 100%;
+  padding: var(--spacing-2) var(--spacing-3);
+  font-family: var(--font-sans);
+  font-size: var(--text-body-sm);
+  color: var(--color-text-primary);
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border-input);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236B6B7B' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 32px;
+}
+
+.control-group select:focus {
+  outline: 2px solid var(--color-brand-primary);
+  outline-offset: 2px;
+}
+
+/* Palette grid in sidebar */
+.palette-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-2);
+}
+
+.palette-option {
+  padding: var(--spacing-2) var(--spacing-2);
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: var(--font-weight-medium);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-primary);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-default);
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.palette-option:hover {
+  border-color: var(--color-brand-primary);
+  color: var(--color-text-primary);
+}
+
+.palette-option.active {
+  background: var(--color-brand-primary);
+  color: var(--color-text-on-brand);
+  border-color: var(--color-brand-primary);
+}
+
+/* Dark mode toggle */
+.dark-toggle-btn {
+  width: 100%;
+  padding: var(--spacing-2) var(--spacing-3);
+  font-family: var(--font-sans);
+  font-size: var(--text-body-sm);
+  font-weight: var(--font-weight-medium);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-primary);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all var(--duration-fast) var(--ease-default);
+}
+
+.dark-toggle-btn svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.dark-toggle-btn:hover {
+  border-color: var(--color-brand-primary);
+  color: var(--color-text-primary);
+}
+
+.dark-toggle-btn:focus-visible {
+  outline: 2px solid var(--color-brand-primary);
+  outline-offset: 2px;
+}
+
+/* Preview area */
+.preview-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-6);
+}
+
+.preview-title {
+  font-size: var(--text-heading-md);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  font-family: var(--font-display);
+}
+
+.preview-subtitle {
+  font-size: var(--text-body-sm);
+  color: var(--color-text-tertiary);
+}
+
+.preview-box {
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-10);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  flex: 1;
+}
+
+.preview-content {
+  width: 100%;
+  max-width: 600px;
+}
+
+/* Code panel */
+.code-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-4);
+}
+
+.code-panel-title {
+  font-size: var(--text-body-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.copy-btn {
+  padding: var(--spacing-1) var(--spacing-3);
+  font-family: var(--font-sans);
+  font-size: var(--text-label);
+  font-weight: var(--font-weight-medium);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-primary);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-default);
+}
+
+.copy-btn:hover {
+  border-color: var(--color-brand-primary);
+  color: var(--color-text-primary);
+}
+
+.copy-btn:focus-visible {
+  outline: 2px solid var(--color-brand-primary);
+  outline-offset: 2px;
+}
+
+.copy-btn--copied {
+  background: var(--color-success);
+  color: #fff;
+  border-color: var(--color-success);
+}
+
+.code-output {
+  background: var(--color-bg-tertiary);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-4);
+  overflow-x: auto;
+  flex: 1;
+}
+
+.code-output pre {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--color-text-primary);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* Component info */
+.component-info {
+  margin-top: var(--spacing-6);
+  padding: var(--spacing-4);
+  background: var(--color-bg-tertiary);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
+}
+
+.component-info dt {
+  font-size: var(--text-label);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: var(--spacing-3);
+}
+
+.component-info dt:first-child {
+  margin-top: 0;
+}
+
+.component-info dd {
+  font-size: var(--text-body-sm);
+  color: var(--color-text-secondary);
+  margin-top: var(--spacing-1);
+}
+
+/* ============================================================
+   COMPONENT STYLES (BEM)
+   ============================================================ */
+
+/* Button */
+.uds-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 var(--spacing-5);
+  font-family: var(--font-sans);
+  font-size: var(--text-body-sm);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1;
+  border: 2px solid transparent;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-default);
+  text-decoration: none;
+  white-space: nowrap;
+  height: 44px;
+}
+
+.uds-btn--sm { height: 36px; font-size: 13px; padding: 0 var(--spacing-4); }
+.uds-btn--md { height: 44px; }
+.uds-btn--lg { height: 48px; font-size: var(--text-body-md); padding: 0 var(--spacing-6); }
+.uds-btn--xl { height: 56px; font-size: var(--text-body-lg); padding: 0 var(--spacing-8); }
+
+.uds-btn--primary {
+  background: var(--color-brand-primary);
+  color: var(--color-text-on-brand);
+  border-color: var(--color-brand-primary);
+}
+.uds-btn--primary:hover { opacity: 0.9; }
+
+.uds-btn--secondary {
+  background: transparent;
+  color: var(--color-brand-primary);
+  border-color: var(--color-brand-primary);
+}
+.uds-btn--secondary:hover { background: var(--color-brand-muted); }
+
+.uds-btn--ghost {
+  background: transparent;
+  color: var(--color-text-secondary);
+  border-color: transparent;
+}
+.uds-btn--ghost:hover { background: var(--color-bg-tertiary); color: var(--color-text-primary); }
+
+.uds-btn--destructive {
+  background: var(--color-error);
+  color: #fff;
+  border-color: var(--color-error);
+}
+.uds-btn--destructive:hover { opacity: 0.9; }
+
+/* Card */
+.uds-card {
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  transition: box-shadow var(--duration-fast) var(--ease-default);
+}
+.uds-card:hover { box-shadow: var(--shadow-md); }
+
+.uds-card__image {
+  width: 100%;
+  height: 160px;
+  background: var(--color-bg-tertiary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-tertiary);
+  font-size: var(--text-body-sm);
+}
+
+.uds-card__icon {
+  width: 48px;
+  height: 48px;
+  background: var(--color-brand-muted);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--spacing-3);
+}
+
+.uds-card__icon svg {
+  width: 24px;
+  height: 24px;
+  color: var(--color-brand-primary);
+}
+
+.uds-card__body {
+  padding: var(--spacing-5);
+}
+
+.uds-card__title {
+  font-size: var(--text-heading-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-2);
+  font-family: var(--font-display);
+}
+
+.uds-card__text {
+  font-size: var(--text-body-sm);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+}
+
+.uds-card--horizontal {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+}
+
+.uds-card--horizontal .uds-card__image {
+  height: 100%;
+  min-height: 140px;
+}
+
+/* Input */
+.uds-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+}
+
+.uds-input-label {
+  font-size: var(--text-body-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+}
+
+.uds-input {
+  width: 100%;
+  padding: 0 var(--spacing-3);
+  font-family: var(--font-sans);
+  font-size: var(--text-body-md);
+  color: var(--color-text-primary);
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border-input);
+  border-radius: var(--radius-md);
+  transition: border-color var(--duration-fast) var(--ease-default), box-shadow var(--duration-fast) var(--ease-default);
+  height: 44px;
+}
+
+.uds-input--sm { height: 36px; font-size: 13px; }
+.uds-input--md { height: 44px; }
+.uds-input--lg { height: 52px; font-size: var(--text-body-lg); }
+
+.uds-input:focus {
+  outline: none;
+  border-color: var(--color-brand-primary);
+  box-shadow: 0 0 0 3px rgba(var(--color-brand-primary-rgb), 0.15);
+}
+
+.uds-input--error {
+  border-color: var(--color-error);
+}
+
+.uds-input--error:focus {
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.15);
+}
+
+.uds-input:disabled {
+  opacity: var(--opacity-disabled);
+  cursor: not-allowed;
+  background: var(--color-bg-tertiary);
+}
+
+.uds-input-helper {
+  font-size: var(--text-label);
+  color: var(--color-text-tertiary);
+}
+
+.uds-input-error {
+  font-size: var(--text-label);
+  color: var(--color-error);
+}
+
+/* Alert */
+.uds-alert {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-3);
+  padding: var(--spacing-4);
+  border-radius: var(--radius-md);
+  font-size: var(--text-body-sm);
+  line-height: var(--line-height-normal);
+}
+
+.uds-alert--sm { padding: var(--spacing-3); font-size: var(--text-label); }
+.uds-alert--lg { padding: var(--spacing-5); font-size: var(--text-body-md); }
+
+.uds-alert--info { background: var(--color-info-bg); color: var(--color-info); border: 1px solid var(--color-info); }
+.uds-alert--success { background: var(--color-success-bg); color: var(--color-success); border: 1px solid var(--color-success); }
+.uds-alert--warning { background: var(--color-warning-bg); color: var(--color-warning); border: 1px solid var(--color-warning); }
+.uds-alert--error { background: var(--color-error-bg); color: var(--color-error); border: 1px solid var(--color-error); }
+
+.uds-alert__icon { flex-shrink: 0; width: 20px; height: 20px; }
+.uds-alert__content { flex: 1; }
+.uds-alert__title { font-weight: var(--font-weight-semibold); margin-bottom: var(--spacing-1); }
+.uds-alert__message { opacity: var(--opacity-subtle); }
+
+/* Badge */
+.uds-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 10px;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: var(--font-weight-semibold);
+  border-radius: var(--radius-full);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.uds-badge--sm { padding: 1px 8px; font-size: 11px; height: 20px; }
+.uds-badge--md { padding: 2px 10px; font-size: 12px; height: 24px; }
+
+.uds-badge--default { background: var(--color-bg-tertiary); color: var(--color-text-secondary); }
+.uds-badge--success { background: var(--color-success-bg); color: var(--color-success); }
+.uds-badge--warning { background: var(--color-warning-bg); color: var(--color-warning); }
+.uds-badge--error { background: var(--color-error-bg); color: var(--color-error); }
+
+/* Tabs */
+.uds-tabs {
+  display: flex;
+  flex-direction: column;
+}
+
+.uds-tabs__list {
+  display: flex;
+  border-bottom: 2px solid var(--color-border-subtle);
+  gap: 0;
+}
+
+.uds-tabs__tab {
+  padding: var(--spacing-3) var(--spacing-5);
+  font-family: var(--font-sans);
+  font-size: var(--text-body-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  background: none;
+  border: none;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  transition: all var(--duration-fast) var(--ease-default);
+}
+
+.uds-tabs__tab:hover { color: var(--color-text-primary); }
+
+.uds-tabs__tab--active {
+  color: var(--color-brand-primary);
+  border-bottom-color: var(--color-brand-primary);
+  font-weight: var(--font-weight-semibold);
+}
+
+.uds-tabs__panel {
+  padding: var(--spacing-5) 0;
+  font-size: var(--text-body-sm);
+  color: var(--color-text-secondary);
+}
+
+/* Modal */
+.uds-modal-backdrop {
+  position: relative;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-10);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.uds-modal {
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  width: 100%;
+  max-width: 480px;
+  overflow: hidden;
+}
+
+.uds-modal--sm { max-width: 400px; }
+.uds-modal--md { max-width: 560px; }
+.uds-modal--lg { max-width: 720px; }
+
+.uds-modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-5);
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.uds-modal__title {
+  font-size: var(--text-heading-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  font-family: var(--font-display);
+}
+
+.uds-modal__close {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-text-tertiary);
+  border-radius: var(--radius-sm);
+  transition: all var(--duration-fast) var(--ease-default);
+}
+
+.uds-modal__close:hover { background: var(--color-bg-tertiary); color: var(--color-text-primary); }
+
+.uds-modal__body {
+  padding: var(--spacing-5);
+  font-size: var(--text-body-sm);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+}
+
+.uds-modal__footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--spacing-3);
+  padding: var(--spacing-4) var(--spacing-5);
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+/* Toggle */
+.uds-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  cursor: pointer;
+}
+
+.uds-toggle__track {
+  width: 48px;
+  height: 28px;
+  background: var(--color-border-default);
+  border-radius: var(--radius-full);
+  position: relative;
+  transition: background var(--duration-fast) var(--ease-default);
+}
+
+.uds-toggle__thumb {
+  width: 22px;
+  height: 22px;
+  background: #fff;
+  border-radius: var(--radius-full);
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  transition: transform var(--duration-fast) var(--ease-default);
+  box-shadow: var(--shadow-sm);
+}
+
+.uds-toggle--checked .uds-toggle__track {
+  background: var(--color-brand-primary);
+}
+
+.uds-toggle--checked .uds-toggle__thumb {
+  transform: translateX(20px);
+}
+
+.uds-toggle__label {
+  font-size: var(--text-body-sm);
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-medium);
+}
+
+/* Avatar */
+.uds-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  background: var(--color-brand-muted);
+  color: var(--color-brand-primary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-sans);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--text-body-sm);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.uds-avatar--sm { width: 32px; height: 32px; font-size: 12px; }
+.uds-avatar--md { width: 40px; height: 40px; font-size: var(--text-body-sm); }
+.uds-avatar--lg { width: 48px; height: 48px; font-size: var(--text-body-md); }
+
+/* Tooltip */
+.uds-tooltip-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.uds-tooltip {
+  position: absolute;
+  padding: var(--spacing-2) var(--spacing-3);
+  background: var(--color-bg-inverse);
+  color: var(--color-bg-primary);
+  font-family: var(--font-sans);
+  font-size: var(--text-label);
+  font-weight: var(--font-weight-medium);
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+  box-shadow: var(--shadow-md);
+  z-index: var(--z-tooltip);
+  pointer-events: none;
+}
+
+.uds-tooltip--top {
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.uds-tooltip--bottom {
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.uds-tooltip::after {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: var(--color-bg-inverse);
+  transform: rotate(45deg);
+}
+
+.uds-tooltip--top::after {
+  bottom: -4px;
+  left: 50%;
+  margin-left: -4px;
+}
+
+.uds-tooltip--bottom::after {
+  top: -4px;
+  left: 50%;
+  margin-left: -4px;
+}
+
+/* ============================================================
+   DARK MODE OVERRIDES FOR PAGE CHROME
+   ============================================================ */
+html.docs-dark .playground-sidebar { background: var(--color-bg-secondary); border-color: var(--color-border-default); }
+html.docs-dark .playground-code-panel { background: var(--color-bg-secondary); border-color: var(--color-border-default); }
+html.docs-dark .control-group select { background: var(--color-bg-tertiary); border-color: var(--color-border-default); color: var(--color-text-primary); }
+html.docs-dark .palette-option { background: var(--color-bg-tertiary); border-color: var(--color-border-default); color: var(--color-text-secondary); }
+html.docs-dark .palette-option:hover { color: var(--color-text-primary); }
+html.docs-dark .palette-option.active { background: var(--color-brand-primary); color: var(--color-text-on-brand); border-color: var(--color-brand-primary); }
+html.docs-dark .dark-toggle-btn { background: var(--color-bg-tertiary); border-color: var(--color-border-default); color: var(--color-text-secondary); }
+html.docs-dark .dark-toggle-btn:hover { color: var(--color-text-primary); }
+html.docs-dark .preview-box { background: var(--color-bg-secondary); border-color: var(--color-border-default); }
+html.docs-dark .code-output { background: var(--color-bg-tertiary); border-color: var(--color-border-default); }
+html.docs-dark .copy-btn { background: var(--color-bg-tertiary); border-color: var(--color-border-default); color: var(--color-text-secondary); }
+html.docs-dark .copy-btn:hover { color: var(--color-text-primary); }
+html.docs-dark .component-info { background: var(--color-bg-tertiary); border-color: var(--color-border-default); }
+html.docs-dark .page-footer { border-color: var(--color-border-default); color: var(--color-text-tertiary); }
+
+/* Page footer */
+.page-footer { text-align: center; padding: 48px 24px; color: var(--color-text-tertiary); font-size: var(--text-body-sm); border-top: 1px solid var(--color-border-subtle); }
+.page-footer a { color: var(--color-brand-primary); text-decoration: none; }
+.page-footer a:hover { text-decoration: underline; }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 1024px) {
+  .playground-layout {
+    grid-template-columns: 240px 1fr;
+    grid-template-rows: 1fr auto;
+  }
+  .playground-code-panel {
+    grid-column: 1 / -1;
+    border-left: none;
+    border-top: 1px solid var(--color-border-subtle);
+    max-height: 360px;
+  }
+}
+
+@media (max-width: 768px) {
+  .playground-layout {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr auto;
+  }
+  .playground-sidebar {
+    border-right: none;
+    border-bottom: 1px solid var(--color-border-subtle);
+    padding: var(--spacing-4);
+  }
+  .playground-preview {
+    padding: var(--spacing-4);
+  }
+  .playground-code-panel {
+    max-height: 300px;
+    padding: var(--spacing-4);
+  }
+  .palette-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .uds-card--horizontal {
+    grid-template-columns: 1fr;
+  }
+  .uds-card--horizontal .uds-card__image {
+    height: 120px;
+  }
+}
+
+/* ============================================================
+   ACCESSIBILITY
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media (forced-colors: active) {
+  .uds-btn, .uds-card, .uds-alert, .uds-modal { border: 2px solid CanvasText; }
+  .palette-option { border: 2px solid ButtonText; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="site-topnav" aria-label="Site navigation">
+  <a href="index.html" class="nav-brand">UDS v__VERSION__</a>
+  <a href="docs.html">Docs</a>
+  <a href="component-library.html">Components</a>
+  <a href="visual-framework.html">Visual Framework</a>
+  <a href="reference.html">Reference</a>
+  <a href="case-studies.html">Case Studies</a>
+  <a href="playground.html" class="active">Playground</a>
+</nav>
+<a href="#main-content" class="skip-link">Skip to content</a>
+
+<div class="playground-layout">
+
+  <!-- LEFT SIDEBAR CONTROLS -->
+  <aside class="playground-sidebar" aria-label="Component controls">
+    <div class="sidebar-title">Playground</div>
+
+    <div class="control-group">
+      <label for="component-select">Component</label>
+      <select id="component-select"></select>
+    </div>
+
+    <div class="control-group">
+      <label for="variant-select">Variant</label>
+      <select id="variant-select"></select>
+    </div>
+
+    <div class="control-group">
+      <label for="size-select">Size</label>
+      <select id="size-select">
+        <option value="sm">Small (sm)</option>
+        <option value="md" selected>Medium (md)</option>
+        <option value="lg">Large (lg)</option>
+        <option value="xl">Extra Large (xl)</option>
+      </select>
+    </div>
+
+    <div class="control-group">
+      <label>Palette</label>
+      <div class="palette-grid" role="radiogroup" aria-label="Palette selector">
+        <button class="palette-option active" data-theme="minimal-saas" role="radio" aria-checked="true">Minimal SaaS</button>
+        <button class="palette-option" data-theme="ai-futuristic" role="radio" aria-checked="false">AI Futuristic</button>
+        <button class="palette-option" data-theme="gradient-startup" role="radio" aria-checked="false">Gradient Start</button>
+        <button class="palette-option" data-theme="corporate" role="radio" aria-checked="false">Corporate</button>
+        <button class="palette-option" data-theme="apple-minimal" role="radio" aria-checked="false">Apple Minimal</button>
+        <button class="palette-option" data-theme="illustration" role="radio" aria-checked="false">Illustration</button>
+        <button class="palette-option" data-theme="dashboard" role="radio" aria-checked="false">Dashboard</button>
+        <button class="palette-option" data-theme="bold-lifestyle" role="radio" aria-checked="false">Bold Lifestyle</button>
+        <button class="palette-option" data-theme="minimal-corporate" role="radio" aria-checked="false">Minimal Corp</button>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label>Appearance</label>
+      <button class="dark-toggle-btn" id="dark-mode-toggle" aria-label="Toggle dark mode">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <span>Dark</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- CENTER PREVIEW AREA -->
+  <main class="playground-preview" id="main-content">
+    <div class="preview-header">
+      <div>
+        <div class="preview-title" id="preview-component-name">Button</div>
+        <div class="preview-subtitle" id="preview-component-meta">variant: primary | size: md</div>
+      </div>
+    </div>
+    <div class="preview-box">
+      <div class="preview-content" id="preview-area">
+        <!-- Live component renders here -->
+      </div>
+    </div>
+    <dl class="component-info" id="component-info">
+      <dt>CSS Class</dt>
+      <dd id="info-css-class">.uds-btn</dd>
+      <dt>Accessibility</dt>
+      <dd id="info-a11y">role=button; aria-disabled; aria-busy for loading; focus ring 2px offset</dd>
+      <dt>Use When</dt>
+      <dd id="info-use-when">Primary actions; Secondary actions; Navigation CTAs</dd>
+    </dl>
+  </main>
+
+  <!-- RIGHT CODE PANEL -->
+  <aside class="playground-code-panel" aria-label="Generated code">
+    <div class="code-panel-header">
+      <div class="code-panel-title">HTML Output</div>
+      <button class="copy-btn" id="copy-btn" aria-label="Copy code to clipboard">Copy</button>
+    </div>
+    <div class="code-output">
+      <pre><code id="code-output"></code></pre>
+    </div>
+  </aside>
+
+</div>
+
+<!-- FOOTER -->
+<footer class="page-footer">
+  <p>Universal Design System v__VERSION__ &middot; <a href="https://github.com/mkatogui/universal-design-system">GitHub</a> &middot; MIT License</p>
+</footer>
+
+<script>
+/* ============================================================
+   COMPONENT DATA
+   All 32 components from components.csv with full metadata.
+   Key components include HTML templates for live preview.
+   ============================================================ */
+const COMPONENTS = [
+  { id: 1, name: 'Button', slug: 'button', category: 'action', variants: ['primary','secondary','ghost','destructive'], sizes: ['sm','md','lg','xl'], css_class: 'uds-btn', accessibility: 'role=button; aria-disabled; aria-busy for loading; focus ring 2px offset', use_when: 'Primary actions; Secondary actions; Navigation CTAs', hasTemplate: true },
+  { id: 2, name: 'Navigation Bar', slug: 'navigation', category: 'navigation', variants: ['standard','minimal','dark','transparent'], sizes: ['desktop','mobile'], css_class: 'uds-navbar', accessibility: 'nav landmark; aria-label; mobile toggle aria-expanded', use_when: 'Top-level site navigation on every page', hasTemplate: false },
+  { id: 3, name: 'Hero Section', slug: 'hero', category: 'layout', variants: ['centered','product-screenshot','video-bg','gradient-mesh'], sizes: ['full','compact'], css_class: 'uds-hero', accessibility: 'h1 for headline; meaningful alt on images', use_when: 'Landing pages; Marketing pages; Product launches', hasTemplate: false },
+  { id: 4, name: 'Feature Card', slug: 'feature-card', category: 'content', variants: ['icon-top','image-top','horizontal'], sizes: ['sm','md','lg'], css_class: 'uds-card', accessibility: 'heading hierarchy; alt on images; focus on link', use_when: 'Showcasing features or benefits in a grid', hasTemplate: true },
+  { id: 5, name: 'Pricing Table', slug: 'pricing-table', category: 'commerce', variants: ['2-column','3-column','4-column','toggle'], sizes: ['standard','compact'], css_class: 'uds-pricing', accessibility: 'aria-label on toggle; heading hierarchy', use_when: 'SaaS pricing with 2-4 tiers', hasTemplate: false },
+  { id: 6, name: 'Social Proof Bar', slug: 'social-proof', category: 'trust', variants: ['logo-strip','stats-counter','testimonial-mini'], sizes: ['standard','compact'], css_class: 'uds-social-proof', accessibility: 'alt text on logos; aria-hidden on decorative', use_when: 'Below hero to build trust; B2B logo strips', hasTemplate: false },
+  { id: 7, name: 'Testimonial Card', slug: 'testimonial', category: 'trust', variants: ['quote-card','video','metric'], sizes: ['sm','md','lg'], css_class: 'uds-testimonial', accessibility: 'blockquote element; cite for attribution', use_when: 'Building trust with user quotes', hasTemplate: false },
+  { id: 8, name: 'Footer', slug: 'footer', category: 'navigation', variants: ['simple','multi-column','newsletter'], sizes: ['standard','compact'], css_class: 'uds-footer', accessibility: 'nav landmark; aria-label; link list structure', use_when: 'Every page - multi-column for marketing', hasTemplate: false },
+  { id: 9, name: 'Code Block', slug: 'code-block', category: 'content', variants: ['syntax-highlighted','terminal','multi-tab'], sizes: ['sm','md','lg'], css_class: 'uds-code-block', accessibility: 'pre+code elements; aria-label on copy button', use_when: 'Displaying code snippets or terminal commands', hasTemplate: false },
+  { id: 10, name: 'Modal', slug: 'modal', category: 'overlay', variants: ['confirmation','task','alert'], sizes: ['sm','md','lg'], css_class: 'uds-modal', accessibility: 'role=dialog; aria-modal; focus trap; escape dismiss', use_when: 'Confirmations; Focused tasks; Critical alerts', hasTemplate: true },
+  { id: 11, name: 'Form Input', slug: 'input', category: 'form', variants: ['default','error','disabled'], sizes: ['sm','md','lg'], css_class: 'uds-input', accessibility: 'for/id label association; aria-invalid; aria-describedby', use_when: 'Any text entry - names, emails, passwords', hasTemplate: true },
+  { id: 12, name: 'Select', slug: 'select', category: 'form', variants: ['native','custom'], sizes: ['sm','md','lg'], css_class: 'uds-select', accessibility: 'native select for accessibility; aria-invalid', use_when: 'Choosing one option from 5-15 choices', hasTemplate: false },
+  { id: 13, name: 'Checkbox', slug: 'checkbox', category: 'form', variants: ['standard','indeterminate'], sizes: ['md'], css_class: 'uds-checkbox', accessibility: 'input+label association; aria-checked', use_when: 'Multi-select; Terms acceptance', hasTemplate: false },
+  { id: 14, name: 'Radio', slug: 'radio', category: 'form', variants: ['standard','card'], sizes: ['md'], css_class: 'uds-radio', accessibility: 'fieldset+legend grouping; aria-checked', use_when: 'Single-select from 2-5 visible options', hasTemplate: false },
+  { id: 15, name: 'Toggle Switch', slug: 'toggle', category: 'form', variants: ['default','checked'], sizes: ['md'], css_class: 'uds-toggle', accessibility: 'role=switch; aria-checked; aria-label', use_when: 'Binary on/off settings with immediate effect', hasTemplate: true },
+  { id: 16, name: 'Alert', slug: 'alert', category: 'feedback', variants: ['info','success','warning','error'], sizes: ['sm','md','lg'], css_class: 'uds-alert', accessibility: 'role=alert for error/warning; role=status for success/info', use_when: 'Persistent contextual messages within a page', hasTemplate: true },
+  { id: 17, name: 'Badge', slug: 'badge', category: 'data-display', variants: ['default','success','warning','error'], sizes: ['sm','md'], css_class: 'uds-badge', accessibility: 'aria-label for icon badges; semantic color', use_when: 'Status indicators; Counts; Category tags', hasTemplate: true },
+  { id: 18, name: 'Tabs', slug: 'tabs', category: 'navigation', variants: ['default'], sizes: ['sm','md','lg'], css_class: 'uds-tabs', accessibility: 'role=tablist/tab/tabpanel; aria-selected; arrow key nav', use_when: 'Switching between 2-6 related content panels', hasTemplate: true },
+  { id: 19, name: 'Accordion', slug: 'accordion', category: 'content', variants: ['single','multi','flush'], sizes: ['standard'], css_class: 'uds-accordion', accessibility: 'aria-expanded; aria-controls; keyboard Enter/Space', use_when: 'FAQ pages; Settings panels; Collapsible sections', hasTemplate: false },
+  { id: 20, name: 'Breadcrumb', slug: 'breadcrumb', category: 'navigation', variants: ['standard','truncated'], sizes: ['standard'], css_class: 'uds-breadcrumb', accessibility: 'nav aria-label=Breadcrumb; ol element; aria-current=page', use_when: 'Hierarchical navigation with 3+ levels', hasTemplate: false },
+  { id: 21, name: 'Tooltip', slug: 'tooltip', category: 'overlay', variants: ['top','bottom'], sizes: ['sm','md'], css_class: 'uds-tooltip', accessibility: 'role=tooltip; aria-describedby; show on hover+focus', use_when: 'Brief supplementary info on hover/focus', hasTemplate: true },
+  { id: 22, name: 'Dropdown Menu', slug: 'dropdown', category: 'navigation', variants: ['action','context','nav-sub'], sizes: ['sm','md','lg'], css_class: 'uds-dropdown', accessibility: 'role=menu; aria-haspopup; aria-expanded', use_when: 'Action menus; Context menus; Navigation submenus', hasTemplate: false },
+  { id: 23, name: 'Avatar', slug: 'avatar', category: 'data-display', variants: ['initials','icon'], sizes: ['sm','md','lg'], css_class: 'uds-avatar', accessibility: 'alt text; aria-label for status', use_when: 'User profiles; Team lists; Comment authors', hasTemplate: true },
+  { id: 24, name: 'Skeleton', slug: 'skeleton', category: 'loading', variants: ['text','card','avatar'], sizes: ['sm','md','lg'], css_class: 'uds-skeleton', accessibility: 'aria-busy=true on container; aria-hidden=true on skeleton', use_when: 'Content placeholders while data loads', hasTemplate: false },
+  { id: 25, name: 'Toast', slug: 'toast', category: 'feedback', variants: ['success','error','warning','info'], sizes: ['sm','md','lg'], css_class: 'uds-toast', accessibility: 'role=alert for error/warning; role=status for success/info', use_when: 'Transient feedback after user actions', hasTemplate: false },
+  { id: 26, name: 'Pagination', slug: 'pagination', category: 'navigation', variants: ['numbered','simple','load-more'], sizes: ['sm','md'], css_class: 'uds-pagination', accessibility: 'nav aria-label=Pagination; aria-current=page', use_when: 'Large datasets; Tables; Search results', hasTemplate: false },
+  { id: 27, name: 'Data Table', slug: 'data-table', category: 'data-display', variants: ['basic','sortable','selectable'], sizes: ['compact','default','comfortable'], css_class: 'uds-data-table', accessibility: 'scope=col; aria-sort; role=table', use_when: 'Structured multi-column data; Admin panels', hasTemplate: false },
+  { id: 28, name: 'Date Picker', slug: 'date-picker', category: 'form', variants: ['single','range'], sizes: ['md','lg'], css_class: 'uds-date-picker', accessibility: 'role=grid; aria-selected; keyboard arrow nav', use_when: 'Selecting dates or date ranges', hasTemplate: false },
+  { id: 29, name: 'Command Palette', slug: 'command-palette', category: 'navigation', variants: ['standard'], sizes: ['md','lg'], css_class: 'uds-command-palette', accessibility: 'role=combobox; role=listbox; aria-activedescendant', use_when: 'Power-user keyboard navigation for large apps', hasTemplate: false },
+  { id: 30, name: 'Progress Indicator', slug: 'progress-indicator', category: 'feedback', variants: ['bar','circular','stepper'], sizes: ['sm','md','lg'], css_class: 'uds-progress', accessibility: 'role=progressbar; aria-valuenow; aria-valuemin; aria-valuemax', use_when: 'Multi-step flows; Uploads; Loading states', hasTemplate: false },
+  { id: 31, name: 'Side Navigation', slug: 'side-navigation', category: 'navigation', variants: ['default','collapsed','with-sections'], sizes: ['default','collapsed'], css_class: 'uds-side-nav', accessibility: 'nav aria-label; aria-current=page; aria-expanded', use_when: 'Dashboard apps with deep page hierarchies', hasTemplate: false },
+  { id: 32, name: 'File Upload', slug: 'file-upload', category: 'form', variants: ['dropzone','button','avatar-upload'], sizes: ['sm','md','lg'], css_class: 'uds-file-upload', accessibility: 'input type=file aria-label; role=button on dropzone', use_when: 'Uploading files from device', hasTemplate: false }
+];
+
+/* ============================================================
+   HTML TEMPLATES
+   Functions that return HTML for components with live preview.
+   ============================================================ */
+function escapeHtml(str) {
+  return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+function getTemplate(slug, variant, size) {
+  const sizeClass = (size && size !== 'md') ? ` uds-${slug === 'button' ? 'btn' : slug}--${size}` : '';
+
+  switch (slug) {
+
+    case 'button': {
+      const btnSize = (size && size !== 'md') ? ` uds-btn--${size}` : '';
+      return `<div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
+  <button class="uds-btn uds-btn--${variant}${btnSize}">
+    ${variant.charAt(0).toUpperCase() + variant.slice(1)} Button
+  </button>
+  <button class="uds-btn uds-btn--${variant}${btnSize}" disabled style="opacity: var(--opacity-disabled); cursor: not-allowed;">
+    Disabled
+  </button>
+</div>`;
+    }
+
+    case 'feature-card': {
+      if (variant === 'horizontal') {
+        return `<div class="uds-card uds-card--horizontal">
+  <div class="uds-card__image">160 x 160</div>
+  <div class="uds-card__body">
+    <h3 class="uds-card__title">Feature Title</h3>
+    <p class="uds-card__text">A short description of this feature and why it matters to your users.</p>
+  </div>
+</div>`;
+      }
+      if (variant === 'icon-top') {
+        return `<div class="uds-card" style="max-width: 320px;">
+  <div class="uds-card__body">
+    <div class="uds-card__icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+    </div>
+    <h3 class="uds-card__title">Feature Title</h3>
+    <p class="uds-card__text">A short description of this feature and why it matters to your users.</p>
+  </div>
+</div>`;
+      }
+      return `<div class="uds-card" style="max-width: 320px;">
+  <div class="uds-card__image">320 x 160</div>
+  <div class="uds-card__body">
+    <h3 class="uds-card__title">Feature Title</h3>
+    <p class="uds-card__text">A short description of this feature and why it matters to your users.</p>
+  </div>
+</div>`;
+    }
+
+    case 'input': {
+      const inputSize = (size && size !== 'md') ? ` uds-input--${size}` : '';
+      if (variant === 'error') {
+        return `<div class="uds-input-group" style="max-width: 360px;">
+  <label class="uds-input-label" for="pg-input">Email address</label>
+  <input id="pg-input" type="email" class="uds-input uds-input--error${inputSize}" value="invalid-email" aria-invalid="true" aria-describedby="pg-input-err">
+  <span class="uds-input-error" id="pg-input-err">Please enter a valid email address.</span>
+</div>`;
+      }
+      if (variant === 'disabled') {
+        return `<div class="uds-input-group" style="max-width: 360px;">
+  <label class="uds-input-label" for="pg-input">Email address</label>
+  <input id="pg-input" type="email" class="uds-input${inputSize}" placeholder="you@example.com" disabled>
+  <span class="uds-input-helper">This field is currently disabled.</span>
+</div>`;
+      }
+      return `<div class="uds-input-group" style="max-width: 360px;">
+  <label class="uds-input-label" for="pg-input">Email address</label>
+  <input id="pg-input" type="email" class="uds-input${inputSize}" placeholder="you@example.com">
+  <span class="uds-input-helper">We will never share your email.</span>
+</div>`;
+    }
+
+    case 'alert': {
+      const alertSize = (size && size !== 'md') ? ` uds-alert--${size}` : '';
+      const icons = {
+        info: '<svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/></svg>',
+        success: '<svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>',
+        warning: '<svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>',
+        error: '<svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/></svg>'
+      };
+      const role = (variant === 'error' || variant === 'warning') ? 'alert' : 'status';
+      return `<div class="uds-alert uds-alert--${variant}${alertSize}" role="${role}">
+  <span class="uds-alert__icon">${icons[variant] || icons.info}</span>
+  <div class="uds-alert__content">
+    <div class="uds-alert__title">${variant.charAt(0).toUpperCase() + variant.slice(1)}</div>
+    <div class="uds-alert__message">This is a ${variant} alert message providing contextual feedback.</div>
+  </div>
+</div>`;
+    }
+
+    case 'badge': {
+      const badgeSize = (size && size !== 'md') ? ` uds-badge--${size}` : ' uds-badge--md';
+      return `<div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center;">
+  <span class="uds-badge uds-badge--${variant}${badgeSize}">${variant.charAt(0).toUpperCase() + variant.slice(1)}</span>
+  <span class="uds-badge uds-badge--${variant}${badgeSize}">Label</span>
+  <span class="uds-badge uds-badge--${variant}${badgeSize}">42</span>
+</div>`;
+    }
+
+    case 'tabs': {
+      return `<div class="uds-tabs">
+  <div class="uds-tabs__list" role="tablist" aria-label="Example tabs">
+    <button class="uds-tabs__tab uds-tabs__tab--active" role="tab" aria-selected="true">Overview</button>
+    <button class="uds-tabs__tab" role="tab" aria-selected="false">Features</button>
+    <button class="uds-tabs__tab" role="tab" aria-selected="false">Pricing</button>
+    <button class="uds-tabs__tab" role="tab" aria-selected="false">Reviews</button>
+  </div>
+  <div class="uds-tabs__panel" role="tabpanel">Tab panel content goes here. This is the Overview tab.</div>
+</div>`;
+    }
+
+    case 'modal': {
+      const modalSize = (size && size !== 'md') ? ` uds-modal--${size}` : '';
+      const titles = { confirmation: 'Confirm Action', task: 'Create New Item', alert: 'Important Notice' };
+      const bodies = {
+        confirmation: 'Are you sure you want to proceed? This action cannot be undone.',
+        task: 'Fill in the details below to create a new item in your workspace.',
+        alert: 'Your session is about to expire. Please save your work.'
+      };
+      return `<div class="uds-modal-backdrop">
+  <div class="uds-modal${modalSize}" role="dialog" aria-modal="true" aria-labelledby="pg-modal-title">
+    <div class="uds-modal__header">
+      <h2 class="uds-modal__title" id="pg-modal-title">${titles[variant] || 'Modal Title'}</h2>
+      <button class="uds-modal__close" aria-label="Close modal">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="uds-modal__body">
+      <p>${bodies[variant] || 'Modal body content goes here.'}</p>
+    </div>
+    <div class="uds-modal__footer">
+      <button class="uds-btn uds-btn--ghost">Cancel</button>
+      <button class="uds-btn uds-btn--primary">${variant === 'confirmation' ? 'Confirm' : variant === 'alert' ? 'OK' : 'Create'}</button>
+    </div>
+  </div>
+</div>`;
+    }
+
+    case 'toggle': {
+      const isChecked = variant === 'checked';
+      return `<div style="display: flex; flex-direction: column; gap: 16px;">
+  <label class="uds-toggle${isChecked ? ' uds-toggle--checked' : ''}" role="switch" aria-checked="${isChecked}">
+    <span class="uds-toggle__track"><span class="uds-toggle__thumb"></span></span>
+    <span class="uds-toggle__label">Enable notifications</span>
+  </label>
+  <label class="uds-toggle${!isChecked ? ' uds-toggle--checked' : ''}" role="switch" aria-checked="${!isChecked}">
+    <span class="uds-toggle__track"><span class="uds-toggle__thumb"></span></span>
+    <span class="uds-toggle__label">Dark mode</span>
+  </label>
+</div>`;
+    }
+
+    case 'avatar': {
+      const avatarSize = (size && size !== 'md') ? ` uds-avatar--${size}` : '';
+      if (variant === 'icon') {
+        return `<div style="display: flex; gap: 12px; align-items: center;">
+  <div class="uds-avatar${avatarSize}" aria-label="User avatar">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+  </div>
+  <div class="uds-avatar${avatarSize}" aria-label="User avatar">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+  </div>
+  <div class="uds-avatar${avatarSize}" aria-label="User avatar">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+  </div>
+</div>`;
+      }
+      return `<div style="display: flex; gap: 12px; align-items: center;">
+  <div class="uds-avatar${avatarSize}" aria-label="John Doe">JD</div>
+  <div class="uds-avatar${avatarSize}" aria-label="Alice Smith">AS</div>
+  <div class="uds-avatar${avatarSize}" aria-label="Bob Chen">BC</div>
+</div>`;
+    }
+
+    case 'tooltip': {
+      const pos = variant || 'top';
+      return `<div style="display: flex; justify-content: center; padding: 48px 0;">
+  <div class="uds-tooltip-wrapper">
+    <button class="uds-btn uds-btn--secondary">Hover me</button>
+    <div class="uds-tooltip uds-tooltip--${pos}">Tooltip text</div>
+  </div>
+</div>`;
+    }
+
+    default:
+      return null;
+  }
+}
+
+/* ============================================================
+   PLACEHOLDER TEMPLATE FOR COMPONENTS WITHOUT LIVE PREVIEW
+   ============================================================ */
+function getPlaceholderTemplate(comp, variant, size) {
+  return `<div style="text-align: center; padding: 48px 24px; color: var(--color-text-tertiary);">
+  <div style="font-size: var(--text-heading-sm); font-weight: 600; color: var(--color-text-secondary); margin-bottom: 8px;">${comp.name}</div>
+  <div style="font-size: var(--text-body-sm); margin-bottom: 16px;">variant: ${variant} | size: ${size}</div>
+  <code style="font-family: var(--font-mono); font-size: var(--text-label); background: var(--color-bg-tertiary); padding: 4px 12px; border-radius: var(--radius-sm); color: var(--color-text-secondary);">.${comp.css_class}</code>
+</div>`;
+}
+
+/* ============================================================
+   INITIALIZATION
+   ============================================================ */
+const componentSelect = document.getElementById('component-select');
+const variantSelect = document.getElementById('variant-select');
+const sizeSelect = document.getElementById('size-select');
+const previewArea = document.getElementById('preview-area');
+const codeOutput = document.getElementById('code-output');
+const previewName = document.getElementById('preview-component-name');
+const previewMeta = document.getElementById('preview-component-meta');
+const infoCssClass = document.getElementById('info-css-class');
+const infoA11y = document.getElementById('info-a11y');
+const infoUseWhen = document.getElementById('info-use-when');
+const copyBtn = document.getElementById('copy-btn');
+
+// Populate component dropdown
+COMPONENTS.forEach(comp => {
+  const opt = document.createElement('option');
+  opt.value = comp.slug;
+  opt.textContent = comp.name;
+  componentSelect.appendChild(opt);
+});
+
+function populateVariants(comp) {
+  variantSelect.innerHTML = '';
+  comp.variants.forEach((v, i) => {
+    const opt = document.createElement('option');
+    opt.value = v;
+    opt.textContent = v.charAt(0).toUpperCase() + v.slice(1).replace(/-/g, ' ');
+    if (i === 0) opt.selected = true;
+    variantSelect.appendChild(opt);
+  });
+}
+
+function populateSizes(comp) {
+  sizeSelect.innerHTML = '';
+  comp.sizes.forEach(s => {
+    const opt = document.createElement('option');
+    opt.value = s;
+    const labels = { sm: 'Small (sm)', md: 'Medium (md)', lg: 'Large (lg)', xl: 'Extra Large (xl)', xs: 'Extra Small (xs)', compact: 'Compact', default: 'Default', comfortable: 'Comfortable', standard: 'Standard', full: 'Full', desktop: 'Desktop', mobile: 'Mobile', collapsed: 'Collapsed' };
+    opt.textContent = labels[s] || s;
+    if (s === 'md' || s === 'default' || s === 'standard') opt.selected = true;
+    sizeSelect.appendChild(opt);
+  });
+}
+
+function getCurrentComponent() {
+  return COMPONENTS.find(c => c.slug === componentSelect.value);
+}
+
+function updatePreview() {
+  const comp = getCurrentComponent();
+  if (!comp) return;
+
+  const variant = variantSelect.value;
+  const size = sizeSelect.value;
+
+  // Update header
+  previewName.textContent = comp.name;
+  previewMeta.textContent = 'variant: ' + variant + ' | size: ' + size;
+
+  // Update info panel
+  infoCssClass.textContent = '.' + comp.css_class;
+  infoA11y.textContent = comp.accessibility;
+  infoUseWhen.textContent = comp.use_when;
+
+  // Render component
+  let html;
+  if (comp.hasTemplate) {
+    html = getTemplate(comp.slug, variant, size);
+  }
+  if (!html) {
+    html = getPlaceholderTemplate(comp, variant, size);
+  }
+
+  previewArea.innerHTML = html;
+
+  // Update code output
+  const formatted = html.replace(/^\s*\n/gm, '').trim();
+  codeOutput.textContent = formatted;
+}
+
+// Event listeners
+componentSelect.addEventListener('change', () => {
+  const comp = getCurrentComponent();
+  if (comp) {
+    populateVariants(comp);
+    populateSizes(comp);
+    updatePreview();
+  }
+});
+
+variantSelect.addEventListener('change', updatePreview);
+sizeSelect.addEventListener('change', updatePreview);
+
+// Initialize with first component (Button)
+const firstComp = COMPONENTS[0];
+populateVariants(firstComp);
+populateSizes(firstComp);
+updatePreview();
+
+/* ============================================================
+   PALETTE SWITCHING
+   ============================================================ */
+document.querySelectorAll('.palette-option').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.documentElement.setAttribute('data-theme', btn.dataset.theme);
+    document.querySelectorAll('.palette-option').forEach(b => {
+      b.classList.remove('active');
+      b.setAttribute('aria-checked', 'false');
+    });
+    btn.classList.add('active');
+    btn.setAttribute('aria-checked', 'true');
+  });
+});
+
+/* ============================================================
+   DARK MODE TOGGLE
+   ============================================================ */
+const darkModeToggle = document.getElementById('dark-mode-toggle');
+const darkModeKey = 'docs-appearance';
+const sunSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>';
+const moonSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+
+function updateDarkToggle(isDark) {
+  if (!darkModeToggle) return;
+  darkModeToggle.innerHTML = isDark
+    ? sunSvg + '<span>Light</span>'
+    : moonSvg + '<span>Dark</span>';
+}
+
+if (darkModeToggle) {
+  const isDarkMode = localStorage.getItem(darkModeKey) === 'dark';
+  if (isDarkMode) document.documentElement.classList.add('docs-dark');
+  updateDarkToggle(isDarkMode);
+
+  darkModeToggle.addEventListener('click', () => {
+    const isNowDark = document.documentElement.classList.toggle('docs-dark');
+    localStorage.setItem(darkModeKey, isNowDark ? 'dark' : 'light');
+    updateDarkToggle(isNowDark);
+  });
+}
+
+/* ============================================================
+   COPY TO CLIPBOARD
+   ============================================================ */
+if (copyBtn) {
+  copyBtn.addEventListener('click', () => {
+    const code = codeOutput.textContent;
+    navigator.clipboard.writeText(code).then(() => {
+      copyBtn.textContent = 'Copied!';
+      copyBtn.classList.add('copy-btn--copied');
+      setTimeout(() => {
+        copyBtn.textContent = 'Copy';
+        copyBtn.classList.remove('copy-btn--copied');
+      }, 2000);
+    }).catch(() => {
+      // Fallback for older browsers
+      const textarea = document.createElement('textarea');
+      textarea.value = code;
+      textarea.style.position = 'fixed';
+      textarea.style.opacity = '0';
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textarea);
+      copyBtn.textContent = 'Copied!';
+      copyBtn.classList.add('copy-btn--copied');
+      setTimeout(() => {
+        copyBtn.textContent = 'Copy';
+        copyBtn.classList.remove('copy-btn--copied');
+      }, 2000);
+    });
+  });
+}
+</script>
+</body>
+</html>

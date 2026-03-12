@@ -9,12 +9,13 @@ export interface TabItem {
 export interface TabsProps {
   tabs: TabItem[];
   defaultIndex?: number;
-  variant?: 'line' | 'pill';
+  variant?: 'line' | 'pill' | 'segmented';
+  size?: 'sm' | 'md' | 'lg';
   className?: string;
   onChange?: (index: number) => void;
 }
 
-export const Tabs: React.FC<TabsProps> = ({ tabs, defaultIndex = 0, variant = 'line', className = '', onChange }) => {
+export const Tabs: React.FC<TabsProps> = ({ tabs, defaultIndex = 0, variant = 'line', size = 'md', className, onChange }) => {
   const [activeIndex, setActiveIndex] = useState(defaultIndex);
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const baseId = useId();
@@ -55,11 +56,16 @@ export const Tabs: React.FC<TabsProps> = ({ tabs, defaultIndex = 0, variant = 'l
     [tabs, activeIndex, handleSelect]
   );
 
-  const listClass = ['uds-tabs__list', variant === 'pill' ? 'uds-tabs__list--pill' : ''].filter(Boolean).join(' ');
+  const classes = [
+    'uds-tabs',
+    `uds-tabs--${variant}`,
+    `uds-tabs--${size}`,
+    className,
+  ].filter(Boolean).join(' ');
 
   return (
-    <div className={`uds-tabs ${className}`.trim()}>
-      <div className={listClass} role="tablist" aria-orientation="horizontal" onKeyDown={handleKeyDown}>
+    <div className={classes}>
+      <div className="uds-tabs__list" role="tablist" aria-orientation="horizontal" onKeyDown={handleKeyDown}>
         {tabs.map((tab, index) => (
           <button
             key={index}

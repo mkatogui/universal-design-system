@@ -1,0 +1,25 @@
+{
+  "name": "@mkatogui/uds-primitives",
+  "version": "0.1.1",
+  "description": "Unstyled, accessible component primitives — Dialog, Combobox, Tabs, Menu, Tooltip",
+  "main": "src/index.js",
+  "module": "src/index.js",
+  "types": "src/index.d.ts",
+  "exports": {
+    ".": { "import": "./src/index.js", "types": "./src/index.d.ts" },
+    "./dialog": { "import": "./src/dialog.js", "types": "./src/dialog.d.ts" },
+    "./combobox": { "import": "./src/combobox.js", "types": "./src/combobox.d.ts" },
+    "./tabs": { "import": "./src/tabs.js", "types": "./src/tabs.d.ts" },
+    "./menu": { "import": "./src/menu.js", "types": "./src/menu.d.ts" },
+    "./tooltip": { "import": "./src/tooltip.js", "types": "./src/tooltip.d.ts" }
+  },
+  "files": ["src/"],
+  "keywords": ["accessibility", "headless", "primitives", "a11y", "wcag", "aria"],
+  "author": "Marcelo Katogui",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mkatogui/universal-design-system.git",
+    "directory": "packages/primitives"
+  }
+}

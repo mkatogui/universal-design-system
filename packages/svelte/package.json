@@ -1,0 +1,27 @@
+{
+  "name": "@mkatogui/uds-svelte",
+  "version": "0.1.1",
+  "description": "Svelte 5 components for Universal Design System — 31 accessible, themeable components",
+  "svelte": "./src/index.js",
+  "main": "./src/index.js",
+  "module": "./src/index.js",
+  "types": "./src/index.d.ts",
+  "exports": {
+    ".": {
+      "svelte": "./src/index.js",
+      "types": "./src/index.d.ts"
+    }
+  },
+  "files": ["src/"],
+  "peerDependencies": {
+    "svelte": ">=5.0.0"
+  },
+  "keywords": ["svelte", "design-system", "components", "accessibility", "wcag"],
+  "author": "Marcelo Katogui",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mkatogui/universal-design-system.git",
+    "directory": "packages/svelte"
+  }
+}

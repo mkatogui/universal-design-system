@@ -1,0 +1,29 @@
+{
+  "name": "@mkatogui/uds-tokens",
+  "version": "0.1.1",
+  "description": "496 W3C DTCG design tokens from Universal Design System — CSS, JS, TypeScript, and JSON exports",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./css": "./dist/tokens.css",
+    "./json": "./dist/tokens.json"
+  },
+  "files": ["dist/"],
+  "keywords": ["design-tokens", "css-custom-properties", "wcag", "accessibility", "design-system"],
+  "author": "Marcelo Katogui",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mkatogui/universal-design-system.git",
+    "directory": "packages/tokens"
+  },
+  "scripts": {
+    "build": "node build.js"
+  }
+}

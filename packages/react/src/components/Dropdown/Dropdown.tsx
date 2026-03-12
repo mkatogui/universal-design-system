@@ -1,0 +1,126 @@
+import React, { useState, useCallback, useRef, useEffect, useId } from 'react';
+
+export interface DropdownItem {
+  label: string;
+  value: string;
+  disabled?: boolean;
+  icon?: React.ReactNode;
+}
+
+export interface DropdownProps {
+  variant?: 'action' | 'context' | 'nav-sub';
+  size?: 'sm' | 'md' | 'lg';
+  items: DropdownItem[];
+  trigger: React.ReactNode;
+  onSelect?: (value: string) => void;
+  position?: 'bottom-start' | 'bottom-end';
+  className?: string;
+}
+
+export const Dropdown: React.FC<DropdownProps> = ({ variant = 'action', size = 'md', items, trigger, onSelect, position = 'bottom-start', className }) => {
+  const [open, setOpen] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(-1);
+  const menuRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const menuId = useId();
+
+  const close = useCallback(() => {
+    setOpen(false);
+    setActiveIndex(-1);
+    triggerRef.current?.focus();
+  }, []);
+
+  useEffect(() => {
+    if (!open) return;
+    const handleClickOutside = (e: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
+        close();
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [open, close]);
+
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent) => {
+      const enabledIndices = items.map((item, i) => (item.disabled ? -1 : i)).filter((i) => i >= 0);
+
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        close();
+        return;
+      }
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        if (!open) {
+          setOpen(true);
+          setActiveIndex(enabledIndices[0] ?? -1);
+        } else {
+          const pos = enabledIndices.indexOf(activeIndex);
+          setActiveIndex(enabledIndices[(pos + 1) % enabledIndices.length]);
+        }
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        const pos = enabledIndices.indexOf(activeIndex);
+        setActiveIndex(enabledIndices[(pos - 1 + enabledIndices.length) % enabledIndices.length]);
+      } else if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        if (open && activeIndex >= 0 && !items[activeIndex].disabled) {
+          onSelect?.(items[activeIndex].value);
+          close();
+        } else {
+          setOpen(true);
+          setActiveIndex(enabledIndices[0] ?? -1);
+        }
+      }
+    },
+    [open, activeIndex, items, onSelect, close]
+  );
+
+  const classes = [
+    'uds-dropdown',
+    `uds-dropdown--${variant}`,
+    `uds-dropdown--${size}`,
+    `uds-dropdown--${position}`,
+    open && 'uds-dropdown--open',
+    className,
+  ].filter(Boolean).join(' ');
+
+  return (
+    <div ref={menuRef} className={classes} onKeyDown={handleKeyDown}>
+      <button
+        ref={triggerRef}
+        className="uds-dropdown__trigger"
+        type="button"
+        aria-haspopup="menu"
+        aria-expanded={open}
+        aria-controls={menuId}
+        onClick={() => setOpen(!open)}
+      >
+        {trigger}
+      </button>
+      {open && (
+        <div id={menuId} className="uds-dropdown__menu" role="menu">
+          {items.map((item, index) => (
+            <button
+              key={item.value}
+              className={['uds-dropdown__item', index === activeIndex && 'uds-dropdown__item--active'].filter(Boolean).join(' ')}
+              role="menuitem"
+              disabled={item.disabled}
+              tabIndex={-1}
+              onClick={() => {
+                onSelect?.(item.value);
+                close();
+              }}
+            >
+              {item.icon && <span className="uds-dropdown__item-icon">{item.icon}</span>}
+              {item.label}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
+
+Dropdown.displayName = 'Dropdown';

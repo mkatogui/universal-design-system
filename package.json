@@ -19,7 +19,14 @@
     "sync-data": "python3 src/data/_sync_all.py",
     "inject-palettes": "python3 scripts/inject-custom-palettes.py",
     "palette": "python3 src/scripts/palette.py",
-    "build:react": "cd packages/react && npm run build"
+    "build:react": "cd packages/react && npm run build",
+    "build:tokens": "cd packages/tokens && node build.js",
+    "audit:axe": "node scripts/axe-audit.js",
+    "audit:apca": "python3 scripts/apca-audit.py",
+    "test:a11y": "node scripts/axe-audit.js",
+    "test:visual": "npx playwright test --config=playwright.config.ts",
+    "storybook": "npx storybook dev -p 6006",
+    "build:storybook": "npx storybook build -o docs/storybook"
   },
   "keywords": [
     "design-system",
@@ -36,7 +43,16 @@
     "windsurf",
     "ai-coding",
     "bm25",
-    "reasoning-engine"
+    "reasoning-engine",
+    "mcp",
+    "headless",
+    "primitives",
+    "react",
+    "vue",
+    "svelte",
+    "tailwindcss",
+    "apca",
+    "wcag-3"
   ],
   "author": "Marcelo Katogui",
   "license": "MIT",

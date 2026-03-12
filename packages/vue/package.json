@@ -1,0 +1,27 @@
+{
+  "name": "@mkatogui/uds-vue",
+  "version": "0.1.1",
+  "description": "Vue 3 components for Universal Design System — 31 accessible, themeable components",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": ["dist/", "src/"],
+  "peerDependencies": {
+    "vue": ">=3.3.0"
+  },
+  "keywords": ["vue", "design-system", "components", "accessibility", "wcag"],
+  "author": "Marcelo Katogui",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mkatogui/universal-design-system.git",
+    "directory": "packages/vue"
+  }
+}
