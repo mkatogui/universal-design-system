@@ -38,7 +38,8 @@
     "format:check": "biome format .",
     "changeset": "changeset",
     "changeset:version": "changeset version",
-    "changeset:publish": "changeset publish"
+    "changeset:publish": "changeset publish",
+    "prepare": "husky"
   },
   "keywords": [
     "design-system",
@@ -75,7 +76,9 @@
     "@testing-library/react": "^16.1.0",
     "@vitejs/plugin-react": "^6.0.0",
     "@vitest/coverage-v8": "^4.1.0",
+    "husky": "^9.1.7",
     "jsdom": "^28.1.0",
+    "lint-staged": "^16.3.3",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "style-dictionary": "^5.3.3",
@@ -103,5 +106,9 @@
   "claude-plugin": {
     "marketplace": "mkatogui/universal-design-system",
     "install": "universal-design-system"
+  },
+  "lint-staged": {
+    "*.{js,ts,tsx}": ["biome check --write --no-errors-on-unmatched"],
+    "*.json": ["biome format --write --no-errors-on-unmatched"]
   }
 }
