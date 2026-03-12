@@ -74,3 +74,13 @@ id,heading_font,body_font,mood,category,heading_weight,body_weight,best_for,goog
 73,Merriweather,Open Sans,readable-serif,serif-sans,700,400,"news;government;legal;long-form","https://fonts.google.com/specimen/Merriweather",corporate
 74,Bitter,Inter,warm-serif,serif-sans,700,400,"content-heavy;blogs;news;editorial","https://fonts.google.com/specimen/Bitter",minimal-corporate
 75,Fraunces,Outfit,display-serif,serif-sans,700,400,"creative;artisanal;premium;editorial","https://fonts.google.com/specimen/Fraunces",apple-minimal
+76,Nunito,Work Sans,eco-friendly,sans-sans,700,400,"sustainability;agritech;pettech;wellness;kids","https://fonts.google.com/specimen/Nunito",illustration
+77,Barlow,Source Sans 3,government-clear,sans-sans,700,400,"govtech;government;transport;industrial","https://fonts.google.com/specimen/Barlow",corporate
+78,Libre Baskerville,Inter,legal-formal,serif-sans,700,400,"legaltech;regtech;legal;compliance;government","https://fonts.google.com/specimen/Libre+Baskerville",minimal-corporate
+79,Instrument Sans,Work Sans,proptech-refined,sans-sans,700,400,"proptech;real-estate;professional-services;consulting","https://fonts.google.com/specimen/Instrument+Sans",minimal-corporate
+80,Archivo,Inter,automotive-strong,sans-sans,800,400,"automotive;sporttech;sports;motorsport;industrial","https://fonts.google.com/specimen/Archivo",bold-lifestyle
+81,Sora,Inter,cleantech-futuristic,sans-sans,700,400,"cleantech;spacetech;ai;energy;aerospace","https://fonts.google.com/specimen/Sora",ai-futuristic
+82,Merriweather,Open Sans,insurtech-trustworthy,serif-sans,700,400,"insurtech;insurance;finance;compliance","https://fonts.google.com/specimen/Merriweather",corporate
+83,Playfair Display,Inter,fashion-elegant,serif-sans,700,400,"fashiontech;fashion;luxury;editorial","https://fonts.google.com/specimen/Playfair+Display",apple-minimal
+84,Oswald,Inter,foodtech-bold,sans-sans,700,400,"foodtech;food;restaurants;lifestyle","https://fonts.google.com/specimen/Oswald",bold-lifestyle
+85,DM Sans,Inter,musictech-modern,sans-sans,700,400,"musictech;music;creative;startups;entertainment","https://fonts.google.com/specimen/DM+Sans",gradient-startup
