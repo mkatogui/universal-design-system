@@ -43,7 +43,11 @@ describe('Footer', () => {
   it('renders newsletter and legal slots', () => {
     render(
       <Footer
-        newsletter={<form><input placeholder="Email" /></form>}
+        newsletter={
+          <form>
+            <input placeholder="Email" />
+          </form>
+        }
         legal={<span>Privacy Policy</span>}
       />,
     );

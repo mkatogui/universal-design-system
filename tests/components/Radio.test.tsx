@@ -18,9 +18,7 @@ describe('Radio', () => {
     );
     expect(screen.getByRole('radio', { name: 'Free' })).toHaveAttribute('aria-checked', 'true');
 
-    rerender(
-      <Radio name="plan" value="free" label="Free" checked={false} onChange={vi.fn()} />,
-    );
+    rerender(<Radio name="plan" value="free" label="Free" checked={false} onChange={vi.fn()} />);
     expect(screen.getByRole('radio', { name: 'Free' })).toHaveAttribute('aria-checked', 'false');
   });
 
