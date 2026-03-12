@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="minimal-saas">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UDS Basic HTML Example</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:wght@600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+/* ============================================================
+   FOUNDATION TOKENS (locked across all palettes)
+   ============================================================ */
+:root {
+  /* Typography */
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-display: 'Inter', system-ui, sans-serif;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Type Scale */
+  --text-display-md: clamp(2rem, 4vw, 3rem);
+  --text-heading-lg: clamp(1.75rem, 3vw, 2.25rem);
+  --text-heading-md: clamp(1.375rem, 2.5vw, 1.75rem);
+  --text-heading-sm: clamp(1.125rem, 2vw, 1.375rem);
+  --text-body-lg: 1.25rem;
+  --text-body-md: 1rem;
+  --text-body-sm: 0.875rem;
+  --text-label: 0.75rem;
+
+  /* Line Height */
+  --line-height-tight: 1.1;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.7;
+
+  /* Spacing (4px grid) */
+  --spacing-1: 4px;  --spacing-2: 8px;   --spacing-3: 12px;
+  --spacing-4: 16px; --spacing-5: 20px;  --spacing-6: 24px;
+  --spacing-8: 32px; --spacing-10: 40px; --spacing-12: 48px;
+  --spacing-16: 64px; --spacing-20: 80px;
+
+  /* Border Radius (palette-overridable defaults) */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
+
+  /* Motion */
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --ease-default: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Opacity */
+  --opacity-disabled: 0.4;
+  --opacity-muted: 0.6;
+
+  /* Layout */
+  --container-lg: 1024px;
+}
+
+/* ============================================================
+   PALETTE: Minimal SaaS (default)
+   ============================================================ */
+:root, :root[data-theme="minimal-saas"] {
+  --color-bg-primary: #FFFFFF;
+  --color-bg-secondary: #F8F8FA;
+  --color-bg-tertiary: #F0F0F5;
+  --color-bg-inverse: #111118;
+  --color-text-primary: #111118;
+  --color-text-secondary: #555566;
+  --color-text-tertiary: #6B6B7B;
+  --color-text-on-brand: #FFFFFF;
+  --color-brand-primary: #2563EB;
+  --color-brand-primary-rgb: 37, 99, 235;
+  --color-brand-secondary: #3B82F6;
+  --color-brand-accent: #60A5FA;
+  --color-brand-muted: #DBEAFE;
+  --color-border-default: #C8C8D4;
+  --color-border-input: #8E8E9E;
+  --color-border-subtle: #E8E8F0;
+  --color-success: #059669;
+  --color-success-bg: #ECFDF5;
+  --color-warning: #D97706;
+  --color-warning-bg: #FFFBEB;
+  --color-error: #DC2626;
+  --color-error-bg: #FEF2F2;
+  --color-info: #2563EB;
+  --color-info-bg: #EFF6FF;
+  --shadow-sm: 0 2px 4px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.04);
+  --shadow-lg: 0 12px 32px rgba(0,0,0,0.12), 0 4px 8px rgba(0,0,0,0.06);
+  --radius-sm: 6px; --radius-md: 8px; --radius-lg: 12px; --radius-xl: 16px;
+}
+
+/* ============================================================
+   PALETTE: Corporate Enterprise
+   ============================================================ */
+:root[data-theme="corporate"] {
+  --color-bg-primary: #FFFFFF;
+  --color-bg-secondary: #F7F8FA;
+  --color-bg-tertiary: #F0F0F5;
+  --color-bg-inverse: #111118;
+  --color-text-primary: #1A202C;
+  --color-text-secondary: #4A5568;
+  --color-text-tertiary: #636B78;
+  --color-text-on-brand: #FFFFFF;
+  --color-brand-primary: #1A365D;
+  --color-brand-primary-rgb: 26, 54, 93;
+  --color-brand-secondary: #2B6CB0;
+  --color-brand-accent: #4299E1;
+  --color-brand-muted: #EBF8FF;
+  --color-border-default: #CBD5E0;
+  --color-border-input: #A0AEC0;
+  --color-border-subtle: #E2E8F0;
+  --color-success: #059669;
+  --color-success-bg: #ECFDF5;
+  --color-warning: #D97706;
+  --color-warning-bg: #FFFBEB;
+  --color-error: #DC2626;
+  --color-error-bg: #FEF2F2;
+  --color-info: #2563EB;
+  --color-info-bg: #EFF6FF;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md: 0 2px 8px rgba(0,0,0,0.06);
+  --shadow-lg: 0 4px 16px rgba(0,0,0,0.08);
+  --radius-sm: 2px; --radius-md: 4px; --radius-lg: 6px; --radius-xl: 8px;
+  --font-display: 'Source Serif 4', Georgia, serif;
+}
+
+/* ============================================================
+   PALETTE: AI Futuristic
+   ============================================================ */
+:root[data-theme="ai-futuristic"] {
+  --color-bg-primary: #0A0A0F;
+  --color-bg-secondary: #111118;
+  --color-bg-tertiary: #1A1A24;
+  --color-bg-inverse: #FFFFFF;
+  --color-text-primary: #E0E0EE;
+  --color-text-secondary: #9999AA;
+  --color-text-tertiary: #7A7A8C;
+  --color-text-on-brand: #0A0A0F;
+  --color-brand-primary: #00FF88;
+  --color-brand-primary-rgb: 0, 255, 136;
+  --color-brand-secondary: #00D4FF;
+  --color-brand-accent: #8B5CF6;
+  --color-brand-muted: #0A2A1A;
+  --color-border-default: #2A2A36;
+  --color-border-input: #4A4A58;
+  --color-border-subtle: #1E1E28;
+  --color-success: #34D399;
+  --color-success-bg: #062E1E;
+  --color-warning: #FBBF24;
+  --color-warning-bg: #2A1F00;
+  --color-error: #F87171;
+  --color-error-bg: #2D0A0A;
+  --color-info: #60A5FA;
+  --color-info-bg: #0A1628;
+  --shadow-sm: 0 0 0 1px rgba(255,255,255,0.06), 0 2px 4px rgba(0,0,0,0.3);
+  --shadow-md: 0 0 0 1px rgba(255,255,255,0.06), 0 4px 12px rgba(0,0,0,0.4);
+  --shadow-lg: 0 0 0 1px rgba(255,255,255,0.08), 0 12px 32px rgba(0,0,0,0.5);
+  --radius-sm: 2px; --radius-md: 4px; --radius-lg: 6px; --radius-xl: 8px;
+  --font-display: 'DM Sans', system-ui, sans-serif;
+}
+
+/* ============================================================
+   PALETTE: Illustration-Driven
+   ============================================================ */
+:root[data-theme="illustration"] {
+  --color-bg-primary: #FFFFFF;
+  --color-bg-secondary: #FFF8F0;
+  --color-bg-tertiary: #FFF0E6;
+  --color-bg-inverse: #1A1523;
+  --color-text-primary: #1A1523;
+  --color-text-secondary: #5C5470;
+  --color-text-tertiary: #7A7189;
+  --color-text-on-brand: #FFFFFF;
+  --color-brand-primary: #E8590C;
+  --color-brand-primary-rgb: 232, 89, 12;
+  --color-brand-secondary: #7048E8;
+  --color-brand-accent: #12B886;
+  --color-brand-muted: #FFF4E6;
+  --color-border-default: #C4B5A4;
+  --color-border-input: #9E8E7E;
+  --color-border-subtle: #E8E0D6;
+  --color-success: #059669;
+  --color-success-bg: #ECFDF5;
+  --color-warning: #D97706;
+  --color-warning-bg: #FFFBEB;
+  --color-error: #DC2626;
+  --color-error-bg: #FEF2F2;
+  --color-info: #2563EB;
+  --color-info-bg: #EFF6FF;
+  --shadow-sm: 0 2px 6px rgba(26,21,35,0.06);
+  --shadow-md: 0 4px 16px rgba(26,21,35,0.10);
+  --shadow-lg: 0 12px 36px rgba(26,21,35,0.14);
+  --radius-sm: 10px; --radius-md: 14px; --radius-lg: 18px; --radius-xl: 24px;
+}
+
+/* ============================================================
+   DARK MODE OVERRIDES
+   ============================================================ */
+html.docs-dark[data-theme="minimal-saas"] {
+  --color-bg-primary: #0F0F14;
+  --color-bg-secondary: #161620;
+  --color-bg-tertiary: #1E1E2A;
+  --color-bg-inverse: #FFFFFF;
+  --color-text-primary: #E4E4EE;
+  --color-text-secondary: #A0A0B4;
+  --color-text-tertiary: #7A7A8E;
+  --color-border-default: #2C2C3A;
+  --color-border-input: #4A4A5A;
+  --color-border-subtle: #222230;
+  --color-success-bg: #0A2618;
+  --color-warning-bg: #261E0A;
+  --color-error-bg: #260A0A;
+  --color-info-bg: #0A1426;
+  --shadow-sm: 0 2px 4px rgba(0,0,0,0.3);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+  --shadow-lg: 0 12px 32px rgba(0,0,0,0.5);
+}
+
+html.docs-dark[data-theme="corporate"] {
+  --color-bg-primary: #0C0E12;
+  --color-bg-secondary: #141820;
+  --color-bg-tertiary: #1C2230;
+  --color-bg-inverse: #FFFFFF;
+  --color-text-primary: #D8DCE8;
+  --color-text-secondary: #8E96A8;
+  --color-text-tertiary: #6E7688;
+  --color-brand-primary: #4A7CC8;
+  --color-brand-primary-rgb: 74, 124, 200;
+  --color-brand-secondary: #5A8ED8;
+  --color-brand-muted: #0E1A30;
+  --color-border-default: #283040;
+  --color-border-input: #3E4858;
+  --color-border-subtle: #1E2636;
+  --color-success-bg: #0A2618;
+  --color-warning-bg: #261E0A;
+  --color-error-bg: #260A0A;
+  --color-info-bg: #0A1426;
+  --shadow-sm: 0 2px 4px rgba(0,0,0,0.3);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+  --shadow-lg: 0 12px 32px rgba(0,0,0,0.5);
+}
+
+html.docs-dark[data-theme="ai-futuristic"] {
+  --color-bg-primary: #08080D;
+  --color-bg-secondary: #0F0F16;
+  --color-bg-tertiary: #16161F;
+  --color-bg-inverse: #FFFFFF;
+  --color-text-primary: #E0E0EE;
+  --color-text-secondary: #9999AA;
+  --color-text-tertiary: #7A7A8C;
+  --color-text-on-brand: #0A0A0F;
+  --color-brand-primary: #00FF88;
+  --color-brand-primary-rgb: 0, 255, 136;
+  --color-brand-secondary: #00D4FF;
+  --color-brand-accent: #8B5CF6;
+  --color-brand-muted: #0A2A1A;
+  --color-border-default: #2A2A36;
+  --color-border-input: #4A4A58;
+  --color-border-subtle: #1E1E28;
+  --color-success-bg: #062E1E;
+  --color-warning-bg: #2A1F00;
+  --color-error-bg: #2D0A0A;
+  --color-info-bg: #0A1628;
+  --shadow-sm: 0 0 0 1px rgba(255,255,255,0.06), 0 2px 4px rgba(0,0,0,0.3);
+  --shadow-md: 0 0 0 1px rgba(255,255,255,0.06), 0 4px 12px rgba(0,0,0,0.4);
+  --shadow-lg: 0 0 0 1px rgba(255,255,255,0.08), 0 12px 32px rgba(0,0,0,0.5);
+}
+
+html.docs-dark[data-theme="illustration"] {
+  --color-bg-primary: #12100E;
+  --color-bg-secondary: #1C1816;
+  --color-bg-tertiary: #262018;
+  --color-bg-inverse: #FFFFFF;
+  --color-text-primary: #F0E8DC;
+  --color-text-secondary: #B0A494;
+  --color-text-tertiary: #8A7E6E;
+  --color-brand-muted: #2A1A0A;
+  --color-border-default: #342E24;
+  --color-border-input: #544A3A;
+  --color-border-subtle: #242018;
+  --color-success-bg: #0A2618;
+  --color-warning-bg: #261E0A;
+  --color-error-bg: #260A0A;
+  --color-info-bg: #0A1426;
+  --shadow-sm: 0 2px 4px rgba(0,0,0,0.3);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+  --shadow-lg: 0 12px 32px rgba(0,0,0,0.5);
+}
+
+/* ============================================================
+   BASE RESET & LAYOUT
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-sans);
+  font-size: var(--text-body-md);
+  line-height: var(--line-height-normal);
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-primary);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  body { transition: background-color var(--duration-normal) var(--ease-default),
+                     color var(--duration-normal) var(--ease-default); }
+}
+
+.container {
+  max-width: var(--container-lg);
+  margin: 0 auto;
+  padding: var(--spacing-8) var(--spacing-6);
+}
+
+/* ============================================================
+   TOOLBAR
+   ============================================================ */
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-4);
+  flex-wrap: wrap;
+  padding: var(--spacing-4) var(--spacing-6);
+  background: var(--color-bg-secondary);
+  border-bottom: 1px solid var(--color-border-default);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.toolbar__label {
+  font-size: var(--text-body-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+}
+
+.toolbar__select {
+  font-family: var(--font-sans);
+  font-size: var(--text-body-sm);
+  padding: var(--spacing-2) var(--spacing-3);
+  border: 1px solid var(--color-border-input);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  cursor: pointer;
+}
+
+.toolbar__toggle {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  font-size: var(--text-body-sm);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  user-select: none;
+}
+
+.toolbar__toggle input { display: none; }
+
+.toolbar__toggle-track {
+  width: 40px;
+  height: 22px;
+  border-radius: var(--radius-full);
+  background: var(--color-border-default);
+  position: relative;
+  flex-shrink: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .toolbar__toggle-track { transition: background var(--duration-fast) var(--ease-default); }
+}
+
+.toolbar__toggle-track::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 16px;
+  height: 16px;
+  border-radius: var(--radius-full);
+  background: var(--color-bg-primary);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .toolbar__toggle-track::after { transition: transform var(--duration-fast) var(--ease-default); }
+}
+
+.toolbar__toggle input:checked + .toolbar__toggle-track {
+  background: var(--color-brand-primary);
+}
+
+.toolbar__toggle input:checked + .toolbar__toggle-track::after {
+  transform: translateX(18px);
+}
+
+/* ============================================================
+   PAGE HEADER
+   ============================================================ */
+.page-header {
+  text-align: center;
+  padding: var(--spacing-12) 0 var(--spacing-8);
+}
+
+.page-header__title {
+  font-family: var(--font-display);
+  font-size: var(--text-display-md);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-3);
+}
+
+.page-header__subtitle {
+  font-size: var(--text-body-lg);
+  color: var(--color-text-secondary);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* ============================================================
+   SECTION
+   ============================================================ */
+.section {
+  margin-bottom: var(--spacing-12);
+}
+
+.section__title {
+  font-family: var(--font-display);
+  font-size: var(--text-heading-md);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-6);
+  padding-bottom: var(--spacing-3);
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+/* ============================================================
+   COMPONENT: Button (.uds-btn)
+   ============================================================ */
+.uds-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2);
+  padding: var(--spacing-3) var(--spacing-6);
+  font-family: var(--font-sans);
+  font-size: var(--text-body-sm);
+  font-weight: var(--font-weight-medium);
+  line-height: 1;
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .uds-btn { transition: all var(--duration-fast) var(--ease-default); }
+}
+
+.uds-btn:disabled {
+  opacity: var(--opacity-disabled);
+  cursor: not-allowed;
+}
+
+/* Primary */
+.uds-btn--primary {
+  background: var(--color-brand-primary);
+  color: var(--color-text-on-brand);
+  border-color: var(--color-brand-primary);
+}
+
+.uds-btn--primary:hover:not(:disabled) {
+  box-shadow: var(--shadow-md);
+  filter: brightness(1.1);
+}
+
+/* Secondary */
+.uds-btn--secondary {
+  background: transparent;
+  color: var(--color-brand-primary);
+  border-color: var(--color-brand-primary);
+}
+
+.uds-btn--secondary:hover:not(:disabled) {
+  background: var(--color-brand-muted);
+}
+
+/* Ghost */
+.uds-btn--ghost {
+  background: transparent;
+  color: var(--color-text-secondary);
+  border-color: transparent;
+}
+
+.uds-btn--ghost:hover:not(:disabled) {
+  background: var(--color-bg-tertiary);
+  color: var(--color-text-primary);
+}
+
+.btn-group {
+  display: flex;
+  gap: var(--spacing-3);
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+/* ============================================================
+   COMPONENT: Card (.uds-card)
+   ============================================================ */
+.uds-card {
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .uds-card { transition: box-shadow var(--duration-normal) var(--ease-default),
+                           border-color var(--duration-normal) var(--ease-default); }
+}
+
+.uds-card:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-brand-primary);
+}
+
+.uds-card__header {
+  padding: var(--spacing-5) var(--spacing-6);
+  border-bottom: 1px solid var(--color-border-subtle);
+  background: var(--color-bg-secondary);
+}
+
+.uds-card__header h3 {
+  font-family: var(--font-display);
+  font-size: var(--text-heading-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.uds-card__content {
+  padding: var(--spacing-6);
+}
+
+.uds-card__content p {
+  color: var(--color-text-secondary);
+  font-size: var(--text-body-sm);
+  line-height: var(--line-height-relaxed);
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--spacing-6);
+}
+
+/* ============================================================
+   COMPONENT: Input (.uds-input)
+   ============================================================ */
+.uds-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  max-width: 400px;
+}
+
+.uds-input-group label {
+  font-size: var(--text-body-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+}
+
+.uds-input {
+  font-family: var(--font-sans);
+  font-size: var(--text-body-md);
+  padding: var(--spacing-3) var(--spacing-4);
+  border: 1px solid var(--color-border-input);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  outline: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .uds-input { transition: border-color var(--duration-fast) var(--ease-default),
+                            box-shadow var(--duration-fast) var(--ease-default); }
+}
+
+.uds-input::placeholder {
+  color: var(--color-text-tertiary);
+}
+
+.uds-input:focus {
+  border-color: var(--color-brand-primary);
+  box-shadow: 0 0 0 3px rgba(var(--color-brand-primary-rgb), 0.15);
+}
+
+.uds-input-hint {
+  font-size: var(--text-label);
+  color: var(--color-text-tertiary);
+}
+
+.input-row {
+  display: flex;
+  gap: var(--spacing-6);
+  flex-wrap: wrap;
+}
+
+.input-row .uds-input-group { flex: 1; min-width: 200px; }
+
+/* ============================================================
+   COMPONENT: Badge (.uds-badge)
+   ============================================================ */
+.uds-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--spacing-1) var(--spacing-3);
+  font-family: var(--font-sans);
+  font-size: var(--text-label);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.4;
+  border-radius: var(--radius-full);
+  border: 1px solid transparent;
+}
+
+/* Default */
+.uds-badge--default {
+  background: var(--color-bg-tertiary);
+  color: var(--color-text-secondary);
+  border-color: var(--color-border-default);
+}
+
+/* Success */
+.uds-badge--success {
+  background: var(--color-success-bg);
+  color: var(--color-success);
+  border-color: var(--color-success);
+}
+
+/* Warning */
+.uds-badge--warning {
+  background: var(--color-warning-bg);
+  color: var(--color-warning);
+  border-color: var(--color-warning);
+}
+
+.badge-group {
+  display: flex;
+  gap: var(--spacing-3);
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+/* ============================================================
+   TOKEN SWATCH
+   ============================================================ */
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: var(--spacing-3);
+}
+
+.swatch {
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--color-border-default);
+}
+
+.swatch__color {
+  height: 48px;
+}
+
+.swatch__label {
+  padding: var(--spacing-2);
+  font-size: var(--text-label);
+  color: var(--color-text-secondary);
+  background: var(--color-bg-secondary);
+  text-align: center;
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.page-footer {
+  text-align: center;
+  padding: var(--spacing-8) 0;
+  border-top: 1px solid var(--color-border-subtle);
+  color: var(--color-text-tertiary);
+  font-size: var(--text-body-sm);
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 640px) {
+  .container { padding: var(--spacing-6) var(--spacing-4); }
+  .toolbar { padding: var(--spacing-3) var(--spacing-4); }
+  .card-grid { grid-template-columns: 1fr; }
+}
+
+</style>
+</head>
+<body>
+
+<!-- Toolbar: palette switcher + dark mode toggle -->
+<div class="toolbar">
+  <span class="toolbar__label">Palette</span>
+  <select class="toolbar__select" id="palette-select" aria-label="Select palette">
+    <option value="minimal-saas">Minimal SaaS</option>
+    <option value="corporate">Corporate</option>
+    <option value="ai-futuristic">AI Futuristic</option>
+    <option value="illustration">Illustration</option>
+  </select>
+
+  <label class="toolbar__toggle">
+    <span>Dark mode</span>
+    <input type="checkbox" id="dark-toggle" aria-label="Toggle dark mode">
+    <span class="toolbar__toggle-track"></span>
+  </label>
+</div>
+
+<div class="container">
+
+  <!-- Page Header -->
+  <header class="page-header">
+    <h1 class="page-header__title">Universal Design System</h1>
+    <p class="page-header__subtitle">
+      A self-contained example demonstrating UDS tokens, BEM components,
+      palette switching, and dark mode. No build step required.
+    </p>
+  </header>
+
+  <!-- Section: Buttons -->
+  <section class="section">
+    <h2 class="section__title">Buttons</h2>
+    <div class="btn-group">
+      <button class="uds-btn uds-btn--primary">Primary</button>
+      <button class="uds-btn uds-btn--secondary">Secondary</button>
+      <button class="uds-btn uds-btn--ghost">Ghost</button>
+      <button class="uds-btn uds-btn--primary" disabled>Disabled</button>
+    </div>
+  </section>
+
+  <!-- Section: Cards -->
+  <section class="section">
+    <h2 class="section__title">Cards</h2>
+    <div class="card-grid">
+      <article class="uds-card">
+        <div class="uds-card__header">
+          <h3>Token-Driven Styling</h3>
+        </div>
+        <div class="uds-card__content">
+          <p>
+            Every color, spacing value, radius, and shadow in this page
+            comes from CSS custom properties. Switch palettes above to see
+            the entire page transform.
+          </p>
+        </div>
+      </article>
+      <article class="uds-card">
+        <div class="uds-card__header">
+          <h3>BEM Component Naming</h3>
+        </div>
+        <div class="uds-card__content">
+          <p>
+            Components follow BEM conventions: <code>.uds-btn</code>,
+            <code>.uds-card__header</code>, <code>.uds-btn--primary</code>.
+            This keeps specificity flat and components composable.
+          </p>
+        </div>
+      </article>
+      <article class="uds-card">
+        <div class="uds-card__header">
+          <h3>Palette Architecture</h3>
+        </div>
+        <div class="uds-card__content">
+          <p>
+            Foundation tokens (typography, spacing, motion) are locked.
+            Palette tokens (color, shadow, radius, display font) change
+            per theme. One palette per surface, no mixing.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Section: Inputs -->
+  <section class="section">
+    <h2 class="section__title">Inputs</h2>
+    <div class="input-row">
+      <div class="uds-input-group">
+        <label for="input-email">Email address</label>
+        <input class="uds-input" type="email" id="input-email" placeholder="you@example.com">
+        <span class="uds-input-hint">We will never share your email.</span>
+      </div>
+      <div class="uds-input-group">
+        <label for="input-name">Full name</label>
+        <input class="uds-input" type="text" id="input-name" placeholder="Jane Smith">
+      </div>
+    </div>
+  </section>
+
+  <!-- Section: Badges -->
+  <section class="section">
+    <h2 class="section__title">Badges</h2>
+    <div class="badge-group">
+      <span class="uds-badge uds-badge--default">Default</span>
+      <span class="uds-badge uds-badge--success">Success</span>
+      <span class="uds-badge uds-badge--warning">Warning</span>
+    </div>
+  </section>
+
+  <!-- Section: Token Swatches -->
+  <section class="section">
+    <h2 class="section__title">Color Tokens</h2>
+    <div class="swatch-grid">
+      <div class="swatch">
+        <div class="swatch__color" style="background: var(--color-brand-primary);"></div>
+        <div class="swatch__label">brand-primary</div>
+      </div>
+      <div class="swatch">
+        <div class="swatch__color" style="background: var(--color-brand-secondary);"></div>
+        <div class="swatch__label">brand-secondary</div>
+      </div>
+      <div class="swatch">
+        <div class="swatch__color" style="background: var(--color-bg-primary);"></div>
+        <div class="swatch__label">bg-primary</div>
+      </div>
+      <div class="swatch">
+        <div class="swatch__color" style="background: var(--color-bg-secondary);"></div>
+        <div class="swatch__label">bg-secondary</div>
+      </div>
+      <div class="swatch">
+        <div class="swatch__color" style="background: var(--color-border-default);"></div>
+        <div class="swatch__label">border-default</div>
+      </div>
+      <div class="swatch">
+        <div class="swatch__color" style="background: var(--color-success);"></div>
+        <div class="swatch__label">success</div>
+      </div>
+      <div class="swatch">
+        <div class="swatch__color" style="background: var(--color-warning);"></div>
+        <div class="swatch__label">warning</div>
+      </div>
+      <div class="swatch">
+        <div class="swatch__color" style="background: var(--color-error);"></div>
+        <div class="swatch__label">error</div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="page-footer">
+    Universal Design System &mdash; Basic HTML Example
+  </footer>
+</div>
+
+<script>
+  // Palette switcher
+  var paletteSelect = document.getElementById('palette-select');
+  paletteSelect.addEventListener('change', function () {
+    document.documentElement.setAttribute('data-theme', this.value);
+  });
+
+  // Dark mode toggle
+  var darkToggle = document.getElementById('dark-toggle');
+  darkToggle.addEventListener('change', function () {
+    document.documentElement.classList.toggle('docs-dark', this.checked);
+  });
+</script>
+
+</body>
+</html>

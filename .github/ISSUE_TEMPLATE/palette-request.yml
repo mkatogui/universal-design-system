@@ -1,0 +1,81 @@
+name: Palette Request
+description: Suggest a new built-in palette
+labels: ["palette", "enhancement"]
+body:
+  - type: input
+    id: palette-name
+    attributes:
+      label: Palette Name
+      description: A short, descriptive name for the palette (e.g., "neo-brutalist", "warm-editorial").
+      placeholder: my-palette-name
+    validations:
+      required: true
+
+  - type: textarea
+    id: target-industry
+    attributes:
+      label: Target Industry/Use Case
+      description: What industry or product type is this palette designed for?
+      placeholder: e.g., Healthcare portals, creative agencies, gaming platforms...
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposed-colors
+    attributes:
+      label: Proposed Colors
+      description: Suggest primary, secondary, accent, and background colors.
+      placeholder: |
+        Primary: #...
+        Secondary: #...
+        Accent: #...
+        Background: #...
+    validations:
+      required: true
+
+  - type: input
+    id: display-font
+    attributes:
+      label: Display Font Suggestion
+      description: Suggested display font for headings (h1-h3). Body font is always Inter.
+      placeholder: e.g., Playfair Display, Space Grotesk
+    validations:
+      required: false
+
+  - type: dropdown
+    id: border-radius-style
+    attributes:
+      label: Border Radius Style
+      description: What border radius style fits this palette?
+      options:
+        - sharp (0-2px)
+        - subtle (4-6px)
+        - rounded (8-12px)
+        - pill (16-20px)
+    validations:
+      required: false
+
+  - type: dropdown
+    id: shadow-style
+    attributes:
+      label: Shadow Style
+      description: What shadow style fits this palette?
+      options:
+        - none
+        - subtle
+        - medium
+        - dramatic
+        - glow
+    validations:
+      required: false
+
+  - type: textarea
+    id: reference-examples
+    attributes:
+      label: Reference Examples
+      description: Links to sites or designs with a similar aesthetic.
+      placeholder: |
+        - https://example.com
+        - https://dribbble.com/shots/...
+    validations:
+      required: false

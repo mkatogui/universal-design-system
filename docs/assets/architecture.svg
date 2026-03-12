@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 300" width="800" height="300">
+  <defs>
+    <style>
+      .stage-box { fill: #ffffff; stroke: #2563EB; stroke-width: 2; rx: 10; ry: 10; }
+      .stage-title { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 11px; font-weight: 700; fill: #1e293b; text-anchor: middle; }
+      .stage-stat { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 9px; font-weight: 400; fill: #64748b; text-anchor: middle; }
+      .arrow { fill: none; stroke: #2563EB; stroke-width: 2; marker-end: url(#arrowhead); }
+      .input-box { fill: #2563EB; stroke: none; rx: 10; ry: 10; }
+      .input-text { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 11px; font-weight: 700; fill: #ffffff; text-anchor: middle; }
+      .output-box { fill: #2563EB; stroke: none; rx: 10; ry: 10; }
+      .output-text { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 11px; font-weight: 700; fill: #ffffff; text-anchor: middle; }
+      .output-stat { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 8.5px; font-weight: 400; fill: rgba(255,255,255,0.85); text-anchor: middle; }
+      .layer-label { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 8px; font-weight: 600; fill: #2563EB; text-anchor: middle; letter-spacing: 0.5px; }
+      .header { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 14px; font-weight: 700; fill: #1e293b; text-anchor: middle; }
+      .subheader { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 10px; font-weight: 400; fill: #94a3b8; text-anchor: middle; }
+    </style>
+    <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 0, 8 3, 0 6" fill="#2563EB" />
+    </marker>
+    <filter id="shadow" x="-4%" y="-4%" width="108%" height="116%">
+      <feDropShadow dx="0" dy="1" stdDeviation="2" flood-color="#000000" flood-opacity="0.08" />
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="300" fill="#f8fafc" rx="8" ry="8" />
+
+  <!-- Title -->
+  <text x="400" y="32" class="header">Universal Design System -- 3-Layer Reasoning Pipeline</text>
+  <text x="400" y="48" class="subheader">AI-native design system with BM25 reasoning engine</text>
+
+  <!-- ===== Stage 1: User Query (input) ===== -->
+  <rect x="16" y="100" width="90" height="60" class="input-box" filter="url(#shadow)" />
+  <text x="61" y="127" class="input-text">User Query</text>
+  <text x="61" y="142" class="output-stat">natural language</text>
+
+  <!-- Arrow 1 -->
+  <line x1="106" y1="130" x2="128" y2="130" class="arrow" />
+
+  <!-- ===== Stage 2: Domain Detection ===== -->
+  <g filter="url(#shadow)">
+    <rect x="130" y="85" width="115" height="90" class="stage-box" />
+  </g>
+  <text x="187" y="103" class="layer-label">LAYER 1</text>
+  <text x="187" y="120" class="stage-title">Domain</text>
+  <text x="187" y="133" class="stage-title">Detection</text>
+  <text x="187" y="151" class="stage-stat">21 sectors</text>
+  <text x="187" y="164" class="stage-stat">8 product types</text>
+
+  <!-- Arrow 2 -->
+  <line x1="245" y1="130" x2="267" y2="130" class="arrow" />
+
+  <!-- ===== Stage 3: BM25 Search ===== -->
+  <g filter="url(#shadow)">
+    <rect x="269" y="85" width="115" height="90" class="stage-box" />
+  </g>
+  <text x="326" y="103" class="layer-label">LAYER 2</text>
+  <text x="326" y="120" class="stage-title">BM25</text>
+  <text x="326" y="133" class="stage-title">Search</text>
+  <text x="326" y="151" class="stage-stat">17 CSV databases</text>
+  <text x="326" y="164" class="stage-stat">1,500+ rows</text>
+
+  <!-- Arrow 3 -->
+  <line x1="384" y1="130" x2="406" y2="130" class="arrow" />
+
+  <!-- ===== Stage 4: Rule Engine ===== -->
+  <g filter="url(#shadow)">
+    <rect x="408" y="85" width="115" height="90" class="stage-box" />
+  </g>
+  <text x="465" y="103" class="layer-label">LAYER 3</text>
+  <text x="465" y="120" class="stage-title">Rule</text>
+  <text x="465" y="133" class="stage-title">Engine</text>
+  <text x="465" y="151" class="stage-stat">165 rules</text>
+  <text x="465" y="164" class="stage-stat">55 anti-patterns</text>
+
+  <!-- Arrow 4 -->
+  <line x1="523" y1="130" x2="545" y2="130" class="arrow" />
+
+  <!-- ===== Stage 5: Token Resolution ===== -->
+  <g filter="url(#shadow)">
+    <rect x="547" y="85" width="115" height="90" class="stage-box" />
+  </g>
+  <text x="604" y="110" class="stage-title">Token</text>
+  <text x="604" y="123" class="stage-title">Resolution</text>
+  <text x="604" y="141" class="stage-stat">496 tokens</text>
+  <text x="604" y="154" class="stage-stat">9 palettes</text>
+  <text x="604" y="167" class="stage-stat">31 components</text>
+
+  <!-- Arrow 5 -->
+  <line x1="662" y1="130" x2="684" y2="130" class="arrow" />
+
+  <!-- ===== Stage 6: Output ===== -->
+  <rect x="686" y="82" width="98" height="96" class="output-box" filter="url(#shadow)" />
+  <text x="735" y="105" class="output-text">Output</text>
+  <text x="735" y="122" class="output-stat">CSS Variables</text>
+  <text x="735" y="135" class="output-stat">Tailwind Config</text>
+  <text x="735" y="148" class="output-stat">React / Vue</text>
+  <text x="735" y="161" class="output-stat">Svelte</text>
+  <text x="735" y="174" class="output-stat">iOS / Android</text>
+
+  <!-- ===== Bottom: Data sources bar ===== -->
+  <rect x="130" y="210" width="530" height="44" rx="8" ry="8" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1" />
+  <text x="395" y="228" class="layer-label" style="fill: #1d4ed8;">DATA SOURCES</text>
+  <text x="225" y="244" class="stage-stat" style="fill: #3b82f6;">products.csv</text>
+  <text x="315" y="244" class="stage-stat" style="fill: #3b82f6;">components.csv</text>
+  <text x="410" y="244" class="stage-stat" style="fill: #3b82f6;">ui-reasoning.csv</text>
+  <text x="515" y="244" class="stage-stat" style="fill: #3b82f6;">design-tokens.json</text>
+
+  <!-- Connector lines from data sources to stages -->
+  <line x1="225" y1="210" x2="225" y2="175" stroke="#bfdbfe" stroke-width="1" stroke-dasharray="3,3" />
+  <line x1="326" y1="210" x2="326" y2="175" stroke="#bfdbfe" stroke-width="1" stroke-dasharray="3,3" />
+  <line x1="465" y1="210" x2="465" y2="175" stroke="#bfdbfe" stroke-width="1" stroke-dasharray="3,3" />
+  <line x1="604" y1="210" x2="604" y2="175" stroke="#bfdbfe" stroke-width="1" stroke-dasharray="3,3" />
+
+  <!-- Footer -->
+  <text x="400" y="285" class="subheader">Universal Design System v0.1.0 -- mkatogui.github.io/universal-design-system</text>
+</svg>

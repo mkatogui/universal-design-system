@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 140" width="800" height="140">
+  <defs>
+    <style>
+      .palette-label {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+        font-size: 8px;
+        fill: #374151;
+        text-anchor: middle;
+      }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="140" fill="#F9FAFB" rx="6"/>
+
+  <!-- Palette 1: Minimal SaaS -->
+  <g transform="translate(12, 10)">
+    <rect width="74" height="22" rx="3" fill="#2563EB"/>
+    <rect y="24" width="74" height="22" rx="3" fill="#3B82F6"/>
+    <rect y="48" width="74" height="22" rx="3" fill="#60A5FA"/>
+    <rect y="72" width="74" height="22" rx="3" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="0.5"/>
+    <text x="37" y="108" class="palette-label">Minimal SaaS</text>
+  </g>
+
+  <!-- Palette 2: AI Futuristic -->
+  <g transform="translate(98, 10)">
+    <rect width="74" height="22" rx="3" fill="#00FF88"/>
+    <rect y="24" width="74" height="22" rx="3" fill="#00D4FF"/>
+    <rect y="48" width="74" height="22" rx="3" fill="#8B5CF6"/>
+    <rect y="72" width="74" height="22" rx="3" fill="#0A0A0F"/>
+    <text x="37" y="108" class="palette-label">AI Futuristic</text>
+  </g>
+
+  <!-- Palette 3: Gradient Startup -->
+  <g transform="translate(184, 10)">
+    <rect width="74" height="22" rx="3" fill="#7C3AED"/>
+    <rect y="24" width="74" height="22" rx="3" fill="#EC4899"/>
+    <rect y="48" width="74" height="22" rx="3" fill="#F59E0B"/>
+    <rect y="72" width="74" height="22" rx="3" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="0.5"/>
+    <text x="37" y="108" class="palette-label">Gradient Startup</text>
+  </g>
+
+  <!-- Palette 4: Corporate -->
+  <g transform="translate(270, 10)">
+    <rect width="74" height="22" rx="3" fill="#1A365D"/>
+    <rect y="24" width="74" height="22" rx="3" fill="#2B6CB0"/>
+    <rect y="48" width="74" height="22" rx="3" fill="#4299E1"/>
+    <rect y="72" width="74" height="22" rx="3" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="0.5"/>
+    <text x="37" y="108" class="palette-label">Corporate</text>
+  </g>
+
+  <!-- Palette 5: Apple Minimal -->
+  <g transform="translate(356, 10)">
+    <rect width="74" height="22" rx="3" fill="#0071E3"/>
+    <rect y="24" width="74" height="22" rx="3" fill="#147CE5"/>
+    <rect y="48" width="74" height="22" rx="3" fill="#5AC8FA"/>
+    <rect y="72" width="74" height="22" rx="3" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="0.5"/>
+    <text x="37" y="108" class="palette-label">Apple Minimal</text>
+  </g>
+
+  <!-- Palette 6: Illustration -->
+  <g transform="translate(442, 10)">
+    <rect width="74" height="22" rx="3" fill="#E8590C"/>
+    <rect y="24" width="74" height="22" rx="3" fill="#7048E8"/>
+    <rect y="48" width="74" height="22" rx="3" fill="#12B886"/>
+    <rect y="72" width="74" height="22" rx="3" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="0.5"/>
+    <text x="37" y="108" class="palette-label">Illustration</text>
+  </g>
+
+  <!-- Palette 7: Dashboard -->
+  <g transform="translate(528, 10)">
+    <rect width="74" height="22" rx="3" fill="#4F46E5"/>
+    <rect y="24" width="74" height="22" rx="3" fill="#0EA5E9"/>
+    <rect y="48" width="74" height="22" rx="3" fill="#06B6D4"/>
+    <rect y="72" width="74" height="22" rx="3" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="0.5"/>
+    <text x="37" y="108" class="palette-label">Dashboard</text>
+  </g>
+
+  <!-- Palette 8: Bold Lifestyle -->
+  <g transform="translate(614, 10)">
+    <rect width="74" height="22" rx="3" fill="#111111"/>
+    <rect y="24" width="74" height="22" rx="3" fill="#FF4500"/>
+    <rect y="48" width="74" height="22" rx="3" fill="#FFD700"/>
+    <rect y="72" width="74" height="22" rx="3" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="0.5"/>
+    <text x="37" y="108" class="palette-label">Bold Lifestyle</text>
+  </g>
+
+  <!-- Palette 9: Minimal Corporate -->
+  <g transform="translate(700, 10)">
+    <rect width="74" height="22" rx="3" fill="#B45309"/>
+    <rect y="24" width="74" height="22" rx="3" fill="#92400E"/>
+    <rect y="48" width="74" height="22" rx="3" fill="#D97706"/>
+    <rect y="72" width="74" height="22" rx="3" fill="#FDFCFB" stroke="#E5E7EB" stroke-width="0.5"/>
+    <text x="37" y="108" class="palette-label">Minimal Corporate</text>
+  </g>
+
+  <!-- Swatch labels (left side) -->
+  <text x="4" y="25" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="5" fill="#9CA3AF" text-anchor="start" transform="rotate(-90, 4, 25)">pri</text>
+</svg>
