@@ -158,6 +158,59 @@ def validate_file(filename: str, schema: dict, components: set, patterns: set) -
     return errors
 
 
+COMPOUND_KNOWN_FIELDS = {
+    "sector", "product_type", "audience", "preference",
+    "data_type", "form_density", "loading_strategy",
+    "data_volume", "content_type", "theme_mode",
+}
+
+
+def validate_compound_conditions() -> list[str]:
+    """Validate compound_condition syntax in ui-reasoning.csv.
+
+    Each sub-expression must be ``field=value`` where *field* is one of the
+    known domain fields.  Operators are `` AND `` and `` OR ``.
+    """
+    errors = []
+    rows = load_csv("ui-reasoning.csv")
+    for row in rows:
+        compound = row.get("compound_condition", "").strip()
+        if not compound:
+            continue
+        row_id = row.get("id", "?")
+        # Split on OR first, then AND within each group
+        or_groups = compound.split(" OR ")
+        for group in or_groups:
+            and_parts = group.split(" AND ")
+            for part in and_parts:
+                part = part.strip()
+                if "=" not in part:
+                    errors.append(
+                        f"ui-reasoning.csv row {row_id}: "
+                        f"compound_condition sub-expression '{part}' missing '='"
+                    )
+                    continue
+                field, value = part.split("=", 1)
+                field = field.strip()
+                value = value.strip()
+                if not field:
+                    errors.append(
+                        f"ui-reasoning.csv row {row_id}: "
+                        f"compound_condition has empty field in '{part}'"
+                    )
+                if not value:
+                    errors.append(
+                        f"ui-reasoning.csv row {row_id}: "
+                        f"compound_condition has empty value in '{part}'"
+                    )
+                if field not in COMPOUND_KNOWN_FIELDS:
+                    errors.append(
+                        f"ui-reasoning.csv row {row_id}: "
+                        f"compound_condition uses unknown field '{field}'"
+                    )
+    return errors
+
+
 def validate_taxonomy() -> list[str]:
     """Check that all sector values in CSV rules exist in DomainDetector."""
     errors = []
@@ -172,7 +225,8 @@ def validate_taxonomy() -> list[str]:
 
     valid_sectors = set(SECTOR_KEYWORDS.keys())
 
-    # Check ui-reasoning.csv
+    # Check ui-reasoning.csv (single-field rules only; compound conditions
+    # reference sectors via their own sub-expressions validated separately)
     reasoning_rows = load_csv("ui-reasoning.csv")
     reasoning_sectors = set()
     for row in reasoning_rows:
@@ -237,6 +291,17 @@ def main():
         all_errors.extend(taxonomy_errors)
     else:
         print("  PASS: All CSV sectors exist in DomainDetector")
+
+    # Compound condition validation
+    print()
+    print("Compound Condition Validation")
+    print("=" * 50)
+    compound_errors = validate_compound_conditions()
+    if compound_errors:
+        print(f"  FAIL: {len(compound_errors)} compound condition error(s)")
+        all_errors.extend(compound_errors)
+    else:
+        print("  PASS: All compound conditions have valid syntax")
 
     print()
     print(f"Total: {len(FILE_SCHEMAS)} files, {total_rows} rows")
