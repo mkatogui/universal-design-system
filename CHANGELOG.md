@@ -57,10 +57,10 @@ All notable changes to the Universal Design System.
 
 ### Added
 - 9 structural palettes (minimal-saas, ai-futuristic, gradient-startup, corporate, apple-minimal, illustration, dashboard, bold-lifestyle, minimal-corporate)
-- 496 W3C DTCG design tokens with 3-tier architecture (primitive > semantic > palette-overrides)
-- 31 BEM components with CVA variant API, full ARIA support, keyboard navigation
-- BM25 reasoning engine across 17 CSV databases (1500+ rows)
-- 165+ industry-specific design rules and 55+ anti-pattern warnings
+- ~530 W3C DTCG design tokens with 3-tier architecture (primitive > semantic > palette-overrides)
+- 32 BEM components with CVA variant API, full ARIA support, keyboard navigation
+- BM25 reasoning engine across 16 CSV databases (1,528 rows)
+- ~170 industry-specific design rules and 55+ anti-pattern warnings
 - Automated WCAG 2.1 AA contrast validation (108 checks across 9 palettes x 2 modes)
 - Tailwind CSS config generation from tokens
 - React, Vue, Svelte framework output

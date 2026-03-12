@@ -68,7 +68,7 @@ Formal schema documentation for all 16 CSV databases in the Universal Design Sys
 ## 3. ui-reasoning.csv
 
 **Path:** `src/data/ui-reasoning.csv`
-**Purpose:** Conditional rule engine (165 rules) that maps domain attributes to design decisions. Rules are evaluated by priority (higher first); first match wins for palette selection.
+**Purpose:** Conditional rule engine (~170 rules) that maps domain attributes to design decisions. Rules are evaluated by priority (higher first); first match wins for palette selection.
 **Rows:** ~170
 
 | Column | Required | Type | Constraints | Description |

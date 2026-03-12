@@ -1,6 +1,6 @@
 # Contributing to Universal Design System
 
-Thank you for your interest in contributing! This is an AI-native design system with a BM25 reasoning engine, 9 structural palettes, 31 components, and 496 tokens. Whether you're adding a product entry, a new palette, or fixing a contrast ratio — every contribution matters.
+Thank you for your interest in contributing! This is an AI-native design system with a BM25 reasoning engine, 9 structural palettes, 32 components, and ~530 tokens. Whether you're adding a product entry, a new palette, or fixing a contrast ratio — every contribution matters.
 
 **Live docs:** [mkatogui.github.io/universal-design-system](https://mkatogui.github.io/universal-design-system/)
 **Repository:** [github.com/mkatogui/universal-design-system](https://github.com/mkatogui/universal-design-system)
@@ -33,7 +33,7 @@ Expected `npm run check` output:
 | `npm run validate` | W3C DTCG token format and palette sync |
 | `npm run audit` | WCAG 2.1 AA contrast — 108 checks across 9 palettes x 2 modes |
 | `npm run verify` | HTML docs integrity — no hardcoded values, valid nav links |
-| `npm run sync-data` | CSV cross-reference validation across 17 databases |
+| `npm run sync-data` | CSV cross-reference validation across 16 databases |
 
 You can also run the reasoning engine directly:
 
@@ -113,8 +113,8 @@ Higher `priority` = evaluated first. First match wins for palette selection. Val
 
 ```
 User Query --> DomainDetector --> BM25 Search --> Rule Engine --> Token Resolution --> Output
-               (21 sectors,      (17 CSVs,       (165+ rules,    (design-tokens.json,
-                8 product types)  1500+ rows)      priority-sorted) palette overrides)
+               (55 sectors,      (16 CSVs,       (~170 rules,    (design-tokens.json,
+                14 product types) 1,528 rows)      priority-sorted) palette overrides)
 ```
 
 - **Layer 1 — Domain Detection** (`src/scripts/core.py: DomainDetector`): Regex matching against 21 sectors and 8 product types. Returns sector + product_type with confidence.
