@@ -526,7 +526,7 @@ code{font-family:var(--font-mono);font-size:0.9em;padding:2px 6px;border-radius:
   overflow:hidden;cursor:pointer;transition:all var(--duration-normal) var(--ease-default);
   background:var(--color-bg-primary);
 }
-.palette-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);}
+@media(hover:hover){.palette-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);}}
 .palette-card--active{border-color:var(--color-brand-primary);box-shadow:var(--shadow-glow);}
 .palette-card__colors{display:flex;height:48px;}
 .palette-card__color{flex:1;}
@@ -550,7 +550,7 @@ code{font-family:var(--font-mono);font-size:0.9em;padding:2px 6px;border-radius:
   background:var(--color-bg-primary);border:1px solid var(--color-border-default);
   transition:all var(--duration-normal) var(--ease-default);
 }
-.feature:hover{border-color:var(--color-brand-primary);box-shadow:var(--shadow-md);}
+@media(hover:hover){.feature:hover{border-color:var(--color-brand-primary);box-shadow:var(--shadow-md);}}
 .feature__icon{
   width:48px;height:48px;border-radius:var(--radius-md);
   background:var(--color-brand-muted);color:var(--color-brand-primary);
@@ -568,7 +568,7 @@ code{font-family:var(--font-mono);font-size:0.9em;padding:2px 6px;border-radius:
 .comparison thead th{font-weight:700;font-size:var(--text-body-sm);background:var(--color-bg-tertiary);position:sticky;top:0;}
 .comparison thead th:first-child{border-radius:var(--radius-md) 0 0 0;}
 .comparison thead th:last-child{border-radius:0 var(--radius-md) 0 0;}
-.comparison tbody tr:hover{background:var(--color-bg-secondary);}
+@media(hover:hover){.comparison tbody tr:hover{background:var(--color-bg-secondary);}}
 .comparison .check{color:var(--color-success);font-weight:700;font-size:18px;}
 .comparison .cross{color:var(--color-error);font-weight:700;font-size:18px;}
 
@@ -655,13 +655,31 @@ code{font-family:var(--font-mono);font-size:0.9em;padding:2px 6px;border-radius:
 /* ==============================================================
    RESPONSIVE
    ============================================================== */
+@media(max-width:640px){
+  .comparison{min-width:0;}
+  .comparison thead{display:none;}
+  .comparison tbody tr{display:grid;grid-template-columns:1fr;padding:var(--space-4) 0;border-bottom:1px solid var(--color-border-default);}
+  .comparison tbody td{border-bottom:none;padding:var(--space-2) var(--space-4);}
+  .comparison tbody td:first-child{font-weight:600;color:var(--color-text-primary);}
+}
 @media(max-width:480px){
   .hero__title{font-size:clamp(2rem,8vw,3rem);}
   .hero__stats{gap:var(--space-3);}
   .hero__stat-sep{display:none;}
   .features{grid-template-columns:1fr;}
   .palette-grid{grid-template-columns:1fr;}
+  .hero__query{flex-direction:column;align-items:stretch;}
+  .hero__query-icon{display:none;}
+  .hero__query .uds-btn{width:100%;}
+  .code-tabs__nav{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+  .code-tab{white-space:nowrap;padding:var(--space-3) var(--space-4);}
 }
+@media(max-width:768px){
+  .navbar__links--open a{min-height:44px;display:flex;align-items:center;}
+}
+/* Touch feedback */
+.uds-btn:active{transform:scale(0.98);}
+.navbar__links a:active{opacity:0.7;}
 </style>
 </head>
 <body>
