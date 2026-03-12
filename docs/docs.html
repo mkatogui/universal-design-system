@@ -511,7 +511,7 @@ body { font-family: var(--font-sans); background: var(--color-bg-primary); color
 
 /* Card */
 .card { background: var(--color-bg-tertiary); border: 1px solid var(--color-border-default); border-radius: var(--radius-lg); padding: 24px; transition: transform var(--duration-normal) var(--ease-default), box-shadow var(--duration-normal) var(--ease-default); }
-.card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+@media (hover: hover) { .card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); } }
 
 /* Alert */
 .alert { display: flex; gap: 12px; padding: 16px; border-radius: var(--radius-md); border-left: 4px solid; }
@@ -542,7 +542,7 @@ body { font-family: var(--font-sans); background: var(--color-bg-primary); color
 .card--compact { padding: 16px; }
 .card--spacious { padding: 32px; }
 .card--interactive { cursor: pointer; }
-.card--interactive:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+@media (hover: hover) { .card--interactive:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); } }
 
 /* Toast sizes */
 .toast--sm { min-width: 260px; max-width: 340px; padding: 8px 12px; font-size: var(--text-body-sm); }
@@ -660,12 +660,21 @@ body { font-family: var(--font-sans); background: var(--color-bg-primary); color
 .token-table td { padding: 8px 12px; border-bottom: 1px solid var(--color-border-subtle); }
 .token-table code { font-family: var(--font-mono); font-size: 12px; background: var(--color-bg-tertiary); padding: 1px 4px; border-radius: var(--radius-sm); }
 
+/* Sidebar mobile drawer */
+.sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 10000; }
+.sidebar-overlay--open { display: block; }
+.sidebar-fab { display: none; position: fixed; bottom: 24px; right: 24px; width: 48px; height: 48px; border-radius: 50%; background: var(--color-brand-primary, #3b82f6); color: #fff; border: none; cursor: pointer; z-index: 9998; box-shadow: 0 4px 12px rgba(0,0,0,0.3); align-items: center; justify-content: center; }
+.sidebar-fab svg { width: 24px; height: 24px; stroke: currentColor; fill: none; stroke-width: 2; }
+
 /* Responsive */
 @media (max-width: 768px) {
-  .sidebar { display: none; }
+  .sidebar { position: fixed; top: 0; left: 0; height: 100vh; height: 100dvh; transform: translateX(-100%); transition: transform 0.3s ease; z-index: 10001; width: 280px; }
+  .sidebar--open { transform: translateX(0); }
+  .sidebar-fab { display: flex; }
   .main { padding: 24px 16px; }
   .theme-bar { padding: 12px 16px; }
   .do-dont { grid-template-columns: 1fr; }
+  body.sidebar-drawer-open { overflow: hidden; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
@@ -699,7 +708,7 @@ body { font-family: var(--font-sans); background: var(--color-bg-primary); color
    ============================================================ */
 .dark-mode-toggle {
   width: 100%;
-  height: 36px;
+  min-height: 44px;
   padding: 0 12px;
   margin: 8px 0;
   border: 1px solid var(--color-border-default);
@@ -969,7 +978,18 @@ html.docs-dark .playground-control-group select {
 .site-topnav a { color: #999; text-decoration: none; padding: 10px 14px; transition: color 0.15s; white-space: nowrap; }
 .site-topnav a:hover { color: #fff; }
 .site-topnav a.active { color: #fff; border-bottom: 2px solid #3b82f6; }
-@media (max-width: 640px) { .site-topnav { padding: 0 12px; gap: 0; overflow-x: auto; } .site-topnav a { padding: 10px 8px; font-size: 13px; } .site-topnav .nav-brand { margin-right: 16px; font-size: 13px; } }
+.topnav-hamburger { display: none; background: none; border: none; cursor: pointer; padding: 8px; color: #fff; width: 44px; height: 44px; align-items: center; justify-content: center; flex-shrink: 0; margin-left: auto; }
+.topnav-hamburger svg { width: 24px; height: 24px; stroke: currentColor; fill: none; stroke-width: 2; }
+@media (max-width: 768px) {
+  .site-topnav { flex-wrap: wrap; padding: 0 max(12px, env(safe-area-inset-right)) 0 max(12px, env(safe-area-inset-left)); }
+  .topnav-hamburger { display: flex; }
+  .topnav-links { display: none; order: 99; width: 100%; flex-direction: column; background: #111; border-top: 1px solid #333; }
+  .topnav-links--open { display: flex; }
+  .topnav-links a { padding: 12px 16px; min-height: 44px; display: flex; align-items: center; font-size: 14px; border-bottom: none; }
+  .topnav-links a.active { border-bottom: none; border-left: 2px solid #3b82f6; }
+  .uds-search { order: 98; width: 100%; padding: 8px 16px; }
+  .uds-search__input { width: 100%; }
+}
 
 /* === In-Docs Search Widget === */
 .uds-search { position: relative; margin-left: auto; flex-shrink: 0; }
@@ -985,25 +1005,37 @@ html.docs-dark .playground-control-group select {
 .uds-search__result-snippet { font-size: var(--text-label); color: var(--color-text-secondary); margin: 0; line-height: var(--line-height-normal); }
 .uds-search__result mark { background: transparent; color: var(--color-brand-accent); font-weight: var(--font-weight-bold); }
 .uds-search__empty { padding: var(--spacing-3); text-align: center; color: var(--color-text-tertiary); font-size: var(--text-body-sm); }
-@media (max-width: 640px) { .uds-search__input { width: 120px; } .uds-search__results { width: 280px; } }
+@media (max-width: 768px) { .uds-search__input { width: 120px; font-size: 16px; } .uds-search__results { width: min(340px, calc(100vw - 32px)); } .sidebar-search { font-size: 16px; } }
+/* Touch feedback */
+.btn:active, .btn--primary:active { transform: scale(0.98); }
+.site-topnav a:active, .sidebar-nav a:active { opacity: 0.7; }
 </style>
 </head>
 <body>
 <nav class="site-topnav" aria-label="Site navigation">
   <a href="index.html" class="nav-brand">UDS v__VERSION__</a>
-  <a href="docs.html" class="active">Docs</a>
-  <a href="component-library.html">Components</a>
-  <a href="visual-framework.html">Visual Framework</a>
-  <a href="reference.html">Reference</a>
-  <a href="case-studies.html">Case Studies</a>
-  <a href="playground.html">Playground</a>
-  <a href="conformance.html">Conformance</a>
+  <button class="topnav-hamburger" aria-label="Toggle navigation" aria-expanded="false" onclick="document.getElementById('topnavLinks').classList.toggle('topnav-links--open');this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true')">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
+  <div class="topnav-links" id="topnavLinks">
+    <a href="docs.html" class="active">Docs</a>
+    <a href="component-library.html">Components</a>
+    <a href="visual-framework.html">Visual Framework</a>
+    <a href="reference.html">Reference</a>
+    <a href="case-studies.html">Case Studies</a>
+    <a href="playground.html">Playground</a>
+    <a href="conformance.html">Conformance</a>
+  </div>
   <div class="uds-search" role="search">
     <input type="text" class="uds-search__input" role="combobox" aria-expanded="false" aria-controls="search-results" aria-label="Search documentation" placeholder="Search docs..." autocomplete="off">
     <ul id="search-results" class="uds-search__results" role="listbox"></ul>
   </div>
 </nav>
 <a href="#main-content" class="skip-link">Skip to content</a>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<button class="sidebar-fab" id="sidebarFab" aria-label="Open navigation">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+</button>
 <div class="docs-layout">
 
 <!-- SIDEBAR -->
@@ -1279,7 +1311,7 @@ html.docs-dark .playground-control-group select {
 /* ... max 600ms total */
 
 /* Interaction: hover-lift */
-.interactive:hover { transform: translateY(-2px); }
+@media (hover: hover) { .interactive:hover { transform: translateY(-2px); } }
 .interactive:active { transform: scale(0.98); }
 
 /* Respect motion preferences */
@@ -2879,6 +2911,40 @@ function updateSandbox() {
 
   /* Build index on load */
   buildIndex();
+})();
+
+/* Sidebar drawer toggle */
+(function() {
+  var fab = document.getElementById('sidebarFab');
+  var overlay = document.getElementById('sidebarOverlay');
+  var sidebar = document.querySelector('.sidebar');
+  if (!fab || !overlay || !sidebar) return;
+  function openDrawer() {
+    sidebar.classList.add('sidebar--open');
+    overlay.classList.add('sidebar-overlay--open');
+    document.body.classList.add('sidebar-drawer-open');
+  }
+  function closeDrawer() {
+    sidebar.classList.remove('sidebar--open');
+    overlay.classList.remove('sidebar-overlay--open');
+    document.body.classList.remove('sidebar-drawer-open');
+  }
+  fab.addEventListener('click', openDrawer);
+  overlay.addEventListener('click', closeDrawer);
+  sidebar.addEventListener('click', function(e) {
+    if (e.target.closest('.sidebar-nav a')) closeDrawer();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      closeDrawer();
+      var topnavLinks = document.getElementById('topnavLinks');
+      var hamburger = document.querySelector('.topnav-hamburger');
+      if (topnavLinks && hamburger) {
+        topnavLinks.classList.remove('topnav-links--open');
+        hamburger.setAttribute('aria-expanded', 'false');
+      }
+    }
+  });
 })();
 </script>
 </body>
