@@ -97,4 +97,4 @@ jobs:
 
       - name: Run accessibility tests
         if: steps.check.outputs.has_tests == 'true'
-        run: npx playwright test tests/accessibility/
+        run: npx playwright test --config=playwright.a11y.config.ts
