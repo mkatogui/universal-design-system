@@ -1063,6 +1063,7 @@ html.docs-dark .playground-control-group select {
     <ul class="section-group collapsed" data-group="api-tools">
       <li><a href="#variant-api">Variant API</a></li>
       <li><a href="#sandbox">Sandbox</a></li>
+      <li><a href="#cascade-layers">Cascade Layers</a></li>
     </ul>
   </div>
 </nav>
@@ -1913,6 +1914,62 @@ html.docs-dark .playground-control-group select {
     <code id="sandbox-code-text">&lt;button class="btn btn--md btn--primary"&gt;Button&lt;/button&gt;</code>
   </div>
 </div>
+</section>
+
+<section id="cascade-layers">
+<h2>CSS Cascade Layers</h2>
+<p>All UDS token and component CSS is wrapped in <code>@layer</code> declarations for explicit cascade control. This prevents specificity conflicts between UDS styles and your application styles without resorting to <code>!important</code>.</p>
+
+<h3>Layer Hierarchy</h3>
+<p>UDS declares three ordered layers. Styles in later layers take precedence over earlier ones:</p>
+<div class="preview" style="padding:24px">
+  <ol style="font-family:var(--font-family-mono);font-size:var(--font-size-body-sm);margin:0;padding-left:24px;line-height:1.8">
+    <li><strong>uds.tokens</strong> &mdash; Design token custom properties (<code>:root</code> variables, palette overrides)</li>
+    <li><strong>uds.components</strong> &mdash; Component styles (<code>.btn</code>, <code>.card</code>, <code>.input</code>, etc.)</li>
+    <li><strong>uds.utilities</strong> &mdash; Utility classes and overrides</li>
+  </ol>
+</div>
+
+<h3>How It Works</h3>
+<p>The generated CSS output declares the layer order first, then places all tokens inside <code>@layer uds.tokens</code>:</p>
+<div class="code-block">
+  <button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent)">Copy</button>
+  <code>@layer uds.tokens, uds.components, uds.utilities;
+
+@layer uds.tokens {
+  :root {
+    --color-brand-primary: #2563eb;
+    --color-text-primary: #1a1a24;
+    --space-4: 16px;
+    /* ... all token custom properties */
+  }
+}</code>
+</div>
+
+<h3>Overriding UDS Styles</h3>
+<p>To override UDS styles cleanly, declare your own layer after the UDS layers. Styles in your layer automatically take precedence:</p>
+<div class="code-block">
+  <button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent)">Copy</button>
+  <code>@layer uds.tokens, uds.components, uds.utilities, app;
+
+@layer app {
+  /* Your styles here -- automatically override UDS without !important */
+  .custom-button {
+    background: var(--color-brand-primary);
+    border-radius: 999px;
+  }
+
+  .hero-section {
+    padding: var(--space-16);
+  }
+}</code>
+</div>
+
+<h3>Backward Compatibility</h3>
+<p>If your project does not use <code>@layer</code>, UDS styles still work correctly. Unlayered styles (styles not inside any <code>@layer</code>) always take precedence over layered styles in the CSS cascade. This means existing consumer stylesheets that do not use <code>@layer</code> will automatically override UDS defaults without any changes.</p>
+
+<h3>Browser Support</h3>
+<p><code>@layer</code> is supported in all modern browsers since 2022: Chrome 99+, Firefox 97+, Safari 15.4+, and Edge 99+. For older browsers, the layer declarations are ignored and styles apply in normal source order.</p>
 </section>
 
 <section id="pattern-forms">

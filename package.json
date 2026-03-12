@@ -7,7 +7,7 @@
     "uds": "cli/dist/index.js"
   },
   "scripts": {
-    "build": "style-dictionary build --config style-dictionary.config.json",
+    "build": "style-dictionary build --config style-dictionary.config.mjs",
     "build:cli": "cd cli && npm install && npx tsc",
     "prepublishOnly": "npm run build:cli",
     "validate": "python3 scripts/validate-tokens.py",
