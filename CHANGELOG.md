@@ -2,6 +2,57 @@
 
 All notable changes to the Universal Design System.
 
+## [0.3.0] - 2026-03-12
+
+### Added
+- **BM25 Fuzzy Search** — Porter stemmer, synonym expansion (ecommerce/e-commerce, ai/artificial-intelligence), and hyphen-aware tokenization for cross-form matching
+- **15 New Sectors** — sustainability, proptech, automotive, regtech, legaltech, agritech, govtech, cleantech, insurtech, sporttech, fashiontech, foodtech, musictech, pettech, spacetech (42 -> 57 sectors)
+- **MCP Server Enhancements** — `resources/list`, `resources/read`, `prompts/list`, `prompts/get` handlers; `get_anti_patterns` and `get_foundation_tokens` tools
+- **TypeScript Type Generation** — `TokenNames` union type, `PaletteTokens` interfaces, `isPalette()` type guard, Tailwind-compatible `ThemeConfig` type
+- **Compound Reasoning Conditions** — AND/OR boolean logic in `ui-reasoning.csv` for multi-field rules (e.g., sector=finance AND product_type=dashboard)
+- **Expanded Framework Templates** — 10 components per framework (Button, Card, Input, Modal, Alert, Badge, Tabs, DataTable, Select, Accordion) for React/TypeScript/cva, Vue 3/script setup, Svelte 5 runes
+- **oklch() Color Extensions** — `$extensions.com.tokens.oklch` on all semantic and palette color tokens; `color.utility` section with color-mix() patterns (hover-tint, disabled-overlay)
+- **Container Query Tokens** — breakpoints (sm:320px -> xl:800px), type presets, name conventions; `container_query` column in components.csv
+- **Animation Keyframe Library** — 12 named keyframes (fade-in/out, slide-up/down/left/right, scale-in/out, spin, pulse, bounce, shake) with motion-style reasoning rules and `prefers-reduced-motion` awareness
+- **CSS-in-JS Output Format** — `--format css-in-js` generates ES module theme objects compatible with styled-components/Emotion ThemeProvider
+- **Products Database Expansion** — ~60 new CSV rows covering all 15 new sectors across products, styles, colors, and typography databases
+- **Client-Side Documentation Search** — trigram/prefix search widget on docs.html, component-library.html, and reference.html with WCAG combobox pattern
+- **Playwright Visual Regression Scaffolding** — screenshot comparison config for 8 doc pages x 2 modes x 3 viewports
+- **@starting-style + View Transitions** — view-transition-name conventions, @starting-style presets for modal/dropdown/toast/popover entry animations
+- **@layer CSS Cascade Control** — all CSS output wrapped in `@layer uds.tokens, uds.components, uds.utilities` for explicit cascade ordering
+
+### Changed
+- **DTCG v1 Alignment** — `$version` updated to 1.0.0, mandatory `$type` on all leaf tokens, spacing converted to `dimension` type, `{reference}` paths validated
+- Style Dictionary config migrated from JSON to ESM (`style-dictionary.config.mjs`) with v4 hooks system
+- Object-type tokens (keyframes, @starting-style) excluded from JS/TS/CSS variable output to prevent build crashes
+- Anti-patterns database expanded to 84 rows covering new sectors
+- Contract test suite expanded to 59 tests (palette, taxonomy, BM25, stemmer, tokenization, full-index integration)
+
+## [0.2.1] - 2026-03-12
+
+### Fixed
+- Improved domain detection scoring and tiebreaking for niche queries
+- Design token refinements for semantic color accuracy
+- Install CLI dependencies before TypeScript build in CI
+
+### Added
+- GitHub Actions CI pipeline with token validation, WCAG audit, and contract tests
+- SECURITY.md with vulnerability reporting guidelines
+- Contract test suite (test_taxonomy.py, test_palettes.py, test_tokens.py)
+
+## [0.2.0] - 2026-03-11
+
+### Added
+- Custom palette injection tool (`npm run inject-palettes`)
+- React component package (`@mkatogui/uds-react`)
+- Visual framework guide (`docs/visual-framework.html`)
+- Case studies page with 5 real-world examples (`docs/case-studies.html`)
+- Interactive playground (`docs/playground.html`)
+- WCAG conformance documentation (`docs/conformance.html`)
+- Theming, palettes, and dark mode documentation in docs.html
+- Navigation links across all 8 documentation pages
+- Claude Code Review and PR Assistant GitHub Actions workflows
+
 ## [0.1.0] - 2026-03-11
 
 ### Added
