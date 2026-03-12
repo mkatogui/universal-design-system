@@ -2594,5 +2594,46 @@
         "$description": "Sidebar with secondary nav"
       }
     }
+  },
+  "transition": {
+    "$description": "View Transitions and @starting-style token definitions",
+    "view-transition-name": {
+      "header": { "$value": "uds-header", "$type": "string", "$description": "View transition name for header elements" },
+      "hero": { "$value": "uds-hero", "$type": "string", "$description": "View transition name for hero sections" },
+      "card": { "$value": "uds-card", "$type": "string", "$description": "View transition name for card components" },
+      "sidebar": { "$value": "uds-sidebar", "$type": "string", "$description": "View transition name for sidebar navigation" },
+      "modal": { "$value": "uds-modal", "$type": "string", "$description": "View transition name for modal dialogs" }
+    },
+    "starting-style": {
+      "modal": {
+        "$value": { "opacity": "0", "transform": "scale(0.95)" },
+        "$type": "object",
+        "$description": "@starting-style for modal entry animation"
+      },
+      "dropdown": {
+        "$value": { "opacity": "0", "transform": "translateY(-8px)" },
+        "$type": "object",
+        "$description": "@starting-style for dropdown entry animation"
+      },
+      "toast": {
+        "$value": { "opacity": "0", "transform": "translateX(100%)" },
+        "$type": "object",
+        "$description": "@starting-style for toast notification entry"
+      },
+      "popover": {
+        "$value": { "opacity": "0", "transform": "scale(0.9) translateY(-4px)" },
+        "$type": "object",
+        "$description": "@starting-style for popover entry animation"
+      }
+    },
+    "behavior": {
+      "allow-discrete": { "$value": "allow-discrete", "$type": "string", "$description": "Enable transition for discrete properties (display, overlay)" }
+    },
+    "style": {
+      "elegant": { "$value": "cubic-bezier(0.4, 0, 0.2, 1)", "$type": "string", "$description": "Elegant transition for luxury/premium contexts" },
+      "snappy": { "$value": "cubic-bezier(0.2, 0, 0, 1)", "$type": "string", "$description": "Snappy transition for interactive/dashboard contexts" },
+      "gentle": { "$value": "cubic-bezier(0.4, 0, 0.6, 1)", "$type": "string", "$description": "Gentle transition for healthcare/education contexts" },
+      "instant": { "$value": "steps(1)", "$type": "string", "$description": "No visible transition for data-dense UIs" }
+    }
   }
 }
