@@ -305,8 +305,15 @@ function generateCSS(resolvedMap) {
   lines.push(' */');
   lines.push('');
 
+  // ── Layer order declaration ──
+  lines.push('@layer uds.tokens, uds.components, uds.utilities;');
+  lines.push('');
+
+  // ── Open @layer uds.tokens ──
+  lines.push('@layer uds.tokens {');
+
   // ── :root (foundation + semantic tokens) ──
-  lines.push(':root {');
+  lines.push('  :root {');
 
   // Group tokens by category for readability
   const categories = new Map();
@@ -370,14 +377,14 @@ function generateCSS(resolvedMap) {
     if (!items || items.length === 0) continue;
 
     lines.push('');
-    lines.push(`  /* -- ${categoryLabels[cat] || cat} -- */`);
+    lines.push(`    /* -- ${categoryLabels[cat] || cat} -- */`);
 
     for (const { cssVar, cssVal } of items) {
-      lines.push(`  ${cssVar}: ${cssVal};`);
+      lines.push(`    ${cssVar}: ${cssVal};`);
     }
   }
 
-  lines.push('}');
+  lines.push('  }');
   lines.push('');
 
   // ── Palette overrides ──
@@ -387,27 +394,30 @@ function generateCSS(resolvedMap) {
     const overrides = lightPalettes.get(name);
     if (!overrides || overrides.size === 0) continue;
 
-    lines.push(`/* Palette: ${name} (light) */`);
-    lines.push(`[data-theme="${name}"] {`);
+    lines.push(`  /* Palette: ${name} (light) */`);
+    lines.push(`  [data-theme="${name}"] {`);
     for (const [cssVar, cssVal] of overrides) {
-      lines.push(`  ${cssVar}: ${cssVal};`);
+      lines.push(`    ${cssVar}: ${cssVal};`);
     }
-    lines.push('}');
+    lines.push('  }');
     lines.push('');
 
     // Dark mode
     const darkOverrides = darkPalettes.get(name);
     if (darkOverrides && darkOverrides.size > 0) {
-      lines.push(`/* Palette: ${name} (dark) */`);
-      lines.push(`[data-theme="${name}"].dark,`);
-      lines.push(`[data-theme="${name}"] .dark {`);
+      lines.push(`  /* Palette: ${name} (dark) */`);
+      lines.push(`  [data-theme="${name}"].dark,`);
+      lines.push(`  [data-theme="${name}"] .dark {`);
       for (const [cssVar, cssVal] of darkOverrides) {
-        lines.push(`  ${cssVar}: ${cssVal};`);
+        lines.push(`    ${cssVar}: ${cssVal};`);
       }
-      lines.push('}');
+      lines.push('  }');
       lines.push('');
     }
   }
+
+  // ── Close @layer uds.tokens ──
+  lines.push('}');
 
   return lines.join('\n');
 }
