@@ -1,20 +1,54 @@
 import React, { useState, useRef, useCallback, useId } from 'react';
 
+/**
+ * Describes a single tab and its associated panel content.
+ */
 export interface TabItem {
+  /** Text label shown on the tab trigger button. */
   label: string;
+  /** Content rendered inside the corresponding tab panel. */
   content: React.ReactNode;
+  /** When `true`, the tab cannot be selected. */
   disabled?: boolean;
 }
 
+/**
+ * Props for the {@link Tabs} component.
+ */
 export interface TabsProps {
+  /** Array of tab definitions (label + content). */
   tabs: TabItem[];
+  /** Index of the initially-selected tab. @default 0 */
   defaultIndex?: number;
+  /** Visual style of the tab triggers. @default 'line' */
   variant?: 'line' | 'pill' | 'segmented';
+  /** Controls padding and font-size. @default 'md' */
   size?: 'sm' | 'md' | 'lg';
+  /** Additional CSS class for the root wrapper. */
   className?: string;
+  /** Called with the new tab index when selection changes. */
   onChange?: (index: number) => void;
 }
 
+/**
+ * An accessible tabbed interface following the WAI-ARIA Tabs pattern.
+ *
+ * Features:
+ * - `role="tablist"` / `role="tab"` / `role="tabpanel"` structure
+ * - `aria-selected`, `aria-controls`, `aria-labelledby` wiring
+ * - Arrow-key (Left/Right/Up/Down), Home, and End keyboard navigation
+ * - Roving `tabIndex` so only the active tab is in the tab order
+ *
+ * Uses BEM class `uds-tabs` with variant and size modifiers.
+ *
+ * @example
+ * ```tsx
+ * <Tabs tabs={[
+ *   { label: 'Overview', content: <Overview /> },
+ *   { label: 'Details',  content: <Details /> },
+ * ]} />
+ * ```
+ */
 export const Tabs: React.FC<TabsProps> = ({ tabs, defaultIndex = 0, variant = 'line', size = 'md', className, onChange }) => {
   const [activeIndex, setActiveIndex] = useState(defaultIndex);
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);

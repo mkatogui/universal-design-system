@@ -1,12 +1,16 @@
 /**
- * Style Dictionary v4 configuration with @layer CSS cascade control.
+ * Style Dictionary v4 configuration — single source of truth.
  *
- * Generates the same platform outputs as the previous JSON config,
- * but wraps the CSS custom-properties file in:
+ * This is the only SD config file for the project. The previous
+ * style-dictionary.config.json has been removed.
  *
+ * Wraps the CSS custom-properties output in:
  *   @layer uds.tokens { :root { ... } }
  *
  * Non-CSS platforms (JS, JSON, iOS, Android) are unchanged.
+ *
+ * An optional "css-namespaced" platform produces --uds-* prefixed
+ * tokens as an additional build artifact (build/css-namespaced/).
  */
 
 const LAYER_ORDER = '@layer uds.tokens, uds.components, uds.utilities;';
@@ -133,6 +137,21 @@ export default {
         {
           destination: 'design_tokens.xml',
           format: 'android/resources',
+        },
+      ],
+    },
+    'css-namespaced': {
+      transformGroup: 'css',
+      buildPath: 'build/css-namespaced/',
+      prefix: 'uds',
+      files: [
+        {
+          destination: 'tokens.css',
+          format: 'css/variables-layered',
+          options: {
+            outputReferences: true,
+            selector: ':root',
+          },
         },
       ],
     },

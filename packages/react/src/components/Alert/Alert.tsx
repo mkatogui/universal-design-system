@@ -1,14 +1,40 @@
 import React, { useState } from 'react';
 
+/**
+ * Props for the {@link Alert} component.
+ *
+ * Extends native `<div>` attributes.
+ */
 export interface AlertProps extends React.HTMLAttributes<HTMLDivElement> {
+  /** Severity level controlling colour and ARIA role. @default 'info' */
   variant?: 'success' | 'warning' | 'error' | 'info';
+  /** Controls padding and font-size. @default 'md' */
   size?: 'sm' | 'md' | 'lg';
+  /** Bold heading rendered above the message. */
   title?: string;
+  /** Body text of the alert. */
   message?: string;
+  /** Show a dismiss button. @default false */
   dismissible?: boolean;
+  /** Called after the alert is dismissed. */
   onDismiss?: () => void;
 }
 
+/**
+ * An inline alert banner for feedback messages (info, success, warning, error).
+ *
+ * Sets `role="alert"` for error/warning and `role="status"` for info/success.
+ * When `dismissible` is `true`, the user can close it; the component
+ * manages its own visibility via internal state.
+ *
+ * Uses BEM class `uds-alert` with variant and size modifiers.
+ * Forwards its ref to the root `<div>` element.
+ *
+ * @example
+ * ```tsx
+ * <Alert variant="error" title="Oops" message="Something went wrong." dismissible />
+ * ```
+ */
 export const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
   ({ variant = 'info', size = 'md', title, message, dismissible = false, onDismiss, className, children, ...props }, ref) => {
     const [dismissed, setDismissed] = useState(false);

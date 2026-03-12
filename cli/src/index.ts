@@ -16,8 +16,23 @@ import { searchCommand } from "./commands/search.js";
 import { generateCommand, tailwindCommand } from "./commands/generate.js";
 import { initCommand } from "./commands/init.js";
 import { paletteCommand } from "./commands/palette.js";
+import { validateCommand } from "./commands/validate.js";
+import { doctorCommand } from "./commands/doctor.js";
+import { readFileSync } from "node:fs";
+import { dirname, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 
-const VERSION = "0.1.1";
+function getVersion(): string {
+  try {
+    const __dirname = dirname(fileURLToPath(import.meta.url));
+    const pkg = JSON.parse(readFileSync(resolve(__dirname, "..", "..", "package.json"), "utf-8"));
+    return pkg.version || "0.0.0";
+  } catch {
+    return "0.0.0";
+  }
+}
+
+const VERSION = getVersion();
 
 function parseArgs(args: string[]): { command: string; positional: string[]; flags: Record<string, string | boolean> } {
   let command = "";
@@ -70,6 +85,8 @@ function showHelp(): void {
     tailwind <query>     Generate a Tailwind CSS config from tokens
     init                 Interactive setup — choose platform, palette, and framework
     palette <sub>        Manage custom palettes (create, preview, list, remove, export)
+    validate             Run token + WCAG + docs validation
+    doctor               Check system health (Python, Node, files, tokens, datasets)
 
   Options (install):
     -p, --platform <name>   Target platform (auto-detected if omitted)
@@ -164,6 +181,14 @@ async function main(): Promise<void> {
         shape: flags.shape as string | undefined,
         format: (flags.format || flags.f) as string | undefined,
       });
+      break;
+
+    case "validate":
+      await validateCommand();
+      break;
+
+    case "doctor":
+      await doctorCommand();
       break;
 
     case "help":

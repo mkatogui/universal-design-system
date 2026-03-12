@@ -1,18 +1,52 @@
 import React, { useState, useCallback, useId } from 'react';
 
+/**
+ * Describes a single collapsible section inside an {@link Accordion}.
+ */
 export interface AccordionItem {
+  /** Heading text shown on the trigger button. */
   title: string;
+  /** Content revealed when the section is expanded. */
   content: React.ReactNode;
+  /** Prevent this section from being toggled. */
   disabled?: boolean;
 }
 
+/**
+ * Props for the {@link Accordion} component.
+ *
+ * Extends native `<div>` attributes.
+ */
 export interface AccordionProps extends React.HTMLAttributes<HTMLDivElement> {
+  /** Visual variant. @default 'single' */
   variant?: 'single' | 'multi' | 'flush';
+  /** Array of collapsible sections. */
   items: AccordionItem[];
+  /** Indices of sections that are expanded on mount. @default [] */
   defaultExpanded?: number[];
+  /** Allow multiple sections to be open simultaneously. @default false */
   allowMultiple?: boolean;
 }
 
+/**
+ * An accessible accordion following the WAI-ARIA Accordion pattern.
+ *
+ * Features:
+ * - `aria-expanded` / `aria-controls` on trigger buttons
+ * - `role="region"` with `aria-labelledby` on panels
+ * - Arrow-key (Up/Down), Home, and End keyboard navigation between headers
+ *
+ * Uses BEM class `uds-accordion` with variant modifiers.
+ * Forwards its ref to the root `<div>` element.
+ *
+ * @example
+ * ```tsx
+ * <Accordion items={[
+ *   { title: 'FAQ 1', content: <p>Answer 1</p> },
+ *   { title: 'FAQ 2', content: <p>Answer 2</p> },
+ * ]} />
+ * ```
+ */
 export const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>(
   ({ variant = 'single', items, defaultExpanded = [], allowMultiple = false, className, ...props }, ref) => {
     const [expanded, setExpanded] = useState<Set<number>>(new Set(defaultExpanded));

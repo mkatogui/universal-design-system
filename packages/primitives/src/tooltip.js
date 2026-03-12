@@ -60,6 +60,15 @@ export function createTooltip(triggerElement, tooltipElement, options = {}) {
 
   // --- Show / Hide ---
 
+  /**
+   * Show the tooltip after the configured `showDelay`.
+   *
+   * Cancels any pending hide timeout, then waits `showDelay`
+   * milliseconds before removing the `hidden` attribute from the
+   * tooltip element and firing the `onShow` callback.
+   *
+   * No-op if the tooltip is already visible.
+   */
   function show() {
     clearTimeout(hideTimeout);
     clearTimeout(showTimeout);
@@ -76,6 +85,15 @@ export function createTooltip(triggerElement, tooltipElement, options = {}) {
     }, showDelay);
   }
 
+  /**
+   * Show the tooltip immediately (no delay).
+   *
+   * Used for keyboard focus so keyboard users do not have to wait.
+   * Cancels any pending timeouts and makes the tooltip visible right
+   * away by removing the `hidden` attribute.
+   *
+   * No-op if the tooltip is already visible.
+   */
   function showImmediate() {
     clearTimeout(hideTimeout);
     clearTimeout(showTimeout);
@@ -90,6 +108,16 @@ export function createTooltip(triggerElement, tooltipElement, options = {}) {
     }
   }
 
+  /**
+   * Hide the tooltip.
+   *
+   * Cancels any pending show timeout. If `hideDelay` is greater than
+   * zero, waits that many milliseconds before hiding; otherwise hides
+   * immediately by setting the `hidden` attribute and firing the
+   * `onHide` callback.
+   *
+   * No-op if the tooltip is already hidden.
+   */
   function hide() {
     clearTimeout(showTimeout);
     clearTimeout(hideTimeout);
@@ -162,6 +190,15 @@ export function createTooltip(triggerElement, tooltipElement, options = {}) {
 
   // --- Public API ---
 
+  /**
+   * Destroy the tooltip primitive.
+   *
+   * Clears all pending timeouts, hides the tooltip (if visible),
+   * removes all event listeners from both the trigger and tooltip
+   * elements, and removes the ARIA attributes (`aria-describedby`
+   * on the trigger, `role` and `hidden` on the tooltip). After
+   * calling `destroy()`, the tooltip instance should not be reused.
+   */
   function destroy() {
     clearTimeout(showTimeout);
     clearTimeout(hideTimeout);
@@ -184,9 +221,14 @@ export function createTooltip(triggerElement, tooltipElement, options = {}) {
   }
 
   return {
+    /** Show the tooltip immediately (bypasses `showDelay`). */
     show: showImmediate,
     hide,
     destroy,
+    /**
+     * Returns `true` if the tooltip is currently visible, `false` otherwise.
+     * @returns {boolean}
+     */
     isVisible: () => isVisible,
   };
 }

@@ -1,15 +1,42 @@
 import React from 'react';
 
+/**
+ * Props for the {@link Progress} component.
+ *
+ * Extends native `<div>` attributes.
+ */
 export interface ProgressProps extends React.HTMLAttributes<HTMLDivElement> {
+  /** Display variant. @default 'bar' */
   variant?: 'bar' | 'circular' | 'stepper';
+  /** Controls dimensions and stroke width. @default 'md' */
   size?: 'sm' | 'md' | 'lg';
+  /** Current progress value. @default 0 */
   value?: number;
+  /** Maximum value (the value at 100%). @default 100 */
   max?: number;
+  /** Accessible label for the progress indicator. */
   label?: string;
+  /** Show a numeric percentage alongside the indicator. */
   showValue?: boolean;
+  /** Render an indeterminate (unknown-duration) animation. */
   indeterminate?: boolean;
 }
 
+/**
+ * A progress indicator available as a horizontal bar or circular ring.
+ *
+ * Renders with `role="progressbar"`, `aria-valuenow`, `aria-valuemin`,
+ * and `aria-valuemax`. In indeterminate mode, `aria-valuenow` is omitted
+ * and a looping animation is shown.
+ *
+ * Uses BEM class `uds-progress` with variant, size, and indeterminate modifiers.
+ * Forwards its ref to the root `<div>` element.
+ *
+ * @example
+ * ```tsx
+ * <Progress value={65} label="Uploading..." showValue />
+ * ```
+ */
 export const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
   ({ variant = 'bar', size = 'md', value = 0, max = 100, label, showValue, indeterminate, className, ...props }, ref) => {
     const percentage = Math.min(100, Math.max(0, (value / max) * 100));

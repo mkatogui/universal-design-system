@@ -1,22 +1,59 @@
 import React, { useState, useCallback, useRef, useEffect, useId } from 'react';
 
+/**
+ * A single item inside a {@link Dropdown} menu.
+ */
 export interface DropdownItem {
+  /** User-visible text. */
   label: string;
+  /** Value passed to `onSelect` when chosen. */
   value: string;
+  /** Prevent selection of this item. */
   disabled?: boolean;
+  /** Optional leading icon. */
   icon?: React.ReactNode;
 }
 
+/**
+ * Props for the {@link Dropdown} component.
+ */
 export interface DropdownProps {
+  /** Semantic purpose of the dropdown. @default 'action' */
   variant?: 'action' | 'context' | 'nav-sub';
+  /** Controls padding and font-size. @default 'md' */
   size?: 'sm' | 'md' | 'lg';
+  /** Menu items to render. */
   items: DropdownItem[];
+  /** Trigger element (usually a button) that opens the menu. */
   trigger: React.ReactNode;
+  /** Called with the selected item's value. */
   onSelect?: (value: string) => void;
+  /** Menu alignment relative to the trigger. @default 'bottom-start' */
   position?: 'bottom-start' | 'bottom-end';
+  /** Additional CSS class for the wrapper. */
   className?: string;
 }
 
+/**
+ * An accessible dropdown menu triggered by a button.
+ *
+ * Features:
+ * - `aria-haspopup="menu"` and `aria-expanded` on the trigger
+ * - `role="menu"` / `role="menuitem"` structure
+ * - Arrow-key navigation, Escape to close, Enter/Space to select
+ * - Closes on outside click
+ *
+ * Uses BEM class `uds-dropdown` with variant, size, and position modifiers.
+ *
+ * @example
+ * ```tsx
+ * <Dropdown
+ *   trigger="Actions"
+ *   items={[{ label: 'Edit', value: 'edit' }, { label: 'Delete', value: 'delete' }]}
+ *   onSelect={handleAction}
+ * />
+ * ```
+ */
 export const Dropdown: React.FC<DropdownProps> = ({ variant = 'action', size = 'md', items, trigger, onSelect, position = 'bottom-start', className }) => {
   const [open, setOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);

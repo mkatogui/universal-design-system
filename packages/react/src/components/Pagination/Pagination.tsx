@@ -1,13 +1,38 @@
 import React, { useCallback } from 'react';
 
+/**
+ * Props for the {@link Pagination} component.
+ *
+ * Extends native `<nav>` attributes.
+ */
 export interface PaginationProps extends React.HTMLAttributes<HTMLElement> {
+  /** Navigation style. @default 'numbered' */
   variant?: 'numbered' | 'simple' | 'load-more' | 'infinite-scroll';
+  /** Controls padding and font-size. @default 'md' */
   size?: 'sm' | 'md';
+  /** The currently-active page (1-based). */
   currentPage: number;
+  /** Total number of pages. */
   totalPages: number;
+  /** Called with the new page number when the user navigates. */
   onPageChange: (page: number) => void;
 }
 
+/**
+ * A pagination control for navigating through paged data.
+ *
+ * Supports numbered pages with ellipsis truncation, simple prev/next,
+ * and "load more" button variants. Renders a `<nav>` with
+ * `aria-label="Pagination"` and `aria-current="page"` on the active page.
+ *
+ * Uses BEM class `uds-pagination` with variant and size modifiers.
+ * Forwards its ref to the root `<nav>` element.
+ *
+ * @example
+ * ```tsx
+ * <Pagination currentPage={3} totalPages={10} onPageChange={setPage} />
+ * ```
+ */
 export const Pagination = React.forwardRef<HTMLElement, PaginationProps>(
   ({ variant = 'numbered', size = 'md', currentPage, totalPages, onPageChange, className, ...props }, ref) => {
     const handlePrev = useCallback(() => {

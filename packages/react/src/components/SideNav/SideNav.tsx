@@ -1,28 +1,74 @@
 import React, { useCallback } from 'react';
 
+/**
+ * A single navigation link in a {@link SideNav}.
+ */
 export interface SideNavItem {
+  /** Visible link text. */
   label: string;
+  /** Navigation target URL. */
   href?: string;
+  /** Optional leading icon. */
   icon?: React.ReactNode;
+  /** Mark this item as the active page. */
   active?: boolean;
+  /** Nested sub-items (shown expanded when not collapsed). */
   children?: SideNavItem[];
 }
 
+/**
+ * A labelled group of {@link SideNavItem}s.
+ */
 export interface SideNavSection {
+  /** Section heading (hidden when collapsed). */
   title?: string;
+  /** Items in this section. */
   items: SideNavItem[];
 }
 
+/**
+ * Props for the {@link SideNav} component.
+ *
+ * Extends native `<nav>` attributes.
+ */
 export interface SideNavProps extends React.HTMLAttributes<HTMLElement> {
+  /** Layout variant. @default 'default' */
   variant?: 'default' | 'collapsed' | 'with-sections';
+  /** Size preset. @default 'default' */
   size?: 'default' | 'collapsed';
+  /** Flat list of navigation items. */
   items?: SideNavItem[];
+  /** Grouped sections with headings. */
   sections?: SideNavSection[];
+  /** Collapse the sidebar to icon-only mode. */
   collapsed?: boolean;
+  /** `href` of the currently-active item (alternative to `SideNavItem.active`). */
   activeItem?: string;
+  /** Called with the target `href` when a link is clicked. */
   onNavigate?: (href: string) => void;
 }
 
+/**
+ * A vertical side navigation panel supporting flat lists or grouped
+ * sections with optional collapse to icon-only mode.
+ *
+ * Renders a `<nav>` with `aria-label="Side navigation"`. Active items
+ * receive `aria-current="page"`.
+ *
+ * Uses BEM class `uds-side-nav` with variant, size, and collapsed modifiers.
+ * Forwards its ref to the root `<nav>` element.
+ *
+ * @example
+ * ```tsx
+ * <SideNav
+ *   items={[
+ *     { label: 'Dashboard', href: '/', icon: <DashIcon /> },
+ *     { label: 'Settings', href: '/settings', icon: <GearIcon /> },
+ *   ]}
+ *   activeItem="/"
+ * />
+ * ```
+ */
 export const SideNav = React.forwardRef<HTMLElement, SideNavProps>(
   ({ variant = 'default', size = 'default', items, sections, collapsed, activeItem, onNavigate, className, children, ...props }, ref) => {
     const handleClick = useCallback(

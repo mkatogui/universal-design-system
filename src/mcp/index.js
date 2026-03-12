@@ -58,41 +58,24 @@ const GENERATE_SCRIPT = resolve(
 );
 
 // ---------------------------------------------------------------------------
-// Valid palettes
+// Valid palettes — loaded from palette-registry.json (single source of truth)
 // ---------------------------------------------------------------------------
 
-const VALID_PALETTES = [
-  "minimal-saas",
-  "ai-futuristic",
-  "gradient-startup",
-  "corporate",
-  "apple-minimal",
-  "illustration",
-  "dashboard",
-  "bold-lifestyle",
-  "minimal-corporate",
-];
+const PALETTE_REGISTRY_PATH = resolve(PROJECT_ROOT, "tokens", "palette-registry.json");
 
-const PALETTE_DESCRIPTIONS = {
-  "minimal-saas":
-    "Clean SaaS aesthetic with neutral tones and blue accents. Best for B2B software, productivity tools, and developer platforms.",
-  "ai-futuristic":
-    "Dark-mode forward with neon accents and deep purples. Best for AI/ML products, developer tools, and crypto platforms.",
-  "gradient-startup":
-    "Vibrant gradients with purple-to-pink energy. Best for consumer startups, creative tools, and social platforms.",
-  corporate:
-    "Traditional business palette with navy and conservative tones. Best for finance, insurance, enterprise, and government.",
-  "apple-minimal":
-    "Ultra-clean with generous whitespace and precise typography. Best for premium consumer products, hardware, and luxury.",
-  illustration:
-    "Warm, friendly palette with hand-drawn character. Best for education, kids products, onboarding, and community platforms.",
-  dashboard:
-    "Data-dense with high contrast and status colors. Best for analytics, admin panels, monitoring, and DevOps.",
-  "bold-lifestyle":
-    "High-energy editorial with strong brand identity. Best for fashion, sports, media, and entertainment.",
-  "minimal-corporate":
-    "Research-forward editorial with warm neutrals. Best for consulting, professional services, and content-heavy sites.",
-};
+let VALID_PALETTES;
+try {
+  const registryRaw = await readFile(PALETTE_REGISTRY_PATH, "utf-8");
+  const registry = JSON.parse(registryRaw);
+  VALID_PALETTES = [...(registry.builtin || []), ...(registry.custom || [])];
+} catch {
+  // Graceful fallback if registry file is missing or malformed
+  VALID_PALETTES = [
+    "minimal-saas", "ai-futuristic", "gradient-startup", "corporate",
+    "apple-minimal", "illustration", "dashboard", "bold-lifestyle",
+    "minimal-corporate",
+  ];
+}
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -284,7 +267,7 @@ const RESOURCE_REGISTRY = [
     uri: "tokens://design-tokens",
     filePath: TOKENS_PATH,
     name: "Design Tokens",
-    description: "W3C DTCG design tokens — 496 tokens across 9 palettes, 2 modes (light/dark). Source of truth for all colors, typography, spacing, motion, shadows, and structural tokens.",
+    description: "W3C DTCG design tokens — ~530 tokens across 9 palettes, 2 modes (light/dark). Source of truth for all colors, typography, spacing, motion, shadows, and structural tokens.",
     mimeType: "application/json",
   },
   {
@@ -298,7 +281,7 @@ const RESOURCE_REGISTRY = [
     uri: "csv://components",
     filePath: COMPONENTS_CSV,
     name: "Components Database",
-    description: "31+ UI components with variants, sizes, states, accessibility requirements, and usage guidance.",
+    description: "32 UI components with variants, sizes, states, accessibility requirements, and usage guidance.",
     mimeType: "text/csv",
   },
   {
@@ -319,7 +302,7 @@ const RESOURCE_REGISTRY = [
     uri: "csv://ui-reasoning",
     filePath: UI_REASONING_CSV,
     name: "UI Reasoning Rules",
-    description: "165 conditional rules (IF sector=X THEN palette=Y) that drive the reasoning engine. Sorted by priority.",
+    description: "~170 conditional rules (IF sector=X THEN palette=Y) that drive the recommendation engine. Sorted by priority.",
     mimeType: "text/csv",
   },
 ];
@@ -509,7 +492,7 @@ const TOOLS = [
   {
     name: "search_design_system",
     description:
-      "Search the Universal Design System using BM25 ranking across 17 CSV databases (1500+ rows). " +
+      "Search the Universal Design System using BM25 ranking across 16 CSV databases (1,528 rows). " +
       "Returns domain detection (sector + product type), recommended palette, matched components, " +
       "patterns, typography, styles, anti-patterns, and applied reasoning rules. " +
       "Use this for queries like 'fintech dashboard', 'saas landing page', 'healthcare portal'.",
@@ -600,7 +583,7 @@ const TOOLS = [
   {
     name: "list_components",
     description:
-      "List all 31+ UDS components with their names, slugs, and categories. " +
+      "List all 32 UDS components with their names, slugs, and categories. " +
       "Use this to discover available components before requesting details with get_component.",
     inputSchema: {
       type: "object",
@@ -873,7 +856,7 @@ async function handleGetFoundationTokens() {
 const server = new Server(
   {
     name: "universal-design-system",
-    version: "0.2.0",
+    version: "0.3.0",
   },
   {
     capabilities: {

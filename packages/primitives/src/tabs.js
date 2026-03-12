@@ -98,6 +98,15 @@ export function createTabs(tablistElement, options = {}) {
     });
   }
 
+  /**
+   * Activate a specific tab by its index.
+   *
+   * Deactivates all tabs, sets `aria-selected="true"` and `tabindex="0"`
+   * on the target tab, shows the corresponding panel (removes `hidden`),
+   * hides all other panels, and fires the `onChange` callback.
+   *
+   * @param {number} index - Zero-based index of the tab to activate.
+   */
   function activateTab(index) {
     const tabs = getTabs();
     const panels = getPanels();
@@ -223,6 +232,14 @@ export function createTabs(tablistElement, options = {}) {
 
   // --- Public API ---
 
+  /**
+   * Destroy the tabs primitive.
+   *
+   * Removes all event listeners and ARIA attributes that were set during
+   * initialization (`role`, `aria-selected`, `tabindex`, `aria-controls`,
+   * `aria-labelledby`, `aria-orientation`), and un-hides all panels.
+   * After calling `destroy()`, the tabs instance should not be reused.
+   */
   function destroy() {
     tablistElement.removeEventListener('keydown', handleKeyDown);
     tablistElement.removeEventListener('click', handleClick);
@@ -248,15 +265,34 @@ export function createTabs(tablistElement, options = {}) {
   return {
     activateTab,
     destroy,
+    /**
+     * Returns the zero-based index of the currently active tab.
+     * @returns {number}
+     */
     getActiveIndex: () => activeIndex,
+    /**
+     * Returns the currently active tab element, or `null` if none.
+     * @returns {HTMLElement | null}
+     */
     getActiveTab: () => {
       const tabs = getTabs();
       return tabs[activeIndex] || null;
     },
+    /**
+     * Returns the currently active panel element, or `null` if none.
+     * @returns {HTMLElement | null}
+     */
     getActivePanel: () => {
       const panels = getPanels();
       return panels[activeIndex] || null;
     },
+    /**
+     * Re-link tabs and panels after DOM changes.
+     *
+     * Call this after dynamically adding or removing tab/panel elements.
+     * Re-assigns `aria-controls` and `aria-labelledby`, and re-activates
+     * the current tab.
+     */
     refresh: () => {
       linkTabsAndPanels();
       if (activeIndex >= 0) {

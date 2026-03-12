@@ -1,21 +1,54 @@
 import React, { useState, useCallback } from 'react';
 
+/**
+ * Describes a single tab in a multi-tab {@link CodeBlock}.
+ */
 export interface CodeBlockTab {
+  /** Tab trigger label (e.g. "React"). */
   label: string;
+  /** Language identifier shown in the header. */
   language: string;
+  /** Source code string. */
   code: string;
 }
 
+/**
+ * Props for the {@link CodeBlock} component.
+ *
+ * Extends native `<div>` attributes.
+ */
 export interface CodeBlockProps extends React.HTMLAttributes<HTMLDivElement> {
+  /** Display variant. @default 'syntax-highlighted' */
   variant?: 'syntax-highlighted' | 'terminal' | 'multi-tab';
+  /** Controls padding and font-size. @default 'md' */
   size?: 'sm' | 'md' | 'lg';
+  /** Language identifier shown in the header (single-tab mode). */
   language?: string;
+  /** Source code string (single-tab mode). */
   code?: string;
+  /** Show line numbers to the left of each line. */
   showLineNumbers?: boolean;
+  /** Show a "Copy" button in the header. @default true */
   showCopy?: boolean;
+  /** Tab definitions for multi-tab mode. */
   tabs?: CodeBlockTab[];
 }
 
+/**
+ * A code display block with optional multi-tab support, line numbers,
+ * and a copy-to-clipboard button.
+ *
+ * Renders a `<pre><code>` structure. In multi-tab mode, a `role="tablist"`
+ * row is shown above the code area.
+ *
+ * Uses BEM class `uds-code-block` with variant and size modifiers.
+ * Forwards its ref to the root `<div>` element.
+ *
+ * @example
+ * ```tsx
+ * <CodeBlock language="tsx" code={`const x = 1;`} showLineNumbers />
+ * ```
+ */
 export const CodeBlock = React.forwardRef<HTMLDivElement, CodeBlockProps>(
   ({ variant = 'syntax-highlighted', size = 'md', language, code, showLineNumbers, showCopy = true, tabs, className, children, ...props }, ref) => {
     const [copied, setCopied] = useState(false);

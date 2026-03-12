@@ -1,30 +1,80 @@
 import React, { useState, useCallback, useRef, useEffect, useId } from 'react';
 
+/**
+ * A single action/command available in the {@link CommandPalette}.
+ */
 export interface CommandPaletteAction {
+  /** Unique identifier for this action. */
   id: string;
+  /** User-visible label (searchable). */
   label: string;
+  /** Group id this action belongs to. */
   group?: string;
+  /** Optional leading icon. */
   icon?: React.ReactNode;
+  /** Keyboard shortcut hint displayed on the right. */
   shortcut?: string;
+  /** Prevent selection of this action. */
   disabled?: boolean;
 }
 
+/**
+ * A named group header for organising {@link CommandPaletteAction}s.
+ */
 export interface CommandPaletteGroup {
+  /** Group heading text. */
   label: string;
+  /** Unique group identifier. */
   id: string;
 }
 
+/**
+ * Props for the {@link CommandPalette} component.
+ *
+ * Extends native `<div>` attributes (with `onSelect` replaced).
+ */
 export interface CommandPaletteProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onSelect'> {
+  /** Whether the command palette is currently visible. */
   open: boolean;
+  /** Called when the palette should close (Escape, overlay click). */
   onClose: () => void;
+  /** Width constraint. @default 'md' */
   size?: 'md' | 'lg';
+  /** Searchable action items. */
   actions: CommandPaletteAction[];
+  /** Optional group definitions for organizing actions. */
   groups?: CommandPaletteGroup[];
+  /** Called with the selected action's id. */
   onSelect: (actionId: string) => void;
+  /** Placeholder text in the search input. @default 'Type a command...' */
   placeholder?: string;
+  /** Maximum number of recent actions to show (reserved for future use). */
   recentLimit?: number;
 }
 
+/**
+ * A keyboard-first command palette overlay (Cmd+K / Ctrl+K style).
+ *
+ * Features:
+ * - Real-time fuzzy-ish filtering of actions by label
+ * - `role="combobox"` / `role="listbox"` / `role="option"` ARIA pattern
+ * - Arrow-key navigation, Enter to select, Escape to close
+ * - Auto-focuses the search input when opened
+ * - Grouped actions with section headers
+ *
+ * Uses BEM class `uds-command-palette` with size modifiers.
+ * Forwards its ref to the palette panel `<div>`.
+ *
+ * @example
+ * ```tsx
+ * <CommandPalette
+ *   open={isOpen}
+ *   onClose={() => setOpen(false)}
+ *   actions={[{ id: 'save', label: 'Save file', shortcut: 'Cmd+S' }]}
+ *   onSelect={runAction}
+ * />
+ * ```
+ */
 export const CommandPalette = React.forwardRef<HTMLDivElement, CommandPaletteProps>(
   ({ open, onClose, size = 'md', actions, groups, onSelect, placeholder = 'Type a command...', recentLimit, className, ...props }, ref) => {
     const [query, setQuery] = useState('');

@@ -1,24 +1,62 @@
 import React from 'react';
 
+/**
+ * Describes a single pricing tier shown inside the {@link Pricing} grid.
+ */
 export interface PricingPlan {
+  /** Plan display name (e.g. "Pro"). */
   name: string;
+  /** Price string (e.g. "$29"). */
   price: string;
+  /** Billing period label (e.g. "mo"). */
   period?: string;
+  /** List of features included in this plan. */
   features: string[];
+  /** CTA element rendered below the feature list. */
   cta?: React.ReactNode;
+  /** Visually highlight this plan as recommended. */
   highlighted?: boolean;
 }
 
+/**
+ * Props for the {@link Pricing} component.
+ *
+ * Extends native `<div>` attributes.
+ */
 export interface PricingProps extends React.HTMLAttributes<HTMLDivElement> {
+  /** Grid layout variant. @default '3-column' */
   variant?: '2-column' | '3-column' | '4-column' | 'toggle';
+  /** Density of plan cards. @default 'standard' */
   size?: 'standard' | 'compact';
+  /** Array of plan definitions to render. */
   plans: PricingPlan[];
+  /** Show a monthly/annual billing toggle above the grid. */
   billingToggle?: boolean;
+  /** Currently selected billing period. @default 'monthly' */
   billingPeriod?: 'monthly' | 'annual';
+  /** Called when the user switches billing period. */
   onBillingChange?: (period: 'monthly' | 'annual') => void;
+  /** Name of the plan to visually highlight. */
   highlightedPlan?: string;
 }
 
+/**
+ * A pricing comparison grid that renders multiple {@link PricingPlan} cards
+ * with an optional monthly/annual billing toggle.
+ *
+ * Uses BEM class `uds-pricing` with variant and size modifiers.
+ * Forwards its ref to the root `<div>` element.
+ *
+ * @example
+ * ```tsx
+ * <Pricing
+ *   plans={[
+ *     { name: 'Free', price: '$0', features: ['1 project'] },
+ *     { name: 'Pro',  price: '$29', features: ['Unlimited'], highlighted: true },
+ *   ]}
+ * />
+ * ```
+ */
 export const Pricing = React.forwardRef<HTMLDivElement, PricingProps>(
   ({ variant = '3-column', size = 'standard', plans, billingToggle, billingPeriod = 'monthly', onBillingChange, highlightedPlan, className, children, ...props }, ref) => {
     const classes = [

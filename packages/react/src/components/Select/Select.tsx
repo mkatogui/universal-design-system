@@ -1,22 +1,60 @@
 import React from 'react';
 
+/**
+ * A single option inside a {@link Select} dropdown.
+ */
 export interface SelectOption {
+  /** Value submitted with the form. */
   value: string;
+  /** User-visible label. */
   label: string;
+  /** Prevent selection of this option. */
   disabled?: boolean;
 }
 
+/**
+ * Props for the {@link Select} component.
+ *
+ * Extends native `<select>` attributes (with `size` replaced by UDS sizing).
+ */
 export interface SelectProps extends Omit<React.SelectHTMLAttributes<HTMLSelectElement>, 'size'> {
+  /** Rendering mode. @default 'native' */
   variant?: 'native' | 'custom';
+  /** Controls padding and font-size. @default 'md' */
   size?: 'sm' | 'md' | 'lg';
+  /** Array of options to render. */
   options: SelectOption[];
+  /** Visible label rendered above the field. */
   label?: string;
+  /** Placeholder option text (disabled, first option). */
   placeholder?: string;
+  /** Marks the field as required. */
   required?: boolean;
+  /** Error message displayed below the field; sets `aria-invalid`. */
   errorText?: string;
+  /** Helper text displayed below the field when there is no error. */
   helperText?: string;
 }
 
+/**
+ * A form select dropdown with optional label, placeholder, helper text,
+ * and error state.
+ *
+ * Automatically wires `aria-invalid`, `aria-describedby`, and
+ * `aria-required` for accessibility.
+ *
+ * Uses BEM class `uds-select` with variant, size, and error modifiers.
+ * Forwards its ref to the underlying `<select>` element.
+ *
+ * @example
+ * ```tsx
+ * <Select
+ *   label="Country"
+ *   placeholder="Choose..."
+ *   options={[{ value: 'us', label: 'United States' }]}
+ * />
+ * ```
+ */
 export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
   ({ variant = 'native', size = 'md', options, label, placeholder, required, errorText, helperText, className, id, ...props }, ref) => {
     const selectId = id || (label ? `uds-select-${label.toLowerCase().replace(/\s+/g, '-')}` : undefined);
