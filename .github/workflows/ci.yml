@@ -93,7 +93,7 @@ jobs:
 
       - name: Install Playwright
         if: steps.check.outputs.has_tests == 'true'
-        run: npm install @playwright/test && npx playwright install --with-deps chromium
+        run: npm install @playwright/test @axe-core/playwright && npx playwright install --with-deps chromium
 
       - name: Run accessibility tests
         if: steps.check.outputs.has_tests == 'true'
