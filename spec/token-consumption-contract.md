@@ -186,15 +186,18 @@ In addition to HTML docs, the current naming is used in:
 
 ### 4.1 Strategy: Additive Build Artifact
 
-Rather than renaming existing tokens, the planned approach is to add `--uds-*` prefixed tokens as an **additional** Style Dictionary build output:
+Rather than renaming existing tokens, `--uds-*` prefixed tokens have been added as an **additional** Style Dictionary build output via the `css-namespaced` platform in `style-dictionary.config.mjs`:
 
 ```
 tokens/design-tokens.json (source of truth, unchanged)
     |
-    +--> build/css/tokens.css          (current: --color-*, --space-*, etc.)
-    +--> build/css/tokens-uds.css      (new: --uds-color-*, --uds-space-*, etc.)
-    +--> build/js/tokens.js            (current)
-    +--> build/js/tokens-uds.js        (new)
+    +--> build/css/tokens.css               (current: --color-*, --space-*, etc.)
+    +--> build/css-namespaced/tokens.css    (new: --uds-color-*, --uds-space-*, etc.)
+    +--> build/js/tokens.js                 (current)
+    +--> build/js/tokens.d.ts               (TypeScript declarations)
+    +--> build/json/tokens.json             (flat JSON export)
+    +--> build/ios/DesignTokens.swift       (iOS Swift)
+    +--> build/android/design_tokens.xml    (Android)
 ```
 
 ### 4.2 Migration Mapping
@@ -210,9 +213,9 @@ tokens/design-tokens.json (source of truth, unchanged)
 | `--opacity-disabled` | `--uds-opacity-disabled` |
 | `--z-index-modal` | `--uds-z-index-modal` |
 
-### 4.3 Implementation Steps (Future)
+### 4.3 Implementation Steps
 
-1. **Add Style Dictionary transform** to produce `--uds-*` prefixed output alongside current output
+1. ~~**Add Style Dictionary transform** to produce `--uds-*` prefixed output alongside current output~~ ✅ Done — `css-namespaced` platform in `style-dictionary.config.mjs` outputs `build/css-namespaced/tokens.css`
 2. **Publish both artifacts** in the npm package so consumers can opt-in
 3. **Add compatibility layer** that maps `--uds-*` to current names (or vice versa) for gradual migration
 4. **Update docs incrementally** to reference `--uds-*` tokens with backward-compatible fallbacks: `var(--uds-color-brand-primary, var(--color-brand-primary))`
