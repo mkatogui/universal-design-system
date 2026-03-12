@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="minimal-saas">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Visual Framework — Universal Design System v__VERSION__</title>
+<meta name="description" content="Screenshot-friendly visual reference for the Universal Design System. Spacing, typography, colors, shadows, radii, and component anatomy across all 9 palettes.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&family=Source+Serif+4:wght@600;700&family=DM+Sans:wght@400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ==============================================================
+   FOUNDATION TOKENS
+   ============================================================== */
+:root {
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-display: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', Menlo, Consolas, monospace;
+  --font-serif: 'Source Serif 4', Georgia, serif;
+  --text-display-xl: clamp(2.5rem, 5vw + 1rem, 4.5rem);
+  --text-display-lg: clamp(2.25rem, 4vw + 1rem, 3.75rem);
+  --text-display-md: clamp(1.875rem, 3vw + 0.75rem, 3rem);
+  --text-heading-lg: clamp(1.5rem, 2vw + 0.5rem, 2.25rem);
+  --text-heading-md: clamp(1.25rem, 1.5vw + 0.5rem, 1.75rem);
+  --text-heading-sm: clamp(1.125rem, 1vw + 0.5rem, 1.375rem);
+  --text-body-lg: clamp(1.125rem, 0.5vw + 0.875rem, 1.25rem);
+  --text-body-md: 1rem;
+  --text-body-sm: 0.875rem;
+  --text-label: 0.75rem;
+  --space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-5:20px;
+  --space-6:24px;--space-8:32px;--space-10:40px;--space-12:48px;--space-16:64px;
+  --space-20:80px;--space-24:96px;
+  --radius-sm:6px;--radius-md:8px;--radius-lg:12px;--radius-xl:16px;--radius-2xl:24px;--radius-full:9999px;
+  --duration-instant:100ms;--duration-fast:150ms;--duration-normal:250ms;
+  --duration-slow:400ms;--duration-slower:600ms;
+  --ease-default:cubic-bezier(0.4,0,0.2,1);--ease-out:cubic-bezier(0,0,0.2,1);
+  --ease-spring:cubic-bezier(0.34,1.56,0.64,1);
+  --opacity-disabled:0.5;--opacity-muted:0.6;
+  --z-dropdown:10;--z-sticky:20;--z-overlay:30;--z-modal:40;--z-toast:50;--z-system:100;
+  /* Default palette (Minimal SaaS) */
+  --color-bg-primary:#FFFFFF;--color-bg-secondary:#F8F8FA;--color-bg-tertiary:#F0F0F5;
+  --color-bg-inverse:#111118;--color-text-primary:#111118;--color-text-secondary:#555566;
+  --color-text-tertiary:#6B6B7B;--color-text-on-brand:#FFFFFF;
+  --color-border-default:#C8C8D4;--color-border-input:#8E8E9E;--color-border-subtle:#E8E8F0;
+  --color-brand-primary:#2563EB;--color-brand-primary-rgb:37,99,235;
+  --color-brand-secondary:#3B82F6;--color-brand-accent:#60A5FA;--color-brand-muted:#DBEAFE;
+  --color-success:#059669;--color-success-bg:#ECFDF5;
+  --color-warning:#D97706;--color-warning-bg:#FFFBEB;
+  --color-error:#DC2626;--color-error-bg:#FEF2F2;
+  --color-info:#2563EB;--color-info-bg:#EFF6FF;
+  --shadow-xs:0 1px 2px rgba(0,0,0,0.05);
+  --shadow-sm:0 2px 4px rgba(0,0,0,0.06),0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md:0 4px 12px rgba(0,0,0,0.08),0 2px 4px rgba(0,0,0,0.04);
+  --shadow-lg:0 12px 32px rgba(0,0,0,0.12),0 4px 8px rgba(0,0,0,0.06);
+  --shadow-xl:0 24px 64px rgba(0,0,0,0.16);
+  --shadow-glow:0 0 40px rgba(37,99,235,0.2);
+}
+
+/* PALETTE OVERRIDES */
+[data-theme="ai-futuristic"]{--color-bg-primary:#0A0A0F;--color-bg-secondary:#111118;--color-bg-tertiary:#1A1A24;--color-bg-inverse:#FFFFFF;--color-text-primary:#E0E0EE;--color-text-secondary:#9999AA;--color-text-tertiary:#7A7A8C;--color-text-on-brand:#0A0A0F;--color-border-default:#2A2A36;--color-border-input:#4A4A58;--color-border-subtle:#1E1E28;--color-brand-primary:#00FF88;--color-brand-primary-rgb:0,255,136;--color-brand-secondary:#00D4FF;--color-brand-accent:#8B5CF6;--color-brand-muted:#0A2A1A;--shadow-xs:0 0 1px rgba(255,255,255,0.06),0 1px 2px rgba(0,0,0,0.3);--shadow-sm:0 0 1px rgba(255,255,255,0.08),0 2px 6px rgba(0,0,0,0.4);--shadow-md:0 0 1px rgba(255,255,255,0.1),0 4px 16px rgba(0,0,0,0.5);--shadow-lg:0 0 1px rgba(255,255,255,0.1),0 12px 40px rgba(0,0,0,0.6);--shadow-xl:0 0 2px rgba(255,255,255,0.1),0 24px 64px rgba(0,0,0,0.7);--shadow-glow:0 0 40px rgba(0,255,136,0.15);--font-display:'Inter',system-ui,sans-serif;--radius-md:12px;}
+[data-theme="minimal-saas"]{--color-bg-primary:#FFFFFF;--color-bg-secondary:#F8F8FA;--color-bg-tertiary:#F0F0F5;--color-bg-inverse:#111118;--color-text-primary:#111118;--color-text-secondary:#555566;--color-text-tertiary:#6B6B7B;--color-text-on-brand:#FFFFFF;--color-border-default:#C8C8D4;--color-border-input:#8E8E9E;--color-border-subtle:#E8E8F0;--color-brand-primary:#2563EB;--color-brand-primary-rgb:37,99,235;--color-brand-secondary:#3B82F6;--color-brand-accent:#60A5FA;--color-brand-muted:#DBEAFE;--shadow-glow:0 0 40px rgba(37,99,235,0.2);--font-display:'Inter',system-ui,sans-serif;--radius-md:8px;}
+[data-theme="gradient-startup"]{--color-bg-primary:#FFFFFF;--color-bg-secondary:#FAF5FF;--color-bg-tertiary:#F3E8FF;--color-bg-inverse:#2E1065;--color-text-primary:#111118;--color-text-secondary:#555566;--color-text-tertiary:#6B6B7B;--color-text-on-brand:#FFFFFF;--color-border-default:#C8C8D4;--color-border-input:#8E8E9E;--color-border-subtle:#E8E8F0;--color-brand-primary:#7C3AED;--color-brand-primary-rgb:124,58,237;--color-brand-secondary:#EC4899;--color-brand-accent:#F59E0B;--color-brand-muted:#F3E8FF;--shadow-glow:0 0 40px rgba(124,58,237,0.2);--font-display:'Inter',system-ui,sans-serif;--radius-md:12px;--radius-lg:16px;--radius-xl:20px;}
+[data-theme="corporate"]{--color-bg-primary:#FFFFFF;--color-bg-secondary:#F7F8FA;--color-bg-tertiary:#EDF0F5;--color-bg-inverse:#1A202C;--color-text-primary:#1A202C;--color-text-secondary:#4A5568;--color-text-tertiary:#636B78;--color-text-on-brand:#FFFFFF;--color-border-default:#CBD5E0;--color-border-input:#8E9AAE;--color-border-subtle:#E2E8F0;--color-brand-primary:#1A365D;--color-brand-primary-rgb:26,54,93;--color-brand-secondary:#2B6CB0;--color-brand-accent:#4299E1;--color-brand-muted:#EBF4FF;--shadow-glow:0 0 40px rgba(26,54,93,0.15);--font-display:'Source Serif 4',Georgia,serif;--radius-sm:4px;--radius-md:4px;--radius-lg:6px;--radius-xl:8px;--radius-2xl:12px;}
+[data-theme="apple-minimal"]{--color-bg-primary:#FFFFFF;--color-bg-secondary:#FBFBFD;--color-bg-tertiary:#F5F5F7;--color-bg-inverse:#000000;--color-text-primary:#1D1D1F;--color-text-secondary:#515154;--color-text-tertiary:#6E6E73;--color-text-on-brand:#FFFFFF;--color-border-default:#D2D2D7;--color-border-input:#A1A1A6;--color-border-subtle:#E5E5EA;--color-brand-primary:#0071E3;--color-brand-primary-rgb:0,113,227;--color-brand-secondary:#147CE5;--color-brand-accent:#5AC8FA;--color-brand-muted:#E8F0FE;--shadow-glow:0 0 40px rgba(0,113,227,0.15);--font-display:-apple-system,'SF Pro Display',system-ui,sans-serif;--font-sans:-apple-system,'SF Pro Text',system-ui,sans-serif;--radius-md:12px;--radius-lg:18px;--radius-xl:22px;}
+[data-theme="illustration"]{--color-bg-primary:#FFFFFF;--color-bg-secondary:#FFF8F0;--color-bg-tertiary:#FFF0E6;--color-bg-inverse:#1A1523;--color-text-primary:#1A1523;--color-text-secondary:#5C5470;--color-text-tertiary:#7A7189;--color-text-on-brand:#FFFFFF;--color-border-default:#C4B5A4;--color-border-input:#9E8E7E;--color-border-subtle:#E8DDD0;--color-brand-primary:#E8590C;--color-brand-primary-rgb:232,89,12;--color-brand-secondary:#7048E8;--color-brand-accent:#12B886;--color-brand-muted:#FFF4E6;--shadow-glow:0 0 40px rgba(232,89,12,0.15);--font-display:'Inter',system-ui,sans-serif;--radius-sm:10px;--radius-md:14px;--radius-lg:18px;--radius-xl:24px;--radius-2xl:32px;}
+[data-theme="dashboard"]{--color-bg-primary:#FFFFFF;--color-bg-secondary:#F7F8FC;--color-bg-tertiary:#EEF0F8;--color-bg-inverse:#0F1117;--color-text-primary:#0F1117;--color-text-secondary:#525866;--color-text-tertiary:#6E7585;--color-text-on-brand:#FFFFFF;--color-border-default:#C5CAD4;--color-border-input:#8B92A0;--color-border-subtle:#E0E3EB;--color-brand-primary:#4F46E5;--color-brand-primary-rgb:79,70,229;--color-brand-secondary:#0EA5E9;--color-brand-accent:#06B6D4;--color-brand-muted:#EEF2FF;--shadow-glow:0 0 40px rgba(79,70,229,0.15);--font-display:'Inter',system-ui,sans-serif;--radius-sm:4px;--radius-md:6px;--radius-lg:8px;--radius-xl:12px;--radius-2xl:16px;}
+[data-theme="bold-lifestyle"]{--color-bg-primary:#FFFFFF;--color-bg-secondary:#F5F5F5;--color-bg-tertiary:#EBEBEB;--color-bg-inverse:#111111;--color-text-primary:#111111;--color-text-secondary:#525252;--color-text-tertiary:#6B6B6B;--color-text-on-brand:#FFFFFF;--color-border-default:#BFBFBF;--color-border-input:#8C8C8C;--color-border-subtle:#D9D9D9;--color-brand-primary:#111111;--color-brand-primary-rgb:17,17,17;--color-brand-secondary:#FF4500;--color-brand-accent:#FFD700;--color-brand-muted:#F5F5F5;--shadow-sm:none;--shadow-md:2px 2px 0 rgba(0,0,0,0.15);--shadow-lg:4px 4px 0 rgba(0,0,0,0.2);--shadow-glow:none;--font-display:'Inter',system-ui,sans-serif;--radius-sm:0;--radius-md:0;--radius-lg:0;--radius-xl:0;--radius-2xl:0;--radius-full:0;}
+[data-theme="minimal-corporate"]{--color-bg-primary:#FDFCFB;--color-bg-secondary:#F7F5F2;--color-bg-tertiary:#EFECE8;--color-bg-inverse:#1C1917;--color-text-primary:#1C1917;--color-text-secondary:#57534E;--color-text-tertiary:#78716C;--color-text-on-brand:#FFFFFF;--color-border-default:#D6D3CD;--color-border-input:#A8A29E;--color-border-subtle:#E7E5E4;--color-brand-primary:#B45309;--color-brand-primary-rgb:180,83,9;--color-brand-secondary:#92400E;--color-brand-accent:#D97706;--color-brand-muted:#FEF3C7;--shadow-glow:0 0 40px rgba(180,83,9,0.12);--font-display:'Source Serif 4',Georgia,serif;--radius-sm:4px;--radius-md:6px;--radius-lg:8px;--radius-xl:12px;--radius-2xl:16px;}
+
+/* ==============================================================
+   ACCESSIBILITY
+   ============================================================== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+@media (forced-colors: active) {
+  .swatch, .shadow-card, .radius-card, .anatomy-card { border: 2px solid CanvasText; }
+  .palette-pill { border: 2px solid ButtonText; }
+}
+
+/* ==============================================================
+   NAV
+   ============================================================== */
+.site-topnav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-3) var(--space-6);
+  background: var(--color-bg-primary);
+  border-bottom: 1px solid var(--color-border-subtle);
+  font-family: var(--font-sans);
+  font-size: var(--text-body-sm);
+  position: sticky;
+  top: 0;
+  z-index: var(--z-sticky);
+}
+.site-topnav .nav-brand {
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin-right: auto;
+}
+.site-topnav a {
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+}
+.site-topnav a:hover { color: var(--color-text-primary); }
+.site-topnav a.active {
+  color: var(--color-brand-primary);
+  font-weight: 600;
+}
+
+/* ==============================================================
+   PAGE LAYOUT
+   ============================================================== */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: var(--font-sans);
+  background: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  line-height: 1.6;
+}
+.page-header {
+  text-align: center;
+  padding: var(--space-16) var(--space-6) var(--space-12);
+}
+.page-header h1 {
+  font-family: var(--font-display);
+  font-size: var(--text-display-md);
+  font-weight: 800;
+  margin-bottom: var(--space-3);
+}
+.page-header p {
+  color: var(--color-text-secondary);
+  font-size: var(--text-body-lg);
+  max-width: 640px;
+  margin: 0 auto;
+}
+.section {
+  padding: var(--space-16) var(--space-6);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.section + .section {
+  border-top: 1px solid var(--color-border-subtle);
+}
+.section__title {
+  font-family: var(--font-display);
+  font-size: var(--text-heading-lg);
+  font-weight: 700;
+  margin-bottom: var(--space-2);
+}
+.section__desc {
+  color: var(--color-text-secondary);
+  font-size: var(--text-body-md);
+  margin-bottom: var(--space-8);
+  max-width: 640px;
+}
+.section__label {
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  color: var(--color-text-tertiary);
+  margin-bottom: var(--space-6);
+  display: block;
+}
+
+/* ==============================================================
+   PALETTE SWITCHER
+   ============================================================== */
+.palette-switcher {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-8);
+  padding: var(--space-3);
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border-subtle);
+}
+.palette-pill {
+  font-family: var(--font-sans);
+  font-size: var(--text-body-sm);
+  font-weight: 500;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-full);
+  background: var(--color-bg-primary);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.palette-pill:hover { color: var(--color-text-primary); border-color: var(--color-brand-primary); }
+.palette-pill.active {
+  background: var(--color-brand-primary);
+  color: var(--color-text-on-brand);
+  border-color: var(--color-brand-primary);
+}
+
+/* ==============================================================
+   SECTION 1: SPACING SCALE
+   ============================================================== */
+.spacing-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+.spacing-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+.spacing-row__label {
+  font-family: var(--font-mono);
+  font-size: var(--text-body-sm);
+  color: var(--color-text-tertiary);
+  min-width: 100px;
+  text-align: right;
+}
+.spacing-row__bar {
+  height: 24px;
+  background: var(--color-brand-primary);
+  border-radius: var(--radius-sm);
+  opacity: 0.85;
+}
+.spacing-row__value {
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  color: var(--color-text-tertiary);
+  min-width: 48px;
+}
+
+/* ==============================================================
+   SECTION 2: TYPOGRAPHY SCALE
+   ============================================================== */
+.type-scale {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+.type-row {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-6);
+  padding: var(--space-3) 0;
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+.type-row:last-child { border-bottom: none; }
+.type-row__label {
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  color: var(--color-text-tertiary);
+  min-width: 140px;
+  flex-shrink: 0;
+}
+.type-row__sample {
+  color: var(--color-text-primary);
+  line-height: 1.2;
+}
+
+/* ==============================================================
+   SECTION 3: COLOR SYSTEM (all 9 palettes)
+   ============================================================== */
+.palette-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: var(--space-6);
+}
+.palette-card {
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+.palette-card__header {
+  padding: var(--space-4) var(--space-4) var(--space-3);
+  font-weight: 600;
+  font-size: var(--text-body-md);
+}
+.palette-card__swatches {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0;
+}
+.swatch {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: var(--space-1);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  line-height: 1;
+}
+.swatch--dark { color: rgba(255,255,255,0.7); }
+.swatch--light { color: rgba(0,0,0,0.5); }
+
+/* ==============================================================
+   SECTION 4: SHADOW / ELEVATION
+   ============================================================== */
+.shadow-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: var(--space-6);
+}
+.shadow-card {
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
+  padding: var(--space-8) var(--space-4);
+  text-align: center;
+}
+.shadow-card__label {
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  color: var(--color-text-tertiary);
+  margin-top: var(--space-3);
+}
+
+/* ==============================================================
+   SECTION 5: RADIUS IDENTITY (all 9 palettes)
+   ============================================================== */
+.radius-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: var(--space-6);
+}
+.radius-card {
+  border: 2px solid var(--color-border-default);
+  padding: var(--space-6);
+  text-align: center;
+}
+.radius-card__name {
+  font-weight: 600;
+  font-size: var(--text-body-sm);
+  margin-bottom: var(--space-1);
+}
+.radius-card__value {
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  color: var(--color-text-tertiary);
+}
+
+/* ==============================================================
+   SECTION 6: COMPONENT ANATOMY
+   ============================================================== */
+.anatomy-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: var(--space-8);
+}
+.anatomy-card {
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-lg);
+  padding: var(--space-8);
+  position: relative;
+}
+.anatomy-card__title {
+  font-family: var(--font-display);
+  font-size: var(--text-heading-sm);
+  font-weight: 600;
+  margin-bottom: var(--space-6);
+  color: var(--color-text-primary);
+}
+.anatomy-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-brand-primary);
+  color: var(--color-text-on-brand);
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: var(--text-body-md);
+  height: 40px;
+  padding: 0 var(--space-4);
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  position: relative;
+}
+.anatomy-demo-card {
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: var(--space-6);
+  max-width: 320px;
+}
+.anatomy-demo-card__title {
+  font-family: var(--font-display);
+  font-size: var(--text-heading-sm);
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-2);
+}
+.anatomy-demo-card__text {
+  font-size: var(--text-body-sm);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-4);
+}
+.annotation {
+  position: absolute;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--color-brand-primary);
+  white-space: nowrap;
+  pointer-events: none;
+}
+.annotation::before {
+  content: '';
+  position: absolute;
+  background: var(--color-brand-primary);
+  opacity: 0.3;
+}
+.annotation-list {
+  margin-top: var(--space-6);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+.annotation-tag {
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  padding: var(--space-1) var(--space-2);
+  background: var(--color-brand-muted);
+  color: var(--color-brand-primary);
+  border-radius: var(--radius-sm);
+}
+
+/* ==============================================================
+   FOOTER
+   ============================================================== */
+.page-footer {
+  text-align: center;
+  padding: var(--space-12) var(--space-6);
+  color: var(--color-text-tertiary);
+  font-size: var(--text-body-sm);
+  border-top: 1px solid var(--color-border-subtle);
+}
+.page-footer a { color: var(--color-brand-primary); text-decoration: none; }
+.page-footer a:hover { text-decoration: underline; }
+
+@media (max-width: 640px) {
+  .spacing-row__label { min-width: 72px; font-size: var(--text-label); }
+  .type-row { flex-direction: column; gap: var(--space-1); }
+  .anatomy-grid { grid-template-columns: 1fr; }
+  .palette-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="site-topnav" aria-label="Site navigation">
+  <span class="nav-brand">UDS v__VERSION__</span>
+  <a href="docs.html">Docs</a>
+  <a href="component-library.html">Components</a>
+  <a href="visual-framework.html" class="active">Visual Framework</a>
+  <a href="reference.html">Reference</a>
+</nav>
+
+<!-- HEADER -->
+<header class="page-header">
+  <h1>Visual Framework</h1>
+  <p>Screenshot-friendly reference for spacing, typography, colors, shadows, radii, and component anatomy. Every value comes from design tokens.</p>
+</header>
+
+<!-- PALETTE SWITCHER -->
+<div class="section" style="padding-top: 0;">
+  <div class="palette-switcher" role="radiogroup" aria-label="Select palette">
+    <button class="palette-pill active" data-palette="minimal-saas" role="radio" aria-checked="true">Minimal SaaS</button>
+    <button class="palette-pill" data-palette="ai-futuristic" role="radio" aria-checked="false">AI Futuristic</button>
+    <button class="palette-pill" data-palette="gradient-startup" role="radio" aria-checked="false">Gradient Startup</button>
+    <button class="palette-pill" data-palette="corporate" role="radio" aria-checked="false">Corporate</button>
+    <button class="palette-pill" data-palette="apple-minimal" role="radio" aria-checked="false">Apple Minimal</button>
+    <button class="palette-pill" data-palette="illustration" role="radio" aria-checked="false">Illustration</button>
+    <button class="palette-pill" data-palette="dashboard" role="radio" aria-checked="false">Dashboard</button>
+    <button class="palette-pill" data-palette="bold-lifestyle" role="radio" aria-checked="false">Bold Lifestyle</button>
+    <button class="palette-pill" data-palette="minimal-corporate" role="radio" aria-checked="false">Minimal Corporate</button>
+  </div>
+</div>
+
+<!-- SECTION 1: SPACING SCALE -->
+<section class="section" id="spacing" aria-labelledby="spacing-heading">
+  <h2 class="section__title" id="spacing-heading">Spacing Scale</h2>
+  <p class="section__desc">4px base unit, 13-step scale. Locked across all palettes.</p>
+  <span class="section__label">--space-1 through --space-24</span>
+  <div class="spacing-grid">
+    <div class="spacing-row"><span class="spacing-row__label">--space-1</span><div class="spacing-row__bar" style="width:4px"></div><span class="spacing-row__value">4px</span></div>
+    <div class="spacing-row"><span class="spacing-row__label">--space-2</span><div class="spacing-row__bar" style="width:8px"></div><span class="spacing-row__value">8px</span></div>
+    <div class="spacing-row"><span class="spacing-row__label">--space-3</span><div class="spacing-row__bar" style="width:12px"></div><span class="spacing-row__value">12px</span></div>
+    <div class="spacing-row"><span class="spacing-row__label">--space-4</span><div class="spacing-row__bar" style="width:16px"></div><span class="spacing-row__value">16px</span></div>
+    <div class="spacing-row"><span class="spacing-row__label">--space-5</span><div class="spacing-row__bar" style="width:20px"></div><span class="spacing-row__value">20px</span></div>
+    <div class="spacing-row"><span class="spacing-row__label">--space-6</span><div class="spacing-row__bar" style="width:24px"></div><span class="spacing-row__value">24px</span></div>
+    <div class="spacing-row"><span class="spacing-row__label">--space-8</span><div class="spacing-row__bar" style="width:32px"></div><span class="spacing-row__value">32px</span></div>
+    <div class="spacing-row"><span class="spacing-row__label">--space-10</span><div class="spacing-row__bar" style="width:40px"></div><span class="spacing-row__value">40px</span></div>
+    <div class="spacing-row"><span class="spacing-row__label">--space-12</span><div class="spacing-row__bar" style="width:48px"></div><span class="spacing-row__value">48px</span></div>
+    <div class="spacing-row"><span class="spacing-row__label">--space-16</span><div class="spacing-row__bar" style="width:64px"></div><span class="spacing-row__value">64px</span></div>
+    <div class="spacing-row"><span class="spacing-row__label">--space-20</span><div class="spacing-row__bar" style="width:80px"></div><span class="spacing-row__value">80px</span></div>
+    <div class="spacing-row"><span class="spacing-row__label">--space-24</span><div class="spacing-row__bar" style="width:96px"></div><span class="spacing-row__value">96px</span></div>
+  </div>
+</section>
+
+<!-- SECTION 2: TYPOGRAPHY SCALE -->
+<section class="section" id="typography" aria-labelledby="type-heading">
+  <h2 class="section__title" id="type-heading">Typography Scale</h2>
+  <p class="section__desc">10 levels from display to label. Body uses Inter (locked); display font varies per palette.</p>
+  <span class="section__label">--text-display-xl through --text-label</span>
+  <div class="type-scale">
+    <div class="type-row"><span class="type-row__label">--text-display-xl</span><span class="type-row__sample" style="font-family:var(--font-display);font-size:var(--text-display-xl);font-weight:800">Display XL</span></div>
+    <div class="type-row"><span class="type-row__label">--text-display-lg</span><span class="type-row__sample" style="font-family:var(--font-display);font-size:var(--text-display-lg);font-weight:700">Display Large</span></div>
+    <div class="type-row"><span class="type-row__label">--text-display-md</span><span class="type-row__sample" style="font-family:var(--font-display);font-size:var(--text-display-md);font-weight:700">Display Medium</span></div>
+    <div class="type-row"><span class="type-row__label">--text-heading-lg</span><span class="type-row__sample" style="font-family:var(--font-display);font-size:var(--text-heading-lg);font-weight:600">Heading Large</span></div>
+    <div class="type-row"><span class="type-row__label">--text-heading-md</span><span class="type-row__sample" style="font-family:var(--font-display);font-size:var(--text-heading-md);font-weight:600">Heading Medium</span></div>
+    <div class="type-row"><span class="type-row__label">--text-heading-sm</span><span class="type-row__sample" style="font-family:var(--font-display);font-size:var(--text-heading-sm);font-weight:600">Heading Small</span></div>
+    <div class="type-row"><span class="type-row__label">--text-body-lg</span><span class="type-row__sample" style="font-size:var(--text-body-lg)">Body large — for lead paragraphs and introductions.</span></div>
+    <div class="type-row"><span class="type-row__label">--text-body-md</span><span class="type-row__sample" style="font-size:var(--text-body-md)">Body medium — default paragraph text across all surfaces.</span></div>
+    <div class="type-row"><span class="type-row__label">--text-body-sm</span><span class="type-row__sample" style="font-size:var(--text-body-sm)">Body small — for captions, metadata, and secondary content.</span></div>
+    <div class="type-row"><span class="type-row__label">--text-label</span><span class="type-row__sample" style="font-size:var(--text-label);text-transform:uppercase;letter-spacing:0.05em;font-weight:600">Label — form labels, overlines, chips</span></div>
+  </div>
+</section>
+
+<!-- SECTION 3: COLOR SYSTEM (all 9 palettes shown simultaneously) -->
+<section class="section" id="colors" aria-labelledby="colors-heading">
+  <h2 class="section__title" id="colors-heading">Color System</h2>
+  <p class="section__desc">All 9 palettes with 10 key swatches each. Brand, text, background, border, and status colors.</p>
+  <div class="palette-grid" id="paletteGrid"></div>
+</section>
+
+<!-- SECTION 4: SHADOW / ELEVATION -->
+<section class="section" id="shadows" aria-labelledby="shadows-heading">
+  <h2 class="section__title" id="shadows-heading">Shadow / Elevation</h2>
+  <p class="section__desc">5 elevation levels from xs to xl. Shadows vary per palette to match the visual identity.</p>
+  <span class="section__label">--shadow-xs through --shadow-xl</span>
+  <div class="shadow-grid">
+    <div class="shadow-card" style="box-shadow:var(--shadow-xs)"><div style="width:48px;height:48px;background:var(--color-bg-tertiary);border-radius:var(--radius-md);margin:0 auto"></div><div class="shadow-card__label">--shadow-xs</div></div>
+    <div class="shadow-card" style="box-shadow:var(--shadow-sm)"><div style="width:48px;height:48px;background:var(--color-bg-tertiary);border-radius:var(--radius-md);margin:0 auto"></div><div class="shadow-card__label">--shadow-sm</div></div>
+    <div class="shadow-card" style="box-shadow:var(--shadow-md)"><div style="width:48px;height:48px;background:var(--color-bg-tertiary);border-radius:var(--radius-md);margin:0 auto"></div><div class="shadow-card__label">--shadow-md</div></div>
+    <div class="shadow-card" style="box-shadow:var(--shadow-lg)"><div style="width:48px;height:48px;background:var(--color-bg-tertiary);border-radius:var(--radius-md);margin:0 auto"></div><div class="shadow-card__label">--shadow-lg</div></div>
+    <div class="shadow-card" style="box-shadow:var(--shadow-xl)"><div style="width:48px;height:48px;background:var(--color-bg-tertiary);border-radius:var(--radius-md);margin:0 auto"></div><div class="shadow-card__label">--shadow-xl</div></div>
+  </div>
+</section>
+
+<!-- SECTION 5: RADIUS IDENTITY (all 9 palettes shown simultaneously) -->
+<section class="section" id="radii" aria-labelledby="radii-heading">
+  <h2 class="section__title" id="radii-heading">Radius Identity</h2>
+  <p class="section__desc">Same card shape across all 9 palettes. Radius defines the visual personality — from sharp corporate to rounded illustration.</p>
+  <div class="radius-grid" id="radiusGrid"></div>
+</section>
+
+<!-- SECTION 6: COMPONENT ANATOMY -->
+<section class="section" id="anatomy" aria-labelledby="anatomy-heading">
+  <h2 class="section__title" id="anatomy-heading">Component Anatomy</h2>
+  <p class="section__desc">Token-driven components. Every dimension, color, and spacing references a design token — never a hardcoded value.</p>
+  <div class="anatomy-grid">
+
+    <!-- Button anatomy -->
+    <div class="anatomy-card">
+      <div class="anatomy-card__title">Button</div>
+      <div style="position:relative;display:inline-block">
+        <button class="anatomy-btn">Get Started</button>
+      </div>
+      <div class="annotation-list">
+        <span class="annotation-tag">bg: --color-brand-primary</span>
+        <span class="annotation-tag">color: --color-text-on-brand</span>
+        <span class="annotation-tag">radius: --radius-md</span>
+        <span class="annotation-tag">height: 40px (md)</span>
+        <span class="annotation-tag">px: --space-4</span>
+        <span class="annotation-tag">font: --font-sans 500</span>
+        <span class="annotation-tag">transition: --duration-fast</span>
+        <span class="annotation-tag">focus: 2px outline</span>
+      </div>
+    </div>
+
+    <!-- Card anatomy -->
+    <div class="anatomy-card">
+      <div class="anatomy-card__title">Card</div>
+      <div class="anatomy-demo-card">
+        <div class="anatomy-demo-card__title">Card Title</div>
+        <div class="anatomy-demo-card__text">Card content uses --color-text-secondary for visual hierarchy below the title.</div>
+        <button class="anatomy-btn" style="font-size:var(--text-body-sm);height:32px;padding:0 var(--space-3)">Action</button>
+      </div>
+      <div class="annotation-list">
+        <span class="annotation-tag">bg: --color-bg-primary</span>
+        <span class="annotation-tag">border: --color-border-default</span>
+        <span class="annotation-tag">radius: --radius-lg</span>
+        <span class="annotation-tag">shadow: --shadow-md</span>
+        <span class="annotation-tag">padding: --space-6</span>
+        <span class="annotation-tag">title: --font-display 600</span>
+        <span class="annotation-tag">text: --color-text-secondary</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="page-footer">
+  <p>Universal Design System v__VERSION__ &middot; <a href="https://github.com/mkatogui/universal-design-system">GitHub</a> &middot; MIT License</p>
+</footer>
+
+<script>
+/* ==============================================================
+   PALETTE SWITCHER
+   ============================================================== */
+document.querySelectorAll('.palette-pill').forEach(function(pill) {
+  pill.addEventListener('click', function() {
+    document.querySelectorAll('.palette-pill').forEach(function(p) {
+      p.classList.remove('active');
+      p.setAttribute('aria-checked', 'false');
+    });
+    pill.classList.add('active');
+    pill.setAttribute('aria-checked', 'true');
+    document.documentElement.setAttribute('data-theme', pill.dataset.palette);
+  });
+});
+
+/* ==============================================================
+   SECTION 3: COLOR SYSTEM — Render all 9 palette cards
+   ============================================================== */
+(function() {
+  var palettes = [
+    { name: 'Minimal SaaS', theme: 'minimal-saas', colors: [
+      { label: 'brand', value: '#2563EB', dark: false },
+      { label: 'secondary', value: '#3B82F6', dark: false },
+      { label: 'accent', value: '#60A5FA', dark: false },
+      { label: 'bg', value: '#FFFFFF', dark: false },
+      { label: 'bg-sec', value: '#F8F8FA', dark: false },
+      { label: 'text', value: '#111118', dark: true },
+      { label: 'text-sec', value: '#555566', dark: true },
+      { label: 'border', value: '#C8C8D4', dark: false },
+      { label: 'success', value: '#059669', dark: true },
+      { label: 'error', value: '#DC2626', dark: false }
+    ]},
+    { name: 'AI Futuristic', theme: 'ai-futuristic', colors: [
+      { label: 'brand', value: '#00FF88', dark: false },
+      { label: 'secondary', value: '#00D4FF', dark: false },
+      { label: 'accent', value: '#8B5CF6', dark: false },
+      { label: 'bg', value: '#0A0A0F', dark: true },
+      { label: 'bg-sec', value: '#111118', dark: true },
+      { label: 'text', value: '#E0E0EE', dark: false },
+      { label: 'text-sec', value: '#9999AA', dark: false },
+      { label: 'border', value: '#2A2A36', dark: true },
+      { label: 'success', value: '#059669', dark: true },
+      { label: 'error', value: '#DC2626', dark: false }
+    ]},
+    { name: 'Gradient Startup', theme: 'gradient-startup', colors: [
+      { label: 'brand', value: '#7C3AED', dark: false },
+      { label: 'secondary', value: '#EC4899', dark: false },
+      { label: 'accent', value: '#F59E0B', dark: false },
+      { label: 'bg', value: '#FFFFFF', dark: false },
+      { label: 'bg-sec', value: '#FAF5FF', dark: false },
+      { label: 'text', value: '#111118', dark: true },
+      { label: 'text-sec', value: '#555566', dark: true },
+      { label: 'border', value: '#C8C8D4', dark: false },
+      { label: 'success', value: '#059669', dark: true },
+      { label: 'error', value: '#DC2626', dark: false }
+    ]},
+    { name: 'Corporate', theme: 'corporate', colors: [
+      { label: 'brand', value: '#1A365D', dark: true },
+      { label: 'secondary', value: '#2B6CB0', dark: false },
+      { label: 'accent', value: '#4299E1', dark: false },
+      { label: 'bg', value: '#FFFFFF', dark: false },
+      { label: 'bg-sec', value: '#F7F8FA', dark: false },
+      { label: 'text', value: '#1A202C', dark: true },
+      { label: 'text-sec', value: '#4A5568', dark: true },
+      { label: 'border', value: '#CBD5E0', dark: false },
+      { label: 'success', value: '#059669', dark: true },
+      { label: 'error', value: '#DC2626', dark: false }
+    ]},
+    { name: 'Apple Minimal', theme: 'apple-minimal', colors: [
+      { label: 'brand', value: '#0071E3', dark: false },
+      { label: 'secondary', value: '#147CE5', dark: false },
+      { label: 'accent', value: '#5AC8FA', dark: false },
+      { label: 'bg', value: '#FFFFFF', dark: false },
+      { label: 'bg-sec', value: '#FBFBFD', dark: false },
+      { label: 'text', value: '#1D1D1F', dark: true },
+      { label: 'text-sec', value: '#515154', dark: true },
+      { label: 'border', value: '#D2D2D7', dark: false },
+      { label: 'success', value: '#059669', dark: true },
+      { label: 'error', value: '#DC2626', dark: false }
+    ]},
+    { name: 'Illustration', theme: 'illustration', colors: [
+      { label: 'brand', value: '#E8590C', dark: false },
+      { label: 'secondary', value: '#7048E8', dark: false },
+      { label: 'accent', value: '#12B886', dark: false },
+      { label: 'bg', value: '#FFFFFF', dark: false },
+      { label: 'bg-sec', value: '#FFF8F0', dark: false },
+      { label: 'text', value: '#1A1523', dark: true },
+      { label: 'text-sec', value: '#5C5470', dark: true },
+      { label: 'border', value: '#C4B5A4', dark: false },
+      { label: 'success', value: '#059669', dark: true },
+      { label: 'error', value: '#DC2626', dark: false }
+    ]},
+    { name: 'Dashboard', theme: 'dashboard', colors: [
+      { label: 'brand', value: '#4F46E5', dark: false },
+      { label: 'secondary', value: '#0EA5E9', dark: false },
+      { label: 'accent', value: '#06B6D4', dark: false },
+      { label: 'bg', value: '#FFFFFF', dark: false },
+      { label: 'bg-sec', value: '#F7F8FC', dark: false },
+      { label: 'text', value: '#0F1117', dark: true },
+      { label: 'text-sec', value: '#525866', dark: true },
+      { label: 'border', value: '#C5CAD4', dark: false },
+      { label: 'success', value: '#059669', dark: true },
+      { label: 'error', value: '#DC2626', dark: false }
+    ]},
+    { name: 'Bold Lifestyle', theme: 'bold-lifestyle', colors: [
+      { label: 'brand', value: '#111111', dark: true },
+      { label: 'secondary', value: '#FF4500', dark: false },
+      { label: 'accent', value: '#FFD700', dark: false },
+      { label: 'bg', value: '#FFFFFF', dark: false },
+      { label: 'bg-sec', value: '#F5F5F5', dark: false },
+      { label: 'text', value: '#111111', dark: true },
+      { label: 'text-sec', value: '#525252', dark: true },
+      { label: 'border', value: '#BFBFBF', dark: false },
+      { label: 'success', value: '#059669', dark: true },
+      { label: 'error', value: '#DC2626', dark: false }
+    ]},
+    { name: 'Minimal Corporate', theme: 'minimal-corporate', colors: [
+      { label: 'brand', value: '#B45309', dark: false },
+      { label: 'secondary', value: '#92400E', dark: true },
+      { label: 'accent', value: '#D97706', dark: false },
+      { label: 'bg', value: '#FDFCFB', dark: false },
+      { label: 'bg-sec', value: '#F7F5F2', dark: false },
+      { label: 'text', value: '#1C1917', dark: true },
+      { label: 'text-sec', value: '#57534E', dark: true },
+      { label: 'border', value: '#D6D3CD', dark: false },
+      { label: 'success', value: '#059669', dark: true },
+      { label: 'error', value: '#DC2626', dark: false }
+    ]}
+  ];
+
+  var grid = document.getElementById('paletteGrid');
+  palettes.forEach(function(p) {
+    var card = document.createElement('div');
+    card.className = 'palette-card';
+    var hdr = '<div class="palette-card__header" style="background:' + p.colors[0].value + ';color:' + (p.colors[0].dark ? 'rgba(255,255,255,0.9)' : 'rgba(0,0,0,0.8)') + '">' + p.name + '</div>';
+    var swatches = '<div class="palette-card__swatches">';
+    p.colors.forEach(function(c) {
+      swatches += '<div class="swatch' + (c.dark ? ' swatch--dark' : ' swatch--light') + '" style="background:' + c.value + '">' + c.label + '</div>';
+    });
+    swatches += '</div>';
+    card.innerHTML = hdr + swatches;
+    grid.appendChild(card);
+  });
+})();
+
+/* ==============================================================
+   SECTION 5: RADIUS IDENTITY — Render all 9 palette radius cards
+   ============================================================== */
+(function() {
+  var radii = [
+    { name: 'Minimal SaaS', md: '8px' },
+    { name: 'AI Futuristic', md: '12px' },
+    { name: 'Gradient Startup', md: '12px' },
+    { name: 'Corporate', md: '4px' },
+    { name: 'Apple Minimal', md: '12px' },
+    { name: 'Illustration', md: '14px' },
+    { name: 'Dashboard', md: '6px' },
+    { name: 'Bold Lifestyle', md: '0px' },
+    { name: 'Minimal Corporate', md: '6px' }
+  ];
+
+  var grid = document.getElementById('radiusGrid');
+  radii.forEach(function(r) {
+    var card = document.createElement('div');
+    card.className = 'radius-card';
+    card.style.borderRadius = r.md;
+    card.innerHTML = '<div class="radius-card__name">' + r.name + '</div><div class="radius-card__value">--radius-md: ' + r.md + '</div>';
+    grid.appendChild(card);
+  });
+})();
+</script>
+</body>
+</html>

@@ -373,6 +373,13 @@ def generate_framework_output(result: dict, palette_tokens: dict, framework: str
     lines.append(f"// Query: {result['query']}")
     lines.append("")
 
+    if framework == "react":
+        lines.append("// TIP: For production use, install the React package:")
+        lines.append("//   npm install @mkatogui/uds-react")
+        lines.append("//   import { Button, Card, Input } from '@mkatogui/uds-react';")
+        lines.append("//   import '@mkatogui/uds-react/styles.css';")
+        lines.append("")
+
     templates = FRAMEWORK_TEMPLATES.get(framework, FRAMEWORK_TEMPLATES.get("react", {}))
 
     # Output components that were recommended

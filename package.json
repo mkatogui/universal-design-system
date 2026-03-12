@@ -16,7 +16,8 @@
     "check": "npm run validate && npm run audit && npm run verify",
     "search": "python3 src/scripts/search.py",
     "generate": "python3 src/scripts/design_system.py",
-    "sync-data": "python3 src/data/_sync_all.py"
+    "sync-data": "python3 src/data/_sync_all.py",
+    "build:react": "cd packages/react && npm run build"
   },
   "keywords": [
     "design-system",
