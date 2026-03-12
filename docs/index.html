@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Universal Design System — 166 Rules. 21 Industries. Zero Guesswork.</title>
-<meta name="description" content="The AI-native design system that cross-references 17 databases to recommend palettes, components, and anti-patterns by industry. 166 rules, 40 sectors, targeting WCAG 2.1 AA compliance.">
+<title>Universal Design System — 170 Rules. 48 Industries. Zero Guesswork.</title>
+<meta name="description" content="The AI-native design system that cross-references 17 databases to recommend palettes, components, and anti-patterns by industry. 170 rules, 48 sectors, targeting WCAG 2.1 AA compliance.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&family=Source+Serif+4:wght@600;700&display=swap" rel="stylesheet">
@@ -293,7 +293,7 @@ code{font-family:var(--font-mono);font-size:0.9em;padding:2px 6px;border-radius:
   color:var(--color-text-primary);width:44px;height:44px;align-items:center;justify-content:center;
 }
 .navbar__hamburger svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:2;}
-@media(max-width:768px){
+@media(max-width:900px){
   .navbar__links,.navbar__actions .uds-btn--ghost{display:none;}
   .navbar__hamburger{display:flex;}
   .navbar__links--open{
@@ -656,6 +656,7 @@ code{font-family:var(--font-mono);font-size:0.9em;padding:2px 6px;border-radius:
    RESPONSIVE
    ============================================================== */
 @media(max-width:640px){
+  .hero__tokens{display:none;}
   .comparison{min-width:0;}
   .comparison thead{display:none;}
   .comparison tbody tr{display:grid;grid-template-columns:1fr;padding:var(--space-4) 0;border-bottom:1px solid var(--color-border-default);}
@@ -674,7 +675,7 @@ code{font-family:var(--font-mono);font-size:0.9em;padding:2px 6px;border-radius:
   .code-tabs__nav{overflow-x:auto;-webkit-overflow-scrolling:touch;}
   .code-tab{white-space:nowrap;padding:var(--space-3) var(--space-4);}
 }
-@media(max-width:768px){
+@media(max-width:900px){
   .navbar__links--open a{min-height:44px;display:flex;align-items:center;}
 }
 /* Touch feedback */
@@ -728,7 +729,7 @@ code{font-family:var(--font-mono);font-size:0.9em;padding:2px 6px;border-radius:
   <div class="container">
     <div class="hero__content">
       <div class="hero__badge"><span class="hero__badge-dot" aria-hidden="true"></span> v__VERSION__ &mdash; Open Source</div>
-      <h1 class="hero__title" id="hero-heading">166 Rules. 21 Industries.<br><span class="text-gradient">Zero Guesswork.</span></h1>
+      <h1 class="hero__title" id="hero-heading">170 Rules. 48 Industries.<br><span class="text-gradient">Zero Guesswork.</span></h1>
       <p class="hero__subtitle">Other design systems give you tokens and wish you luck. This one cross-references 17 databases to recommend palettes, components, and anti-patterns &mdash; by industry.</p>
       <form class="hero__query" role="search" aria-label="Try a product description" onsubmit="event.preventDefault();runPlayground(document.getElementById('heroQuery').value);">
         <svg class="hero__query-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
@@ -736,11 +737,11 @@ code{font-family:var(--font-mono);font-size:0.9em;padding:2px 6px;border-radius:
         <button type="submit" class="uds-btn uds-btn--primary uds-btn--sm">Generate</button>
       </form>
       <div class="hero__stats" aria-label="Key statistics">
-        <span class="hero__stat"><strong>21</strong>&nbsp;Industries</span>
+        <span class="hero__stat"><strong>48</strong>&nbsp;Industries</span>
         <span class="hero__stat-sep" aria-hidden="true"></span>
-        <span class="hero__stat"><strong>166</strong>&nbsp;Rules</span>
+        <span class="hero__stat"><strong>170</strong>&nbsp;Rules</span>
         <span class="hero__stat-sep" aria-hidden="true"></span>
-        <span class="hero__stat"><strong>55</strong>&nbsp;Anti-patterns</span>
+        <span class="hero__stat"><strong>84</strong>&nbsp;Anti-patterns</span>
         <span class="hero__stat-sep" aria-hidden="true"></span>
         <span class="hero__stat"><strong>WCAG 2.1</strong>&nbsp;AA Validated</span>
       </div>
