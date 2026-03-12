@@ -57,9 +57,7 @@ describe('Pagination', () => {
   });
 
   it('renders simple variant with page info text', () => {
-    render(
-      <Pagination variant="simple" currentPage={2} totalPages={8} onPageChange={vi.fn()} />,
-    );
+    render(<Pagination variant="simple" currentPage={2} totalPages={8} onPageChange={vi.fn()} />);
     expect(screen.getByText('Page 2 of 8')).toBeInTheDocument();
   });
 
@@ -79,7 +77,13 @@ describe('Pagination', () => {
 
   it('applies variant and size modifier classes', () => {
     render(
-      <Pagination variant="numbered" size="sm" currentPage={1} totalPages={3} onPageChange={vi.fn()} />,
+      <Pagination
+        variant="numbered"
+        size="sm"
+        currentPage={1}
+        totalPages={3}
+        onPageChange={vi.fn()}
+      />,
     );
     const nav = screen.getByRole('navigation', { name: 'Pagination' });
     expect(nav).toHaveClass('uds-pagination--numbered');

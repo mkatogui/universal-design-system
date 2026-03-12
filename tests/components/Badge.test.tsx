@@ -45,13 +45,21 @@ describe('Badge', () => {
   });
 
   it('renders remove button when removable is true', () => {
-    render(<Badge removable label="Tag" onRemove={vi.fn()}>Tag</Badge>);
+    render(
+      <Badge removable label="Tag" onRemove={vi.fn()}>
+        Tag
+      </Badge>,
+    );
     expect(screen.getByRole('button', { name: 'Remove Tag' })).toBeInTheDocument();
   });
 
   it('calls onRemove when the remove button is clicked', () => {
     const handleRemove = vi.fn();
-    render(<Badge removable label="Tag" onRemove={handleRemove}>Tag</Badge>);
+    render(
+      <Badge removable label="Tag" onRemove={handleRemove}>
+        Tag
+      </Badge>,
+    );
     fireEvent.click(screen.getByRole('button', { name: 'Remove Tag' }));
     expect(handleRemove).toHaveBeenCalledTimes(1);
   });
