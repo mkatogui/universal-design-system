@@ -31,156 +31,171 @@ from apca import (
     THRESHOLD_UI_ELEMENT,
 )
 
+# ---------------------------------------------------------------------------
+# Import shared utilities from audit_utils (with graceful fallback)
+# ---------------------------------------------------------------------------
+
 try:
-    from registry import get_all_palettes
+    from audit_utils import (
+        _resolve_alias,
+        _get_value,
+        extract_palette_colors,
+    )
+
+    _USING_AUDIT_UTILS = True
 except ImportError:
-    get_all_palettes = None
+    _USING_AUDIT_UTILS = False
 
+if not _USING_AUDIT_UTILS:
+    try:
+        from registry import get_all_palettes
+    except ImportError:
+        get_all_palettes = None
 
 # ---------------------------------------------------------------------------
-# Token resolution
+# Fallback: Token resolution (used only when audit_utils is unavailable)
 # ---------------------------------------------------------------------------
 
-def _resolve_alias(value: str, primitives: dict) -> str:
-    """Resolve a token alias like '{color.primitive.blue.600}' to a hex value.
+if not _USING_AUDIT_UTILS:
 
-    Follows the reference chain through the primitives dict. Returns the
-    original string unchanged if it cannot be resolved.
-    """
-    if not isinstance(value, str) or not value.startswith("{"):
+    def _resolve_alias(value: str, primitives: dict) -> str:
+        """Resolve a token alias like '{color.primitive.blue.600}' to a hex value.
+
+        Follows the reference chain through the primitives dict. Returns the
+        original string unchanged if it cannot be resolved.
+        """
+        if not isinstance(value, str) or not value.startswith("{"):
+            return value
+
+        # Strip braces: '{color.primitive.blue.600}' -> 'color.primitive.blue.600'
+        path = value.strip("{}").split(".")
+
+        # Navigate: color -> primitive -> blue -> 600
+        # The primitives dict is already the "color.primitive" level,
+        # so we skip the first two segments if they match.
+        if len(path) >= 4 and path[0] == "color" and path[1] == "primitive":
+            path = path[2:]  # e.g. ['blue', '600']
+
+        node = primitives
+        for segment in path:
+            if isinstance(node, dict):
+                node = node.get(segment)
+            else:
+                return value  # Cannot resolve
+
+        if node is None:
+            return value
+
+        # Might be a token object with $value
+        if isinstance(node, dict) and "$value" in node:
+            resolved = node["$value"]
+            # Recursively resolve in case of chained aliases
+            if isinstance(resolved, str) and resolved.startswith("{"):
+                return _resolve_alias(resolved, primitives)
+            return resolved
+
+        if isinstance(node, str):
+            return node
+
         return value
 
-    # Strip braces: '{color.primitive.blue.600}' -> 'color.primitive.blue.600'
-    path = value.strip("{}").split(".")
+    def _get_value(token_obj) -> str:
+        """Extract the $value from a token object or return the raw string."""
+        if isinstance(token_obj, dict):
+            return token_obj.get("$value", token_obj.get("value", ""))
+        return str(token_obj) if token_obj is not None else ""
 
-    # Navigate: color -> primitive -> blue -> 600
-    # The primitives dict is already the "color.primitive" level,
-    # so we skip the first two segments if they match.
-    if len(path) >= 4 and path[0] == "color" and path[1] == "primitive":
-        path = path[2:]  # e.g. ['blue', '600']
+    # ---------------------------------------------------------------------------
+    # Fallback: Palette color extraction
+    # ---------------------------------------------------------------------------
 
-    node = primitives
-    for segment in path:
-        if isinstance(node, dict):
-            node = node.get(segment)
-        else:
-            return value  # Cannot resolve
+    def extract_palette_colors(tokens: dict) -> dict:
+        """Extract resolved hex colors for each palette and mode.
 
-    if node is None:
-        return value
+        Palettes live under tokens["theme"]. Two formats exist:
 
-    # Might be a token object with $value
-    if isinstance(node, dict) and "$value" in node:
-        resolved = node["$value"]
-        # Recursively resolve in case of chained aliases
-        if isinstance(resolved, str) and resolved.startswith("{"):
-            return _resolve_alias(resolved, primitives)
-        return resolved
+        Newer format (minimal-saas, ai-futuristic, gradient-startup, corporate,
+        apple-minimal): has "light"/"dark" sub-dicts with hyphenated keys like
+        "text-primary", "bg-primary", "brand-primary".
 
-    if isinstance(node, str):
-        return node
+        Older format (bold-lifestyle, minimal-corporate, illustration, dashboard):
+        flat structure with underscore keys ("text_primary") and "_dark" suffixes
+        for dark mode ("text_primary_dark").
 
-    return value
-
-
-def _get_value(token_obj) -> str:
-    """Extract the $value from a token object or return the raw string."""
-    if isinstance(token_obj, dict):
-        return token_obj.get("$value", token_obj.get("value", ""))
-    return str(token_obj) if token_obj is not None else ""
-
-
-# ---------------------------------------------------------------------------
-# Palette color extraction
-# ---------------------------------------------------------------------------
-
-def extract_palette_colors(tokens: dict) -> dict:
-    """Extract resolved hex colors for each palette and mode.
-
-    Palettes live under tokens["theme"]. Two formats exist:
-
-    Newer format (minimal-saas, ai-futuristic, gradient-startup, corporate,
-    apple-minimal): has "light"/"dark" sub-dicts with hyphenated keys like
-    "text-primary", "bg-primary", "brand-primary".
-
-    Older format (bold-lifestyle, minimal-corporate, illustration, dashboard):
-    flat structure with underscore keys ("text_primary") and "_dark" suffixes
-    for dark mode ("text_primary_dark").
-
-    Returns a dict like:
-        {
-            "corporate": {
-                "light": {
-                    "text-primary": "#1A202C",
-                    "text-secondary": "#4A5568",
-                    "bg-primary": "#FFFFFF",
-                    "bg-secondary": "#F7F8FA",
-                    "brand-primary": "#1A365D",
+        Returns a dict like:
+            {
+                "corporate": {
+                    "light": {
+                        "text-primary": "#1A202C",
+                        "text-secondary": "#4A5568",
+                        "bg-primary": "#FFFFFF",
+                        "bg-secondary": "#F7F8FA",
+                        "brand-primary": "#1A365D",
+                    },
+                    "dark": { ... }
                 },
-                "dark": { ... }
-            },
-            ...
-        }
-    """
-    color_section = tokens.get("color", {})
-    primitives = color_section.get("primitive", {})
-    theme_section = tokens.get("theme", {})
+                ...
+            }
+        """
+        color_section = tokens.get("color", {})
+        primitives = color_section.get("primitive", {})
+        theme_section = tokens.get("theme", {})
 
-    if get_all_palettes:
-        palette_names = get_all_palettes()
-    else:
-        palette_names = [
-            "minimal-saas",
-            "ai-futuristic",
-            "gradient-startup",
-            "corporate",
-            "apple-minimal",
-            "illustration",
-            "dashboard",
-            "bold-lifestyle",
-            "minimal-corporate",
-        ]
+        if get_all_palettes:
+            palette_names = get_all_palettes()
+        else:
+            palette_names = [
+                "minimal-saas",
+                "ai-futuristic",
+                "gradient-startup",
+                "corporate",
+                "apple-minimal",
+                "illustration",
+                "dashboard",
+                "bold-lifestyle",
+                "minimal-corporate",
+            ]
 
-    result = {}
+        result = {}
 
-    for palette_name in palette_names:
-        palette_data = theme_section.get(palette_name)
-        if palette_data is None:
-            continue
+        for palette_name in palette_names:
+            palette_data = theme_section.get(palette_name)
+            if palette_data is None:
+                continue
 
-        result[palette_name] = {"light": {}, "dark": {}}
+            result[palette_name] = {"light": {}, "dark": {}}
 
-        # Detect format: newer format has 'light'/'dark' sub-dicts
-        if "light" in palette_data and isinstance(palette_data["light"], dict):
-            # Newer format: light/dark sub-objects with hyphenated keys
-            for mode in ("light", "dark"):
-                mode_data = palette_data.get(mode, {})
-                for token_key, token_obj in mode_data.items():
+            # Detect format: newer format has 'light'/'dark' sub-dicts
+            if "light" in palette_data and isinstance(palette_data["light"], dict):
+                # Newer format: light/dark sub-objects with hyphenated keys
+                for mode in ("light", "dark"):
+                    mode_data = palette_data.get(mode, {})
+                    for token_key, token_obj in mode_data.items():
+                        raw = _get_value(token_obj)
+                        resolved = _resolve_alias(raw, primitives)
+                        if isinstance(resolved, str) and resolved.startswith("#"):
+                            result[palette_name][mode][token_key] = resolved
+            else:
+                # Older format: flat keys with underscores; _dark suffix for dark mode
+                for token_key, token_obj in palette_data.items():
+                    if token_key.startswith("$"):
+                        continue
+
                     raw = _get_value(token_obj)
                     resolved = _resolve_alias(raw, primitives)
-                    if isinstance(resolved, str) and resolved.startswith("#"):
-                        result[palette_name][mode][token_key] = resolved
-        else:
-            # Older format: flat keys with underscores; _dark suffix for dark mode
-            for token_key, token_obj in palette_data.items():
-                if token_key.startswith("$"):
-                    continue
 
-                raw = _get_value(token_obj)
-                resolved = _resolve_alias(raw, primitives)
+                    if not isinstance(resolved, str) or not resolved.startswith("#"):
+                        continue
 
-                if not isinstance(resolved, str) or not resolved.startswith("#"):
-                    continue
+                    if token_key.endswith("_dark"):
+                        # Dark mode token -- normalize key to hyphenated
+                        normalized = token_key[:-5].replace("_", "-")
+                        result[palette_name]["dark"][normalized] = resolved
+                    else:
+                        normalized = token_key.replace("_", "-")
+                        result[palette_name]["light"][normalized] = resolved
 
-                if token_key.endswith("_dark"):
-                    # Dark mode token -- normalize key to hyphenated
-                    normalized = token_key[:-5].replace("_", "-")
-                    result[palette_name]["dark"][normalized] = resolved
-                else:
-                    normalized = token_key.replace("_", "-")
-                    result[palette_name]["light"][normalized] = resolved
-
-    return result
+        return result
 
 
 # ---------------------------------------------------------------------------
