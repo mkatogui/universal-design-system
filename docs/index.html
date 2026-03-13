@@ -1169,6 +1169,15 @@ function renderPaletteSwitcher(){
   }).join('');
 }
 
+/* Render result swatches */
+function renderResultSwatches(colors){
+  if(!colors||!colors.length)return;
+  var el=document.getElementById('resultSwatches');
+  if(!el)return;
+  el.innerHTML=colors.map(function(c){
+    return '<div class="playground__swatch" style="background:'+c+'" title="'+c+'"><span class="playground__swatch-label">'+c+'</span></div>';
+  }).join('');
+}
 /* Switch palette */
 function switchPalette(id){
   document.documentElement.setAttribute('data-theme',id);
@@ -1176,13 +1185,7 @@ function switchPalette(id){
   renderPaletteSwitcher();
   /* Update recommended palette swatches to reflect the selected palette */
   var p=PALETTES.filter(function(x){return x.id===id;})[0];
-  if(p){
-    var colors=[p.primary,p.secondary,p.accent,p.bg,p.text];
-    var el=document.getElementById('resultSwatches');
-    if(el)el.innerHTML=colors.map(function(c){
-      return '<div class="playground__swatch" style="background:'+c+'" title="'+c+'"><span class="playground__swatch-label">'+c+'</span></div>';
-    }).join('');
-  }
+  if(p) renderResultSwatches([p.primary,p.secondary,p.accent,p.bg,p.text]);
 }
 
 /* Run playground */
@@ -1199,9 +1202,7 @@ function runPlayground(query){
     if(score>bestScore){bestScore=score;match=QUERIES[key];}
   }
   if(!match)match=QUERIES['ai developer tools'];
-  document.getElementById('resultSwatches').innerHTML=match.colors.map(function(c){
-    return '<div class="playground__swatch" style="background:'+c+'" title="'+c+'"><span class="playground__swatch-label">'+c+'</span></div>';
-  }).join('');
+  renderResultSwatches(match.colors);
   document.getElementById('resultComponents').innerHTML=match.components.map(function(c){
     return '<span class="playground__component-tag">'+c+'</span>';
   }).join('');
