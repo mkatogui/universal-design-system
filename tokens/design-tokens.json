@@ -1581,7 +1581,7 @@
         "$description": "Dark mode"
       },
       "text_secondary_dark": {
-        "$value": "#A3A3A3",
+        "$value": "#BDBDBD",
         "$description": "Dark mode"
       },
       "text_tertiary_dark": {
@@ -1717,7 +1717,7 @@
         "$description": "Dark mode"
       },
       "text_secondary_dark": {
-        "$value": "#A8A29E",
+        "$value": "#C0BBB8",
         "$description": "Dark mode"
       },
       "text_tertiary_dark": {
@@ -1729,11 +1729,11 @@
         "$description": "Dark mode"
       },
       "brand_primary_dark": {
-        "$value": "#D97706",
+        "$value": "#FBBF24",
         "$description": "Dark mode"
       },
       "brand_primary_rgb_dark": {
-        "$value": "217, 119, 6",
+        "$value": "251, 191, 36",
         "$description": "Dark mode"
       },
       "brand_secondary_dark": {
@@ -1853,7 +1853,7 @@
         "$description": "Dark mode"
       },
       "text_secondary_dark": {
-        "$value": "#A8A0B5",
+        "$value": "#C0B8CC",
         "$description": "Dark mode"
       },
       "text_tertiary_dark": {
@@ -1989,7 +1989,7 @@
         "$description": "Dark mode"
       },
       "text_secondary_dark": {
-        "$value": "#9498A5",
+        "$value": "#B0B4C0",
         "$description": "Dark mode"
       },
       "text_tertiary_dark": {
@@ -1997,15 +1997,15 @@
         "$description": "Dark mode"
       },
       "text_on_brand_dark": {
-        "$value": "#FFFFFF",
+        "$value": "#0F1117",
         "$description": "Dark mode"
       },
       "brand_primary_dark": {
-        "$value": "#5B52E0",
+        "$value": "#9B93F5",
         "$description": "Dark mode"
       },
       "brand_primary_rgb_dark": {
-        "$value": "99, 102, 241",
+        "$value": "155, 147, 245",
         "$description": "Dark mode"
       },
       "brand_secondary_dark": {
@@ -2101,14 +2101,14 @@
           }
         },
         "text-secondary": {
-          "$value": "#9999AA",
+          "$value": "#B8B8C8",
           "$type": "color",
           "$extensions": {
-            "com.tokens.oklch": "oklch(68.8% 0.0248 285.7)"
+            "com.tokens.oklch": "oklch(78.2% 0.0248 285.7)"
           }
         },
         "brand-primary": {
-          "$value": "{color.primitive.blue.600}",
+          "$value": "{color.primitive.blue.400}",
           "$type": "color"
         },
         "brand-secondary": {
@@ -2147,10 +2147,10 @@
           }
         },
         "text-secondary": {
-          "$value": "#9999AA",
+          "$value": "#B8B8C8",
           "$type": "color",
           "$extensions": {
-            "com.tokens.oklch": "oklch(68.8% 0.0248 285.7)"
+            "com.tokens.oklch": "oklch(78.2% 0.0248 285.7)"
           }
         },
         "brand-primary": {
@@ -2247,10 +2247,10 @@
           }
         },
         "text-secondary": {
-          "$value": "#AAAABC",
+          "$value": "#C0C0D0",
           "$type": "color",
           "$extensions": {
-            "com.tokens.oklch": "oklch(74.4% 0.0257 285.7)"
+            "com.tokens.oklch": "oklch(80.5% 0.0257 285.7)"
           }
         },
         "brand-primary": {
@@ -2340,14 +2340,14 @@
           }
         },
         "text-secondary": {
-          "$value": "#9999AA",
+          "$value": "#B8B8C8",
           "$type": "color",
           "$extensions": {
-            "com.tokens.oklch": "oklch(68.8% 0.0248 285.7)"
+            "com.tokens.oklch": "oklch(78.2% 0.0248 285.7)"
           }
         },
         "brand-primary": {
-          "$value": "{color.primitive.purple.600}",
+          "$value": "{color.primitive.purple.400}",
           "$type": "color"
         },
         "brand-secondary": {
@@ -2433,17 +2433,17 @@
           }
         },
         "text-secondary": {
-          "$value": "#8B949E",
+          "$value": "#B0BAC5",
           "$type": "color",
           "$extensions": {
-            "com.tokens.oklch": "oklch(66.2% 0.0182 251.0)"
+            "com.tokens.oklch": "oklch(78.0% 0.0182 251.0)"
           }
         },
         "brand-primary": {
-          "$value": "#4A7AB5",
+          "$value": "#79B8FF",
           "$type": "color",
           "$extensions": {
-            "com.tokens.oklch": "oklch(57.2% 0.1058 254.4)"
+            "com.tokens.oklch": "oklch(76.0% 0.1058 254.4)"
           }
         },
         "brand-secondary": {
@@ -2529,17 +2529,17 @@
           }
         },
         "text-secondary": {
-          "$value": "#A1A1A6",
+          "$value": "#B8B8BD",
           "$type": "color",
           "$extensions": {
-            "com.tokens.oklch": "oklch(71.0% 0.0072 286.0)"
+            "com.tokens.oklch": "oklch(77.5% 0.0072 286.0)"
           }
         },
         "brand-primary": {
-          "$value": "#2997FF",
+          "$value": "#64D2FF",
           "$type": "color",
           "$extensions": {
-            "com.tokens.oklch": "oklch(66.9% 0.1809 251.8)"
+            "com.tokens.oklch": "oklch(82.0% 0.1809 251.8)"
           }
         },
         "brand-secondary": {

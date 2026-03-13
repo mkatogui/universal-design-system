@@ -127,6 +127,12 @@ See also: [`docs/assets/architecture.svg`](docs/assets/architecture.svg) | [`src
 
 ---
 
+## Internationalization (i18n)
+
+The design system is **English-only** (`lang="en"` on all HTML pages). All token names, component labels, documentation, and reasoning engine data use English. There are no current plans for multi-language support — contributions should maintain English throughout.
+
+---
+
 ## Governance Rules
 
 ### Foundation-locked tokens (same across ALL palettes)
