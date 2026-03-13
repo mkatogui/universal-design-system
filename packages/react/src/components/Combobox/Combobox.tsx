@@ -58,7 +58,14 @@ export const Combobox = React.forwardRef<HTMLDivElement, ComboboxProps>(
 
     const filtered = options.filter((o) => o.label.toLowerCase().includes(query.toLowerCase()));
 
-    const selectedValues = Array.isArray(value) ? value : value ? [value] : [];
+    let selectedValues: string[];
+    if (Array.isArray(value)) {
+      selectedValues = value;
+    } else if (value) {
+      selectedValues = [value];
+    } else {
+      selectedValues = [];
+    }
 
     const handleSelect = useCallback(
       (optionValue: string) => {
@@ -87,11 +94,11 @@ export const Combobox = React.forwardRef<HTMLDivElement, ComboboxProps>(
       (e: React.KeyboardEvent) => {
         if (e.key === 'ArrowDown') {
           e.preventDefault();
-          if (!isOpen) {
+          if (isOpen) {
+            setActiveIndex((prev) => Math.min(prev + 1, filtered.length - 1));
+          } else {
             setIsOpen(true);
             setActiveIndex(0);
-          } else {
-            setActiveIndex((prev) => Math.min(prev + 1, filtered.length - 1));
           }
         } else if (e.key === 'ArrowUp') {
           e.preventDefault();

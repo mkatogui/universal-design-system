@@ -56,10 +56,11 @@ describe('useDialogOverlay', () => {
   });
 
   it('does not trap when Tab is in the middle', () => {
-    render(<TestDialog open={true} onClose={vi.fn()} />);
+    const handleClose = vi.fn();
+    render(<TestDialog open={true} onClose={handleClose} />);
     // Focus is not on first or last, so Tab should not be prevented
     fireEvent.keyDown(document, { key: 'Tab' });
-    // No error, just a passthrough
+    expect(handleClose).not.toHaveBeenCalled();
   });
 
   it('locks body scroll when open', () => {

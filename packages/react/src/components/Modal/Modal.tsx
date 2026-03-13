@@ -77,13 +77,12 @@ export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
         onClick={(e) => {
           if (e.target === e.currentTarget) onClose();
         }}
-        role="presentation"
       >
         <div
           ref={(node) => {
             modalRef.current = node;
             if (typeof ref === 'function') ref(node);
-            else if (ref) (ref as React.MutableRefObject<HTMLDivElement | null>).current = node;
+            else if (ref) (ref as { current: HTMLDivElement | null }).current = node;
           }}
           className={classes}
           role="dialog"

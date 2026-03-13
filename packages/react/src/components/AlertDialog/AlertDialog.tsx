@@ -62,12 +62,12 @@ export const AlertDialog = React.forwardRef<HTMLDivElement, AlertDialogProps>(
     const descId = 'uds-alert-dialog-desc';
 
     return createPortal(
-      <div className="uds-alert-dialog-overlay" role="presentation">
+      <div className="uds-alert-dialog-overlay">
         <div
           ref={(node) => {
             dialogRef.current = node;
             if (typeof ref === 'function') ref(node);
-            else if (ref) (ref as React.MutableRefObject<HTMLDivElement | null>).current = node;
+            else if (ref) (ref as { current: HTMLDivElement | null }).current = node;
           }}
           className={classes}
           role="alertdialog"

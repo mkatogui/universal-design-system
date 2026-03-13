@@ -8,7 +8,7 @@ import { useCallback, useEffect, useRef } from 'react';
 export function useDialogOverlay(
   open: boolean,
   onClose: () => void,
-  containerRef: React.MutableRefObject<HTMLElement | null>,
+  containerRef: React.RefObject<HTMLElement | null>,
 ) {
   const previousFocus = useRef<HTMLElement | null>(null);
 
