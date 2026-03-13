@@ -136,6 +136,129 @@ def _oklab_to_oklch(L: float, a: float, b: float) -> tuple:
     return (L, C, H)
 
 
+# --- Reverse Pipeline: oklch -> oklab -> XYZ -> linear RGB -> sRGB -> hex ---
+
+def _oklab_to_xyz(L: float, a: float, b: float) -> tuple:
+    """Convert OKLab (L, a, b) to CIE XYZ (D65 illuminant).
+
+    Uses the inverse of the OKLab forward matrices:
+    OKLab -> LMS (cube roots) -> XYZ via M1 inverse.
+    """
+    # OKLab to LMS (cube-root space) via inverse of M2
+    l_ = L + 0.3963377774 * a + 0.2158037573 * b
+    m_ = L - 0.1055613458 * a - 0.0638541728 * b
+    s_ = L - 0.0894841775 * a - 1.2914855480 * b
+
+    # Undo cube root: LMS = (l_^3, m_^3, s_^3)
+    l_cubed = l_ * l_ * l_
+    m_cubed = m_ * m_ * m_
+    s_cubed = s_ * s_ * s_
+
+    # LMS to XYZ via inverse of M1
+    x = 1.2270138511035211 * l_cubed - 0.5577999806518222 * m_cubed + 0.2812561489664678 * s_cubed
+    y = -0.0405801784232806 * l_cubed + 1.1122568696168302 * m_cubed - 0.0716766786656012 * s_cubed
+    z = -0.0763812845057069 * l_cubed - 0.4214819784180127 * m_cubed + 1.5861632204407947 * s_cubed
+
+    return (x, y, z)
+
+
+def _xyz_to_linear_rgb(x: float, y: float, z: float) -> tuple:
+    """Convert CIE XYZ (D65) to linear sRGB via the standard sRGB matrix.
+
+    Returns (r, g, b) in linear light, may be outside [0,1] for out-of-gamut colors.
+    """
+    r = 3.2404541621141054 * x - 1.5371385940306089 * y - 0.4985314095560162 * z
+    g = -0.9692660305051868 * x + 1.8760108454466942 * y + 0.0415560175303498 * z
+    b = 0.0556434309591147 * x - 0.2040259135167538 * y + 1.0572251882231791 * z
+    return (r, g, b)
+
+
+def oklch_to_hex(L: float, C: float, H: float) -> str:
+    """Convert OKLCH color to hex string (#RRGGBB).
+
+    Full pipeline: OKLCH -> OKLab -> XYZ (D65) -> linear sRGB -> sRGB -> hex.
+
+    Args:
+        L: Lightness in [0, 1]
+        C: Chroma in [0, ~0.4]
+        H: Hue in degrees [0, 360]
+
+    Returns:
+        Uppercase hex string like '#RRGGBB'. Out-of-gamut values are clamped to sRGB.
+    """
+    # OKLCH to OKLab
+    H_rad = math.radians(H)
+    a = C * math.cos(H_rad)
+    b = C * math.sin(H_rad)
+
+    # OKLab to XYZ
+    x, y, z = _oklab_to_xyz(L, a, b)
+
+    # XYZ to linear RGB
+    r_lin, g_lin, b_lin = _xyz_to_linear_rgb(x, y, z)
+
+    # Linear RGB to sRGB with clamping
+    r_srgb = _linear_to_srgb(max(0.0, min(1.0, r_lin)))
+    g_srgb = _linear_to_srgb(max(0.0, min(1.0, g_lin)))
+    b_srgb = _linear_to_srgb(max(0.0, min(1.0, b_lin)))
+
+    # sRGB to 8-bit hex
+    return rgb_to_hex(
+        round(r_srgb * 255),
+        round(g_srgb * 255),
+        round(b_srgb * 255),
+    )
+
+
+def gamut_map_p3(L: float, C: float, H: float, epsilon: float = 0.001) -> tuple:
+    """Map an OKLCH color into the sRGB gamut by iteratively reducing chroma.
+
+    Uses binary search on chroma to find the maximum chroma that keeps the
+    color within sRGB [0,1] bounds (Display P3 colors are reduced to sRGB).
+
+    Args:
+        L: Lightness in [0, 1]
+        C: Chroma in [0, ~0.4]
+        H: Hue in degrees [0, 360]
+        epsilon: Chroma precision threshold for binary search convergence.
+
+    Returns:
+        Tuple (L, C_mapped, H) where C_mapped <= C and the color is in sRGB gamut.
+    """
+    # Check if already in gamut
+    if _is_in_srgb_gamut(L, C, H):
+        return (L, C, H)
+
+    # Binary search: reduce chroma until in gamut
+    lo = 0.0
+    hi = C
+    while hi - lo > epsilon:
+        mid = (lo + hi) / 2.0
+        if _is_in_srgb_gamut(L, mid, H):
+            lo = mid
+        else:
+            hi = mid
+
+    return (L, lo, H)
+
+
+def _is_in_srgb_gamut(L: float, C: float, H: float) -> bool:
+    """Check whether an OKLCH color falls within the sRGB gamut.
+
+    Returns True if all linear RGB channels are within [-epsilon, 1+epsilon]
+    (small tolerance for floating-point rounding).
+    """
+    H_rad = math.radians(H)
+    a = C * math.cos(H_rad)
+    b = C * math.sin(H_rad)
+
+    x, y, z = _oklab_to_xyz(L, a, b)
+    r, g, b_val = _xyz_to_linear_rgb(x, y, z)
+
+    tol = 1e-6
+    return all(-tol <= ch <= 1.0 + tol for ch in (r, g, b_val))
+
+
 def hex_to_oklch(hex_color: str) -> dict:
     """Convert '#RRGGBB' hex color to oklch dict with L, C, H values.
 
@@ -656,6 +779,161 @@ class PaletteDeriver:
                 results.append((f"{mode_name}: {fg_key}/{bg_key}", ratio, ratio >= 3.0))
 
         return results
+
+
+# --- Inverse OKLCH Conversions ---
+# Pipeline: oklch -> oklab -> XYZ (D65) -> linear RGB -> sRGB -> hex
+
+def _oklch_to_oklab(L: float, C: float, H: float) -> tuple:
+    """Convert oklch (L, C, H) to oklab (L, a, b)."""
+    H_rad = math.radians(H)
+    a = C * math.cos(H_rad)
+    b = C * math.sin(H_rad)
+    return (L, a, b)
+
+
+def _oklab_to_xyz(L: float, a: float, b: float) -> tuple:
+    """Convert oklab (L, a, b) to CIE XYZ (D65 illuminant)."""
+    l_ = L + 0.3963377774 * a + 0.2158037573 * b
+    m_ = L - 0.1055613458 * a - 0.0638541728 * b
+    s_ = L - 0.0894841775 * a - 1.2914855480 * b
+
+    # Cube the LMS values
+    l_c = l_ * l_ * l_
+    m_c = m_ * m_ * m_
+    s_c = s_ * s_ * s_
+
+    # Inverse M2 matrix (LMS -> XYZ)
+    x = 1.2270138511035211 * l_c - 0.5577999806518222 * m_c + 0.2812561489664678 * s_c
+    y = -0.0405801784232806 * l_c + 1.1122568696168302 * m_c - 0.0716766786656012 * s_c
+    z = -0.0763812845057069 * l_c - 0.4214819784180127 * m_c + 1.5861632204407947 * s_c
+
+    return (x, y, z)
+
+
+def _xyz_to_linear_rgb(x: float, y: float, z: float) -> tuple:
+    """Convert CIE XYZ (D65) to linear RGB."""
+    r = 3.2404541621141054 * x - 1.5371385940306089 * y - 0.49853140955601579 * z
+    g = -0.96926603050518312 * x + 1.8760108454466942 * y + 0.041556017530349834 * z
+    b = 0.055643430959114726 * x - 0.20397695987305730 * y + 1.0572251882231791 * z
+    return (r, g, b)
+
+
+def oklch_to_hex(L: float, C: float, H: float) -> str:
+    """Convert oklch (L, C, H) to hex color string '#RRGGBB'.
+
+    Args:
+        L: Lightness (0-1)
+        C: Chroma (0+, typically 0-0.4)
+        H: Hue (0-360)
+
+    Returns:
+        Hex color string like '#3B82F6'. Out-of-gamut values are clamped.
+    """
+    # oklch -> oklab
+    ok_L, ok_a, ok_b = _oklch_to_oklab(L, C, H)
+    # oklab -> XYZ
+    x, y, z = _oklab_to_xyz(ok_L, ok_a, ok_b)
+    # XYZ -> linear RGB
+    r_lin, g_lin, b_lin = _xyz_to_linear_rgb(x, y, z)
+    # linear RGB -> sRGB (clamp to gamut)
+    r_s = max(0.0, min(1.0, _linear_to_srgb(max(0.0, r_lin))))
+    g_s = max(0.0, min(1.0, _linear_to_srgb(max(0.0, g_lin))))
+    b_s = max(0.0, min(1.0, _linear_to_srgb(max(0.0, b_lin))))
+    # sRGB -> hex
+    return rgb_to_hex(round(r_s * 255), round(g_s * 255), round(b_s * 255))
+
+
+# --- Tonal Palette ---
+
+class TonalPalette:
+    """OKLCH-based tonal palette generator (Material You style).
+
+    Generates a 13-stop tonal scale from a seed color by varying lightness
+    in OKLCH color space while keeping the hue constant and adjusting chroma
+    at the extremes to stay within the sRGB gamut.
+    """
+
+    TONAL_STOPS = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 95, 99, 100]
+
+    def __init__(self, seed_hex: str):
+        """Initialize from a seed color hex string.
+
+        Args:
+            seed_hex: Hex color like '#3B82F6' or '3B82F6'.
+        """
+        if not seed_hex.startswith("#"):
+            seed_hex = f"#{seed_hex}"
+        self.seed_hex = seed_hex.upper()
+        oklch = hex_to_oklch(seed_hex)
+        self.seed_L = oklch["l"]
+        self.seed_C = oklch["c"]
+        self.seed_H = oklch["h"]
+
+    def _chroma_for_tone(self, tone: int) -> float:
+        """Calculate chroma for a given tonal stop.
+
+        Reduces chroma at very light (>90) and very dark (<10) tones to
+        keep colors within sRGB gamut and produce natural-looking scales.
+        """
+        if tone <= 0 or tone >= 100:
+            return 0.0
+        # Reduce chroma at extremes using a parabolic curve
+        # Peak chroma at tone ~40-60, falling off toward 0 and 100
+        t = tone / 100.0
+        # Parabolic envelope: peaks at t=0.4, zero at t=0 and t=1
+        envelope = 1.0 - ((t - 0.4) / 0.6) ** 2 if t >= 0.4 else t / 0.4
+        envelope = max(0.0, min(1.0, envelope))
+        return self.seed_C * envelope
+
+    def generate(self) -> dict:
+        """Generate 13-stop tonal scale.
+
+        Returns:
+            dict mapping tonal stop (int) to hex color string.
+            e.g., {0: '#000000', 10: '#001A3D', ..., 100: '#FFFFFF'}
+        """
+        scale = {}
+        for stop in self.TONAL_STOPS:
+            L = stop / 100.0
+            C = self._chroma_for_tone(stop)
+            H = self.seed_H
+            scale[stop] = oklch_to_hex(L, C, H)
+        return scale
+
+    def get_color_roles(self) -> dict:
+        """Assign Material You-style color roles from the tonal scale.
+
+        Returns:
+            dict with semantic role names mapped to hex colors.
+        """
+        scale = self.generate()
+        return {
+            "primary": scale[40],
+            "on-primary": scale[100],
+            "primary-container": scale[90],
+            "on-primary-container": scale[10],
+            "secondary": scale[40],
+            "on-secondary": scale[100],
+            "secondary-container": scale[90],
+            "on-secondary-container": scale[10],
+            "surface": scale[99],
+            "on-surface": scale[10],
+            "surface-variant": scale[90],
+            "on-surface-variant": scale[30],
+            "outline": scale[50],
+            "outline-variant": scale[80],
+            "inverse-surface": scale[20],
+            "inverse-on-surface": scale[95],
+            "inverse-primary": scale[80],
+            "surface-dim": scale[87] if 87 in scale else scale[90],
+            "surface-bright": scale[98] if 98 in scale else scale[99],
+            "surface-container-lowest": scale[100],
+            "surface-container-low": scale[96] if 96 in scale else scale[95],
+            "surface-container": scale[94] if 94 in scale else scale[95],
+            "surface-container-high": scale[92] if 92 in scale else scale[90],
+            "surface-container-highest": scale[90],
+        }
 
 
 # --- Self-test ---
