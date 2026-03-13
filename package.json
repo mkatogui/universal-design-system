@@ -40,8 +40,8 @@
     "changeset:version": "changeset version",
     "changeset:publish": "changeset publish",
     "prepare": "husky",
-    "size": "size-limit",
-    "size:check": "size-limit --limit"
+    "size": "npm run build:react && size-limit",
+    "size:check": "npm run build:react && size-limit --limit"
   },
   "keywords": [
     "design-system",
