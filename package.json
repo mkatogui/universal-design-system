@@ -124,6 +124,16 @@
       "limit": "30 KB"
     }
   ],
+  "size-limit-components": {
+    "Button": "5 KB",
+    "Modal": "8 KB",
+    "Tabs": "6 KB",
+    "Input": "4 KB",
+    "Card": "3 KB",
+    "Alert": "3 KB",
+    "Accordion": "6 KB",
+    "Tooltip": "4 KB"
+  },
   "lint-staged": {
     "*.{js,ts,tsx}": [
       "biome check --write --no-errors-on-unmatched"
