@@ -3520,6 +3520,98 @@
         "$value": "320px",
         "$description": "Sidebar with secondary nav"
       }
+    },
+    "stack": {
+      "$description": "Stack layout gap tokens for vertical flex layouts.",
+      "gap-xs": {
+        "$type": "dimension",
+        "$value": "{spacing.1}"
+      },
+      "gap-sm": {
+        "$type": "dimension",
+        "$value": "{spacing.2}"
+      },
+      "gap-md": {
+        "$type": "dimension",
+        "$value": "{spacing.4}"
+      },
+      "gap-lg": {
+        "$type": "dimension",
+        "$value": "{spacing.6}"
+      },
+      "gap-xl": {
+        "$type": "dimension",
+        "$value": "{spacing.8}"
+      }
+    },
+    "grid": {
+      "$description": "Grid layout column count tokens.",
+      "columns-1": {
+        "$type": "number",
+        "$value": 1
+      },
+      "columns-2": {
+        "$type": "number",
+        "$value": 2
+      },
+      "columns-3": {
+        "$type": "number",
+        "$value": 3
+      },
+      "columns-4": {
+        "$type": "number",
+        "$value": 4
+      },
+      "columns-6": {
+        "$type": "number",
+        "$value": 6
+      },
+      "columns-12": {
+        "$type": "number",
+        "$value": 12
+      }
+    },
+    "container-query": {
+      "$description": "Container query breakpoint tokens for responsive container-based layouts.",
+      "sm": {
+        "$type": "dimension",
+        "$value": "320px",
+        "$description": "Small container query breakpoint"
+      },
+      "md": {
+        "$type": "dimension",
+        "$value": "480px",
+        "$description": "Medium container query breakpoint"
+      },
+      "lg": {
+        "$type": "dimension",
+        "$value": "640px",
+        "$description": "Large container query breakpoint"
+      },
+      "xl": {
+        "$type": "dimension",
+        "$value": "960px",
+        "$description": "Extra large container query breakpoint"
+      }
+    },
+    "container-max-width": {
+      "$description": "Container max-width tokens for layout constraint.",
+      "sm": {
+        "$type": "dimension",
+        "$value": "640px"
+      },
+      "md": {
+        "$type": "dimension",
+        "$value": "768px"
+      },
+      "lg": {
+        "$type": "dimension",
+        "$value": "1024px"
+      },
+      "xl": {
+        "$type": "dimension",
+        "$value": "1280px"
+      }
     }
   },
   "transition": {

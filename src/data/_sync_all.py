@@ -83,6 +83,9 @@ FILE_SCHEMAS = {
     "google-fonts.csv": {
         "required": ["id", "name", "category", "weights"],
     },
+    "layout-primitives.csv": {
+        "required": ["id", "name", "slug", "description", "css_display", "default_gap", "accepts_children", "container_query_aware"],
+    },
     "component-slots.csv": {
         "required": [
             "id",
