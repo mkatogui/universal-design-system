@@ -67,7 +67,7 @@ describe('Drawer', () => {
       </Drawer>,
     );
     const overlay = document.querySelector('.uds-drawer-overlay')!;
-    fireEvent.click(overlay);
+    fireEvent.mouseDown(overlay);
     expect(handleClose).toHaveBeenCalledTimes(1);
   });
 
@@ -124,14 +124,13 @@ describe('Drawer', () => {
   });
 
   it('forwards a ref to the dialog element', () => {
-    const ref = React.createRef<HTMLDivElement>();
+    const ref = React.createRef<HTMLDialogElement>();
     render(
       <Drawer ref={ref} open={true} onClose={vi.fn()} title="Ref Test">
         Body
       </Drawer>,
     );
-    expect(ref.current).toBeInstanceOf(HTMLDivElement);
-    expect(ref.current).toHaveAttribute('role', 'dialog');
+    expect(ref.current).toBeInstanceOf(HTMLDialogElement);
   });
 
   it('renders without title (no header)', () => {
@@ -164,7 +163,7 @@ describe('Drawer', () => {
       </Drawer>,
     );
     expect(callbackRef).toHaveBeenCalled();
-    expect(callbackRef.mock.calls[0][0]).toBeInstanceOf(HTMLDivElement);
+    expect(callbackRef.mock.calls[0][0]).toBeInstanceOf(HTMLDialogElement);
   });
 
   it('applies additional className', () => {

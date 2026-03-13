@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { useDialogOverlay } from '../../utils/useDialogOverlay';
 
@@ -51,6 +51,18 @@ export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
 
     useDialogOverlay(open, onClose, modalRef);
 
+    // Click on overlay (outside dialog) to close
+    useEffect(() => {
+      if (!open) return;
+      const handleOverlayClick = (e: MouseEvent) => {
+        if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
+          onClose();
+        }
+      };
+      document.addEventListener('mousedown', handleOverlayClick);
+      return () => document.removeEventListener('mousedown', handleOverlayClick);
+    }, [open, onClose]);
+
     // Auto-focus the first focusable element when opened
     React.useEffect(() => {
       if (open) {
@@ -72,12 +84,7 @@ export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
       .join(' ');
 
     return createPortal(
-      <div
-        className="uds-modal-overlay"
-        onClick={(e) => {
-          if (e.target === e.currentTarget) onClose();
-        }}
-      >
+      <div className="uds-modal-overlay">
         <div
           ref={(node) => {
             modalRef.current = node;

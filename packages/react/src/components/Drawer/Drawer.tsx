@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { useDialogOverlay } from '../../utils/useDialogOverlay';
 
@@ -19,11 +19,23 @@ export interface DrawerProps {
   className?: string;
 }
 
-export const Drawer = React.forwardRef<HTMLDivElement, DrawerProps>(
+export const Drawer = React.forwardRef<HTMLDialogElement, DrawerProps>(
   ({ open, onClose, side = 'right', size = 'md', title, children, className }, ref) => {
-    const drawerRef = useRef<HTMLDivElement | null>(null);
+    const drawerRef = useRef<HTMLDialogElement | null>(null);
 
     useDialogOverlay(open, onClose, drawerRef);
+
+    // Click on overlay (outside dialog) to close
+    useEffect(() => {
+      if (!open) return;
+      const handleOverlayClick = (e: MouseEvent) => {
+        if (drawerRef.current && !drawerRef.current.contains(e.target as Node)) {
+          onClose();
+        }
+      };
+      document.addEventListener('mousedown', handleOverlayClick);
+      return () => document.removeEventListener('mousedown', handleOverlayClick);
+    }, [open, onClose]);
 
     // Auto-focus the first focusable element when opened
     React.useEffect(() => {
@@ -46,20 +58,15 @@ export const Drawer = React.forwardRef<HTMLDivElement, DrawerProps>(
       .join(' ');
 
     return createPortal(
-      <div
-        className="uds-drawer-overlay"
-        onClick={(e) => {
-          if (e.target === e.currentTarget) onClose();
-        }}
-      >
-        <div
+      <div className="uds-drawer-overlay">
+        <dialog
           ref={(node) => {
             drawerRef.current = node;
             if (typeof ref === 'function') ref(node);
-            else if (ref) (ref as { current: HTMLDivElement | null }).current = node;
+            else if (ref) (ref as { current: HTMLDialogElement | null }).current = node;
           }}
           className={classes}
-          role="dialog"
+          open
           aria-modal="true"
           aria-label={title}
         >
@@ -87,7 +94,7 @@ export const Drawer = React.forwardRef<HTMLDivElement, DrawerProps>(
             </div>
           )}
           <div className="uds-drawer__body">{children}</div>
-        </div>
+        </dialog>
       </div>,
       document.body,
     );
