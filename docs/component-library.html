@@ -766,7 +766,7 @@ defineEmits(['update:modelValue']);
 <div class="component" id="select">
 <div class="component-header"><span class="component-name">Select</span><span class="component-props">Same sizing and states as Input</span></div><div class="component-preview">
   <span class="preview-label">Preview</span>
-  <label class="input-label">Country</label><select class="input"><option>United States</option><option>Canada</option></select>
+  <label class="input-label" for="demo-country">Country</label><select class="input" id="demo-country"><option>United States</option><option>Canada</option></select>
 </div>
 
 <div class="component-code">
@@ -800,7 +800,7 @@ defineEmits(['update:modelValue']);
 <div class="component" id="toggle">
 <div class="component-header"><span class="component-name">Toggle</span><span class="component-props">checked: boolean, disabled: boolean</span></div><div class="component-preview">
   <span class="preview-label">Preview</span>
-  <button class="toggle on" role="switch" aria-checked="true"></button>
+  <button class="toggle on" role="switch" aria-checked="true" aria-label="Enable notifications"></button>
 </div>
 
 <div class="component-code">
@@ -1349,8 +1349,8 @@ defineProps({ variant: { type: String, default: 'brand' } });
 <div class="component">
 <div class="component-header"><span class="component-name">Radio</span><span class="component-props">checked: boolean, disabled: boolean, variant: standard|card</span></div><div class="component-preview">
 <div style="padding:20px;display:flex;flex-direction:column;gap:12px;">
-<label style="display:flex;align-items:center;gap:8px;min-height:44px;cursor:pointer;font-size:var(--text-body-md)"><input type="radio" name="demo-plan" checked style="width:20px;height:20px;accent-color:var(--color-brand-primary)"> Monthly</label>
-<label style="display:flex;align-items:center;gap:8px;min-height:44px;cursor:pointer;font-size:var(--text-body-md)"><input type="radio" name="demo-plan" style="width:20px;height:20px;accent-color:var(--color-brand-primary)"> Annual</label>
+<label style="display:flex;align-items:center;gap:8px;min-height:44px;cursor:pointer;font-size:var(--text-body-md)"><input type="radio" name="demo-plan" checked style="width:20px;height:20px;accent-color:var(--color-brand-primary)" aria-label="Monthly plan"> Monthly</label>
+<label style="display:flex;align-items:center;gap:8px;min-height:44px;cursor:pointer;font-size:var(--text-body-md)"><input type="radio" name="demo-plan" style="width:20px;height:20px;accent-color:var(--color-brand-primary)" aria-label="Annual plan"> Annual</label>
 </div>
 </div>
 <div class="component-code">

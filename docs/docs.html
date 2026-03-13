@@ -2068,7 +2068,7 @@ html.docs-dark .playground-control-group select {
 
 <div class="preview" id="sandbox-area">
   <div style="display:flex;gap:12px;margin-bottom:16px;flex-wrap:wrap;align-items:center">
-    <label style="font-size:var(--text-label);font-weight:var(--font-weight-semibold)">Component:</label>
+    <label for="sandbox-component" style="font-size:var(--text-label);font-weight:var(--font-weight-semibold)">Component:</label>
     <select class="input" style="width:160px;height:36px;font-size:var(--text-body-sm)" id="sandbox-component" onchange="updateSandbox()">
       <option value="button">Button</option>
       <option value="input">Input</option>
@@ -2077,14 +2077,14 @@ html.docs-dark .playground-control-group select {
       <option value="alert">Alert</option>
       <option value="toast">Toast</option>
     </select>
-    <label style="font-size:var(--text-label);font-weight:var(--font-weight-semibold);margin-left:12px">Variant:</label>
+    <label for="sandbox-variant" style="font-size:var(--text-label);font-weight:var(--font-weight-semibold);margin-left:12px">Variant:</label>
     <select class="input" style="width:140px;height:36px;font-size:var(--text-body-sm)" id="sandbox-variant" onchange="updateSandbox()">
       <option value="primary">primary</option>
       <option value="secondary">secondary</option>
       <option value="ghost">ghost</option>
       <option value="destructive">destructive</option>
     </select>
-    <label style="font-size:var(--text-label);font-weight:var(--font-weight-semibold);margin-left:12px">Size:</label>
+    <label for="sandbox-size" style="font-size:var(--text-label);font-weight:var(--font-weight-semibold);margin-left:12px">Size:</label>
     <select class="input" style="width:100px;height:36px;font-size:var(--text-body-sm)" id="sandbox-size" onchange="updateSandbox()">
       <option value="sm">sm</option>
       <option value="md" selected>md</option>
