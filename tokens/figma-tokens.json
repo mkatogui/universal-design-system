@@ -243,6 +243,64 @@
           "$type": "color",
           "$description": "Focus ring color with transparency"
         }
+      },
+      "semantic": {
+        "$description": "Semantic alias tokens (tier 2) — action, feedback, surface, text, border",
+        "action-primary": {
+          "$value": "{color.primitive.blue.600}",
+          "$type": "color",
+          "$description": "Primary action color (buttons, links)"
+        },
+        "action-secondary": {
+          "$value": "{color.primitive.blue.500}",
+          "$type": "color",
+          "$description": "Secondary action color"
+        },
+        "action-destructive": {
+          "$value": "{color.primitive.red.600}",
+          "$type": "color",
+          "$description": "Destructive action color"
+        },
+        "feedback-success": {
+          "$value": "{color.primitive.green.600}",
+          "$type": "color",
+          "$description": "Success feedback"
+        },
+        "feedback-warning": {
+          "$value": "{color.primitive.amber.600}",
+          "$type": "color",
+          "$description": "Warning feedback"
+        },
+        "feedback-error": {
+          "$value": "{color.primitive.red.600}",
+          "$type": "color",
+          "$description": "Error feedback"
+        },
+        "feedback-info": {
+          "$value": "{color.primitive.blue.600}",
+          "$type": "color",
+          "$description": "Info feedback"
+        },
+        "surface-elevated": {
+          "$value": "{color.primitive.neutral.100}",
+          "$type": "color",
+          "$description": "Elevated surface (cards, modals)"
+        },
+        "surface-overlay": {
+          "$value": "{color.primitive.neutral.150}",
+          "$type": "color",
+          "$description": "Overlay surface (dropdowns, popovers)"
+        },
+        "text-link": {
+          "$value": "{color.primitive.blue.600}",
+          "$type": "color",
+          "$description": "Hyperlink text color"
+        },
+        "border-focus": {
+          "$value": "{color.primitive.blue.600}",
+          "$type": "color",
+          "$description": "Focus ring border color"
+        }
       }
     },
     "spacing": {

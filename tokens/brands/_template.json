@@ -1,0 +1,27 @@
+{
+  "$schema": "https://design-tokens.org/schema.json",
+  "$description": "Brand override template — copy and customize",
+  "brand": {
+    "name": { "$type": "string", "$value": "brand-name" },
+    "color": {
+      "primary": { "$type": "color", "$value": "#3B82F6" },
+      "secondary": { "$type": "color", "$value": "#10B981" },
+      "accent": { "$type": "color", "$value": "#F59E0B" }
+    },
+    "typography": {
+      "font-display": { "$type": "fontFamily", "$value": "Inter" },
+      "font-body": { "$type": "fontFamily", "$value": "Inter" }
+    },
+    "shadow": {
+      "elevation-1": {
+        "$type": "shadow",
+        "$value": {
+          "offsetX": "0px",
+          "offsetY": "1px",
+          "blur": "3px",
+          "color": "rgba(0,0,0,0.1)"
+        }
+      }
+    }
+  }
+}
