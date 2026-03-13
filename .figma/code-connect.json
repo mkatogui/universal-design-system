@@ -1,0 +1,346 @@
+{
+  "$schema": "https://figma.com/code-connect/schema/v1",
+  "components": {
+    "Button": {
+      "figmaNodeUrl": "figma.com/file/universal-design-system/button",
+      "props": {
+        "variant": { "type": "enum", "values": ["primary", "secondary", "ghost", "gradient", "destructive", "icon-only"] },
+        "size": { "type": "enum", "values": ["sm", "md", "lg", "xl"] },
+        "fullWidth": { "type": "boolean", "default": false },
+        "disabled": { "type": "boolean", "default": false },
+        "loading": { "type": "boolean", "default": false },
+        "iconLeft": { "type": "string" },
+        "iconRight": { "type": "string" }
+      },
+      "template": "<Button variant=\"{{variant}}\" size=\"{{size}}\" fullWidth={{{fullWidth}}} disabled={{{disabled}}} loading={{{loading}}}>{{children}}</Button>"
+    },
+    "NavigationBar": {
+      "figmaNodeUrl": "figma.com/file/universal-design-system/navigation-bar",
+      "props": {
+        "variant": { "type": "enum", "values": ["standard", "minimal", "dark", "transparent"] },
+        "sticky": { "type": "boolean", "default": false },
+        "blurOnScroll": { "type": "boolean", "default": false },
+        "megaMenu": { "type": "boolean", "default": false },
+        "darkModeToggle": { "type": "boolean", "default": false },
+        "ctaButton": { "type": "boolean", "default": false }
+      },
+      "template": "<NavigationBar variant=\"{{variant}}\" sticky={{{sticky}}} blurOnScroll={{{blurOnScroll}}} megaMenu={{{megaMenu}}} darkModeToggle={{{darkModeToggle}}} ctaButton={{{ctaButton}}}>{{children}}</NavigationBar>"
+    },
+    "HeroSection": {
+      "figmaNodeUrl": "figma.com/file/universal-design-system/hero-section",
+      "props": {
+        "variant": { "type": "enum", "values": ["centered", "product-screenshot", "video-bg", "gradient-mesh", "search-forward", "split"] },
+        "size": { "type": "enum", "values": ["full", "compact"] },
+        "headline": { "type": "string" },
+        "subheadline": { "type": "string" }
+      },
+      "template": "<HeroSection variant=\"{{variant}}\" size=\"{{size}}\" headline=\"{{headline}}\" subheadline=\"{{subheadline}}\">{{children}}</HeroSection>"
+    },
+    "FeatureCard": {
+      "figmaNodeUrl": "figma.com/file/universal-design-system/feature-card",
+      "props": {
+        "variant": { "type": "enum", "values": ["icon-top", "image-top", "horizontal", "stat-card", "dashboard-preview"] },
+        "size": { "type": "enum", "values": ["sm", "md", "lg"] },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "link": { "type": "string" }
+      },
+      "template": "<FeatureCard variant=\"{{variant}}\" size=\"{{size}}\" title=\"{{title}}\" description=\"{{description}}\">{{children}}</FeatureCard>"
+    },
+    "PricingTable": {
+      "figmaNodeUrl": "figma.com/file/universal-design-system/pricing-table",
+      "props": {
+        "variant": { "type": "enum", "values": ["2-column", "3-column", "4-column", "toggle"] },
+        "size": { "type": "enum", "values": ["standard", "compact"] },
+        "highlightedPlan": { "type": "string" }
+      },
+      "template": "<PricingTable variant=\"{{variant}}\" size=\"{{size}}\" highlightedPlan=\"{{highlightedPlan}}\">{{children}}</PricingTable>"
+    },
+    "SocialProofBar": {
+      "figmaNodeUrl": "figma.com/file/universal-design-system/social-proof-bar",
+      "props": {
+        "variant": { "type": "enum", "values": ["logo-strip", "stats-counter", "testimonial-mini", "combined"] },
+        "size": { "type": "enum", "values": ["standard", "compact"] },
+        "animated": { "type": "boolean", "default": false }
+      },
+      "template": "<SocialProofBar variant=\"{{variant}}\" size=\"{{size}}\" animated={{{animated}}}>{{children}}</SocialProofBar>"
+    },
+    "TestimonialCard": {
+      "figmaNodeUrl": "figma.com/file/universal-design-system/testimonial-card",
+      "props": {
+        "variant": { "type": "enum", "values": ["quote-card", "video", "metric", "carousel"] },
+        "size": { "type": "enum", "values": ["sm", "md", "lg"] },
+        "quote": { "type": "string" },
+        "name": { "type": "string" },
+        "title": { "type": "string" },
+        "company": { "type": "string" },
+        "rating": { "type": "number" }
+      },
+      "template": "<TestimonialCard variant=\"{{variant}}\" size=\"{{size}}\" quote=\"{{quote}}\" name=\"{{name}}\" title=\"{{title}}\" company=\"{{company}}\">{{children}}</TestimonialCard>"
+    },
+    "Footer": {
+      "figmaNodeUrl": "figma.com/file/universal-design-system/footer",
+      "props": {
+        "variant": { "type": "enum", "values": ["simple", "multi-column", "newsletter", "mega-footer"] },
+        "size": { "type": "enum", "values": ["standard", "compact"] },
+        "newsletter": { "type": "boolean", "default": false },
+        "copyright": { "type": "string" }
+      },
+      "template": "<Footer variant=\"{{variant}}\" size=\"{{size}}\" newsletter={{{newsletter}}}>{{children}}</Footer>"
+    },
+    "CodeBlock": {
+      "figmaNodeUrl": "figma.com/file/universal-design-system/code-block",
+      "props": {
+        "variant": { "type": "enum", "values": ["syntax-highlighted", "terminal", "multi-tab"] },
+        "size": { "type": "enum", "values": ["sm", "md", "lg"] },
+        "language": { "type": "string" },
+        "showLineNumbers": { "type": "boolean", "default": true },
+        "showCopy": { "type": "boolean", "default": true }
+      },
+      "template": "<CodeBlock variant=\"{{variant}}\" language=\"{{language}}\" showLineNumbers={{{showLineNumbers}}} showCopy={{{showCopy}}}>{{children}}</CodeBlock>"
+    },
+    "Modal": {
+      "figmaNodeUrl": "figma.com/file/universal-design-system/modal",
+      "props": {
+        "variant": { "type": "enum", "values": ["confirmation", "task", "alert"] },
+        "size": { "type": "enum", "values": ["sm", "md", "lg"] },
+        "open": { "type": "boolean", "default": false },
+        "title": { "type": "string" }
+      },
+      "template": "<Modal variant=\"{{variant}}\" size=\"{{size}}\" open={{{open}}} title=\"{{title}}\">{{children}}</Modal>"
+    },
+    "FormInput": {
+      "figmaNodeUrl": "figma.com/file/universal-design-system/form-input",
+      "props": {
+        "variant": { "type": "enum", "values": ["text", "email", "password", "number", "search", "textarea"] },
+        "size": { "type": "enum", "values": ["sm", "md", "lg"] },
+        "state": { "type": "enum", "values": ["default", "focus", "error", "disabled", "readonly"] },
+        "label": { "type": "string" },
+        "helperText": { "type": "string" },
+        "errorText": { "type": "string" },
+        "required": { "type": "boolean", "default": false }
+      },
+      "template": "<FormInput variant=\"{{variant}}\" size=\"{{size}}\" state=\"{{state}}\" label=\"{{label}}\" helperText=\"{{helperText}}\" required={{{required}}} />"
+    },
+    "Select": {
+      "figmaNodeUrl": "figma.com/file/universal-design-system/select",
+      "props": {
+        "variant": { "type": "enum", "values": ["native", "custom"] },
+        "size": { "type": "enum", "values": ["sm", "md", "lg"] },
+        "state": { "type": "enum", "values": ["default", "focus", "error", "disabled"] },
+        "placeholder": { "type": "string" },
+        "required": { "type": "boolean", "default": false }
+      },
+      "template": "<Select variant=\"{{variant}}\" size=\"{{size}}\" state=\"{{state}}\" placeholder=\"{{placeholder}}\" required={{{required}}}>{{children}}</Select>"
+    },
+    "Checkbox": {
+      "figmaNodeUrl": "figma.com/file/universal-design-system/checkbox",
+      "props": {
+        "variant": { "type": "enum", "values": ["standard", "indeterminate"] },
+        "checked": { "type": "boolean", "default": false },
+        "indeterminate": { "type": "boolean", "default": false },
+        "disabled": { "type": "boolean", "default": false },
+        "label": { "type": "string" },
+        "name": { "type": "string" }
+      },
+      "template": "<Checkbox variant=\"{{variant}}\" checked={{{checked}}} indeterminate={{{indeterminate}}} disabled={{{disabled}}} label=\"{{label}}\" name=\"{{name}}\" />"
+    },
+    "Radio": {
+      "figmaNodeUrl": "figma.com/file/universal-design-system/radio",
+      "props": {
+        "variant": { "type": "enum", "values": ["standard", "card"] },
+        "checked": { "type": "boolean", "default": false },
+        "disabled": { "type": "boolean", "default": false },
+        "label": { "type": "string" },
+        "name": { "type": "string" },
+        "value": { "type": "string" }
+      },
+      "template": "<Radio variant=\"{{variant}}\" checked={{{checked}}} disabled={{{disabled}}} label=\"{{label}}\" name=\"{{name}}\" value=\"{{value}}\" />"
+    },
+    "ToggleSwitch": {
+      "figmaNodeUrl": "figma.com/file/universal-design-system/toggle-switch",
+      "props": {
+        "variant": { "type": "enum", "values": ["standard", "with-label"] },
+        "checked": { "type": "boolean", "default": false },
+        "disabled": { "type": "boolean", "default": false },
+        "label": { "type": "string" }
+      },
+      "template": "<ToggleSwitch variant=\"{{variant}}\" checked={{{checked}}} disabled={{{disabled}}} label=\"{{label}}\" />"
+    },
+    "Alert": {
+      "figmaNodeUrl": "figma.com/file/universal-design-system/alert",
+      "props": {
+        "variant": { "type": "enum", "values": ["success", "warning", "error", "info"] },
+        "size": { "type": "enum", "values": ["sm", "md", "lg"] },
+        "title": { "type": "string" },
+        "message": { "type": "string" },
+        "dismissible": { "type": "boolean", "default": false }
+      },
+      "template": "<Alert variant=\"{{variant}}\" size=\"{{size}}\" title=\"{{title}}\" dismissible={{{dismissible}}}>{{message}}</Alert>"
+    },
+    "Badge": {
+      "figmaNodeUrl": "figma.com/file/universal-design-system/badge",
+      "props": {
+        "variant": { "type": "enum", "values": ["status", "count", "tag"] },
+        "size": { "type": "enum", "values": ["sm", "md"] },
+        "label": { "type": "string" },
+        "color": { "type": "string" },
+        "removable": { "type": "boolean", "default": false }
+      },
+      "template": "<Badge variant=\"{{variant}}\" size=\"{{size}}\" color=\"{{color}}\" removable={{{removable}}}>{{label}}</Badge>"
+    },
+    "Tabs": {
+      "figmaNodeUrl": "figma.com/file/universal-design-system/tabs",
+      "props": {
+        "variant": { "type": "enum", "values": ["line", "pill", "segmented"] },
+        "size": { "type": "enum", "values": ["sm", "md", "lg"] },
+        "activeTab": { "type": "string" }
+      },
+      "template": "<Tabs variant=\"{{variant}}\" size=\"{{size}}\" activeTab=\"{{activeTab}}\">{{children}}</Tabs>"
+    },
+    "Accordion": {
+      "figmaNodeUrl": "figma.com/file/universal-design-system/accordion",
+      "props": {
+        "variant": { "type": "enum", "values": ["single", "multi", "flush"] },
+        "allowMultiple": { "type": "boolean", "default": false },
+        "defaultExpanded": { "type": "string" }
+      },
+      "template": "<Accordion variant=\"{{variant}}\" allowMultiple={{{allowMultiple}}} defaultExpanded=\"{{defaultExpanded}}\">{{children}}</Accordion>"
+    },
+    "Breadcrumb": {
+      "figmaNodeUrl": "figma.com/file/universal-design-system/breadcrumb",
+      "props": {
+        "variant": { "type": "enum", "values": ["standard", "truncated"] },
+        "separator": { "type": "string", "default": "/" },
+        "maxItems": { "type": "number" }
+      },
+      "template": "<Breadcrumb variant=\"{{variant}}\" separator=\"{{separator}}\" maxItems={{{maxItems}}}>{{children}}</Breadcrumb>"
+    },
+    "Tooltip": {
+      "figmaNodeUrl": "figma.com/file/universal-design-system/tooltip",
+      "props": {
+        "variant": { "type": "enum", "values": ["simple", "rich"] },
+        "size": { "type": "enum", "values": ["sm", "md"] },
+        "content": { "type": "string" },
+        "position": { "type": "enum", "values": ["top", "bottom", "left", "right"] }
+      },
+      "template": "<Tooltip variant=\"{{variant}}\" content=\"{{content}}\" position=\"{{position}}\">{{children}}</Tooltip>"
+    },
+    "DropdownMenu": {
+      "figmaNodeUrl": "figma.com/file/universal-design-system/dropdown-menu",
+      "props": {
+        "variant": { "type": "enum", "values": ["action", "context", "nav-sub"] },
+        "size": { "type": "enum", "values": ["sm", "md", "lg"] },
+        "position": { "type": "enum", "values": ["bottom-start", "bottom-end", "top-start", "top-end"] }
+      },
+      "template": "<DropdownMenu variant=\"{{variant}}\" size=\"{{size}}\" position=\"{{position}}\">{{children}}</DropdownMenu>"
+    },
+    "Avatar": {
+      "figmaNodeUrl": "figma.com/file/universal-design-system/avatar",
+      "props": {
+        "variant": { "type": "enum", "values": ["image", "initials", "icon", "group"] },
+        "size": { "type": "enum", "values": ["xs", "sm", "md", "lg", "xl"] },
+        "status": { "type": "enum", "values": ["online", "offline", "busy"] },
+        "src": { "type": "string" },
+        "alt": { "type": "string" },
+        "initials": { "type": "string" }
+      },
+      "template": "<Avatar variant=\"{{variant}}\" size=\"{{size}}\" src=\"{{src}}\" alt=\"{{alt}}\" initials=\"{{initials}}\" status=\"{{status}}\" />"
+    },
+    "Skeleton": {
+      "figmaNodeUrl": "figma.com/file/universal-design-system/skeleton",
+      "props": {
+        "variant": { "type": "enum", "values": ["text", "card", "avatar", "table"] },
+        "size": { "type": "enum", "values": ["sm", "md", "lg"] },
+        "lines": { "type": "number", "default": 3 },
+        "animated": { "type": "boolean", "default": true }
+      },
+      "template": "<Skeleton variant=\"{{variant}}\" size=\"{{size}}\" lines={{{lines}}} animated={{{animated}}} />"
+    },
+    "Toast": {
+      "figmaNodeUrl": "figma.com/file/universal-design-system/toast",
+      "props": {
+        "variant": { "type": "enum", "values": ["success", "error", "warning", "info", "neutral"] },
+        "size": { "type": "enum", "values": ["sm", "md", "lg"] },
+        "message": { "type": "string" },
+        "duration": { "type": "number", "default": 5000 },
+        "action": { "type": "string" }
+      },
+      "template": "<Toast variant=\"{{variant}}\" message=\"{{message}}\" duration={{{duration}}}>{{children}}</Toast>"
+    },
+    "Pagination": {
+      "figmaNodeUrl": "figma.com/file/universal-design-system/pagination",
+      "props": {
+        "variant": { "type": "enum", "values": ["numbered", "simple", "load-more", "infinite-scroll"] },
+        "size": { "type": "enum", "values": ["sm", "md"] },
+        "currentPage": { "type": "number", "default": 1 },
+        "totalPages": { "type": "number" }
+      },
+      "template": "<Pagination variant=\"{{variant}}\" size=\"{{size}}\" currentPage={{{currentPage}}} totalPages={{{totalPages}}} />"
+    },
+    "DataTable": {
+      "figmaNodeUrl": "figma.com/file/universal-design-system/data-table",
+      "props": {
+        "variant": { "type": "enum", "values": ["basic", "sortable", "selectable", "expandable"] },
+        "density": { "type": "enum", "values": ["compact", "default", "comfortable"] },
+        "sortable": { "type": "boolean", "default": false },
+        "selectable": { "type": "boolean", "default": false }
+      },
+      "template": "<DataTable variant=\"{{variant}}\" density=\"{{density}}\" sortable={{{sortable}}} selectable={{{selectable}}}>{{children}}</DataTable>"
+    },
+    "DatePicker": {
+      "figmaNodeUrl": "figma.com/file/universal-design-system/date-picker",
+      "props": {
+        "variant": { "type": "enum", "values": ["single", "range", "with-time"] },
+        "size": { "type": "enum", "values": ["md", "lg"] },
+        "disabled": { "type": "boolean", "default": false },
+        "locale": { "type": "string", "default": "en-US" }
+      },
+      "template": "<DatePicker variant=\"{{variant}}\" size=\"{{size}}\" disabled={{{disabled}}} locale=\"{{locale}}\" />"
+    },
+    "CommandPalette": {
+      "figmaNodeUrl": "figma.com/file/universal-design-system/command-palette",
+      "props": {
+        "variant": { "type": "enum", "values": ["standard"] },
+        "size": { "type": "enum", "values": ["md", "lg"] },
+        "placeholder": { "type": "string" },
+        "recentLimit": { "type": "number", "default": 5 }
+      },
+      "template": "<CommandPalette size=\"{{size}}\" placeholder=\"{{placeholder}}\" recentLimit={{{recentLimit}}}>{{children}}</CommandPalette>"
+    },
+    "ProgressIndicator": {
+      "figmaNodeUrl": "figma.com/file/universal-design-system/progress-indicator",
+      "props": {
+        "variant": { "type": "enum", "values": ["bar", "circular", "stepper"] },
+        "size": { "type": "enum", "values": ["sm", "md", "lg"] },
+        "value": { "type": "number", "default": 0 },
+        "max": { "type": "number", "default": 100 },
+        "label": { "type": "string" },
+        "showValue": { "type": "boolean", "default": false },
+        "indeterminate": { "type": "boolean", "default": false }
+      },
+      "template": "<ProgressIndicator variant=\"{{variant}}\" size=\"{{size}}\" value={{{value}}} max={{{max}}} showValue={{{showValue}}} indeterminate={{{indeterminate}}} />"
+    },
+    "SideNavigation": {
+      "figmaNodeUrl": "figma.com/file/universal-design-system/side-navigation",
+      "props": {
+        "variant": { "type": "enum", "values": ["default", "collapsed", "with-sections"] },
+        "collapsed": { "type": "boolean", "default": false },
+        "activeItem": { "type": "string" }
+      },
+      "template": "<SideNavigation variant=\"{{variant}}\" collapsed={{{collapsed}}} activeItem=\"{{activeItem}}\">{{children}}</SideNavigation>"
+    },
+    "FileUpload": {
+      "figmaNodeUrl": "figma.com/file/universal-design-system/file-upload",
+      "props": {
+        "variant": { "type": "enum", "values": ["dropzone", "button", "avatar-upload"] },
+        "size": { "type": "enum", "values": ["sm", "md", "lg"] },
+        "multiple": { "type": "boolean", "default": false },
+        "accept": { "type": "string" },
+        "maxSize": { "type": "number" },
+        "maxFiles": { "type": "number" }
+      },
+      "template": "<FileUpload variant=\"{{variant}}\" size=\"{{size}}\" multiple={{{multiple}}} accept=\"{{accept}}\" maxSize={{{maxSize}}} maxFiles={{{maxFiles}}} />"
+    }
+  }
+}
