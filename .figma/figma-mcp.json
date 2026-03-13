@@ -1,0 +1,23 @@
+{
+  "name": "universal-design-system-figma",
+  "version": "1.0.0",
+  "description": "MCP server integration for Figma Variables API",
+  "tools": {
+    "sync_variables": {
+      "description": "Sync design tokens to Figma Variables",
+      "input": { "file_key": "string", "collection": "string" }
+    },
+    "pull_variables": {
+      "description": "Pull Figma Variables to local tokens",
+      "input": { "file_key": "string" }
+    },
+    "diff_variables": {
+      "description": "Show differences between local tokens and Figma Variables",
+      "input": { "file_key": "string" }
+    }
+  },
+  "auth": {
+    "type": "personal_access_token",
+    "env_var": "FIGMA_TOKEN"
+  }
+}

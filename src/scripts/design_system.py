@@ -14,6 +14,9 @@ Usage:
     python src/scripts/design_system.py "fintech dashboard" --framework react
     python src/scripts/design_system.py "fintech dashboard" --framework vue
     python src/scripts/design_system.py "fintech dashboard" --framework svelte
+    python src/scripts/design_system.py "fintech dashboard" --framework web-components
+    python src/scripts/design_system.py "test app" --unstyled
+    python src/scripts/design_system.py "fintech dashboard" --unstyled --format json
 """
 
 import json
@@ -1717,10 +1720,925 @@ defineProps<{
   .uds-grid { display: grid; container-type: inline-size; }
 </style>''',
     },
+    "web-components": {
+        "button": '''import { LitElement, html, css } from 'lit';
+import { customElement, property } from 'lit/decorators.js';
+
+@customElement('uds-button')
+export class UdsButton extends LitElement {
+  static styles = css\`
+    :host {
+      display: inline-flex;
+    }
+    button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--color-brand-primary);
+      color: var(--color-text-on-brand);
+      padding: var(--space-2) var(--space-4);
+      border-radius: var(--radius-md);
+      border: none;
+      font-family: var(--font-body);
+      font-size: var(--font-size-md);
+      font-weight: 500;
+      cursor: pointer;
+      transition: opacity var(--duration-fast) var(--easing-standard);
+    }
+    button:hover { opacity: 0.9; }
+    button:focus-visible {
+      outline: 2px solid var(--color-brand-primary);
+      outline-offset: 2px;
+    }
+    button:disabled { opacity: 0.5; cursor: not-allowed; }
+    button.secondary {
+      background: var(--color-bg-secondary);
+      color: var(--color-text-primary);
+    }
+    button.ghost {
+      background: transparent;
+      color: var(--color-brand-primary);
+    }
+    button.destructive {
+      background: var(--color-error);
+      color: white;
+    }
+    button.sm { height: 36px; padding: 0 12px; font-size: 0.875rem; }
+    button.md { height: 44px; padding: 0 16px; }
+    button.lg { height: 48px; padding: 0 24px; font-size: 1.125rem; }
+  \`;
+
+  @property({ type: String }) variant = 'primary';
+  @property({ type: String }) size = 'md';
+  @property({ type: Boolean }) disabled = false;
+
+  render() {
+    return html\`
+      <button
+        class=\${[this.variant, this.size].join(' ')}
+        ?disabled=\${this.disabled}
+        part="button"
+      >
+        <slot></slot>
+      </button>
+    \`;
+  }
+}''',
+        "card": '''import { LitElement, html, css } from 'lit';
+import { customElement, property } from 'lit/decorators.js';
+
+@customElement('uds-card')
+export class UdsCard extends LitElement {
+  static styles = css\`
+    :host {
+      display: block;
+    }
+    .card {
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--color-border-default);
+      background: var(--color-bg-primary);
+      box-shadow: var(--shadow-md);
+      overflow: hidden;
+    }
+    .card__header {
+      padding: var(--space-4) var(--space-6);
+      border-bottom: 1px solid var(--color-border-default);
+    }
+    .card__content {
+      padding: var(--space-6);
+      color: var(--color-text-secondary);
+    }
+    .card__footer {
+      padding: var(--space-4) var(--space-6);
+      border-top: 1px solid var(--color-border-default);
+    }
+    .card__title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--color-text-primary);
+      margin: 0;
+    }
+  \`;
+
+  @property({ type: String }) heading = '';
+
+  render() {
+    return html\`
+      <div class="card" part="card">
+        \${this.heading ? html\`
+          <div class="card__header" part="header">
+            <h3 class="card__title">\${this.heading}</h3>
+          </div>
+        \` : ''}
+        <div class="card__content" part="content">
+          <slot></slot>
+        </div>
+        <div class="card__footer" part="footer">
+          <slot name="footer"></slot>
+        </div>
+      </div>
+    \`;
+  }
+}''',
+        "input": '''import { LitElement, html, css } from 'lit';
+import { customElement, property } from 'lit/decorators.js';
+
+@customElement('uds-input')
+export class UdsInput extends LitElement {
+  static styles = css\`
+    :host {
+      display: block;
+    }
+    .input-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    label {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--color-text-primary);
+    }
+    input {
+      width: 100%;
+      box-sizing: border-box;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--color-border-input);
+      background: var(--color-bg-primary);
+      padding: 8px 12px;
+      font-size: 0.875rem;
+      font-family: var(--font-body);
+      color: var(--color-text-primary);
+      transition: border-color var(--duration-fast) var(--easing-standard);
+    }
+    input::placeholder {
+      color: var(--color-text-tertiary);
+    }
+    input:focus {
+      border-color: var(--color-brand-primary);
+      outline: none;
+      box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-brand-primary) 20%, transparent);
+    }
+    input:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    input[aria-invalid="true"] {
+      border-color: var(--color-error);
+    }
+    .error {
+      font-size: 0.875rem;
+      color: var(--color-error);
+      margin: 0;
+    }
+  \`;
+
+  @property({ type: String }) label = '';
+  @property({ type: String }) value = '';
+  @property({ type: String }) placeholder = '';
+  @property({ type: String }) type = 'text';
+  @property({ type: String }) error = '';
+  @property({ type: Boolean }) disabled = false;
+  @property({ type: Boolean }) required = false;
+
+  private _handleInput(e: Event) {
+    const input = e.target as HTMLInputElement;
+    this.value = input.value;
+    this.dispatchEvent(new CustomEvent('uds-input', {
+      detail: { value: input.value },
+      bubbles: true,
+      composed: true,
+    }));
+  }
+
+  render() {
+    const inputId = this.label
+      ? this.label.toLowerCase().replace(/\\s+/g, '-')
+      : undefined;
+
+    return html\`
+      <div class="input-wrapper">
+        \${this.label ? html\`<label for=\${inputId} part="label">\${this.label}</label>\` : ''}
+        <input
+          id=\${inputId || ''}
+          type=\${this.type}
+          .value=\${this.value}
+          placeholder=\${this.placeholder}
+          ?disabled=\${this.disabled}
+          ?required=\${this.required}
+          aria-invalid=\${this.error ? 'true' : 'false'}
+          part="input"
+          @input=\${this._handleInput}
+        />
+        \${this.error ? html\`<p class="error" role="alert" part="error">\${this.error}</p>\` : ''}
+      </div>
+    \`;
+  }
+}''',
+        "modal": '''import { LitElement, html, css } from 'lit';
+import { customElement, property } from 'lit/decorators.js';
+
+@customElement('uds-modal')
+export class UdsModal extends LitElement {
+  static styles = css\`
+    :host {
+      display: contents;
+    }
+    .overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+    }
+    .panel {
+      position: relative;
+      width: 100%;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--color-border-default);
+      background: var(--color-bg-primary);
+      padding: var(--space-6);
+      box-shadow: var(--shadow-xl);
+    }
+    .panel--sm { max-width: 400px; }
+    .panel--md { max-width: 560px; }
+    .panel--lg { max-width: 720px; }
+    .title {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: var(--color-text-primary);
+      margin: 0;
+    }
+    .body {
+      margin-top: var(--space-4);
+      color: var(--color-text-secondary);
+    }
+    .actions {
+      margin-top: var(--space-6);
+      display: flex;
+      justify-content: flex-end;
+      gap: var(--space-3);
+    }
+  \`;
+
+  @property({ type: Boolean, reflect: true }) open = false;
+  @property({ type: String }) heading = '';
+  @property({ type: String }) size: 'sm' | 'md' | 'lg' = 'md';
+
+  private _handleKeydown = (e: KeyboardEvent) => {
+    if (e.key === 'Escape') this._close();
+  };
+
+  connectedCallback() {
+    super.connectedCallback();
+    document.addEventListener('keydown', this._handleKeydown);
+  }
+
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    document.removeEventListener('keydown', this._handleKeydown);
+  }
+
+  private _close() {
+    this.open = false;
+    this.dispatchEvent(new CustomEvent('uds-close', {
+      bubbles: true,
+      composed: true,
+    }));
+  }
+
+  updated(changed: Map<string, unknown>) {
+    if (changed.has('open') && this.open) {
+      const panel = this.shadowRoot?.querySelector('.panel') as HTMLElement;
+      panel?.focus();
+    }
+  }
+
+  render() {
+    if (!this.open) return html\`\`;
+
+    return html\`
+      <div class="overlay">
+        <div class="backdrop" @click=\${this._close} aria-hidden="true"></div>
+        <div
+          class="panel panel--\${this.size}"
+          role="dialog"
+          aria-modal="true"
+          aria-label=\${this.heading}
+          tabindex="-1"
+          part="panel"
+        >
+          <h2 class="title">\${this.heading}</h2>
+          <div class="body" part="body">
+            <slot></slot>
+          </div>
+          <div class="actions" part="actions">
+            <slot name="actions"></slot>
+          </div>
+        </div>
+      </div>
+    \`;
+  }
+}''',
+        "tabs": '''import { LitElement, html, css } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+
+interface UdsTab {
+  id: string;
+  label: string;
+  disabled?: boolean;
+}
+
+@customElement('uds-tabs')
+export class UdsTabs extends LitElement {
+  static styles = css\`
+    :host {
+      display: block;
+    }
+    .tablist {
+      display: flex;
+      border-bottom: 1px solid var(--color-border-default);
+    }
+    .tablist--pill {
+      border-bottom: none;
+      gap: 4px;
+      border-radius: var(--radius-lg);
+      background: var(--color-bg-secondary);
+      padding: 4px;
+    }
+    .tab {
+      padding: 8px 16px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--color-text-secondary);
+      background: none;
+      border: none;
+      cursor: pointer;
+      transition: color var(--duration-fast) var(--easing-standard);
+      font-family: var(--font-body);
+    }
+    .tab:hover {
+      color: var(--color-text-primary);
+    }
+    .tab[aria-selected="true"] {
+      color: var(--color-brand-primary);
+      border-bottom: 2px solid var(--color-brand-primary);
+    }
+    .tab:focus-visible {
+      outline: 2px solid var(--color-brand-primary);
+      outline-offset: -2px;
+    }
+    .tab:disabled {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+    .panel {
+      margin-top: var(--space-4);
+    }
+  \`;
+
+  @property({ type: Array }) tabs: UdsTab[] = [];
+  @property({ type: String }) variant: 'line' | 'pill' = 'line';
+  @state() private _activeTab = '';
+
+  firstUpdated() {
+    if (!this._activeTab && this.tabs.length > 0) {
+      this._activeTab = this.tabs[0].id;
+    }
+  }
+
+  private _selectTab(id: string) {
+    this._activeTab = id;
+    this.dispatchEvent(new CustomEvent('uds-tab-change', {
+      detail: { tab: id },
+      bubbles: true,
+      composed: true,
+    }));
+  }
+
+  private _handleKeydown(e: KeyboardEvent) {
+    const enabledTabs = this.tabs.filter(t => !t.disabled);
+    const currentIndex = enabledTabs.findIndex(t => t.id === this._activeTab);
+    let newIndex = currentIndex;
+
+    if (e.key === 'ArrowRight') newIndex = (currentIndex + 1) % enabledTabs.length;
+    else if (e.key === 'ArrowLeft') newIndex = (currentIndex - 1 + enabledTabs.length) % enabledTabs.length;
+    else if (e.key === 'Home') newIndex = 0;
+    else if (e.key === 'End') newIndex = enabledTabs.length - 1;
+    else return;
+
+    e.preventDefault();
+    this._selectTab(enabledTabs[newIndex].id);
+    const btn = this.shadowRoot?.querySelector(\`[data-tab-id="\${enabledTabs[newIndex].id}"]\`) as HTMLElement;
+    btn?.focus();
+  }
+
+  render() {
+    const listClass = this.variant === 'pill' ? 'tablist tablist--pill' : 'tablist';
+
+    return html\`
+      <div
+        class=\${listClass}
+        role="tablist"
+        aria-label="Tabs"
+        @keydown=\${this._handleKeydown}
+      >
+        \${this.tabs.map(tab => html\`
+          <button
+            role="tab"
+            id="tab-\${tab.id}"
+            data-tab-id=\${tab.id}
+            aria-selected=\${this._activeTab === tab.id}
+            aria-controls="panel-\${tab.id}"
+            ?disabled=\${tab.disabled}
+            tabindex=\${this._activeTab === tab.id ? 0 : -1}
+            class="tab"
+            @click=\${() => this._selectTab(tab.id)}
+          >
+            \${tab.label}
+          </button>
+        \`)}
+      </div>
+      \${this.tabs.map(tab => html\`
+        <div
+          role="tabpanel"
+          id="panel-\${tab.id}"
+          aria-labelledby="tab-\${tab.id}"
+          ?hidden=\${this._activeTab !== tab.id}
+          class="panel"
+          part="panel"
+        >
+          <slot name=\${tab.id}></slot>
+        </div>
+      \`)}
+    \`;
+  }
+}''',
+        "alert": '''import { LitElement, html, css } from 'lit';
+import { customElement, property } from 'lit/decorators.js';
+
+@customElement('uds-alert')
+export class UdsAlert extends LitElement {
+  static styles = css\`
+    :host {
+      display: block;
+    }
+    .alert {
+      display: flex;
+      gap: 12px;
+      border-radius: var(--radius-md);
+      border: 1px solid;
+      padding: var(--space-4);
+    }
+    .alert--info {
+      border-color: var(--color-info);
+      background: color-mix(in srgb, var(--color-info) 10%, transparent);
+      color: var(--color-info);
+    }
+    .alert--success {
+      border-color: var(--color-success);
+      background: color-mix(in srgb, var(--color-success) 10%, transparent);
+      color: var(--color-success);
+    }
+    .alert--warning {
+      border-color: var(--color-warning);
+      background: color-mix(in srgb, var(--color-warning) 10%, transparent);
+      color: var(--color-warning);
+    }
+    .alert--error {
+      border-color: var(--color-error);
+      background: color-mix(in srgb, var(--color-error) 10%, transparent);
+      color: var(--color-error);
+    }
+    .content { flex: 1; }
+    .title {
+      font-weight: 600;
+      margin: 0;
+    }
+    .message {
+      font-size: 0.875rem;
+    }
+    .dismiss {
+      align-self: flex-start;
+      opacity: 0.7;
+      background: none;
+      border: none;
+      color: currentColor;
+      cursor: pointer;
+      font-size: 1.25rem;
+      padding: 0;
+      line-height: 1;
+    }
+    .dismiss:hover { opacity: 1; }
+  \`;
+
+  @property({ type: String }) variant: 'info' | 'success' | 'warning' | 'error' = 'info';
+  @property({ type: String }) heading = '';
+  @property({ type: Boolean }) dismissible = false;
+
+  private _dismiss() {
+    this.dispatchEvent(new CustomEvent('uds-dismiss', {
+      bubbles: true,
+      composed: true,
+    }));
+  }
+
+  render() {
+    const role = this.variant === 'error' || this.variant === 'warning'
+      ? 'alert'
+      : 'status';
+
+    return html\`
+      <div class="alert alert--\${this.variant}" role=\${role} part="alert">
+        <div class="content">
+          \${this.heading ? html\`<p class="title">\${this.heading}</p>\` : ''}
+          <div class="message"><slot></slot></div>
+        </div>
+        \${this.dismissible ? html\`
+          <button
+            class="dismiss"
+            @click=\${this._dismiss}
+            aria-label="Dismiss"
+          >&times;</button>
+        \` : ''}
+      </div>
+    \`;
+  }
+}''',
+        "accordion": '''import { LitElement, html, css } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+
+interface AccordionItem {
+  id: string;
+  title: string;
+}
+
+@customElement('uds-accordion')
+export class UdsAccordion extends LitElement {
+  static styles = css\`
+    :host {
+      display: block;
+    }
+    .accordion {
+      border-radius: var(--radius-md);
+      border: 1px solid var(--color-border-default);
+    }
+    .accordion--flush {
+      border: none;
+      border-radius: 0;
+    }
+    .item {
+      border-top: 1px solid var(--color-border-default);
+    }
+    .item:first-child {
+      border-top: none;
+    }
+    .trigger {
+      display: flex;
+      width: 100%;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      text-align: left;
+      font-weight: 500;
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      color: var(--color-text-primary);
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+    .trigger:hover {
+      background: var(--color-bg-secondary);
+    }
+    .trigger:focus-visible {
+      outline: 2px solid var(--color-brand-primary);
+      outline-offset: -2px;
+    }
+    .icon {
+      transition: transform var(--duration-fast) var(--easing-standard);
+    }
+    .icon--open {
+      transform: rotate(180deg);
+    }
+    .panel {
+      padding: 0 16px 16px;
+      font-size: 0.875rem;
+      color: var(--color-text-secondary);
+    }
+  \`;
+
+  @property({ type: Array }) items: AccordionItem[] = [];
+  @property({ type: Boolean }) allowMultiple = false;
+  @property({ type: String }) variant: 'single' | 'multi' | 'flush' = 'single';
+  @state() private _expanded: Set<string> = new Set();
+
+  private _toggle(id: string) {
+    const next = new Set(this.allowMultiple ? this._expanded : []);
+    if (this._expanded.has(id)) {
+      next.delete(id);
+    } else {
+      next.add(id);
+    }
+    this._expanded = next;
+    this.dispatchEvent(new CustomEvent('uds-toggle', {
+      detail: { id, expanded: next.has(id) },
+      bubbles: true,
+      composed: true,
+    }));
+  }
+
+  render() {
+    const accClass = this.variant === 'flush'
+      ? 'accordion accordion--flush'
+      : 'accordion';
+
+    return html\`
+      <div class=\${accClass} part="accordion">
+        \${this.items.map(item => {
+          const isOpen = this._expanded.has(item.id);
+          return html\`
+            <div class="item">
+              <button
+                class="trigger"
+                aria-expanded=\${isOpen}
+                aria-controls="accordion-panel-\${item.id}"
+                @click=\${() => this._toggle(item.id)}
+              >
+                \${item.title}
+                <span class="icon \${isOpen ? 'icon--open' : ''}" aria-hidden="true">&#9662;</span>
+              </button>
+              \${isOpen ? html\`
+                <div
+                  id="accordion-panel-\${item.id}"
+                  role="region"
+                  aria-labelledby="accordion-trigger-\${item.id}"
+                  class="panel"
+                  part="panel"
+                >
+                  <slot name=\${item.id}></slot>
+                </div>
+              \` : ''}
+            </div>
+          \`;
+        })}
+      </div>
+    \`;
+  }
+}''',
+        "tooltip": '''import { LitElement, html, css } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+
+@customElement('uds-tooltip')
+export class UdsTooltip extends LitElement {
+  static styles = css\`
+    :host {
+      display: inline-block;
+      position: relative;
+    }
+    .trigger {
+      display: inline-block;
+    }
+    .tooltip {
+      position: absolute;
+      z-index: 50;
+      padding: var(--space-1) var(--space-2);
+      border-radius: var(--radius-sm);
+      background: var(--color-text-primary);
+      color: var(--color-bg-primary);
+      font-size: 0.75rem;
+      font-family: var(--font-body);
+      line-height: 1.4;
+      white-space: nowrap;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity var(--duration-fast) var(--easing-standard);
+    }
+    .tooltip--visible {
+      opacity: 1;
+    }
+    .tooltip--top {
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      margin-bottom: 6px;
+    }
+    .tooltip--bottom {
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      margin-top: 6px;
+    }
+    .tooltip--left {
+      right: 100%;
+      top: 50%;
+      transform: translateY(-50%);
+      margin-right: 6px;
+    }
+    .tooltip--right {
+      left: 100%;
+      top: 50%;
+      transform: translateY(-50%);
+      margin-left: 6px;
+    }
+  \`;
+
+  @property({ type: String }) content = '';
+  @property({ type: String }) placement: 'top' | 'bottom' | 'left' | 'right' = 'top';
+  @state() private _visible = false;
+
+  private _show() { this._visible = true; }
+  private _hide() { this._visible = false; }
+
+  render() {
+    const tooltipClass = [
+      'tooltip',
+      \`tooltip--\${this.placement}\`,
+      this._visible ? 'tooltip--visible' : '',
+    ].join(' ');
+
+    return html\`
+      <div
+        class="trigger"
+        @mouseenter=\${this._show}
+        @mouseleave=\${this._hide}
+        @focusin=\${this._show}
+        @focusout=\${this._hide}
+        aria-describedby="tooltip"
+      >
+        <slot></slot>
+      </div>
+      <div
+        id="tooltip"
+        class=\${tooltipClass}
+        role="tooltip"
+        part="tooltip"
+      >
+        \${this.content}
+      </div>
+    \`;
+  }
+}''',
+    },
 }
 
 # Mapping from CSV component slugs to template keys.
 # Allows the generator to match BM25 search results to available templates.
+UNSTYLED_TEMPLATES = {
+    "button": {
+        "element": "button",
+        "aria": {"role": "button", "aria-disabled": "false"},
+        "keyboard": ["Enter: activate", "Space: activate"],
+        "states": ["default", "hover", "focus", "active", "disabled"],
+        "focus": "Focusable by default. Use tabindex=-1 to remove from tab order.",
+    },
+    "modal": {
+        "element": "dialog",
+        "aria": {
+            "role": "dialog",
+            "aria-modal": "true",
+            "aria-labelledby": "{title-id}",
+        },
+        "keyboard": ["Escape: close dialog", "Tab: cycle focus within modal"],
+        "states": ["open", "closed"],
+        "focus": "Trap focus within modal when open. Move focus to first focusable element on open. Return focus to trigger element on close.",
+    },
+    "tabs": {
+        "element": "div",
+        "aria": {
+            "role": "tablist (container), tab (trigger), tabpanel (content)",
+            "aria-selected": "true/false on each tab",
+            "aria-controls": "tab references its panel id",
+            "aria-labelledby": "panel references its tab id",
+        },
+        "keyboard": [
+            "ArrowLeft: activate previous tab",
+            "ArrowRight: activate next tab",
+            "Home: activate first tab",
+            "End: activate last tab",
+        ],
+        "states": ["active", "inactive", "disabled"],
+        "focus": "Only the active tab is in the tab order (tabindex=0). Inactive tabs have tabindex=-1. Arrow keys move focus between tabs.",
+    },
+    "input": {
+        "element": "input",
+        "aria": {
+            "aria-invalid": "true when validation fails",
+            "aria-describedby": "{error-message-id} when error is present",
+            "aria-required": "true when field is required",
+        },
+        "keyboard": ["Tab: move focus in/out"],
+        "states": ["default", "focus", "filled", "disabled", "readonly", "invalid"],
+        "focus": "Focusable by default. Associate label via for/id or aria-labelledby. Error messages linked via aria-describedby.",
+    },
+    "card": {
+        "element": "article or div",
+        "aria": {
+            "role": "article (if standalone) or group (if in a list)",
+        },
+        "keyboard": ["Tab: move focus to interactive children within the card"],
+        "states": ["default", "interactive (if clickable)"],
+        "focus": "Not focusable by default unless the card is interactive. If clickable, add tabindex=0 and role=button or use an anchor wrapper.",
+    },
+    "alert": {
+        "element": "div",
+        "aria": {
+            "role": "alert (for errors/warnings) or status (for info/success)",
+            "aria-live": "assertive (errors) or polite (info/success)",
+            "aria-atomic": "true",
+        },
+        "keyboard": ["Tab: move focus to dismiss button if present"],
+        "states": ["visible", "dismissed"],
+        "focus": "Not focusable by default. Dismiss button (if present) is focusable. Use aria-live to announce dynamic alerts to screen readers.",
+    },
+    "accordion": {
+        "element": "div",
+        "aria": {
+            "aria-expanded": "true/false on each trigger button",
+            "aria-controls": "trigger references its panel id",
+            "role": "region on each panel",
+            "aria-labelledby": "panel references its trigger id",
+        },
+        "keyboard": [
+            "Enter: toggle section",
+            "Space: toggle section",
+            "ArrowDown: move focus to next header",
+            "ArrowUp: move focus to previous header",
+            "Home: move focus to first header",
+            "End: move focus to last header",
+        ],
+        "states": ["expanded", "collapsed", "disabled"],
+        "focus": "Each accordion header button is focusable. Panel content enters the tab order when expanded.",
+    },
+    "tooltip": {
+        "element": "div (popover)",
+        "aria": {
+            "role": "tooltip",
+            "aria-describedby": "trigger references tooltip id",
+        },
+        "keyboard": ["Escape: dismiss tooltip", "Focus/hover on trigger: show tooltip"],
+        "states": ["hidden", "visible"],
+        "focus": "Tooltip itself is not focusable. Trigger element must be focusable. Show on focus and hover, dismiss on Escape and blur.",
+    },
+    "dropdown": {
+        "element": "div (menu container)",
+        "aria": {
+            "role": "menu (container), menuitem (option)",
+            "aria-expanded": "true/false on trigger",
+            "aria-haspopup": "true on trigger",
+            "aria-activedescendant": "id of focused menuitem",
+        },
+        "keyboard": [
+            "Enter/Space: open menu, activate item",
+            "ArrowDown: move to next item",
+            "ArrowUp: move to previous item",
+            "Escape: close menu",
+            "Home: move to first item",
+            "End: move to last item",
+        ],
+        "states": ["open", "closed"],
+        "focus": "Trigger is focusable. When menu opens, focus moves to first item. On close, return focus to trigger. Use aria-activedescendant for virtual focus.",
+    },
+    "toggle": {
+        "element": "button",
+        "aria": {
+            "role": "switch",
+            "aria-checked": "true/false",
+            "aria-labelledby": "{label-id}",
+        },
+        "keyboard": ["Enter: toggle state", "Space: toggle state"],
+        "states": ["on", "off", "disabled"],
+        "focus": "Focusable by default. Announce state changes via aria-checked. Pair with a visible label via aria-labelledby.",
+    },
+    "badge": {
+        "element": "span",
+        "aria": {
+            "role": "status (if dynamic count)",
+            "aria-label": "descriptive text when badge is icon-only",
+        },
+        "keyboard": ["Not interactive by default. If removable, Tab to remove button."],
+        "states": ["default", "removable"],
+        "focus": "Not focusable by default. If a remove button is present, it is focusable. Use aria-live=polite for dynamically updating counts.",
+    },
+    "avatar": {
+        "element": "img or span (fallback)",
+        "aria": {
+            "role": "img",
+            "alt": "descriptive text for the person/entity",
+            "aria-label": "used when no alt text is available on fallback",
+        },
+        "keyboard": ["Not interactive by default. If clickable, Tab to focus."],
+        "states": ["image-loaded", "fallback-initials", "fallback-icon"],
+        "focus": "Not focusable by default. If the avatar is a link or button, it inherits focus from the interactive wrapper.",
+    },
+}
+
 SLUG_TO_TEMPLATE = {
     "button": "button",
     "btn": "button",
@@ -1736,6 +2654,7 @@ SLUG_TO_TEMPLATE = {
     "accordion": "accordion",
     "stack": "stack",
     "grid": "grid",
+    "tooltip": "tooltip",
 }
 
 PALETTE_DISPLAY_NAMES = {
@@ -2306,6 +3225,40 @@ def generate_framework_output(result: dict, palette_tokens: dict, framework: str
         lines.append("//   import '@mkatogui/uds-react/styles.css';")
         lines.append("")
 
+    if framework == "web-components":
+        lines.append("// Lit-based Custom Elements with Shadow DOM encapsulation")
+        lines.append("// Install: npm install lit")
+        lines.append("// Usage:   import './uds-button.js';")
+        lines.append("//          <uds-button variant=\"primary\">Click me</uds-button>")
+        lines.append("//")
+        lines.append("// Custom Elements Manifest (customElements.json):")
+        lines.append("// {")
+        lines.append("//   \"schemaVersion\": \"1.0.0\",")
+        lines.append("//   \"modules\": [")
+        lines.append("//     {")
+        lines.append("//       \"kind\": \"javascript-module\",")
+        lines.append("//       \"path\": \"./uds-button.js\",")
+        lines.append("//       \"declarations\": [{")
+        lines.append("//         \"kind\": \"class\",")
+        lines.append("//         \"name\": \"UdsButton\",")
+        lines.append("//         \"tagName\": \"uds-button\",")
+        lines.append("//         \"attributes\": [")
+        lines.append("//           { \"name\": \"variant\", \"type\": { \"text\": \"'primary'|'secondary'|'ghost'|'destructive'\" } },")
+        lines.append("//           { \"name\": \"size\", \"type\": { \"text\": \"'sm'|'md'|'lg'\" } },")
+        lines.append("//           { \"name\": \"disabled\", \"type\": { \"text\": \"boolean\" } }")
+        lines.append("//         ],")
+        lines.append("//         \"slots\": [{ \"name\": \"\", \"description\": \"Button content\" }],")
+        lines.append("//         \"cssProperties\": [")
+        lines.append("//           { \"name\": \"--color-brand-primary\" },")
+        lines.append("//           { \"name\": \"--color-text-on-brand\" },")
+        lines.append("//           { \"name\": \"--radius-md\" }")
+        lines.append("//         ]")
+        lines.append("//       }]")
+        lines.append("//     }")
+        lines.append("//   ]")
+        lines.append("// }")
+        lines.append("")
+
     templates = FRAMEWORK_TEMPLATES.get(framework, FRAMEWORK_TEMPLATES.get("react", {}))
 
     # Build ordered list: matched search results first, then remaining templates.
@@ -2449,17 +3402,104 @@ def generate_markdown(result: dict, palette_tokens: dict) -> str:
     return "\n".join(lines)
 
 
+def generate_unstyled_markdown(result: dict) -> str:
+    """Generate a headless/unstyled component specification in Markdown.
+
+    Outputs behavior-only specs: ARIA attributes, keyboard interactions,
+    state machines, and focus management — no CSS classes or visual tokens.
+    """
+    lines = []
+    domain = result["domain"]
+
+    lines.append(f"# Headless Component Spec: {result['query'].title()}")
+    lines.append("")
+    lines.append(f"**Mode:** Unstyled / Headless (behavior-only)")
+    lines.append(f"**Sector:** {domain['sector']}")
+    lines.append(f"**Product Type:** {domain['product_type']}")
+    lines.append("")
+    lines.append("> These specs define ARIA attributes, keyboard interactions, "
+                 "state machines, and focus management only. No CSS classes or "
+                 "visual tokens are included. Bring your own styles.")
+    lines.append("")
+
+    for name, spec in sorted(UNSTYLED_TEMPLATES.items()):
+        display = name.replace("-", " ").title()
+        lines.append(f"## {display}")
+        lines.append("")
+        lines.append(f"**Element:** `<{spec['element']}>`")
+        lines.append("")
+
+        # ARIA
+        lines.append("**ARIA Attributes:**")
+        lines.append("")
+        for attr, val in spec["aria"].items():
+            lines.append(f"- `{attr}`: `{val}`")
+        lines.append("")
+
+        # Keyboard
+        lines.append("**Keyboard Interactions:**")
+        lines.append("")
+        for interaction in spec["keyboard"]:
+            lines.append(f"- {interaction}")
+        lines.append("")
+
+        # States
+        lines.append(f"**States:** {', '.join(spec['states'])}")
+        lines.append("")
+
+        # Focus
+        lines.append(f"**Focus Management:** {spec['focus']}")
+        lines.append("")
+        lines.append("---")
+        lines.append("")
+
+    return "\n".join(lines)
+
+
+def generate_unstyled_json(result: dict) -> dict:
+    """Generate a headless/unstyled component specification as a dict for JSON output.
+
+    Returns a dict with query metadata and all UNSTYLED_TEMPLATES entries.
+    """
+    domain = result["domain"]
+    return {
+        "query": result["query"],
+        "mode": "unstyled",
+        "domain": domain,
+        "components": {
+            name: {
+                "element": spec["element"],
+                "aria": spec["aria"],
+                "keyboard": spec["keyboard"],
+                "states": spec["states"],
+                "focus": spec["focus"],
+            }
+            for name, spec in sorted(UNSTYLED_TEMPLATES.items())
+        },
+    }
+
+
 def main():
     parser = argparse.ArgumentParser(
         description="Generate a Design System Specification",
     )
     parser.add_argument("query", help="Design system query (e.g., 'fintech dashboard')")
     parser.add_argument("--format", "-f", choices=["markdown", "json", "tailwind", "css-in-js"], default="markdown", help="Output format")
-    parser.add_argument("--framework", choices=["react", "vue", "svelte", "html"], default=None, help="Generate framework-specific component code")
+    parser.add_argument("--framework", choices=["react", "vue", "svelte", "web-components", "html"], default=None, help="Generate framework-specific component code")
+    parser.add_argument("--unstyled", action="store_true", default=False, help="Output headless/unstyled behavior-only specs (ARIA, keyboard, states, focus management) without CSS classes or visual tokens")
     args = parser.parse_args()
 
     engine = ReasoningEngine()
     result = engine.reason(args.query)
+
+    # Unstyled / headless mode — skip token resolution entirely
+    if args.unstyled:
+        if args.format == "json":
+            print(json.dumps(generate_unstyled_json(result), indent=2))
+        else:
+            print(generate_unstyled_markdown(result))
+        return
+
     tokens = load_tokens()
     palette_tokens = resolve_palette_tokens(tokens, result["recommended_palette"])
     foundation = resolve_foundation_tokens(tokens)

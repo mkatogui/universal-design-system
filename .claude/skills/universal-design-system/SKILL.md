@@ -1,6 +1,6 @@
 ---
 name: Universal Design System
-description: Production-grade AI-native design system with 9 structural palettes, 530 W3C DTCG tokens, 32 BEM components, BM25 reasoning engine, WCAG 2.1 AA compliance, Tailwind CSS generation, React/Vue/Svelte output, and industry-specific design rules across 1,528 data rows. Reverse-engineered from 100 modern websites.
+description: Production-grade AI-native design system with 9 structural palettes, 530 W3C DTCG tokens, 43 BEM components, BM25 reasoning engine, WCAG 2.2 AA compliance, Tailwind CSS generation, React/Vue/Svelte output, and industry-specific design rules across 1,528 data rows. Reverse-engineered from 100 modern websites.
 version: 0.1.0
 triggers:
   - design system
@@ -81,9 +81,9 @@ triggers:
 
 > Other tools tell AI what colors to use. We give it a complete, accessible, WCAG-validated design system it can ship.
 
-A production-grade AI-native design system analyzed from 100 modern websites, distilled into one governed brand foundation with 9 structural palettes, 32 components, 8 patterns, and automated WCAG 2.1 AA compliance.
+A production-grade AI-native design system analyzed from 100 modern websites, distilled into one governed brand foundation with 9 structural palettes, 43 components, 8 patterns, and automated WCAG 2.2 AA compliance.
 
-**Key stats:** 530 tokens | 32 components | 9 palettes | 100% WCAG AA | 1,528 data rows across 16 databases | BM25 reasoning engine | 170 product rules | 75 font pairings | 200+ icon libraries | Tailwind config generation | React/Vue/Svelte output | 20 AI platform support
+**Key stats:** 530 tokens | 43 components | 9 palettes | 100% WCAG AA | 1,528 data rows across 16 databases | BM25 reasoning engine | 170 product rules | 75 font pairings | 200+ icon libraries | Tailwind config generation | React/Vue/Svelte output | 20 AI platform support
 
 ---
 
@@ -104,7 +104,7 @@ Use the BM25 reasoning engine (`src/scripts/core.py`) to search across 16 CSV da
 - Style recommendations (60 styles)
 - Color palettes (165 industry palettes)
 - Typography pairings (75 font pairs)
-- Components needed (32 components)
+- Components needed (43 components)
 - Patterns to follow (15 patterns)
 - UX guidelines (80 guidelines)
 - Anti-patterns to avoid (55 anti-patterns)
@@ -162,8 +162,8 @@ When generating a design system, evaluate and score each category (1-10):
 | Priority | Category | Weight | Description |
 |----------|----------|--------|-------------|
 | 1 | Palette Selection | 10 | The single most impactful decision. Determines color, shadow, radius, display font. |
-| 2 | Component Selection | 9 | Which of the 32 components are needed for this product. |
-| 3 | Accessibility | 9 | WCAG 2.1 AA minimum. Color contrast, keyboard nav, screen readers. |
+| 2 | Component Selection | 9 | Which of the 43 components are needed for this product. |
+| 3 | Accessibility | 9 | WCAG 2.2 AA minimum. Color contrast, keyboard nav, screen readers. |
 | 4 | Typography | 8 | Font pairing, scale, weights. Must match palette mood. |
 | 5 | Layout & Spacing | 8 | Grid system, container widths, section spacing. |
 | 6 | Pattern Selection | 7 | Page templates and layout patterns. |
@@ -280,7 +280,7 @@ document.documentElement.setAttribute('data-theme', 'corporate');
 
 ---
 
-## Component Library (31 Components)
+## Component Library (43 Components)
 
 ### Component Quick Reference
 
@@ -318,6 +318,17 @@ document.documentElement.setAttribute('data-theme', 'corporate');
 | Progress Indicator | `.progress` | bar, circular, stepper | sm, md, lg |
 | Side Navigation | `.side-nav` | default, collapsed, with-sections | default, collapsed |
 | File Upload | `.file-upload` | dropzone, button, avatar-upload | sm, md, lg |
+| Drawer | `.drawer` | left, right, top, bottom | sm, md, lg |
+| Popover | `.popover` | top, bottom, left, right, auto | sm, md |
+| Combobox | `.combobox` | autocomplete, multiselect, creatable | sm, md, lg |
+| Alert Dialog | `.alert-dialog` | info, warning, destructive | sm, md |
+| Carousel | `.carousel` | slide, fade, auto-play | sm, md, lg |
+| Chip Input | `.chip-input` | single, multi, removable | sm, md, lg |
+| Stepper | `.stepper` | horizontal, vertical, linear, non-linear | sm, md, lg |
+| Segmented Control | `.segmented-control` | default, icon-only, icon-label | sm, md, lg |
+| Toolbar | `.toolbar` | horizontal, vertical, with-overflow | sm, md, lg |
+| Tree View | `.tree-view` | single-select, multi-select, checkbox | sm, md, lg |
+| OTP Input | `.otp-input` | 4-digit, 6-digit, alphanumeric | md, lg |
 
 ### Component API Pattern (CVA-Style)
 
@@ -659,7 +670,7 @@ All motion must respect `prefers-reduced-motion: reduce`:
 
 ## Accessibility Requirements
 
-### WCAG 2.1 AA Checklist
+### WCAG 2.2 AA Checklist
 
 - [ ] Text contrast ≥ 4.5:1 against backgrounds
 - [ ] UI component contrast ≥ 3:1 (borders, buttons, inputs)
@@ -672,7 +683,9 @@ All motion must respect `prefers-reduced-motion: reduce`:
 - [ ] Semantic HTML: `<main>`, `<nav>`, `<section>`, `<footer>`
 - [ ] Skip navigation link as first focusable element
 - [ ] Heading hierarchy: h1 > h2 > h3 (no skipped levels)
-- [ ] Focus Not Obscured: focused elements not hidden by sticky/fixed elements
+- [ ] Focus Not Obscured (SC 2.4.11): focused elements not hidden by sticky/fixed elements
+- [ ] Dragging Movements (SC 2.5.7): single-pointer alternative for all drag operations
+- [ ] Target Size Minimum (SC 2.5.8): interactive targets at least 24×24 CSS pixels
 
 ### Automated WCAG Audit
 
@@ -690,7 +703,7 @@ Before presenting a design system to the user, verify:
 
 1. **Palette selected** — One of the 9 structural palettes chosen based on sector rules
 2. **Tokens resolved** — All CSS custom properties use `var()` (no hardcoded values)
-3. **Components listed** — Only components from the 32 in the library are referenced
+3. **Components listed** — Only components from the 43 in the library are referenced
 4. **Patterns applied** — Page layout follows one of the 8 pattern templates
 5. **Typography paired** — Font pairing matches palette mood from typography database
 6. **Accessibility checked** — WCAG AA contrast ratios verified for all color pairs
@@ -712,7 +725,7 @@ Before presenting a design system to the user, verify:
 | typography.csv | 75 | Font pairings with mood and usage |
 | ui-reasoning.csv | 165 | Conditional design rules |
 | ux-guidelines.csv | 80 | UX best practices by category |
-| components.csv | 32 | Component specs from SPECIFICATION.md |
+| components.csv | 43 | Component specs from SPECIFICATION.md |
 | patterns.csv | 15 | UI patterns and page templates |
 | landing.csv | 25 | Landing page templates |
 | charts.csv | 25 | Chart type recommendations |
@@ -935,3 +948,54 @@ python src/data/_sync_all.py
 
 *Built by analyzing 100 modern websites into one universal system.*
 *Version 0.1.0 | MIT License | 20 AI Platform Support*
+
+---
+
+## APG Pattern Reference
+
+Every component maps to a WAI-ARIA APG pattern. See `src/data/apg-patterns.csv` for keyboard interactions, required ARIA attributes, and focus management specs.
+
+### Coverage
+
+All 32 components are mapped to their closest official WAI-ARIA Authoring Practices Guide (APG) pattern from https://www.w3.org/WAI/ARIA/apg/patterns/
+
+### CSV Columns
+
+| Column | Description |
+|--------|-------------|
+| `component_slug` | Matches slug in `components.csv` (cross-referenced by `_sync_all.py`) |
+| `apg_pattern` | Official WAI-ARIA APG pattern name |
+| `apg_url` | Direct URL to the APG pattern documentation |
+| `keyboard_interactions` | Required keyboard behavior (Enter, Space, Arrow keys, Escape, Tab) |
+| `required_aria` | ARIA roles and attributes that must be present |
+| `optional_aria` | Additional ARIA attributes for enhanced accessibility |
+| `focus_management` | How focus should move when the component opens, closes, or changes state |
+| `live_region` | Whether and how live region announcements should be made (no / polite / assertive) |
+
+### Key Patterns by Component Type
+
+| Pattern | Components |
+|---------|-----------|
+| Button | button |
+| Dialog (Modal) | modal, date-picker |
+| Tabs | tabs |
+| Accordion | accordion |
+| Tooltip | tooltip |
+| Disclosure Navigation | navigation, dropdown, side-nav |
+| Listbox | select |
+| Combobox | command-palette |
+| Checkbox | checkbox |
+| Radio Group | radio |
+| Switch | toggle |
+| Alert / Status | alert, toast |
+| Carousel | testimonial |
+| Table | pricing-table, data-table |
+| Progressbar | progress-indicator |
+| Textbox | input |
+| Breadcrumb | breadcrumb |
+| Landmark Regions | hero, footer, social-proof |
+
+---
+
+### RTL & Logical Properties
+Use logical CSS properties (margin-inline-start, padding-block-end) instead of physical (margin-left, padding-bottom). See `src/data/localization.csv` for the full physical→logical mapping. Use `rtl_mapper.py` to automatically convert.

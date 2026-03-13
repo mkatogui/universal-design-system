@@ -19,7 +19,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
 
-from color_engine import PaletteDeriver, contrast_ratio
+from color_engine import PaletteDeriver, TonalPalette, contrast_ratio
 from registry import (
     get_all_palettes,
     get_builtin_palettes,
@@ -108,6 +108,24 @@ def cmd_preview(args):
     colors = _parse_colors(args.colors)
     shape = args.shape or "balanced"
     name = args.name or "preview"
+
+    # Tonal palette mode
+    if getattr(args, "tonal", False):
+        seed = colors[0]
+        tp = TonalPalette(seed)
+        scale = tp.generate()
+        roles = tp.get_color_roles()
+
+        print(f"\n  Tonal Palette (seed: {seed})")
+        print(f"  {'=' * 50}")
+        print(f"\n  13-Stop Tonal Scale:")
+        for stop, hex_val in sorted(scale.items()):
+            print(f"    Tone {stop:>3}: {hex_val}")
+        print(f"\n  Material You Color Roles:")
+        for role, hex_val in roles.items():
+            print(f"    {role:<32}: {hex_val}")
+        print()
+        return
 
     deriver = PaletteDeriver(colors, shape=shape)
     palette = deriver.derive()
@@ -214,6 +232,8 @@ def main():
     p_preview.add_argument("--colors", required=True, help="Comma-separated hex colors (1-5)")
     p_preview.add_argument("--shape", default="balanced", choices=["sharp", "balanced", "round", "brutalist"])
     p_preview.add_argument("--name", default="preview", help="Preview name (default: preview)")
+    p_preview.add_argument("--tonal", action="store_true",
+                           help="Use OKLCH tonal palette (Material You style) instead of regular generation")
 
     # list
     subparsers.add_parser("list", help="List all palettes")
