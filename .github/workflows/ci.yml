@@ -98,3 +98,59 @@ jobs:
       - name: Run accessibility tests
         if: steps.check.outputs.has_tests == 'true'
         run: npx playwright test --config=playwright.a11y.config.ts
+
+  visual-regression:
+    name: Visual Regression
+    runs-on: ubuntu-latest
+    needs: validate
+    if: github.event_name == 'pull_request'
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Check for relevant changes
+        id: changes
+        run: |
+          CHANGED=$(git diff --name-only origin/${{ github.base_ref }}...HEAD -- \
+            'docs/' 'tokens/' 'packages/react/' 'tests/visual/' \
+            'playwright.visual.config.ts' || true)
+          if [ -n "$CHANGED" ]; then
+            echo "relevant=true" >> "$GITHUB_OUTPUT"
+            echo "Changed files:"
+            echo "$CHANGED"
+          else
+            echo "relevant=false" >> "$GITHUB_OUTPUT"
+            echo "No relevant changes detected, skipping visual regression."
+          fi
+
+      - name: Setup Node.js
+        if: steps.changes.outputs.relevant == 'true'
+        uses: actions/setup-node@v6
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        if: steps.changes.outputs.relevant == 'true'
+        run: npm install
+
+      - name: Install Playwright
+        if: steps.changes.outputs.relevant == 'true'
+        run: npx playwright install --with-deps chromium
+
+      - name: Run visual regression tests
+        if: steps.changes.outputs.relevant == 'true'
+        run: npx playwright test --config=playwright.visual.config.ts --update-snapshots
+
+      - name: Upload snapshot diffs
+        if: failure() && steps.changes.outputs.relevant == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-regression-diffs
+          path: |
+            tests/visual/__snapshots__/
+            test-results/
+          retention-days: 30
