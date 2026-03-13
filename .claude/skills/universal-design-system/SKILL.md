@@ -1,7 +1,7 @@
 ---
 name: Universal Design System
 description: Production-grade AI-native design system with 9 structural palettes, 530 W3C DTCG tokens, 43 BEM components, BM25 reasoning engine, WCAG 2.2 AA compliance, Tailwind CSS generation, React/Vue/Svelte output, and industry-specific design rules across 1,528 data rows. Reverse-engineered from 100 modern websites.
-version: 0.1.0
+version: 0.4.0
 triggers:
   - design system
   - ui design

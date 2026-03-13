@@ -1,7 +1,7 @@
 ---
 name: UI Styling Assistant
 description: Focused CSS/styling helper that answers specific styling questions using Universal Design System tokens. Provides copy-paste CSS snippets with dark mode variants and responsive breakpoints.
-version: 0.1.0
+version: 0.4.0
 triggers:
   - css help
   - styling help

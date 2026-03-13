@@ -1,7 +1,7 @@
 {
   "name": "@mkatogui/universal-design-system",
-  "version": "0.3.1",
-  "description": "A production-grade design system with 9 structural palettes, 32 components, and automated WCAG 2.1 AA compliance. Deterministic UI recommendation engine powered by retrieval and rule evaluation.",
+  "version": "0.4.0",
+  "description": "A production-grade design system with 9 structural palettes, 43 components, and automated WCAG 2.2 AA compliance. Deterministic UI recommendation engine powered by retrieval and rule evaluation.",
   "main": "tokens/design-tokens.json",
   "bin": {
     "uds": "cli/dist/index.js"

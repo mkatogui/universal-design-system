@@ -1,6 +1,6 @@
 {
   "name": "@mkatogui/uds-svelte",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Svelte 5 components for Universal Design System — 31 accessible, themeable components",
   "svelte": "./src/index.js",
   "main": "./src/index.js",
