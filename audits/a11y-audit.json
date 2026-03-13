@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "generated": "2026-03-13T08:21:46.539003",
+  "generated": "2026-03-13T15:50:01.539130",
   "standard": "WCAG 2.1 AA",
   "total_checks": 108,
   "passed": 88,
@@ -382,9 +382,9 @@
       "pair": "text-tertiary / bg-primary",
       "description": "Tertiary text on background",
       "min_ratio": 3.0,
-      "foreground": "#808080",
+      "foreground": "#989898",
       "background": "#111111",
-      "ratio": 4.78,
+      "ratio": 6.55,
       "passed": true
     },
     {
@@ -638,9 +638,9 @@
       "pair": "text-tertiary / bg-primary",
       "description": "Tertiary text on background",
       "min_ratio": 3.0,
-      "foreground": "#7A7E8C",
+      "foreground": "#8E94A0",
       "background": "#0F1117",
-      "ratio": 4.66,
+      "ratio": 6.19,
       "passed": true
     },
     {
@@ -894,9 +894,9 @@
       "pair": "text-tertiary / bg-primary",
       "description": "Tertiary text on background",
       "min_ratio": 3.0,
-      "foreground": "#8A8298",
+      "foreground": "#9E96AC",
       "background": "#1A1523",
-      "ratio": 4.87,
+      "ratio": 6.31,
       "passed": true
     },
     {
@@ -1026,9 +1026,9 @@
       "pair": "text-tertiary / bg-primary",
       "description": "Tertiary text on background",
       "min_ratio": 3.0,
-      "foreground": "#8C8680",
+      "foreground": "#A09A96",
       "background": "#1C1917",
-      "ratio": 4.86,
+      "ratio": 6.29,
       "passed": true
     },
     {

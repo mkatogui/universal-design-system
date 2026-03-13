@@ -72,6 +72,7 @@
   "author": "Marcelo Katogui",
   "license": "MIT",
   "devDependencies": {
+    "@axe-core/playwright": "^4.11.1",
     "@biomejs/biome": "^2.4.6",
     "@changesets/cli": "^2.30.0",
     "@playwright/test": "^1.58.2",
