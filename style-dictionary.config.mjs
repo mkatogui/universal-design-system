@@ -166,5 +166,24 @@ export default {
         },
       ],
     },
+    brand: {
+      transformGroup: 'css',
+      buildPath: 'build/brand/',
+      source: ['tokens/brands/*.json'],
+      files: [
+        {
+          destination: 'brand-tokens.css',
+          format: 'css/variables-layered',
+          options: {
+            outputReferences: true,
+            selector: ':root',
+          },
+        },
+        {
+          destination: 'brand-tokens.json',
+          format: 'json/flat',
+        },
+      ],
+    },
   },
 };
