@@ -935,3 +935,54 @@ python src/data/_sync_all.py
 
 *Built by analyzing 100 modern websites into one universal system.*
 *Version 0.1.0 | MIT License | 20 AI Platform Support*
+
+---
+
+## APG Pattern Reference
+
+Every component maps to a WAI-ARIA APG pattern. See `src/data/apg-patterns.csv` for keyboard interactions, required ARIA attributes, and focus management specs.
+
+### Coverage
+
+All 32 components are mapped to their closest official WAI-ARIA Authoring Practices Guide (APG) pattern from https://www.w3.org/WAI/ARIA/apg/patterns/
+
+### CSV Columns
+
+| Column | Description |
+|--------|-------------|
+| `component_slug` | Matches slug in `components.csv` (cross-referenced by `_sync_all.py`) |
+| `apg_pattern` | Official WAI-ARIA APG pattern name |
+| `apg_url` | Direct URL to the APG pattern documentation |
+| `keyboard_interactions` | Required keyboard behavior (Enter, Space, Arrow keys, Escape, Tab) |
+| `required_aria` | ARIA roles and attributes that must be present |
+| `optional_aria` | Additional ARIA attributes for enhanced accessibility |
+| `focus_management` | How focus should move when the component opens, closes, or changes state |
+| `live_region` | Whether and how live region announcements should be made (no / polite / assertive) |
+
+### Key Patterns by Component Type
+
+| Pattern | Components |
+|---------|-----------|
+| Button | button |
+| Dialog (Modal) | modal, date-picker |
+| Tabs | tabs |
+| Accordion | accordion |
+| Tooltip | tooltip |
+| Disclosure Navigation | navigation, dropdown, side-nav |
+| Listbox | select |
+| Combobox | command-palette |
+| Checkbox | checkbox |
+| Radio Group | radio |
+| Switch | toggle |
+| Alert / Status | alert, toast |
+| Carousel | testimonial |
+| Table | pricing-table, data-table |
+| Progressbar | progress-indicator |
+| Textbox | input |
+| Breadcrumb | breadcrumb |
+| Landmark Regions | hero, footer, social-proof |
+
+---
+
+### RTL & Logical Properties
+Use logical CSS properties (margin-inline-start, padding-block-end) instead of physical (margin-left, padding-bottom). See `src/data/localization.csv` for the full physical→logical mapping. Use `rtl_mapper.py` to automatically convert.
