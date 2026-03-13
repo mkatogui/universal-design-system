@@ -43,7 +43,7 @@ This document defines the formal guarantees of the Universal Design System. Each
 
 | Field | Detail |
 |-------|--------|
-| **What is promised** | All slug references between the 16 CSV databases resolve correctly. For example, `key_components` in `src/data/products.csv` must reference valid slugs in `src/data/components.csv`. No dangling references. |
+| **What is promised** | All slug references between the 20 CSV databases resolve correctly. For example, `key_components` in `src/data/products.csv` must reference valid slugs in `src/data/components.csv`. No dangling references. |
 | **How it is tested** | `src/data/_sync_all.py` validates all cross-references between CSV files. Only required columns are checked; extra columns are allowed. |
 | **CI step** | `npm run sync-data` (see `.github/workflows/ci.yml`, step "CSV cross-reference validation") |
 | **If broken** | Fix broken slug references in the source CSV file, or add the missing entry to the target CSV file. Re-run `npm run sync-data` locally to confirm. |

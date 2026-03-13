@@ -18,12 +18,12 @@ npm install
 
 | Tool | Description |
 |------|-------------|
-| `search_design_system` | BM25 search across 16 CSV databases. Returns domain detection, palette, components, patterns, and rules. |
+| `search_design_system` | BM25 search across 20 CSV databases. Returns domain detection, palette, components, patterns, and rules. |
 | `get_palette` | Retrieve the full token set (colors, structural tokens) for one of the 9 palettes. |
 | `get_component` | Look up a component by slug. Returns variants, sizes, states, props, and accessibility requirements. |
 | `generate_tokens` | Run the full reasoning pipeline and return a complete design system spec (JSON or Tailwind). |
 | `list_palettes` | List all 9 palettes with descriptions and key attributes. |
-| `list_components` | List all 32 components with names and categories. |
+| `list_components` | List all 43 components with names and categories. |
 
 ## Configuration
 

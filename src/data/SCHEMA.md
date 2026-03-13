@@ -1,6 +1,6 @@
 # CSV Dataset Schema Reference
 
-Formal schema documentation for all 16 CSV databases in the Universal Design System.
+Formal schema documentation for all 20 CSV databases in the Universal Design System.
 
 **Validation:** Run `python3 scripts/validate-datasets.py` to validate all datasets against these schemas. Add `--json` for machine-readable output.
 
@@ -42,7 +42,7 @@ Formal schema documentation for all 16 CSV databases in the Universal Design Sys
 ## 2. components.csv
 
 **Path:** `src/data/components.csv`
-**Purpose:** Component registry defining all 32 UI components with variants, sizing, states, props, and accessibility requirements.
+**Purpose:** Component registry defining all 43 UI components with variants, sizing, states, props, and accessibility requirements.
 **Rows:** ~32
 
 | Column | Required | Type | Constraints | Description |
@@ -68,8 +68,8 @@ Formal schema documentation for all 16 CSV databases in the Universal Design Sys
 ## 3. ui-reasoning.csv
 
 **Path:** `src/data/ui-reasoning.csv`
-**Purpose:** Conditional rule engine (~170 rules) that maps domain attributes to design decisions. Rules are evaluated by priority (higher first); first match wins for palette selection.
-**Rows:** ~170
+**Purpose:** Conditional rule engine (190 rules) that maps domain attributes to design decisions. Rules are evaluated by priority (higher first); first match wins for palette selection.
+**Rows:** 190
 
 | Column | Required | Type | Constraints | Description |
 |--------|----------|------|-------------|-------------|

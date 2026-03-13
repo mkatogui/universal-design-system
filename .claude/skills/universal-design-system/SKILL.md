@@ -1,6 +1,6 @@
 ---
 name: Universal Design System
-description: Production-grade AI-native design system with 9 structural palettes, 530 W3C DTCG tokens, 43 BEM components, BM25 reasoning engine, WCAG 2.2 AA compliance, Tailwind CSS generation, React/Vue/Svelte output, and industry-specific design rules across 1,528 data rows. Reverse-engineered from 100 modern websites.
+description: Production-grade AI-native design system with 9 structural palettes, 600 W3C DTCG tokens, 43 BEM components, BM25 reasoning engine, WCAG 2.2 AA compliance, Tailwind CSS generation, React/Vue/Svelte output, and industry-specific design rules across 1,600+ data rows. Reverse-engineered from 100 modern websites.
 version: 0.4.0
 triggers:
   - design system
@@ -83,7 +83,7 @@ triggers:
 
 A production-grade AI-native design system analyzed from 100 modern websites, distilled into one governed brand foundation with 9 structural palettes, 43 components, 8 patterns, and automated WCAG 2.2 AA compliance.
 
-**Key stats:** 530 tokens | 43 components | 9 palettes | 100% WCAG AA | 1,528 data rows across 16 databases | BM25 reasoning engine | 170 product rules | 75 font pairings | 200+ icon libraries | Tailwind config generation | React/Vue/Svelte output | 20 AI platform support
+**Key stats:** 600 tokens | 43 components | 9 palettes | 100% WCAG AA | 1,600+ data rows across 20 databases | BM25 reasoning engine | 190 product rules | 75 font pairings | 200+ icon libraries | Tailwind config generation | React/Vue/Svelte output | 20 AI platform support
 
 ---
 
@@ -99,7 +99,7 @@ Classify the user's request into sector and product type using keyword detection
 **Product types:** dashboard, landing-page, mobile-app, documentation, ecommerce, blog, saas-app, portfolio
 
 ### Step 2: Search Databases
-Use the BM25 reasoning engine (`src/scripts/core.py`) to search across 16 CSV databases and find relevant:
+Use the BM25 reasoning engine (`src/scripts/core.py`) to search across 20 CSV databases and find relevant:
 - Product category matches (165 products)
 - Style recommendations (60 styles)
 - Color palettes (165 industry palettes)
@@ -115,7 +115,7 @@ Use the BM25 reasoning engine (`src/scripts/core.py`) to search across 16 CSV da
 - React Native component patterns (50 patterns)
 
 ### Step 3: Apply Rules
-Apply conditional design rules from `src/data/ui-reasoning.csv` (170 rules):
+Apply conditional design rules from `src/data/ui-reasoning.csv` (190 rules):
 - Sector → palette mapping
 - Product type → layout/component requirements
 - Audience → accessibility constraints
@@ -746,7 +746,7 @@ Before presenting a design system to the user, verify:
 ### Tokens
 | File | Description |
 |------|-------------|
-| tokens/design-tokens.json | W3C DTCG format (source of truth, 530 tokens) |
+| tokens/design-tokens.json | W3C DTCG format (source of truth, 600 tokens) |
 | tokens/figma-tokens.json | Figma Tokens Studio compatible |
 
 ### Validation
@@ -957,7 +957,7 @@ Every component maps to a WAI-ARIA APG pattern. See `src/data/apg-patterns.csv` 
 
 ### Coverage
 
-All 32 components are mapped to their closest official WAI-ARIA Authoring Practices Guide (APG) pattern from https://www.w3.org/WAI/ARIA/apg/patterns/
+All 43 components are mapped to their closest official WAI-ARIA Authoring Practices Guide (APG) pattern from https://www.w3.org/WAI/ARIA/apg/patterns/
 
 ### CSV Columns
 

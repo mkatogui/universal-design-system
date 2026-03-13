@@ -135,7 +135,7 @@ export async function installCommand(options: InstallOptions): Promise<void> {
   if (options.dryRun) {
     console.log(yellow('  [DRY RUN] Would create:'));
     console.log(`    ${skillDir}/SKILL.md`);
-    console.log(`    ${dataDir}/ (14 CSV databases)`);
+    console.log(`    ${dataDir}/ (20 CSV databases)`);
     console.log(`    ${scriptsDir}/ (3 Python scripts)`);
     if (existsSync(srcTokens)) {
       console.log(`    ${join(targetDir, 'tokens')}/ (design tokens)`);

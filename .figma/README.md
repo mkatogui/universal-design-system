@@ -6,7 +6,7 @@ This directory contains configuration files for integrating the Universal Design
 
 | File | Purpose |
 |------|---------|
-| `code-connect.json` | Figma Code Connect mappings for all 32 components |
+| `code-connect.json` | Figma Code Connect mappings for all 43 components |
 | `tokens-studio.config.json` | Tokens Studio bidirectional sync configuration for 9 palettes |
 | `figma-mcp.json` | Figma MCP server config for Variables API integration |
 

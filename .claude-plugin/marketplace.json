@@ -5,14 +5,14 @@
     "email": "mkatogui@gmail.com"
   },
   "metadata": {
-    "description": "Production-grade design system with 9 structural palettes, 530 W3C DTCG tokens, 32 BEM components, BM25 reasoning engine, WCAG 2.1 AA compliance, and industry-specific design rules. Reverse-engineered from 100 modern websites.",
+    "description": "Production-grade design system with 9 structural palettes, 600 W3C DTCG tokens, 43 BEM components, BM25 reasoning engine, WCAG 2.1 AA compliance, and industry-specific design rules. Reverse-engineered from 100 modern websites.",
     "version": "0.3.0"
   },
   "plugins": [
     {
       "name": "universal-design-system",
       "source": "./",
-      "description": "AI-native design system that reasons about your product. 9 switchable palettes, 530 design tokens, 32 accessible components, BM25 search engine across 16 databases, 100+ industry rules, and automated WCAG validation. Other tools tell AI what colors to use — we give it a complete, accessible, WCAG-validated design system it can ship.",
+      "description": "AI-native design system that reasons about your product. 9 switchable palettes, 600 design tokens, 43 accessible components, BM25 search engine across 20 databases, 190 industry rules, and automated WCAG validation. Other tools tell AI what colors to use — we give it a complete, accessible, WCAG-validated design system it can ship.",
       "version": "0.3.0",
       "author": {
         "name": "mkatogui"

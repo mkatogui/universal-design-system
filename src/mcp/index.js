@@ -269,7 +269,7 @@ const RESOURCE_REGISTRY = [
     filePath: TOKENS_PATH,
     name: 'Design Tokens',
     description:
-      'W3C DTCG design tokens — ~530 tokens across 9 palettes, 2 modes (light/dark). Source of truth for all colors, typography, spacing, motion, shadows, and structural tokens.',
+      'W3C DTCG design tokens — ~600 tokens across 9 palettes, 2 modes (light/dark). Source of truth for all colors, typography, spacing, motion, shadows, and structural tokens.',
     mimeType: 'application/json',
   },
   {
@@ -285,7 +285,7 @@ const RESOURCE_REGISTRY = [
     filePath: COMPONENTS_CSV,
     name: 'Components Database',
     description:
-      '32 UI components with variants, sizes, states, accessibility requirements, and usage guidance.',
+      '43 UI components with variants, sizes, states, accessibility requirements, and usage guidance.',
     mimeType: 'text/csv',
   },
   {
@@ -308,7 +308,7 @@ const RESOURCE_REGISTRY = [
     filePath: UI_REASONING_CSV,
     name: 'UI Reasoning Rules',
     description:
-      '~170 conditional rules (IF sector=X THEN palette=Y) that drive the recommendation engine. Sorted by priority.',
+      '190 conditional rules (IF sector=X THEN palette=Y) that drive the recommendation engine. Sorted by priority.',
     mimeType: 'text/csv',
   },
 ];
@@ -451,7 +451,7 @@ const TOOLS = [
   {
     name: 'search_design_system',
     description:
-      'Search the Universal Design System using BM25 ranking across 16 CSV databases (1,528 rows). ' +
+      'Search the Universal Design System using BM25 ranking across 20 CSV databases (1,600+ rows). ' +
       'Returns domain detection (sector + product type), recommended palette, matched components, ' +
       'patterns, typography, styles, anti-patterns, and applied reasoning rules. ' +
       "Use this for queries like 'fintech dashboard', 'saas landing page', 'healthcare portal'.",
@@ -543,7 +543,7 @@ const TOOLS = [
   {
     name: 'list_components',
     description:
-      'List all 32 UDS components with their names, slugs, and categories. ' +
+      'List all 43 UDS components with their names, slugs, and categories. ' +
       'Use this to discover available components before requesting details with get_component.',
     inputSchema: {
       type: 'object',

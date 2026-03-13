@@ -1,6 +1,6 @@
 # Knowledge Base — CSV Databases
 
-The Universal Design System is powered by **16 CSV databases** containing 1,528 rows of structured design knowledge. These databases feed the **BM25 reasoning engine** (`src/scripts/core.py`), which ranks and retrieves relevant design recommendations based on natural-language queries.
+The Universal Design System is powered by **20 CSV databases** containing 1,600+ rows of structured design knowledge. These databases feed the **BM25 reasoning engine** (`src/scripts/core.py`), which ranks and retrieves relevant design recommendations based on natural-language queries.
 
 Together, the databases cover product templates, conditional design rules, color palettes, typography pairings, icon libraries, UX guidelines, component definitions, layout patterns, anti-patterns, chart types, landing page templates, visual styles, and platform-specific performance rules.
 
@@ -209,4 +209,4 @@ npm run sync-data         # CSV cross-reference validation
 npm run check             # Full suite: tokens + WCAG + docs + CSV
 ```
 
-The `_sync_all.py` validator currently covers 13 of the 16 databases (the 3 platform-specific files in the `stacks/` directory and the additional performance/interface CSVs are indexed by the BM25 engine but not yet cross-validated). Validation is permissive: extra columns beyond the required set are allowed, so databases can evolve without breaking existing checks.
+The `_sync_all.py` validator currently covers 13 of the 20 databases (the 3 platform-specific files in the `stacks/` directory and the additional performance/interface CSVs are indexed by the BM25 engine but not yet cross-validated). Validation is permissive: extra columns beyond the required set are allowed, so databases can evolve without breaking existing checks.

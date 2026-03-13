@@ -1,14 +1,14 @@
 # Universal Design System -- Data Inventory
 
-> Complete inventory of all 16 CSV databases with schemas, row counts, and validation rules.
+> Complete inventory of all 20 CSV databases with schemas, row counts, and validation rules.
 
 ## Summary
 
 | # | Database | Location | Data Rows | Purpose |
 |---|---|---|---|---|
 | 1 | products.csv | src/data/ | 195 | Product archetypes with palette/component mappings |
-| 2 | components.csv | src/data/ | 32 | UI component definitions with variants and a11y |
-| 3 | ui-reasoning.csv | src/data/ | 170 | Conditional design rules (IF/THEN with priority) |
+| 2 | components.csv | src/data/ | 43 | UI component definitions with variants and a11y |
+| 3 | ui-reasoning.csv | src/data/ | 190 | Conditional design rules (IF/THEN with priority) |
 | 4 | anti-patterns.csv | src/data/ | 84 | Sector-specific design anti-patterns |
 | 5 | typography.csv | src/data/ | 85 | Font pairing recommendations |
 | 6 | styles.csv | src/data/ | 69 | Visual style definitions |
@@ -22,7 +22,7 @@
 | 14 | app-interface.csv | src/data/ | 30 | Mobile app interface guidelines |
 | 15 | react-performance.csv | src/data/ | 44 | React performance patterns |
 | 16 | stacks/react-native.csv | src/data/stacks/ | 50 | React Native best practices |
-| | **Total** | | **~1,528** | |
+| | **Total** | | **1,600+** | |
 
 > Row counts exclude the header row. Counts are approximate and may change as the database grows.
 
@@ -63,7 +63,7 @@
 
 **Purpose:** Complete UI component catalog with variants, states, accessibility requirements, and usage guidance.
 
-**Row count:** 32
+**Row count:** 43
 
 **Schema:**
 
@@ -94,7 +94,7 @@
 
 **Purpose:** Conditional design rules evaluated by the ReasoningEngine. Rules map domain detection results (sector, product type) to design recommendations (palette, components, patterns, typography).
 
-**Row count:** 170
+**Row count:** 190
 
 **Schema:**
 

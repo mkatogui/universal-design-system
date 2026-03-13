@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/mkatogui/universal-design-system/spec/token-schema.json",
   "title": "Universal Design System Token Schema",
-  "description": "JSON Schema for tokens/design-tokens.json. Validates the W3C Design Tokens Community Group (DTCG) format used by Universal Design System with 9 structural palettes and ~530 tokens.",
+  "description": "JSON Schema for tokens/design-tokens.json. Validates the W3C Design Tokens Community Group (DTCG) format used by Universal Design System with 9 structural palettes and ~600 tokens.",
   "type": "object",
   "required": ["$schema", "$version", "color", "typography", "spacing", "theme"],
   "properties": {

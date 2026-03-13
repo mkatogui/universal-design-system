@@ -3,7 +3,7 @@
 [![npm version](https://img.shields.io/npm/v/@mkatogui/uds-react.svg)](https://www.npmjs.com/package/@mkatogui/uds-react)
 [![license](https://img.shields.io/npm/l/@mkatogui/uds-react.svg)](https://github.com/mkatogui/universal-design-system/blob/main/LICENSE)
 
-React components for [Universal Design System](https://mkatogui.github.io/universal-design-system/) -- 8 accessible components, 9 palettes, 496 design tokens, WCAG 2.1 AA compliant.
+React components for [Universal Design System](https://mkatogui.github.io/universal-design-system/) -- 43 accessible components, 9 palettes, 600 design tokens, WCAG 2.1 AA compliant.
 
 ## Installation
 

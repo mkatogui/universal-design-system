@@ -181,7 +181,7 @@ In addition to HTML docs, the current naming is used in:
 1. **Silent breakage:** Any missed reference produces invisible styling bugs (the browser silently falls back to `initial` for undefined custom properties)
 2. **Build pipeline disruption:** Style Dictionary configuration, validators, and WCAG audit scripts all reference current names
 3. **Consumer disruption:** Any external consumers using `var(--color-*)` would break immediately
-4. **Testing burden:** All 9 palettes x 2 modes x 32 components need visual regression testing
+4. **Testing burden:** All 9 palettes x 2 modes x 43 components need visual regression testing
 
 ## 4. Future Migration Path: --uds-* Prefix
 
