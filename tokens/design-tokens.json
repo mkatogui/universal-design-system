@@ -1208,6 +1208,36 @@
           1
         ],
         "$type": "duration"
+      },
+      "spring-gentle": {
+        "$value": [
+          0.34,
+          1.56,
+          0.64,
+          1.0
+        ],
+        "$type": "cubicBezier",
+        "$description": "Gentle spring bounce"
+      },
+      "spring-bouncy": {
+        "$value": [
+          0.68,
+          -0.55,
+          0.265,
+          1.55
+        ],
+        "$type": "cubicBezier",
+        "$description": "Bouncy spring"
+      },
+      "spring-stiff": {
+        "$value": [
+          0.4,
+          0.0,
+          0.2,
+          1.0
+        ],
+        "$type": "cubicBezier",
+        "$description": "Stiff spring (minimal overshoot)"
       }
     },
     "$type": "duration",
@@ -1480,6 +1510,202 @@
         },
         "$type": "object",
         "$description": "Shake animation for error feedback"
+      },
+      "shimmer": {
+        "$value": {
+          "0%": {
+            "background-position": "-200% 0"
+          },
+          "100%": {
+            "background-position": "200% 0"
+          }
+        },
+        "$type": "object",
+        "$description": "Loading shimmer effect"
+      },
+      "skeleton-wave": {
+        "$value": {
+          "0%": {
+            "background-position": "-468px 0"
+          },
+          "100%": {
+            "background-position": "468px 0"
+          }
+        },
+        "$type": "object",
+        "$description": "Skeleton loading wave sweep"
+      },
+      "pulse-ring": {
+        "$value": {
+          "0%": {
+            "transform": "scale(0.8)",
+            "opacity": "1"
+          },
+          "100%": {
+            "transform": "scale(2.0)",
+            "opacity": "0"
+          }
+        },
+        "$type": "object",
+        "$description": "Expanding ring pulse for notifications and alerts"
+      },
+      "checkbox-morph": {
+        "$value": {
+          "0%": {
+            "stroke-dashoffset": "20",
+            "opacity": "0"
+          },
+          "100%": {
+            "stroke-dashoffset": "0",
+            "opacity": "1"
+          }
+        },
+        "$type": "object",
+        "$description": "Checkmark drawing animation for checkbox state change"
+      },
+      "toggle-slide": {
+        "$value": {
+          "0%": {
+            "transform": "translateX(0)"
+          },
+          "100%": {
+            "transform": "translateX(20px)"
+          }
+        },
+        "$type": "object",
+        "$description": "Toggle switch thumb slide animation"
+      },
+      "accordion-height": {
+        "$value": {
+          "0%": {
+            "max-height": "0",
+            "opacity": "0"
+          },
+          "100%": {
+            "max-height": "1000px",
+            "opacity": "1"
+          }
+        },
+        "$type": "object",
+        "$description": "Accordion expand/collapse height animation"
+      },
+      "tab-indicator": {
+        "$value": {
+          "0%": {
+            "transform": "scaleX(0)",
+            "opacity": "0"
+          },
+          "100%": {
+            "transform": "scaleX(1)",
+            "opacity": "1"
+          }
+        },
+        "$type": "object",
+        "$description": "Tab active indicator slide-in animation"
+      },
+      "counter": {
+        "$value": {
+          "0%": {
+            "opacity": "0",
+            "transform": "translateY(8px)"
+          },
+          "100%": {
+            "opacity": "1",
+            "transform": "translateY(0)"
+          }
+        },
+        "$type": "object",
+        "$description": "Number counter rolling/counting animation per digit"
+      },
+      "typing": {
+        "$value": {
+          "0%": {
+            "width": "0",
+            "border-right-color": "transparent"
+          },
+          "50%": {
+            "border-right-color": "currentColor"
+          },
+          "100%": {
+            "width": "100%",
+            "border-right-color": "transparent"
+          }
+        },
+        "$type": "object",
+        "$description": "Typewriter text reveal animation"
+      },
+      "fade-in-up": {
+        "$value": {
+          "0%": {
+            "opacity": "0",
+            "transform": "translateY(24px)"
+          },
+          "100%": {
+            "opacity": "1",
+            "transform": "translateY(0)"
+          }
+        },
+        "$type": "object",
+        "$description": "Fade in from below for scroll reveal and hero sections"
+      },
+      "slide-in-right": {
+        "$value": {
+          "0%": {
+            "opacity": "0",
+            "transform": "translateX(32px)"
+          },
+          "100%": {
+            "opacity": "1",
+            "transform": "translateX(0)"
+          }
+        },
+        "$type": "object",
+        "$description": "Slide in from the right for panels and drawers"
+      },
+      "bounce-in": {
+        "$value": {
+          "0%": {
+            "opacity": "0",
+            "transform": "scale(0.3)"
+          },
+          "50%": {
+            "opacity": "1",
+            "transform": "scale(1.05)"
+          },
+          "70%": {
+            "transform": "scale(0.9)"
+          },
+          "100%": {
+            "opacity": "1",
+            "transform": "scale(1)"
+          }
+        },
+        "$type": "object",
+        "$description": "Bouncy entrance for dialogs, badges, and celebration moments"
+      }
+    },
+    "scroll-driven": {
+      "$description": "Tokens for scroll-driven and intersection observer animations.",
+      "progress": {
+        "$type": "string",
+        "$value": "view()",
+        "$description": "Scroll progress timeline"
+      },
+      "reveal-threshold": {
+        "$type": "number",
+        "$value": 0.1,
+        "$description": "IntersectionObserver threshold for scroll reveal"
+      },
+      "parallax-factor": {
+        "$type": "number",
+        "$value": 0.5,
+        "$description": "Parallax scroll speed factor"
+      }
+    },
+    "$extensions": {
+      "com.universal-ds.starting-style": {
+        "description": "Use CSS @starting-style for enter animations on display:none elements",
+        "example": "@starting-style { opacity: 0; transform: translateY(8px); }"
       }
     },
     "style": {
