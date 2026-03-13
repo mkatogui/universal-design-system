@@ -986,7 +986,7 @@ document.querySelectorAll('.palette-pill').forEach(function(pill) {
     var card = document.createElement('div');
     card.className = 'palette-card';
     var hdr = '<div class="palette-card__header" style="background:' + p.colors[0].value + ';color:' + (p.colors[0].dark ? 'rgba(255,255,255,0.9)' : 'rgba(0,0,0,0.8)') + '">' + p.name + '</div>';
-    var swatches = '<div class="palette-card__swatches">';
+    var swatches = '<div class="palette-card__swatches" aria-hidden="true">';
     p.colors.forEach(function(c) {
       swatches += '<div class="swatch' + (c.dark ? ' swatch--dark' : ' swatch--light') + '" style="background:' + c.value + '">' + c.label + '</div>';
     });

@@ -268,15 +268,13 @@ test.describe('Keyboard navigation — Enter and Space activation', () => {
         await waitForReady(page);
 
         // Find the first visible, non-disabled button
-        const buttonSelector = 'button:not([disabled]):not([aria-hidden="true"])';
-        const button = page.locator(buttonSelector).first();
+        const button = page.locator('button:not([disabled]):not([aria-hidden="true"]):visible').first();
         await button.focus();
 
         // Verify the button is focused
-        const isFocused = await page.evaluate((sel) => {
-          const el = document.querySelector(sel);
-          return el === document.activeElement;
-        }, buttonSelector);
+        const isFocused = await button.evaluate(
+          (el) => el === document.activeElement,
+        );
         expect(isFocused, 'Button should receive focus').toBe(true);
 
         // Press Enter — should not throw and the button should remain in the DOM
@@ -292,8 +290,8 @@ test.describe('Keyboard navigation — Enter and Space activation', () => {
         await page.goto(`${getBaseUrl()}/${pageInfo.path}`, { waitUntil: 'domcontentloaded' });
         await waitForReady(page);
 
-        // Focus a palette button which has a well-defined click handler
-        const paletteBtn = page.locator('.palette-btn').first();
+        // Focus a non-active palette button which has a well-defined click handler
+        const paletteBtn = page.locator('.palette-btn:not(.active)').first();
         await paletteBtn.focus();
 
         const themeBefore = await page.evaluate(() =>
@@ -392,14 +390,21 @@ test.describe('Keyboard navigation — Escape key', () => {
 
     if (count > 0) {
       // Focus and activate the first collapsed section
-      const firstCollapsed = page.locator('.section-title.collapsed').first();
+      const firstCollapsed = page.locator('.section-title[aria-expanded="false"]').first();
       if (await firstCollapsed.isVisible()) {
+        await firstCollapsed.scrollIntoViewIfNeeded();
         await firstCollapsed.focus();
+
+        // Verify focus landed
+        const isFocused = await firstCollapsed.evaluate(
+          (el) => el === document.activeElement,
+        );
+        expect(isFocused, 'Section title should receive focus').toBe(true);
+
         await page.keyboard.press('Enter');
 
         // Verify it expanded
-        const expanded = await firstCollapsed.getAttribute('aria-expanded');
-        expect(expanded).toBe('true');
+        await expect(firstCollapsed).toHaveAttribute('aria-expanded', 'true');
       }
     }
   });
