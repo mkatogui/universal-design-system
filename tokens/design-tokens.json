@@ -2560,6 +2560,131 @@
   "component": {
     "$name": "Component Tokens",
     "$description": "Component-level tokens (tier 3)",
+    "modal": {
+      "overlay-opacity": {
+        "$value": 0.5,
+        "$type": "number",
+        "$description": "Opacity of the backdrop overlay behind the modal dialog"
+      },
+      "content-padding": {
+        "$value": "{spacing.6}",
+        "$type": "dimension",
+        "$description": "Padding applied to the modal Content slot"
+      },
+      "header-padding": {
+        "$value": "{spacing.5}",
+        "$type": "dimension",
+        "$description": "Padding applied to the modal Header slot"
+      },
+      "footer-padding": {
+        "$value": "{spacing.5}",
+        "$type": "dimension",
+        "$description": "Padding applied to the modal Footer slot"
+      },
+      "width-sm": {
+        "$value": "400px",
+        "$type": "dimension",
+        "$description": "Small modal Content width"
+      },
+      "width-md": {
+        "$value": "560px",
+        "$type": "dimension",
+        "$description": "Medium modal Content width"
+      },
+      "width-lg": {
+        "$value": "720px",
+        "$type": "dimension",
+        "$description": "Large modal Content width"
+      }
+    },
+    "dropdown": {
+      "menu-min-width": {
+        "$value": "160px",
+        "$type": "dimension",
+        "$description": "Minimum width of the dropdown Menu slot"
+      },
+      "item-height-sm": {
+        "$value": "32px",
+        "$type": "dimension",
+        "$description": "Height of a dropdown Item in the small size variant"
+      },
+      "item-height-md": {
+        "$value": "36px",
+        "$type": "dimension",
+        "$description": "Height of a dropdown Item in the medium size variant"
+      },
+      "item-height-lg": {
+        "$value": "40px",
+        "$type": "dimension",
+        "$description": "Height of a dropdown Item in the large size variant"
+      },
+      "separator-margin": {
+        "$value": "{spacing.1}",
+        "$type": "dimension",
+        "$description": "Vertical margin above and below the Separator slot"
+      }
+    },
+    "alert": {
+      "icon-size": {
+        "$value": "20px",
+        "$type": "dimension",
+        "$description": "Size of the Icon slot within an Alert"
+      },
+      "padding-sm": {
+        "$value": "12px 16px",
+        "$type": "dimension",
+        "$description": "Padding for the small Alert Root slot"
+      },
+      "padding-md": {
+        "$value": "16px 20px",
+        "$type": "dimension",
+        "$description": "Padding for the medium Alert Root slot"
+      },
+      "padding-lg": {
+        "$value": "20px 24px",
+        "$type": "dimension",
+        "$description": "Padding for the large Alert Root slot"
+      }
+    },
+    "input": {
+      "label-gap": {
+        "$value": "{spacing.1}",
+        "$type": "dimension",
+        "$description": "Vertical gap between the Label slot and the Field slot"
+      },
+      "helper-gap": {
+        "$value": "{spacing.1}",
+        "$type": "dimension",
+        "$description": "Vertical gap between the Field slot and HelperText / ErrorMessage slots"
+      },
+      "icon-size": {
+        "$value": "16px",
+        "$type": "dimension",
+        "$description": "Size of the Icon slot inside the field boundary"
+      },
+      "icon-inset": {
+        "$value": "12px",
+        "$type": "dimension",
+        "$description": "Horizontal distance from field edge to the Icon slot"
+      }
+    },
+    "feature-card": {
+      "media-height": {
+        "$value": "200px",
+        "$type": "dimension",
+        "$description": "Default height of the Media slot within a Feature Card"
+      },
+      "content-padding": {
+        "$value": "{spacing.5}",
+        "$type": "dimension",
+        "$description": "Padding applied to the Content slot within a Feature Card"
+      },
+      "footer-padding": {
+        "$value": "{spacing.4}",
+        "$type": "dimension",
+        "$description": "Padding applied to the Footer slot within a Feature Card"
+      }
+    },
     "tabs": {
       "height_md": {
         "$value": "44px",
