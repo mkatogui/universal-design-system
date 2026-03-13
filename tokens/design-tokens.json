@@ -614,6 +614,61 @@
         "$value": "rgba(0, 0, 0, 0.5)",
         "$type": "color",
         "$description": "Modal/dialog backdrop"
+      },
+      "action-primary": {
+        "$type": "color",
+        "$value": "{color.semantic.brand.primary}",
+        "$description": "Primary action color (buttons, links)"
+      },
+      "action-secondary": {
+        "$type": "color",
+        "$value": "{color.semantic.brand.secondary}",
+        "$description": "Secondary action color"
+      },
+      "action-destructive": {
+        "$type": "color",
+        "$value": "{color.semantic.error}",
+        "$description": "Destructive action color"
+      },
+      "feedback-success": {
+        "$type": "color",
+        "$value": "{color.semantic.success}",
+        "$description": "Success feedback"
+      },
+      "feedback-warning": {
+        "$type": "color",
+        "$value": "{color.semantic.warning}",
+        "$description": "Warning feedback"
+      },
+      "feedback-error": {
+        "$type": "color",
+        "$value": "{color.semantic.error}",
+        "$description": "Error feedback"
+      },
+      "feedback-info": {
+        "$type": "color",
+        "$value": "{color.semantic.info}",
+        "$description": "Info feedback"
+      },
+      "surface-elevated": {
+        "$type": "color",
+        "$value": "{color.semantic.bg.secondary}",
+        "$description": "Elevated surface (cards, modals)"
+      },
+      "surface-overlay": {
+        "$type": "color",
+        "$value": "{color.semantic.bg.tertiary}",
+        "$description": "Overlay surface (dropdowns, popovers)"
+      },
+      "text-link": {
+        "$type": "color",
+        "$value": "{color.semantic.brand.primary}",
+        "$description": "Hyperlink text color"
+      },
+      "border-focus": {
+        "$type": "color",
+        "$value": "{color.semantic.brand.primary}",
+        "$description": "Focus ring border color"
       }
     },
     "chart": {
