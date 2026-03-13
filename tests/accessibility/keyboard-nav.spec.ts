@@ -389,14 +389,19 @@ test.describe('Keyboard navigation — Escape key', () => {
     const count = await sectionTriggers.count();
 
     if (count > 0) {
-      // Focus and activate the first collapsed section
-      const firstCollapsed = page.locator('.section-title[aria-expanded="false"]').first();
-      if (await firstCollapsed.isVisible()) {
-        await firstCollapsed.scrollIntoViewIfNeeded();
-        await firstCollapsed.focus();
+      // Focus and activate the first collapsed section.
+      // Pin the element by its data-group so the locator stays stable
+      // after aria-expanded changes.
+      const collapsedBtn = page.locator('.section-title[aria-expanded="false"]').first();
+      if (await collapsedBtn.isVisible()) {
+        const group = await collapsedBtn.getAttribute('data-group');
+        const pinned = page.locator(`.section-title[data-group="${group}"]`);
+
+        await pinned.scrollIntoViewIfNeeded();
+        await pinned.focus();
 
         // Verify focus landed
-        const isFocused = await firstCollapsed.evaluate(
+        const isFocused = await pinned.evaluate(
           (el) => el === document.activeElement,
         );
         expect(isFocused, 'Section title should receive focus').toBe(true);
@@ -404,7 +409,7 @@ test.describe('Keyboard navigation — Escape key', () => {
         await page.keyboard.press('Enter');
 
         // Verify it expanded
-        await expect(firstCollapsed).toHaveAttribute('aria-expanded', 'true');
+        await expect(pinned).toHaveAttribute('aria-expanded', 'true');
       }
     }
   });
