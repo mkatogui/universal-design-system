@@ -462,6 +462,13 @@ PRODUCT_KEYWORDS = {
     "marketplace": ["marketplace", "listing", "vendor", "seller", "buyer"],
     "streaming": ["streaming", "video", "audio", "live", "player"],
     "telehealth": ["telehealth", "telemedicine", "virtual-care", "patient-portal", "remote-health"],
+    "booking": ["booking", "reservation", "appointment", "scheduling", "calendar"],
+    "social-app": ["social-app", "social-network", "social-media", "feed", "timeline"],
+    "editor": ["editor", "ide", "code-editor", "text-editor", "wysiwyg"],
+    "onboarding": ["onboarding", "signup", "registration", "welcome", "getting-started"],
+    "crm": ["crm", "customer-relationship", "sales-pipeline", "leads", "contacts"],
+    "productivity": ["productivity", "task-manager", "kanban", "todo", "workflow"],
+    "analytics": ["analytics", "insights", "reporting", "metrics", "kpi"],
 }
 
 

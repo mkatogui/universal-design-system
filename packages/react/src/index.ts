@@ -5,6 +5,8 @@ export { Accordion } from './components/Accordion';
 export type { AlertProps } from './components/Alert';
 // Feedback
 export { Alert } from './components/Alert';
+export type { AlertDialogProps } from './components/AlertDialog';
+export { AlertDialog } from './components/AlertDialog';
 export type { AvatarProps } from './components/Avatar';
 export { Avatar } from './components/Avatar';
 export type { BadgeProps } from './components/Badge';
@@ -22,6 +24,8 @@ export { Checkbox } from './components/Checkbox';
 export type { CodeBlockProps, CodeBlockTab } from './components/CodeBlock';
 // Content
 export { CodeBlock } from './components/CodeBlock';
+export type { ComboboxOption, ComboboxProps } from './components/Combobox';
+export { Combobox } from './components/Combobox';
 export type {
   CommandPaletteAction,
   CommandPaletteGroup,
@@ -33,6 +37,8 @@ export { DataTable } from './components/DataTable';
 export type { DatePickerProps } from './components/DatePicker';
 // Form
 export { DatePicker } from './components/DatePicker';
+export type { DrawerProps } from './components/Drawer';
+export { Drawer } from './components/Drawer';
 export type { DropdownItem, DropdownProps } from './components/Dropdown';
 export { Dropdown } from './components/Dropdown';
 export type { FileUploadProps } from './components/FileUpload';

@@ -218,7 +218,7 @@ describe('Modal', () => {
     );
     const overlay = document.querySelector('.uds-modal-overlay')!;
     // Click on overlay itself (not children)
-    fireEvent.click(overlay);
+    fireEvent.mouseDown(overlay);
     expect(handleClose).toHaveBeenCalledTimes(1);
   });
 
