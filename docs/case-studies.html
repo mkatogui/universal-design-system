@@ -683,10 +683,21 @@ body {
 .dark-mode-toggle:hover { color: var(--color-text-primary); border-color: var(--color-brand-primary); }
 .dark-mode-toggle:focus-visible { outline: 2px solid var(--color-brand-primary); outline-offset: 2px; }
 
-@media (max-width: 640px) {
+html, body { overflow-x: hidden; }
+@media (max-width: 768px) {
+  .palette-switcher { overflow-x: auto; -webkit-overflow-scrolling: touch; flex-wrap: nowrap; }
+  .palette-pill { flex-shrink: 0; }
+  .cs-code-hint code { white-space: pre-wrap; word-break: break-word; }
+  .cs-typo-pair { flex-wrap: wrap; }
+  .page-header { padding: var(--space-10) var(--space-4) var(--space-8); }
+  [style*="grid-template-columns"] { grid-template-columns: 1fr !important; }
+}
+@media (max-width: 480px) {
   .cs-card__meta { flex-direction: column; gap: var(--space-2); }
   .cs-swatches { gap: var(--space-1); }
   .cs-swatch { width: 64px; height: 52px; }
+  .page-header h1 { font-size: 1.5rem; }
+  .cs-typo-pair__mood { margin-left: 0; }
 }
 /* Touch feedback */
 .site-topnav a:active { opacity: 0.7; }

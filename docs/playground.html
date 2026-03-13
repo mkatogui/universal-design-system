@@ -1199,6 +1199,7 @@ html.docs-dark .page-footer a { color: var(--color-text-secondary); }
 /* ============================================================
    RESPONSIVE
    ============================================================ */
+html, body { overflow-x: hidden; }
 @media (max-width: 1024px) {
   .playground-layout {
     grid-template-columns: 240px 1fr;
@@ -1224,6 +1225,7 @@ html.docs-dark .page-footer a { color: var(--color-text-secondary); }
   }
   .playground-preview {
     padding: var(--spacing-4);
+    overflow-x: auto;
   }
   .playground-code-panel {
     max-height: 300px;
@@ -1238,10 +1240,14 @@ html.docs-dark .page-footer a { color: var(--color-text-secondary); }
   .uds-card--horizontal .uds-card__image {
     height: 120px;
   }
+  .uds-btn { flex-wrap: wrap; }
+  [style*="grid-template-columns"] { grid-template-columns: 1fr !important; }
 }
 @media (max-width: 480px) {
   .playground-sidebar { max-height: 50vh; }
   .palette-grid { grid-template-columns: repeat(2, 1fr); }
+  .uds-input, .uds-select, select, input[type="text"], input[type="number"] { max-width: 100%; }
+  .uds-modal { max-width: 95vw; max-height: 90vh; }
 }
 
 /* ============================================================
