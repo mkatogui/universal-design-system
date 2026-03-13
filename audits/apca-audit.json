@@ -1,6 +1,6 @@
 {
-  "version": "0.8.0",
-  "generated": "2026-03-12T10:28:09.588960",
+  "version": "1.0.0",
+  "generated": "2026-03-13T08:21:46.943916",
   "standard": "APCA (SAPC-APCA 0.0.98G-4g)",
   "thresholds": {
     "body_text": 75,
@@ -8,8 +8,8 @@
     "ui_element": 45
   },
   "total_checks": 72,
-  "passed": 56,
-  "failed": 16,
+  "passed": 72,
+  "failed": 0,
   "skipped": 0,
   "results": [
     {
@@ -65,12 +65,12 @@
       "fg_token": "text-secondary",
       "bg_token": "bg-primary",
       "threshold_lc": 60,
-      "foreground": "#9999AA",
+      "foreground": "#B8B8C8",
       "background": "#0A0A0F",
-      "apca_lc": -47.0,
-      "apca_abs_lc": 47.0,
-      "wcag_ratio": 7.05,
-      "passed": false
+      "apca_lc": -63.8,
+      "apca_abs_lc": 63.8,
+      "wcag_ratio": 10.09,
+      "passed": true
     },
     {
       "palette": "ai-futuristic",
@@ -125,12 +125,12 @@
       "fg_token": "text-secondary",
       "bg_token": "bg-primary",
       "threshold_lc": 60,
-      "foreground": "#AAAABC",
+      "foreground": "#C0C0D0",
       "background": "#050508",
-      "apca_lc": -56.2,
-      "apca_abs_lc": 56.2,
-      "wcag_ratio": 8.9,
-      "passed": false
+      "apca_lc": -68.5,
+      "apca_abs_lc": 68.5,
+      "wcag_ratio": 11.33,
+      "passed": true
     },
     {
       "palette": "apple-minimal",
@@ -230,12 +230,12 @@
       "fg_token": "brand-primary",
       "bg_token": "bg-primary",
       "threshold_lc": 45,
-      "foreground": "#2997FF",
+      "foreground": "#64D2FF",
       "background": "#000000",
-      "apca_lc": -44.7,
-      "apca_abs_lc": 44.7,
-      "wcag_ratio": 6.96,
-      "passed": false
+      "apca_lc": -71.2,
+      "apca_abs_lc": 71.2,
+      "wcag_ratio": 12.2,
+      "passed": true
     },
     {
       "palette": "apple-minimal",
@@ -245,12 +245,12 @@
       "fg_token": "text-secondary",
       "bg_token": "bg-primary",
       "threshold_lc": 60,
-      "foreground": "#A1A1A6",
+      "foreground": "#B8B8BD",
       "background": "#000000",
-      "apca_lc": -50.8,
-      "apca_abs_lc": 50.8,
-      "wcag_ratio": 8.16,
-      "passed": false
+      "apca_lc": -63.5,
+      "apca_abs_lc": 63.5,
+      "wcag_ratio": 10.63,
+      "passed": true
     },
     {
       "palette": "bold-lifestyle",
@@ -365,12 +365,12 @@
       "fg_token": "text-secondary",
       "bg_token": "bg-primary",
       "threshold_lc": 60,
-      "foreground": "#A3A3A3",
+      "foreground": "#BDBDBD",
       "background": "#111111",
-      "apca_lc": -51.2,
-      "apca_abs_lc": 51.2,
-      "wcag_ratio": 7.49,
-      "passed": false
+      "apca_lc": -65.7,
+      "apca_abs_lc": 65.7,
+      "wcag_ratio": 10.05,
+      "passed": true
     },
     {
       "palette": "corporate",
@@ -470,12 +470,12 @@
       "fg_token": "brand-primary",
       "bg_token": "bg-primary",
       "threshold_lc": 45,
-      "foreground": "#4A7AB5",
+      "foreground": "#79B8FF",
       "background": "#0D1117",
-      "apca_lc": -29.9,
-      "apca_abs_lc": 29.9,
-      "wcag_ratio": 4.27,
-      "passed": false
+      "apca_lc": -60.7,
+      "apca_abs_lc": 60.7,
+      "wcag_ratio": 9.11,
+      "passed": true
     },
     {
       "palette": "corporate",
@@ -485,12 +485,12 @@
       "fg_token": "text-secondary",
       "bg_token": "bg-primary",
       "threshold_lc": 60,
-      "foreground": "#8B949E",
+      "foreground": "#B0BAC5",
       "background": "#0D1117",
-      "apca_lc": -42.9,
-      "apca_abs_lc": 42.9,
-      "wcag_ratio": 6.15,
-      "passed": false
+      "apca_lc": -63.3,
+      "apca_abs_lc": 63.3,
+      "wcag_ratio": 9.62,
+      "passed": true
     },
     {
       "palette": "dashboard",
@@ -590,12 +590,12 @@
       "fg_token": "brand-primary",
       "bg_token": "bg-primary",
       "threshold_lc": 45,
-      "foreground": "#6366F1",
+      "foreground": "#9B93F5",
       "background": "#0F1117",
-      "apca_lc": -29.9,
-      "apca_abs_lc": 29.9,
-      "wcag_ratio": 4.22,
-      "passed": false
+      "apca_lc": -49.0,
+      "apca_abs_lc": 49.0,
+      "wcag_ratio": 7.09,
+      "passed": true
     },
     {
       "palette": "dashboard",
@@ -605,12 +605,12 @@
       "fg_token": "text-secondary",
       "bg_token": "bg-primary",
       "threshold_lc": 60,
-      "foreground": "#9498A5",
+      "foreground": "#B0B4C0",
       "background": "#0F1117",
-      "apca_lc": -45.5,
-      "apca_abs_lc": 45.5,
-      "wcag_ratio": 6.55,
-      "passed": false
+      "apca_lc": -60.6,
+      "apca_abs_lc": 60.6,
+      "wcag_ratio": 9.11,
+      "passed": true
     },
     {
       "palette": "gradient-startup",
@@ -710,12 +710,12 @@
       "fg_token": "brand-primary",
       "bg_token": "bg-primary",
       "threshold_lc": 45,
-      "foreground": "#7C3AED",
+      "foreground": "#A78BFA",
       "background": "#0A0A0F",
-      "apca_lc": -23.4,
-      "apca_abs_lc": 23.4,
-      "wcag_ratio": 3.47,
-      "passed": false
+      "apca_lc": -48.4,
+      "apca_abs_lc": 48.4,
+      "wcag_ratio": 7.26,
+      "passed": true
     },
     {
       "palette": "gradient-startup",
@@ -725,12 +725,12 @@
       "fg_token": "text-secondary",
       "bg_token": "bg-primary",
       "threshold_lc": 60,
-      "foreground": "#9999AA",
+      "foreground": "#B8B8C8",
       "background": "#0A0A0F",
-      "apca_lc": -47.0,
-      "apca_abs_lc": 47.0,
-      "wcag_ratio": 7.05,
-      "passed": false
+      "apca_lc": -63.8,
+      "apca_abs_lc": 63.8,
+      "wcag_ratio": 10.09,
+      "passed": true
     },
     {
       "palette": "illustration",
@@ -845,12 +845,12 @@
       "fg_token": "text-secondary",
       "bg_token": "bg-primary",
       "threshold_lc": 60,
-      "foreground": "#A8A0B5",
+      "foreground": "#C0B8CC",
       "background": "#1A1523",
-      "apca_lc": -50.9,
-      "apca_abs_lc": 50.9,
-      "wcag_ratio": 7.11,
-      "passed": false
+      "apca_lc": -64.2,
+      "apca_abs_lc": 64.2,
+      "wcag_ratio": 9.33,
+      "passed": true
     },
     {
       "palette": "minimal-corporate",
@@ -950,12 +950,12 @@
       "fg_token": "brand-primary",
       "bg_token": "bg-primary",
       "threshold_lc": 45,
-      "foreground": "#D97706",
+      "foreground": "#FBBF24",
       "background": "#1C1917",
-      "apca_lc": -41.3,
-      "apca_abs_lc": 41.3,
-      "wcag_ratio": 5.49,
-      "passed": false
+      "apca_lc": -71.8,
+      "apca_abs_lc": 71.8,
+      "wcag_ratio": 10.48,
+      "passed": true
     },
     {
       "palette": "minimal-corporate",
@@ -965,12 +965,12 @@
       "fg_token": "text-secondary",
       "bg_token": "bg-primary",
       "threshold_lc": 60,
-      "foreground": "#A8A29E",
+      "foreground": "#C0BBB8",
       "background": "#1C1917",
-      "apca_lc": -50.5,
-      "apca_abs_lc": 50.5,
-      "wcag_ratio": 6.93,
-      "passed": false
+      "apca_lc": -64.3,
+      "apca_abs_lc": 64.3,
+      "wcag_ratio": 9.2,
+      "passed": true
     },
     {
       "palette": "minimal-saas",
@@ -1070,12 +1070,12 @@
       "fg_token": "brand-primary",
       "bg_token": "bg-primary",
       "threshold_lc": 45,
-      "foreground": "#2563EB",
+      "foreground": "#60A5FA",
       "background": "#0A0A0F",
-      "apca_lc": -25.9,
-      "apca_abs_lc": 25.9,
-      "wcag_ratio": 3.82,
-      "passed": false
+      "apca_lc": -51.5,
+      "apca_abs_lc": 51.5,
+      "wcag_ratio": 7.77,
+      "passed": true
     },
     {
       "palette": "minimal-saas",
@@ -1085,13 +1085,13 @@
       "fg_token": "text-secondary",
       "bg_token": "bg-primary",
       "threshold_lc": 60,
-      "foreground": "#9999AA",
+      "foreground": "#B8B8C8",
       "background": "#0A0A0F",
-      "apca_lc": -47.0,
-      "apca_abs_lc": 47.0,
-      "wcag_ratio": 7.05,
-      "passed": false
+      "apca_lc": -63.8,
+      "apca_abs_lc": 63.8,
+      "wcag_ratio": 10.09,
+      "passed": true
     }
   ],
-  "pass_rate": "77.8%"
+  "pass_rate": "100.0%"
 }

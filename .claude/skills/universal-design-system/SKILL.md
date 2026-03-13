@@ -81,7 +81,7 @@ triggers:
 
 > Other tools tell AI what colors to use. We give it a complete, accessible, WCAG-validated design system it can ship.
 
-A production-grade AI-native design system reverse-engineered from 100 modern websites, distilled into one governed brand foundation with 9 structural palettes, 32 components, 8 patterns, and automated WCAG 2.1 AA compliance.
+A production-grade AI-native design system analyzed from 100 modern websites, distilled into one governed brand foundation with 9 structural palettes, 32 components, 8 patterns, and automated WCAG 2.1 AA compliance.
 
 **Key stats:** 530 tokens | 32 components | 9 palettes | 100% WCAG AA | 1,528 data rows across 16 databases | BM25 reasoning engine | 170 product rules | 75 font pairings | 200+ icon libraries | Tailwind config generation | React/Vue/Svelte output | 20 AI platform support
 
@@ -933,5 +933,5 @@ python src/data/_sync_all.py
 
 ---
 
-*Built by reverse-engineering 100 modern websites into one universal system.*
+*Built by analyzing 100 modern websites into one universal system.*
 *Version 0.1.0 | MIT License | 20 AI Platform Support*

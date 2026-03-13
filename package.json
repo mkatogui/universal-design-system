@@ -26,8 +26,8 @@
     "test:a11y": "node scripts/axe-audit.js",
     "test:visual": "playwright test tests/visual/",
     "test:visual:update": "playwright test tests/visual/ --update-snapshots",
-    "storybook": "npx storybook dev -p 6006",
-    "build:storybook": "npx storybook build -o docs/storybook",
+    "storybook": "storybook dev -p 6006",
+    "build:storybook": "storybook build -o docs/storybook",
     "test:contracts": "python3 -m unittest discover tests/contracts/ -v",
     "test:react": "vitest run",
     "test:react:coverage": "vitest run --coverage",
@@ -39,7 +39,9 @@
     "changeset": "changeset",
     "changeset:version": "changeset version",
     "changeset:publish": "changeset publish",
-    "prepare": "husky"
+    "prepare": "husky",
+    "size": "size-limit",
+    "size:check": "size-limit --limit"
   },
   "keywords": [
     "design-system",
@@ -72,6 +74,8 @@
   "devDependencies": {
     "@biomejs/biome": "^2.4.6",
     "@changesets/cli": "^2.30.0",
+    "@playwright/test": "^1.58.2",
+    "@size-limit/file": "^12.0.1",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.1.0",
     "@vitejs/plugin-react": "^6.0.0",
@@ -81,6 +85,8 @@
     "lint-staged": "^16.3.3",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
+    "size-limit": "^12.0.1",
+    "storybook": "^10.2.17",
     "style-dictionary": "^5.3.3",
     "vitest": "^4.1.0"
   },
@@ -107,6 +113,16 @@
     "marketplace": "mkatogui/universal-design-system",
     "install": "universal-design-system"
   },
+  "size-limit": [
+    {
+      "path": "packages/react/dist/index.mjs",
+      "limit": "100 KB"
+    },
+    {
+      "path": "packages/react/dist/styles.css",
+      "limit": "30 KB"
+    }
+  ],
   "lint-staged": {
     "*.{js,ts,tsx}": [
       "biome check --write --no-errors-on-unmatched"
