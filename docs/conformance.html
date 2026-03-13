@@ -577,6 +577,7 @@ html.docs-dark .palette-result-table tr:hover td { background: var(--color-bg-se
 .page-footer a:hover { text-decoration: underline; }
 
 /* Responsive */
+html, body { overflow-x: hidden; }
 @media (max-width: 768px) {
   .conf-summary { grid-template-columns: repeat(2, 1fr); }
   .method-grid { grid-template-columns: 1fr; }
@@ -587,9 +588,18 @@ html.docs-dark .palette-result-table tr:hover td { background: var(--color-bg-se
   .topnav-links--open { display: flex; }
   .topnav-links a { padding: var(--space-3) var(--space-4); min-height: 44px; display: flex; align-items: center; }
   .topnav-links a.active { border-left: 2px solid var(--color-brand-primary); }
+  .conf-table { min-width: 600px; }
+  .palette-result-table { min-width: 500px; }
+  .conf-card { padding: var(--space-4); }
+  .badge--supports, .badge--partial, .badge--na { display: inline-flex; flex-wrap: wrap; white-space: normal; }
+  [style*="grid-template-columns"] { grid-template-columns: 1fr !important; }
 }
 @media (max-width: 480px) {
   .conf-summary { grid-template-columns: 1fr; }
+  .page-header h1 { font-size: 1.5rem; }
+  .page-header { padding: var(--space-10) var(--space-4) var(--space-8); }
+  .section { padding-left: var(--space-3); padding-right: var(--space-3); }
+  .limitation-card { padding: var(--space-4); }
 }
 /* Touch feedback */
 .site-topnav a:active { opacity: 0.7; }

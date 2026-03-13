@@ -867,11 +867,21 @@ body {
 .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: var(--space-6); font-size: var(--text-body-sm); opacity: var(--opacity-muted); display: flex; justify-content: space-between; flex-wrap: wrap; gap: var(--space-4); }
 
 /* Responsive */
+html, body { overflow-x: hidden; }
 @media (max-width: 768px) {
   .footer-grid { grid-template-columns: 1fr 1fr; }
   .card-grid { grid-template-columns: 1fr; }
   .pricing-grid { grid-template-columns: 1fr; }
   .demo-nav-links { display: none; }
+  .shadow-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+  [style*="grid-template-columns"] { grid-template-columns: 1fr !important; }
+}
+@media (max-width: 480px) {
+  .swatch-grid { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); }
+  .swatch-label { font-size: var(--text-label); }
+  .swatch-value { font-size: 10px; }
+  .shadow-grid { grid-template-columns: 1fr 1fr; }
+  .radius-block { width: 60px; height: 60px; font-size: var(--text-label); }
 }
 /* === Site Navigation Bar === */
 .site-topnav { display: flex; align-items: center; gap: 0; background: #111; color: #fff; font-family: 'Inter', system-ui, sans-serif; font-size: 14px; padding: 0 24px; height: 44px; position: sticky; top: 0; z-index: 9999; }
