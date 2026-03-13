@@ -1,6 +1,6 @@
 # Universal Design System -- System Contract
 
-> Canonical specification for Universal Design System v0.1.0.
+> Canonical specification for Universal Design System v0.4.0.
 > This document is the single source of truth for system behavior, metrics, and architecture.
 
 ## 1. System Overview
