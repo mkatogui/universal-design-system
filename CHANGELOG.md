@@ -1,5 +1,27 @@
 # Changelog
 
+## 0.4.0
+
+### Added
+
+- **OKLCH Color Pipeline** — Reverse OKLCH→hex conversion, P3 gamut mapping, tonal palette curves (Material You-style 13-stop scales)
+- **Semantic Color Tokens** — 11 intent-named aliases (action-primary, feedback-success, surface-elevated, text-link, border-focus)
+- **WCAG 2.2 Compliance** — Upgraded from 2.1; added SC 2.4.11, 2.5.7, 2.5.8 to conformance checklist
+- **APCA Dual-Reporting** — WCAG audit now includes APCA Lc values alongside traditional contrast ratios
+- **APG Pattern Library** — All 43 components mapped to WAI-ARIA APG patterns with keyboard interactions and ARIA specs
+- **Headless/Unstyled Output** — `--unstyled` flag for behavior-only specs (ARIA, keyboard, states, focus management)
+- **Web Components Output** — `--framework web-components` with Lit-based Custom Element templates for 8 core components
+- **11 New Components** — Drawer, Popover, Combobox, Alert Dialog, Carousel, Chip Input, Stepper, Segmented Control, Toolbar, Tree View, OTP Input (32→43 total)
+- **Compound Component Slots** — `component-slots.csv` decomposing 8 components into atomic parts
+- **Layout Primitives** — Box, Stack, Inline, Grid, Center, Container, Spacer, Divider with container query tokens
+- **Animation & Motion Expansion** — Spring easing, 14 micro-animation presets, scroll-driven animation tokens, @starting-style patterns
+- **Multi-Brand Architecture** — Brand override system with deep-merge resolver and Style Dictionary integration
+- **RTL & Logical Properties** — Physical-to-logical CSS mapping (30 properties) with automatic converter
+- **Figma Integration** — Code Connect mappings for 43 components, Tokens Studio bidirectional sync, Figma MCP server config
+- **Visual Regression CI** — Playwright visual comparison (9 palettes × 2 modes × 8 pages = 144 screenshots)
+- **Bundle Size Analysis** — Per-component size budgets via esbuild with CI reporting
+- **Governance Model** — Component lifecycle stages (Proposal→Alpha→Beta→Stable→Deprecated), RFC template, token coverage scanner
+
 ## 0.3.1
 
 ### Patch Changes
