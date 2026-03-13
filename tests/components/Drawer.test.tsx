@@ -133,4 +133,55 @@ describe('Drawer', () => {
     expect(ref.current).toBeInstanceOf(HTMLDivElement);
     expect(ref.current).toHaveAttribute('role', 'dialog');
   });
+
+  it('renders without title (no header)', () => {
+    render(
+      <Drawer open={true} onClose={vi.fn()}>
+        <p>No title content</p>
+      </Drawer>,
+    );
+    expect(screen.getByRole('dialog')).toBeInTheDocument();
+    expect(screen.queryByRole('heading')).not.toBeInTheDocument();
+    expect(screen.getByText('No title content')).toBeInTheDocument();
+  });
+
+  it('locks body scroll when open and restores on close', () => {
+    const { unmount } = render(
+      <Drawer open={true} onClose={vi.fn()} title="Scroll Lock">
+        Body
+      </Drawer>,
+    );
+    expect(document.body.style.overflow).toBe('hidden');
+    unmount();
+    expect(document.body.style.overflow).toBe('');
+  });
+
+  it('forwards a callback ref to the dialog element', () => {
+    const callbackRef = vi.fn();
+    render(
+      <Drawer ref={callbackRef} open={true} onClose={vi.fn()} title="Callback Ref">
+        Body
+      </Drawer>,
+    );
+    expect(callbackRef).toHaveBeenCalled();
+    expect(callbackRef.mock.calls[0][0]).toBeInstanceOf(HTMLDivElement);
+  });
+
+  it('applies additional className', () => {
+    render(
+      <Drawer open={true} onClose={vi.fn()} title="Custom" className="custom-drawer">
+        Body
+      </Drawer>,
+    );
+    expect(screen.getByRole('dialog')).toHaveClass('custom-drawer');
+  });
+
+  it('applies default size md', () => {
+    render(
+      <Drawer open={true} onClose={vi.fn()} title="Default Size">
+        Body
+      </Drawer>,
+    );
+    expect(screen.getByRole('dialog')).toHaveClass('uds-drawer--md');
+  });
 });

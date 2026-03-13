@@ -1,5 +1,6 @@
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import { createPortal } from 'react-dom';
+import { useDialogOverlay } from '../../utils/useDialogOverlay';
 
 export interface DrawerProps {
   /** Whether the drawer is currently visible. */
@@ -21,38 +22,12 @@ export interface DrawerProps {
 export const Drawer = React.forwardRef<HTMLDivElement, DrawerProps>(
   ({ open, onClose, side = 'right', size = 'md', title, children, className }, ref) => {
     const drawerRef = useRef<HTMLDivElement | null>(null);
-    const previousFocus = useRef<HTMLElement | null>(null);
 
-    const handleKeyDown = useCallback(
-      (e: KeyboardEvent) => {
-        if (e.key === 'Escape') {
-          onClose();
-          return;
-        }
-        if (e.key === 'Tab' && drawerRef.current) {
-          const focusable = drawerRef.current.querySelectorAll<HTMLElement>(
-            'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
-          );
-          if (focusable.length === 0) return;
-          const first = focusable[0];
-          const last = focusable[focusable.length - 1];
-          if (e.shiftKey && document.activeElement === first) {
-            e.preventDefault();
-            last.focus();
-          } else if (!e.shiftKey && document.activeElement === last) {
-            e.preventDefault();
-            first.focus();
-          }
-        }
-      },
-      [onClose],
-    );
+    useDialogOverlay(open, onClose, drawerRef);
 
-    useEffect(() => {
+    // Auto-focus the first focusable element when opened
+    React.useEffect(() => {
       if (open) {
-        previousFocus.current = document.activeElement as HTMLElement;
-        document.addEventListener('keydown', handleKeyDown);
-        document.body.style.overflow = 'hidden';
         requestAnimationFrame(() => {
           const focusable = drawerRef.current?.querySelectorAll<HTMLElement>(
             'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
@@ -62,12 +37,7 @@ export const Drawer = React.forwardRef<HTMLDivElement, DrawerProps>(
           }
         });
       }
-      return () => {
-        document.removeEventListener('keydown', handleKeyDown);
-        document.body.style.overflow = '';
-        previousFocus.current?.focus();
-      };
-    }, [open, handleKeyDown]);
+    }, [open]);
 
     if (!open) return null;
 

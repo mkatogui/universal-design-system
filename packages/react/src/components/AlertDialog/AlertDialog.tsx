@@ -1,5 +1,6 @@
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import { createPortal } from 'react-dom';
+import { useDialogOverlay } from '../../utils/useDialogOverlay';
 
 export interface AlertDialogProps {
   /** Whether the alert dialog is currently visible. */
@@ -38,49 +39,18 @@ export const AlertDialog = React.forwardRef<HTMLDivElement, AlertDialogProps>(
     ref,
   ) => {
     const dialogRef = useRef<HTMLDivElement | null>(null);
-    const previousFocus = useRef<HTMLElement | null>(null);
     const cancelRef = useRef<HTMLButtonElement | null>(null);
 
-    const handleKeyDown = useCallback(
-      (e: KeyboardEvent) => {
-        if (e.key === 'Escape') {
-          onClose();
-          return;
-        }
-        if (e.key === 'Tab' && dialogRef.current) {
-          const focusable = dialogRef.current.querySelectorAll<HTMLElement>(
-            'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
-          );
-          if (focusable.length === 0) return;
-          const first = focusable[0];
-          const last = focusable[focusable.length - 1];
-          if (e.shiftKey && document.activeElement === first) {
-            e.preventDefault();
-            last.focus();
-          } else if (!e.shiftKey && document.activeElement === last) {
-            e.preventDefault();
-            first.focus();
-          }
-        }
-      },
-      [onClose],
-    );
+    useDialogOverlay(open, onClose, dialogRef);
 
-    useEffect(() => {
+    // Auto-focus the cancel button (least-destructive action)
+    React.useEffect(() => {
       if (open) {
-        previousFocus.current = document.activeElement as HTMLElement;
-        document.addEventListener('keydown', handleKeyDown);
-        document.body.style.overflow = 'hidden';
         requestAnimationFrame(() => {
           cancelRef.current?.focus();
         });
       }
-      return () => {
-        document.removeEventListener('keydown', handleKeyDown);
-        document.body.style.overflow = '';
-        previousFocus.current?.focus();
-      };
-    }, [open, handleKeyDown]);
+    }, [open]);
 
     if (!open) return null;
 

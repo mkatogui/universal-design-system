@@ -1,5 +1,6 @@
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import { createPortal } from 'react-dom';
+import { useDialogOverlay } from '../../utils/useDialogOverlay';
 
 /**
  * Props for the {@link Modal} component.
@@ -47,38 +48,12 @@ export interface ModalProps {
 export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
   ({ open, onClose, variant = 'task', size = 'md', title, children, actions, className }, ref) => {
     const modalRef = useRef<HTMLDivElement | null>(null);
-    const previousFocus = useRef<HTMLElement | null>(null);
 
-    const handleKeyDown = useCallback(
-      (e: KeyboardEvent) => {
-        if (e.key === 'Escape') {
-          onClose();
-          return;
-        }
-        if (e.key === 'Tab' && modalRef.current) {
-          const focusable = modalRef.current.querySelectorAll<HTMLElement>(
-            'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
-          );
-          if (focusable.length === 0) return;
-          const first = focusable[0];
-          const last = focusable[focusable.length - 1];
-          if (e.shiftKey && document.activeElement === first) {
-            e.preventDefault();
-            last.focus();
-          } else if (!e.shiftKey && document.activeElement === last) {
-            e.preventDefault();
-            first.focus();
-          }
-        }
-      },
-      [onClose],
-    );
+    useDialogOverlay(open, onClose, modalRef);
 
-    useEffect(() => {
+    // Auto-focus the first focusable element when opened
+    React.useEffect(() => {
       if (open) {
-        previousFocus.current = document.activeElement as HTMLElement;
-        document.addEventListener('keydown', handleKeyDown);
-        document.body.style.overflow = 'hidden';
         requestAnimationFrame(() => {
           const focusable = modalRef.current?.querySelectorAll<HTMLElement>(
             'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
@@ -88,12 +63,7 @@ export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
           }
         });
       }
-      return () => {
-        document.removeEventListener('keydown', handleKeyDown);
-        document.body.style.overflow = '';
-        previousFocus.current?.focus();
-      };
-    }, [open, handleKeyDown]);
+    }, [open]);
 
     if (!open) return null;
 
@@ -113,7 +83,7 @@ export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
           ref={(node) => {
             modalRef.current = node;
             if (typeof ref === 'function') ref(node);
-            else if (ref) ref.current = node;
+            else if (ref) (ref as React.MutableRefObject<HTMLDivElement | null>).current = node;
           }}
           className={classes}
           role="dialog"

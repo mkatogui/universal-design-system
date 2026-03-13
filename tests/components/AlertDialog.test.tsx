@@ -95,4 +95,36 @@ describe('AlertDialog', () => {
     expect(ref.current).toBeInstanceOf(HTMLDivElement);
     expect(ref.current).toHaveAttribute('role', 'alertdialog');
   });
+
+  it('applies variant class for warning', () => {
+    render(<AlertDialog {...defaultProps} variant="warning" />);
+    const dialog = screen.getByRole('alertdialog');
+    expect(dialog).toHaveClass('uds-alert-dialog--warning');
+  });
+
+  it('uses primary button style for info variant', () => {
+    render(<AlertDialog {...defaultProps} variant="info" />);
+    const confirmBtn = screen.getByRole('button', { name: 'Confirm' });
+    expect(confirmBtn).toHaveClass('uds-btn--primary');
+  });
+
+  it('locks body scroll when open and restores on close', () => {
+    const { unmount } = render(<AlertDialog {...defaultProps} />);
+    expect(document.body.style.overflow).toBe('hidden');
+    unmount();
+    expect(document.body.style.overflow).toBe('');
+  });
+
+  it('forwards a callback ref to the dialog element', () => {
+    const callbackRef = vi.fn();
+    render(<AlertDialog ref={callbackRef} {...defaultProps} />);
+    expect(callbackRef).toHaveBeenCalled();
+    expect(callbackRef.mock.calls[0][0]).toBeInstanceOf(HTMLDivElement);
+  });
+
+  it('applies additional className', () => {
+    render(<AlertDialog {...defaultProps} className="custom-alert" />);
+    const dialog = screen.getByRole('alertdialog');
+    expect(dialog).toHaveClass('custom-alert');
+  });
 });

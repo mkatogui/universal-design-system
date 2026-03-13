@@ -139,4 +139,98 @@ describe('Combobox', () => {
     fireEvent.click(screen.getByText('Canada'));
     expect(handleSelect).toHaveBeenCalledWith(['us', 'ca']);
   });
+
+  it('deselects in multiselect when clicking a selected option', () => {
+    const handleSelect = vi.fn();
+    render(
+      <Combobox
+        label="Countries"
+        options={options}
+        onSelect={handleSelect}
+        variant="multiselect"
+        value={['us', 'ca']}
+      />,
+    );
+    const input = screen.getByRole('combobox');
+    fireEvent.focus(input);
+    fireEvent.click(screen.getByText('Canada'));
+    expect(handleSelect).toHaveBeenCalledWith(['us']);
+  });
+
+  it('shows create option in creatable variant', () => {
+    const handleSelect = vi.fn();
+    render(<Combobox label="Tag" options={options} onSelect={handleSelect} variant="creatable" />);
+    const input = screen.getByRole('combobox');
+    fireEvent.focus(input);
+    fireEvent.change(input, { target: { value: 'NewTag' } });
+    const createOption = screen.getByText(/Create/);
+    expect(createOption).toBeInTheDocument();
+    fireEvent.click(createOption);
+    expect(handleSelect).toHaveBeenCalledWith('NewTag');
+  });
+
+  it('creates via Enter key in creatable variant', () => {
+    const handleSelect = vi.fn();
+    render(<Combobox label="Tag" options={options} onSelect={handleSelect} variant="creatable" />);
+    const input = screen.getByRole('combobox');
+    fireEvent.focus(input);
+    fireEvent.change(input, { target: { value: 'NewTag' } });
+    fireEvent.keyDown(input, { key: 'Enter' });
+    expect(handleSelect).toHaveBeenCalledWith('NewTag');
+  });
+
+  it('closes listbox when clicking outside', () => {
+    render(<Combobox label="Country" options={options} onSelect={vi.fn()} />);
+    const input = screen.getByRole('combobox');
+    fireEvent.focus(input);
+    expect(screen.getByRole('listbox')).toBeInTheDocument();
+    fireEvent.mouseDown(document.body);
+    expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
+  });
+
+  it('does not select a disabled option on click', () => {
+    const disabledOptions = [
+      { value: 'us', label: 'United States' },
+      { value: 'ca', label: 'Canada', disabled: true },
+    ];
+    const handleSelect = vi.fn();
+    render(<Combobox label="Country" options={disabledOptions} onSelect={handleSelect} />);
+    const input = screen.getByRole('combobox');
+    fireEvent.focus(input);
+    fireEvent.click(screen.getByText('Canada'));
+    expect(handleSelect).not.toHaveBeenCalled();
+  });
+
+  it('opens listbox on ArrowDown when closed', () => {
+    render(<Combobox label="Country" options={options} onSelect={vi.fn()} />);
+    const input = screen.getByRole('combobox');
+    // Don't focus first (listbox closed)
+    fireEvent.keyDown(input, { key: 'ArrowDown' });
+    expect(screen.getByRole('listbox')).toBeInTheDocument();
+  });
+
+  it('marks selected options with aria-selected', () => {
+    render(<Combobox label="Country" options={options} onSelect={vi.fn()} value="us" />);
+    const input = screen.getByRole('combobox');
+    fireEvent.focus(input);
+    const usOption = screen.getByText('United States').closest('[role="option"]');
+    expect(usOption).toHaveAttribute('aria-selected', 'true');
+    const caOption = screen.getByText('Canada').closest('[role="option"]');
+    expect(caOption).toHaveAttribute('aria-selected', 'false');
+  });
+
+  it('applies variant class', () => {
+    const { container } = render(
+      <Combobox label="Country" options={options} onSelect={vi.fn()} variant="creatable" />,
+    );
+    expect(container.querySelector('.uds-combobox')).toHaveClass('uds-combobox--creatable');
+  });
+
+  it('sets aria-expanded correctly', () => {
+    render(<Combobox label="Country" options={options} onSelect={vi.fn()} />);
+    const input = screen.getByRole('combobox');
+    expect(input).toHaveAttribute('aria-expanded', 'false');
+    fireEvent.focus(input);
+    expect(input).toHaveAttribute('aria-expanded', 'true');
+  });
 });
