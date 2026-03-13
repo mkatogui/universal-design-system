@@ -1,52 +1,26 @@
 import React, { useCallback, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 
-/**
- * Props for the {@link Modal} component.
- */
-export interface ModalProps {
-  /** Whether the modal is currently visible. */
+export interface DrawerProps {
+  /** Whether the drawer is currently visible. */
   open: boolean;
-  /** Callback fired when the modal should close (Escape key, overlay click, close button). */
+  /** Callback fired when the drawer should close. */
   onClose: () => void;
-  /** Purpose-specific visual variant. @default 'task' */
-  variant?: 'confirmation' | 'task' | 'alert';
-  /** Width constraint of the dialog panel. @default 'md' */
+  /** Edge from which the drawer slides in. @default 'right' */
+  side?: 'left' | 'right' | 'top' | 'bottom';
+  /** Width (left/right) or height (top/bottom) of the drawer. @default 'md' */
   size?: 'sm' | 'md' | 'lg';
-  /** Dialog heading rendered in the header; also used as `aria-label`. */
+  /** Dialog heading rendered in the header. */
   title?: string;
-  /** Body content of the dialog. */
+  /** Body content of the drawer. */
   children: React.ReactNode;
-  /** Action buttons rendered in the footer area. */
-  actions?: React.ReactNode;
-  /** Additional CSS class for the dialog panel. */
+  /** Additional CSS class for the drawer panel. */
   className?: string;
 }
 
-/**
- * An accessible modal dialog rendered via React Portal into `document.body`.
- *
- * Features:
- * - Focus trap (Tab / Shift+Tab cycles within the dialog)
- * - Escape key closes the dialog
- * - Clicking the overlay backdrop closes the dialog
- * - Restores focus to the previously-focused element on close
- * - Sets `aria-modal="true"` and `role="dialog"`
- * - Locks body scroll while open
- *
- * Uses BEM class `uds-modal` with variant and size modifiers.
- * Forwards its ref to the dialog panel `<div>`.
- *
- * @example
- * ```tsx
- * <Modal open={isOpen} onClose={() => setOpen(false)} title="Confirm">
- *   <p>Are you sure?</p>
- * </Modal>
- * ```
- */
-export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
-  ({ open, onClose, variant = 'task', size = 'md', title, children, actions, className }, ref) => {
-    const modalRef = useRef<HTMLDivElement | null>(null);
+export const Drawer = React.forwardRef<HTMLDivElement, DrawerProps>(
+  ({ open, onClose, side = 'right', size = 'md', title, children, className }, ref) => {
+    const drawerRef = useRef<HTMLDivElement | null>(null);
     const previousFocus = useRef<HTMLElement | null>(null);
 
     const handleKeyDown = useCallback(
@@ -55,8 +29,8 @@ export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
           onClose();
           return;
         }
-        if (e.key === 'Tab' && modalRef.current) {
-          const focusable = modalRef.current.querySelectorAll<HTMLElement>(
+        if (e.key === 'Tab' && drawerRef.current) {
+          const focusable = drawerRef.current.querySelectorAll<HTMLElement>(
             'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
           );
           if (focusable.length === 0) return;
@@ -80,7 +54,7 @@ export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
         document.addEventListener('keydown', handleKeyDown);
         document.body.style.overflow = 'hidden';
         requestAnimationFrame(() => {
-          const focusable = modalRef.current?.querySelectorAll<HTMLElement>(
+          const focusable = drawerRef.current?.querySelectorAll<HTMLElement>(
             'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
           );
           if (focusable && focusable.length > 0) {
@@ -97,13 +71,13 @@ export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
 
     if (!open) return null;
 
-    const classes = ['uds-modal', `uds-modal--${variant}`, `uds-modal--${size}`, className]
+    const classes = ['uds-drawer', `uds-drawer--${side}`, `uds-drawer--${size}`, className]
       .filter(Boolean)
       .join(' ');
 
     return createPortal(
       <div
-        className="uds-modal-overlay"
+        className="uds-drawer-overlay"
         onClick={(e) => {
           if (e.target === e.currentTarget) onClose();
         }}
@@ -111,9 +85,9 @@ export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
       >
         <div
           ref={(node) => {
-            modalRef.current = node;
+            drawerRef.current = node;
             if (typeof ref === 'function') ref(node);
-            else if (ref) ref.current = node;
+            else if (ref) (ref as React.MutableRefObject<HTMLDivElement | null>).current = node;
           }}
           className={classes}
           role="dialog"
@@ -121,12 +95,12 @@ export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
           aria-label={title}
         >
           {title && (
-            <div className="uds-modal__header">
-              <h2 className="uds-modal__title">{title}</h2>
+            <div className="uds-drawer__header">
+              <h2 className="uds-drawer__title">{title}</h2>
               <button
-                className="uds-modal__close"
+                className="uds-drawer__close"
                 onClick={onClose}
-                aria-label="Close dialog"
+                aria-label="Close drawer"
                 type="button"
               >
                 <svg
@@ -143,8 +117,7 @@ export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
               </button>
             </div>
           )}
-          <div className="uds-modal__body">{children}</div>
-          {actions && <div className="uds-modal__footer">{actions}</div>}
+          <div className="uds-drawer__body">{children}</div>
         </div>
       </div>,
       document.body,
@@ -152,4 +125,4 @@ export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
   },
 );
 
-Modal.displayName = 'Modal';
+Drawer.displayName = 'Drawer';
