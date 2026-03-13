@@ -3,7 +3,7 @@
  * Delegates to src/scripts/palette.py via execSync.
  */
 
-import { execSync } from 'node:child_process';
+import { execFileSync } from 'node:child_process';
 import { existsSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -25,11 +25,11 @@ export interface PaletteOptions {
 function getPython(): string {
   let python = 'python3';
   try {
-    execSync(`${python} --version`, { stdio: 'ignore' });
+    execFileSync(python, ['--version'], { stdio: 'ignore' });
   } catch {
     python = 'python';
     try {
-      execSync(`${python} --version`, { stdio: 'ignore' });
+      execFileSync(python, ['--version'], { stdio: 'ignore' });
     } catch {
       console.error(red('  Python 3 is required but not found.'));
       process.exit(1);
@@ -63,7 +63,7 @@ export async function paletteCommand(subcommand: string, options: PaletteOptions
   }
 
   try {
-    const result = execSync(`${python} ${args.join(' ')}`, {
+    const result = execFileSync(python, args, {
       encoding: 'utf-8',
       cwd: PKG_ROOT,
       stdio: ['ignore', 'pipe', 'pipe'],

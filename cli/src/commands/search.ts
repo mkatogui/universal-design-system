@@ -2,7 +2,7 @@
  * Search command — wraps the Python search engine for terminal use.
  */
 
-import { execFileSync, execSync } from 'node:child_process';
+import { execFileSync } from 'node:child_process';
 import { existsSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -32,11 +32,11 @@ export async function searchCommand(query: string, options: SearchOptions): Prom
   // Check Python is available
   let python = 'python3';
   try {
-    execSync(`${python} --version`, { stdio: 'ignore' });
+    execFileSync(python, ['--version'], { stdio: 'ignore' });
   } catch {
     python = 'python';
     try {
-      execSync(`${python} --version`, { stdio: 'ignore' });
+      execFileSync(python, ['--version'], { stdio: 'ignore' });
     } catch {
       console.error(red('  Python 3 is required but not found.'));
       process.exit(1);
