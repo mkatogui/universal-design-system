@@ -63,7 +63,8 @@
       "!**/build",
       "!**/docs",
       "!**/coverage",
-      "!**/.scannerwork"
+      "!**/.scannerwork",
+      "!**/.claude/worktrees"
     ]
   }
 }

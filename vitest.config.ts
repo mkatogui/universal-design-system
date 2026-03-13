@@ -13,7 +13,8 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'jsdom',
-    include: ['tests/components/**/*.test.tsx'],
+    include: ['tests/components/**/*.test.tsx', 'tests/cli/**/*.test.ts'],
+    environmentMatchGlobs: [['tests/cli/**', 'node']],
     setupFiles: [],
     coverage: {
       provider: 'v8',

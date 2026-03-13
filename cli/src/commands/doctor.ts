@@ -6,7 +6,7 @@
  * and dataset integrity.
  */
 
-import { execSync } from 'node:child_process';
+import { execFileSync } from 'node:child_process';
 import { existsSync, readFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -19,9 +19,9 @@ interface Check {
   fn: () => string | true;
 }
 
-function checkCommand(cmd: string): string {
+function checkCommand(binary: string, args: string[]): string {
   try {
-    return execSync(cmd, { encoding: 'utf-8', timeout: 10_000 }).trim();
+    return execFileSync(binary, args, { encoding: 'utf-8', timeout: 10_000 }).trim();
   } catch {
     return '';
   }
@@ -35,14 +35,14 @@ const CHECKS: Check[] = [
   {
     label: 'Python 3',
     fn: () => {
-      const ver = checkCommand('python3 --version');
+      const ver = checkCommand('python3', ['--version']);
       return ver ? ver : 'python3 not found — install Python 3.8+';
     },
   },
   {
     label: 'Node.js',
     fn: () => {
-      const ver = checkCommand('node --version');
+      const ver = checkCommand('node', ['--version']);
       return ver ? `Node.js ${ver}` : 'node not found';
     },
   },
