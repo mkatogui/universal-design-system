@@ -83,6 +83,17 @@ FILE_SCHEMAS = {
     "google-fonts.csv": {
         "required": ["id", "name", "category", "weights"],
     },
+    "component-slots.csv": {
+        "required": [
+            "id",
+            "component_slug",
+            "slot_name",
+            "slot_element",
+            "slot_description",
+            "required",
+            "accepts_children",
+        ],
+    },
     "localization.csv": {
         "required": ["physical_property", "logical_property", "direction_sensitive", "description"],
     },
@@ -190,6 +201,63 @@ COMPOUND_KNOWN_FIELDS = {
     "data_type", "form_density", "loading_strategy",
     "data_volume", "content_type", "theme_mode",
 }
+
+
+def validate_component_slots(component_slugs: set) -> list[str]:
+    """Validate component-slots.csv.
+
+    Checks that:
+    - All required columns are present.
+    - Every ``component_slug`` references a known slug from components.csv.
+    - ``required`` and ``accepts_children`` fields contain only 'true' or 'false'.
+    """
+    errors = []
+    rows = load_csv("component-slots.csv")
+
+    if not rows:
+        errors.append("component-slots.csv: File is empty or missing")
+        return errors
+
+    headers = set(rows[0].keys())
+    required_cols = [
+        "id",
+        "component_slug",
+        "slot_name",
+        "slot_element",
+        "slot_description",
+        "required",
+        "accepts_children",
+    ]
+    for col in required_cols:
+        if col not in headers:
+            errors.append(f"component-slots.csv: Missing required column '{col}'")
+
+    bool_fields = ("required", "accepts_children")
+
+    for row in rows:
+        row_id = row.get("id", "?")
+        slug = row.get("component_slug", "").strip()
+        slot = row.get("slot_name", "").strip()
+
+        if not slug:
+            errors.append(f"component-slots.csv row {row_id}: Empty component_slug")
+            continue
+
+        if component_slugs and slug not in component_slugs:
+            errors.append(
+                f"component-slots.csv row {row_id} (slot '{slot}'): "
+                f"Unknown component_slug '{slug}'"
+            )
+
+        for field in bool_fields:
+            val = row.get(field, "").strip().lower()
+            if val not in ("true", "false"):
+                errors.append(
+                    f"component-slots.csv row {row_id} (slug '{slug}', slot '{slot}'): "
+                    f"'{field}' must be 'true' or 'false', got '{val}'"
+                )
+
+    return errors
 
 
 def validate_compound_conditions() -> list[str]:
@@ -329,6 +397,18 @@ def main():
         all_errors.extend(compound_errors)
     else:
         print("  PASS: All compound conditions have valid syntax")
+
+    # Component slots cross-reference validation
+    print()
+    print("Component Slots Validation")
+    print("=" * 50)
+    slots_errors = validate_component_slots(component_slugs)
+    if slots_errors:
+        print(f"  FAIL: {len(slots_errors)} component-slots error(s)")
+        all_errors.extend(slots_errors)
+    else:
+        slots_rows = load_csv("component-slots.csv")
+        print(f"  PASS: component-slots.csv ({len(slots_rows)} rows, all slugs valid)")
 
     print()
     print(f"Total: {len(FILE_SCHEMAS)} files, {total_rows} rows")
