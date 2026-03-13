@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>WCAG Conformance — Universal Design System v__VERSION__</title>
-<meta name="description" content="WCAG 2.1 Level AA conformance documentation for the Universal Design System. Component conformance matrix, palette contrast results, and testing methodology.">
+<meta name="description" content="WCAG 2.2 Level AA conformance documentation for the Universal Design System. Component conformance matrix, palette contrast results, and testing methodology.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&family=Source+Serif+4:wght@600;700&family=DM+Sans:wght@400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -628,17 +628,17 @@ html, body { overflow-x: hidden; }
 <!-- HEADER -->
 <header class="page-header" id="main-content">
   <h1>WCAG Conformance</h1>
-  <p>Accessibility conformance documentation for the Universal Design System. Targeting WCAG 2.1 Level AA across all 9 palettes, 32 components, and both light and dark modes.</p>
+  <p>Accessibility conformance documentation for the Universal Design System. Targeting WCAG 2.2 Level AA across all 9 palettes, 32 components, and both light and dark modes.</p>
 </header>
 
 <!-- SECTION 1: CONFORMANCE OVERVIEW -->
 <section class="section" aria-labelledby="overview-title">
   <h2 class="section__title" id="overview-title">Conformance Overview</h2>
-  <p class="section__desc">The Universal Design System targets WCAG 2.1 Level AA conformance. Accessibility is enforced at the token level, validated by automated tooling on every build, and documented per component.</p>
+  <p class="section__desc">The Universal Design System targets WCAG 2.2 Level AA conformance. Accessibility is enforced at the token level, validated by automated tooling on every build, and documented per component.</p>
 
   <div class="conf-summary">
     <div class="conf-card">
-      <div class="conf-card__value">WCAG 2.1 AA</div>
+      <div class="conf-card__value">WCAG 2.2 AA</div>
       <div class="conf-card__label">Target Conformance Level</div>
     </div>
     <div class="conf-card">
@@ -655,7 +655,55 @@ html, body { overflow-x: hidden; }
     </div>
   </div>
 
-  <p class="section__desc" style="margin-bottom: 0;">Every palette in UDS is designed to meet WCAG 2.1 Level AA contrast requirements: 4.5:1 for body text, 3:1 for large text and UI components. Contrast checks run on every build via <code>npm run audit</code>, covering 6 color pairs per palette across both light and dark modes (9 palettes &times; 6 pairs &times; 2 modes = 108 checks). Components are built with semantic HTML, ARIA attributes, keyboard support, and visible focus indicators as baseline requirements.</p>
+  <p class="section__desc" style="margin-bottom: 0;">Every palette in UDS is designed to meet WCAG 2.2 Level AA contrast requirements: 4.5:1 for body text, 3:1 for large text and UI components. Contrast checks run on every build via <code>npm run audit</code>, covering 6 color pairs per palette across both light and dark modes (9 palettes &times; 6 pairs &times; 2 modes = 108 checks). Components are built with semantic HTML, ARIA attributes, keyboard support, and visible focus indicators as baseline requirements.</p>
+</section>
+
+<!-- SECTION: WCAG 2.2 NEW SUCCESS CRITERIA -->
+<section class="section" aria-labelledby="wcag22-title">
+  <h2 class="section__title" id="wcag22-title">WCAG 2.2 New Success Criteria (Level AA)</h2>
+  <p class="section__desc">WCAG 2.2 introduces three new Level AA success criteria that the Universal Design System addresses. These criteria strengthen requirements for focus visibility, pointer input alternatives, and minimum target sizes.</p>
+
+  <div class="method-grid">
+    <div class="method-card">
+      <div class="method-card__badge">SC 2.4.11</div>
+      <h3 class="method-card__title">Focus Not Obscured (Minimum)</h3>
+      <div class="method-card__desc">
+        When a user interface component receives keyboard focus, the component is not entirely hidden due to author-created content. All interactive UDS components ensure focused elements remain at least partially visible.
+        <ul>
+          <li>Sticky headers do not fully obscure focused elements</li>
+          <li>Modal focus traps keep focus within visible boundaries</li>
+          <li>Dropdown and tooltip overlays do not cover the trigger element</li>
+          <li>Scroll-into-view behavior ensures focused content is visible</li>
+        </ul>
+      </div>
+    </div>
+    <div class="method-card">
+      <div class="method-card__badge">SC 2.5.7</div>
+      <h3 class="method-card__title">Dragging Movements</h3>
+      <div class="method-card__desc">
+        All functionality that uses a dragging movement for operation can be achieved by a single pointer without dragging, unless dragging is essential. UDS components provide single-pointer alternatives.
+        <ul>
+          <li>File Upload dropzone accepts click-to-browse as alternative to drag-and-drop</li>
+          <li>Date Picker range selection operable via keyboard and single tap</li>
+          <li>No component requires drag as the only input method</li>
+        </ul>
+      </div>
+    </div>
+    <div class="method-card">
+      <div class="method-card__badge">SC 2.5.8</div>
+      <h3 class="method-card__title">Target Size (Minimum)</h3>
+      <div class="method-card__desc">
+        The size of the target for pointer inputs is at least 24 by 24 CSS pixels, except where an equivalent control meets the minimum, the target is inline, the user agent determines the size, or the presentation is essential. All interactive UDS components meet the 24&times;24px minimum.
+        <ul>
+          <li>Buttons: smallest size (sm) is 36px height</li>
+          <li>Form inputs: smallest size (sm) is 36px height</li>
+          <li>Checkboxes and radios: label click area meets 24&times;24px minimum</li>
+          <li>Toggle switches: 48&times;28px minimum target area</li>
+          <li>Interactive component sizes documented in <code>components.csv</code> via <code>min_target_size</code> column</li>
+        </ul>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- SECTION 2: TESTING METHODOLOGY -->
@@ -693,7 +741,7 @@ html, body { overflow-x: hidden; }
       <div class="method-card__badge">Automated</div>
       <h3 class="method-card__title">APCA Analysis</h3>
       <div class="method-card__desc">
-        Advanced Perceptual Contrast Algorithm analysis provides supplementary contrast data beyond WCAG 2.1 AA requirements. APCA scores are tracked for all palette color pairs.
+        Advanced Perceptual Contrast Algorithm analysis provides supplementary contrast data beyond WCAG 2.2 AA requirements. APCA scores are tracked for all palette color pairs.
         <ul>
           <li>Lc (Lightness Contrast) values computed</li>
           <li>Font-size-aware contrast thresholds</li>
@@ -746,7 +794,7 @@ html, body { overflow-x: hidden; }
 <!-- SECTION 3: COMPONENT CONFORMANCE MATRIX -->
 <section class="section" aria-labelledby="matrix-title">
   <h2 class="section__title" id="matrix-title">Component Conformance Matrix</h2>
-  <p class="section__desc">Conformance status for all 32 components against key WCAG 2.1 Level AA success criteria. Status is based on the component specification; implementors must follow the documented accessibility requirements.</p>
+  <p class="section__desc">Conformance status for all 32 components against key WCAG 2.2 Level AA success criteria. Status is based on the component specification; implementors must follow the documented accessibility requirements.</p>
 
   <div class="conf-table-wrap" tabindex="0">
     <table class="conf-table" aria-label="Component WCAG conformance matrix">
@@ -759,6 +807,9 @@ html, body { overflow-x: hidden; }
           <th scope="col">SC 2.1.1<br>Keyboard</th>
           <th scope="col">SC 2.4.7<br>Focus Visible</th>
           <th scope="col">SC 4.1.2<br>Name, Role, Value</th>
+          <th scope="col">SC 2.4.11<br>Focus Not Obscured</th>
+          <th scope="col">SC 2.5.7<br>Dragging Movements</th>
+          <th scope="col">SC 2.5.8<br>Target Size (Min)</th>
           <th scope="col">Accessibility Notes</th>
         </tr>
       </thead>
@@ -771,6 +822,9 @@ html, body { overflow-x: hidden; }
           <td><span class="badge--supports">Supports</span></td>
           <td><span class="badge--supports">Supports</span></td>
           <td><span class="badge--supports">Supports</span></td>
+          <td><span class="badge--supports">Supports</span></td>
+          <td><span class="badge--na">N/A</span></td>
+          <td><span class="badge--supports">Supports</span></td>
           <td class="a11y-notes">role=button; aria-disabled; aria-busy for loading; focus ring 2px offset</td>
         </tr>
         <tr>
@@ -780,6 +834,9 @@ html, body { overflow-x: hidden; }
           <td><span class="badge--supports">Supports</span></td>
           <td><span class="badge--supports">Supports</span></td>
           <td><span class="badge--supports">Supports</span></td>
+          <td><span class="badge--supports">Supports</span></td>
+          <td><span class="badge--supports">Supports</span></td>
+          <td><span class="badge--na">N/A</span></td>
           <td><span class="badge--supports">Supports</span></td>
           <td class="a11y-notes">nav landmark; aria-label; mobile toggle aria-expanded</td>
         </tr>
@@ -791,6 +848,9 @@ html, body { overflow-x: hidden; }
           <td><span class="badge--supports">Supports</span></td>
           <td><span class="badge--supports">Supports</span></td>
           <td><span class="badge--supports">Supports</span></td>
+          <td><span class="badge--na">N/A</span></td>
+          <td><span class="badge--na">N/A</span></td>
+          <td><span class="badge--na">N/A</span></td>
           <td class="a11y-notes">h1 for headline; meaningful alt on images</td>
         </tr>
         <tr>
@@ -801,6 +861,9 @@ html, body { overflow-x: hidden; }
           <td><span class="badge--supports">Supports</span></td>
           <td><span class="badge--supports">Supports</span></td>
           <td><span class="badge--supports">Supports</span></td>
+          <td><span class="badge--na">N/A</span></td>
+          <td><span class="badge--na">N/A</span></td>
+          <td><span class="badge--na">N/A</span></td>
           <td class="a11y-notes">heading hierarchy; alt on images; focus on link</td>
         </tr>
         <tr>
@@ -810,6 +873,9 @@ html, body { overflow-x: hidden; }
           <td><span class="badge--supports">Supports</span></td>
           <td><span class="badge--supports">Supports</span></td>
           <td><span class="badge--supports">Supports</span></td>
+          <td><span class="badge--supports">Supports</span></td>
+          <td><span class="badge--supports">Supports</span></td>
+          <td><span class="badge--na">N/A</span></td>
           <td><span class="badge--supports">Supports</span></td>
           <td class="a11y-notes">aria-label on toggle; heading hierarchy</td>
         </tr>
@@ -821,6 +887,9 @@ html, body { overflow-x: hidden; }
           <td><span class="badge--na">N/A</span></td>
           <td><span class="badge--na">N/A</span></td>
           <td><span class="badge--supports">Supports</span></td>
+          <td><span class="badge--na">N/A</span></td>
+          <td><span class="badge--na">N/A</span></td>
+          <td><span class="badge--na">N/A</span></td>
           <td class="a11y-notes">alt text on logos; aria-hidden on decorative</td>
         </tr>
         <tr>
@@ -831,6 +900,9 @@ html, body { overflow-x: hidden; }
           <td><span class="badge--partial">Partial</span></td>
           <td><span class="badge--partial">Partial</span></td>
           <td><span class="badge--supports">Supports</span></td>
+          <td><span class="badge--na">N/A</span></td>
+          <td><span class="badge--na">N/A</span></td>
+          <td><span class="badge--na">N/A</span></td>
           <td class="a11y-notes">blockquote element; cite for attribution. Video variant requires keyboard controls.</td>
         </tr>
         <tr>
@@ -841,6 +913,9 @@ html, body { overflow-x: hidden; }
           <td><span class="badge--supports">Supports</span></td>
           <td><span class="badge--supports">Supports</span></td>
           <td><span class="badge--supports">Supports</span></td>
+          <td><span class="badge--na">N/A</span></td>
+          <td><span class="badge--na">N/A</span></td>
+          <td><span class="badge--na">N/A</span></td>
           <td class="a11y-notes">nav landmark; aria-label; link list structure</td>
         </tr>
         <tr>
@@ -851,6 +926,9 @@ html, body { overflow-x: hidden; }
           <td><span class="badge--supports">Supports</span></td>
           <td><span class="badge--supports">Supports</span></td>
           <td><span class="badge--supports">Supports</span></td>
+          <td><span class="badge--na">N/A</span></td>
+          <td><span class="badge--na">N/A</span></td>
+          <td><span class="badge--na">N/A</span></td>
           <td class="a11y-notes">pre+code elements; aria-label on copy button</td>
         </tr>
         <tr>
@@ -860,6 +938,9 @@ html, body { overflow-x: hidden; }
           <td><span class="badge--supports">Supports</span></td>
           <td><span class="badge--supports">Supports</span></td>
           <td><span class="badge--supports">Supports</span></td>
+          <td><span class="badge--supports">Supports</span></td>
+          <td><span class="badge--supports">Supports</span></td>
+          <td><span class="badge--na">N/A</span></td>
           <td><span class="badge--supports">Supports</span></td>
           <td class="a11y-notes">role=dialog; aria-modal; focus trap; escape dismiss</td>
         </tr>
@@ -871,6 +952,9 @@ html, body { overflow-x: hidden; }
           <td><span class="badge--supports">Supports</span></td>
           <td><span class="badge--supports">Supports</span></td>
           <td><span class="badge--supports">Supports</span></td>
+          <td><span class="badge--supports">Supports</span></td>
+          <td><span class="badge--na">N/A</span></td>
+          <td><span class="badge--supports">Supports</span></td>
           <td class="a11y-notes">for/id label association; aria-invalid; aria-describedby</td>
         </tr>
         <tr>
@@ -880,6 +964,9 @@ html, body { overflow-x: hidden; }
           <td><span class="badge--supports">Supports</span></td>
           <td><span class="badge--supports">Supports</span></td>
           <td><span class="badge--supports">Supports</span></td>
+          <td><span class="badge--supports">Supports</span></td>
+          <td><span class="badge--supports">Supports</span></td>
+          <td><span class="badge--na">N/A</span></td>
           <td><span class="badge--supports">Supports</span></td>
           <td class="a11y-notes">native select for accessibility; aria-invalid</td>
         </tr>
@@ -891,6 +978,9 @@ html, body { overflow-x: hidden; }
           <td><span class="badge--supports">Supports</span></td>
           <td><span class="badge--supports">Supports</span></td>
           <td><span class="badge--supports">Supports</span></td>
+          <td><span class="badge--supports">Supports</span></td>
+          <td><span class="badge--na">N/A</span></td>
+          <td><span class="badge--supports">Supports</span></td>
           <td class="a11y-notes">input+label association; aria-checked</td>
         </tr>
         <tr>
@@ -900,6 +990,9 @@ html, body { overflow-x: hidden; }
           <td><span class="badge--supports">Supports</span></td>
           <td><span class="badge--supports">Supports</span></td>
           <td><span class="badge--supports">Supports</span></td>
+          <td><span class="badge--supports">Supports</span></td>
+          <td><span class="badge--supports">Supports</span></td>
+          <td><span class="badge--na">N/A</span></td>
           <td><span class="badge--supports">Supports</span></td>
           <td class="a11y-notes">fieldset+legend grouping; aria-checked</td>
         </tr>
@@ -911,6 +1004,9 @@ html, body { overflow-x: hidden; }
           <td><span class="badge--supports">Supports</span></td>
           <td><span class="badge--supports">Supports</span></td>
           <td><span class="badge--supports">Supports</span></td>
+          <td><span class="badge--supports">Supports</span></td>
+          <td><span class="badge--na">N/A</span></td>
+          <td><span class="badge--supports">Supports</span></td>
           <td class="a11y-notes">role=switch; aria-checked; aria-label</td>
         </tr>
         <tr>
@@ -921,6 +1017,9 @@ html, body { overflow-x: hidden; }
           <td><span class="badge--supports">Supports</span></td>
           <td><span class="badge--supports">Supports</span></td>
           <td><span class="badge--supports">Supports</span></td>
+          <td><span class="badge--na">N/A</span></td>
+          <td><span class="badge--na">N/A</span></td>
+          <td><span class="badge--na">N/A</span></td>
           <td class="a11y-notes">role=alert for error/warning; role=status for success/info</td>
         </tr>
         <tr>
@@ -931,6 +1030,9 @@ html, body { overflow-x: hidden; }
           <td><span class="badge--na">N/A</span></td>
           <td><span class="badge--na">N/A</span></td>
           <td><span class="badge--supports">Supports</span></td>
+          <td><span class="badge--na">N/A</span></td>
+          <td><span class="badge--na">N/A</span></td>
+          <td><span class="badge--na">N/A</span></td>
           <td class="a11y-notes">aria-label for icon badges; semantic color</td>
         </tr>
         <tr>
@@ -940,6 +1042,9 @@ html, body { overflow-x: hidden; }
           <td><span class="badge--supports">Supports</span></td>
           <td><span class="badge--supports">Supports</span></td>
           <td><span class="badge--supports">Supports</span></td>
+          <td><span class="badge--supports">Supports</span></td>
+          <td><span class="badge--supports">Supports</span></td>
+          <td><span class="badge--na">N/A</span></td>
           <td><span class="badge--supports">Supports</span></td>
           <td class="a11y-notes">role=tablist/tab/tabpanel; aria-selected; arrow key nav</td>
         </tr>
@@ -951,6 +1056,9 @@ html, body { overflow-x: hidden; }
           <td><span class="badge--supports">Supports</span></td>
           <td><span class="badge--supports">Supports</span></td>
           <td><span class="badge--supports">Supports</span></td>
+          <td><span class="badge--supports">Supports</span></td>
+          <td><span class="badge--na">N/A</span></td>
+          <td><span class="badge--supports">Supports</span></td>
           <td class="a11y-notes">aria-expanded; aria-controls; keyboard Enter/Space/ArrowUp/ArrowDown</td>
         </tr>
         <tr>
@@ -960,6 +1068,9 @@ html, body { overflow-x: hidden; }
           <td><span class="badge--na">N/A</span></td>
           <td><span class="badge--supports">Supports</span></td>
           <td><span class="badge--supports">Supports</span></td>
+          <td><span class="badge--supports">Supports</span></td>
+          <td><span class="badge--supports">Supports</span></td>
+          <td><span class="badge--na">N/A</span></td>
           <td><span class="badge--supports">Supports</span></td>
           <td class="a11y-notes">nav aria-label=Breadcrumb; ol element; aria-current=page</td>
         </tr>
@@ -971,6 +1082,9 @@ html, body { overflow-x: hidden; }
           <td><span class="badge--partial">Partial</span></td>
           <td><span class="badge--supports">Supports</span></td>
           <td><span class="badge--supports">Supports</span></td>
+          <td><span class="badge--supports">Supports</span></td>
+          <td><span class="badge--na">N/A</span></td>
+          <td><span class="badge--supports">Supports</span></td>
           <td class="a11y-notes">role=tooltip; aria-describedby; show on hover+focus. Dismissible via Escape not yet specified.</td>
         </tr>
         <tr>
@@ -980,6 +1094,9 @@ html, body { overflow-x: hidden; }
           <td><span class="badge--supports">Supports</span></td>
           <td><span class="badge--supports">Supports</span></td>
           <td><span class="badge--supports">Supports</span></td>
+          <td><span class="badge--supports">Supports</span></td>
+          <td><span class="badge--supports">Supports</span></td>
+          <td><span class="badge--na">N/A</span></td>
           <td><span class="badge--supports">Supports</span></td>
           <td class="a11y-notes">role=menu; aria-haspopup; aria-expanded; keyboard ArrowUp/Down</td>
         </tr>
@@ -991,6 +1108,9 @@ html, body { overflow-x: hidden; }
           <td><span class="badge--na">N/A</span></td>
           <td><span class="badge--na">N/A</span></td>
           <td><span class="badge--supports">Supports</span></td>
+          <td><span class="badge--na">N/A</span></td>
+          <td><span class="badge--na">N/A</span></td>
+          <td><span class="badge--na">N/A</span></td>
           <td class="a11y-notes">alt text; aria-label for status</td>
         </tr>
         <tr>
@@ -1001,6 +1121,9 @@ html, body { overflow-x: hidden; }
           <td><span class="badge--na">N/A</span></td>
           <td><span class="badge--na">N/A</span></td>
           <td><span class="badge--supports">Supports</span></td>
+          <td><span class="badge--na">N/A</span></td>
+          <td><span class="badge--na">N/A</span></td>
+          <td><span class="badge--na">N/A</span></td>
           <td class="a11y-notes">aria-busy=true on container; aria-hidden=true on skeleton</td>
         </tr>
         <tr>
@@ -1011,6 +1134,9 @@ html, body { overflow-x: hidden; }
           <td><span class="badge--partial">Partial</span></td>
           <td><span class="badge--partial">Partial</span></td>
           <td><span class="badge--supports">Supports</span></td>
+          <td><span class="badge--na">N/A</span></td>
+          <td><span class="badge--na">N/A</span></td>
+          <td><span class="badge--na">N/A</span></td>
           <td class="a11y-notes">role=alert for error/warning; role=status for success/info. Auto-dismiss timing may not give all users sufficient reading time.</td>
         </tr>
         <tr>
@@ -1020,6 +1146,9 @@ html, body { overflow-x: hidden; }
           <td><span class="badge--supports">Supports</span></td>
           <td><span class="badge--supports">Supports</span></td>
           <td><span class="badge--supports">Supports</span></td>
+          <td><span class="badge--supports">Supports</span></td>
+          <td><span class="badge--supports">Supports</span></td>
+          <td><span class="badge--na">N/A</span></td>
           <td><span class="badge--supports">Supports</span></td>
           <td class="a11y-notes">nav aria-label=Pagination; aria-current=page</td>
         </tr>
@@ -1031,10 +1160,16 @@ html, body { overflow-x: hidden; }
           <td><span class="badge--supports">Supports</span></td>
           <td><span class="badge--supports">Supports</span></td>
           <td><span class="badge--supports">Supports</span></td>
+          <td><span class="badge--na">N/A</span></td>
+          <td><span class="badge--na">N/A</span></td>
+          <td><span class="badge--na">N/A</span></td>
           <td class="a11y-notes">scope=col; aria-sort; role=table</td>
         </tr>
         <tr>
           <td class="comp-name">Date Picker</td>
+          <td><span class="badge--supports">Supports</span></td>
+          <td><span class="badge--supports">Supports</span></td>
+          <td><span class="badge--supports">Supports</span></td>
           <td><span class="badge--supports">Supports</span></td>
           <td><span class="badge--supports">Supports</span></td>
           <td><span class="badge--supports">Supports</span></td>
@@ -1051,6 +1186,9 @@ html, body { overflow-x: hidden; }
           <td><span class="badge--supports">Supports</span></td>
           <td><span class="badge--supports">Supports</span></td>
           <td><span class="badge--supports">Supports</span></td>
+          <td><span class="badge--supports">Supports</span></td>
+          <td><span class="badge--na">N/A</span></td>
+          <td><span class="badge--supports">Supports</span></td>
           <td class="a11y-notes">role=combobox; role=listbox; aria-activedescendant</td>
         </tr>
         <tr>
@@ -1061,6 +1199,9 @@ html, body { overflow-x: hidden; }
           <td><span class="badge--na">N/A</span></td>
           <td><span class="badge--na">N/A</span></td>
           <td><span class="badge--supports">Supports</span></td>
+          <td><span class="badge--na">N/A</span></td>
+          <td><span class="badge--na">N/A</span></td>
+          <td><span class="badge--na">N/A</span></td>
           <td class="a11y-notes">role=progressbar; aria-valuenow; aria-valuemin; aria-valuemax</td>
         </tr>
         <tr>
@@ -1071,10 +1212,16 @@ html, body { overflow-x: hidden; }
           <td><span class="badge--supports">Supports</span></td>
           <td><span class="badge--supports">Supports</span></td>
           <td><span class="badge--supports">Supports</span></td>
+          <td><span class="badge--supports">Supports</span></td>
+          <td><span class="badge--na">N/A</span></td>
+          <td><span class="badge--supports">Supports</span></td>
           <td class="a11y-notes">nav aria-label; aria-current=page; aria-expanded</td>
         </tr>
         <tr>
           <td class="comp-name">File Upload</td>
+          <td><span class="badge--supports">Supports</span></td>
+          <td><span class="badge--supports">Supports</span></td>
+          <td><span class="badge--supports">Supports</span></td>
           <td><span class="badge--supports">Supports</span></td>
           <td><span class="badge--supports">Supports</span></td>
           <td><span class="badge--supports">Supports</span></td>
@@ -1093,7 +1240,7 @@ html, body { overflow-x: hidden; }
 <!-- SECTION 4: PALETTE CONTRAST RESULTS -->
 <section class="section" aria-labelledby="palette-title">
   <h2 class="section__title" id="palette-title">Palette Contrast Results</h2>
-  <p class="section__desc">Summary of WCAG 2.1 AA contrast validation across all 9 palettes. Each palette is tested against 6 color pairs in both light and dark modes (12 checks per palette).</p>
+  <p class="section__desc">Summary of WCAG 2.2 AA contrast validation across all 9 palettes. Each palette is tested against 6 color pairs in both light and dark modes (12 checks per palette).</p>
 
   <div class="conf-table-wrap" tabindex="0">
     <table class="palette-result-table" aria-label="Palette WCAG contrast results">
@@ -1206,7 +1353,7 @@ html, body { overflow-x: hidden; }
     <div class="limitation-card">
       <div class="limitation-card__severity limitation-card__severity--medium">Medium</div>
       <h3 class="limitation-card__title">APCA Dark Mode Gaps</h3>
-      <div class="limitation-card__desc">The WCAG 2.1 contrast algorithm (relative luminance) and the newer APCA algorithm can produce different results for dark-on-dark color combinations. Some dark mode palette pairs that pass WCAG 2.1 AA may score below recommended APCA thresholds, particularly for secondary and tertiary text. APCA is not yet a W3C recommendation, so WCAG 2.1 AA remains the conformance target.</div>
+      <div class="limitation-card__desc">The WCAG 2.2 contrast algorithm (relative luminance) and the newer APCA algorithm can produce different results for dark-on-dark color combinations. Some dark mode palette pairs that pass WCAG 2.2 AA may score below recommended APCA thresholds, particularly for secondary and tertiary text. APCA is not yet a W3C recommendation, so WCAG 2.2 AA remains the conformance target.</div>
     </div>
     <div class="limitation-card">
       <div class="limitation-card__severity limitation-card__severity--medium">Medium</div>

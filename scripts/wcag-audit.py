@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-WCAG 2.1 AA Contrast Audit
+WCAG 2.2 AA Contrast Audit
 Runs automated contrast ratio checks across all palette x mode combinations.
 Outputs results to audits/a11y-audit.json
 
@@ -84,7 +84,7 @@ if not _USING_AUDIT_UTILS:
         return tuple(int(hex_color[i : i + 2], 16) for i in (0, 2, 4))
 
     def relative_luminance(r: int, g: int, b: int) -> float:
-        """Calculate relative luminance per WCAG 2.1 spec."""
+        """Calculate relative luminance per WCAG 2.2 spec."""
         srgb = []
         for c in (r, g, b):
             c_linear = c / 255.0
@@ -246,7 +246,7 @@ def run_audit(tokens_path: str, output_path: str, json_stdout: bool = False):
     results = {
         "version": tokens.get("$version", "unknown"),
         "generated": datetime.now().isoformat(),
-        "standard": "WCAG 2.1 AA",
+        "standard": "WCAG 2.2 AA",
         "total_checks": 0,
         "passed": 0,
         "failed": 0,
@@ -258,7 +258,7 @@ def run_audit(tokens_path: str, output_path: str, json_stdout: bool = False):
     modes = ["light", "dark"]
 
     if not json_stdout:
-        print(f"Running WCAG 2.1 AA contrast audit...")
+        print(f"Running WCAG 2.2 AA contrast audit...")
         print(f"Palettes: {len(palette_colors)}")
         print(f"Modes: {len(modes)}")
         print(f"Critical pairs: {len(critical_pairs)}")
@@ -357,7 +357,7 @@ def run_audit(tokens_path: str, output_path: str, json_stdout: bool = False):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="WCAG 2.1 AA Contrast Audit")
+    parser = argparse.ArgumentParser(description="WCAG 2.2 AA Contrast Audit")
     parser.add_argument(
         "--tokens", default="tokens/design-tokens.json", help="Path to design tokens"
     )

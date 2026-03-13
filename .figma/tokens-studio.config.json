@@ -1,0 +1,27 @@
+{
+  "$schema": "https://tokens.studio/schema/config/v1",
+  "sync": {
+    "provider": "jsonbin",
+    "enabled": true,
+    "bidirectional": true
+  },
+  "tokenSets": {
+    "primitives": "tokens/design-tokens.json#color.primitives",
+    "semantic": "tokens/design-tokens.json#color.semantic",
+    "palettes": {
+      "minimal-saas": "tokens/design-tokens.json#theme.minimal-saas",
+      "ai-futuristic": "tokens/design-tokens.json#theme.ai-futuristic",
+      "gradient-startup": "tokens/design-tokens.json#theme.gradient-startup",
+      "corporate": "tokens/design-tokens.json#theme.corporate",
+      "apple-minimal": "tokens/design-tokens.json#theme.apple-minimal",
+      "illustration": "tokens/design-tokens.json#theme.illustration",
+      "dashboard": "tokens/design-tokens.json#theme.dashboard",
+      "bold-lifestyle": "tokens/design-tokens.json#theme.bold-lifestyle",
+      "minimal-corporate": "tokens/design-tokens.json#theme.minimal-corporate"
+    }
+  },
+  "output": {
+    "format": "dtcg",
+    "path": "tokens/"
+  }
+}
