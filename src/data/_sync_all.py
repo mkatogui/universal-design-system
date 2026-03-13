@@ -94,6 +94,13 @@ FILE_SCHEMAS = {
             "accepts_children",
         ],
     },
+    "localization.csv": {
+        "required": ["physical_property", "logical_property", "direction_sensitive", "description"],
+    },
+    "apg-patterns.csv": {
+        "required": ["component_slug", "apg_pattern", "apg_url", "keyboard_interactions", "required_aria", "focus_management", "live_region"],
+        "apg_component_col": "component_slug",
+    },
 }
 
 
@@ -121,13 +128,22 @@ def validate_file(filename: str, schema: dict, components: set, patterns: set) -
         if col not in headers:
             errors.append(f"{filename}: Missing required column '{col}'")
 
-    # Check for duplicate IDs
-    ids = [row.get("id", "") for row in rows]
-    seen = set()
-    for row_id in ids:
-        if row_id in seen:
-            errors.append(f"{filename}: Duplicate ID '{row_id}'")
-        seen.add(row_id)
+    # Check for duplicate IDs (only when file has an 'id' column)
+    if "id" in headers:
+        ids = [row.get("id", "") for row in rows]
+        seen = set()
+        for row_id in ids:
+            if row_id in seen:
+                errors.append(f"{filename}: Duplicate ID '{row_id}'")
+            seen.add(row_id)
+    elif "component_slug" in headers:
+        # For apg-patterns.csv: check for duplicate component slugs
+        slugs = [row.get("component_slug", "") for row in rows]
+        seen = set()
+        for slug in slugs:
+            if slug in seen:
+                errors.append(f"{filename}: Duplicate component_slug '{slug}'")
+            seen.add(slug)
 
     # Validate palette references
     palette_col = schema.get("palette_col")
@@ -165,6 +181,17 @@ def validate_file(filename: str, schema: dict, components: set, patterns: set) -
                         f"{filename} row {row.get('id', '?')}: "
                         f"Unknown pattern '{ref}'"
                     )
+
+    # Validate APG component slug cross-references
+    apg_component_col = schema.get("apg_component_col")
+    if apg_component_col and apg_component_col in headers and components:
+        for row in rows:
+            slug = row.get(apg_component_col, "").strip()
+            if slug and slug not in components:
+                errors.append(
+                    f"{filename} row '{slug}': "
+                    f"Unknown component slug '{slug}' (not in components.csv)"
+                )
 
     return errors
 

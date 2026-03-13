@@ -8,8 +8,27 @@ and docs/docs.html.
 import json
 from pathlib import Path
 
+from src.scripts.color_engine import hex_to_oklch, oklch_to_css
+
 TOKENS_DIR = Path(__file__).parent.parent.parent / "tokens"
 CUSTOM_DIR = TOKENS_DIR / "custom"
+
+
+def hex_to_oklch_css(hex_color: str) -> str:
+    """Convert a hex color string to a CSS oklch() string.
+
+    Args:
+        hex_color: Hex color like '#RRGGBB' or '#RGB'.
+
+    Returns:
+        CSS oklch string like 'oklch(54.1% 0.2074 262.9)'.
+
+    Example:
+        >>> hex_to_oklch_css('#2563EB')
+        'oklch(54.1% 0.2074 262.9)'
+    """
+    oklch_dict = hex_to_oklch(hex_color)
+    return oklch_to_css(oklch_dict)
 
 
 def _css_var_name(token_key: str) -> str:

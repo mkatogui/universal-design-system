@@ -1,6 +1,6 @@
 ---
 name: Universal Design System
-description: Production-grade AI-native design system with 9 structural palettes, 530 W3C DTCG tokens, 32 BEM components, BM25 reasoning engine, WCAG 2.1 AA compliance, Tailwind CSS generation, React/Vue/Svelte output, and industry-specific design rules across 1,528 data rows. Reverse-engineered from 100 modern websites.
+description: Production-grade AI-native design system with 9 structural palettes, 530 W3C DTCG tokens, 32 BEM components, BM25 reasoning engine, WCAG 2.2 AA compliance, Tailwind CSS generation, React/Vue/Svelte output, and industry-specific design rules across 1,528 data rows. Reverse-engineered from 100 modern websites.
 version: 0.1.0
 triggers:
   - design system
@@ -81,7 +81,7 @@ triggers:
 
 > Other tools tell AI what colors to use. We give it a complete, accessible, WCAG-validated design system it can ship.
 
-A production-grade AI-native design system analyzed from 100 modern websites, distilled into one governed brand foundation with 9 structural palettes, 32 components, 8 patterns, and automated WCAG 2.1 AA compliance.
+A production-grade AI-native design system analyzed from 100 modern websites, distilled into one governed brand foundation with 9 structural palettes, 32 components, 8 patterns, and automated WCAG 2.2 AA compliance.
 
 **Key stats:** 530 tokens | 32 components | 9 palettes | 100% WCAG AA | 1,528 data rows across 16 databases | BM25 reasoning engine | 170 product rules | 75 font pairings | 200+ icon libraries | Tailwind config generation | React/Vue/Svelte output | 20 AI platform support
 
@@ -163,7 +163,7 @@ When generating a design system, evaluate and score each category (1-10):
 |----------|----------|--------|-------------|
 | 1 | Palette Selection | 10 | The single most impactful decision. Determines color, shadow, radius, display font. |
 | 2 | Component Selection | 9 | Which of the 32 components are needed for this product. |
-| 3 | Accessibility | 9 | WCAG 2.1 AA minimum. Color contrast, keyboard nav, screen readers. |
+| 3 | Accessibility | 9 | WCAG 2.2 AA minimum. Color contrast, keyboard nav, screen readers. |
 | 4 | Typography | 8 | Font pairing, scale, weights. Must match palette mood. |
 | 5 | Layout & Spacing | 8 | Grid system, container widths, section spacing. |
 | 6 | Pattern Selection | 7 | Page templates and layout patterns. |
@@ -659,7 +659,7 @@ All motion must respect `prefers-reduced-motion: reduce`:
 
 ## Accessibility Requirements
 
-### WCAG 2.1 AA Checklist
+### WCAG 2.2 AA Checklist
 
 - [ ] Text contrast ≥ 4.5:1 against backgrounds
 - [ ] UI component contrast ≥ 3:1 (borders, buttons, inputs)
@@ -672,7 +672,9 @@ All motion must respect `prefers-reduced-motion: reduce`:
 - [ ] Semantic HTML: `<main>`, `<nav>`, `<section>`, `<footer>`
 - [ ] Skip navigation link as first focusable element
 - [ ] Heading hierarchy: h1 > h2 > h3 (no skipped levels)
-- [ ] Focus Not Obscured: focused elements not hidden by sticky/fixed elements
+- [ ] Focus Not Obscured (SC 2.4.11): focused elements not hidden by sticky/fixed elements
+- [ ] Dragging Movements (SC 2.5.7): single-pointer alternative for all drag operations
+- [ ] Target Size Minimum (SC 2.5.8): interactive targets at least 24×24 CSS pixels
 
 ### Automated WCAG Audit
 
@@ -935,3 +937,54 @@ python src/data/_sync_all.py
 
 *Built by analyzing 100 modern websites into one universal system.*
 *Version 0.1.0 | MIT License | 20 AI Platform Support*
+
+---
+
+## APG Pattern Reference
+
+Every component maps to a WAI-ARIA APG pattern. See `src/data/apg-patterns.csv` for keyboard interactions, required ARIA attributes, and focus management specs.
+
+### Coverage
+
+All 32 components are mapped to their closest official WAI-ARIA Authoring Practices Guide (APG) pattern from https://www.w3.org/WAI/ARIA/apg/patterns/
+
+### CSV Columns
+
+| Column | Description |
+|--------|-------------|
+| `component_slug` | Matches slug in `components.csv` (cross-referenced by `_sync_all.py`) |
+| `apg_pattern` | Official WAI-ARIA APG pattern name |
+| `apg_url` | Direct URL to the APG pattern documentation |
+| `keyboard_interactions` | Required keyboard behavior (Enter, Space, Arrow keys, Escape, Tab) |
+| `required_aria` | ARIA roles and attributes that must be present |
+| `optional_aria` | Additional ARIA attributes for enhanced accessibility |
+| `focus_management` | How focus should move when the component opens, closes, or changes state |
+| `live_region` | Whether and how live region announcements should be made (no / polite / assertive) |
+
+### Key Patterns by Component Type
+
+| Pattern | Components |
+|---------|-----------|
+| Button | button |
+| Dialog (Modal) | modal, date-picker |
+| Tabs | tabs |
+| Accordion | accordion |
+| Tooltip | tooltip |
+| Disclosure Navigation | navigation, dropdown, side-nav |
+| Listbox | select |
+| Combobox | command-palette |
+| Checkbox | checkbox |
+| Radio Group | radio |
+| Switch | toggle |
+| Alert / Status | alert, toast |
+| Carousel | testimonial |
+| Table | pricing-table, data-table |
+| Progressbar | progress-indicator |
+| Textbox | input |
+| Breadcrumb | breadcrumb |
+| Landmark Regions | hero, footer, social-proof |
+
+---
+
+### RTL & Logical Properties
+Use logical CSS properties (margin-inline-start, padding-block-end) instead of physical (margin-left, padding-bottom). See `src/data/localization.csv` for the full physical→logical mapping. Use `rtl_mapper.py` to automatically convert.
