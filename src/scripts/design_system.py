@@ -514,6 +514,58 @@ export const Accordion = forwardRef<HTMLDivElement, AccordionProps>(
   }
 );
 Accordion.displayName = 'Accordion';''',
+        "stack": '''import React, { forwardRef } from 'react';
+
+type GapSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+
+interface StackProps extends React.HTMLAttributes<HTMLDivElement> {
+  gap?: GapSize;
+  children: React.ReactNode;
+}
+
+export const Stack = forwardRef<HTMLDivElement, StackProps>(
+  ({ gap = 'md', children, className = '', style, ...props }, ref) => (
+    <div
+      ref={ref}
+      className={`uds-stack ${className}`}
+      style={{ display: 'flex', flexDirection: 'column', gap: `var(--layout-stack-gap-${gap})`, ...style }}
+      {...props}
+    >
+      {children}
+    </div>
+  )
+);
+Stack.displayName = 'Stack';''',
+        "grid": '''import React, { forwardRef } from 'react';
+
+type GridColumns = 1 | 2 | 3 | 4 | 6 | 12;
+type GapSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+
+interface GridProps extends React.HTMLAttributes<HTMLDivElement> {
+  columns?: GridColumns;
+  gap?: GapSize;
+  children: React.ReactNode;
+}
+
+export const Grid = forwardRef<HTMLDivElement, GridProps>(
+  ({ columns = 3, gap = 'md', children, className = '', style, ...props }, ref) => (
+    <div
+      ref={ref}
+      className={`uds-grid ${className}`}
+      style={{
+        display: 'grid',
+        gridTemplateColumns: `repeat(${columns}, 1fr)`,
+        gap: `var(--layout-stack-gap-${gap})`,
+        containerType: 'inline-size',
+        ...style,
+      }}
+      {...props}
+    >
+      {children}
+    </div>
+  )
+);
+Grid.displayName = 'Grid';''',
     },
     "vue": {
         "button": '''<script setup lang="ts">
@@ -1070,6 +1122,43 @@ const toggle = (id: string) => {
 .uds-accordion__icon--open { transform: rotate(180deg); }
 .uds-accordion__panel { padding: 0 16px 16px; font-size: 0.875rem; color: var(--color-text-secondary); }
 </style>''',
+        "stack": '''<script setup lang="ts">
+defineProps<{
+  gap?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+}>();
+</script>
+
+<template>
+  <div class="uds-stack" :style="{ gap: `var(--layout-stack-gap-${gap || 'md'})` }">
+    <slot />
+  </div>
+</template>
+
+<style scoped>
+.uds-stack { display: flex; flex-direction: column; }
+</style>''',
+        "grid": '''<script setup lang="ts">
+defineProps<{
+  columns?: 1 | 2 | 3 | 4 | 6 | 12;
+  gap?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+}>();
+</script>
+
+<template>
+  <div
+    class="uds-grid"
+    :style="{
+      gridTemplateColumns: `repeat(${columns || 3}, 1fr)`,
+      gap: `var(--layout-stack-gap-${gap || 'md'})`,
+    }"
+  >
+    <slot />
+  </div>
+</template>
+
+<style scoped>
+.uds-grid { display: grid; container-type: inline-size; }
+</style>''',
     },
     "svelte": {
         "button": '''<script lang="ts">
@@ -1592,6 +1681,41 @@ const toggle = (id: string) => {
   .uds-accordion__icon--open { transform: rotate(180deg); }
   .uds-accordion__panel { padding: 0 16px 16px; font-size: 0.875rem; color: var(--color-text-secondary); }
 </style>''',
+        "stack": '''<script lang="ts">
+  let { gap = 'md', children, ...restProps }: {
+    gap?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+    children?: import('svelte').Snippet;
+    [key: string]: unknown;
+  } = $props();
+</script>
+
+<div class="uds-stack" style="gap: var(--layout-stack-gap-{gap})" {...restProps}>
+  {@render children?.()}
+</div>
+
+<style>
+  .uds-stack { display: flex; flex-direction: column; }
+</style>''',
+        "grid": '''<script lang="ts">
+  let { columns = 3, gap = 'md', children, ...restProps }: {
+    columns?: 1 | 2 | 3 | 4 | 6 | 12;
+    gap?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+    children?: import('svelte').Snippet;
+    [key: string]: unknown;
+  } = $props();
+</script>
+
+<div
+  class="uds-grid"
+  style="grid-template-columns: repeat({columns}, 1fr); gap: var(--layout-stack-gap-{gap})"
+  {...restProps}
+>
+  {@render children?.()}
+</div>
+
+<style>
+  .uds-grid { display: grid; container-type: inline-size; }
+</style>''',
     },
 }
 
@@ -1610,6 +1734,8 @@ SLUG_TO_TEMPLATE = {
     "data-table": "data-table",
     "select": "select",
     "accordion": "accordion",
+    "stack": "stack",
+    "grid": "grid",
 }
 
 PALETTE_DISPLAY_NAMES = {
