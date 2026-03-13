@@ -947,7 +947,7 @@ python src/data/_sync_all.py
 ---
 
 *Built by analyzing 100 modern websites into one universal system.*
-*Version 0.1.0 | MIT License | 20 AI Platform Support*
+*Version 0.4.0 | MIT License | 20 AI Platform Support*
 
 ---
 

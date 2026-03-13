@@ -108,4 +108,4 @@ Output a complete brand identity including:
 
 ---
 
-*Powered by Universal Design System v0.1.0*
+*Powered by Universal Design System v0.4.0*
