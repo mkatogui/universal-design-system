@@ -136,6 +136,129 @@ def _oklab_to_oklch(L: float, a: float, b: float) -> tuple:
     return (L, C, H)
 
 
+# --- Reverse Pipeline: oklch -> oklab -> XYZ -> linear RGB -> sRGB -> hex ---
+
+def _oklab_to_xyz(L: float, a: float, b: float) -> tuple:
+    """Convert OKLab (L, a, b) to CIE XYZ (D65 illuminant).
+
+    Uses the inverse of the OKLab forward matrices:
+    OKLab -> LMS (cube roots) -> XYZ via M1 inverse.
+    """
+    # OKLab to LMS (cube-root space) via inverse of M2
+    l_ = L + 0.3963377774 * a + 0.2158037573 * b
+    m_ = L - 0.1055613458 * a - 0.0638541728 * b
+    s_ = L - 0.0894841775 * a - 1.2914855480 * b
+
+    # Undo cube root: LMS = (l_^3, m_^3, s_^3)
+    l_cubed = l_ * l_ * l_
+    m_cubed = m_ * m_ * m_
+    s_cubed = s_ * s_ * s_
+
+    # LMS to XYZ via inverse of M1
+    x = 1.2270138511035211 * l_cubed - 0.5577999806518222 * m_cubed + 0.2812561489664678 * s_cubed
+    y = -0.0405801784232806 * l_cubed + 1.1122568696168302 * m_cubed - 0.0716766786656012 * s_cubed
+    z = -0.0763812845057069 * l_cubed - 0.4214819784180127 * m_cubed + 1.5861632204407947 * s_cubed
+
+    return (x, y, z)
+
+
+def _xyz_to_linear_rgb(x: float, y: float, z: float) -> tuple:
+    """Convert CIE XYZ (D65) to linear sRGB via the standard sRGB matrix.
+
+    Returns (r, g, b) in linear light, may be outside [0,1] for out-of-gamut colors.
+    """
+    r = 3.2404541621141054 * x - 1.5371385940306089 * y - 0.4985314095560162 * z
+    g = -0.9692660305051868 * x + 1.8760108454466942 * y + 0.0415560175303498 * z
+    b = 0.0556434309591147 * x - 0.2040259135167538 * y + 1.0572251882231791 * z
+    return (r, g, b)
+
+
+def oklch_to_hex(L: float, C: float, H: float) -> str:
+    """Convert OKLCH color to hex string (#RRGGBB).
+
+    Full pipeline: OKLCH -> OKLab -> XYZ (D65) -> linear sRGB -> sRGB -> hex.
+
+    Args:
+        L: Lightness in [0, 1]
+        C: Chroma in [0, ~0.4]
+        H: Hue in degrees [0, 360]
+
+    Returns:
+        Uppercase hex string like '#RRGGBB'. Out-of-gamut values are clamped to sRGB.
+    """
+    # OKLCH to OKLab
+    H_rad = math.radians(H)
+    a = C * math.cos(H_rad)
+    b = C * math.sin(H_rad)
+
+    # OKLab to XYZ
+    x, y, z = _oklab_to_xyz(L, a, b)
+
+    # XYZ to linear RGB
+    r_lin, g_lin, b_lin = _xyz_to_linear_rgb(x, y, z)
+
+    # Linear RGB to sRGB with clamping
+    r_srgb = _linear_to_srgb(max(0.0, min(1.0, r_lin)))
+    g_srgb = _linear_to_srgb(max(0.0, min(1.0, g_lin)))
+    b_srgb = _linear_to_srgb(max(0.0, min(1.0, b_lin)))
+
+    # sRGB to 8-bit hex
+    return rgb_to_hex(
+        round(r_srgb * 255),
+        round(g_srgb * 255),
+        round(b_srgb * 255),
+    )
+
+
+def gamut_map_p3(L: float, C: float, H: float, epsilon: float = 0.001) -> tuple:
+    """Map an OKLCH color into the sRGB gamut by iteratively reducing chroma.
+
+    Uses binary search on chroma to find the maximum chroma that keeps the
+    color within sRGB [0,1] bounds (Display P3 colors are reduced to sRGB).
+
+    Args:
+        L: Lightness in [0, 1]
+        C: Chroma in [0, ~0.4]
+        H: Hue in degrees [0, 360]
+        epsilon: Chroma precision threshold for binary search convergence.
+
+    Returns:
+        Tuple (L, C_mapped, H) where C_mapped <= C and the color is in sRGB gamut.
+    """
+    # Check if already in gamut
+    if _is_in_srgb_gamut(L, C, H):
+        return (L, C, H)
+
+    # Binary search: reduce chroma until in gamut
+    lo = 0.0
+    hi = C
+    while hi - lo > epsilon:
+        mid = (lo + hi) / 2.0
+        if _is_in_srgb_gamut(L, mid, H):
+            lo = mid
+        else:
+            hi = mid
+
+    return (L, lo, H)
+
+
+def _is_in_srgb_gamut(L: float, C: float, H: float) -> bool:
+    """Check whether an OKLCH color falls within the sRGB gamut.
+
+    Returns True if all linear RGB channels are within [-epsilon, 1+epsilon]
+    (small tolerance for floating-point rounding).
+    """
+    H_rad = math.radians(H)
+    a = C * math.cos(H_rad)
+    b = C * math.sin(H_rad)
+
+    x, y, z = _oklab_to_xyz(L, a, b)
+    r, g, b_val = _xyz_to_linear_rgb(x, y, z)
+
+    tol = 1e-6
+    return all(-tol <= ch <= 1.0 + tol for ch in (r, g, b_val))
+
+
 def hex_to_oklch(hex_color: str) -> dict:
     """Convert '#RRGGBB' hex color to oklch dict with L, C, H values.
 
