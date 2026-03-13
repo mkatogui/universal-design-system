@@ -1,7 +1,7 @@
 {
   "$schema": "https://design-tokens.github.io/community-group/format/",
   "$version": "1.0.0",
-  "$description": "Universal Design System \u2014 9 structural palettes, 2 appearance modes",
+  "$description": "Universal Design System — 9 structural palettes, 2 appearance modes",
   "color": {
     "$name": "Color Tokens",
     "$type": "color",
@@ -467,7 +467,7 @@
       "$type": "color"
     },
     "semantic": {
-      "$description": "Semantic aliases (tier 2) \u2014 light theme defaults",
+      "$description": "Semantic aliases (tier 2) — light theme defaults",
       "bg": {
         "primary": {
           "$value": "{color.primitive.neutral.0}",
@@ -576,7 +576,7 @@
       "surface-default": {
         "$value": "{color.primitive.neutral.0}",
         "$type": "color",
-        "$description": "Default surface \u2014 cards, panels"
+        "$description": "Default surface — cards, panels"
       },
       "surface-hover": {
         "$value": "#F5F5FA",
@@ -597,7 +597,7 @@
       "text-disabled": {
         "$value": "#A0A0B0",
         "$type": "color",
-        "$description": "Disabled text \u2014 meets 3:1 against white for non-text",
+        "$description": "Disabled text — meets 3:1 against white for non-text",
         "$extensions": {
           "com.tokens.oklch": "oklch(71.1% 0.0231 285.7)"
         }
@@ -605,7 +605,7 @@
       "border-strong": {
         "$value": "#6E6E7E",
         "$type": "color",
-        "$description": "High-emphasis borders \u2014 active inputs, focused elements",
+        "$description": "High-emphasis borders — active inputs, focused elements",
         "$extensions": {
           "com.tokens.oklch": "oklch(54.4% 0.0248 285.5)"
         }
@@ -802,7 +802,7 @@
     },
     "fontSize": {
       "$type": "dimension",
-      "$description": "Desktop sizes \u2014 mobile uses CSS clamp()",
+      "$description": "Desktop sizes — mobile uses CSS clamp()",
       "display-xl": {
         "$value": "4.5rem"
       },
@@ -935,7 +935,7 @@
   "shadow": {
     "$name": "Shadow Tokens",
     "$type": "shadow",
-    "$description": "Light theme shadows \u2014 dark themes override with glow-border variants",
+    "$description": "Light theme shadows — dark themes override with glow-border variants",
     "xs": {
       "$value": [
         {
@@ -1457,7 +1457,7 @@
     "$description": "Opacity scale for UI states.",
     "disabled": {
       "$value": 0.4,
-      "$description": "Disabled controls \u2014 buttons, inputs"
+      "$description": "Disabled controls — buttons, inputs"
     },
     "muted": {
       "$value": 0.6,
@@ -1475,7 +1475,7 @@
   "breakpoint": {
     "$name": "Breakpoint Tokens",
     "$type": "dimension",
-    "$description": "Documentation-only \u2014 CSS custom properties cannot be used in @media queries. Use PostCSS @custom-media or Sass variables.",
+    "$description": "Documentation-only — CSS custom properties cannot be used in @media queries. Use PostCSS @custom-media or Sass variables.",
     "sm": {
       "$value": "640px"
     },
@@ -1585,7 +1585,7 @@
         "$description": "Dark mode"
       },
       "text_tertiary_dark": {
-        "$value": "#808080",
+        "$value": "#989898",
         "$description": "Dark mode"
       },
       "text_on_brand_dark": {
@@ -1721,7 +1721,7 @@
         "$description": "Dark mode"
       },
       "text_tertiary_dark": {
-        "$value": "#8C8680",
+        "$value": "#A09A96",
         "$description": "Dark mode"
       },
       "text_on_brand_dark": {
@@ -1857,7 +1857,7 @@
         "$description": "Dark mode"
       },
       "text_tertiary_dark": {
-        "$value": "#8A8298",
+        "$value": "#9E96AC",
         "$description": "Dark mode"
       },
       "text_on_brand_dark": {
@@ -1993,7 +1993,7 @@
         "$description": "Dark mode"
       },
       "text_tertiary_dark": {
-        "$value": "#7A7E8C",
+        "$value": "#8E94A0",
         "$description": "Dark mode"
       },
       "text_on_brand_dark": {
@@ -2691,15 +2691,15 @@
     "$description": "Border radius scale. Foundation defaults shown below; each palette overrides these values with its structural identity.",
     "sm": {
       "$value": "6px",
-      "$description": "Subtle rounding \u2014 inputs, badges"
+      "$description": "Subtle rounding — inputs, badges"
     },
     "md": {
       "$value": "8px",
-      "$description": "Default \u2014 buttons, cards, dropdowns"
+      "$description": "Default — buttons, cards, dropdowns"
     },
     "lg": {
       "$value": "12px",
-      "$description": "Larger containers \u2014 modals, panels"
+      "$description": "Larger containers — modals, panels"
     },
     "xl": {
       "$value": "16px",
@@ -2711,7 +2711,7 @@
     },
     "full": {
       "$value": "9999px",
-      "$description": "Circles \u2014 avatars, pills, toggles"
+      "$description": "Circles — avatars, pills, toggles"
     },
     "palette-overrides": {
       "ai-futuristic": {
@@ -3017,7 +3017,7 @@
     "$description": "Border widths. Border colors use color.semantic.border-* tokens.",
     "width-thin": {
       "$value": "1px",
-      "$description": "Default borders \u2014 cards, inputs, dividers"
+      "$description": "Default borders — cards, inputs, dividers"
     },
     "width-medium": {
       "$value": "2px",
@@ -3080,7 +3080,7 @@
       "$description": "Max-width containers for page content.",
       "sm": {
         "$value": "640px",
-        "$description": "Narrow content \u2014 forms, articles"
+        "$description": "Narrow content — forms, articles"
       },
       "md": {
         "$value": "768px",
@@ -3092,11 +3092,11 @@
       },
       "xl": {
         "$value": "1280px",
-        "$description": "Wide layouts \u2014 dashboards"
+        "$description": "Wide layouts — dashboards"
       },
       "full": {
         "$value": "100%",
-        "$description": "Full-width \u2014 edge-to-edge"
+        "$description": "Full-width — edge-to-edge"
       }
     },
     "sidebar": {
