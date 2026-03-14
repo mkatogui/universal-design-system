@@ -932,6 +932,10 @@ html.docs-dark .badge--brand {
 }
 html.docs-dark .preview-label .tag-new,
 html.docs-dark .badge--success { color: var(--color-success); }
+/* ai-futuristic light uses dark success-bg (#062e1e) — use token (light green) not #047857 */
+[data-theme="ai-futuristic"] .preview-label .tag-new,
+[data-theme="ai-futuristic"] .badge--success,
+[data-theme="ai-futuristic"] .do-card::before { color: var(--color-success); }
 
 html.docs-dark .breadcrumb a {
   color: var(--color-text-secondary);
