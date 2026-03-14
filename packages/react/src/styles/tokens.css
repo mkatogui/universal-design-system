@@ -61,6 +61,11 @@
   --z-toast: 50;
   --z-system: 100;
 
+  /* Semantic component tokens */
+  --color-text-on-error: #ffffff;
+  --color-overlay-bg: rgba(0, 0, 0, 0.5);
+  --color-toggle-thumb: #ffffff;
+
   /* Default palette (Minimal SaaS) */
   --color-bg-primary: #ffffff;
   --color-bg-secondary: #f8f8fa;

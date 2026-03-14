@@ -127,4 +127,20 @@ describe('AlertDialog', () => {
     const dialog = screen.getByRole('alertdialog');
     expect(dialog).toHaveClass('custom-alert');
   });
+
+  it('generates unique IDs across multiple instances', () => {
+    render(
+      <>
+        <AlertDialog {...defaultProps} title="First" description="Desc 1" />
+        <AlertDialog {...defaultProps} title="Second" description="Desc 2" />
+      </>,
+    );
+    const dialogs = screen.getAllByRole('alertdialog');
+    const titleId1 = dialogs[0].getAttribute('aria-labelledby');
+    const titleId2 = dialogs[1].getAttribute('aria-labelledby');
+    expect(titleId1).not.toBe(titleId2);
+    const descId1 = dialogs[0].getAttribute('aria-describedby');
+    const descId2 = dialogs[1].getAttribute('aria-describedby');
+    expect(descId1).not.toBe(descId2);
+  });
 });

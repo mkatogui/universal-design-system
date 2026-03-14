@@ -51,7 +51,7 @@
 }
 .uds-btn--destructive {
   background: var(--color-error);
-  color: #ffffff;
+  color: var(--color-text-on-error);
 }
 .uds-btn--destructive:hover {
   opacity: 0.9;
@@ -315,7 +315,7 @@
 .uds-modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: var(--color-overlay-bg);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -408,7 +408,7 @@
   left: 2px;
   width: 20px;
   height: 20px;
-  background: white;
+  background: var(--color-toggle-thumb);
   border-radius: 50%;
   transition: transform var(--duration-fast) var(--ease-out);
   pointer-events: none;
@@ -484,7 +484,7 @@
 .uds-alert-dialog-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: var(--color-overlay-bg);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -537,7 +537,7 @@
 .uds-drawer-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: var(--color-overlay-bg);
   z-index: var(--z-modal);
 }
 .uds-drawer {

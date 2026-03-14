@@ -55,11 +55,11 @@ describe('Combobox', () => {
     const input = screen.getByRole('combobox');
     fireEvent.focus(input);
     fireEvent.keyDown(input, { key: 'ArrowDown' });
-    expect(input).toHaveAttribute('aria-activedescendant', 'combobox-opt-us');
+    expect(input.getAttribute('aria-activedescendant')).toMatch(/-opt-us$/);
     fireEvent.keyDown(input, { key: 'ArrowDown' });
-    expect(input).toHaveAttribute('aria-activedescendant', 'combobox-opt-ca');
+    expect(input.getAttribute('aria-activedescendant')).toMatch(/-opt-ca$/);
     fireEvent.keyDown(input, { key: 'ArrowUp' });
-    expect(input).toHaveAttribute('aria-activedescendant', 'combobox-opt-us');
+    expect(input.getAttribute('aria-activedescendant')).toMatch(/-opt-us$/);
   });
 
   it('selects option with Enter key', () => {
@@ -232,5 +232,18 @@ describe('Combobox', () => {
     expect(input).toHaveAttribute('aria-expanded', 'false');
     fireEvent.focus(input);
     expect(input).toHaveAttribute('aria-expanded', 'true');
+  });
+
+  it('sanitizes special characters in option IDs', () => {
+    const specialOptions = [
+      { value: 'hello world', label: 'Hello World' },
+      { value: 'foo@bar.com', label: 'Foo Bar' },
+    ];
+    render(<Combobox label="Test" options={specialOptions} onSelect={vi.fn()} />);
+    const input = screen.getByRole('combobox');
+    fireEvent.focus(input);
+    const opts = screen.getAllByRole('option');
+    expect(opts[0].id).toMatch(/-opt-hello_world$/);
+    expect(opts[1].id).toMatch(/-opt-foo_bar_com$/);
   });
 });

@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useRef } from 'react';
 
+let scrollLockCount = 0;
+
 /**
  * Shared hook for Modal, AlertDialog, and Drawer overlay behavior.
  * Handles: Escape to close, focus trap (Tab cycling), body scroll lock,
@@ -41,11 +43,19 @@ export function useDialogOverlay(
     if (open) {
       previousFocus.current = document.activeElement as HTMLElement;
       document.addEventListener('keydown', handleKeyDown);
-      document.body.style.overflow = 'hidden';
+      scrollLockCount++;
+      if (scrollLockCount === 1) {
+        document.body.style.overflow = 'hidden';
+      }
     }
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
-      document.body.style.overflow = '';
+      if (open) {
+        scrollLockCount--;
+        if (scrollLockCount === 0) {
+          document.body.style.overflow = '';
+        }
+      }
       previousFocus.current?.focus();
     };
   }, [open, handleKeyDown]);

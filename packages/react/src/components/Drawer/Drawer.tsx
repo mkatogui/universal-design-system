@@ -52,6 +52,7 @@ export const Drawer = React.forwardRef<HTMLDialogElement, DrawerProps>(
     }, [open]);
 
     if (!open) return null;
+    if (typeof document === 'undefined') return null;
 
     const classes = ['uds-drawer', `uds-drawer--${side}`, `uds-drawer--${size}`, className]
       .filter(Boolean)
