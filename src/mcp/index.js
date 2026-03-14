@@ -773,7 +773,7 @@ async function handleGetAntiPatterns(args) {
 
   const rows = await loadAntiPatterns();
   const needle = sector.toLowerCase();
-  const matches = rows.filter((r) => r.sector && r.sector.toLowerCase() === needle);
+  const matches = rows.filter((r) => r.sector?.toLowerCase() === needle);
 
   if (matches.length === 0) {
     const sectors = [...new Set(rows.map((r) => r.sector).filter(Boolean))];

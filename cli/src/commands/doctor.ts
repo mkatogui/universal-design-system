@@ -157,7 +157,8 @@ export async function doctorCommand(): Promise<void> {
     }
   }
 
-  console.log(`\n  ${issues === 0 ? 'All checks passed.' : `${issues} issue(s) found.`}\n`);
+  const summary = issues === 0 ? 'All checks passed.' : `${issues} issue(s) found.`;
+  console.log(`\n  ${summary}\n`);
 
   if (issues > 0) {
     process.exit(1);

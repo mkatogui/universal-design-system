@@ -5,25 +5,64 @@
     "email": "mkatogui@gmail.com"
   },
   "metadata": {
-    "description": "Production-grade design system with 9 structural palettes, 600 W3C DTCG tokens, 43 BEM components, BM25 reasoning engine, WCAG 2.1 AA compliance, and industry-specific design rules. Reverse-engineered from 100 modern websites.",
-    "version": "0.3.0"
+    "description": "Production-grade AI-native design system with 9 structural palettes, 600 W3C DTCG tokens, 43 BEM components, BM25 reasoning engine, WCAG 2.2 AA compliance, and industry-specific design rules across 1,676+ data rows.",
+    "version": "0.4.0"
   },
   "plugins": [
     {
       "name": "universal-design-system",
       "source": "./",
-      "description": "AI-native design system that reasons about your product. 9 switchable palettes, 600 design tokens, 43 accessible components, BM25 search engine across 20 databases, 190 industry rules, and automated WCAG validation. Other tools tell AI what colors to use — we give it a complete, accessible, WCAG-validated design system it can ship.",
-      "version": "0.3.0",
+      "description": "AI-native design system that reasons about your product. 9 switchable palettes, 600 design tokens, 43 accessible components, BM25 search engine across 20 databases, 190 industry rules, and automated WCAG validation. Ships with 6 skills, 6 autonomous agents, 6 slash commands, and an MCP server with 8 tools.",
+      "version": "0.4.0",
       "author": {
         "name": "mkatogui"
       },
       "homepage": "https://mkatogui.github.io/universal-design-system/",
       "repository": "https://github.com/mkatogui/universal-design-system",
       "license": "MIT",
-      "keywords": ["design-system", "ui", "ux", "design", "tokens", "components", "wcag", "accessibility", "color-palette", "typography", "tailwind", "react", "vue", "svelte", "figma"],
-      "tags": ["design-system", "design-tokens", "ui-components", "accessibility", "wcag", "color-palettes", "typography", "tailwind-css", "react-components", "figma-tokens"],
+      "keywords": ["design-system", "ui", "ux", "design", "tokens", "components", "wcag", "accessibility", "color-palette", "typography", "tailwind", "react", "vue", "svelte", "figma", "mcp"],
+      "tags": ["design-system", "design-tokens", "ui-components", "accessibility", "wcag", "color-palettes", "typography", "tailwind-css", "react-components", "figma-tokens", "mcp-server", "ai-agents"],
       "category": "design",
-      "strict": true
+      "strict": true,
+      "features": {
+        "skills": 6,
+        "agents": 6,
+        "commands": 6,
+        "mcp_tools": 8,
+        "mcp_resources": 6,
+        "mcp_prompts": 4,
+        "palettes": 9,
+        "components": 43,
+        "tokens": 600,
+        "databases": 20,
+        "platforms": 20
+      },
+      "contents": {
+        "skills": [
+          "universal-design-system — Core design system reasoning engine",
+          "brand-identity — Brand identity generation",
+          "design-audit — UI accessibility and quality audit",
+          "ui-styling — CSS/styling helper with token snippets",
+          "slides-design — Presentation design systems",
+          "pre-pr-review — CI simulation and code quality gate"
+        ],
+        "agents": [
+          "pre-pr-reviewer — Autonomous CI simulation and auto-fix",
+          "palette-sync — Token-to-docs CSS synchronization",
+          "a11y-remediator — WCAG failure diagnosis and remediation",
+          "metrics-aligner — Documentation metrics synchronization",
+          "component-scaffold — React component scaffolding",
+          "docs-sync — Cross-page consistency validation"
+        ],
+        "commands": [
+          "/pre-pr-review — Deep review before PR creation",
+          "/palette-sync — Sync tokens into docs pages",
+          "/a11y-fix — Fix accessibility test failures",
+          "/align-metrics — Align documented counts with actuals",
+          "/new-component — Scaffold a new React component",
+          "/docs-sync — Synchronize shared docs elements"
+        ]
+      }
     }
   ]
 }

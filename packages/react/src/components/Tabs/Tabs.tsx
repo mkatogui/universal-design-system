@@ -88,7 +88,7 @@ export const Tabs: React.FC<TabsProps> = ({
         nextIndex = enabledIndices[0];
       } else if (e.key === 'End') {
         e.preventDefault();
-        nextIndex = enabledIndices[enabledIndices.length - 1];
+        nextIndex = enabledIndices.at(-1);
       }
 
       if (nextIndex !== undefined) {
@@ -109,11 +109,12 @@ export const Tabs: React.FC<TabsProps> = ({
         className="uds-tabs__list"
         role="tablist"
         aria-orientation="horizontal"
+        tabIndex={0}
         onKeyDown={handleKeyDown}
       >
         {tabs.map((tab, index) => (
           <button
-            key={index}
+            key={tab.label}
             ref={(el) => {
               tabRefs.current[index] = el;
             }}
@@ -132,7 +133,7 @@ export const Tabs: React.FC<TabsProps> = ({
       </div>
       {tabs.map((tab, index) => (
         <div
-          key={index}
+          key={tab.label}
           className="uds-tabs__panel"
           role="tabpanel"
           id={`${baseId}-panel-${index}`}

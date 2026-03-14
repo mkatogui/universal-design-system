@@ -91,7 +91,7 @@ export const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>(
           targetIndex = enabledIndices[0];
         } else if (e.key === 'End') {
           e.preventDefault();
-          targetIndex = enabledIndices[enabledIndices.length - 1];
+          targetIndex = enabledIndices.at(-1);
         }
 
         if (targetIndex !== undefined) {
@@ -112,7 +112,7 @@ export const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>(
           const isExpanded = expanded.has(index);
           return (
             <div
-              key={index}
+              key={item.title}
               className={['uds-accordion__item', isExpanded && 'uds-accordion__item--expanded']
                 .filter(Boolean)
                 .join(' ')}

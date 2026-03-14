@@ -104,6 +104,9 @@
     "src/mcp/README.md",
     "cli/dist/",
     ".claude/skills/",
+    ".claude/agents/",
+    ".claude/commands/",
+    ".claude-plugin/",
     "SPECIFICATION.md",
     "SKILL.md",
     "CLAUDE.md"

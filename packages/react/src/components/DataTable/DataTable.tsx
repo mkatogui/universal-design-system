@@ -179,28 +179,47 @@ export const DataTable = React.forwardRef<HTMLDivElement, DataTableProps>(
                 </td>
               </tr>
             ) : (
-              data.map((row, rowIndex) => (
-                <tr
-                  key={rowIndex}
-                  className={selected.has(rowIndex) ? 'uds-data-table__row--selected' : undefined}
-                >
-                  {selectable && (
-                    <td className="uds-data-table__td uds-data-table__td--checkbox">
-                      <input
-                        type="checkbox"
-                        checked={selected.has(rowIndex)}
-                        onChange={() => handleSelectRow(rowIndex)}
-                        aria-label={`Select row ${rowIndex + 1}`}
-                      />
-                    </td>
-                  )}
-                  {columns.map((col) => (
-                    <td key={col.key} className="uds-data-table__td">
-                      {col.render ? col.render(row[col.key], row) : String(row[col.key] ?? '')}
-                    </td>
-                  ))}
-                </tr>
-              ))
+              data.map((row, rowIndex) => {
+                const rowKey =
+                  row.id != null
+                    ? String(row.id)
+                    : columns.map((c) => String(row[c.key] ?? '')).join('|') || String(rowIndex);
+                return (
+                  <tr
+                    key={rowKey}
+                    className={selected.has(rowIndex) ? 'uds-data-table__row--selected' : undefined}
+                  >
+                    {selectable && (
+                      <td className="uds-data-table__td uds-data-table__td--checkbox">
+                        <input
+                          type="checkbox"
+                          checked={selected.has(rowIndex)}
+                          onChange={() => handleSelectRow(rowIndex)}
+                          aria-label={`Select row ${rowIndex + 1}`}
+                        />
+                      </td>
+                    )}
+                    {columns.map((col) => {
+                      const cellValue = row[col.key];
+                      let displayValue: React.ReactNode;
+                      if (col.render) {
+                        displayValue = col.render(cellValue, row);
+                      } else if (cellValue == null) {
+                        displayValue = '';
+                      } else if (typeof cellValue === 'object') {
+                        displayValue = JSON.stringify(cellValue);
+                      } else {
+                        displayValue = String(cellValue);
+                      }
+                      return (
+                        <td key={col.key} className="uds-data-table__td">
+                          {displayValue}
+                        </td>
+                      );
+                    })}
+                  </tr>
+                );
+              })
             )}
           </tbody>
         </table>

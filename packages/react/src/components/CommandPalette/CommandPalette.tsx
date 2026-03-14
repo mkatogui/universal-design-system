@@ -158,14 +158,15 @@ export const CommandPalette = React.forwardRef<HTMLDivElement, CommandPalettePro
         onClick={(e) => {
           if (e.target === e.currentTarget) onClose();
         }}
-        role="presentation"
       >
+        {/* biome-ignore lint/a11y/useFocusableInteractive: Custom command palette combobox delegates focus to its nested input */}
         <div
           ref={ref}
           className={classes}
           role="combobox"
-          aria-expanded="true"
+          aria-expanded={open}
           aria-haspopup="listbox"
+          aria-controls={listboxId}
           aria-owns={listboxId}
           {...props}
         >

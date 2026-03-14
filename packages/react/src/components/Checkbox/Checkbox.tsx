@@ -46,7 +46,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
     ref,
   ) => {
     const inputId =
-      id || (label ? `uds-checkbox-${label.toLowerCase().replace(/\s+/g, '-')}` : undefined);
+      id || (label ? `uds-checkbox-${label.toLowerCase().replaceAll(/\s+/g, '-')}` : undefined);
 
     const internalRef = React.useCallback(
       (node: HTMLInputElement | null) => {

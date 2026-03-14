@@ -106,16 +106,16 @@ export const Pagination = React.forwardRef<HTMLElement, PaginationProps>(
       );
     }
 
-    const getPageNumbers = (): (number | '...')[] => {
-      const pages: (number | '...')[] = [];
+    const getPageNumbers = (): (number | 'ellipsis-start' | 'ellipsis-end')[] => {
+      const pages: (number | 'ellipsis-start' | 'ellipsis-end')[] = [];
       const delta = 1;
       const left = Math.max(2, currentPage - delta);
       const right = Math.min(totalPages - 1, currentPage + delta);
 
       pages.push(1);
-      if (left > 2) pages.push('...');
+      if (left > 2) pages.push('ellipsis-start');
       for (let i = left; i <= right; i++) pages.push(i);
-      if (right < totalPages - 1) pages.push('...');
+      if (right < totalPages - 1) pages.push('ellipsis-end');
       if (totalPages > 1) pages.push(totalPages);
       return pages;
     };
@@ -132,9 +132,9 @@ export const Pagination = React.forwardRef<HTMLElement, PaginationProps>(
           Previous
         </button>
         <ol className="uds-pagination__list">
-          {getPageNumbers().map((page, i) =>
-            page === '...' ? (
-              <li key={`ellipsis-${i}`} className="uds-pagination__ellipsis" aria-hidden="true">
+          {getPageNumbers().map((page) =>
+            typeof page === 'string' ? (
+              <li key={page} className="uds-pagination__ellipsis" aria-hidden="true">
                 ...
               </li>
             ) : (

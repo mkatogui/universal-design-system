@@ -1,11 +1,113 @@
 {
   "name": "universal-design-system",
-  "description": "Production-grade AI-native design system with 9 palettes, 600 W3C DTCG tokens, 43 components, BM25 reasoning engine, and WCAG 2.1 AA compliance. Reverse-engineered from 100 modern websites.",
-  "version": "0.3.0",
+  "description": "Production-grade AI-native design system with 9 palettes, 600 W3C DTCG tokens, 43 components, BM25 reasoning engine, and WCAG 2.2 AA compliance.",
+  "version": "0.4.0",
   "author": {
     "name": "mkatogui",
     "email": "mkatogui@gmail.com"
   },
   "license": "MIT",
-  "keywords": ["design-system", "ui", "ux", "tokens", "components", "wcag", "accessibility", "tailwind", "react", "vue", "svelte", "figma", "design-tokens"]
+  "homepage": "https://mkatogui.github.io/universal-design-system/",
+  "repository": "https://github.com/mkatogui/universal-design-system",
+  "keywords": ["design-system", "ui", "ux", "tokens", "components", "wcag", "accessibility", "tailwind", "react", "vue", "svelte", "figma", "design-tokens", "mcp"],
+  "capabilities": {
+    "skills": [
+      {
+        "name": "universal-design-system",
+        "description": "Core design system skill — domain detection, BM25 search, rule engine, palette selection, token resolution, Tailwind/React/Vue/Svelte output",
+        "triggers": ["design system", "ui design", "component library", "design tokens", "color palette"]
+      },
+      {
+        "name": "brand-identity",
+        "description": "Generate complete brand identity systems with color psychology, typography pairings, and visual identity rules",
+        "triggers": ["brand identity", "brand design", "brand colors", "visual identity"]
+      },
+      {
+        "name": "design-audit",
+        "description": "Audit existing UIs for WCAG accessibility, color contrast, typography hierarchy, and spacing consistency",
+        "triggers": ["design audit", "ui audit", "accessibility audit", "ux review"]
+      },
+      {
+        "name": "ui-styling",
+        "description": "CSS/styling helper using design tokens — copy-paste snippets with dark mode variants and responsive breakpoints",
+        "triggers": ["css help", "styling help", "dark mode css", "hover effect"]
+      },
+      {
+        "name": "slides-design",
+        "description": "Generate presentation design systems with slide templates, typography rules, and color schemes",
+        "triggers": ["presentation design", "slide design", "pitch deck"]
+      },
+      {
+        "name": "pre-pr-review",
+        "description": "Deep code review and CI simulation — Biome lint, TypeScript type-check, Vitest, SonarCloud code smell detection",
+        "triggers": ["pre-pr review", "code quality check", "review before pr"]
+      }
+    ],
+    "agents": [
+      {
+        "name": "pre-pr-reviewer",
+        "description": "Autonomous CI simulation — mirrors quality.yml + ci.yml pipeline locally, auto-fixes issues"
+      },
+      {
+        "name": "palette-sync",
+        "description": "Synchronizes palette tokens from design-tokens.json into all 8 docs pages (144 CSS blocks)"
+      },
+      {
+        "name": "a11y-remediator",
+        "description": "Diagnoses and fixes WCAG accessibility failures across 144 axe-core tests"
+      },
+      {
+        "name": "metrics-aligner",
+        "description": "Computes actual project metrics and updates all documentation references"
+      },
+      {
+        "name": "component-scaffold",
+        "description": "Generates complete React component scaffolding — TSX, tests, CSV entry, ARIA attributes"
+      },
+      {
+        "name": "docs-sync",
+        "description": "Validates and synchronizes shared elements across all 8 HTML documentation pages"
+      }
+    ],
+    "commands": [
+      { "name": "pre-pr-review", "description": "Run CI simulation before creating a PR" },
+      { "name": "palette-sync", "description": "Sync palette tokens into docs pages" },
+      { "name": "a11y-fix", "description": "Diagnose and fix accessibility test failures" },
+      { "name": "align-metrics", "description": "Align documented metrics with actual counts" },
+      { "name": "new-component", "description": "Scaffold a new React component" },
+      { "name": "docs-sync", "description": "Sync shared elements across docs pages" }
+    ],
+    "mcp": {
+      "server": "src/mcp/index.js",
+      "tools": [
+        { "name": "search_design_system", "description": "BM25 search across 20 CSV databases with domain detection" },
+        { "name": "get_palette", "description": "Retrieve full token set for any of 9 palettes (light/dark)" },
+        { "name": "get_component", "description": "Look up component by slug with variants, states, accessibility" },
+        { "name": "generate_tokens", "description": "Full reasoning pipeline to JSON/Tailwind/CSS-in-JS output" },
+        { "name": "list_palettes", "description": "List all 9 palettes with descriptions" },
+        { "name": "list_components", "description": "List all components with names and categories" },
+        { "name": "get_anti_patterns", "description": "Industry-specific anti-patterns to avoid by sector" },
+        { "name": "get_foundation_tokens", "description": "Palette-independent tokens (spacing, motion, typography)" }
+      ],
+      "resources": [
+        { "uri": "tokens://design-tokens", "description": "600 W3C DTCG design tokens" },
+        { "uri": "tokens://figma-tokens", "description": "Figma-compatible token format" },
+        { "uri": "csv://components", "description": "Component database (43 components)" },
+        { "uri": "csv://products", "description": "Product template database (165 products)" },
+        { "uri": "csv://patterns", "description": "UI pattern database" },
+        { "uri": "csv://ui-reasoning", "description": "Reasoning rules (190 rules)" }
+      ],
+      "prompts": [
+        { "name": "design-system-for-domain", "description": "Full design system generation workflow" },
+        { "name": "wcag-audit", "description": "WCAG 2.2 AA compliance audit" },
+        { "name": "palette-comparison", "description": "Compare palettes for a domain" },
+        { "name": "component-selection", "description": "Select right components for a product type" }
+      ]
+    }
+  },
+  "platforms": ["claude", "cursor", "windsurf", "vscode", "zed", "aider", "cline", "continue", "bolt", "lovable", "replit", "codex", "kiro", "gemini", "qoder", "roocode", "trae", "opencode", "copilot", "droid"],
+  "requirements": {
+    "node": ">=20",
+    "python": ">=3.8"
+  }
 }
