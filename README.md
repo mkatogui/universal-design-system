@@ -6,8 +6,8 @@
 [![WCAG 2.1 AA](https://img.shields.io/badge/WCAG_2.1-AA-green.svg)](https://mkatogui.github.io/universal-design-system/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![9 Palettes](https://img.shields.io/badge/Palettes-9-blue.svg)](#9-palettes)
-[![32 Components](https://img.shields.io/badge/Components-32-blue.svg)](#32-components)
-[![496 Tokens](https://img.shields.io/badge/Tokens-496-blue.svg)](#token-architecture)
+[![43 Components](https://img.shields.io/badge/Components-43-blue.svg)](#43-components)
+[![600 Tokens](https://img.shields.io/badge/Tokens-600-blue.svg)](#token-architecture)
 [![AI Platforms](https://img.shields.io/badge/AI_Platforms-20-purple.svg)](#supported-platforms)
 [![Zero Dependencies](https://img.shields.io/badge/Dependencies-0-brightgreen.svg)]()
 
@@ -33,14 +33,14 @@ One command. Full design system. WCAG-validated. Domain-appropriate.
 | Feature | UDS | Material UI | DaisyUI | Style Dictionary | Radix UI |
 |---------|-----|-------------|---------|-----------------|----------|
 | Deterministic recommendation engine | Yes | No | No | No | No |
-| Domain-aware recommendations | 55 sectors, 14 product types | Manual selection | Manual selection | N/A | N/A |
+| Domain-aware recommendations | 55 sectors, 21 product types | Manual selection | Manual selection | N/A | N/A |
 | WCAG 2.1 AA automated audit | Automated contrast validation (108 pairs) | Partial | No | No | Yes (runtime) |
 | Anti-pattern detection | 84 domain-specific rules | No | No | No | No |
 | Multi-framework output | React, Vue, Svelte | React only | CSS only | Platform tokens | React only |
 | AI platform support | 20 platforms | N/A | N/A | N/A | N/A |
-| Design tokens (W3C DTCG) | ~530 tokens | Custom format | CSS vars | Yes (tooling) | CSS vars |
+| Design tokens (W3C DTCG) | ~600 tokens | Custom format | CSS vars | Yes (tooling) | CSS vars |
 | Zero-config palette system | 9 palettes + custom | Theming API | 30+ themes | N/A | N/A |
-| BM25 search across 16 databases | Yes (1,528 rows) | No | No | No | No |
+| BM25 search across 20 databases | Yes (1,600+ rows) | No | No | No | No |
 | Tailwind CSS generation | Built-in | Community | Built-in | Plugin | No |
 
 ---
@@ -51,15 +51,15 @@ One command. Full design system. WCAG-validated. Domain-appropriate.
 
 ```
 User Query -> Domain Detection -> BM25 Search -> Rule Application -> Output
-               (55 sectors,        (16 CSVs,       (~170 rules,
-                14 product types)   1,528 rows)      84 anti-patterns)
+               (55 sectors,        (20 CSVs,       (190 rules,
+                21 product types)   1,600+ rows)     84 anti-patterns)
 ```
 
-**Layer 1 -- Domain Detection:** Classifies your product across 55 industry sectors and 14 product types with confidence scores.
+**Layer 1 -- Domain Detection:** Classifies your product across 55 industry sectors and 21 product types with confidence scores.
 
-**Layer 2 -- BM25 Search:** Okapi BM25 ranking (k1=1.5, b=0.75) with Porter stemmer and synonym expansion across 16 CSV databases. Surfaces the most relevant palettes, components, patterns, typography, and color schemes.
+**Layer 2 -- BM25 Search:** Okapi BM25 ranking (k1=1.5, b=0.75) with Porter stemmer and synonym expansion across 20 CSV databases. Surfaces the most relevant palettes, components, patterns, typography, and color schemes.
 
-**Layer 3 -- Rule Application:** Evaluates ~170 conditional rules and flags 84 industry-specific anti-patterns. First match wins for palette; all matching rules accumulate.
+**Layer 3 -- Rule Application:** Evaluates 190 conditional rules and flags 84 industry-specific anti-patterns. First match wins for palette; all matching rules accumulate.
 
 ---
 
@@ -75,7 +75,7 @@ npx @mkatogui/universal-design-system install
 ### Use the recommendation engine
 
 ```bash
-# Search across all 16 databases
+# Search across all 20 databases
 python3 src/scripts/search.py "fintech dashboard"
 
 # Generate a full design system specification
@@ -128,7 +128,7 @@ import { tokens } from '@mkatogui/uds-tokens'; // JS/TS object
 
 ## What You Get
 
-Describe your product in plain English. The engine searches across 16 databases and 1,528 data rows:
+Describe your product in plain English. The engine searches across 20 databases and 1,600+ data rows:
 
 ```
 $ python3 src/scripts/design_system.py "fintech dashboard"
@@ -204,7 +204,7 @@ python3 src/scripts/palette.py list
 
 ---
 
-## 32 Components
+## 43 Components
 
 All components use BEM naming (`.uds-{component}--{variant}`) and CSS custom properties. No hardcoded values.
 
@@ -230,7 +230,7 @@ All components use BEM naming (`.uds-{component}--{variant}`) and CSS custom pro
 
 ## Token Architecture
 
-~530 W3C DTCG tokens across 3 tiers:
+~600 W3C DTCG tokens across 3 tiers:
 
 ```
 Primitive (raw values)  ->  Semantic (functional names)  ->  Palette Overrides (per-palette)
@@ -308,7 +308,7 @@ npm run audit:apca       # APCA/WCAG 3.0 contrast analysis
 universal-design-system/
   tokens/                 # W3C DTCG design tokens (source of truth)
   src/
-    data/                 # 16 CSV databases (1,528+ rows)
+    data/                 # 20 CSV databases (1,600+ rows)
     scripts/              # BM25 engine, search CLI, spec generator, palette CLI
     mcp/                  # MCP server for AI coding tool integration
   cli/                    # TypeScript CLI (zero dependencies)

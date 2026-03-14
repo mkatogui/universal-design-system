@@ -11,7 +11,7 @@ export const Hero: StoryObj = {
   render: () => `
     <section class="uds-hero uds-hero--centered" style="min-height: 300px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
       <h1 class="uds-hero__headline">Build faster with Universal Design System</h1>
-      <p class="uds-hero__subheadline">9 palettes, 32 components, ~530 tokens. WCAG 2.1 AA validated.</p>
+      <p class="uds-hero__subheadline">9 palettes, 43 components, ~600 tokens. WCAG 2.1 AA validated.</p>
       <div class="uds-hero__cta" style="display: flex; gap: 1rem; margin-top: 1.5rem;">
         <button class="uds-btn uds-btn--primary uds-btn--lg">Get Started</button>
         <button class="uds-btn uds-btn--secondary uds-btn--lg">View Docs</button>

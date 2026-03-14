@@ -14,8 +14,8 @@ The pipeline has three layers executed in sequence:
 
 ```
 User Query --> DomainDetector --> BM25 Search --> Rule Application --> Token Resolution --> Output
-               (55 sectors,      (16 CSVs,       (170 rules from      (design-tokens.json,
-                14 product types)  1,528 rows)     ui-reasoning.csv)    palette overrides)
+               (55 sectors,      (20 CSVs,       (190 rules from      (design-tokens.json,
+                21 product types)  1,600+ rows)    ui-reasoning.csv)    palette overrides)
 ```
 
 ---
@@ -43,7 +43,7 @@ The engine recognizes **55 industry sectors**, each defined by a list of keyword
 
 ### Product Types
 
-The engine recognizes **14 product types**:
+The engine recognizes **21 product types**:
 
 | Product Type | Keywords |
 |-------------|----------|
@@ -133,12 +133,12 @@ Where `tf(t)` is the term frequency in the document, `dl` is the document length
 
 ### Indexed Databases
 
-The BM25 index is built from **16 CSV databases** containing a total of **1,528 data rows**:
+The BM25 index is built from **20 CSV databases** containing a total of **1,600+ data rows**:
 
 | CSV File | Rows | Indexed Fields | Role |
 |----------|------|---------------|------|
 | `products.csv` | 195 | name, sector, sub_sector, palette, style, color_mood, key_components, key_patterns, audience | Product templates linking sectors to palettes, components, and patterns |
-| `components.csv` | 32 | name, slug, category, variants, use_when | UI component definitions with variants and usage guidance |
+| `components.csv` | 43 | name, slug, category, variants, use_when | UI component definitions with variants and usage guidance |
 | `ui-reasoning.csv` | 170 | *(not BM25-indexed -- used by Rule Engine)* | Conditional rules for palette and design recommendations |
 | `anti-patterns.csv` | 84 | sector, anti_pattern, description | Sector-specific design anti-patterns to avoid |
 | `typography.csv` | 85 | heading_font, body_font, mood, best_for, palette_match | Font pairings matched to moods and palettes |
@@ -176,7 +176,7 @@ The third layer evaluates conditional rules to determine the recommended palette
 
 ### Rule Format
 
-Rules are stored in `src/data/ui-reasoning.csv` (~170 rules). Each rule has the structure:
+Rules are stored in `src/data/ui-reasoning.csv` (190 rules). Each rule has the structure:
 
 ```
 IF condition(field operator value) THEN then_field = then_value
@@ -227,11 +227,11 @@ Anti-patterns are retrieved separately by exact sector match against `anti-patte
 
 ## Datasets
 
-All data files live in `src/data/`. The 16 CSV databases serve distinct roles in the pipeline:
+All data files live in `src/data/`. The 20 CSV databases serve distinct roles in the pipeline:
 
 1. **products.csv** (195 rows) -- Product templates that map sectors, sub-sectors, and audiences to palettes, styles, components, and patterns. This is the primary database for palette fallback.
-2. **components.csv** (32 rows) -- UI component definitions including name, slug, category, variants, usage guidance, accessibility notes, and states.
-3. **ui-reasoning.csv** (170 rows) -- Conditional rules evaluated by the Rule Engine. Not indexed in BM25.
+2. **components.csv** (43 rows) -- UI component definitions including name, slug, category, variants, usage guidance, accessibility notes, and states.
+3. **ui-reasoning.csv** (190 rows) -- Conditional rules evaluated by the Rule Engine. Not indexed in BM25.
 4. **anti-patterns.csv** (84 rows) -- Sector-specific anti-patterns with severity, description, and recommended alternatives.
 5. **typography.csv** (85 rows) -- Font pairings (heading + body) with mood, palette match, and usage guidance.
 6. **styles.csv** (69 rows) -- Visual style definitions mapping to palettes and use cases.

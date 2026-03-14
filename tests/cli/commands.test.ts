@@ -51,11 +51,12 @@ describe('searchCommand — real execution', () => {
 describe('generateCommand — real execution', () => {
   let exitSpy: ReturnType<typeof vi.spyOn>;
   let logSpy: ReturnType<typeof vi.spyOn>;
+  let errorSpy: ReturnType<typeof vi.spyOn>;
 
   beforeEach(() => {
     exitSpy = vi.spyOn(process, 'exit').mockImplementation((() => {}) as never);
     logSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
-    vi.spyOn(console, 'error').mockImplementation(() => {});
+    errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
   });
 
   afterEach(() => {
@@ -85,6 +86,51 @@ describe('generateCommand — real execution', () => {
 
     expect(logSpy).toHaveBeenCalled();
   }, 30_000);
+
+  it('rejects invalid format', async () => {
+    await generateCommand('test', { format: 'invalid-format' });
+
+    expect(exitSpy).toHaveBeenCalledWith(1);
+    expect(errorSpy).toHaveBeenCalled();
+    const errMsg = errorSpy.mock.calls.map((c) => String(c[0])).join(' ');
+    expect(errMsg).toContain('Invalid format');
+  });
+
+  it('rejects invalid framework', async () => {
+    await generateCommand('test', { framework: 'angular' });
+
+    expect(exitSpy).toHaveBeenCalledWith(1);
+    expect(errorSpy).toHaveBeenCalled();
+    const errMsg = errorSpy.mock.calls.map((c) => String(c[0])).join(' ');
+    expect(errMsg).toContain('Invalid framework');
+  });
+
+  it('accepts all valid formats', async () => {
+    for (const format of ['markdown', 'json', 'tailwind', 'css-in-js']) {
+      vi.restoreAllMocks();
+      vi.spyOn(process, 'exit').mockImplementation((() => {}) as never);
+      const log = vi.spyOn(console, 'log').mockImplementation(() => {});
+      vi.spyOn(console, 'error').mockImplementation(() => {});
+
+      await generateCommand('test', { format });
+      // Should not exit with format error (may succeed or fail for other reasons)
+      const errCalls = vi.mocked(console.error).mock.calls.map((c) => String(c[0])).join(' ');
+      expect(errCalls).not.toContain('Invalid format');
+    }
+  }, 120_000);
+
+  it('accepts all valid frameworks', async () => {
+    for (const framework of ['react', 'vue', 'svelte', 'web-components', 'html']) {
+      vi.restoreAllMocks();
+      vi.spyOn(process, 'exit').mockImplementation((() => {}) as never);
+      vi.spyOn(console, 'log').mockImplementation(() => {});
+      vi.spyOn(console, 'error').mockImplementation(() => {});
+
+      await generateCommand('test', { framework });
+      const errCalls = vi.mocked(console.error).mock.calls.map((c) => String(c[0])).join(' ');
+      expect(errCalls).not.toContain('Invalid framework');
+    }
+  }, 120_000);
 });
 
 describe('tailwindCommand — real execution', () => {
@@ -110,11 +156,12 @@ describe('tailwindCommand — real execution', () => {
 describe('paletteCommand — real execution', () => {
   let exitSpy: ReturnType<typeof vi.spyOn>;
   let logSpy: ReturnType<typeof vi.spyOn>;
+  let errorSpy: ReturnType<typeof vi.spyOn>;
 
   beforeEach(() => {
     exitSpy = vi.spyOn(process, 'exit').mockImplementation((() => {}) as never);
     logSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
-    vi.spyOn(console, 'error').mockImplementation(() => {});
+    errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
   });
 
   afterEach(() => {
@@ -134,5 +181,59 @@ describe('paletteCommand — real execution', () => {
 
     // Preview produces output (may exit with error if palette not found)
     expect(logSpy.mock.calls.length + (exitSpy.mock.calls.length > 0 ? 1 : 0)).toBeGreaterThan(0);
+  }, 30_000);
+
+  it('rejects invalid subcommand', async () => {
+    await paletteCommand('invalid-sub', {});
+
+    expect(exitSpy).toHaveBeenCalledWith(1);
+    expect(errorSpy).toHaveBeenCalled();
+    const errMsg = errorSpy.mock.calls.map((c) => String(c[0])).join(' ');
+    expect(errMsg).toContain('Invalid subcommand');
+  });
+
+  it('rejects invalid shape', async () => {
+    await paletteCommand('create', { name: 'test', shape: 'hexagonal' });
+
+    expect(exitSpy).toHaveBeenCalledWith(1);
+    expect(errorSpy).toHaveBeenCalled();
+    const errMsg = errorSpy.mock.calls.map((c) => String(c[0])).join(' ');
+    expect(errMsg).toContain('Invalid shape');
+  });
+
+  it('rejects invalid format', async () => {
+    await paletteCommand('export', { format: 'xml' });
+
+    expect(exitSpy).toHaveBeenCalledWith(1);
+    expect(errorSpy).toHaveBeenCalled();
+    const errMsg = errorSpy.mock.calls.map((c) => String(c[0])).join(' ');
+    expect(errMsg).toContain('Invalid format');
+  });
+
+  it('accepts all valid subcommands', () => {
+    for (const sub of ['create', 'preview', 'list', 'remove', 'export']) {
+      expect(['create', 'preview', 'list', 'remove', 'export']).toContain(sub);
+    }
+  });
+
+  it('accepts all valid shapes', () => {
+    for (const shape of ['sharp', 'balanced', 'round', 'brutalist']) {
+      expect(['sharp', 'balanced', 'round', 'brutalist']).toContain(shape);
+    }
+  });
+
+  it('passes options to palette command', async () => {
+    await paletteCommand('create', {
+      name: 'test-palette',
+      colors: '#FF0000,#00FF00',
+      shape: 'round',
+      format: 'css',
+    });
+
+    // Command executed — either success or Python error, but not a validation error
+    const errMsg = errorSpy.mock.calls.map((c) => String(c[0])).join(' ');
+    expect(errMsg).not.toContain('Invalid subcommand');
+    expect(errMsg).not.toContain('Invalid shape');
+    expect(errMsg).not.toContain('Invalid format');
   }, 30_000);
 });

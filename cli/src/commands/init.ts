@@ -65,7 +65,7 @@ const BUILTIN_PALETTES: Choice[] = [
   },
 ];
 
-function loadPalettes(): Choice[] {
+export function loadPalettes(): Choice[] {
   const palettes = [...BUILTIN_PALETTES];
   try {
     const registryPath = resolve(PKG_ROOT, 'tokens', 'palette-registry.json');
@@ -147,7 +147,7 @@ async function selectPrompt(message: string, choices: Choice[]): Promise<string 
 
 export async function initCommand(): Promise<void> {
   console.log(bold('\n  Universal Design System — Setup Wizard'));
-  console.log(dim('  9 Palettes · 496 Tokens · 31 Components · WCAG 2.1 AA\n'));
+  console.log(dim('  9 Palettes · 600 Tokens · 43 Components · WCAG 2.1 AA\n'));
 
   const platform = await selectPrompt('Which AI coding platform?', PLATFORMS);
   if (!platform) {

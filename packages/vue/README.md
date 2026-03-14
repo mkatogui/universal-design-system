@@ -1,6 +1,6 @@
 # @mkatogui/uds-vue
 
-Vue 3 Composition API components for the Universal Design System. 32 accessible, themeable components built with `<script setup lang="ts">` and `defineProps`.
+Vue 3 Composition API components for the Universal Design System. 43 accessible, themeable components built with `<script setup lang="ts">` and `defineProps`.
 
 ## Installation
 

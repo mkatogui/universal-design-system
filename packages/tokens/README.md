@@ -1,6 +1,6 @@
 # @mkatogui/uds-tokens
 
-496 W3C DTCG design tokens from the [Universal Design System](https://github.com/mkatogui/universal-design-system) -- CSS custom properties, JavaScript/TypeScript objects, and flat JSON.
+600 W3C DTCG design tokens from the [Universal Design System](https://github.com/mkatogui/universal-design-system) -- CSS custom properties, JavaScript/TypeScript objects, and flat JSON.
 
 Includes 9 structural palettes (minimal-saas, ai-futuristic, gradient-startup, corporate, apple-minimal, illustration, dashboard, bold-lifestyle, minimal-corporate) with light and dark mode support.
 

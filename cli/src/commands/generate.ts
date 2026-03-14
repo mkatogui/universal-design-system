@@ -19,11 +19,29 @@ interface GenerateOptions {
   framework?: string;
 }
 
+const VALID_FORMATS = ['markdown', 'json', 'tailwind', 'css-in-js'] as const;
+const VALID_FRAMEWORKS = ['react', 'vue', 'svelte', 'web-components', 'html'] as const;
+
 export async function generateCommand(query: string, options: GenerateOptions): Promise<void> {
   const script = join(PKG_ROOT, 'src', 'scripts', 'design_system.py');
 
   if (!existsSync(script)) {
     console.error(red('  Design system generator not found.'));
+    process.exit(1);
+  }
+
+  if (options.format && !VALID_FORMATS.includes(options.format as (typeof VALID_FORMATS)[number])) {
+    console.error(red(`  Invalid format: ${options.format}. Valid: ${VALID_FORMATS.join(', ')}`));
+    process.exit(1);
+  }
+
+  if (
+    options.framework &&
+    !VALID_FRAMEWORKS.includes(options.framework as (typeof VALID_FRAMEWORKS)[number])
+  ) {
+    console.error(
+      red(`  Invalid framework: ${options.framework}. Valid: ${VALID_FRAMEWORKS.join(', ')}`),
+    );
     process.exit(1);
   }
 

@@ -69,13 +69,13 @@ Walk through 3 shocking examples with specific anti-pattern references:
 - **Pipeline diagram:**
   ```
   User Query → Domain Detector → BM25 Search → Rule Engine → Token Resolution
-                (21 sectors,      (16 CSVs,      (~170 rules,  (530 W3C DTCG
-                 8 product types)  1,528 rows)    sorted by     tokens,
+                (21 sectors,      (20 CSVs,      (190 rules,   (600 W3C DTCG
+                 21 product types) 1,600+ rows)   sorted by     tokens,
                                                   priority)     9 palettes)
   ```
-- **Domain detection:** Regex pattern matching against 21 industry sectors (finance, healthcare, education, luxury, government, legal, gaming, crypto, etc.) and 8 product types (dashboard, landing-page, portal, storefront, etc.).
-- **BM25 ranking:** Searches across 16 CSV databases using term frequency / inverse document frequency scoring. k1=1.5, b=0.75. No embeddings, no API calls, no hallucination.
-- **Rule evaluation:** ~170 conditional rules from `ui-reasoning.csv`. Format: `IF sector=X THEN palette=Y`. Higher priority rules win. First match determines palette.
+- **Domain detection:** Regex pattern matching against 21 industry sectors (finance, healthcare, education, luxury, government, legal, gaming, crypto, etc.) and 21 product types (dashboard, landing-page, portal, storefront, etc.).
+- **BM25 ranking:** Searches across 20 CSV databases using term frequency / inverse document frequency scoring. k1=1.5, b=0.75. No embeddings, no API calls, no hallucination.
+- **Rule evaluation:** 190 conditional rules from `ui-reasoning.csv`. Format: `IF sector=X THEN palette=Y`. Higher priority rules win. First match determines palette.
 - **Key insight:** This is not "AI recommending design." This is compiled human expertise — hundreds of industry-specific design decisions encoded as deterministic rules.
 
 ---
@@ -99,9 +99,9 @@ _"Same engine, same tokens, same components — completely different output. Tha
 
 ## 6. Technical Architecture — For the Skeptics
 
-- **530 W3C DTCG tokens** in three tiers: primitive (raw color scales) → semantic (functional names like `--color-text-primary`) → palette-overrides (per-palette customization).
+- **600 W3C DTCG tokens** in three tiers: primitive (raw color scales) → semantic (functional names like `--color-text-primary`) → palette-overrides (per-palette customization).
 - **9 structural palettes** applied with a single `data-theme` attribute. One palette per surface, no mixing.
-- **32 BEM components** — `.uds-button`, `.uds-card`, `.uds-modal` — all using `var()` references, never hardcoded values.
+- **43 BEM components** — `.uds-button`, `.uds-card`, `.uds-modal` — all using `var()` references, never hardcoded values.
 - **108 WCAG contrast checks** — every palette × light/dark mode verified programmatically to 4.5:1 (body) and 3:1 (large text/UI).
 - **Foundation tokens are locked** across all palettes: Inter typography, 4px spacing base, 12-step spacing scale, motion easing, z-index layers. These are universal. Palettes only vary color, shadow, radius, and display font.
 - **Dark mode** is a CSS variable override — same token names, redefined values. Zero JavaScript required.

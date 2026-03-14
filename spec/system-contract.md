@@ -13,13 +13,13 @@ There is no neural network, no LLM inference, and no probabilistic output. The p
 
 | Metric | Value | Source |
 |---|---|---|
-| Design tokens | ~530 | `tokens/design-tokens.json` (`$value` count) |
-| Components | 32 | `src/data/components.csv` (data rows) |
-| CSV databases | 16 | 15 in `src/data/` + 1 in `src/data/stacks/` |
-| Total CSV rows | ~1,528 | Sum of all CSV data rows (excluding headers) |
+| Design tokens | ~600 | `tokens/design-tokens.json` (`$value` count) |
+| Components | 43 | `src/data/components.csv` (data rows) |
+| CSV databases | 20 | 19 in `src/data/` + 1 in `src/data/stacks/` |
+| Total CSV rows | 1,600+ | Sum of all CSV data rows (excluding headers) |
 | Sectors | 55 | `SECTOR_KEYWORDS` in `src/scripts/core.py` |
-| Product types | 14 | `PRODUCT_KEYWORDS` in `src/scripts/core.py` |
-| Reasoning rules | ~170 | `src/data/ui-reasoning.csv` (data rows) |
+| Product types | 21 | `PRODUCT_KEYWORDS` in `src/scripts/core.py` |
+| Reasoning rules | 190 | `src/data/ui-reasoning.csv` (data rows) |
 | Anti-patterns | 84 | `src/data/anti-patterns.csv` (data rows) |
 | Palettes | 9 | Theme section of `tokens/design-tokens.json` |
 | Synonym pairs | 32 | `SYNONYMS` dict in `src/scripts/core.py` |
@@ -30,14 +30,14 @@ There is no neural network, no LLM inference, and no probabilistic output. The p
 User Query
     |
     v
-[Layer 1] DomainDetector  (55 sectors, 14 product types)
+[Layer 1] DomainDetector  (55 sectors, 21 product types)
     |       - Regex keyword matching against SECTOR_KEYWORDS and PRODUCT_KEYWORDS
     |       - Specificity-based tiebreaking (longer keyword matches win)
     |       - Returns: sector, product_type, confidence scores
     |
     v
 [Layer 2] BM25Index  (k1=1.5, b=0.75, Porter stemmer, synonym expansion)
-    |       - Okapi BM25 ranking across 16 CSV databases (~1,528 rows)
+    |       - Okapi BM25 ranking across 20 CSV databases (1,600+ rows)
     |       - Tokenization: lowercase, non-alphanumeric removal, min length 2
     |       - Hyphen-aware: "e-commerce" -> ["e-commerce", "ecommerce", "commerce"]
     |       - Porter stemmer applied to all tokens
@@ -45,7 +45,7 @@ User Query
     |       - Returns: ranked results per database with BM25 scores
     |
     v
-[Layer 3] ReasoningEngine  (~170 rules, priority sorting)
+[Layer 3] ReasoningEngine  (190 rules, priority sorting)
     |       - Evaluates conditional rules from ui-reasoning.csv
     |       - Rule format: IF field=value THEN field=value (with priority)
     |       - Supports compound conditions (AND/OR boolean operators)
@@ -66,7 +66,7 @@ Design Specification Output
 
 **Class:** `DomainDetector` in `src/scripts/core.py`
 
-The detector classifies queries into one of 55 sectors and 14 product types using keyword matching. Each sector has a list of associated keywords (e.g., `fintech: ["fintech", "financial-technology", "neobank", "digital-banking", "mobile-banking", "paytech"]`). Matching is case-insensitive against both the full query string and individual word tokens.
+The detector classifies queries into one of 55 sectors and 21 product types using keyword matching. Each sector has a list of associated keywords (e.g., `fintech: ["fintech", "financial-technology", "neobank", "digital-banking", "mobile-banking", "paytech"]`). Matching is case-insensitive against both the full query string and individual word tokens.
 
 **Tiebreaking:** When two sectors have the same keyword match count, the one with higher "specificity" (sum of matched keyword character lengths) wins. This favors precise matches like "insurtech" over broad ones like "tech."
 
@@ -74,13 +74,13 @@ The detector classifies queries into one of 55 sectors and 14 product types usin
 
 **55 sectors:** finance, fintech, banking, insurance, healthcare, wellness, education, kids, ecommerce, saas, ai, tech, devtools, crypto, web3, defi, iot, government, legal, nonprofit, media, editorial, creative, fashion, luxury, hospitality, food, gaming, esports, entertainment, social, social-media, analytics, marketing, dashboard, logistics, real-estate, professional, productivity, startup, sustainability, proptech, automotive, regtech, legaltech, agritech, govtech, cleantech, insurtech, sporttech, fashiontech, foodtech, musictech, pettech, spacetech.
 
-**14 product types:** dashboard, landing-page, mobile-app, documentation, ecommerce, blog, saas-app, portfolio, admin-panel, community, data-table, marketplace, streaming, telehealth.
+**21 product types:** dashboard, landing-page, mobile-app, documentation, ecommerce, blog, saas-app, portfolio, admin-panel, community, data-table, marketplace, streaming, telehealth.
 
 ### 3.2 Layer 2 -- BM25 Search
 
 **Class:** `BM25Index` in `src/scripts/core.py`
 
-Implements the Okapi BM25 ranking function with parameters k1=1.5 and b=0.75. The index is built from all 16 CSV databases at initialization.
+Implements the Okapi BM25 ranking function with parameters k1=1.5 and b=0.75. The index is built from all 20 CSV databases at initialization.
 
 **Tokenization pipeline:**
 1. Lowercase the input
@@ -103,7 +103,7 @@ where IDF(q) = log((N - df(q) + 0.5) / (df(q) + 0.5) + 1)
 
 **Class:** `ReasoningEngine` in `src/scripts/core.py`
 
-Evaluates ~170 conditional rules from `ui-reasoning.csv`. Each rule has:
+Evaluates 190 conditional rules from `ui-reasoning.csv`. Each rule has:
 - **Condition:** Single-field (`sector=finance`) or compound (`sector=finance AND product_type=dashboard`)
 - **Then clause:** `then_field=then_value` (e.g., `palette=corporate`)
 - **Priority:** Integer 1-10. Higher priority rules are evaluated first.
@@ -189,7 +189,7 @@ Tokens are consumed as CSS custom properties:
 
 ## 6. Component System
 
-**32 components** defined in `src/data/components.csv`.
+**43 components** defined in `src/data/components.csv`.
 
 ### 6.1 BEM Naming Convention
 
@@ -235,7 +235,7 @@ All animations must be wrapped in `@media (prefers-reduced-motion: no-preference
 
 ## 8. CSV Database Schemas
 
-The 16 CSV databases serve as the knowledge base for BM25 retrieval. Full schema details are in `spec/data-inventory.md`.
+The 20 CSV databases serve as the knowledge base for BM25 retrieval. Full schema details are in `spec/data-inventory.md`.
 
 ### 8.1 Indexed Databases (loaded into BM25)
 
