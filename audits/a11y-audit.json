@@ -1,11 +1,11 @@
 {
   "version": "1.0.0",
-  "generated": "2026-03-14T22:19:44.735820",
+  "generated": "2026-03-14T23:36:50.162472",
   "standard": "WCAG 2.2 AA",
   "total_checks": 108,
-  "passed": 88,
+  "passed": 89,
   "failed": 0,
-  "skipped": 20,
+  "skipped": 19,
   "results": [
     {
       "palette": "ai-futuristic",
@@ -74,8 +74,12 @@
       "pair": "text-tertiary / bg-primary",
       "description": "Tertiary text on background",
       "min_ratio": 3.0,
-      "skipped": true,
-      "reason": "Missing tokens: text-tertiary"
+      "foreground": "#9e9eac",
+      "background": "#0A0A0F",
+      "ratio": 7.47,
+      "passed": true,
+      "apca_lc": -49.5,
+      "apca_threshold": 60
     },
     {
       "palette": "ai-futuristic",
@@ -924,11 +928,11 @@
       "pair": "text-on-brand / brand-primary",
       "description": "Button label on brand",
       "min_ratio": 4.5,
-      "foreground": "#1A1523",
-      "background": "#E8590C",
-      "ratio": 4.99,
+      "foreground": "#FFFFFF",
+      "background": "#C2410C",
+      "ratio": 5.18,
       "passed": true,
-      "apca_lc": 39.4,
+      "apca_lc": -79.9,
       "apca_threshold": 75
     },
     {
@@ -937,11 +941,11 @@
       "pair": "brand-primary / bg-primary",
       "description": "Brand link on background",
       "min_ratio": 3.0,
-      "foreground": "#E8590C",
+      "foreground": "#C2410C",
       "background": "#FFFFFF",
-      "ratio": 3.58,
+      "ratio": 5.18,
       "passed": true,
-      "apca_lc": 62.4,
+      "apca_lc": 74.5,
       "apca_threshold": 60
     },
     {
@@ -1002,11 +1006,11 @@
       "pair": "text-on-brand / brand-primary",
       "description": "Button label on brand",
       "min_ratio": 4.5,
-      "foreground": "#1A0D00",
-      "background": "#FF6B2B",
-      "ratio": 6.71,
+      "foreground": "#FFFFFF",
+      "background": "#CC4A14",
+      "ratio": 4.61,
       "passed": true,
-      "apca_lc": 48.8,
+      "apca_lc": -76.5,
       "apca_threshold": 75
     },
     {
@@ -1015,11 +1019,11 @@
       "pair": "brand-primary / bg-primary",
       "description": "Brand link on background",
       "min_ratio": 3.0,
-      "foreground": "#FF6B2B",
+      "foreground": "#CC4A14",
       "background": "#1A1523",
-      "ratio": 6.29,
+      "ratio": 3.88,
       "passed": true,
-      "apca_lc": -46.5,
+      "apca_lc": -28.9,
       "apca_threshold": 60
     },
     {

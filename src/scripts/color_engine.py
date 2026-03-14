@@ -459,6 +459,142 @@ def rotate_hue(hex_color: str, degrees: float) -> str:
     return rgb_to_hex(*hsl_to_rgb(h, s, l))
 
 
+def get_hue(hex_color: str) -> float:
+    """Return hue in degrees (0-360) for a hex color."""
+    r, g, b = hex_to_rgb(hex_color)
+    h, _, _ = rgb_to_hsl(r, g, b)
+    return h
+
+
+# --- Color harmony (Adobe Color–style: derive harmonious palettes from one base) ---
+
+HARMONY_COMPLEMENTARY = "complementary"       # base + opposite (180°)
+HARMONY_ANALOGOUS = "analogous"               # base ± 30°
+HARMONY_TRIADIC = "triadic"                   # base, +120°, +240°
+HARMONY_SPLIT_COMPLEMENTARY = "split_complementary"  # base, +150°, +210°
+HARMONY_TETRADIC = "tetradic"                 # base, +90°, +180°, +270°
+HARMONY_MONOCHROMATIC = "monochromatic"       # same hue, varying L/S
+HARMONY_DEFAULT = "balanced"                  # current: +15°, +30° (balanced)
+
+HARMONY_OPTIONS = [
+    HARMONY_COMPLEMENTARY,
+    HARMONY_ANALOGOUS,
+    HARMONY_TRIADIC,
+    HARMONY_SPLIT_COMPLEMENTARY,
+    HARMONY_TETRADIC,
+    HARMONY_MONOCHROMATIC,
+    HARMONY_DEFAULT,
+]
+
+
+def harmony_complementary(hex_primary: str) -> list:
+    """Return [primary, complementary]. Complementary = opposite hue (180°)."""
+    primary = hex_primary.upper() if hex_primary.startswith("#") else f"#{hex_primary.upper()}"
+    comp = rotate_hue(primary, 180)
+    return [primary, comp]
+
+
+def harmony_analogous(hex_primary: str, spread: float = 30.0) -> list:
+    """Return [primary, left, right]. Analogous = adjacent hues (±spread)."""
+    primary = hex_primary.upper() if hex_primary.startswith("#") else f"#{hex_primary.upper()}"
+    left = rotate_hue(primary, -spread)
+    right = rotate_hue(primary, spread)
+    return [primary, left, right]
+
+
+def harmony_triadic(hex_primary: str) -> list:
+    """Return [primary, +120°, +240°]. Triadic = three hues 120° apart."""
+    primary = hex_primary.upper() if hex_primary.startswith("#") else f"#{hex_primary.upper()}"
+    return [primary, rotate_hue(primary, 120), rotate_hue(primary, 240)]
+
+
+def harmony_split_complementary(hex_primary: str) -> list:
+    """Return [primary, 150°, 210°]. Split-complementary = base + two flanking opposite."""
+    primary = hex_primary.upper() if hex_primary.startswith("#") else f"#{hex_primary.upper()}"
+    return [primary, rotate_hue(primary, 150), rotate_hue(primary, 210)]
+
+
+def harmony_tetradic(hex_primary: str) -> list:
+    """Return [primary, +90°, +180°, +270°]. Tetradic = four hues 90° apart (rectangle)."""
+    primary = hex_primary.upper() if hex_primary.startswith("#") else f"#{hex_primary.upper()}"
+    return [
+        primary,
+        rotate_hue(primary, 90),
+        rotate_hue(primary, 180),
+        rotate_hue(primary, 270),
+    ]
+
+
+def harmony_monochromatic(hex_primary: str, steps: int = 3) -> list:
+    """Return same hue at different lightness/saturation. steps 3 = [darker, primary, lighter]."""
+    primary = hex_primary.upper() if hex_primary.startswith("#") else f"#{hex_primary.upper()}"
+    r, g, b = hex_to_rgb(primary)
+    h, s, l = rgb_to_hsl(r, g, b)
+    out = []
+    for i in range(steps):
+        # Spread lightness: 0.25, 0.5, 0.75 or similar
+        li = 0.2 + (i / max(1, steps - 1)) * 0.6
+        si = max(0.15, min(1.0, s * (0.7 + 0.3 * (i / max(1, steps)))))
+        out.append(rgb_to_hex(*hsl_to_rgb(h, si, li)))
+    return out
+
+
+def harmony_balanced(hex_primary: str) -> list:
+    """Return [primary, +15°, +30°]. Balanced default for single-color derivation."""
+    primary = hex_primary.upper() if hex_primary.startswith("#") else f"#{hex_primary.upper()}"
+    return [
+        primary,
+        rotate_hue(primary, 15),
+        rotate_hue(primary, 30),
+    ]
+
+
+def derive_harmony(hex_primary: str, harmony: str) -> list:
+    """Derive a list of harmonious hex colors from one primary. Used by PaletteDeriver."""
+    harmony = (harmony or HARMONY_DEFAULT).lower().strip()
+    if harmony == HARMONY_COMPLEMENTARY:
+        return harmony_complementary(hex_primary)
+    if harmony == HARMONY_ANALOGOUS:
+        return harmony_analogous(hex_primary)
+    if harmony == HARMONY_TRIADIC:
+        return harmony_triadic(hex_primary)
+    if harmony == HARMONY_SPLIT_COMPLEMENTARY:
+        return harmony_split_complementary(hex_primary)
+    if harmony == HARMONY_TETRADIC:
+        return harmony_tetradic(hex_primary)
+    if harmony == HARMONY_MONOCHROMATIC:
+        return harmony_monochromatic(hex_primary)
+    return harmony_balanced(hex_primary)
+
+
+def recommend_primary(hex_color: str, on_white: bool = True) -> dict:
+    """Professional recommendation for using a color as primary.
+
+    Returns dict with: recommended (bool), contrast_ratio, wcag_aa (bool),
+    message (str). Use for guiding the user toward accessible choices.
+    """
+    hex_color = hex_color.upper() if hex_color.startswith("#") else f"#{hex_color.upper()}"
+    bg = "#FFFFFF" if on_white else "#0F0F14"
+    ratio = contrast_ratio(hex_color, bg)
+    # WCAG AA: 4.5:1 normal text, 3:1 large text/UI
+    wcag_aa_large = ratio >= 3.0
+    wcag_aa_normal = ratio >= 4.5
+    recommended = wcag_aa_normal or (on_white and ratio >= 3.0)
+    if wcag_aa_normal:
+        msg = f"Recommended as primary: {hex_color} — meets WCAG 2.2 AA for normal text on {'white' if on_white else 'dark'}."
+    elif wcag_aa_large:
+        msg = f"Use as primary for large text/UI only: {hex_color} — meets 3:1 on {'white' if on_white else 'dark'} (normal text needs 4.5:1)."
+    else:
+        msg = f"Low contrast on {'white' if on_white else 'dark'} ({ratio:.2f}:1). Prefer as accent or darken/lighten for primary."
+    return {
+        "recommended": recommended,
+        "contrast_ratio": round(ratio, 2),
+        "wcag_aa_normal": wcag_aa_normal,
+        "wcag_aa_large": wcag_aa_large,
+        "message": msg,
+    }
+
+
 def mix_colors(hex1: str, hex2: str, weight: float = 0.5) -> str:
     """Mix two colors. weight=0 is all hex1, weight=1 is all hex2."""
     r1, g1, b1 = hex_to_rgb(hex1)
@@ -569,25 +705,33 @@ STATUS_COLORS_DARK = {
 class PaletteDeriver:
     """Derive a complete palette (33 light + 33 dark tokens) from 1-5 hex colors.
 
+    Single primary: uses color harmony (complementary, analogous, triadic, etc.)
+    to derive secondary/accent. No hardcoding — text-on-brand, contrast, and
+    status colors come from this deriver or from design-tokens.json.
+
     Args:
         colors: 1-5 hex color strings
         shape: Shape preset name (sharp, balanced, round, brutalist)
+        harmony: When len(colors)==1, one of complementary, analogous, triadic,
+            split_complementary, tetradic, monochromatic, balanced (default).
     """
 
-    def __init__(self, colors: list, shape: str = "balanced"):
+    def __init__(self, colors: list, shape: str = "balanced", harmony: str = None):
         if not colors or len(colors) > 5:
             raise ValueError("Provide 1-5 hex colors")
         self.colors = [c.upper() if c.startswith("#") else f"#{c.upper()}" for c in colors]
         self.shape = shape if shape in SHAPE_PRESETS else "balanced"
+        self.harmony = harmony or HARMONY_DEFAULT
         self._derive_brand_colors()
 
     def _derive_brand_colors(self):
-        """From 1-5 inputs, derive the 4 brand colors."""
+        """From 1-5 inputs, derive the 4 brand colors. Single color uses harmony engine."""
         n = len(self.colors)
         if n == 1:
-            self.brand_primary = self.colors[0]
-            self.brand_secondary = rotate_hue(self.brand_primary, 15)
-            self.brand_accent = rotate_hue(self.brand_primary, 30)
+            harmonious = derive_harmony(self.colors[0], self.harmony)
+            self.brand_primary = harmonious[0]
+            self.brand_secondary = harmonious[1] if len(harmonious) > 1 else rotate_hue(self.brand_primary, 15)
+            self.brand_accent = harmonious[2] if len(harmonious) > 2 else rotate_hue(self.brand_primary, 30)
             self.brand_muted = set_lightness(self.brand_primary, 0.95)
         elif n == 2:
             self.brand_primary = self.colors[0]

@@ -34,6 +34,7 @@ Expected `npm run check` output:
 | `npm run audit` | WCAG 2.2 AA contrast — 108 checks across 9 palettes x 2 modes |
 | `npm run verify` | HTML docs integrity — no hardcoded values, valid nav links |
 | `npm run sync-data` | CSV cross-reference validation across 20 databases |
+| **`npm run test:accessibility`** | **Playwright + axe-core (same as CI)** — run locally before pushing to avoid accessibility failures in the pipeline. First time: `npx playwright install chromium`. |
 
 You can also run the reasoning engine directly:
 
@@ -64,6 +65,8 @@ cd universal-design-system && npm install
 git checkout -b add-banking-product
 # ... make your changes ...
 npm run check
+# If you changed docs or styles, run the same a11y tests as CI to avoid pipeline failures:
+npm run test:accessibility
 git add -A && git commit -m "Add retail banking product to products.csv"
 git push origin add-banking-product
 # Open a Pull Request on GitHub

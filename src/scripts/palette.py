@@ -19,7 +19,14 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
 
-from color_engine import PaletteDeriver, TonalPalette, contrast_ratio
+from color_engine import (
+    PaletteDeriver,
+    TonalPalette,
+    contrast_ratio,
+    derive_harmony,
+    recommend_primary,
+    HARMONY_OPTIONS,
+)
 from registry import (
     get_all_palettes,
     get_builtin_palettes,
@@ -58,13 +65,22 @@ def cmd_create(args):
     name = args.name.lower().strip()
     colors = _parse_colors(args.colors)
     shape = args.shape or "balanced"
+    harmony = getattr(args, "harmony", None) or "balanced"
 
     print(f"\n  Creating custom palette: {name}")
     print(f"  Source colors: {', '.join(colors)}")
     print(f"  Shape: {shape}")
+    if len(colors) == 1:
+        print(f"  Harmony: {harmony} (deriving secondary/accent from primary)")
 
-    # Derive palette
-    deriver = PaletteDeriver(colors, shape=shape)
+    # Professional recommendation when user supplies a single primary
+    if len(colors) == 1:
+        rec = recommend_primary(colors[0], on_white=True)
+        print(f"\n  Recommendation: {rec['message']}")
+        print(f"  Contrast on white: {rec['contrast_ratio']}:1 (WCAG AA normal: {rec['wcag_aa_normal']})")
+
+    # Derive palette (single primary uses harmony engine)
+    deriver = PaletteDeriver(colors, shape=shape, harmony=harmony)
     palette = deriver.derive()
 
     # WCAG validation
@@ -127,7 +143,14 @@ def cmd_preview(args):
         print()
         return
 
-    deriver = PaletteDeriver(colors, shape=shape)
+    harmony = getattr(args, "harmony", None) or "balanced"
+    if len(colors) == 1:
+        rec = recommend_primary(colors[0], on_white=True)
+        print(f"\n  Recommendation: {rec['message']}")
+        print(f"  Contrast on white: {rec['contrast_ratio']}:1 (WCAG AA: {rec['wcag_aa_normal']})")
+        print(f"  Harmony: {harmony} → secondary/accent derived from primary\n")
+
+    deriver = PaletteDeriver(colors, shape=shape, harmony=harmony)
     palette = deriver.derive()
 
     css = generate_css(name, palette)
@@ -226,11 +249,15 @@ def main():
     p_create.add_argument("--colors", required=True, help="Comma-separated hex colors (1-5)")
     p_create.add_argument("--shape", default="balanced", choices=["sharp", "balanced", "round", "brutalist"],
                           help="Shape preset (default: balanced)")
+    p_create.add_argument("--harmony", default="balanced", choices=HARMONY_OPTIONS,
+                          help="When one color: harmony mode for secondary/accent (default: balanced)")
 
     # preview
     p_preview = subparsers.add_parser("preview", help="Preview palette CSS without saving")
-    p_preview.add_argument("--colors", required=True, help="Comma-separated hex colors (1-5)")
+    p_preview.add_argument("--colors", required=True, help="Comma-separated hex colors (1-5); one color = full palette from primary")
     p_preview.add_argument("--shape", default="balanced", choices=["sharp", "balanced", "round", "brutalist"])
+    p_preview.add_argument("--harmony", default="balanced", choices=HARMONY_OPTIONS,
+                           help="When one color: complementary, analogous, triadic, split_complementary, tetradic, monochromatic, balanced")
     p_preview.add_argument("--name", default="preview", help="Preview name (default: preview)")
     p_preview.add_argument("--tonal", action="store_true",
                            help="Use OKLCH tonal palette (Material You style) instead of regular generation")

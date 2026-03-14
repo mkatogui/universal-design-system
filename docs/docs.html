@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Source+Serif+4:wght@600;700&family=DM+Sans:wght@400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="generated-tokens.css">
 <style>
 
 /* ============================================================
@@ -99,16 +100,18 @@
    PALETTE: Minimal SaaS (default)
    ============================================================ */
 :root, :root[data-theme="minimal-saas"] {
-  --color-bg-primary: #FFFFFF; --color-bg-secondary: #F8F8FA;
+  /* Semantic colors from generated-tokens.css; light mode: white text on destructive btn */
+  --color-text-on-error: var(--color-neutral-0);
+  --color-bg-primary: var(--color-neutral-0); --color-bg-secondary: #F8F8FA;
   --color-bg-tertiary: #F0F0F5; --color-bg-inverse: #111118;
   --color-text-primary: #111118; --color-text-secondary: #555566;
-  --color-text-tertiary: #6B6B7B; --color-text-on-brand: #FFFFFF;
+  --color-text-tertiary: #6B6B7B; --color-text-on-brand: var(--color-neutral-0);
   --color-brand-primary: #2563EB; --color-brand-primary-rgb: 37, 99, 235;
   --color-brand-secondary: #3B82F6; --color-brand-accent: #60A5FA;
   --color-brand-muted: #DBEAFE;
   --color-border-default: #C8C8D4; --color-border-input: #8E8E9E;
   --color-border-subtle: #E8E8F0;
-  --color-success: #059669; --color-success-bg: #ECFDF5; --color-success-on-bg: #047857;
+  --color-success: #059669; --color-success-bg: #ECFDF5;
   --color-warning: #D97706; --color-warning-bg: #FFFBEB;
   --color-error: #B91C1C; --color-error-bg: #FEF2F2;
   --color-info: #2563EB; --color-info-bg: #EFF6FF;
@@ -129,7 +132,7 @@
   --color-bg-primary: #0A0A0F; --color-bg-secondary: #111118;
   --color-bg-tertiary: #1A1A24; --color-bg-inverse: #FFFFFF;
   --color-text-primary: #E0E0EE; --color-text-secondary: #B8B8C8;
-  --color-text-tertiary: #7A7A8C; --color-text-on-brand: #0A0A0F;
+  --color-text-tertiary: #9e9eac; --color-text-on-brand: #0A0A0F;
   --color-brand-primary: #00FF88; --color-brand-primary-rgb: 0, 255, 136;
   --color-brand-secondary: #00D4FF; --color-brand-accent: #8B5CF6;
   --color-brand-muted: #0A2A1A;
@@ -178,12 +181,13 @@
   --font-display: 'Source Serif 4', Georgia, serif;
 }
 
-/* Palette: Apple Minimal */
+/* Palette: Apple Minimal — text-on-brand for skip-link and primary on blue */
 :root[data-theme="apple-minimal"] {
   --color-bg-secondary: #FBFBFD; --color-bg-tertiary: #F5F5F7;
   --color-bg-inverse: #000000;
   --color-text-primary: #1D1D1F; --color-text-secondary: #515154;
   --color-text-tertiary: #6E6E73;
+  --color-text-on-brand: var(--color-neutral-0);
   --color-brand-primary: #0071E3; --color-brand-primary-rgb: 0, 113, 227;
   --color-border-default: #D2D2D7;
   /* Structural identity — smooth, refined */
@@ -199,12 +203,12 @@
   --color-bg-secondary: #FFF8F0; --color-bg-tertiary: #FFF0E6;
   --color-bg-inverse: #1A1523;
   --color-text-primary: #1A1523; --color-text-secondary: #5C5470;
-  --color-text-tertiary: #7A7189; --color-text-on-brand: #1A1523;
-  --color-brand-primary: #E8590C; --color-brand-primary-rgb: 232, 89, 12;
+  --color-text-tertiary: #7A7189; --color-text-on-brand: var(--color-neutral-0);
+  --color-brand-primary: #C2410C; --color-brand-primary-rgb: 194, 65, 12;
   --color-brand-secondary: #7048E8; --color-brand-accent: #12B886;
   --color-brand-muted: #FFF4E6;
   --color-border-default: #C4B5A4; --color-border-input: #9E8E7E;
-  --gradient-hero: linear-gradient(135deg, #FF6B2B 0%, #7048E8 50%, #12B886 100%);
+  --gradient-hero: linear-gradient(135deg, #C2410C 0%, #7048E8 50%, #12B886 100%);
   /* Structural identity — round, warm, friendly */
   --radius-sm: 10px; --radius-md: 14px; --radius-lg: 18px; --radius-xl: 24px; --radius-2xl: 32px;
   --shadow-sm: 0 2px 6px rgba(26,21,35,0.06);
@@ -275,8 +279,7 @@ html.docs-dark[data-theme="ai-futuristic"] {
   --color-bg-primary: #08080D; --color-bg-secondary: #0F0F16; --color-bg-tertiary: #16161F;
   --color-bg-inverse: #FFFFFF;
   --color-text-primary: #E0E0EE; --color-text-secondary: #C0C0D0; --color-text-tertiary: #9090A0;
-  --color-text-on-brand: #0A0A0F;
-  --color-brand-primary: #00FF88; --color-brand-primary-rgb: 0, 255, 136;
+  --color-text-on-brand: #0A0A0F;  --color-brand-primary: #00FF88; --color-brand-primary-rgb: 0, 255, 136;
   --color-brand-secondary: #00D4FF; --color-brand-accent: #8B5CF6;
   --color-brand-muted: #0A2A1A;
   --color-border-default: #2A2A36; --color-border-input: #4A4A58; --color-border-subtle: #1E1E28;
@@ -296,7 +299,7 @@ html.docs-dark[data-theme="minimal-saas"] {
   --color-bg-inverse: #FFFFFF;
   --color-text-primary: #E4E4EE; --color-text-secondary: #B8B8C8; --color-text-tertiary: #9090A2;
   --color-border-default: #2C2C3A; --color-border-input: #4A4A5A; --color-border-subtle: #222230;
-  --color-success: #10B981; --color-success-bg: #0A2618; --color-warning: #FBBF24; --color-warning-bg: #261E0A; --color-error: #F87171; --color-error-bg: #260A0A; --color-info: #60A5FA; --color-info-bg: #0A1426;
+  --color-success: #10B981; --color-success-bg: #0A2618; --color-warning: #FBBF24; --color-warning-bg: #261E0A; --color-error: #F87171; --color-error-bg: #260A0A; --color-text-on-error: #171717; --color-info: #60A5FA; --color-info-bg: #0A1426;
   --shadow-sm: 0 2px 4px rgba(0,0,0,0.3); --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
   --shadow-lg: 0 12px 32px rgba(0,0,0,0.5); --shadow-xl: 0 24px 64px rgba(0,0,0,0.6);
 }
@@ -307,7 +310,7 @@ html.docs-dark[data-theme="gradient-startup"] {
   --color-text-primary: #E8E0F4; --color-text-secondary: #B8B8C8; --color-text-tertiary: #9E94B2;
   --color-border-default: #2E2840; --color-border-input: #4E4660; --color-border-subtle: #241E34;
   --color-brand-muted: #1E0A3A;
-  --color-success: #10B981; --color-success-bg: #0A2618; --color-warning: #FBBF24; --color-warning-bg: #261E0A; --color-error: #F87171; --color-error-bg: #260A0A; --color-info: #60A5FA; --color-info-bg: #0A1426;
+  --color-success: #10B981; --color-success-bg: #0A2618; --color-warning: #FBBF24; --color-warning-bg: #261E0A; --color-error: #F87171; --color-error-bg: #260A0A; --color-text-on-error: #171717; --color-info: #60A5FA; --color-info-bg: #0A1426;
   --shadow-sm: 0 2px 4px rgba(0,0,0,0.3); --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
   --shadow-lg: 0 12px 32px rgba(0,0,0,0.5);
   --shadow-glow: 0 0 40px rgba(124, 58, 237, 0.2);
@@ -323,7 +326,7 @@ html.docs-dark[data-theme="corporate"] {
   --color-brand-primary: #79B8FF; --color-brand-primary-rgb: 121, 184, 255;
   --color-brand-secondary: #5A8ED8; --color-brand-muted: #0E1A30;
   --color-border-default: #283040; --color-border-input: #3E4858; --color-border-subtle: #1E2636;
-  --color-success: #10B981; --color-success-bg: #0A2618; --color-warning: #FBBF24; --color-warning-bg: #261E0A; --color-error: #F87171; --color-error-bg: #260A0A; --color-info: #60A5FA; --color-info-bg: #0A1426;
+  --color-success: #10B981; --color-success-bg: #0A2618; --color-warning: #FBBF24; --color-warning-bg: #261E0A; --color-error: #F87171; --color-error-bg: #260A0A; --color-text-on-error: #171717; --color-info: #60A5FA; --color-info-bg: #0A1426;
   --shadow-sm: 0 2px 4px rgba(0,0,0,0.3); --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
   --shadow-lg: 0 12px 32px rgba(0,0,0,0.5);
 
@@ -337,7 +340,7 @@ html.docs-dark[data-theme="apple-minimal"] {
   --color-bg-inverse: #FFFFFF;
   --color-text-primary: #F5F5F7; --color-text-secondary: #B8B8BD; --color-text-tertiary: #8E8E94;
   --color-border-default: #2C2C2E; --color-border-input: #48484A; --color-border-subtle: #1C1C1E;
-  --color-success: #10B981; --color-success-bg: #0A2618; --color-warning: #FBBF24; --color-warning-bg: #261E0A; --color-error: #F87171; --color-error-bg: #260A0A; --color-info: #60A5FA; --color-info-bg: #0A1426;
+  --color-success: #10B981; --color-success-bg: #0A2618; --color-warning: #FBBF24; --color-warning-bg: #261E0A; --color-error: #F87171; --color-error-bg: #260A0A; --color-text-on-error: #171717; --color-info: #60A5FA; --color-info-bg: #0A1426;
   --shadow-sm: 0 2px 4px rgba(0,0,0,0.3); --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
   --shadow-lg: 0 12px 32px rgba(0,0,0,0.5);
 
@@ -349,13 +352,14 @@ html.docs-dark[data-theme="illustration"] {
   --color-bg-primary: #12100E; --color-bg-secondary: #1C1816; --color-bg-tertiary: #262018;
   --color-bg-inverse: #FFFFFF;
   --color-text-primary: #F0E8DC; --color-text-secondary: #C0B8CC; --color-text-tertiary: #9E96AC;
+  --color-brand-primary: #CC4A14; --color-brand-primary-rgb: 204, 74, 20;
   --color-brand-muted: #2A1F12;
   --color-border-default: #342E24; --color-border-input: #544A3A; --color-border-subtle: #242018;
-  --color-success: #10B981; --color-success-bg: #0A2618; --color-warning: #FBBF24; --color-warning-bg: #261E0A; --color-error: #F87171; --color-error-bg: #260A0A; --color-info: #60A5FA; --color-info-bg: #0A1426;
+  --color-success: #10B981; --color-success-bg: #0A2618; --color-warning: #FBBF24; --color-warning-bg: #261E0A; --color-error: #F87171; --color-error-bg: #260A0A; --color-text-on-error: #171717; --color-info: #60A5FA; --color-info-bg: #0A1426;
   --shadow-sm: 0 2px 4px rgba(0,0,0,0.3); --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
   --shadow-lg: 0 12px 32px rgba(0,0,0,0.5);
-  --shadow-glow: 0 0 40px rgba(232, 89, 12, 0.15);
-  --gradient-hero: linear-gradient(135deg, #CC4400 0%, #5030C0 50%, #0A9060 100%);
+  --shadow-glow: 0 0 40px rgba(204, 74, 20, 0.15);
+  --gradient-hero: linear-gradient(135deg, #CC4A14 0%, #5030C0 50%, #0A9060 100%);
 
   /* Structural (same as light) */
   --radius-sm: 10px; --radius-md: 14px; --radius-lg: 18px; --radius-xl: 24px; --radius-2xl: 32px;
@@ -367,7 +371,7 @@ html.docs-dark[data-theme="dashboard"] {
   --color-text-primary: #DEE0EC; --color-text-secondary: #B0B4C0; --color-text-tertiary: #8E94A0;
   --color-brand-muted: #1E1B4B;
   --color-border-default: #282C3A; --color-border-input: #3E4254; --color-border-subtle: #1E2030;
-  --color-success: #10B981; --color-success-bg: #0A2618; --color-warning: #FBBF24; --color-warning-bg: #261E0A; --color-error: #F87171; --color-error-bg: #260A0A; --color-info: #60A5FA; --color-info-bg: #0A1426;
+  --color-success: #10B981; --color-success-bg: #0A2618; --color-warning: #FBBF24; --color-warning-bg: #261E0A; --color-error: #F87171; --color-error-bg: #260A0A; --color-text-on-error: #171717; --color-info: #60A5FA; --color-info-bg: #0A1426;
   --shadow-sm: 0 2px 4px rgba(0,0,0,0.3); --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
   --shadow-lg: 0 12px 32px rgba(0,0,0,0.5);
 
@@ -380,9 +384,8 @@ html.docs-dark[data-theme="bold-lifestyle"] {
   --color-bg-inverse: #FFFFFF;
   --color-text-primary: #EEEEEE; --color-text-secondary: #BDBDBD; --color-text-tertiary: #989898;
   --color-brand-primary: #FFFFFF; --color-brand-primary-rgb: 255, 255, 255;
-  --color-brand-secondary: #FF4500; --color-text-on-brand: #111111;
-  --color-border-default: #2A2A2A; --color-border-input: #4A4A4A; --color-border-subtle: #1A1A1A;
-  --color-success: #10B981; --color-success-bg: #0A2618; --color-warning: #FBBF24; --color-warning-bg: #261E0A; --color-error: #F87171; --color-error-bg: #260A0A; --color-info: #60A5FA; --color-info-bg: #0A1426;
+  --color-brand-secondary: #FF4500; --color-text-on-brand: #111111;  --color-border-default: #2A2A2A; --color-border-input: #4A4A4A; --color-border-subtle: #1A1A1A;
+  --color-success: #10B981; --color-success-bg: #0A2618; --color-warning: #FBBF24; --color-warning-bg: #261E0A; --color-error: #F87171; --color-error-bg: #260A0A; --color-text-on-error: #171717; --color-info: #60A5FA; --color-info-bg: #0A1426;
   --shadow-sm: 0 2px 4px rgba(0,0,0,0.4); --shadow-md: 0 4px 12px rgba(0,0,0,0.5);
   --shadow-lg: 0 12px 32px rgba(0,0,0,0.6);
 
@@ -398,7 +401,7 @@ html.docs-dark[data-theme="minimal-corporate"] {
   --color-brand-primary: #FBBF24; --color-brand-primary-rgb: 251, 191, 36;
   --color-brand-muted: #2C2412;
   --color-border-default: #302A20; --color-border-input: #504838; --color-border-subtle: #201C14;
-  --color-success: #10B981; --color-success-bg: #0A2618; --color-warning: #FBBF24; --color-warning-bg: #261E0A; --color-error: #F87171; --color-error-bg: #260A0A; --color-info: #60A5FA; --color-info-bg: #0A1426;
+  --color-success: #10B981; --color-success-bg: #0A2618; --color-warning: #FBBF24; --color-warning-bg: #261E0A; --color-error: #F87171; --color-error-bg: #260A0A; --color-text-on-error: #171717; --color-info: #60A5FA; --color-info-bg: #0A1426;
   --shadow-sm: 0 2px 4px rgba(0,0,0,0.3); --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
   --shadow-lg: 0 12px 32px rgba(0,0,0,0.5);
 
@@ -470,7 +473,7 @@ body { font-family: var(--font-sans); background: var(--color-bg-primary); color
 .do-dont { display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-4); margin: var(--spacing-4) 0; }
 .do-card, .dont-card { padding: var(--spacing-5); border-radius: var(--radius-lg); border: 2px solid; }
 .do-card { border-color: var(--color-success); background: var(--color-success-bg, #ECFDF5); }
-.dont-card { border-color: var(--color-error); background: var(--color-error-bg, #FEF2F2); }
+.dont-card { border-color: var(--color-error); background: var(--color-error-bg); }
 .do-card::before { content: "✓ Do"; font-weight: 700; color: var(--color-success-on-bg); display: block; margin-bottom: var(--spacing-2); font-size: var(--text-body-sm); }
 .dont-card::before { content: "✗ Don't"; font-weight: 700; color: var(--color-error); display: block; margin-bottom: var(--spacing-2); font-size: var(--text-body-sm); }
 
@@ -496,7 +499,7 @@ body { font-family: var(--font-sans); background: var(--color-bg-primary); color
 .btn--secondary:hover { border-color: var(--color-brand-primary); color: var(--color-brand-primary); }
 .btn--ghost { background: transparent; color: var(--color-text-secondary); }
 .btn--ghost:hover { background: var(--color-bg-secondary); color: var(--color-text-primary); }
-.btn--destructive { background: var(--color-error); color: var(--color-text-on-brand); }
+.btn--destructive { background: var(--color-error); color: var(--color-text-on-error, var(--color-text-on-brand)); }
 .btn--sm { height: 36px; padding: 0 var(--spacing-4); font-size: var(--text-body-sm); min-width: 44px; }
 .btn--md { height: 44px; padding: 0 var(--spacing-5); font-size: var(--text-body-md); }
 .btn--lg { height: 52px; padding: 0 var(--spacing-6); font-size: var(--text-body-lg); }
@@ -531,7 +534,7 @@ body { font-family: var(--font-sans); background: var(--color-bg-primary); color
 .badge--success { background: var(--color-success-bg); color: var(--color-success-on-bg); }
 .badge--error { background: var(--color-error-bg); color: var(--color-error); }
 .badge--neutral { background: var(--color-bg-tertiary); color: var(--color-text-secondary); }
-.badge--warning { background: var(--color-warning-bg); color: var(--color-warning); }
+.badge--warning { background: var(--color-warning-bg); color: var(--color-warning-on-bg); }
 .badge--sm { padding: var(--spacing-1) var(--spacing-2); font-size: 10px; }
 .badge--lg { padding: var(--spacing-1) var(--spacing-4); font-size: var(--text-body-sm); }
 
@@ -958,11 +961,11 @@ html.docs-dark .btn--primary:hover {
   color: var(--color-text-primary);
 }
 
-html.docs-dark .btn--destructive { background: var(--color-error); color: var(--color-text-on-brand); }
+html.docs-dark .btn--destructive { background: var(--color-error); color: var(--color-text-on-error, var(--color-text-on-brand)); }
 html.docs-dark .btn--destructive:hover { opacity: 0.9; }
 
 /* AI Futuristic: dark-native palette needs accessible destructive button */
-[data-theme="ai-futuristic"] .btn--destructive { background: var(--color-error); color: var(--color-text-on-brand); }
+[data-theme="ai-futuristic"] .btn--destructive { background: var(--color-error); color: var(--color-text-on-error, var(--color-text-on-brand)); }
 [data-theme="ai-futuristic"] .btn--destructive:hover { opacity: 0.9; }
 
 html.docs-dark .palette-btn.active {
@@ -1031,7 +1034,7 @@ html.docs-dark .playground-control-group select {
 .page-footer a { color: var(--color-brand-primary); text-decoration: underline; }
 .page-footer a:hover { text-decoration: underline; }
 
-/* Illustration: brand-primary (#E8590C) fails 4.5:1 on white — use text-secondary */
+/* Illustration: brand-primary (#C2410C) — WCAG 2.2 AA with white text */
 [data-theme="illustration"] .page-footer a { color: var(--color-text-secondary); }
 
 /* === Site Navigation Bar (matches visual-framework, case-studies, conformance, component-library) === */
@@ -1123,7 +1126,7 @@ html.docs-dark .site-topnav .nav-brand { color: var(--color-text-primary); }
   <div class="version">v__VERSION__ · 9 Palettes · 43 Components · CVA Variants</div>
   <input type="text" id="sidebar-search" class="sidebar-search" placeholder="Search (⌘K)..." aria-label="Filter sidebar navigation">
   <button id="dark-mode-toggle" class="dark-mode-toggle" aria-label="Toggle appearance mode" title="Appearance">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
     <span>Light</span>
   </button>
 </div>
@@ -1605,7 +1608,7 @@ html.docs-dark .site-topnav .nav-brand { color: var(--color-text-primary); }
 <tr><td><strong>Gradient Startup</strong></td><td>#FFFFFF</td><td>#7C3AED</td><td>Round (8-16px)</td><td>Bold gradients, energetic</td></tr>
 <tr><td><strong>Corporate</strong></td><td>#FFFFFF</td><td>#1A365D</td><td>Square (2-6px)</td><td>Muted, authoritative</td></tr>
 <tr><td><strong>Apple Minimal</strong></td><td>#FFFFFF</td><td>#0071E3</td><td>Smooth (8-14px)</td><td>Product-driven, restrained</td></tr>
-<tr><td><strong>Illustration</strong></td><td>#FFFFFF</td><td>#E8590C</td><td>Friendly (10-18px)</td><td>Warm, playful, multi-color</td></tr>
+<tr><td><strong>Illustration</strong></td><td>#FFFFFF</td><td>#C2410C</td><td>Friendly (10-18px)</td><td>Warm, playful, multi-color</td></tr>
 <tr><td><strong>Dashboard</strong></td><td>#FFFFFF</td><td>#4F46E5</td><td>Compact (4-8px)</td><td>Data viz, chart-friendly</td></tr>
 <tr><td><strong>Bold Lifestyle</strong></td><td>#FFFFFF</td><td>#111111</td><td>Brutalist (0px)</td><td>High-contrast, editorial</td></tr>
 <tr><td><strong>Minimal Corporate</strong></td><td>#FDFCFB</td><td>#B45309</td><td>Warm neutrals, editorial</td></tr>
@@ -1758,11 +1761,11 @@ html.docs-dark .site-topnav .nav-brand { color: var(--color-text-primary); }
 <div class="preview">
   <div class="preview-label">Live Preview <span class="tag tag-new">NEW</span></div>
   <div class="accordion">
-    <button class="accordion-trigger" aria-expanded="true" aria-controls="acc-1"><span>What is the design system?</span><svg class="accordion-chevron" viewBox="0 0 20 20" fill="currentColor"><path d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"/></svg></button>
+    <button class="accordion-trigger" aria-expanded="true" aria-controls="acc-1"><span>What is the design system?</span><svg class="accordion-chevron" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"/></svg></button>
     <div class="accordion-content" id="acc-1">A governed design system with foundation-locked tokens, 9 color palettes, and 43 components built for WCAG 2.2 AA compliance.</div>
-    <button class="accordion-trigger" aria-expanded="false" aria-controls="acc-2"><span>How many themes are included?</span><svg class="accordion-chevron" viewBox="0 0 20 20" fill="currentColor"><path d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"/></svg></button>
+    <button class="accordion-trigger" aria-expanded="false" aria-controls="acc-2"><span>How many themes are included?</span><svg class="accordion-chevron" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"/></svg></button>
     <div class="accordion-content" id="acc-2" hidden>Nine themes covering every major web style: Minimal SaaS, AI Futuristic, Gradient Startup, Corporate, Apple Minimal, Illustration-Driven, Dashboard-Centric, Bold Lifestyle, and Minimal Corporate.</div>
-    <button class="accordion-trigger" aria-expanded="false" aria-controls="acc-3"><span>Is it accessible?</span><svg class="accordion-chevron" viewBox="0 0 20 20" fill="currentColor"><path d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"/></svg></button>
+    <button class="accordion-trigger" aria-expanded="false" aria-controls="acc-3"><span>Is it accessible?</span><svg class="accordion-chevron" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"/></svg></button>
     <div class="accordion-content" id="acc-3" hidden>Yes — WCAG 2.2 AA compliant. All components include proper ARIA attributes, keyboard navigation, focus management, and reduced-motion support.</div>
   </div>
 </div>
