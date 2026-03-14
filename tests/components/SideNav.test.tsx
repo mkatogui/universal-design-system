@@ -164,4 +164,35 @@ describe('SideNav', () => {
     expect(callbackRef).toHaveBeenCalled();
     expect(callbackRef.mock.calls[0][0]).toBeInstanceOf(HTMLElement);
   });
+
+  it('renders items without href using # as the fallback href', () => {
+    const items = [{ label: 'NoHref' }];
+    render(<SideNav items={items} />);
+    const link = screen.getByRole('link', { name: 'NoHref' });
+    expect(link).toHaveAttribute('href', '#');
+  });
+
+  it('does not prevent default when onNavigate is not provided', () => {
+    render(<SideNav items={defaultItems} />);
+    const link = screen.getByRole('link', { name: 'Settings' });
+    // click should not throw; no navigation handler
+    fireEvent.click(link);
+    expect(link).toBeInTheDocument();
+  });
+
+  it('renders sections without a title when title is omitted', () => {
+    const sections = [{ items: [{ label: 'Home', href: '/' }] }];
+    render(<SideNav sections={sections} />);
+    expect(screen.getByRole('link', { name: 'Home' })).toBeInTheDocument();
+    expect(screen.queryByRole('heading')).not.toBeInTheDocument();
+  });
+
+  it('renders children directly when neither items nor sections are provided', () => {
+    render(
+      <SideNav>
+        <div data-testid="custom-content">Custom</div>
+      </SideNav>,
+    );
+    expect(screen.getByTestId('custom-content')).toBeInTheDocument();
+  });
 });

@@ -81,4 +81,20 @@ describe('Toggle', () => {
     expect(callbackRef).toHaveBeenCalled();
     expect(callbackRef.mock.calls[0][0]).toBeInstanceOf(HTMLButtonElement);
   });
+
+  it('does not call onChange when the label button is clicked while disabled', () => {
+    const handleChange = vi.fn();
+    render(
+      <Toggle
+        checked={false}
+        onChange={handleChange}
+        disabled
+        variant="with-label"
+        label="Alerts"
+      />,
+    );
+    const labelBtn = screen.getByText('Alerts');
+    fireEvent.click(labelBtn);
+    expect(handleChange).not.toHaveBeenCalled();
+  });
 });

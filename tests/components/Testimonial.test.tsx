@@ -47,4 +47,12 @@ describe('Testimonial', () => {
     expect(callbackRef).toHaveBeenCalledTimes(1);
     expect(callbackRef.mock.calls[0][0]).toBeInstanceOf(HTMLDivElement);
   });
+
+  it('renders avatar with empty alt text when name is not provided', () => {
+    const { container } = render(<Testimonial avatar="/anon.png" />);
+    const avatar = container.querySelector('.uds-testimonial__avatar');
+    expect(avatar).toBeInTheDocument();
+    expect(avatar).toHaveAttribute('src', '/anon.png');
+    expect(avatar).toHaveAttribute('alt', '');
+  });
 });

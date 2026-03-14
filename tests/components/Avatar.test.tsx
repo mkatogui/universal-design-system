@@ -21,8 +21,8 @@ describe('Avatar', () => {
 
   it('falls back to initials when image fails to load', () => {
     const { container } = render(<Avatar src="/bad.jpg" alt="Broken" initials="BD" />);
-    const img = container.querySelector('.uds-avatar__image')!;
-    fireEvent.error(img);
+    const img = container.querySelector('.uds-avatar__image');
+    if (img) fireEvent.error(img);
     expect(screen.getByText('BD')).toBeInTheDocument();
   });
 
@@ -80,5 +80,12 @@ describe('Avatar', () => {
     render(<Avatar ref={callbackRef} initials="CB" />);
     expect(callbackRef).toHaveBeenCalled();
     expect(callbackRef.mock.calls[0][0]).toBeInstanceOf(HTMLDivElement);
+  });
+
+  it('renders a default fallback span when no src, initials, or fallback are provided', () => {
+    const { container } = render(<Avatar />);
+    const fallback = container.querySelector('.uds-avatar__fallback');
+    expect(fallback).toBeInTheDocument();
+    expect(fallback).toHaveAttribute('aria-hidden', 'true');
   });
 });

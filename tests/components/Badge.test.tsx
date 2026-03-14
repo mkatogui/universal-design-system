@@ -83,4 +83,21 @@ describe('Badge', () => {
     expect(callbackRef).toHaveBeenCalled();
     expect(callbackRef.mock.calls[0][0]).toBeInstanceOf(HTMLSpanElement);
   });
+
+  it('applies a custom color via the style prop', () => {
+    render(<Badge color="green">Colored</Badge>);
+    const badge = screen.getByText('Colored').closest('span');
+    expect(badge).toHaveStyle({ '--uds-badge-color': 'green' });
+  });
+
+  it('renders the remove button when removable is true and no label is provided', () => {
+    const { container } = render(
+      <Badge removable onRemove={vi.fn()}>
+        Tag
+      </Badge>,
+    );
+    const removeBtn = container.querySelector('.uds-badge__remove');
+    expect(removeBtn).toBeInTheDocument();
+    expect(removeBtn).toHaveAttribute('aria-label', 'Remove ');
+  });
 });
