@@ -3,7 +3,7 @@
 > The first AI-native design system. Describe your product — get a complete, accessible, shipping-ready design system in seconds.
 
 [![npm](https://img.shields.io/npm/v/@mkatogui/universal-design-system)](https://www.npmjs.com/package/@mkatogui/universal-design-system)
-[![WCAG 2.1 AA](https://img.shields.io/badge/WCAG_2.1-AA-green.svg)](https://mkatogui.github.io/universal-design-system/)
+[![WCAG 2.2 AA](https://img.shields.io/badge/WCAG_2.2-AA-green.svg)](https://mkatogui.github.io/universal-design-system/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![9 Palettes](https://img.shields.io/badge/Palettes-9-blue.svg)](#9-palettes)
 [![43 Components](https://img.shields.io/badge/Components-43-blue.svg)](#43-components)
@@ -34,13 +34,13 @@ One command. Full design system. WCAG-validated. Domain-appropriate.
 |---------|-----|-------------|---------|-----------------|----------|
 | Deterministic recommendation engine | Yes | No | No | No | No |
 | Domain-aware recommendations | 55 sectors, 21 product types | Manual selection | Manual selection | N/A | N/A |
-| WCAG 2.1 AA automated audit | Automated contrast validation (108 pairs) | Partial | No | No | Yes (runtime) |
+| WCAG 2.2 AA automated audit | Automated contrast validation (108 pairs) | Partial | No | No | Yes (runtime) |
 | Anti-pattern detection | 84 domain-specific rules | No | No | No | No |
 | Multi-framework output | React, Vue, Svelte | React only | CSS only | Platform tokens | React only |
 | AI platform support | 20 platforms | N/A | N/A | N/A | N/A |
 | Design tokens (W3C DTCG) | ~600 tokens | Custom format | CSS vars | Yes (tooling) | CSS vars |
 | Zero-config palette system | 9 palettes + custom | Theming API | 30+ themes | N/A | N/A |
-| BM25 search across 20 databases | Yes (1,600+ rows) | No | No | No | No |
+| BM25 search across 20 databases | Yes (1,676+ rows) | No | No | No | No |
 | Tailwind CSS generation | Built-in | Community | Built-in | Plugin | No |
 
 ---
@@ -52,7 +52,7 @@ One command. Full design system. WCAG-validated. Domain-appropriate.
 ```
 User Query -> Domain Detection -> BM25 Search -> Rule Application -> Output
                (55 sectors,        (20 CSVs,       (190 rules,
-                21 product types)   1,600+ rows)     84 anti-patterns)
+                21 product types)   1,676+ rows)     84 anti-patterns)
 ```
 
 **Layer 1 -- Domain Detection:** Classifies your product across 55 industry sectors and 21 product types with confidence scores.
@@ -293,7 +293,7 @@ Every change is validated against 3 automated checks:
 ```bash
 npm run check            # Full validation suite (runs all 3 below)
 npm run validate         # W3C DTCG token format validation
-npm run audit            # WCAG 2.1 AA contrast (108 checks: 9 palettes x 2 modes)
+npm run audit            # WCAG 2.2 AA contrast (108 checks: 9 palettes x 2 modes)
 npm run verify           # HTML docs integrity (no hardcoded values)
 npm run sync-data        # CSV cross-reference validation
 npm run test:a11y        # axe-core accessibility audit (5 docs pages)
@@ -308,15 +308,15 @@ npm run audit:apca       # APCA/WCAG 3.0 contrast analysis
 universal-design-system/
   tokens/                 # W3C DTCG design tokens (source of truth)
   src/
-    data/                 # 20 CSV databases (1,600+ rows)
+    data/                 # 20 CSV databases (1,676+ rows)
     scripts/              # BM25 engine, search CLI, spec generator, palette CLI
     mcp/                  # MCP server for AI coding tool integration
   cli/                    # TypeScript CLI (zero dependencies)
   packages/
     tokens/               # Standalone token package (@mkatogui/uds-tokens)
     react/                # React components (@mkatogui/uds-react)
-    vue/                  # Vue 3 components (@mkatogui/uds-vue)
-    svelte/               # Svelte 5 components (@mkatogui/uds-svelte)
+    vue/                  # Vue 43 components (@mkatogui/uds-vue)
+    svelte/               # Svelte 43 components (@mkatogui/uds-svelte)
     primitives/           # Headless accessible primitives (@mkatogui/uds-primitives)
   docs/                   # Interactive HTML documentation (8 pages)
     assets/               # Architecture diagram, palette swatches

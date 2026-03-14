@@ -34,6 +34,9 @@ coverage/
 # SonarCloud
 .scannerwork/
 
+# Generated
+metrics.json
+
 # Temporary
 *.tmp
 *.log
