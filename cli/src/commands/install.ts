@@ -208,9 +208,8 @@ function generateMcpConfig(targetDir: string, mcpConfigPath: string, mcpFormat?:
 
   if (mcpFormat === 'continue') {
     const yamlPath = join(targetDir, mcpConfigPath);
-    if (!existsSync(yamlPath)) {
-      const pathArg = serverPath.replace(/\\/g, '/');
-      const yaml = `name: Universal Design System MCP
+    const pathArg = serverPath.replace(/\\/g, '/');
+    const yaml = `name: Universal Design System MCP
 version: 0.4.1
 schema: v1
 mcpServers:
@@ -219,7 +218,10 @@ mcpServers:
     args:
       - "${pathArg}"
 `;
-      writeFileSync(yamlPath, yaml);
+    try {
+      writeFileSync(yamlPath, yaml, { flag: 'wx' });
+    } catch (err: unknown) {
+      if ((err as NodeJS.ErrnoException)?.code !== 'EEXIST') throw err;
     }
     return;
   }
