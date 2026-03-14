@@ -898,7 +898,7 @@ server.setRequestHandler(GetPromptRequestSchema, async (request) => {
 
   // Validate required arguments
   for (const arg of prompt.arguments || []) {
-    if (arg.required && (!args || !args[arg.name])) {
+    if (arg.required && !args?.[arg.name]) {
       throw new Error(`Missing required argument '${arg.name}' for prompt '${name}'.`);
     }
   }

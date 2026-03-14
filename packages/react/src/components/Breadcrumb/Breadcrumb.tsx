@@ -63,7 +63,7 @@ export const Breadcrumb = React.forwardRef<HTMLElement, BreadcrumbProps>(
           {displayItems.map((item, index) => {
             const isLast = index === displayItems.length - 1;
             return (
-              <li key={index} className="uds-breadcrumb__item">
+              <li key={`${item.label}-${index}`} className="uds-breadcrumb__item">
                 {item.href && !isLast ? (
                   <a className="uds-breadcrumb__link" href={item.href}>
                     {item.label}

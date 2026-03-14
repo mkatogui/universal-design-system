@@ -93,7 +93,7 @@ export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
             else if (ref) (ref as { current: HTMLDivElement | null }).current = node;
           }}
           className={classes}
-          role="dialog"
+          role="dialog" // NOSONAR typescript:S6819 — intentional role=dialog; native <dialog> migration is a separate concern
           aria-modal="true"
           aria-label={title}
         >

@@ -97,7 +97,7 @@ export const CodeBlock = React.forwardRef<HTMLDivElement, CodeBlockProps>(
           <div className="uds-code-block__tabs" role="tablist">
             {tabs.map((tab, i) => (
               <button
-                key={i}
+                key={tab.label}
                 className={['uds-code-block__tab', i === activeTab && 'uds-code-block__tab--active']
                   .filter(Boolean)
                   .join(' ')}
@@ -128,7 +128,7 @@ export const CodeBlock = React.forwardRef<HTMLDivElement, CodeBlockProps>(
           <code className="uds-code-block__code">
             {showLineNumbers
               ? lines.map((line, i) => (
-                  <span key={i} className="uds-code-block__line">
+                  <span key={`line-${i}`} className="uds-code-block__line">
                     <span className="uds-code-block__line-number" aria-hidden="true">
                       {i + 1}
                     </span>

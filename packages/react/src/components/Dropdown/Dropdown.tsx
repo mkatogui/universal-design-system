@@ -98,12 +98,12 @@ export const Dropdown: React.FC<DropdownProps> = ({
       }
       if (e.key === 'ArrowDown') {
         e.preventDefault();
-        if (!open) {
-          setOpen(true);
-          setActiveIndex(enabledIndices[0] ?? -1);
-        } else {
+        if (open) {
           const pos = enabledIndices.indexOf(activeIndex);
           setActiveIndex(enabledIndices[(pos + 1) % enabledIndices.length]);
+        } else {
+          setOpen(true);
+          setActiveIndex(enabledIndices[0] ?? -1);
         }
       } else if (e.key === 'ArrowUp') {
         e.preventDefault();
