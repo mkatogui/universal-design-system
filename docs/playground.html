@@ -3624,8 +3624,12 @@ function updatePreview() {
   const comp = getCurrentComponent();
   if (!comp) return;
 
-  const variant = variantSelect.value;
-  const size = sizeSelect.value;
+  // Validate against the component's own allowed values — prevents tainted
+  // DOM data from reaching the innerHTML sink (CodeQL XSS mitigation).
+  const rawVariant = variantSelect.value;
+  const rawSize = sizeSelect.value;
+  const variant = comp.variants.includes(rawVariant) ? rawVariant : comp.variants[0];
+  const size = comp.sizes.includes(rawSize) ? rawSize : comp.sizes[0];
 
   // Update header
   previewName.textContent = comp.name;
