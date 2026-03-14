@@ -65,7 +65,7 @@ const BUILTIN_PALETTES: Choice[] = [
   },
 ];
 
-function loadPalettes(): Choice[] {
+export function loadPalettes(): Choice[] {
   const palettes = [...BUILTIN_PALETTES];
   try {
     const registryPath = resolve(PKG_ROOT, 'tokens', 'palette-registry.json');

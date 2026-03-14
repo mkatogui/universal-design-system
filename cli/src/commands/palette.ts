@@ -22,6 +22,10 @@ export interface PaletteOptions {
   format?: string;
 }
 
+const VALID_SUBCOMMANDS = ['create', 'preview', 'list', 'remove', 'export'] as const;
+const VALID_SHAPES = ['sharp', 'balanced', 'round', 'brutalist'] as const;
+const VALID_FORMATS = ['css', 'json'] as const;
+
 function getPython(): string {
   let python = 'python3';
   try {
@@ -43,6 +47,23 @@ export async function paletteCommand(subcommand: string, options: PaletteOptions
 
   if (!existsSync(script)) {
     console.error(red('  Palette manager not found.'));
+    process.exit(1);
+  }
+
+  if (!VALID_SUBCOMMANDS.includes(subcommand as (typeof VALID_SUBCOMMANDS)[number])) {
+    console.error(
+      red(`  Invalid subcommand: ${subcommand}. Valid: ${VALID_SUBCOMMANDS.join(', ')}`),
+    );
+    process.exit(1);
+  }
+
+  if (options.shape && !VALID_SHAPES.includes(options.shape as (typeof VALID_SHAPES)[number])) {
+    console.error(red(`  Invalid shape: ${options.shape}. Valid: ${VALID_SHAPES.join(', ')}`));
+    process.exit(1);
+  }
+
+  if (options.format && !VALID_FORMATS.includes(options.format as (typeof VALID_FORMATS)[number])) {
+    console.error(red(`  Invalid format: ${options.format}. Valid: ${VALID_FORMATS.join(', ')}`));
     process.exit(1);
   }
 

@@ -2,51 +2,20 @@
  * Tests for cli/src/commands/init.ts — constants and loadPalettes
  *
  * Uses REAL imports to get coverage on init.ts module.
- * The interactive functions (selectPrompt, initCommand) are not tested
- * as they require readline input.
  */
 
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it } from 'vitest';
+import { loadPalettes } from '../../cli/src/commands/init.js';
 
-// Import the module to get coverage on its top-level code
-// This covers lines 1-123 (imports, constants, loadPalettes)
-// We can't test initCommand (requires readline) but the import
-// exercises all top-level declarations
-import '../../cli/src/commands/init.js';
-
-describe('BUILTIN_PALETTES (from init module)', () => {
-  // These tests validate the constants that exist in init.ts
-  const BUILTIN_PALETTES = [
-    { title: 'Minimal SaaS', value: 'minimal-saas' },
-    { title: 'AI Futuristic', value: 'ai-futuristic' },
-    { title: 'Gradient Startup', value: 'gradient-startup' },
-    { title: 'Corporate', value: 'corporate' },
-    { title: 'Apple Minimal', value: 'apple-minimal' },
-    { title: 'Illustration', value: 'illustration' },
-    { title: 'Dashboard', value: 'dashboard' },
-    { title: 'Bold Lifestyle', value: 'bold-lifestyle' },
-    { title: 'Minimal Corporate', value: 'minimal-corporate' },
-  ];
-
-  it('has 9 builtin palettes', () => {
-    expect(BUILTIN_PALETTES).toHaveLength(9);
-  });
-
-  it('all palettes have title and value', () => {
-    for (const palette of BUILTIN_PALETTES) {
-      expect(palette.title).toBeTruthy();
-      expect(palette.value).toBeTruthy();
-    }
-  });
-
-  it('palette values use kebab-case', () => {
-    for (const palette of BUILTIN_PALETTES) {
-      expect(palette.value).toMatch(/^[a-z]+(-[a-z]+)*$/);
-    }
+describe('loadPalettes', () => {
+  it('returns at least 9 builtin palettes', () => {
+    const palettes = loadPalettes();
+    expect(palettes.length).toBeGreaterThanOrEqual(9);
   });
 
   it('includes all 9 structural palettes', () => {
-    const values = BUILTIN_PALETTES.map((p) => p.value);
+    const palettes = loadPalettes();
+    const values = palettes.map((p) => p.value);
     expect(values).toContain('minimal-saas');
     expect(values).toContain('ai-futuristic');
     expect(values).toContain('gradient-startup');
@@ -58,8 +27,24 @@ describe('BUILTIN_PALETTES (from init module)', () => {
     expect(values).toContain('minimal-corporate');
   });
 
+  it('all palettes have title and value', () => {
+    const palettes = loadPalettes();
+    for (const palette of palettes) {
+      expect(palette.title).toBeTruthy();
+      expect(palette.value).toBeTruthy();
+    }
+  });
+
+  it('palette values use kebab-case', () => {
+    const palettes = loadPalettes();
+    for (const palette of palettes) {
+      expect(palette.value).toMatch(/^[a-z0-9]+(-[a-z0-9]+)*$/);
+    }
+  });
+
   it('each palette has a unique value', () => {
-    const values = BUILTIN_PALETTES.map((p) => p.value);
+    const palettes = loadPalettes();
+    const values = palettes.map((p) => p.value);
     expect(new Set(values).size).toBe(values.length);
   });
 });
