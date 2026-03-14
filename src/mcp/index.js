@@ -85,6 +85,8 @@ try {
 /**
  * Run a Python script and return its stdout.
  */
+// The PATH variable below only contains fixed, unwriteable system directories for security.
+// Do NOT add any user-writable or dynamic paths here.
 function runPython(scriptPath, args = []) {
   const safePath = '/usr/local/bin:/usr/bin:/bin:/opt/homebrew/bin';
   return new Promise((resolve, reject) => {
