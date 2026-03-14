@@ -129,8 +129,8 @@ export const Pricing = React.forwardRef<HTMLDivElement, PricingProps>(
                 {plan.period && <span className="uds-pricing__plan-period">/{plan.period}</span>}
               </div>
               <ul className="uds-pricing__features">
-                {plan.features.map((feature, i) => (
-                  <li key={`${feature}-${i}`} className="uds-pricing__feature">
+                {plan.features.map((feature) => (
+                  <li key={feature} className="uds-pricing__feature">
                     {feature}
                   </li>
                 ))}

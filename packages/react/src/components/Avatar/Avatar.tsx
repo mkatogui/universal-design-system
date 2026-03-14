@@ -69,6 +69,7 @@ export const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>(
             className="uds-avatar__image"
             src={src}
             alt={alt || ''}
+            aria-hidden="true"
             onError={() => setImgError(true)}
           />
         );
@@ -81,11 +82,18 @@ export const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>(
     };
 
     return (
-      <div ref={ref} className={classes} aria-label={alt || initials || undefined} {...props}>
+      <div
+        ref={ref}
+        className={classes}
+        role="img"
+        aria-label={alt || initials || undefined}
+        {...props}
+      >
         {renderContent()}
         {status && (
           <span
             className={`uds-avatar__status uds-avatar__status--${status}`}
+            role="img"
             aria-label={status}
           />
         )}

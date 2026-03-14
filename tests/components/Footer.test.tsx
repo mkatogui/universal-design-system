@@ -5,9 +5,9 @@ import { describe, expect, it, vi } from 'vitest';
 import { Footer } from '../../packages/react/src/components/Footer/Footer';
 
 describe('Footer', () => {
-  it('renders with aria-label "Site footer"', () => {
+  it('renders as a contentinfo landmark', () => {
     render(<Footer />);
-    expect(screen.getByRole('contentinfo', { name: 'Site footer' })).toBeInTheDocument();
+    expect(screen.getByRole('contentinfo')).toBeInTheDocument();
   });
 
   it('renders columns with titles and links', () => {

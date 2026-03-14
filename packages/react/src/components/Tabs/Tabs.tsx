@@ -119,6 +119,7 @@ export const Tabs: React.FC<TabsProps> = ({
               tabRefs.current[index] = el;
             }}
             className="uds-tabs__trigger"
+            type="button"
             role="tab"
             id={`${baseId}-tab-${index}`}
             aria-selected={activeIndex === index}

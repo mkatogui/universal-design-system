@@ -67,7 +67,7 @@ export const Footer = React.forwardRef<HTMLElement, FooterProps>(
       .join(' ');
 
     return (
-      <footer ref={ref} className={classes} aria-label="Site footer" {...props}>
+      <footer ref={ref} className={classes} {...props}>
         {columns && columns.length > 0 && (
           <div className="uds-footer__columns">
             {columns.map((col) => (

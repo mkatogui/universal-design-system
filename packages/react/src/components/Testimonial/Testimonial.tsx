@@ -79,11 +79,18 @@ export const Testimonial = React.forwardRef<HTMLDivElement, TestimonialProps>(
           </blockquote>
         )}
         {rating !== undefined && (
-          <div className="uds-testimonial__rating" aria-label={`${rating} out of 5 stars`}>
-            {Array.from({ length: 5 }, (_, i) => (
+          <div
+            className="uds-testimonial__rating"
+            role="img"
+            aria-label={`${rating} out of 5 stars`}
+          >
+            {Array.from({ length: 5 }, (_, n) => n + 1).map((starNum) => (
               <span
-                key={i}
-                className={['uds-testimonial__star', i < rating && 'uds-testimonial__star--filled']
+                key={starNum}
+                className={[
+                  'uds-testimonial__star',
+                  starNum <= rating && 'uds-testimonial__star--filled',
+                ]
                   .filter(Boolean)
                   .join(' ')}
                 aria-hidden="true"

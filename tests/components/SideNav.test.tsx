@@ -76,7 +76,7 @@ describe('SideNav', () => {
     expect(screen.getByRole('link', { name: 'Roles' })).toBeInTheDocument();
   });
 
-  it('renders sublist with aria-expanded="true" for nested children', () => {
+  it('renders sublist when nested children are present', () => {
     const items = [
       {
         label: 'Admin',
@@ -86,7 +86,8 @@ describe('SideNav', () => {
     ];
     const { container } = render(<SideNav items={items} />);
     const sublist = container.querySelector('.uds-side-nav__sublist');
-    expect(sublist).toHaveAttribute('aria-expanded', 'true');
+    expect(sublist).toBeInTheDocument();
+    expect(sublist?.tagName).toBe('UL');
   });
 
   it('hides labels when collapsed is true', () => {

@@ -499,12 +499,6 @@
   max-width: 440px;
   position: relative;
 }
-.uds-alert-dialog--destructive .uds-alert-dialog__title {
-  color: var(--color-error);
-}
-.uds-alert-dialog--warning .uds-alert-dialog__title {
-  color: var(--color-warning);
-}
 .uds-alert-dialog__header {
   padding: var(--space-6);
   padding-bottom: 0;
@@ -515,6 +509,12 @@
   font-weight: 600;
   color: var(--color-text-primary);
   margin: 0;
+}
+.uds-alert-dialog--destructive .uds-alert-dialog__title {
+  color: var(--color-error);
+}
+.uds-alert-dialog--warning .uds-alert-dialog__title {
+  color: var(--color-warning);
 }
 .uds-alert-dialog__body {
   padding: var(--space-4) var(--space-6);

@@ -67,14 +67,21 @@ export const Tooltip: React.FC<TooltipProps> = ({
     .join(' ');
 
   return (
-    <div className={classes} onMouseEnter={show} onMouseLeave={hide} onFocus={show} onBlur={hide}>
+    <span
+      className={classes}
+      role="toolbar"
+      onMouseEnter={show}
+      onMouseLeave={hide}
+      onFocus={show}
+      onBlur={hide}
+    >
       {React.cloneElement(children as React.ReactElement<Record<string, unknown>>, {
         'aria-describedby': tooltipId,
       })}
       <div id={tooltipId} className="uds-tooltip__content" role="tooltip" aria-hidden={!visible}>
         {content}
       </div>
-    </div>
+    </span>
   );
 };
 
