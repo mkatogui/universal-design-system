@@ -3820,12 +3820,13 @@ function recommendPrimary(hex, onWhite) {
   if (!/^#[0-9A-Fa-f]{6}$/.test(hex) && !/^#[0-9A-Fa-f]{3}$/.test(hex)) return null;
   if (hex.length === 4) hex = '#' + hex.slice(1).split('').map(c => c + c).join('');
   const bg = onWhite ? '#FFFFFF' : '#0F0F14';
-  const ratio = Math.round(contrastRatio(hex, bg) * 100) / 100;
+  const ratio = Math.round(contrastRatio(hex, bg) * 10) / 10;
+  const hexDisplay = hex.toLowerCase();
   const wcagNormal = ratio >= 4.5, wcagLarge = ratio >= 3;
   let msg = '';
-  if (wcagNormal) msg = 'Use this as primary: ' + hex + ' — meets WCAG 2.2 AA for normal text on ' + (onWhite ? 'white' : 'dark') + '.';
-  else if (wcagLarge) msg = 'Use as primary for large text/UI only: ' + hex + ' — 3:1 on ' + (onWhite ? 'white' : 'dark') + ' (normal text needs 4.5:1).';
-  else msg = 'Low contrast on ' + (onWhite ? 'white' : 'dark') + ' (' + ratio + ':1). Prefer as accent or adjust for primary.';
+  if (wcagNormal) msg = hexDisplay + ' · ' + ratio + ':1 · WCAG AA';
+  else if (wcagLarge) msg = hexDisplay + ' · ' + ratio + ':1 · large text only';
+  else msg = hexDisplay + ' · ' + ratio + ':1 · low contrast (use as accent)';
   return { message: msg, contrastRatio: ratio, wcagNormal, wcagLarge };
 }
 function hslToHex(h, s, l) {
@@ -3878,12 +3879,36 @@ function updateCustomPrimaryUI() {
   const swatchesEl = document.getElementById('custom-harmony-swatches');
   if (!input || !recEl || !swatchesEl) return;
   const hex = input.value.trim();
-  if (!hex) { recEl.textContent = ''; swatchesEl.innerHTML = ''; return; }
+  const root = document.documentElement;
+  if (!hex) {
+    recEl.textContent = '';
+    swatchesEl.innerHTML = '';
+    root.style.removeProperty('--color-brand-primary');
+    root.style.removeProperty('--color-brand-primary-rgb');
+    root.style.removeProperty('--color-brand-secondary');
+    return;
+  }
   const norm = hex.startsWith('#') ? hex : '#' + hex;
-  const rec = recommendPrimary(norm, true);
-  if (rec) { recEl.textContent = rec.message; recEl.style.color = 'var(--color-text-secondary)'; } else { recEl.textContent = 'Enter a valid hex (e.g. #3B82F6)'; recEl.style.color = 'var(--color-error)'; }
   const mode = (harmonySelect && harmonySelect.value) || 'balanced';
   const colors = deriveHarmony(norm, mode);
+  const rec = recommendPrimary(norm, true);
+  if (rec) {
+    recEl.textContent = rec.message;
+    recEl.style.color = 'var(--color-text-secondary)';
+    root.style.setProperty('--color-brand-primary', norm);
+    root.style.setProperty('--color-brand-primary-rgb', hexToRgb(norm).join(', '));
+    if (colors.length > 1) {
+      root.style.setProperty('--color-brand-secondary', colors[1]);
+    } else {
+      root.style.removeProperty('--color-brand-secondary');
+    }
+  } else {
+    recEl.textContent = 'Enter a valid hex (e.g. #3B82F6)';
+    recEl.style.color = 'var(--color-error)';
+    root.style.removeProperty('--color-brand-primary');
+    root.style.removeProperty('--color-brand-primary-rgb');
+    root.style.removeProperty('--color-brand-secondary');
+  }
   swatchesEl.innerHTML = '';
   for (const c of colors) {
     const span = document.createElement('span');
