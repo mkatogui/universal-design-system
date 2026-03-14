@@ -40,8 +40,11 @@ for (const page of PAGES) {
           },
           { palette, mode },
         );
-        // Wait for fonts and animations
-        await p.waitForTimeout(500);
+        // Wait for web fonts — the config sets reducedMotion: 'reduce'
+        // which activates the docs pages' @media (prefers-reduced-motion: reduce)
+        // block, zeroing all animation/transition durations automatically.
+        await p.evaluate(() => document.fonts.ready);
+        await p.waitForTimeout(200);
         await expect(p).toHaveScreenshot(`${page.name}-${palette}-${mode}.png`, {
           fullPage: true,
           maxDiffPixelRatio: 0.01,

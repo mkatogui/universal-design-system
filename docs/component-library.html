@@ -626,6 +626,15 @@ html, body { overflow-x: hidden; }
 }
 /* Touch feedback */
 .site-topnav a:active { opacity: 0.7; }
+/* Respect reduced motion preference — UDS convention */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
 </style>
 </head><body>
 <nav class="site-topnav" aria-label="Site navigation">
@@ -647,7 +656,7 @@ html, body { overflow-x: hidden; }
     <ul id="search-results" class="uds-search__results" role="listbox"></ul>
   </div>
 </nav>
-<a href="#main-content" class="skip-link">Skip to content</a>
+<a href="#main-content" class="skip-link">Skip to main content</a>
 <div class="theme-bar">
   <label>Palette</label>
   <button class="palette-btn active" data-theme="minimal-saas">Minimal SaaS</button>

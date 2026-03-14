@@ -1062,6 +1062,15 @@ html.docs-dark .playground-control-group select {
 /* Touch feedback */
 .btn:active, .btn--primary:active { transform: scale(0.98); }
 .site-topnav a:active, .sidebar-nav a:active { opacity: 0.7; }
+/* Respect reduced motion preference — UDS convention */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
 </style>
 </head>
 <body>
@@ -1084,7 +1093,7 @@ html.docs-dark .playground-control-group select {
     <ul id="search-results" class="uds-search__results" role="listbox"></ul>
   </div>
 </nav>
-<a href="#main-content" class="skip-link">Skip to content</a>
+<a href="#main-content" class="skip-link">Skip to main content</a>
 <div class="sidebar-overlay" id="sidebarOverlay"></div>
 <button class="sidebar-fab" id="sidebarFab" aria-label="Open navigation">
   <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
@@ -1187,7 +1196,7 @@ html.docs-dark .playground-control-group select {
   <button class="palette-btn" data-theme="illustration">Illustration</button>
   <button class="palette-btn" data-theme="dashboard">Dashboard</button>
   <button class="palette-btn" data-theme="bold-lifestyle">Bold Lifestyle</button>
-  <button class="palette-btn" data-theme="minimal-corporate">Minimal Corp</button>
+  <button class="palette-btn" data-theme="minimal-corporate">Minimal Corporate</button>
   <!-- CUSTOM_PALETTE_BUTTONS_START -->
   <!-- CUSTOM_PALETTE_BUTTONS_END -->
   <span class="appearance-note" style="font-size:12px;color:var(--color-text-secondary);margin-left:auto;white-space:nowrap">Appearance (light/dark) is independent of palette selection</span>

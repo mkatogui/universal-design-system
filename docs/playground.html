@@ -1272,6 +1272,15 @@ html, body { overflow-x: hidden; }
 }
 /* Touch feedback */
 .site-topnav a:active { opacity: 0.7; }
+/* Respect reduced motion preference — UDS convention */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
 </style>
 </head>
 <body>
@@ -1292,7 +1301,7 @@ html, body { overflow-x: hidden; }
     <a href="conformance.html">Conformance</a>
   </div>
 </nav>
-<a href="#main-content" class="skip-link">Skip to content</a>
+<a href="#main-content" class="skip-link">Skip to main content</a>
 
 <div class="playground-layout">
 
@@ -1325,13 +1334,13 @@ html, body { overflow-x: hidden; }
       <div class="palette-grid" role="radiogroup" aria-label="Palette selector">
         <button class="palette-option active" data-theme="minimal-saas" role="radio" aria-checked="true">Minimal SaaS</button>
         <button class="palette-option" data-theme="ai-futuristic" role="radio" aria-checked="false">AI Futuristic</button>
-        <button class="palette-option" data-theme="gradient-startup" role="radio" aria-checked="false">Gradient Start</button>
+        <button class="palette-option" data-theme="gradient-startup" role="radio" aria-checked="false">Gradient Startup</button>
         <button class="palette-option" data-theme="corporate" role="radio" aria-checked="false">Corporate</button>
         <button class="palette-option" data-theme="apple-minimal" role="radio" aria-checked="false">Apple Minimal</button>
         <button class="palette-option" data-theme="illustration" role="radio" aria-checked="false">Illustration</button>
         <button class="palette-option" data-theme="dashboard" role="radio" aria-checked="false">Dashboard</button>
         <button class="palette-option" data-theme="bold-lifestyle" role="radio" aria-checked="false">Bold Lifestyle</button>
-        <button class="palette-option" data-theme="minimal-corporate" role="radio" aria-checked="false">Minimal Corp</button>
+        <button class="palette-option" data-theme="minimal-corporate" role="radio" aria-checked="false">Minimal Corporate</button>
       </div>
     </div>
 
