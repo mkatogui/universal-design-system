@@ -1062,6 +1062,15 @@ html.docs-dark .playground-control-group select {
 /* Touch feedback */
 .btn:active, .btn--primary:active { transform: scale(0.98); }
 .site-topnav a:active, .sidebar-nav a:active { opacity: 0.7; }
+/* Respect reduced motion preference — UDS convention */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
 </style>
 </head>
 <body>
@@ -2485,6 +2494,8 @@ document.querySelectorAll('[role="button"]').forEach(el => {
 });
 
 // Sidebar active tracking
+// Skip sidebar animation when reduced motion is preferred
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const observer = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {

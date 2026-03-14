@@ -12,6 +12,10 @@ export default defineConfig({
   use: {
     baseURL: process.env.VISUAL_BASE_URL || 'http://localhost:8080',
     screenshot: 'only-on-failure',
+    // UDS docs pages respect prefers-reduced-motion: reduce via
+    // @media queries that zero out all animation/transition durations.
+    // This gives Playwright deterministic full-page screenshots.
+    reducedMotion: 'reduce',
   },
   projects: [
     {

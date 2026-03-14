@@ -693,6 +693,15 @@ html,body{overflow-x:hidden;}
 /* Touch feedback */
 .uds-btn:active{transform:scale(0.98);}
 .navbar__links a:active{opacity:0.7;}
+/* Respect reduced motion preference — UDS convention */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
 </style>
 </head>
 <body>
@@ -1249,6 +1258,10 @@ function typeWriter(){
 
 /* Scroll reveal */
 function initReveal(){
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('reveal--visible');});
+    return;
+  }
   var observer=new IntersectionObserver(function(entries){
     entries.forEach(function(entry){if(entry.isIntersecting)entry.target.classList.add('reveal--visible');});
   },{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
