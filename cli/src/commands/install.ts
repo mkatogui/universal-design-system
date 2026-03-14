@@ -172,12 +172,10 @@ function generateMcpConfig(targetDir: string, mcpConfigPath: string): void {
 
   // Read existing config or start fresh
   let config: Record<string, unknown> = {};
-  if (existsSync(configFile)) {
-    try {
-      config = JSON.parse(readFileSync(configFile, 'utf-8'));
-    } catch {
-      // If existing config is malformed, start fresh
-    }
+  try {
+    config = JSON.parse(readFileSync(configFile, 'utf-8'));
+  } catch {
+    // File doesn't exist or is malformed — start fresh
   }
 
   // Add UDS MCP server entry
