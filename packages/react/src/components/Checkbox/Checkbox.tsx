@@ -54,7 +54,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
           node.indeterminate = !!indeterminate;
         }
         if (typeof ref === 'function') ref(node);
-        else if (ref) (ref as React.MutableRefObject<HTMLInputElement | null>).current = node;
+        else if (ref) (ref as { current: HTMLInputElement | null }).current = node;
       },
       [ref, indeterminate],
     );

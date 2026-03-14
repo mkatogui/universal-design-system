@@ -132,15 +132,14 @@ export const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>(
                   <span className="uds-accordion__icon" aria-hidden="true" />
                 </button>
               </h3>
-              <div
+              <section
                 id={`${baseId}-panel-${index}`}
                 className="uds-accordion__panel"
-                role="region"
                 aria-labelledby={`${baseId}-trigger-${index}`}
                 hidden={!isExpanded}
               >
                 <div className="uds-accordion__content">{item.content}</div>
-              </div>
+              </section>
             </div>
           );
         })}

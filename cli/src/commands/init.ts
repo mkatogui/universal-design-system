@@ -128,7 +128,8 @@ async function selectPrompt(message: string, choices: Choice[]): Promise<string 
   console.log(`\n  ${bold(message)}\n`);
   choices.forEach((c, i) => {
     const desc = c.description ? dim(` — ${c.description}`) : '';
-    console.log(`    ${dim(`${i + 1}.`)} ${c.title}${desc}`);
+    const num = dim(`${i + 1}.`);
+    console.log(`    ${num} ${c.title}${desc}`);
   });
   console.log();
 

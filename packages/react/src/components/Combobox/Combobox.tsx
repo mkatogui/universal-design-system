@@ -186,6 +186,7 @@ export const Combobox = React.forwardRef<HTMLDivElement, ComboboxProps>(
           />
         </div>
         {isOpen && (
+          // NOSONAR typescript:S6819 — intentional ARIA listbox pattern; native <select> cannot support autocomplete/multiselect UX
           <div
             ref={listboxRef}
             id={listboxId}
@@ -195,6 +196,7 @@ export const Combobox = React.forwardRef<HTMLDivElement, ComboboxProps>(
             aria-multiselectable={variant === 'multiselect' ? true : undefined}
           >
             {filtered.map((option, index) => (
+              // NOSONAR typescript:S6819 — intentional ARIA listbox/option pattern; native <select> cannot support custom UX
               <div
                 key={option.value}
                 id={`${listboxId}-opt-${sanitizeId(option.value)}`}
@@ -213,17 +215,30 @@ export const Combobox = React.forwardRef<HTMLDivElement, ComboboxProps>(
                 onClick={() => {
                   if (!option.disabled) handleSelect(option.value);
                 }}
+                onKeyDown={(e) => {
+                  if ((e.key === 'Enter' || e.key === ' ') && !option.disabled) {
+                    e.preventDefault();
+                    handleSelect(option.value);
+                  }
+                }}
               >
                 {option.label}
               </div>
             ))}
             {filtered.length === 0 && variant === 'creatable' && query.trim() && (
+              // NOSONAR typescript:S6819 — intentional ARIA option role for creatable item
               <div
                 className="uds-combobox__option uds-combobox__option--create"
                 role="option"
                 tabIndex={-1}
                 aria-selected={false}
                 onClick={handleCreate}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    handleCreate();
+                  }
+                }}
               >
                 Create &ldquo;{query.trim()}&rdquo;
               </div>

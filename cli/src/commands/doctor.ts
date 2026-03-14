@@ -36,7 +36,7 @@ const CHECKS: Check[] = [
     label: 'Python 3',
     fn: () => {
       const ver = checkCommand('python3', ['--version']);
-      return ver ? ver : 'python3 not found — install Python 3.8+';
+      return ver ?? 'python3 not found — install Python 3.8+';
     },
   },
   {

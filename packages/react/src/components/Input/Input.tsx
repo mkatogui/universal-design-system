@@ -65,7 +65,9 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
       .filter(Boolean)
       .join(' ');
 
-    const describedBy = errorText ? errorId : helperText ? helperId : undefined;
+    let describedBy: string | undefined;
+    if (errorText) describedBy = errorId;
+    else if (helperText) describedBy = helperId;
 
     return (
       <div className={wrapperClasses}>

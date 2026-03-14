@@ -144,6 +144,7 @@ export const FileUpload = React.forwardRef<HTMLDivElement, FileUploadProps>(
 
     return (
       <div ref={ref} className={classes} {...props}>
+        {/* NOSONAR typescript:S6819 — intentional role=button on div; drag-and-drop zone requires div semantics */}
         <div
           className="uds-file-upload__zone"
           role="button"
@@ -191,7 +192,7 @@ export const FileUpload = React.forwardRef<HTMLDivElement, FileUploadProps>(
         {files.length > 0 && (
           <ul className="uds-file-upload__list" aria-live="polite">
             {files.map((file, i) => (
-              <li key={i} className="uds-file-upload__file">
+              <li key={`${file.name}-${i}`} className="uds-file-upload__file">
                 <span className="uds-file-upload__file-name">{file.name}</span>
                 <button
                   className="uds-file-upload__file-remove"

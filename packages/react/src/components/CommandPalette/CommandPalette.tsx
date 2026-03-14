@@ -164,6 +164,7 @@ export const CommandPalette = React.forwardRef<HTMLDivElement, CommandPalettePro
         }}
       >
         {/* biome-ignore lint/a11y/useFocusableInteractive: Custom command palette combobox delegates focus to its nested input */}
+        {/* NOSONAR typescript:S6819 — intentional combobox role; native input cannot host the full command palette UX */}
         <div
           ref={ref}
           className={classes}
@@ -194,6 +195,7 @@ export const CommandPalette = React.forwardRef<HTMLDivElement, CommandPalettePro
               }
             />
           </div>
+          {/* NOSONAR typescript:S6819 — intentional listbox role; native <select> cannot support grouped/icon/shortcut items */}
           <div id={listboxId} className="uds-command-palette__list" role="listbox">
             {groupedActions.map((group) => (
               <div key={group.id} className="uds-command-palette__group">
@@ -203,6 +205,7 @@ export const CommandPalette = React.forwardRef<HTMLDivElement, CommandPalettePro
                 {group.actions.map((action, _i) => {
                   const globalIndex = filtered.indexOf(action);
                   return (
+                    // NOSONAR typescript:S6819,typescript:S6852 — intentional ARIA option pattern; keyboard nav handled via input
                     <div
                       key={action.id}
                       id={`cmd-${action.id}`}
@@ -214,10 +217,18 @@ export const CommandPalette = React.forwardRef<HTMLDivElement, CommandPalettePro
                         .filter(Boolean)
                         .join(' ')}
                       role="option"
+                      tabIndex={-1}
                       aria-selected={globalIndex === activeIndex}
                       aria-disabled={action.disabled}
                       onClick={() => {
                         if (!action.disabled) {
+                          onSelect(action.id);
+                          onClose();
+                        }
+                      }}
+                      onKeyDown={(e) => {
+                        if ((e.key === 'Enter' || e.key === ' ') && !action.disabled) {
+                          e.preventDefault();
                           onSelect(action.id);
                           onClose();
                         }
