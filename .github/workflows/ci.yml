@@ -65,11 +65,12 @@ jobs:
     needs: validate
     # Use pre-built GHCR image — Chromium + system deps already installed,
     # eliminates the ~2 min `playwright install --with-deps` step on every run.
+    # Official Microsoft Playwright image — Chromium + all system deps pre-installed.
+    # Eliminates the ~2 min `playwright install --with-deps` step on every run.
+    # Once ghcr.io/mkatogui/uds-playwright-runner:latest is built (via
+    # build-playwright-image.yml on main), switch this to the GHCR image.
     container:
-      image: ghcr.io/mkatogui/uds-playwright-runner:latest
-      credentials:
-        username: ${{ github.actor }}
-        password: ${{ secrets.GITHUB_TOKEN }}
+      image: mcr.microsoft.com/playwright:v1.58.2-jammy
 
     steps:
       - name: Checkout
@@ -101,11 +102,12 @@ jobs:
     needs: validate
     if: github.event_name == 'pull_request'
     # Use pre-built GHCR image — Chromium + system deps already installed.
+    # Official Microsoft Playwright image — Chromium + all system deps pre-installed.
+    # Eliminates the ~2 min `playwright install --with-deps` step on every run.
+    # Once ghcr.io/mkatogui/uds-playwright-runner:latest is built (via
+    # build-playwright-image.yml on main), switch this to the GHCR image.
     container:
-      image: ghcr.io/mkatogui/uds-playwright-runner:latest
-      credentials:
-        username: ${{ github.actor }}
-        password: ${{ secrets.GITHUB_TOKEN }}
+      image: mcr.microsoft.com/playwright:v1.58.2-jammy
 
     steps:
       - name: Checkout
