@@ -229,7 +229,7 @@ html.docs-dark .badge--na { background:#2A2A36; color:#B0B0BC; }
 [data-theme="ai-futuristic"] .badge--na { background: #2A2A36; color: #B0B0BC; }
 
 /* Illustration: brand-primary (#E8590C) fails 4.5:1 on white — use accessible alternatives */
-[data-theme="illustration"] .site-topnav a.active { color: var(--color-text-primary); }
+[data-theme="illustration"] .site-topnav a.active { color: #fff; }
 [data-theme="illustration"] .page-footer a { color: var(--color-text-secondary); }
 [data-theme="illustration"] .limitation-card__severity--medium { color: #7C2D12; }
 
@@ -249,6 +249,7 @@ html.docs-dark .badge--na { background:#2A2A36; color:#B0B0BC; }
 .site-topnav a {color:#b3b3b3;text-decoration:none;padding:0 12px;height:44px;display:flex;align-items:center;font-size:14px;transition:color 150ms;white-space:nowrap;}
 .site-topnav a:hover {color:#fff;}
 .site-topnav a.active {color:#fff;font-weight:600;}
+.topnav-links {display:flex;align-items:center;}
 .topnav-hamburger { display: none; background: none; border: none; cursor: pointer; padding: 8px; color: #fff; width: 44px; height: 44px; align-items: center; justify-content: center; flex-shrink: 0; margin-left: auto; }
 .topnav-hamburger svg { width: 24px; height: 24px; stroke: currentColor; fill: none; stroke-width: 2; }
 
@@ -545,7 +546,7 @@ html.docs-dark .palette-result-table tr:hover td { background: var(--color-bg-se
 .page-footer a:hover { text-decoration: underline; }
 
 /* Responsive */
-html, body { overflow-x: hidden; }
+html, body { overflow-x: clip; }
 @media (max-width: 768px) {
   .conf-summary { grid-template-columns: repeat(2, 1fr); }
   .method-grid { grid-template-columns: 1fr; }

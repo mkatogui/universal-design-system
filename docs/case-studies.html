@@ -253,7 +253,7 @@ html.docs-dark .cs-code-hint code { background:var(--color-bg-tertiary);color:va
 
 /* Illustration palette: brand-primary (#E8590C) at small sizes fails 4.5:1 — promote to text-secondary */
 [data-theme="illustration"] .cs-card__number { color:var(--color-text-secondary); }
-[data-theme="illustration"] .site-topnav a.active { color:var(--color-text-primary); }
+[data-theme="illustration"] .site-topnav a.active { color:#fff; }
 
 /* ==============================================================
    ACCESSIBILITY
@@ -271,6 +271,7 @@ html.docs-dark .cs-code-hint code { background:var(--color-bg-tertiary);color:va
 .site-topnav a {color:#b3b3b3;text-decoration:none;padding:0 12px;height:44px;display:flex;align-items:center;font-size:14px;transition:color 150ms;white-space:nowrap;}
 .site-topnav a:hover {color:#fff;}
 .site-topnav a.active {color:#fff;font-weight:600;}
+.topnav-links {display:flex;align-items:center;}
 .topnav-hamburger { display: none; background: none; border: none; cursor: pointer; padding: 8px; color: #fff; width: 44px; height: 44px; align-items: center; justify-content: center; flex-shrink: 0; margin-left: auto; }
 .topnav-hamburger svg { width: 24px; height: 24px; stroke: currentColor; fill: none; stroke-width: 2; }
 @media (max-width: 768px) {
@@ -651,7 +652,7 @@ body {
 .dark-mode-toggle:hover { color: var(--color-text-primary); border-color: var(--color-brand-primary); }
 .dark-mode-toggle:focus-visible { outline: 2px solid var(--color-brand-primary); outline-offset: 2px; }
 
-html, body { overflow-x: hidden; }
+html, body { overflow-x: clip; }
 @media (max-width: 768px) {
   .palette-switcher { overflow-x: auto; -webkit-overflow-scrolling: touch; flex-wrap: nowrap; }
   .palette-pill { flex-shrink: 0; }
