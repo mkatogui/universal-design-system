@@ -3,6 +3,21 @@
   "version": "0.4.1",
   "description": "A production-grade design system with 9 structural palettes, 43 components, and automated WCAG 2.2 AA compliance. Deterministic UI recommendation engine powered by retrieval and rule evaluation.",
   "main": "tokens/design-tokens.json",
+  "types": "tokens/design-tokens.d.ts",
+  "exports": {
+    ".": {
+      "types": "./tokens/design-tokens.d.ts",
+      "import": "./tokens/design-tokens.json",
+      "require": "./tokens/design-tokens.json",
+      "default": "./tokens/design-tokens.json"
+    },
+    "./tokens": {
+      "types": "./tokens/design-tokens.d.ts",
+      "import": "./tokens/design-tokens.json",
+      "require": "./tokens/design-tokens.json",
+      "default": "./tokens/design-tokens.json"
+    }
+  },
   "bin": {
     "uds": "cli/dist/index.js"
   },

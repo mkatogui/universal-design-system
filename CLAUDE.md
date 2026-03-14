@@ -88,7 +88,7 @@ User Query → DomainDetector → BM25 Search → Rule Application → Token Res
 - **docs/** — 8 self-contained HTML docs pages (see Docs Structure below)
 - **scripts/** — Python validators (tokens, WCAG, docs)
 - **tests/accessibility/** — Playwright + axe-core: `axe-ci.spec.ts` (144 tests: 8 pages × 9 palettes × 2 modes), `aria-attributes.spec.ts`, `keyboard-nav.spec.ts`
-- **.claude/skills/** — Claude Code skills: `universal-design-system/`, `brand-identity/`, `design-audit/`, `slides-design/`, `ui-styling/`, `pre-pr-review/`
+- **.claude/skills/** — Claude Code skills: `uds-getting-started/`, `universal-design-system/`, `brand-identity/`, `design-audit/`, `slides-design/`, `ui-styling/`, `pre-pr-review/`
 - **.claude/agents/** — Claude Code agents: `pre-pr-reviewer.md` (CI simulation), `palette-sync.md` (token→docs sync), `a11y-remediator.md` (WCAG fix), `metrics-aligner.md` (count sync), `component-scaffold.md` (React scaffolding), `docs-sync.md` (cross-page consistency)
 - **.claude/commands/** — Slash commands: `/pre-pr-review`, `/palette-sync`, `/a11y-fix`, `/align-metrics`, `/new-component`, `/docs-sync`
 

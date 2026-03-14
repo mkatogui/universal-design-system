@@ -197,6 +197,23 @@ The interactive docs (`docs/docs.html`) are a self-contained HTML file with inli
 
 ---
 
+## Versioning and publishing
+
+**Published packages:** `@mkatogui/universal-design-system` (root), `@mkatogui/uds-react`, `@mkatogui/uds-tokens`. Vue, Svelte, and primitives may be published separately.
+
+**Version policy:** Keep root and `@mkatogui/uds-react` in sync (e.g. both at `0.4.x`). Bump `@mkatogui/uds-tokens` and other packages when cutting a release or when their contents change. Use a single source of truth (e.g. root `package.json` version) and align the rest before publishing.
+
+**Before publishing:**
+
+- Run `npm run check` (validate + audit + verify).
+- Root publish runs `prepublishOnly: npm run build:cli` (CLI is built; tokens are shipped as source). For built CSS/JS tokens, consumers use `@mkatogui/uds-tokens`.
+- If publishing React or tokens, run `npm run build:react` and/or `npm run build:tokens` and publish from the corresponding package directory (or via your CI).
+- Use **Changesets** for release notes: add a changeset with `npm run changeset`, then `npm run changeset:version` and `npm run changeset:publish` when releasing.
+
+See `docs/LIBRARY-IMPROVEMENTS.md` for a full checklist and consumer-facing notes.
+
+---
+
 ## Code Style
 
 - **CSS:** Use custom properties (`var(--token-name)`) for all themeable values

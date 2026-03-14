@@ -124,6 +124,36 @@ import '@mkatogui/uds-tokens/css';           // CSS custom properties
 import { tokens } from '@mkatogui/uds-tokens'; // JS/TS object
 ```
 
+### Install React components
+
+```bash
+npm install @mkatogui/uds-react react react-dom
+```
+
+```tsx
+import { Button, Card } from "@mkatogui/uds-react";
+import "@mkatogui/uds-react/styles.css";
+
+// Set palette (e.g. in root layout or index.html)
+document.documentElement.setAttribute("data-theme", "minimal-saas");
+
+<Button variant="primary">Get Started</Button>
+```
+
+See [examples/react-app](https://github.com/mkatogui/universal-design-system/tree/main/examples/react-app) for a full demo with palette switching and dark mode.
+
+---
+
+## Published packages
+
+| Package | Use when |
+|---------|----------|
+| `@mkatogui/universal-design-system` | CLI (`uds`), source tokens (JSON), Python scripts, docs, CSV data, MCP server, AI skills |
+| `@mkatogui/uds-react` | React apps — 43 accessible components + tokens + styles |
+| `@mkatogui/uds-tokens` | Design tokens only (CSS, JS, JSON) — no framework |
+
+The main package ships **source** tokens (JSON) and tooling; for **built** CSS/JS/TS tokens use `@mkatogui/uds-tokens`. Vue, Svelte, and primitives packages live in the repo; publish status may vary. Prefer the main package for tooling and `uds-react` / `uds-tokens` for app integration.
+
 ---
 
 ## What You Get
@@ -322,7 +352,7 @@ universal-design-system/
     assets/               # Architecture diagram, palette swatches
   scripts/                # Validation scripts (WCAG, tokens, docs, axe-core, APCA)
   audits/                 # Audit results (WCAG, axe-core, APCA)
-  .claude/skills/         # Claude Code skills (5 skills)
+  .claude/skills/         # Claude Code skills (7 skills, including uds-getting-started)
 ```
 
 ---
