@@ -86,11 +86,12 @@ try {
  * Run a Python script and return its stdout.
  */
 function runPython(scriptPath, args = []) {
+  const safePath = '/usr/local/bin:/usr/bin:/bin:/opt/homebrew/bin';
   return new Promise((resolve, reject) => {
     execFile(
       'python3',
       [scriptPath, ...args],
-      { cwd: PROJECT_ROOT, timeout: 30_000, maxBuffer: 1024 * 1024 },
+      { cwd: PROJECT_ROOT, timeout: 30_000, maxBuffer: 1024 * 1024, env: { ...process.env, PATH: safePath } },
       (error, stdout, stderr) => {
         if (error) {
           // Provide a clear message when python3 is not available
