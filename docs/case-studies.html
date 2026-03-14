@@ -652,7 +652,7 @@ body {
 .dark-mode-toggle:hover { color: var(--color-text-primary); border-color: var(--color-brand-primary); }
 .dark-mode-toggle:focus-visible { outline: 2px solid var(--color-brand-primary); outline-offset: 2px; }
 
-html, body { overflow-x: hidden; }
+html, body { overflow-x: clip; }
 @media (max-width: 768px) {
   .palette-switcher { overflow-x: auto; -webkit-overflow-scrolling: touch; flex-wrap: nowrap; }
   .palette-pill { flex-shrink: 0; }
