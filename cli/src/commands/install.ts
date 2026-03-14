@@ -166,6 +166,60 @@ function copyDir(src: string, dest: string): number {
   return count;
 }
 
+function readJsonSafe(path: string): Record<string, unknown> {
+  try {
+    return JSON.parse(readFileSync(path, 'utf-8')) as Record<string, unknown>;
+  } catch {
+    return {};
+  }
+}
+
+function writeZedMcpConfig(configFile: string, serverPath: string): void {
+  const settings = readJsonSafe(configFile);
+  const contextServers = (settings.context_servers ?? {}) as Record<string, unknown>;
+  if (contextServers['universal-design-system']) return;
+  contextServers['universal-design-system'] = {
+    source: 'custom',
+    command: 'node',
+    args: [serverPath],
+    env: {},
+  };
+  settings.context_servers = contextServers;
+  writeFileSync(configFile, `${JSON.stringify(settings, null, 2)}\n`);
+}
+
+function writeContinueMcpConfig(yamlPath: string, serverPath: string): void {
+  const pathArg = serverPath.replace(/\\/g, '/');
+  const yaml = `name: Universal Design System MCP
+version: 0.4.1
+schema: v1
+mcpServers:
+  - name: universal-design-system
+    command: node
+    args:
+      - "${pathArg}"
+`;
+  try {
+    writeFileSync(yamlPath, yaml, { flag: 'wx' });
+  } catch (err: unknown) {
+    if ((err as NodeJS.ErrnoException)?.code !== 'EEXIST') throw err;
+  }
+}
+
+function writeStandardMcpConfig(
+  configFile: string,
+  serverPath: string,
+  mcpConfigPath: string,
+): void {
+  const config = readJsonSafe(configFile);
+  const useServersKey = mcpConfigPath.includes('vscode');
+  const existing = (config.mcpServers ?? config.servers ?? {}) as Record<string, unknown>;
+  if (existing['universal-design-system']) return;
+  existing['universal-design-system'] = { command: 'node', args: [serverPath] };
+  config[useServersKey ? 'servers' : 'mcpServers'] = existing;
+  writeFileSync(configFile, `${JSON.stringify(config, null, 2)}\n`);
+}
+
 /** Generate MCP server configuration for the platform */
 function generateMcpConfig(targetDir: string, mcpConfigPath: string, mcpFormat?: McpFormat): void {
   const mcpServerPath = join(
@@ -182,71 +236,17 @@ function generateMcpConfig(targetDir: string, mcpConfigPath: string, mcpFormat?:
     : join(PKG_ROOT, 'src', 'mcp', 'index.js');
 
   const configFile = join(targetDir, mcpConfigPath);
-  const configDir = dirname(configFile);
-  mkdirSync(configDir, { recursive: true });
+  mkdirSync(dirname(configFile), { recursive: true });
 
   if (mcpFormat === 'zed') {
-    let settings: Record<string, unknown> = {};
-    try {
-      settings = JSON.parse(readFileSync(configFile, 'utf-8'));
-    } catch {
-      // New file
-    }
-    const contextServers = (settings.context_servers ?? {}) as Record<string, unknown>;
-    if (!contextServers['universal-design-system']) {
-      contextServers['universal-design-system'] = {
-        source: 'custom',
-        command: 'node',
-        args: [serverPath],
-        env: {},
-      };
-      settings.context_servers = contextServers;
-      writeFileSync(configFile, `${JSON.stringify(settings, null, 2)}\n`);
-    }
+    writeZedMcpConfig(configFile, serverPath);
     return;
   }
-
   if (mcpFormat === 'continue') {
-    const yamlPath = join(targetDir, mcpConfigPath);
-    const pathArg = serverPath.replace(/\\/g, '/');
-    const yaml = `name: Universal Design System MCP
-version: 0.4.1
-schema: v1
-mcpServers:
-  - name: universal-design-system
-    command: node
-    args:
-      - "${pathArg}"
-`;
-    try {
-      writeFileSync(yamlPath, yaml, { flag: 'wx' });
-    } catch (err: unknown) {
-      if ((err as NodeJS.ErrnoException)?.code !== 'EEXIST') throw err;
-    }
+    writeContinueMcpConfig(configFile, serverPath);
     return;
   }
-
-  // Standard JSON (Claude, Cursor, Windsurf, VS Code)
-  let config: Record<string, unknown> = {};
-  try {
-    config = JSON.parse(readFileSync(configFile, 'utf-8'));
-  } catch {
-    // File doesn't exist or is malformed
-  }
-  const useServersKey = mcpConfigPath.includes('vscode');
-  const existing = (config.mcpServers ?? config.servers ?? {}) as Record<string, unknown>;
-  if (!existing['universal-design-system']) {
-    existing['universal-design-system'] = {
-      command: 'node',
-      args: [serverPath],
-    };
-    if (useServersKey) {
-      config.servers = existing;
-    } else {
-      config.mcpServers = existing;
-    }
-    writeFileSync(configFile, `${JSON.stringify(config, null, 2)}\n`);
-  }
+  writeStandardMcpConfig(configFile, serverPath, mcpConfigPath);
 }
 
 export interface InstallOptions {

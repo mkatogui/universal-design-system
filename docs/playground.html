@@ -3815,7 +3815,8 @@ function contrastRatio(hex1, hex2) {
   return (lighter + 0.05) / (darker + 0.05);
 }
 function recommendPrimary(hex, onWhite) {
-  hex = hex.replace(/^#/, '#').toUpperCase();
+  hex = (hex.startsWith('#') ? hex.slice(1) : hex).toUpperCase();
+  hex = '#' + hex;
   if (!/^#[0-9A-Fa-f]{6}$/.test(hex) && !/^#[0-9A-Fa-f]{3}$/.test(hex)) return null;
   if (hex.length === 4) hex = '#' + hex.slice(1).split('').map(c => c + c).join('');
   const bg = onWhite ? '#FFFFFF' : '#0F0F14';
@@ -3854,7 +3855,7 @@ function rotateHue(hex, degrees) {
   return hslToHex((h + degrees) % 360, s, l);
 }
 function deriveHarmony(hex, mode) {
-  hex = hex.replace(/^#/, '#');
+  hex = hex.startsWith('#') ? hex : '#' + hex;
   if (!/^#[0-9A-Fa-f]{6}$/.test(hex) && !/^#[0-9A-Fa-f]{3}$/.test(hex)) return [hex];
   if (hex.length === 4) hex = '#' + hex.slice(1).split('').map(c => c + c).join('');
   switch (mode) {
@@ -3883,7 +3884,14 @@ function updateCustomPrimaryUI() {
   if (rec) { recEl.textContent = rec.message; recEl.style.color = 'var(--color-text-secondary)'; } else { recEl.textContent = 'Enter a valid hex (e.g. #3B82F6)'; recEl.style.color = 'var(--color-error)'; }
   const mode = (harmonySelect && harmonySelect.value) || 'balanced';
   const colors = deriveHarmony(norm, mode);
-  swatchesEl.innerHTML = colors.map(c => '<span class="harmony-swatch" style="background:' + c + '" title="' + c + '"></span>').join('');
+  swatchesEl.innerHTML = '';
+  for (const c of colors) {
+    const span = document.createElement('span');
+    span.className = 'harmony-swatch';
+    span.style.background = c;
+    span.setAttribute('title', c);
+    swatchesEl.appendChild(span);
+  }
 }
 const customPrimaryInput = document.getElementById('custom-primary-input');
 const harmonySelect = document.getElementById('harmony-select');

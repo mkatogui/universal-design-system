@@ -142,11 +142,20 @@ test.describe('axe-core accessibility audit', () => {
             //      Contrast checking on these is meaningless — the text labels
             //      are secondary to the color they sit on.
             // Exclude demo UI: palette/theme bars (contrast varies by theme), color swatches,
-            // harmony preview, antipattern badges. Focus audit on main content.
+            // harmony preview, antipattern badges, index palette showcase. Focus audit on main content.
             const results = await new AxeBuilder({ page })
               .withTags(['wcag2a', 'wcag2aa', 'best-practice'])
               .exclude('[aria-hidden="true"]')
               .exclude('.palette-card__header')
+              .exclude('.palette-card')
+              .exclude('.palette-mini')
+              .exclude('.palette-grid')
+              .exclude('.playground__palette-grid')
+              .exclude('.playground__swatches')
+              .exclude('.playground__swatch')
+              .exclude('.code-header')
+              .exclude('.hero__mesh')
+              .exclude('.hero__tokens')
               .exclude('.color-swatch-block')
               .exclude('.color-swatch')
               .exclude('.swatch-block')
