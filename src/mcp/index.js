@@ -24,7 +24,7 @@ import { execFile } from 'node:child_process';
 import { readFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { Server } from '@modelcontextprotocol/sdk/server/index.js';
+import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import {
   CallToolRequestSchema,
@@ -115,10 +115,9 @@ function runPython(scriptPath, args = []) {
 }
 
 /**
- * Parse a simple CSV string into an array of objects.
- * Handles quoted fields containing commas and newlines.
+ * Split text into logical CSV lines, handling quoted fields that span newlines.
  */
-function parseCSV(text) {
+function buildLines(text) {
   const lines = [];
   let current = '';
   let inQuotes = false;
@@ -144,7 +143,15 @@ function parseCSV(text) {
   if (current.trim()) {
     lines.push(current);
   }
+  return lines;
+}
 
+/**
+ * Parse a simple CSV string into an array of objects.
+ * Handles quoted fields containing commas and newlines.
+ */
+function parseCSV(text) {
+  const lines = buildLines(text);
   if (lines.length < 2) return [];
 
   const headers = splitCSVLine(lines[0]);
@@ -834,7 +841,7 @@ async function handleGetFoundationTokens() {
 // Server setup
 // ---------------------------------------------------------------------------
 
-const server = new Server(
+const mcpServer = new McpServer(
   {
     name: 'universal-design-system',
     version: '0.3.0',
@@ -847,6 +854,7 @@ const server = new Server(
     },
   },
 );
+const server = mcpServer.server;
 
 // List available tools
 server.setRequestHandler(ListToolsRequestSchema, async () => {
@@ -961,12 +969,10 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
 // Start
 // ---------------------------------------------------------------------------
 
-async function main() {
+try {
   const transport = new StdioServerTransport();
   await server.connect(transport);
-}
-
-main().catch((error) => {
+} catch (error) {
   console.error('Fatal: MCP server failed to start:', error.message);
   process.exit(1);
-});
+}

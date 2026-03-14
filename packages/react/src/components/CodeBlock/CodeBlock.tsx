@@ -89,7 +89,8 @@ export const CodeBlock = React.forwardRef<HTMLDivElement, CodeBlockProps>(
     const activeCode = tabs ? tabs[activeTab]?.code : code;
     const activeLanguage = tabs ? tabs[activeTab]?.language : language;
 
-    const lines = activeCode?.split('\n') || [];
+    const rawLines = activeCode?.split('\n') || [];
+    const numberedLines = rawLines.map((text, lineIndex) => ({ lineNumber: lineIndex + 1, text }));
 
     return (
       <div ref={ref} className={classes} {...props}>
@@ -127,12 +128,12 @@ export const CodeBlock = React.forwardRef<HTMLDivElement, CodeBlockProps>(
         <pre className="uds-code-block__pre">
           <code className="uds-code-block__code">
             {showLineNumbers
-              ? lines.map((line, i) => (
-                  <span key={`line-${i}`} className="uds-code-block__line">
+              ? numberedLines.map(({ lineNumber, text }) => (
+                  <span key={lineNumber} className="uds-code-block__line">
                     <span className="uds-code-block__line-number" aria-hidden="true">
-                      {i + 1}
+                      {lineNumber}
                     </span>
-                    {line}
+                    {text}
                     {'\n'}
                   </span>
                 ))

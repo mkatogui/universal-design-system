@@ -6,11 +6,12 @@ import { Avatar } from '../../packages/react/src/components/Avatar/Avatar';
 
 describe('Avatar', () => {
   it('renders an image when src is provided', () => {
-    render(<Avatar src="/avatar.jpg" alt="Jane Doe" />);
-    const img = screen.getByRole('img', { name: 'Jane Doe' });
-    expect(img).toBeInTheDocument();
+    const { container } = render(<Avatar src="/avatar.jpg" alt="Jane Doe" />);
+    const wrapper = screen.getByRole('img', { name: 'Jane Doe' });
+    expect(wrapper).toBeInTheDocument();
+    expect(wrapper).toHaveClass('uds-avatar');
+    const img = container.querySelector('.uds-avatar__image');
     expect(img).toHaveAttribute('src', '/avatar.jpg');
-    expect(img).toHaveClass('uds-avatar__image');
   });
 
   it('renders initials when no src is provided', () => {
@@ -19,9 +20,9 @@ describe('Avatar', () => {
   });
 
   it('falls back to initials when image fails to load', () => {
-    render(<Avatar src="/bad.jpg" alt="Broken" initials="BD" />);
-    const img = screen.getByRole('img');
-    fireEvent.error(img);
+    const { container } = render(<Avatar src="/bad.jpg" alt="Broken" initials="BD" />);
+    const img = container.querySelector('.uds-avatar__image');
+    if (img) fireEvent.error(img);
     expect(screen.getByText('BD')).toBeInTheDocument();
   });
 
@@ -53,6 +54,7 @@ describe('Avatar', () => {
     const statusEl = container.querySelector('.uds-avatar__status--online');
     expect(statusEl).toBeInTheDocument();
     expect(statusEl).toHaveAttribute('aria-label', 'online');
+    expect(statusEl).toHaveAttribute('role', 'img');
   });
 
   it('renders group variant with children', () => {
@@ -78,5 +80,12 @@ describe('Avatar', () => {
     render(<Avatar ref={callbackRef} initials="CB" />);
     expect(callbackRef).toHaveBeenCalled();
     expect(callbackRef.mock.calls[0][0]).toBeInstanceOf(HTMLDivElement);
+  });
+
+  it('renders a default fallback span when no src, initials, or fallback are provided', () => {
+    const { container } = render(<Avatar />);
+    const fallback = container.querySelector('.uds-avatar__fallback');
+    expect(fallback).toBeInTheDocument();
+    expect(fallback).toHaveAttribute('aria-hidden', 'true');
   });
 });

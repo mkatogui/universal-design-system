@@ -56,4 +56,27 @@ describe('SocialProof', () => {
     expect(callbackRef).toHaveBeenCalledTimes(1);
     expect(callbackRef.mock.calls[0][0]).toBeInstanceOf(HTMLDivElement);
   });
+
+  it('renders testimonial with name and title separated by comma', () => {
+    render(
+      <SocialProof
+        variant="testimonial-mini"
+        testimonials={[{ quote: 'Great product!', name: 'Alice', title: 'Engineer' }]}
+      />,
+    );
+    expect(screen.getByText('Great product!')).toBeInTheDocument();
+    expect(screen.getByText(/Alice/)).toBeInTheDocument();
+    expect(screen.getByText(/Engineer/)).toBeInTheDocument();
+  });
+
+  it('renders testimonial without title when title is omitted', () => {
+    render(
+      <SocialProof
+        variant="testimonial-mini"
+        testimonials={[{ quote: 'Solid choice.', name: 'Bob' }]}
+      />,
+    );
+    expect(screen.getByText('Solid choice.')).toBeInTheDocument();
+    expect(screen.getByText('Bob')).toBeInTheDocument();
+  });
 });

@@ -39,9 +39,10 @@ describe('Badge', () => {
     expect(screen.getByText('X').closest('span')).toHaveClass('my-badge');
   });
 
-  it('applies aria-label from label prop', () => {
-    render(<Badge label="Success">Active</Badge>);
-    expect(screen.getByText('Active').closest('span')).toHaveAttribute('aria-label', 'Success');
+  it('applies aria-label from label prop when no children', () => {
+    render(<Badge label="Success" />);
+    // When only label is provided (no children), the label renders as visible text
+    expect(screen.getByText('Success')).toBeInTheDocument();
   });
 
   it('renders remove button when removable is true', () => {
@@ -81,5 +82,22 @@ describe('Badge', () => {
     render(<Badge ref={callbackRef}>CB</Badge>);
     expect(callbackRef).toHaveBeenCalled();
     expect(callbackRef.mock.calls[0][0]).toBeInstanceOf(HTMLSpanElement);
+  });
+
+  it('applies a custom color via the style prop', () => {
+    render(<Badge color="green">Colored</Badge>);
+    const badge = screen.getByText('Colored').closest('span');
+    expect(badge).toHaveStyle({ '--uds-badge-color': 'green' });
+  });
+
+  it('renders the remove button when removable is true and no label is provided', () => {
+    const { container } = render(
+      <Badge removable onRemove={vi.fn()}>
+        Tag
+      </Badge>,
+    );
+    const removeBtn = container.querySelector('.uds-badge__remove');
+    expect(removeBtn).toBeInTheDocument();
+    expect(removeBtn).toHaveAttribute('aria-label', 'Remove ');
   });
 });

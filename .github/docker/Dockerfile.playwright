@@ -1,0 +1,8 @@
+# Pre-built Playwright runner image for CI visual regression and accessibility tests.
+# Pushed to ghcr.io/mkatogui/uds-playwright-runner:latest via build-playwright-image.yml.
+# Eliminates the ~2 min `npx playwright install --with-deps chromium` step on every PR run.
+
+FROM mcr.microsoft.com/playwright:v1.58.2-jammy
+
+# Node.js, npm, Chromium, and all system deps are already present in the base image.
+# Nothing extra to install — the image is ready to run `npm install && npx playwright test`.

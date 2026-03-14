@@ -86,7 +86,9 @@ export const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
             width={svgSize}
             height={svgSize}
             viewBox={`0 0 ${svgSize} ${svgSize}`}
+            aria-hidden="true"
           >
+            <title>Progress indicator</title>
             <circle
               className="uds-progress__track"
               cx={svgSize / 2}

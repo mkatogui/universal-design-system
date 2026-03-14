@@ -59,18 +59,15 @@ export const Toggle = React.forwardRef<HTMLButtonElement, ToggleProps>(
           <span className="uds-toggle__thumb" aria-hidden="true" />
         </button>
         {label && variant === 'with-label' && (
-          <span
+          <button
+            type="button"
             className="uds-toggle__label"
+            tabIndex={-1}
+            aria-hidden="true"
             onClick={handleClick}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                handleClick();
-              }
-            }}
           >
             {label}
-          </span>
+          </button>
         )}
       </div>
     );

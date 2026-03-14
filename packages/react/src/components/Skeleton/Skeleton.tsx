@@ -47,26 +47,29 @@ export const Skeleton = React.forwardRef<HTMLDivElement, SkeletonProps>(
       switch (variant) {
         case 'avatar':
           return <div className="uds-skeleton__circle" aria-hidden="true" />;
-        case 'card':
+        case 'card': {
+          const cardLineNums = Array.from({ length: lines }, (_, n) => n + 1);
           return (
             <>
               <div className="uds-skeleton__image" aria-hidden="true" />
               <div className="uds-skeleton__lines" aria-hidden="true">
-                {Array.from({ length: lines }, (_, i) => (
+                {cardLineNums.map((lineNum) => (
                   <div
-                    key={i}
+                    key={lineNum}
                     className="uds-skeleton__line"
-                    style={{ width: i === lines - 1 ? '60%' : '100%' }}
+                    style={{ width: lineNum === lines ? '60%' : '100%' }}
                   />
                 ))}
               </div>
             </>
           );
-        case 'table':
+        }
+        case 'table': {
+          const tableRowNums = Array.from({ length: lines }, (_, n) => n + 1);
           return (
             <div className="uds-skeleton__table" aria-hidden="true">
-              {Array.from({ length: lines }, (_, i) => (
-                <div key={i} className="uds-skeleton__row">
+              {tableRowNums.map((rowNum) => (
+                <div key={rowNum} className="uds-skeleton__row">
                   <div className="uds-skeleton__cell" />
                   <div className="uds-skeleton__cell" />
                   <div className="uds-skeleton__cell" />
@@ -74,18 +77,21 @@ export const Skeleton = React.forwardRef<HTMLDivElement, SkeletonProps>(
               ))}
             </div>
           );
-        default:
+        }
+        default: {
+          const textLineNums = Array.from({ length: lines }, (_, n) => n + 1);
           return (
             <div className="uds-skeleton__lines" aria-hidden="true">
-              {Array.from({ length: lines }, (_, i) => (
+              {textLineNums.map((lineNum) => (
                 <div
-                  key={i}
+                  key={lineNum}
                   className="uds-skeleton__line"
-                  style={{ width: i === lines - 1 ? '60%' : '100%' }}
+                  style={{ width: lineNum === lines ? '60%' : '100%' }}
                 />
               ))}
             </div>
           );
+        }
       }
     };
 

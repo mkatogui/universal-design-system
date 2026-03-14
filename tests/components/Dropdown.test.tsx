@@ -166,4 +166,37 @@ describe('Dropdown', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Actions' }));
     expect(wrapper).toHaveClass('uds-dropdown--open');
   });
+
+  it('closes the menu when clicking outside the dropdown', () => {
+    render(
+      <div>
+        <Dropdown trigger="Actions" items={defaultItems} />
+        <button type="button" data-testid="outside">
+          Outside
+        </button>
+      </div>,
+    );
+    fireEvent.click(screen.getByRole('button', { name: 'Actions' }));
+    expect(screen.getByRole('menu')).toBeInTheDocument();
+    fireEvent.mouseDown(screen.getByTestId('outside'));
+    expect(screen.queryByRole('menu')).not.toBeInTheDocument();
+  });
+
+  it('opens the menu and focuses the first item when Enter is pressed while closed', () => {
+    render(<Dropdown trigger="Actions" items={defaultItems} />);
+    const wrapper = screen.getByRole('button', { name: 'Actions' }).parentElement!;
+    fireEvent.keyDown(wrapper, { key: 'Enter' });
+    expect(screen.getByRole('menu')).toBeInTheDocument();
+    const menuItems = screen.getAllByRole('menuitem');
+    expect(menuItems[0]).toHaveClass('uds-dropdown__item--active');
+  });
+
+  it('opens the menu and focuses the first item when Space is pressed while closed', () => {
+    render(<Dropdown trigger="Actions" items={defaultItems} />);
+    const wrapper = screen.getByRole('button', { name: 'Actions' }).parentElement ?? document.body;
+    fireEvent.keyDown(wrapper, { key: ' ' });
+    expect(screen.getByRole('menu')).toBeInTheDocument();
+    const menuItems = screen.getAllByRole('menuitem');
+    expect(menuItems[0]).toHaveClass('uds-dropdown__item--active');
+  });
 });

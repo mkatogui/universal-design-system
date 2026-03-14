@@ -163,12 +163,12 @@ export const CommandPalette = React.forwardRef<HTMLDivElement, CommandPalettePro
           if (e.key === 'Escape') onClose();
         }}
       >
-        {/* biome-ignore lint/a11y/useFocusableInteractive: Custom command palette combobox delegates focus to its nested input */}
         {/* NOSONAR typescript:S6819 — intentional combobox role; native input cannot host the full command palette UX */}
         <div
           ref={ref}
           className={classes}
           role="combobox"
+          tabIndex={-1}
           aria-expanded={open}
           aria-haspopup="listbox"
           aria-controls={listboxId}
@@ -179,7 +179,7 @@ export const CommandPalette = React.forwardRef<HTMLDivElement, CommandPalettePro
             <input
               ref={inputRef}
               className="uds-command-palette__input"
-              type="text"
+              type="search"
               value={query}
               onChange={(e) => {
                 setQuery(e.target.value);
@@ -187,7 +187,6 @@ export const CommandPalette = React.forwardRef<HTMLDivElement, CommandPalettePro
               }}
               onKeyDown={handleKeyDown}
               placeholder={placeholder}
-              role="searchbox"
               aria-autocomplete="list"
               aria-controls={listboxId}
               aria-activedescendant={
@@ -202,7 +201,7 @@ export const CommandPalette = React.forwardRef<HTMLDivElement, CommandPalettePro
                 {group.label && (
                   <div className="uds-command-palette__group-label">{group.label}</div>
                 )}
-                {group.actions.map((action, _i) => {
+                {group.actions.map((action) => {
                   const globalIndex = filtered.indexOf(action);
                   return (
                     // NOSONAR typescript:S6819,typescript:S6852 — intentional ARIA option pattern; keyboard nav handled via input

@@ -144,12 +144,12 @@ export const FileUpload = React.forwardRef<HTMLDivElement, FileUploadProps>(
 
     return (
       <div ref={ref} className={classes} {...props}>
-        {/* NOSONAR typescript:S6819 — intentional role=button on div; drag-and-drop zone requires div semantics */}
-        <div
+        <button
           className="uds-file-upload__zone"
-          role="button"
+          type="button"
           tabIndex={disabled ? -1 : 0}
           aria-label={label || 'Upload files'}
+          disabled={disabled}
           onDragOver={(e) => {
             e.preventDefault();
             if (!disabled) setDragOver(true);
@@ -183,7 +183,7 @@ export const FileUpload = React.forwardRef<HTMLDivElement, FileUploadProps>(
               </p>
             </div>
           )}
-        </div>
+        </button>
         {error && (
           <p className="uds-file-upload__error" role="alert" aria-live="polite">
             {error}
@@ -191,8 +191,8 @@ export const FileUpload = React.forwardRef<HTMLDivElement, FileUploadProps>(
         )}
         {files.length > 0 && (
           <ul className="uds-file-upload__list" aria-live="polite">
-            {files.map((file, i) => (
-              <li key={`${file.name}-${i}`} className="uds-file-upload__file">
+            {files.map((file) => (
+              <li key={file.name} className="uds-file-upload__file">
                 <span className="uds-file-upload__file-name">{file.name}</span>
                 <button
                   className="uds-file-upload__file-remove"

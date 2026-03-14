@@ -139,4 +139,59 @@ describe('FileUpload', () => {
     render(<FileUpload />);
     expect(screen.getByText('Drag and drop files here, or click to browse')).toBeInTheDocument();
   });
+
+  it('calls onUpload when files are selected via the input change event', () => {
+    const handleUpload = vi.fn();
+    const { container } = render(<FileUpload onUpload={handleUpload} />);
+    const input = container.querySelector('input[type="file"]') as HTMLInputElement;
+    const file = makeFile('via-input.png', 100);
+    Object.defineProperty(input, 'files', { value: [file], configurable: true });
+    fireEvent.change(input);
+    expect(handleUpload).toHaveBeenCalledWith([file]);
+  });
+
+  it('triggers input click on Enter key press on the zone', () => {
+    const { container } = render(<FileUpload />);
+    const zone = screen.getByRole('button', { name: 'Upload files' });
+    const input = container.querySelector('input[type="file"]') as HTMLInputElement;
+    const clickSpy = vi.spyOn(input, 'click').mockImplementation(() => {});
+    fireEvent.keyDown(zone, { key: 'Enter' });
+    expect(clickSpy).toHaveBeenCalled();
+  });
+
+  it('triggers input click on Space key press on the zone', () => {
+    const { container } = render(<FileUpload />);
+    const zone = screen.getByRole('button', { name: 'Upload files' });
+    const input = container.querySelector('input[type="file"]') as HTMLInputElement;
+    const clickSpy = vi.spyOn(input, 'click').mockImplementation(() => {});
+    fireEvent.keyDown(zone, { key: ' ' });
+    expect(clickSpy).toHaveBeenCalled();
+  });
+
+  it('does not trigger input click on Enter key when disabled', () => {
+    const { container } = render(<FileUpload disabled />);
+    const zone = screen.getByRole('button', { name: 'Upload files' });
+    const input = container.querySelector('input[type="file"]') as HTMLInputElement;
+    const clickSpy = vi.spyOn(input, 'click').mockImplementation(() => {});
+    fireEvent.keyDown(zone, { key: 'Enter' });
+    expect(clickSpy).not.toHaveBeenCalled();
+  });
+
+  it('triggers input click when the zone button is clicked while not disabled', () => {
+    const { container } = render(<FileUpload />);
+    const zone = screen.getByRole('button', { name: 'Upload files' });
+    const input = container.querySelector('input[type="file"]') as HTMLInputElement;
+    const clickSpy = vi.spyOn(input, 'click').mockImplementation(() => {});
+    fireEvent.click(zone);
+    expect(clickSpy).toHaveBeenCalled();
+  });
+
+  it('does not trigger input click when the zone button is clicked while disabled', () => {
+    const { container } = render(<FileUpload disabled />);
+    const zone = screen.getByRole('button', { name: 'Upload files' });
+    const input = container.querySelector('input[type="file"]') as HTMLInputElement;
+    const clickSpy = vi.spyOn(input, 'click').mockImplementation(() => {});
+    fireEvent.click(zone);
+    expect(clickSpy).not.toHaveBeenCalled();
+  });
 });

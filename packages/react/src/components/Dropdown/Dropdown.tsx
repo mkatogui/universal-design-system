@@ -135,7 +135,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
     .join(' ');
 
   return (
-    <div ref={menuRef} className={classes} onKeyDown={handleKeyDown}>
+    <div ref={menuRef} className={classes} role="none" onKeyDown={handleKeyDown}>
       <button
         ref={triggerRef}
         className="uds-dropdown__trigger"
@@ -159,6 +159,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
                 .filter(Boolean)
                 .join(' ')}
               role="menuitem"
+              type="button"
               disabled={item.disabled}
               tabIndex={-1}
               onClick={() => {

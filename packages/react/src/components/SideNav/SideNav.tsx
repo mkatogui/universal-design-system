@@ -124,7 +124,7 @@ export const SideNav = React.forwardRef<HTMLElement, SideNavProps>(
             {!collapsed && <span className="uds-side-nav__label">{item.label}</span>}
           </a>
           {item.children && item.children.length > 0 && !collapsed && (
-            <ul className="uds-side-nav__sublist" aria-expanded="true">
+            <ul className="uds-side-nav__sublist">
               {item.children.map((child, i) => renderItem(child, i))}
             </ul>
           )}
@@ -135,8 +135,11 @@ export const SideNav = React.forwardRef<HTMLElement, SideNavProps>(
     return (
       <nav ref={ref} className={classes} aria-label="Side navigation" {...props}>
         {sections ? (
-          sections.map((section, si) => (
-            <div key={si} className="uds-side-nav__section">
+          sections.map((section) => (
+            <div
+              key={section.title ?? section.items[0]?.label ?? 'section'}
+              className="uds-side-nav__section"
+            >
               {section.title && !collapsed && (
                 <h3 className="uds-side-nav__section-title">{section.title}</h3>
               )}

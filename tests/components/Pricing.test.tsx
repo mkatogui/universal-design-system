@@ -90,4 +90,13 @@ describe('Pricing', () => {
     expect(callbackRef).toHaveBeenCalled();
     expect(callbackRef.mock.calls[0][0]).toBeInstanceOf(HTMLDivElement);
   });
+
+  it('calls onBillingChange with "monthly" when the monthly button is clicked', () => {
+    const handleChange = vi.fn();
+    render(
+      <Pricing plans={plans} billingToggle billingPeriod="annual" onBillingChange={handleChange} />,
+    );
+    fireEvent.click(screen.getByRole('button', { name: 'Monthly billing' }));
+    expect(handleChange).toHaveBeenCalledWith('monthly');
+  });
 });

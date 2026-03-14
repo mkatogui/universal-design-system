@@ -87,15 +87,20 @@ export const SocialProof = React.forwardRef<HTMLDivElement, SocialProofProps>(
       <div ref={ref} className={classes} {...props}>
         {logos && logos.length > 0 && (
           <div className="uds-social-proof__logos">
-            {logos.map((logo, i) => (
-              <img key={i} className="uds-social-proof__logo" src={logo.src} alt={logo.alt} />
+            {logos.map((logo) => (
+              <img
+                key={logo.src}
+                className="uds-social-proof__logo"
+                src={logo.src}
+                alt={logo.alt}
+              />
             ))}
           </div>
         )}
         {stats && stats.length > 0 && (
           <div className="uds-social-proof__stats">
-            {stats.map((stat, i) => (
-              <div key={i} className="uds-social-proof__stat">
+            {stats.map((stat) => (
+              <div key={stat.label} className="uds-social-proof__stat">
                 <span className="uds-social-proof__stat-value">{stat.value}</span>
                 <span className="uds-social-proof__stat-label">{stat.label}</span>
               </div>
@@ -104,8 +109,8 @@ export const SocialProof = React.forwardRef<HTMLDivElement, SocialProofProps>(
         )}
         {testimonials && testimonials.length > 0 && (
           <div className="uds-social-proof__testimonials">
-            {testimonials.map((t, i) => (
-              <div key={i} className="uds-social-proof__testimonial">
+            {testimonials.map((t) => (
+              <div key={t.name} className="uds-social-proof__testimonial">
                 <p className="uds-social-proof__quote">{t.quote}</p>
                 <cite className="uds-social-proof__cite">
                   {t.name}

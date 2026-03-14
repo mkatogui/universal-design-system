@@ -76,7 +76,7 @@ describe('SideNav', () => {
     expect(screen.getByRole('link', { name: 'Roles' })).toBeInTheDocument();
   });
 
-  it('renders sublist with aria-expanded="true" for nested children', () => {
+  it('renders sublist when nested children are present', () => {
     const items = [
       {
         label: 'Admin',
@@ -86,7 +86,8 @@ describe('SideNav', () => {
     ];
     const { container } = render(<SideNav items={items} />);
     const sublist = container.querySelector('.uds-side-nav__sublist');
-    expect(sublist).toHaveAttribute('aria-expanded', 'true');
+    expect(sublist).toBeInTheDocument();
+    expect(sublist?.tagName).toBe('UL');
   });
 
   it('hides labels when collapsed is true', () => {
@@ -162,5 +163,36 @@ describe('SideNav', () => {
     render(<SideNav items={defaultItems} ref={callbackRef} />);
     expect(callbackRef).toHaveBeenCalled();
     expect(callbackRef.mock.calls[0][0]).toBeInstanceOf(HTMLElement);
+  });
+
+  it('renders items without href using # as the fallback href', () => {
+    const items = [{ label: 'NoHref' }];
+    render(<SideNav items={items} />);
+    const link = screen.getByRole('link', { name: 'NoHref' });
+    expect(link).toHaveAttribute('href', '#');
+  });
+
+  it('does not prevent default when onNavigate is not provided', () => {
+    render(<SideNav items={defaultItems} />);
+    const link = screen.getByRole('link', { name: 'Settings' });
+    // click should not throw; no navigation handler
+    fireEvent.click(link);
+    expect(link).toBeInTheDocument();
+  });
+
+  it('renders sections without a title when title is omitted', () => {
+    const sections = [{ items: [{ label: 'Home', href: '/' }] }];
+    render(<SideNav sections={sections} />);
+    expect(screen.getByRole('link', { name: 'Home' })).toBeInTheDocument();
+    expect(screen.queryByRole('heading')).not.toBeInTheDocument();
+  });
+
+  it('renders children directly when neither items nor sections are provided', () => {
+    render(
+      <SideNav>
+        <div data-testid="custom-content">Custom</div>
+      </SideNav>,
+    );
+    expect(screen.getByTestId('custom-content')).toBeInTheDocument();
   });
 });

@@ -57,7 +57,6 @@ export const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
         ref={ref}
         className={classes}
         style={color ? ({ '--uds-badge-color': color } as React.CSSProperties) : undefined}
-        aria-label={label || undefined}
         {...props}
       >
         {children || label}

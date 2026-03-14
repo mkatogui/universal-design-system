@@ -6,12 +6,12 @@ This document defines the formal guarantees of the Universal Design System. Each
 
 ---
 
-## 1. WCAG 2.1 AA Color Contrast
+## 1. WCAG 2.2 AA Color Contrast
 
 | Field | Detail |
 |-------|--------|
-| **What is promised** | All 9 palettes pass WCAG 2.1 AA contrast ratios in both light and dark mode: 4.5:1 minimum for body text, 3:1 minimum for large text and UI elements. |
-| **How it is tested** | `scripts/wcag-audit.py` tests 108 color pairs (9 palettes x 2 modes x 6 pairs each). Each pair is evaluated against the WCAG 2.1 AA thresholds. Results are written to `audits/a11y-audit.json`. |
+| **What is promised** | All 9 palettes pass WCAG 2.2 AA contrast ratios in both light and dark mode: 4.5:1 minimum for body text, 3:1 minimum for large text and UI elements. |
+| **How it is tested** | `scripts/wcag-audit.py` tests 108 color pairs (9 palettes x 2 modes x 6 pairs each). Each pair is evaluated against the WCAG 2.2 AA thresholds. Results are written to `audits/a11y-audit.json`. |
 | **CI step** | `npm run audit` (see `.github/workflows/ci.yml`, step "WCAG contrast audit") |
 | **If broken** | Fix the failing token values in `tokens/design-tokens.json` for the affected palette and mode. Re-run `npm run audit` locally to confirm the fix before pushing. |
 
@@ -120,7 +120,7 @@ This document defines the formal guarantees of the Universal Design System. Each
 
 | # | Guarantee | Command | Automated |
 |---|-----------|---------|-----------|
-| 1 | WCAG 2.1 AA Color Contrast | `npm run audit` | Yes |
+| 1 | WCAG 2.2 AA Color Contrast | `npm run audit` | Yes |
 | 2 | W3C DTCG Token Format | `npm run validate` | Yes |
 | 3 | Palette Completeness | `npm run validate` | Yes |
 | 4 | CSV Cross-Reference Integrity | `npm run sync-data` | Yes |
