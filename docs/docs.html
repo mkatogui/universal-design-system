@@ -454,7 +454,8 @@ body { font-family: var(--font-sans); background: var(--color-bg-primary); color
 .preview { background: var(--color-bg-secondary); border: 1px solid var(--color-border-default); border-radius: var(--radius-lg); padding: 32px; margin: 16px 0; }
 .preview-label { font-size: var(--text-label); font-weight: var(--font-weight-semibold); color: var(--color-text-secondary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
 .preview-label .tag { padding: 2px 8px; border-radius: var(--radius-full); font-size: 10px; font-weight: 700; }
-.preview-label .tag-new { background: var(--color-success-bg, #ECFDF5); color: var(--color-success); }
+/* WCAG 2.2 AA: success text on success-bg needs ≥4.5:1 — #059669 on #ecfdf5 = 3.57:1; use #047857 */
+.preview-label .tag-new { background: var(--color-success-bg, #ECFDF5); color: #047857; }
 .preview-label .tag-a11y { background: var(--color-info-bg, #EFF6FF); color: var(--color-info); }
 
 /* Code block */
@@ -468,7 +469,7 @@ body { font-family: var(--font-sans); background: var(--color-bg-primary); color
 .do-card, .dont-card { padding: 20px; border-radius: var(--radius-lg); border: 2px solid; }
 .do-card { border-color: var(--color-success); background: var(--color-success-bg, #ECFDF5); }
 .dont-card { border-color: var(--color-error); background: var(--color-error-bg, #FEF2F2); }
-.do-card::before { content: "✓ Do"; font-weight: 700; color: var(--color-success); display: block; margin-bottom: 8px; font-size: var(--text-body-sm); }
+.do-card::before { content: "✓ Do"; font-weight: 700; color: #047857; display: block; margin-bottom: 8px; font-size: var(--text-body-sm); }
 .dont-card::before { content: "✗ Don't"; font-weight: 700; color: var(--color-error); display: block; margin-bottom: 8px; font-size: var(--text-body-sm); }
 
 /* Props table */
@@ -525,7 +526,7 @@ body { font-family: var(--font-sans); background: var(--color-bg-primary); color
 /* Badge */
 .badge { display: inline-flex; align-items: center; gap: 4px; padding: 2px 10px; border-radius: var(--radius-full); font-size: var(--text-label); font-weight: var(--font-weight-semibold); }
 .badge--brand { background: var(--color-brand-muted); color: var(--color-text-primary); }
-.badge--success { background: var(--color-success-bg); color: var(--color-success); }
+.badge--success { background: var(--color-success-bg); color: #047857; }
 .badge--error { background: var(--color-error-bg); color: var(--color-error); }
 .badge--neutral { background: var(--color-bg-tertiary); color: var(--color-text-secondary); }
 .badge--warning { background: var(--color-warning-bg); color: var(--color-warning); }
@@ -929,6 +930,8 @@ html.docs-dark .badge--brand {
   color: var(--color-text-primary);
   background: var(--color-bg-tertiary);
 }
+html.docs-dark .preview-label .tag-new,
+html.docs-dark .badge--success { color: var(--color-success); }
 
 html.docs-dark .breadcrumb a {
   color: var(--color-text-secondary);

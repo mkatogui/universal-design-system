@@ -210,6 +210,11 @@ html.docs-dark .palette-switcher { background: var(--color-bg-secondary); border
 html.docs-dark .palette-pill { background: var(--color-bg-primary); border-color: var(--color-border-default); color: var(--color-text-secondary); }
 html.docs-dark .palette-pill:hover { color: var(--color-text-primary); border-color: var(--color-brand-primary); }
 html.docs-dark .palette-pill.active { background: var(--color-brand-primary); color: var(--color-text-on-brand); border-color: var(--color-brand-primary); }
+/* WCAG 2.2 AA: corporate/minimal-corporate dark primary fails with white text */
+html.docs-dark[data-theme="corporate"] .palette-pill.active,
+html.docs-dark[data-theme="corporate"] .anatomy-btn { background:#1D4ED8;color:#fff;border-color:#1D4ED8; }
+html.docs-dark[data-theme="minimal-corporate"] .palette-pill.active,
+html.docs-dark[data-theme="minimal-corporate"] .anatomy-btn { background:#B45309;color:#fff;border-color:#B45309; }
 html.docs-dark .spacing-row__label { color: var(--color-text-tertiary); }
 html.docs-dark .spacing-row__value { color: var(--color-text-tertiary); }
 html.docs-dark .type-row { border-color: var(--color-border-subtle); }

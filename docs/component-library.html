@@ -467,6 +467,10 @@ html.docs-dark .site-topnav a { color: var(--color-text-secondary); }
 html.docs-dark .site-topnav a:hover { color: var(--color-text-primary); }
 html.docs-dark .site-topnav a.active { color: var(--color-text-primary); }
 html.docs-dark .site-topnav .nav-brand { color: var(--color-text-primary); }
+html.docs-dark .badge--brand { background: var(--color-bg-tertiary); color: var(--color-text-primary); }
+/* WCAG 2.2 AA: corporate/minimal-corporate dark use bright primary that fails with white text */
+html.docs-dark[data-theme="corporate"] .btn--primary { background: #1D4ED8; color: #fff; }
+html.docs-dark[data-theme="minimal-corporate"] .btn--primary { background: #B45309; color: #fff; }
 
 /* Illustration: brand-primary (#E8590C) fails 4.5:1 on white — use accessible alternatives */
 [data-theme="illustration"] a { color: var(--color-text-secondary); }

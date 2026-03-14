@@ -459,6 +459,9 @@ html.docs-dark .form-error-text { color: #F87171; }
 html.docs-dark .skip-link { background: var(--color-bg-inverse); color: var(--color-bg-primary); }
 html.docs-dark .btn--primary { background: var(--color-bg-tertiary); color: var(--color-text-primary); border: 1px solid var(--color-brand-primary); }
 html.docs-dark .btn--primary:hover { background: var(--color-bg-secondary); color: var(--color-text-primary); }
+/* WCAG 2.2 AA: dashboard dark — brand primary on dark bg below 3:1 for large text; use lighter purple */
+html.docs-dark[data-theme="dashboard"] .ds-stat-value,
+html.docs-dark[data-theme="dashboard"] .demo-nav-logo { color: #818CF8; }
 html.docs-dark .btn--destructive { background: #B91C1C; color: #fff; }
 html.docs-dark .btn--destructive:hover { background: #991B1B; color: #fff; }
 html.docs-dark .btn--ghost { color: var(--color-text-primary); }
@@ -991,10 +994,10 @@ html.docs-dark .site-topnav .nav-brand { color: var(--color-text-primary); }
     <h1 id="sect-overview" class="ds-section-title">Universal Design System</h1>
     <p class="ds-section-subtitle">Derived from 100 production websites. 9 structural palettes. 43 components. Built for WCAG 2.2 AA compliance.</p>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:var(--space-4);margin-top:var(--space-8);">
-      <div style="text-align:center;padding:var(--space-5);background:var(--color-bg-tertiary);border-radius:var(--radius-lg);color:var(--color-text-primary);"><div style="font-size:var(--text-display-md);font-weight:800;color:var(--color-brand-primary);">100</div><div style="font-size:var(--text-body-sm);color:var(--color-text-secondary);">Sites Analyzed</div></div>
-      <div style="text-align:center;padding:var(--space-5);background:var(--color-bg-tertiary);border-radius:var(--radius-lg);color:var(--color-text-primary);"><div style="font-size:var(--text-display-md);font-weight:800;color:var(--color-brand-primary);">9</div><div style="font-size:var(--text-body-sm);color:var(--color-text-secondary);">Structural Palettes</div></div>
-      <div style="text-align:center;padding:var(--space-5);background:var(--color-bg-tertiary);border-radius:var(--radius-lg);color:var(--color-text-primary);"><div style="font-size:var(--text-display-md);font-weight:800;color:var(--color-brand-primary);">43</div><div style="font-size:var(--text-body-sm);color:var(--color-text-secondary);">Components</div></div>
-      <div style="text-align:center;padding:var(--space-5);background:var(--color-bg-tertiary);border-radius:var(--radius-lg);color:var(--color-text-primary);"><div style="font-size:var(--text-display-md);font-weight:800;color:var(--color-brand-primary);">AA</div><div style="font-size:var(--text-body-sm);color:var(--color-text-secondary);">WCAG Compliant</div></div>
+      <div style="text-align:center;padding:var(--space-5);background:var(--color-bg-tertiary);border-radius:var(--radius-lg);color:var(--color-text-primary);"><div class="ds-stat-value" style="font-size:var(--text-display-md);font-weight:800;color:var(--color-brand-primary);">100</div><div style="font-size:var(--text-body-sm);color:var(--color-text-secondary);">Sites Analyzed</div></div>
+      <div style="text-align:center;padding:var(--space-5);background:var(--color-bg-tertiary);border-radius:var(--radius-lg);color:var(--color-text-primary);"><div class="ds-stat-value" style="font-size:var(--text-display-md);font-weight:800;color:var(--color-brand-primary);">9</div><div style="font-size:var(--text-body-sm);color:var(--color-text-secondary);">Structural Palettes</div></div>
+      <div style="text-align:center;padding:var(--space-5);background:var(--color-bg-tertiary);border-radius:var(--radius-lg);color:var(--color-text-primary);"><div class="ds-stat-value" style="font-size:var(--text-display-md);font-weight:800;color:var(--color-brand-primary);">43</div><div style="font-size:var(--text-body-sm);color:var(--color-text-secondary);">Components</div></div>
+      <div style="text-align:center;padding:var(--space-5);background:var(--color-bg-tertiary);border-radius:var(--radius-lg);color:var(--color-text-primary);"><div class="ds-stat-value" style="font-size:var(--text-display-md);font-weight:800;color:var(--color-brand-primary);">AA</div><div style="font-size:var(--text-body-sm);color:var(--color-text-secondary);">WCAG Compliant</div></div>
     </div>
   </div>
 </section>

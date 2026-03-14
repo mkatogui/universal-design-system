@@ -2348,6 +2348,11 @@ html.docs-dark .control-group select { background: var(--color-bg-tertiary); bor
 html.docs-dark .palette-option { background: var(--color-bg-tertiary); border-color: var(--color-border-default); color: var(--color-text-secondary); }
 html.docs-dark .palette-option:hover { color: var(--color-text-primary); }
 html.docs-dark .palette-option.active { background: var(--color-brand-primary); color: var(--color-text-on-brand); border-color: var(--color-brand-primary); }
+/* WCAG 2.2 AA: corporate/minimal-corporate dark primary fails with white text */
+html.docs-dark[data-theme="corporate"] .palette-option.active,
+html.docs-dark[data-theme="corporate"] .uds-btn--primary { background:#1D4ED8;color:#fff;border-color:#1D4ED8; }
+html.docs-dark[data-theme="minimal-corporate"] .palette-option.active,
+html.docs-dark[data-theme="minimal-corporate"] .uds-btn--primary { background:#B45309;color:#fff;border-color:#B45309; }
 html.docs-dark .dark-toggle-btn { background: var(--color-bg-tertiary); border-color: var(--color-border-default); color: var(--color-text-secondary); }
 html.docs-dark .dark-toggle-btn:hover { color: var(--color-text-primary); }
 html.docs-dark .preview-box { background: var(--color-bg-secondary); border-color: var(--color-border-default); }
