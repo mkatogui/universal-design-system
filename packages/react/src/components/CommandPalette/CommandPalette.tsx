@@ -155,8 +155,12 @@ export const CommandPalette = React.forwardRef<HTMLDivElement, CommandPalettePro
     return (
       <div
         className="uds-command-palette-overlay"
+        role="none"
         onClick={(e) => {
           if (e.target === e.currentTarget) onClose();
+        }}
+        onKeyDown={(e) => {
+          if (e.key === 'Escape') onClose();
         }}
       >
         {/* biome-ignore lint/a11y/useFocusableInteractive: Custom command palette combobox delegates focus to its nested input */}
