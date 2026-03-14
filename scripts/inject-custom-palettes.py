@@ -14,8 +14,8 @@ import argparse
 import sys
 from pathlib import Path
 
-CSS_START = "<!-- CUSTOM_PALETTES_START -->"
-CSS_END = "<!-- CUSTOM_PALETTES_END -->"
+CSS_START = "/* CUSTOM_PALETTES_START */"
+CSS_END = "/* CUSTOM_PALETTES_END */"
 BTN_START = "<!-- CUSTOM_PALETTE_BUTTONS_START -->"
 BTN_END = "<!-- CUSTOM_PALETTE_BUTTONS_END -->"
 

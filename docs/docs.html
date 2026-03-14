@@ -406,8 +406,9 @@ html.docs-dark[data-theme="minimal-corporate"] {
 }
 
 
-<!-- CUSTOM_PALETTES_START -->
-<!-- CUSTOM_PALETTES_END -->
+/* CUSTOM_PALETTES_START */
+
+/* CUSTOM_PALETTES_END */
 
 /* ============================================================
    DOCS LAYOUT
@@ -424,7 +425,6 @@ body { font-family: var(--font-sans); background: var(--color-bg-primary); color
 .sidebar-header { padding: 0 20px 20px; border-bottom: 1px solid var(--color-border-subtle); margin-bottom: 16px; }
 .sidebar-header h1 { font-family: var(--font-display); font-size: var(--text-heading-sm); font-weight: var(--font-weight-bold); }
 .sidebar-header .version { font-size: var(--text-label); color: var(--color-text-secondary); margin-top: 4px; }
-.sidebar-nav { }
 .sidebar-nav .nav-section { margin-bottom: 0; }
 .sidebar-nav .section-title { width: 100%; padding: 8px 20px; font-size: var(--text-label); font-weight: var(--font-weight-semibold); color: var(--color-text-primary); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 12px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; user-select: none; background: none; border: none; font-family: var(--font-sans); text-align: left; }
 .sidebar-nav .section-title::after { content: ''; display: inline-block; width: 0; height: 0; border-left: 4px solid transparent; border-right: 4px solid transparent; border-top: 5px solid var(--color-text-tertiary); transition: transform var(--duration-fast); margin-right: 4px; flex-shrink: 0; }
@@ -1025,22 +1025,28 @@ html.docs-dark .playground-control-group select {
 /* Illustration: brand-primary (#E8590C) fails 4.5:1 on white — use text-secondary */
 [data-theme="illustration"] .page-footer a { color: var(--color-text-secondary); }
 
-/* === Site Navigation Bar === */
+/* === Site Navigation Bar (matches visual-framework, case-studies, conformance, component-library) === */
 .site-topnav { display: flex; align-items: center; gap: 0; background: #111; color: #fff; font-family: 'Inter', system-ui, sans-serif; font-size: 14px; padding: 0 24px; height: 44px; position: sticky; top: 0; z-index: 9999; }
-.site-topnav .nav-brand { font-weight: 700; margin-right: 32px; white-space: nowrap; font-size: 15px; letter-spacing: -0.02em; }
-.site-topnav a { color: #999; text-decoration: none; padding: 10px 14px; transition: color 0.15s; white-space: nowrap; }
+.site-topnav .nav-brand { font-weight: 700; color: #fff; margin-right: 32px; text-decoration: none; white-space: nowrap; font-size: 15px; letter-spacing: -0.02em; }
+.site-topnav a { color: #b3b3b3; text-decoration: none; padding: 0 12px; height: 44px; display: flex; align-items: center; font-size: 14px; transition: color 0.15s; white-space: nowrap; }
 .site-topnav a:hover { color: #fff; }
-.site-topnav a.active { color: #fff; border-bottom: 2px solid #3b82f6; }
+.site-topnav a.active { color: #fff; font-weight: 600; }
 .topnav-links { display: flex; align-items: center; }
 .topnav-hamburger { display: none; background: none; border: none; cursor: pointer; padding: 8px; color: #fff; width: 44px; height: 44px; align-items: center; justify-content: center; flex-shrink: 0; margin-left: auto; }
 .topnav-hamburger svg { width: 24px; height: 24px; stroke: currentColor; fill: none; stroke-width: 2; }
+html.docs-dark .site-topnav { background: var(--color-bg-secondary); border-color: var(--color-border-default); }
+html.docs-dark .site-topnav a { color: var(--color-text-secondary); }
+html.docs-dark .site-topnav a:hover { color: var(--color-text-primary); }
+html.docs-dark .site-topnav a.active { color: var(--color-text-primary); font-weight: 600; }
+html.docs-dark .site-topnav .nav-brand { color: var(--color-text-primary); }
+[data-theme="illustration"] .site-topnav a.active { color: #fff; }
 @media (max-width: 768px) {
   .site-topnav { flex-wrap: wrap; height: auto; padding: 0 max(12px, env(safe-area-inset-right)) 0 max(12px, env(safe-area-inset-left)); }
   .topnav-hamburger { display: flex; }
   .topnav-links { display: none; order: 99; width: 100%; flex-direction: column; background: #111; border-top: 1px solid #333; }
   .topnav-links--open { display: flex; }
   .topnav-links a { padding: 12px 16px; min-height: 44px; display: flex; align-items: center; font-size: 14px; border-bottom: none; }
-  .topnav-links a.active { border-bottom: none; border-left: 2px solid #3b82f6; }
+  .topnav-links a.active { border-bottom: none; border-left: 2px solid var(--color-brand-primary); }
   .uds-search { order: 98; width: 100%; padding: 8px 16px; }
   .uds-search__input { width: 100%; }
 }
@@ -1199,7 +1205,8 @@ html.docs-dark .playground-control-group select {
   <button class="palette-btn" data-theme="bold-lifestyle">Bold Lifestyle</button>
   <button class="palette-btn" data-theme="minimal-corporate">Minimal Corporate</button>
   <!-- CUSTOM_PALETTE_BUTTONS_START -->
-  <!-- CUSTOM_PALETTE_BUTTONS_END -->
+
+<!-- CUSTOM_PALETTE_BUTTONS_END -->
   <span class="appearance-note" style="font-size:12px;color:var(--color-text-secondary);margin-left:auto;white-space:nowrap">Appearance (light/dark) is independent of palette selection</span>
 </div>
 
