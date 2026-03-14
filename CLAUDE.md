@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Universal Design System v0.4.0 — a deterministic UI recommendation engine powered by retrieval and rule evaluation that recommends palettes, components, patterns, and anti-patterns based on product domain. 9 structural palettes, 43 components, ~600 tokens, 20 CSV databases (1,600+ rows), 84 anti-pattern rules, Tailwind CSS generation, React/Vue/Svelte/Web Components output, WCAG 2.2 AA + APCA dual reporting, 20 AI platform support.
+Universal Design System v0.4.0 — a deterministic UI recommendation engine powered by retrieval and rule evaluation that recommends palettes, components, patterns, and anti-patterns based on product domain. 9 structural palettes, 43 components, ~600 tokens, 20 CSV databases (1,676+ rows), 84 anti-pattern rules, Tailwind CSS generation, React/Vue/Svelte/Web Components output, WCAG 2.2 AA + APCA dual reporting, 20 AI platform support.
 
 ## Key Commands
 
@@ -14,7 +14,7 @@ npm run check
 
 # Individual validators
 npm run validate          # W3C DTCG token format
-npm run audit             # WCAG 2.1 AA contrast (108 checks across 9 palettes × 2 modes)
+npm run audit             # WCAG 2.2 AA contrast (108 checks across 9 palettes × 2 modes)
 npm run audit:apca        # APCA/WCAG 3.0 contrast analysis
 npm run verify            # HTML docs integrity (no hardcoded values, nav links, palette defs)
 
@@ -80,7 +80,7 @@ User Query → DomainDetector → BM25 Search → Rule Application → Token Res
 ### Directory Structure
 
 - **tokens/** — W3C DTCG design tokens (source of truth). 3-tier: primitive (raw color scales) → semantic (functional names) → palette-overrides (per-palette customizations). 20 categories: color, spacing, typography, motion, shadow, radius, opacity, z-index, etc.
-- **src/data/** — 20 CSV databases (1,600+ rows). `products.csv` references `components.csv` and `patterns.csv` via slug. Includes mobile-native databases (`app-interface.csv`, `react-performance.csv`, `stacks/react-native.csv`)
+- **src/data/** — 20 CSV databases (1,676+ rows). `products.csv` references `components.csv` and `patterns.csv` via slug. Includes mobile-native databases (`app-interface.csv`, `react-performance.csv`, `stacks/react-native.csv`)
 - **src/scripts/** — Python: `core.py` (BM25 engine + domain detector + reasoning), `search.py` (CLI search), `design_system.py` (full spec generator with Tailwind/React/Vue/Svelte output), `palette.py` (custom palette CLI)
 - **src/mcp/** — MCP server (Node.js) exposing 6 tools: `search_design_system`, `get_palette`, `get_component`, `generate_tokens`, `list_palettes`, `list_components`. Config examples in `src/mcp/README.md`
 - **cli/** — TypeScript CLI (Commander.js). Commands: `install` (20 platforms), `search`, `init`, `generate`. Auto-detects platform by checking for `.claude/`, `.cursor/`, etc. directories
@@ -103,7 +103,7 @@ All pages are self-contained HTML with inline CSS. They share an identical `site
 | `docs/visual-framework.html` | Visual framework guide with palette cards |
 | `docs/case-studies.html` | 5 real-world design system case studies |
 | `docs/playground.html` | Interactive component playground |
-| `docs/conformance.html` | WCAG 2.1 AA conformance documentation |
+| `docs/conformance.html` | WCAG 2.2 AA conformance documentation |
 
 **CSS format groups:** docs.html, component-library.html, playground.html, reference.html use expanded CSS (spaces after colons). visual-framework.html, case-studies.html, conformance.html use minified CSS (no spaces after colons).
 
@@ -129,7 +129,7 @@ One palette per surface. No mixing.
 
 - Tokens use CSS custom properties (`--color-*`, `--space-*`, `--font-size-*`)
 - Components use BEM naming: `.uds-{component}`, `.uds-{component}--{variant}`
-- All palettes must pass WCAG 2.1 AA (4.5:1 body text, 3:1 large text/UI). Large text = ≥24px normal or ≥18.66px bold
+- All palettes must pass WCAG 2.2 AA (4.5:1 body text, 3:1 large text/UI). Large text = ≥24px normal or ≥18.66px bold
 - Components must use `var(--token-name)`, never hardcoded values
 - All animations must be wrapped in `@media (prefers-reduced-motion: no-preference)`
 - CSV validation is permissive — only required columns are checked, extra columns allowed

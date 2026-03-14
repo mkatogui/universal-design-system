@@ -31,7 +31,7 @@ Expected `npm run check` output:
 |---------|-------------|
 | `npm run check` | Runs all 3 validators (token + WCAG + docs) |
 | `npm run validate` | W3C DTCG token format and palette sync |
-| `npm run audit` | WCAG 2.1 AA contrast — 108 checks across 9 palettes x 2 modes |
+| `npm run audit` | WCAG 2.2 AA contrast — 108 checks across 9 palettes x 2 modes |
 | `npm run verify` | HTML docs integrity — no hardcoded values, valid nav links |
 | `npm run sync-data` | CSV cross-reference validation across 20 databases |
 
@@ -80,7 +80,7 @@ The 9 built-in palettes: `minimal-saas`, `ai-futuristic`, `gradient-startup`, `c
 3. **Register in validators** — add palette name to valid lists in `scripts/validate-tokens.py`, `scripts/wcag-audit.py`, and `src/data/_sync_all.py`.
 4. **Add CSS definitions** in `docs/docs.html` — both `[data-theme="your-palette"]` and `[data-theme="your-palette"].docs-dark` selectors.
 5. **Add reasoning rules** in `src/data/ui-reasoning.csv` mapping sectors/product types to your palette.
-6. **Validate** — `npm run check`. Must pass all WCAG 2.1 AA checks (4.5:1 body text, 3:1 large text/UI).
+6. **Validate** — `npm run check`. Must pass all WCAG 2.2 AA checks (4.5:1 body text, 3:1 large text/UI).
 
 ---
 

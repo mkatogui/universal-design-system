@@ -18,6 +18,8 @@
     "generate": "python3 src/scripts/design_system.py",
     "sync-data": "python3 src/data/_sync_all.py",
     "inject-palettes": "python3 scripts/inject-custom-palettes.py",
+    "metrics": "python3 scripts/compute-metrics.py",
+    "metrics:inject": "python3 scripts/compute-metrics.py --inject",
     "palette": "python3 src/scripts/palette.py",
     "build:react": "cd packages/react && npm run build",
     "build:tokens": "cd packages/tokens && node build.js",
