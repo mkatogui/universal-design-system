@@ -78,6 +78,7 @@ export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
     }, [open]);
 
     if (!open) return null;
+    if (typeof document === 'undefined') return null;
 
     const classes = ['uds-modal', `uds-modal--${variant}`, `uds-modal--${size}`, className]
       .filter(Boolean)

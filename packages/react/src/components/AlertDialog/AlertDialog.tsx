@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useId, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { useDialogOverlay } from '../../utils/useDialogOverlay';
 
@@ -52,14 +52,17 @@ export const AlertDialog = React.forwardRef<HTMLDivElement, AlertDialogProps>(
       }
     }, [open]);
 
+    const reactId = useId();
+
     if (!open) return null;
+    if (typeof document === 'undefined') return null;
 
     const classes = ['uds-alert-dialog', `uds-alert-dialog--${variant}`, className]
       .filter(Boolean)
       .join(' ');
 
-    const titleId = 'uds-alert-dialog-title';
-    const descId = 'uds-alert-dialog-desc';
+    const titleId = `uds-alert-dialog-title-${reactId}`;
+    const descId = `uds-alert-dialog-desc-${reactId}`;
 
     return createPortal(
       <div className="uds-alert-dialog-overlay">

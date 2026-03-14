@@ -2,12 +2,11 @@
 """
 Design System Docs Verification
 Programmatic verification of the HTML documentation file:
-- All CSS custom properties use var() (no hardcoded values)
+- Component CSS uses var(--radius-*) not hardcoded border-radius values
 - All 9 palettes have light + dark mode definitions
 - Sidebar navigation links match section IDs
 - Code blocks have proper formatting
 - Component variant CSS classes exist
-- Accessibility attributes present
 
 Usage:
     python scripts/verify-docs.py

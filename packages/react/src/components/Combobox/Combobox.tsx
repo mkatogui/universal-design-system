@@ -1,5 +1,9 @@
 import React, { useCallback, useEffect, useId, useRef, useState } from 'react';
 
+function sanitizeId(value: string): string {
+  return value.replace(/[^a-zA-Z0-9\-_]/g, '_');
+}
+
 export interface ComboboxOption {
   /** Unique identifier for this option. */
   value: string;
@@ -173,7 +177,7 @@ export const Combobox = React.forwardRef<HTMLDivElement, ComboboxProps>(
             aria-labelledby={labelId}
             aria-activedescendant={
               activeIndex >= 0 && filtered[activeIndex]
-                ? `combobox-opt-${filtered[activeIndex].value}`
+                ? `${listboxId}-opt-${sanitizeId(filtered[activeIndex].value)}`
                 : undefined
             }
             aria-invalid={errorText ? true : undefined}
@@ -193,7 +197,7 @@ export const Combobox = React.forwardRef<HTMLDivElement, ComboboxProps>(
             {filtered.map((option, index) => (
               <div
                 key={option.value}
-                id={`combobox-opt-${option.value}`}
+                id={`${listboxId}-opt-${sanitizeId(option.value)}`}
                 className={[
                   'uds-combobox__option',
                   index === activeIndex && 'uds-combobox__option--active',
@@ -208,10 +212,6 @@ export const Combobox = React.forwardRef<HTMLDivElement, ComboboxProps>(
                 onClick={() => {
                   if (!option.disabled) handleSelect(option.value);
                 }}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' && !option.disabled) handleSelect(option.value);
-                }}
-                tabIndex={-1}
               >
                 {option.label}
               </div>
@@ -222,10 +222,6 @@ export const Combobox = React.forwardRef<HTMLDivElement, ComboboxProps>(
                 role="option"
                 aria-selected={false}
                 onClick={handleCreate}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter') handleCreate();
-                }}
-                tabIndex={-1}
               >
                 Create &ldquo;{query.trim()}&rdquo;
               </div>

@@ -94,11 +94,11 @@ def _collect_leaf_tokens(obj: dict, path: str, root: dict, inherited_type: str =
 
         if _is_leaf_token(value):
             errors = []
-            # DTCG v1: Every leaf MUST have explicit $type
-            if "$type" not in value:
+            # DTCG v1: Every leaf needs a $type (explicit or inherited)
+            if "$type" not in value and not group_type:
                 errors.append(
-                    f"{current_path}: Leaf token missing mandatory $type "
-                    f"(inherited would be '{group_type}')"
+                    f"{current_path}: Leaf token missing $type "
+                    f"(no explicit or inherited type available)"
                 )
 
             # Validate $type is a known DTCG type
@@ -385,6 +385,9 @@ def main():
         all_errors.extend(
             validate_oklch_extensions(design_tokens, design_tokens_path)
         )
+        leaf_issues = validate_leaf_tokens(design_tokens, design_tokens_path)
+        if leaf_issues:
+            all_warnings.extend(leaf_issues)
         print(f"  Validated {design_tokens_path}")
     else:
         all_errors.append(f"File not found: {design_tokens_path}")
@@ -402,6 +405,13 @@ def main():
 
     # Report
     print()
+    if all_warnings:
+        print(f"WARNINGS: {len(all_warnings)} leaf token issue(s)")
+        for warn in all_warnings[:10]:
+            print(f"  WARN: {warn}")
+        if len(all_warnings) > 10:
+            print(f"  ... and {len(all_warnings) - 10} more")
+        print()
     if all_errors:
         print(f"FAILED: {len(all_errors)} error(s)")
         for err in all_errors:

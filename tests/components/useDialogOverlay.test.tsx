@@ -74,4 +74,30 @@ describe('useDialogOverlay', () => {
     render(<TestDialog open={false} onClose={vi.fn()} />);
     expect(screen.queryByTestId('dialog')).not.toBeInTheDocument();
   });
+
+  it('supports stacked overlays without premature scroll restore', () => {
+    const { rerender } = render(
+      <>
+        <TestDialog open={true} onClose={vi.fn()} />
+        <TestDialog open={true} onClose={vi.fn()} />
+      </>,
+    );
+    expect(document.body.style.overflow).toBe('hidden');
+    // Close one dialog — scroll should still be locked
+    rerender(
+      <>
+        <TestDialog open={true} onClose={vi.fn()} />
+        <TestDialog open={false} onClose={vi.fn()} />
+      </>,
+    );
+    expect(document.body.style.overflow).toBe('hidden');
+    // Close last dialog — scroll should be restored
+    rerender(
+      <>
+        <TestDialog open={false} onClose={vi.fn()} />
+        <TestDialog open={false} onClose={vi.fn()} />
+      </>,
+    );
+    expect(document.body.style.overflow).toBe('');
+  });
 });
