@@ -88,4 +88,11 @@ describe('Avatar', () => {
     expect(fallback).toBeInTheDocument();
     expect(fallback).toHaveAttribute('aria-hidden', 'true');
   });
+
+  it('renders image with empty alt when src is provided but no alt', () => {
+    const { container } = render(<Avatar src="/photo.jpg" />);
+    const img = container.querySelector('.uds-avatar__image');
+    expect(img).toBeInTheDocument();
+    expect(img).toHaveAttribute('alt', '');
+  });
 });

@@ -199,4 +199,43 @@ describe('Dropdown', () => {
     const menuItems = screen.getAllByRole('menuitem');
     expect(menuItems[0]).toHaveClass('uds-dropdown__item--active');
   });
+
+  it('clicking inside the dropdown menu does not close it', () => {
+    render(<Dropdown trigger="Actions" items={defaultItems} />);
+    fireEvent.click(screen.getByRole('button', { name: 'Actions' }));
+    expect(screen.getByRole('menu')).toBeInTheDocument();
+    fireEvent.mouseDown(screen.getByRole('menu'));
+    expect(screen.getByRole('menu')).toBeInTheDocument();
+  });
+
+  it('handles keyboard navigation when all items are disabled', () => {
+    const allDisabled = [
+      { label: 'Edit', value: 'edit', disabled: true },
+      { label: 'Delete', value: 'delete', disabled: true },
+    ];
+    render(<Dropdown trigger="Actions" items={allDisabled} />);
+    const wrapper = screen.getByRole('button', { name: 'Actions' }).parentElement!;
+    fireEvent.keyDown(wrapper, { key: 'ArrowDown' });
+    expect(screen.getByRole('menu')).toBeInTheDocument();
+  });
+
+  it('selects the active item with Enter key when menu is open', () => {
+    const handleSelect = vi.fn();
+    render(<Dropdown trigger="Actions" items={defaultItems} onSelect={handleSelect} />);
+    const wrapper = screen.getByRole('button', { name: 'Actions' }).parentElement!;
+    fireEvent.click(screen.getByRole('button', { name: 'Actions' }));
+    fireEvent.keyDown(wrapper, { key: 'ArrowDown' });
+    fireEvent.keyDown(wrapper, { key: 'Enter' });
+    expect(handleSelect).toHaveBeenCalledWith('edit');
+  });
+
+  it('ArrowDown cycles through items when menu is open', () => {
+    render(<Dropdown trigger="Actions" items={defaultItems} />);
+    const wrapper = screen.getByRole('button', { name: 'Actions' }).parentElement!;
+    fireEvent.click(screen.getByRole('button', { name: 'Actions' }));
+    fireEvent.keyDown(wrapper, { key: 'ArrowDown' });
+    fireEvent.keyDown(wrapper, { key: 'ArrowDown' });
+    const menuItems = screen.getAllByRole('menuitem');
+    expect(menuItems[1]).toHaveClass('uds-dropdown__item--active');
+  });
 });
