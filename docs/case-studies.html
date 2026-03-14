@@ -258,14 +258,6 @@ html.docs-dark .cs-code-hint code { background:var(--color-bg-tertiary);color:va
 /* ==============================================================
    ACCESSIBILITY
    ============================================================== */
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-}
 @media (forced-colors: active) {
   .cs-card, .cs-swatch, .cs-antipattern { border: 2px solid CanvasText; }
   .palette-pill { border: 2px solid ButtonText; }
@@ -722,7 +714,7 @@ html, body { overflow-x: hidden; }
     <a href="conformance.html">Conformance</a>
   </div>
 </nav>
-<a href="#main-content" class="skip-link">Skip to content</a>
+<a href="#main-content" class="skip-link">Skip to main content</a>
 
 <!-- HEADER -->
 <header class="page-header" id="main-content">

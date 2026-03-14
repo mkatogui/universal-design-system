@@ -236,14 +236,6 @@ html.docs-dark .badge--na { background:#2A2A36; color:#B0B0BC; }
 /* ==============================================================
    ACCESSIBILITY
    ============================================================== */
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-}
 @media (forced-colors: active) {
   .conf-table, .conf-card, .method-card, .limitation-card { border: 2px solid CanvasText; }
   .badge--supports, .badge--partial, .badge--na { border: 1px solid ButtonText; }
@@ -624,7 +616,7 @@ html, body { overflow-x: hidden; }
     <a href="conformance.html" class="active">Conformance</a>
   </div>
 </nav>
-<a href="#main-content" class="skip-link">Skip to content</a>
+<a href="#main-content" class="skip-link">Skip to main content</a>
 
 <!-- HEADER -->
 <header class="page-header" id="main-content">
