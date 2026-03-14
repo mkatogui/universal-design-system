@@ -40,8 +40,20 @@ for (const page of PAGES) {
           },
           { palette, mode },
         );
-        // Wait for fonts and animations
-        await p.waitForTimeout(500);
+        // Wait for fonts to fully load
+        await p.evaluate(() => document.fonts.ready);
+        // Freeze all animations and transitions to prevent layout shifts
+        await p.addStyleTag({
+          content: '*, *::before, *::after { animation: none !important; transition: none !important; }',
+        });
+        // Force sidebar accordion groups to a stable collapsed state (docs.html IntersectionObserver causes height flicker)
+        await p.evaluate(() => {
+          document.querySelectorAll('.section-group').forEach((el) => {
+            el.classList.add('collapsed');
+            (el as HTMLElement).style.maxHeight = '0';
+          });
+        });
+        await p.waitForTimeout(300);
         await expect(p).toHaveScreenshot(`${page.name}-${palette}-${mode}.png`, {
           fullPage: true,
           maxDiffPixelRatio: 0.01,
