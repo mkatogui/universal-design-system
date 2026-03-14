@@ -748,7 +748,7 @@ html, body { overflow-x: clip; }
 <!-- SECTION 3: COLOR SYSTEM (all 9 palettes shown simultaneously) -->
 <section class="section" id="colors" aria-labelledby="colors-heading">
   <h2 class="section__title" id="colors-heading">Color System</h2>
-  <p class="section__desc">All 9 palettes with 10 key swatches each. Brand, text, background, border, and status colors.</p>
+  <p class="section__desc">All 9 palettes with 17 semantic swatches each. Brand, text, background, border, status, and utility colors.</p>
   <div class="palette-grid" id="paletteGrid"></div>
 </section>
 
@@ -849,109 +849,172 @@ document.querySelectorAll('.palette-pill').forEach(function(pill) {
       { label: 'brand', value: '#2563EB', dark: false },
       { label: 'secondary', value: '#3B82F6', dark: false },
       { label: 'accent', value: '#60A5FA', dark: false },
+      { label: 'muted', value: '#DBEAFE', dark: false },
       { label: 'bg', value: '#FFFFFF', dark: false },
       { label: 'bg-sec', value: '#F8F8FA', dark: false },
+      { label: 'bg-ter', value: '#F0F0F5', dark: false },
       { label: 'text', value: '#111118', dark: true },
       { label: 'text-sec', value: '#555566', dark: true },
+      { label: 'text-ter', value: '#6B6B7B', dark: true },
       { label: 'border', value: '#C8C8D4', dark: false },
+      { label: 'border-sub', value: '#E8E8F0', dark: false },
+      { label: 'inverse', value: '#111118', dark: true },
       { label: 'success', value: '#059669', dark: true },
-      { label: 'error', value: '#DC2626', dark: false }
+      { label: 'warning', value: '#D97706', dark: true },
+      { label: 'error', value: '#DC2626', dark: false },
+      { label: 'info', value: '#2563EB', dark: false }
     ]},
     { name: 'AI Futuristic', theme: 'ai-futuristic', colors: [
       { label: 'brand', value: '#00FF88', dark: false },
       { label: 'secondary', value: '#00D4FF', dark: false },
       { label: 'accent', value: '#8B5CF6', dark: false },
+      { label: 'muted', value: '#0A2A1A', dark: true },
       { label: 'bg', value: '#0A0A0F', dark: true },
       { label: 'bg-sec', value: '#111118', dark: true },
+      { label: 'bg-ter', value: '#1A1A24', dark: true },
       { label: 'text', value: '#E0E0EE', dark: false },
       { label: 'text-sec', value: '#9999AA', dark: false },
+      { label: 'text-ter', value: '#7A7A8C', dark: false },
       { label: 'border', value: '#2A2A36', dark: true },
-      { label: 'success', value: '#059669', dark: true },
-      { label: 'error', value: '#DC2626', dark: false }
+      { label: 'border-sub', value: '#1E1E28', dark: true },
+      { label: 'inverse', value: '#FFFFFF', dark: false },
+      { label: 'success', value: '#34D399', dark: false },
+      { label: 'warning', value: '#FBBF24', dark: false },
+      { label: 'error', value: '#F87171', dark: false },
+      { label: 'info', value: '#60A5FA', dark: false }
     ]},
     { name: 'Gradient Startup', theme: 'gradient-startup', colors: [
       { label: 'brand', value: '#7C3AED', dark: false },
       { label: 'secondary', value: '#EC4899', dark: false },
       { label: 'accent', value: '#F59E0B', dark: false },
+      { label: 'muted', value: '#F3E8FF', dark: false },
       { label: 'bg', value: '#FFFFFF', dark: false },
       { label: 'bg-sec', value: '#FAF5FF', dark: false },
+      { label: 'bg-ter', value: '#F3E8FF', dark: false },
       { label: 'text', value: '#111118', dark: true },
       { label: 'text-sec', value: '#555566', dark: true },
+      { label: 'text-ter', value: '#6B6B7B', dark: true },
       { label: 'border', value: '#C8C8D4', dark: false },
+      { label: 'border-sub', value: '#E8E8F0', dark: false },
+      { label: 'inverse', value: '#2E1065', dark: true },
       { label: 'success', value: '#059669', dark: true },
-      { label: 'error', value: '#DC2626', dark: false }
+      { label: 'warning', value: '#D97706', dark: true },
+      { label: 'error', value: '#DC2626', dark: false },
+      { label: 'info', value: '#2563EB', dark: false }
     ]},
     { name: 'Corporate', theme: 'corporate', colors: [
       { label: 'brand', value: '#1A365D', dark: true },
       { label: 'secondary', value: '#2B6CB0', dark: false },
       { label: 'accent', value: '#4299E1', dark: false },
+      { label: 'muted', value: '#EBF4FF', dark: false },
       { label: 'bg', value: '#FFFFFF', dark: false },
       { label: 'bg-sec', value: '#F7F8FA', dark: false },
+      { label: 'bg-ter', value: '#EDF0F5', dark: false },
       { label: 'text', value: '#1A202C', dark: true },
       { label: 'text-sec', value: '#4A5568', dark: true },
+      { label: 'text-ter', value: '#636B78', dark: true },
       { label: 'border', value: '#CBD5E0', dark: false },
+      { label: 'border-sub', value: '#E2E8F0', dark: false },
+      { label: 'inverse', value: '#1A202C', dark: true },
       { label: 'success', value: '#059669', dark: true },
-      { label: 'error', value: '#DC2626', dark: false }
+      { label: 'warning', value: '#D97706', dark: true },
+      { label: 'error', value: '#DC2626', dark: false },
+      { label: 'info', value: '#2563EB', dark: false }
     ]},
     { name: 'Apple Minimal', theme: 'apple-minimal', colors: [
       { label: 'brand', value: '#0071E3', dark: false },
       { label: 'secondary', value: '#147CE5', dark: false },
       { label: 'accent', value: '#5AC8FA', dark: false },
+      { label: 'muted', value: '#E8F0FE', dark: false },
       { label: 'bg', value: '#FFFFFF', dark: false },
       { label: 'bg-sec', value: '#FBFBFD', dark: false },
+      { label: 'bg-ter', value: '#F5F5F7', dark: false },
       { label: 'text', value: '#1D1D1F', dark: true },
       { label: 'text-sec', value: '#515154', dark: true },
+      { label: 'text-ter', value: '#6E6E73', dark: true },
       { label: 'border', value: '#D2D2D7', dark: false },
+      { label: 'border-sub', value: '#E5E5EA', dark: false },
+      { label: 'inverse', value: '#000000', dark: true },
       { label: 'success', value: '#059669', dark: true },
-      { label: 'error', value: '#DC2626', dark: false }
+      { label: 'warning', value: '#D97706', dark: true },
+      { label: 'error', value: '#DC2626', dark: false },
+      { label: 'info', value: '#0071E3', dark: false }
     ]},
     { name: 'Illustration', theme: 'illustration', colors: [
       { label: 'brand', value: '#C2410C', dark: false },
       { label: 'secondary', value: '#7048E8', dark: false },
       { label: 'accent', value: '#12B886', dark: false },
+      { label: 'muted', value: '#FFF4E6', dark: false },
       { label: 'bg', value: '#FFFFFF', dark: false },
       { label: 'bg-sec', value: '#FFF8F0', dark: false },
+      { label: 'bg-ter', value: '#FFF0E6', dark: false },
       { label: 'text', value: '#1A1523', dark: true },
       { label: 'text-sec', value: '#5C5470', dark: true },
+      { label: 'text-ter', value: '#7A7189', dark: true },
       { label: 'border', value: '#C4B5A4', dark: false },
+      { label: 'border-sub', value: '#E8DDD0', dark: false },
+      { label: 'inverse', value: '#1A1523', dark: true },
       { label: 'success', value: '#059669', dark: true },
-      { label: 'error', value: '#DC2626', dark: false }
+      { label: 'warning', value: '#D97706', dark: true },
+      { label: 'error', value: '#DC2626', dark: false },
+      { label: 'info', value: '#2563EB', dark: false }
     ]},
     { name: 'Dashboard', theme: 'dashboard', colors: [
       { label: 'brand', value: '#4F46E5', dark: false },
       { label: 'secondary', value: '#0EA5E9', dark: false },
       { label: 'accent', value: '#06B6D4', dark: false },
+      { label: 'muted', value: '#EEF2FF', dark: false },
       { label: 'bg', value: '#FFFFFF', dark: false },
       { label: 'bg-sec', value: '#F7F8FC', dark: false },
+      { label: 'bg-ter', value: '#EEF0F8', dark: false },
       { label: 'text', value: '#0F1117', dark: true },
       { label: 'text-sec', value: '#525866', dark: true },
+      { label: 'text-ter', value: '#6E7585', dark: true },
       { label: 'border', value: '#C5CAD4', dark: false },
+      { label: 'border-sub', value: '#E0E3EB', dark: false },
+      { label: 'inverse', value: '#0F1117', dark: true },
       { label: 'success', value: '#059669', dark: true },
-      { label: 'error', value: '#DC2626', dark: false }
+      { label: 'warning', value: '#D97706', dark: true },
+      { label: 'error', value: '#DC2626', dark: false },
+      { label: 'info', value: '#2563EB', dark: false }
     ]},
     { name: 'Bold Lifestyle', theme: 'bold-lifestyle', colors: [
       { label: 'brand', value: '#111111', dark: true },
       { label: 'secondary', value: '#FF4500', dark: false },
       { label: 'accent', value: '#FFD700', dark: false },
+      { label: 'muted', value: '#F5F5F5', dark: false },
       { label: 'bg', value: '#FFFFFF', dark: false },
       { label: 'bg-sec', value: '#F5F5F5', dark: false },
+      { label: 'bg-ter', value: '#EBEBEB', dark: false },
       { label: 'text', value: '#111111', dark: true },
       { label: 'text-sec', value: '#525252', dark: true },
+      { label: 'text-ter', value: '#6B6B6B', dark: true },
       { label: 'border', value: '#BFBFBF', dark: false },
+      { label: 'border-sub', value: '#D9D9D9', dark: false },
+      { label: 'inverse', value: '#111111', dark: true },
       { label: 'success', value: '#059669', dark: true },
-      { label: 'error', value: '#DC2626', dark: false }
+      { label: 'warning', value: '#D97706', dark: true },
+      { label: 'error', value: '#DC2626', dark: false },
+      { label: 'info', value: '#2563EB', dark: false }
     ]},
     { name: 'Minimal Corporate', theme: 'minimal-corporate', colors: [
       { label: 'brand', value: '#B45309', dark: false },
       { label: 'secondary', value: '#92400E', dark: true },
       { label: 'accent', value: '#D97706', dark: false },
+      { label: 'muted', value: '#FEF3C7', dark: false },
       { label: 'bg', value: '#FDFCFB', dark: false },
       { label: 'bg-sec', value: '#F7F5F2', dark: false },
+      { label: 'bg-ter', value: '#EFECE8', dark: false },
       { label: 'text', value: '#1C1917', dark: true },
       { label: 'text-sec', value: '#57534E', dark: true },
+      { label: 'text-ter', value: '#78716C', dark: true },
       { label: 'border', value: '#D6D3CD', dark: false },
+      { label: 'border-sub', value: '#E7E5E4', dark: false },
+      { label: 'inverse', value: '#1C1917', dark: true },
       { label: 'success', value: '#059669', dark: true },
-      { label: 'error', value: '#DC2626', dark: false }
+      { label: 'warning', value: '#D97706', dark: true },
+      { label: 'error', value: '#DC2626', dark: false },
+      { label: 'info', value: '#2563EB', dark: false }
     ]}
   ];
 

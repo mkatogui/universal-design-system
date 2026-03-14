@@ -1106,18 +1106,27 @@ palette with accessible components."</span>
 
 <!-- JAVASCRIPT -->
 <script>
-/* Palette data */
+/* Palette data — full semantic set per palette (same as Color System in visual-framework) */
 var PALETTES=[
-  {id:'ai-futuristic',name:'AI Futuristic',best:'AI, DevTools, Gaming',primary:'#00FF88',secondary:'#00D4FF',accent:'#8B5CF6',bg:'#0A0A0F',text:'#E0E0EE'},
-  {id:'minimal-saas',name:'Minimal SaaS',best:'SaaS, Healthcare, E-commerce',primary:'#2563EB',secondary:'#3B82F6',accent:'#60A5FA',bg:'#FFFFFF',text:'#111118'},
-  {id:'gradient-startup',name:'Gradient Startup',best:'Startups, Marketing, Events',primary:'#7C3AED',secondary:'#EC4899',accent:'#F59E0B',bg:'#FFFFFF',text:'#111118'},
-  {id:'corporate',name:'Corporate',best:'Finance, Insurance, Government',primary:'#1A365D',secondary:'#2B6CB0',accent:'#4299E1',bg:'#FFFFFF',text:'#1A202C'},
-  {id:'apple-minimal',name:'Apple Minimal',best:'Luxury, Consumer Tech, Premium',primary:'#0071E3',secondary:'#147CE5',accent:'#5AC8FA',bg:'#FFFFFF',text:'#1D1D1F'},
-  {id:'illustration',name:'Illustration',best:'Education, Kids, Nonprofit',primary:'#C2410C',secondary:'#7048E8',accent:'#12B886',bg:'#FFFFFF',text:'#1A1523'},
-  {id:'dashboard',name:'Dashboard',best:'Analytics, Data Viz, Reporting',primary:'#4F46E5',secondary:'#0EA5E9',accent:'#06B6D4',bg:'#FFFFFF',text:'#0F1117'},
-  {id:'bold-lifestyle',name:'Bold Lifestyle',best:'Fashion, Sports, Entertainment',primary:'#111111',secondary:'#FF4500',accent:'#FFD700',bg:'#FFFFFF',text:'#111111'},
-  {id:'minimal-corporate',name:'Minimal Corporate',best:'Legal, News, Architecture',primary:'#B45309',secondary:'#92400E',accent:'#D97706',bg:'#FDFCFB',text:'#1C1917'}
+  {id:'ai-futuristic',name:'AI Futuristic',best:'AI, DevTools, Gaming',primary:'#00FF88',secondary:'#00D4FF',accent:'#8B5CF6',muted:'#0A2A1A',bg:'#0A0A0F',bgSec:'#111118',bgTer:'#1A1A24',text:'#E0E0EE',textSec:'#9999AA',textTer:'#7A7A8C',border:'#2A2A36',borderSub:'#1E1E28',inverse:'#FFFFFF',success:'#34D399',warning:'#FBBF24',error:'#F87171',info:'#60A5FA'},
+  {id:'minimal-saas',name:'Minimal SaaS',best:'SaaS, Healthcare, E-commerce',primary:'#2563EB',secondary:'#3B82F6',accent:'#60A5FA',muted:'#DBEAFE',bg:'#FFFFFF',bgSec:'#F8F8FA',bgTer:'#F0F0F5',text:'#111118',textSec:'#555566',textTer:'#6B6B7B',border:'#C8C8D4',borderSub:'#E8E8F0',inverse:'#111118',success:'#059669',warning:'#D97706',error:'#DC2626',info:'#2563EB'},
+  {id:'gradient-startup',name:'Gradient Startup',best:'Startups, Marketing, Events',primary:'#7C3AED',secondary:'#EC4899',accent:'#F59E0B',muted:'#F3E8FF',bg:'#FFFFFF',bgSec:'#FAF5FF',bgTer:'#F3E8FF',text:'#111118',textSec:'#555566',textTer:'#6B6B7B',border:'#C8C8D4',borderSub:'#E8E8F0',inverse:'#2E1065',success:'#059669',warning:'#D97706',error:'#DC2626',info:'#2563EB'},
+  {id:'corporate',name:'Corporate',best:'Finance, Insurance, Government',primary:'#1A365D',secondary:'#2B6CB0',accent:'#4299E1',muted:'#EBF4FF',bg:'#FFFFFF',bgSec:'#F7F8FA',bgTer:'#EDF0F5',text:'#1A202C',textSec:'#4A5568',textTer:'#636B78',border:'#CBD5E0',borderSub:'#E2E8F0',inverse:'#1A202C',success:'#059669',warning:'#D97706',error:'#DC2626',info:'#2563EB'},
+  {id:'apple-minimal',name:'Apple Minimal',best:'Luxury, Consumer Tech, Premium',primary:'#0071E3',secondary:'#147CE5',accent:'#5AC8FA',muted:'#E8F0FE',bg:'#FFFFFF',bgSec:'#FBFBFD',bgTer:'#F5F5F7',text:'#1D1D1F',textSec:'#515154',textTer:'#6E6E73',border:'#D2D2D7',borderSub:'#E5E5EA',inverse:'#000000',success:'#059669',warning:'#D97706',error:'#DC2626',info:'#0071E3'},
+  {id:'illustration',name:'Illustration',best:'Education, Kids, Nonprofit',primary:'#C2410C',secondary:'#7048E8',accent:'#12B886',muted:'#FFF4E6',bg:'#FFFFFF',bgSec:'#FFF8F0',bgTer:'#FFF0E6',text:'#1A1523',textSec:'#5C5470',textTer:'#7A7189',border:'#C4B5A4',borderSub:'#E8DDD0',inverse:'#1A1523',success:'#059669',warning:'#D97706',error:'#DC2626',info:'#2563EB'},
+  {id:'dashboard',name:'Dashboard',best:'Analytics, Data Viz, Reporting',primary:'#4F46E5',secondary:'#0EA5E9',accent:'#06B6D4',muted:'#EEF2FF',bg:'#FFFFFF',bgSec:'#F7F8FC',bgTer:'#EEF0F8',text:'#0F1117',textSec:'#525866',textTer:'#6E7585',border:'#C5CAD4',borderSub:'#E0E3EB',inverse:'#0F1117',success:'#059669',warning:'#D97706',error:'#DC2626',info:'#2563EB'},
+  {id:'bold-lifestyle',name:'Bold Lifestyle',best:'Fashion, Sports, Entertainment',primary:'#111111',secondary:'#FF4500',accent:'#FFD700',muted:'#F5F5F5',bg:'#FFFFFF',bgSec:'#F5F5F5',bgTer:'#EBEBEB',text:'#111111',textSec:'#525252',textTer:'#6B6B6B',border:'#BFBFBF',borderSub:'#D9D9D9',inverse:'#111111',success:'#059669',warning:'#D97706',error:'#DC2626',info:'#2563EB'},
+  {id:'minimal-corporate',name:'Minimal Corporate',best:'Legal, News, Architecture',primary:'#B45309',secondary:'#92400E',accent:'#D97706',muted:'#FEF3C7',bg:'#FDFCFB',bgSec:'#F7F5F2',bgTer:'#EFECE8',text:'#1C1917',textSec:'#57534E',textTer:'#78716C',border:'#D6D3CD',borderSub:'#E7E5E4',inverse:'#1C1917',success:'#059669',warning:'#D97706',error:'#DC2626',info:'#2563EB'}
 ];
+
+/* Ordered list of semantic keys for “Recommended Palette” swatches (whole system) */
+var PALETTE_SWATCH_KEYS=['primary','secondary','accent','muted','bg','bgSec','bgTer','text','textSec','textTer','border','borderSub','inverse','success','warning','error','info'];
+
+function getPaletteColors(paletteId){
+  var p=PALETTES.filter(function(x){return x.id===paletteId;})[0];
+  if(!p)return [];
+  return PALETTE_SWATCH_KEYS.map(function(k){return p[k]?{key:k,value:p[k]}:null;}).filter(Boolean);
+}
 
 /* Playground query database */
 var QUERIES={
@@ -1179,13 +1188,17 @@ function renderPaletteSwitcher(){
   }).join('');
 }
 
-/* Render result swatches */
+/* Render result swatches — colors is array of {key,value} or legacy array of hex strings */
 function renderResultSwatches(colors){
   if(!colors||!colors.length)return;
   var el=document.getElementById('resultSwatches');
   if(!el)return;
-  el.innerHTML=colors.map(function(c){
-    return '<div class="playground__swatch" style="background:'+c+'" title="'+c+'"><span class="playground__swatch-label">'+c+'</span></div>';
+  var items=colors[0]&&typeof colors[0]==='object'&&colors[0].key
+    ?colors
+    :colors.map(function(c){return {key:c,value:c};});
+  el.innerHTML=items.map(function(item){
+    var v=item.value||item, k=item.key||v;
+    return '<div class="playground__swatch" style="background:'+v+'" title="'+k+' '+v+'"><span class="playground__swatch-label">'+k+'</span></div>';
   }).join('');
 }
 /* Switch palette */
@@ -1193,9 +1206,8 @@ function switchPalette(id){
   document.documentElement.setAttribute('data-theme',id);
   renderPaletteShowcase();
   renderPaletteSwitcher();
-  /* Update recommended palette swatches to reflect the selected palette */
-  var p=PALETTES.filter(function(x){return x.id===id;})[0];
-  if(p) renderResultSwatches([p.primary,p.secondary,p.accent,p.bg,p.text]);
+  /* Update recommended palette swatches to reflect the full palette (whole system) */
+  renderResultSwatches(getPaletteColors(id));
 }
 
 /* Run playground */
@@ -1212,7 +1224,7 @@ function runPlayground(query){
     if(score>bestScore){bestScore=score;match=QUERIES[key];}
   }
   if(!match)match=QUERIES['ai developer tools'];
-  renderResultSwatches(match.colors);
+  renderResultSwatches(getPaletteColors(match.palette));
   document.getElementById('resultComponents').innerHTML=match.components.map(function(c){
     return '<span class="playground__component-tag">'+c+'</span>';
   }).join('');
