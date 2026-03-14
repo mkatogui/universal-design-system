@@ -1,7 +1,7 @@
 ---
 name: UDS Getting Started
 description: How to use the installed Universal Design System skills, pick which ones to use, and add or customize skills in your project.
-version: 0.4.1
+version: 0.4.2
 triggers:
   - uds getting started
   - how to use uds

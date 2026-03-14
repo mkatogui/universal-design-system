@@ -131,7 +131,7 @@ Use `node_modules/@mkatogui/universal-design-system/src/mcp/index.js` when the p
 
 ```yaml
 name: Universal Design System MCP
-version: 0.4.1
+version: 0.4.2
 schema: v1
 mcpServers:
   - name: universal-design-system
