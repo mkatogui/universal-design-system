@@ -35,7 +35,9 @@ export const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
   ) => {
     const inputId =
       id ||
-      (label ? `uds-radio-${name}-${String(value).toLowerCase().replace(/\s+/g, '-')}` : undefined);
+      (label
+        ? `uds-radio-${name}-${String(value).toLowerCase().replaceAll(/\s+/g, '-')}`
+        : undefined);
 
     const classes = ['uds-radio', `uds-radio--${variant}`, className].filter(Boolean).join(' ');
 

@@ -1,9 +1,17 @@
 /**
- * Install command — copies the design system skill
+ * Install command — copies skills, agents, commands, and MCP config
  * into the target platform's expected location.
  */
 
-import { cpSync, existsSync, mkdirSync, readdirSync, statSync } from 'node:fs';
+import {
+  cpSync,
+  existsSync,
+  mkdirSync,
+  readdirSync,
+  readFileSync,
+  statSync,
+  writeFileSync,
+} from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -13,6 +21,7 @@ const dim = (s: string) => `\x1b[2m${s}\x1b[0m`;
 const green = (s: string) => `\x1b[32m${s}\x1b[0m`;
 const red = (s: string) => `\x1b[31m${s}\x1b[0m`;
 const yellow = (s: string) => `\x1b[33m${s}\x1b[0m`;
+const cyan = (s: string) => `\x1b[36m${s}\x1b[0m`;
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -23,37 +32,72 @@ const PKG_ROOT = resolve(CLI_ROOT, '..');
 
 interface PlatformConfig {
   name: string;
+  dotDir: string;
   skillDir: string;
+  mcpConfig?: string;
 }
 
 const PLATFORMS: Record<string, PlatformConfig> = {
-  claude: { name: 'Claude Code', skillDir: '.claude/skills/universal-design-system' },
-  cursor: { name: 'Cursor', skillDir: '.cursor/skills/universal-design-system' },
-  windsurf: { name: 'Windsurf', skillDir: '.windsurf/skills/universal-design-system' },
+  claude: {
+    name: 'Claude Code',
+    dotDir: '.claude',
+    skillDir: '.claude/skills',
+    mcpConfig: '.mcp.json',
+  },
+  cursor: {
+    name: 'Cursor',
+    dotDir: '.cursor',
+    skillDir: '.cursor/skills',
+    mcpConfig: '.cursor/mcp.json',
+  },
+  windsurf: {
+    name: 'Windsurf',
+    dotDir: '.windsurf',
+    skillDir: '.windsurf/skills',
+    mcpConfig: '.windsurf/mcp.json',
+  },
   vscode: {
     name: 'VS Code (Copilot)',
-    skillDir: '.github/copilot-instructions/universal-design-system',
+    dotDir: '.github/copilot-instructions',
+    skillDir: '.github/copilot-instructions',
+    mcpConfig: '.vscode/mcp.json',
   },
-  zed: { name: 'Zed', skillDir: '.zed/skills/universal-design-system' },
-  aider: { name: 'Aider', skillDir: '.aider/skills/universal-design-system' },
-  cline: { name: 'Cline', skillDir: '.cline/skills/universal-design-system' },
-  continue: { name: 'Continue', skillDir: '.continue/skills/universal-design-system' },
-  bolt: { name: 'Bolt', skillDir: '.bolt/skills/universal-design-system' },
-  lovable: { name: 'Lovable', skillDir: '.lovable/skills/universal-design-system' },
-  replit: { name: 'Replit Agent', skillDir: '.replit/skills/universal-design-system' },
-  codex: { name: 'OpenAI Codex', skillDir: '.codex/skills/universal-design-system' },
-  kiro: { name: 'Kiro', skillDir: '.kiro/skills/universal-design-system' },
-  gemini: { name: 'Gemini CLI', skillDir: '.gemini/skills/universal-design-system' },
-  qoder: { name: 'Qoder', skillDir: '.qoder/skills/universal-design-system' },
-  roocode: { name: 'Roo Code', skillDir: '.roocode/skills/universal-design-system' },
-  trae: { name: 'Trae', skillDir: '.trae/skills/universal-design-system' },
-  opencode: { name: 'OpenCode', skillDir: '.opencode/skills/universal-design-system' },
+  zed: {
+    name: 'Zed',
+    dotDir: '.zed',
+    skillDir: '.zed/skills',
+  },
+  aider: { name: 'Aider', dotDir: '.aider', skillDir: '.aider/skills' },
+  cline: { name: 'Cline', dotDir: '.cline', skillDir: '.cline/skills' },
+  continue: { name: 'Continue', dotDir: '.continue', skillDir: '.continue/skills' },
+  bolt: { name: 'Bolt', dotDir: '.bolt', skillDir: '.bolt/skills' },
+  lovable: { name: 'Lovable', dotDir: '.lovable', skillDir: '.lovable/skills' },
+  replit: { name: 'Replit Agent', dotDir: '.replit', skillDir: '.replit/skills' },
+  codex: { name: 'OpenAI Codex', dotDir: '.codex', skillDir: '.codex/skills' },
+  kiro: { name: 'Kiro', dotDir: '.kiro', skillDir: '.kiro/skills' },
+  gemini: { name: 'Gemini CLI', dotDir: '.gemini', skillDir: '.gemini/skills' },
+  qoder: { name: 'Qoder', dotDir: '.qoder', skillDir: '.qoder/skills' },
+  roocode: { name: 'Roo Code', dotDir: '.roocode', skillDir: '.roocode/skills' },
+  trae: { name: 'Trae', dotDir: '.trae', skillDir: '.trae/skills' },
+  opencode: { name: 'OpenCode', dotDir: '.opencode', skillDir: '.opencode/skills' },
   copilot: {
     name: 'GitHub Copilot',
-    skillDir: '.github/copilot-instructions/universal-design-system',
+    dotDir: '.github/copilot-instructions',
+    skillDir: '.github/copilot-instructions',
+    mcpConfig: '.vscode/mcp.json',
   },
-  droid: { name: 'Droid', skillDir: '.factory/skills/universal-design-system' },
+  droid: { name: 'Droid', dotDir: '.factory', skillDir: '.factory/skills' },
 };
+
+/** Names of all skill directories to install */
+const SKILL_NAMES = [
+  'universal-design-system',
+  'brand-identity',
+  'design-audit',
+  'ui-styling',
+  'slides-design',
+  'pre-pr-review',
+];
 
 function detectPlatform(dir: string): string | null {
   const checks: [string, string][] = [
@@ -87,6 +131,70 @@ function detectPlatform(dir: string): string | null {
   return null;
 }
 
+/** Recursively copy a directory, counting files */
+function copyDir(src: string, dest: string): number {
+  if (!existsSync(src)) return 0;
+  mkdirSync(dest, { recursive: true });
+  let count = 0;
+  for (const entry of readdirSync(src)) {
+    const srcPath = join(src, entry);
+    const destPath = join(dest, entry);
+    if (statSync(srcPath).isDirectory()) {
+      count += copyDir(srcPath, destPath);
+    } else {
+      cpSync(srcPath, destPath);
+      count++;
+    }
+  }
+  return count;
+}
+
+/** Generate MCP server configuration for the platform */
+function generateMcpConfig(targetDir: string, mcpConfigPath: string): void {
+  const mcpServerPath = join(
+    targetDir,
+    'node_modules',
+    '@mkatogui',
+    'universal-design-system',
+    'src',
+    'mcp',
+    'index.js',
+  );
+  // Fallback to relative path if node_modules doesn't exist
+  const serverPath = existsSync(mcpServerPath)
+    ? mcpServerPath
+    : join(PKG_ROOT, 'src', 'mcp', 'index.js');
+
+  const configFile = join(targetDir, mcpConfigPath);
+  const configDir = dirname(configFile);
+
+  mkdirSync(configDir, { recursive: true });
+
+  // Read existing config or start fresh
+  let config: Record<string, unknown> = {};
+  try {
+    config = JSON.parse(readFileSync(configFile, 'utf-8'));
+  } catch {
+    // File doesn't exist or is malformed — start fresh
+  }
+
+  // Add UDS MCP server entry
+  const mcpServers = (config.mcpServers ?? config.servers ?? {}) as Record<string, unknown>;
+  if (!mcpServers['universal-design-system']) {
+    mcpServers['universal-design-system'] = {
+      command: 'node',
+      args: [serverPath],
+    };
+    // Use the key that already exists, or default to mcpServers
+    if (config.servers) {
+      config.servers = mcpServers;
+    } else {
+      config.mcpServers = mcpServers;
+    }
+    writeFileSync(configFile, `${JSON.stringify(config, null, 2)}\n`);
+  }
+}
+
 export interface InstallOptions {
   platform?: string;
   dir: string;
@@ -110,21 +218,6 @@ export async function installCommand(options: InstallOptions): Promise<void> {
   console.log(dim(`  Target: ${config.name}`));
   console.log(dim(`  Dir:    ${targetDir}\n`));
 
-  const skillDir = join(targetDir, config.skillDir);
-  const dataDir = join(skillDir, 'data');
-  const scriptsDir = join(skillDir, 'scripts');
-
-  const srcSkill = join(PKG_ROOT, '.claude', 'skills', 'universal-design-system', 'SKILL.md');
-  const srcData = join(PKG_ROOT, 'src', 'data');
-  const srcScripts = join(PKG_ROOT, 'src', 'scripts');
-  const srcTokens = join(PKG_ROOT, 'tokens');
-
-  // Verify source files exist
-  if (!existsSync(srcSkill)) {
-    console.error(red('  SKILL.md not found. Is the package installed correctly?'));
-    process.exit(1);
-  }
-
   // Detect if running from within the UDS package itself
   if (resolve(targetDir) === resolve(PKG_ROOT)) {
     console.log(green('  Already inside the Universal Design System project.'));
@@ -132,70 +225,141 @@ export async function installCommand(options: InstallOptions): Promise<void> {
     return;
   }
 
+  const srcSkillsBase = join(PKG_ROOT, '.claude', 'skills');
+  const srcAgents = join(PKG_ROOT, '.claude', 'agents');
+  const srcCommands = join(PKG_ROOT, '.claude', 'commands');
+  const srcData = join(PKG_ROOT, 'src', 'data');
+  const srcScripts = join(PKG_ROOT, 'src', 'scripts');
+  const srcTokens = join(PKG_ROOT, 'tokens');
+
   if (options.dryRun) {
-    console.log(yellow('  [DRY RUN] Would create:'));
-    console.log(`    ${skillDir}/SKILL.md`);
-    console.log(`    ${dataDir}/ (20 CSV databases)`);
-    console.log(`    ${scriptsDir}/ (3 Python scripts)`);
+    console.log(yellow('  [DRY RUN] Would install:\n'));
+    console.log(cyan('  Skills:'));
+    for (const name of SKILL_NAMES) {
+      const exists = existsSync(join(srcSkillsBase, name, 'SKILL.md'));
+      console.log(`    ${exists ? green('+') : dim('?')} ${name}/SKILL.md`);
+    }
+    console.log(cyan('\n  Agents:'));
+    if (existsSync(srcAgents)) {
+      for (const f of readdirSync(srcAgents)) {
+        console.log(`    ${green('+')} ${f}`);
+      }
+    }
+    console.log(cyan('\n  Commands:'));
+    if (existsSync(srcCommands)) {
+      for (const f of readdirSync(srcCommands)) {
+        console.log(`    ${green('+')} ${f}`);
+      }
+    }
+    console.log(cyan('\n  Data:'));
+    console.log(`    ${green('+')} data/ (20 CSV databases)`);
+    console.log(`    ${green('+')} scripts/ (Python reasoning engine)`);
     if (existsSync(srcTokens)) {
-      console.log(`    ${join(targetDir, 'tokens')}/ (design tokens)`);
+      console.log(`    ${green('+')} tokens/ (design tokens)`);
+    }
+    if (config.mcpConfig) {
+      console.log(cyan('\n  MCP:'));
+      console.log(`    ${green('+')} ${config.mcpConfig} (MCP server config)`);
     }
     console.log(yellow('\n  No changes made.'));
     return;
   }
 
-  // Create directories
-  mkdirSync(skillDir, { recursive: true });
-  mkdirSync(dataDir, { recursive: true });
-  mkdirSync(scriptsDir, { recursive: true });
+  // ── Install Skills ──
+  console.log(cyan('  Skills'));
+  let skillCount = 0;
+  for (const name of SKILL_NAMES) {
+    const srcSkillDir = join(srcSkillsBase, name);
+    const srcSkillFile = join(srcSkillDir, 'SKILL.md');
+    if (!existsSync(srcSkillFile)) continue;
 
-  // Copy SKILL.md
-  cpSync(srcSkill, join(skillDir, 'SKILL.md'));
-  console.log(`${green('  +')} SKILL.md`);
+    const destSkillDir = join(targetDir, config.skillDir, name);
+    mkdirSync(destSkillDir, { recursive: true });
 
-  // Copy data files (including subdirectories like stacks/)
-  let dataCount = 0;
-  if (existsSync(srcData)) {
-    const entries = readdirSync(srcData);
-    for (const entry of entries) {
-      const src = join(srcData, entry);
-      const dest = join(dataDir, entry);
-      if (statSync(src).isDirectory()) {
-        cpSync(src, dest, { recursive: true });
-      } else {
-        cpSync(src, dest);
-      }
-      dataCount++;
+    // Copy SKILL.md
+    cpSync(srcSkillFile, join(destSkillDir, 'SKILL.md'));
+
+    // For the main skill, also copy data and scripts
+    if (name === 'universal-design-system') {
+      const destData = join(destSkillDir, 'data');
+      const destScripts = join(destSkillDir, 'scripts');
+      copyDir(srcData, destData);
+      copyDir(srcScripts, destScripts);
+    }
+
+    skillCount++;
+    console.log(`  ${green('+')} ${name}`);
+  }
+
+  // ── Install Agents ──
+  console.log(cyan('\n  Agents'));
+  let agentCount = 0;
+  if (existsSync(srcAgents)) {
+    const destAgents = join(targetDir, config.dotDir, 'agents');
+    mkdirSync(destAgents, { recursive: true });
+    for (const file of readdirSync(srcAgents)) {
+      if (!file.endsWith('.md')) continue;
+      cpSync(join(srcAgents, file), join(destAgents, file));
+      agentCount++;
+      const agentName = file.replace('.md', '');
+      console.log(`  ${green('+')} ${agentName}`);
     }
   }
-  console.log(`${green('  +')} data/ (${dataCount} entries)`);
 
-  // Copy Python scripts
-  let scriptCount = 0;
-  if (existsSync(srcScripts)) {
-    const entries = readdirSync(srcScripts);
-    for (const entry of entries) {
-      const src = join(srcScripts, entry);
-      const dest = join(scriptsDir, entry);
-      if (statSync(src).isDirectory()) {
-        cpSync(src, dest, { recursive: true });
-      } else {
-        cpSync(src, dest);
-      }
-      scriptCount++;
+  // ── Install Commands ──
+  console.log(cyan('\n  Commands'));
+  let commandCount = 0;
+  if (existsSync(srcCommands)) {
+    const destCommands = join(targetDir, config.dotDir, 'commands');
+    mkdirSync(destCommands, { recursive: true });
+    for (const file of readdirSync(srcCommands)) {
+      if (!file.endsWith('.md')) continue;
+      cpSync(join(srcCommands, file), join(destCommands, file));
+      commandCount++;
+      const cmdName = file.replace('.md', '');
+      console.log(`  ${green('+')} /${cmdName}`);
     }
   }
-  console.log(`${green('  +')} scripts/ (${scriptCount} entries)`);
 
-  // Copy tokens if they don't exist in target
+  // ── Copy Tokens ──
   const targetTokens = join(targetDir, 'tokens');
   if (existsSync(srcTokens) && !existsSync(targetTokens)) {
     cpSync(srcTokens, targetTokens, { recursive: true });
-    console.log(`${green('  +')} tokens/`);
+    console.log(cyan('\n  Tokens'));
+    console.log(`  ${green('+')} tokens/`);
   }
 
-  // Summary
+  // ── Configure MCP Server ──
+  if (config.mcpConfig) {
+    console.log(cyan('\n  MCP Server'));
+    generateMcpConfig(targetDir, config.mcpConfig);
+    console.log(`  ${green('+')} ${config.mcpConfig}`);
+  }
+
+  // ── Summary ──
   console.log(bold(green(`\n  Installed for ${config.name}`)));
-  console.log(dim(`  Location: ${skillDir}`));
-  console.log(dim(`  Search:   python ${scriptsDir}/search.py "your query"\n`));
+  console.log(dim(`  ${skillCount} skills, ${agentCount} agents, ${commandCount} commands`));
+  if (config.mcpConfig) {
+    console.log(dim(`  MCP server configured in ${config.mcpConfig}`));
+  }
+  console.log(dim(`  Location: ${join(targetDir, config.dotDir)}`));
+
+  // ── Quick Start ──
+  console.log(bold('\n  Quick Start'));
+  console.log(
+    dim(
+      `  Search:    python ${join(config.skillDir, 'universal-design-system', 'scripts', 'search.py')} "your query"`,
+    ),
+  );
+  console.log(
+    dim(
+      '  Commands:  /pre-pr-review, /palette-sync, /a11y-fix, /align-metrics, /new-component, /docs-sync',
+    ),
+  );
+  if (config.mcpConfig) {
+    console.log(
+      dim('  MCP tools: search_design_system, get_palette, get_component, generate_tokens'),
+    );
+  }
+  console.log('');
 }

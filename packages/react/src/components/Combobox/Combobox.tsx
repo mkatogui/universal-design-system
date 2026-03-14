@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useId, useRef, useState } from 'react';
 
 function sanitizeId(value: string): string {
-  return value.replace(/[^a-zA-Z0-9\-_]/g, '_');
+  return value.replaceAll(/[^a-zA-Z0-9\-_]/g, '_');
 }
 
 export interface ComboboxOption {
@@ -207,6 +207,7 @@ export const Combobox = React.forwardRef<HTMLDivElement, ComboboxProps>(
                   .filter(Boolean)
                   .join(' ')}
                 role="option"
+                tabIndex={-1}
                 aria-selected={selectedValues.includes(option.value)}
                 aria-disabled={option.disabled}
                 onClick={() => {
@@ -220,6 +221,7 @@ export const Combobox = React.forwardRef<HTMLDivElement, ComboboxProps>(
               <div
                 className="uds-combobox__option uds-combobox__option--create"
                 role="option"
+                tabIndex={-1}
                 aria-selected={false}
                 onClick={handleCreate}
               >

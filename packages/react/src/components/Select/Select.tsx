@@ -73,7 +73,7 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
     ref,
   ) => {
     const selectId =
-      id || (label ? `uds-select-${label.toLowerCase().replace(/\s+/g, '-')}` : undefined);
+      id || (label ? `uds-select-${label.toLowerCase().replaceAll(/\s+/g, '-')}` : undefined);
     const errorId = selectId ? `${selectId}-error` : undefined;
     const helperId = selectId ? `${selectId}-helper` : undefined;
     const describedBy = errorText ? errorId : helperText ? helperId : undefined;

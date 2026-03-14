@@ -112,9 +112,9 @@ export const Pricing = React.forwardRef<HTMLDivElement, PricingProps>(
           </div>
         )}
         <div className="uds-pricing__grid">
-          {plans.map((plan, index) => (
+          {plans.map((plan) => (
             <div
-              key={index}
+              key={plan.name}
               className={[
                 'uds-pricing__plan',
                 (plan.highlighted || plan.name === highlightedPlan) &&
@@ -130,7 +130,7 @@ export const Pricing = React.forwardRef<HTMLDivElement, PricingProps>(
               </div>
               <ul className="uds-pricing__features">
                 {plan.features.map((feature, i) => (
-                  <li key={i} className="uds-pricing__feature">
+                  <li key={`${feature}-${i}`} className="uds-pricing__feature">
                     {feature}
                   </li>
                 ))}

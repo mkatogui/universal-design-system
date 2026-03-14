@@ -52,7 +52,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
     ref,
   ) => {
     const inputId =
-      id || (label ? `uds-input-${label.toLowerCase().replace(/\s+/g, '-')}` : undefined);
+      id || (label ? `uds-input-${label.toLowerCase().replaceAll(/\s+/g, '-')}` : undefined);
     const errorId = inputId ? `${inputId}-error` : undefined;
     const helperId = inputId ? `${inputId}-helper` : undefined;
 
