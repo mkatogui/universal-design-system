@@ -133,6 +133,7 @@ One palette per surface. No mixing.
 - Components use BEM naming: `.uds-{component}`, `.uds-{component}--{variant}`
 - All palettes must pass WCAG 2.2 AA (4.5:1 body text, 3:1 large text/UI). Large text = ≥24px normal or ≥18.66px bold
 - Components must use `var(--token-name)`, never hardcoded values
+- Doc and playground CSS must use design tokens only; `npm run verify` checks for hardcoded color (and radius) in component/utility rules
 - All animations must be wrapped in `@media (prefers-reduced-motion: no-preference)`
 - CSV validation is permissive — only required columns are checked, extra columns allowed
 - HTML docs use `__VERSION__` placeholder — never hardcode version numbers

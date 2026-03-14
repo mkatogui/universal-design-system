@@ -548,6 +548,11 @@
         "$value": "{color.primitive.green.50}",
         "$type": "color"
       },
+      "success-on-bg": {
+        "$value": "{color.primitive.green.700}",
+        "$type": "color",
+        "$description": "Success text on light success-bg — WCAG 2.2 AA contrast"
+      },
       "warning": {
         "$value": "{color.primitive.amber.600}",
         "$type": "color"

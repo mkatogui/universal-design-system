@@ -101,13 +101,20 @@ def _collect_leaf_tokens(obj: dict, path: str, root: dict, inherited_type: str =
                     f"(no explicit or inherited type available)"
                 )
 
-            # Validate $type is a known DTCG type
+            # Validate $type is a known DTCG type (allow "object" for motion.keyframes.*, "string" for motion.style/scroll-driven)
             token_type = value.get("$type", group_type)
             if token_type and token_type not in VALID_DTCG_TYPES:
-                errors.append(
-                    f"{current_path}: Unknown $type '{token_type}' "
-                    f"(valid: {sorted(VALID_DTCG_TYPES)})"
-                )
+                if token_type == "object" and "motion.keyframes." in current_path:
+                    pass  # Keyframe definitions are structured objects
+                elif token_type == "string" and (
+                    current_path.startswith("motion.style.") or current_path.startswith("motion.scroll-driven.")
+                ):
+                    pass  # Motion style/scroll-driven name tokens
+                else:
+                    errors.append(
+                        f"{current_path}: Unknown $type '{token_type}' "
+                        f"(valid: {sorted(VALID_DTCG_TYPES)})"
+                    )
 
             # Validate references resolve
             val = value.get("$value")

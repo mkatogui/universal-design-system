@@ -37,14 +37,14 @@ export default {
         lines.push('@layer uds.tokens {');
         lines.push(`  ${selector} {`);
 
-        dictionary.allTokens.forEach((token) => {
+        for (const token of dictionary.allTokens) {
           const name = token.name;
           let value = token.value ?? token.$value;
           const type = token.$type ?? token.type;
 
           // Skip object-type tokens (keyframes, starting-style) — not valid CSS variable values
           if (type === 'object' || (typeof value === 'object' && value !== null)) {
-            return;
+            continue;
           }
 
           // Resolve references when outputReferences is enabled.
@@ -73,7 +73,7 @@ export default {
           } else {
             lines.push(`    --${name}: ${value};`);
           }
-        });
+        }
 
         lines.push('  }');
         lines.push('}');

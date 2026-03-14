@@ -66,7 +66,7 @@ describe('Drawer', () => {
         Body
       </Drawer>,
     );
-    const overlay = document.querySelector('.uds-drawer-overlay')!;
+    const overlay = document.querySelector('.uds-drawer-overlay') as HTMLElement;
     fireEvent.mouseDown(overlay);
     expect(handleClose).toHaveBeenCalledTimes(1);
   });

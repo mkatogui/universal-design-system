@@ -107,7 +107,7 @@
   --color-brand-muted: #DBEAFE;
   --color-border-default: #C8C8D4; --color-border-input: #8E8E9E;
   --color-border-subtle: #E8E8F0;
-  --color-success: #047857; --color-success-bg: #ECFDF5;
+  --color-success: #047857; --color-success-bg: #ECFDF5; --color-success-on-bg: #047857;
   --color-warning: #D97706; --color-warning-bg: #FFFBEB;
   --color-error: #B91C1C; --color-error-bg: #FEF2F2;
   --color-info: #2563EB; --color-info-bg: #EFF6FF;
@@ -119,6 +119,8 @@
   --shadow-glow: 0 0 40px rgba(var(--color-brand-primary-rgb), 0.2);
   --gradient-hero: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   --gradient-cta: linear-gradient(135deg, var(--color-brand-primary), var(--color-brand-secondary));
+  --nav-bg: #111; --nav-text: #fff; --nav-text-muted: #b3b3b3; --nav-border: #333;
+  --color-code-bg: #1E1E2E; --color-code-text: #D4D4E8; --color-code-muted: #9999AA; --color-code-header-bg: #F3F4F6;
 }
 
 /* Palette: AI Futuristic */
@@ -324,6 +326,8 @@ html.docs-dark[data-theme="corporate"] {
   --color-bg-inverse: #FFFFFF;
   --color-text-primary: #D8DCE8; --color-text-secondary: #B0BAC5; --color-text-tertiary: #8C94A4;
   --color-brand-primary: #79B8FF; --color-brand-primary-rgb: 121, 184, 255;
+  --color-btn-primary-bg: #1D4ED8;
+  --color-btn-primary-text: #FFFFFF;
   --color-brand-secondary: #5A8ED8; --color-brand-muted: #0E1A30;
   --color-border-default: #283040; --color-border-input: #3E4858; --color-border-subtle: #1E2636;
   --color-success: #10B981; --color-success-bg: #0A2618;
@@ -414,6 +418,8 @@ html.docs-dark[data-theme="minimal-corporate"] {
   --color-bg-inverse: #FFFFFF;
   --color-text-primary: #EDE8E0; --color-text-secondary: #C0BBB8; --color-text-tertiary: #A09A96;
   --color-brand-primary: #FBBF24; --color-brand-primary-rgb: 251, 191, 36;
+  --color-btn-primary-bg: #B45309;
+  --color-btn-primary-text: #FFFFFF;
   --color-brand-muted: #2C2412;
   --color-border-default: #302A20; --color-border-input: #504838; --color-border-subtle: #201C14;
   --color-success: #10B981; --color-success-bg: #0A2618;
@@ -469,14 +475,14 @@ html.docs-dark .site-topnav a.active { color: var(--color-text-primary); }
 html.docs-dark .site-topnav .nav-brand { color: var(--color-text-primary); }
 html.docs-dark .badge--brand { background: var(--color-bg-tertiary); color: var(--color-text-primary); }
 /* WCAG 2.2 AA: corporate/minimal-corporate dark use bright primary that fails with white text */
-html.docs-dark[data-theme="corporate"] .btn--primary { background: #1D4ED8; color: #fff; }
-html.docs-dark[data-theme="minimal-corporate"] .btn--primary { background: #B45309; color: #fff; }
+html.docs-dark[data-theme="corporate"] .btn--primary { background: var(--color-btn-primary-bg); color: var(--color-btn-primary-text); }
+html.docs-dark[data-theme="minimal-corporate"] .btn--primary { background: var(--color-btn-primary-bg); color: var(--color-btn-primary-text); }
 
 /* Illustration: brand-primary (#E8590C) fails 4.5:1 on white — use accessible alternatives */
 [data-theme="illustration"] a { color: var(--color-text-secondary); }
 [data-theme="illustration"] .page-footer a { color: var(--color-text-secondary); }
-[data-theme="illustration"] .site-topnav a { color: #999; }
-[data-theme="illustration"] .site-topnav a.active { color: #fff; }
+[data-theme="illustration"] .site-topnav a { color: var(--nav-text-muted); }
+[data-theme="illustration"] .site-topnav a.active { color: var(--nav-text); }
 
 /* ============================================================
    COMPONENT LIBRARY LAYOUT
@@ -575,18 +581,18 @@ a { color: var(--color-brand-primary); }
   display: block;
 }
 /* === Site Navigation Bar === */
-.site-topnav { display: flex; align-items: center; gap: 0; background: #111; color: #fff; font-family: 'Inter', system-ui, sans-serif; font-size: 14px; padding: 0 24px; height: 44px; position: sticky; top: 0; z-index: 9999; }
-.site-topnav .nav-brand { font-weight: 700; color: #fff; margin-right: 32px; text-decoration: none; }
-.site-topnav a { color: #b3b3b3; text-decoration: none; padding: 0 12px; height: 44px; display: flex; align-items: center; font-size: 14px; transition: color 150ms; white-space: nowrap; }
-.site-topnav a:hover { color: #fff; }
-.site-topnav a.active { color: #fff; font-weight: 600; }
+.site-topnav { display: flex; align-items: center; gap: 0; background: var(--nav-bg); color: var(--nav-text); font-family: 'Inter', system-ui, sans-serif; font-size: 14px; padding: 0 24px; height: 44px; position: sticky; top: 0; z-index: 9999; }
+.site-topnav .nav-brand { font-weight: 700; color: var(--nav-text); margin-right: 32px; text-decoration: none; }
+.site-topnav a { color: var(--nav-text-muted); text-decoration: none; padding: 0 12px; height: 44px; display: flex; align-items: center; font-size: 14px; transition: color 150ms; white-space: nowrap; }
+.site-topnav a:hover { color: var(--nav-text); }
+.site-topnav a.active { color: var(--nav-text); font-weight: 600; }
 .topnav-links { display: flex; align-items: center; }
-.topnav-hamburger { display: none; background: none; border: none; cursor: pointer; padding: 8px; color: #fff; width: 44px; height: 44px; align-items: center; justify-content: center; flex-shrink: 0; margin-left: auto; }
+.topnav-hamburger { display: none; background: none; border: none; cursor: pointer; padding: 8px; color: var(--nav-text); width: 44px; height: 44px; align-items: center; justify-content: center; flex-shrink: 0; margin-left: auto; }
 .topnav-hamburger svg { width: 24px; height: 24px; stroke: currentColor; fill: none; stroke-width: 2; }
 @media (max-width: 768px) {
   .site-topnav { flex-wrap: wrap; height: auto; padding: 0 max(12px, env(safe-area-inset-right)) 0 max(12px, env(safe-area-inset-left)); }
   .topnav-hamburger { display: flex; }
-  .topnav-links { display: none; order: 99; width: 100%; flex-direction: column; background: #111; border-top: 1px solid #333; }
+  .topnav-links { display: none; order: 99; width: 100%; flex-direction: column; background: var(--nav-bg); border-top: 1px solid var(--nav-border); }
   .topnav-links--open { display: flex; }
   .topnav-links a { padding: 12px 16px; min-height: 44px; display: flex; align-items: center; font-size: 14px; border-bottom: none; }
   .topnav-links a.active { border-bottom: none; border-left: 2px solid var(--color-brand-primary); }
@@ -653,7 +659,7 @@ html, body { overflow-x: clip; }
 .btn--secondary:hover { border-color: var(--color-brand-primary); color: var(--color-brand-primary); }
 .btn--ghost { background: transparent; color: var(--color-text-secondary); }
 .btn--ghost:hover { background: var(--color-bg-secondary); color: var(--color-text-primary); }
-.btn--destructive { background: var(--color-error); color: #fff; }
+.btn--destructive { background: var(--color-error); color: var(--color-text-on-brand); }
 .btn--sm { height: 36px; padding: 0 16px; font-size: var(--text-body-sm); min-width: 44px; }
 .btn--md { height: 44px; padding: 0 20px; font-size: var(--text-body-md); }
 .btn--lg { height: 52px; padding: 0 28px; font-size: var(--text-body-lg); }
@@ -856,7 +862,7 @@ html, body { overflow-x: clip; }
 .btn--secondary:hover { border-color: var(--color-brand-primary); color: var(--color-brand-primary); }
 .btn--ghost { background: transparent; color: var(--color-text-secondary); }
 .btn--ghost:hover { background: var(--color-bg-secondary); color: var(--color-text-primary); }
-.btn--destructive { background: var(--color-error); color: #fff; }
+.btn--destructive { background: var(--color-error); color: var(--color-text-on-brand); }
 .btn--sm { height: 36px; padding: 0 16px; font-size: var(--text-body-sm); min-width: 44px; }
 .btn--md { height: 44px; padding: 0 20px; font-size: var(--text-body-md); }
 .btn--lg { height: 52px; padding: 0 28px; font-size: var(--text-body-lg); }
@@ -1641,9 +1647,9 @@ defineProps({ variant: { type: String, default: 'brand' } });
 <div class="component-code">
 <div class="code-label">CSS</div>
 <div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>.code-block { background: #1E1E2E; color: #D4D4E8; border-radius: var(--radius-lg); overflow: hidden; }
-.code-block-header { display: flex; align-items: center; justify-content: space-between; padding: 8px 16px; background: #F3F4F6; font-size: var(--text-label); }
-.code-block-lang { color: #9999AA; }
-.code-block-copy { padding: 4px 10px; font-size: 11px; background: rgba(255,255,255,0.1); color: #9999AA; border: none; border-radius: 4px; cursor: pointer; }
+.code-block-header { display: flex; align-items: center; justify-content: space-between; padding: var(--space-2) var(--space-4); background: var(--color-code-header-bg); font-size: var(--text-label); }
+.code-block-lang { color: var(--color-code-muted); }
+.code-block-copy { padding: var(--space-1) var(--space-3); font-size: 11px; background: rgba(255,255,255,0.1); color: var(--color-code-muted); border: none; border-radius: var(--radius-sm); cursor: pointer; }
 .code-block pre { padding: 20px; font-family: var(--font-mono); font-size: 13px; line-height: 1.6; overflow-x: auto; margin: 0; }</pre></div>
 <div class="code-label">HTML</div>
 <div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>&lt;div class="code-block"&gt;
@@ -1721,7 +1727,7 @@ defineProps({ variant: { type: String, default: 'brand' } });
 .hero-headline { font-family: var(--font-display); font-size: var(--text-display-xl); font-weight: 800; letter-spacing: -0.02em; max-width: 800px; margin-bottom: 16px; }
 .hero-subheadline { font-size: var(--text-body-lg); color: var(--color-text-secondary); max-width: 600px; margin-bottom: 32px; }
 .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
-.hero--gradient { background: var(--gradient-hero); color: #fff; }
+.hero--gradient { background: var(--gradient-hero); color: var(--color-text-on-brand); }
 .hero--gradient .hero-subheadline { color: rgba(255,255,255,0.85); }
 .hero--dark { background: var(--color-bg-inverse); color: var(--color-bg-primary); }
 .hero--dark .hero-subheadline { color: rgba(255,255,255,0.7); }</pre></div>

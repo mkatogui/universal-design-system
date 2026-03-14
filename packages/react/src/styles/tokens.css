@@ -63,6 +63,7 @@
 
   /* Semantic component tokens */
   --color-text-on-error: #ffffff;
+  --color-error-rgb: 220, 38, 38;
   --color-overlay-bg: rgba(0, 0, 0, 0.5);
   --color-toggle-thumb: #ffffff;
 

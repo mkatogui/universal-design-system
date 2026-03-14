@@ -83,8 +83,8 @@ describe('Navbar', () => {
   it('renders ctaButton and darkModeToggle in the actions area', () => {
     render(
       <Navbar
-        ctaButton={<button>Get started</button>}
-        darkModeToggle={<button>Dark mode</button>}
+        ctaButton={<button type="button">Get started</button>}
+        darkModeToggle={<button type="button">Dark mode</button>}
       />,
     );
     expect(screen.getByRole('button', { name: 'Get started' })).toBeInTheDocument();

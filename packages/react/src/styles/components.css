@@ -130,7 +130,7 @@
   border-color: var(--color-error);
 }
 .uds-input__field--error:focus {
-  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.15);
+  box-shadow: 0 0 0 3px rgba(var(--color-error-rgb), 0.15);
 }
 .uds-input__field--sm {
   height: 32px;
