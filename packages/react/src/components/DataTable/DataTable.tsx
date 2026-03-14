@@ -1,5 +1,11 @@
 import React, { useCallback, useState } from 'react';
 
+function safeString(value: unknown): string {
+  if (value == null) return '';
+  if (typeof value === 'object') return JSON.stringify(value);
+  return String(value);
+}
+
 /**
  * Describes a single column in a {@link DataTable}.
  */
@@ -181,9 +187,9 @@ export const DataTable = React.forwardRef<HTMLDivElement, DataTableProps>(
             ) : (
               data.map((row, rowIndex) => {
                 const rowKey =
-                  row.id != null
-                    ? String(row.id)
-                    : columns.map((c) => String(row[c.key] ?? '')).join('|') || String(rowIndex);
+                  row.id == null
+                    ? columns.map((c) => safeString(row[c.key])).join('|') || String(rowIndex)
+                    : safeString(row.id);
                 return (
                   <tr
                     key={rowKey}
@@ -209,7 +215,7 @@ export const DataTable = React.forwardRef<HTMLDivElement, DataTableProps>(
                       } else if (typeof cellValue === 'object') {
                         displayValue = JSON.stringify(cellValue);
                       } else {
-                        displayValue = String(cellValue);
+                        displayValue = safeString(cellValue);
                       }
                       return (
                         <td key={col.key} className="uds-data-table__td">

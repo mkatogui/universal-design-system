@@ -668,10 +668,7 @@ function generateTokenTypes(resolvedMap) {
     '  readonly boxShadow: Record<string, string>;',
     '}',
     '',
-  );
-
-  // ── PALETTES constant ──
-  lines.push(
+    // ── PALETTES constant ──
     '/**',
     ' * Array of all valid palette names. Useful for iteration.',
     ' */',
