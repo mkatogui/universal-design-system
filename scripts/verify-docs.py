@@ -3,6 +3,7 @@
 Design System Docs Verification
 Programmatic verification of the HTML documentation file:
 - Component CSS uses var(--radius-*) not hardcoded border-radius values
+- No hardcoded hex/rgba in component/utility CSS (token definition blocks excluded)
 - All 9 palettes have light + dark mode definitions
 - Sidebar navigation links match section IDs
 - Code blocks have proper formatting
@@ -56,6 +57,67 @@ def verify_no_hardcoded_radius(html: str) -> list:
                         f"Hardcoded border-radius in {selector}: {match[:80]}..."
                     )
 
+    return errors
+
+
+def _extract_style_blocks(html: str) -> list:
+    """Extract raw CSS from all <style> tags."""
+    blocks = re.findall(r"<style[^>]*>([\s\S]*?)</style>", html)
+    return blocks
+
+
+def _is_token_definition_selector(selector: str) -> bool:
+    """True if this selector is for token definitions (:root, [data-theme], html.docs-dark)."""
+    s = selector.strip()
+    if s.startswith(":root"):
+        return True
+    if "[data-theme=" in s or '[data-theme="' in s:
+        return True
+    if "html.docs-dark" in s:
+        return True
+    return False
+
+
+def _css_rules_with_bodies(css: str) -> list:
+    """Yield (selector, body) for each rule block. Handles nested braces in values."""
+    i = 0
+    while i < len(css):
+        open_brace = css.find("{", i)
+        if open_brace == -1:
+            break
+        selector = css[i:open_brace].strip()
+        depth = 1
+        j = open_brace + 1
+        while j < len(css) and depth > 0:
+            if css[j] == "{":
+                depth += 1
+            elif css[j] == "}":
+                depth -= 1
+            j += 1
+        body = css[open_brace + 1 : j - 1] if depth == 0 else ""
+        if selector and body is not None:
+            yield (selector, body)
+        i = j
+
+
+def verify_no_hardcoded_color_in_rules(html: str) -> list:
+    """Flag component/utility CSS that uses hex or fixed rgba (not var())."""
+    errors = []
+    # Match color/background/border-color set to hex (#RGB or #RRGGBB)
+    hex_re = re.compile(
+        r"(color|background|border-color)\s*:\s*#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})\b"
+    )
+    for style_content in _extract_style_blocks(html):
+        for selector, body in _css_rules_with_bodies(style_content):
+            if _is_token_definition_selector(selector):
+                continue
+            for m in hex_re.finditer(body):
+                prop = m.group(1)
+                hex_val = m.group(2)
+                errors.append(
+                    f"Hardcoded color in component/utility CSS: {selector.strip()[:60]} "
+                    f"has {prop}: #{hex_val} (use var(--...) token)"
+                )
     return errors
 
 
@@ -166,6 +228,7 @@ def main():
     all_errors = []
     checks = [
         ("Hardcoded radius", verify_no_hardcoded_radius),
+        ("No hardcoded color in rules", verify_no_hardcoded_color_in_rules),
         ("Palette definitions", verify_palette_definitions),
         ("Section IDs", verify_section_ids),
         ("Code blocks", verify_code_blocks),

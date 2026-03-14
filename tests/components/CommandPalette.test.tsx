@@ -129,9 +129,8 @@ describe('CommandPalette', () => {
     render(<CommandPalette {...baseProps} onSelect={onSelect} onClose={onClose} />);
     const options = screen.getAllByRole('option');
     const disabledOption = options.find((o) => o.getAttribute('aria-disabled') === 'true');
-    expect(disabledOption).toBeInTheDocument();
-
-    fireEvent.click(disabledOption!);
+    expect(disabledOption).toBeDefined();
+    fireEvent.click(disabledOption as HTMLElement);
     expect(onSelect).not.toHaveBeenCalled();
   });
 

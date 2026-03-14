@@ -3,6 +3,21 @@
   "version": "0.4.1",
   "description": "A production-grade design system with 9 structural palettes, 43 components, and automated WCAG 2.2 AA compliance. Deterministic UI recommendation engine powered by retrieval and rule evaluation.",
   "main": "tokens/design-tokens.json",
+  "types": "tokens/design-tokens.d.ts",
+  "exports": {
+    ".": {
+      "types": "./tokens/design-tokens.d.ts",
+      "import": "./tokens/design-tokens.json",
+      "require": "./tokens/design-tokens.json",
+      "default": "./tokens/design-tokens.json"
+    },
+    "./tokens": {
+      "types": "./tokens/design-tokens.d.ts",
+      "import": "./tokens/design-tokens.json",
+      "require": "./tokens/design-tokens.json",
+      "default": "./tokens/design-tokens.json"
+    }
+  },
   "bin": {
     "uds": "cli/dist/index.js"
   },
@@ -13,6 +28,7 @@
     "validate": "python3 scripts/validate-tokens.py",
     "audit": "python3 scripts/wcag-audit.py",
     "verify": "python3 scripts/verify-docs.py --file docs/docs.html",
+    "generate-docs-tokens": "python3 scripts/generate-docs-tokens.py",
     "check": "npm run validate && npm run audit && npm run verify",
     "search": "python3 src/scripts/search.py",
     "generate": "python3 src/scripts/design_system.py",
@@ -26,6 +42,7 @@
     "audit:axe": "node scripts/axe-audit.js",
     "audit:apca": "python3 scripts/apca-audit.py",
     "test:a11y": "node scripts/axe-audit.js",
+    "test:accessibility": "playwright test --config=playwright.a11y.config.ts",
     "test:visual": "playwright test tests/visual/",
     "test:visual:update": "playwright test tests/visual/ --update-snapshots",
     "storybook": "storybook dev -p 6006",

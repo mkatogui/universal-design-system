@@ -62,7 +62,7 @@ describe('Dropdown', () => {
 
   it('opens menu with ArrowDown key and focuses first item', () => {
     render(<Dropdown trigger="Actions" items={defaultItems} />);
-    const wrapper = screen.getByRole('button', { name: 'Actions' }).parentElement!;
+    const wrapper = screen.getByRole('button', { name: 'Actions' }).parentElement as HTMLElement;
     fireEvent.keyDown(wrapper, { key: 'ArrowDown' });
     expect(screen.getByRole('menu')).toBeInTheDocument();
     const menuItems = screen.getAllByRole('menuitem');
@@ -71,7 +71,7 @@ describe('Dropdown', () => {
 
   it('navigates down through items with ArrowDown key', () => {
     render(<Dropdown trigger="Actions" items={defaultItems} />);
-    const wrapper = screen.getByRole('button', { name: 'Actions' }).parentElement!;
+    const wrapper = screen.getByRole('button', { name: 'Actions' }).parentElement as HTMLElement;
     fireEvent.keyDown(wrapper, { key: 'ArrowDown' });
     fireEvent.keyDown(wrapper, { key: 'ArrowDown' });
     const menuItems = screen.getAllByRole('menuitem');
@@ -80,7 +80,7 @@ describe('Dropdown', () => {
 
   it('navigates up through items with ArrowUp key', () => {
     render(<Dropdown trigger="Actions" items={defaultItems} />);
-    const wrapper = screen.getByRole('button', { name: 'Actions' }).parentElement!;
+    const wrapper = screen.getByRole('button', { name: 'Actions' }).parentElement as HTMLElement;
     fireEvent.keyDown(wrapper, { key: 'ArrowDown' });
     fireEvent.keyDown(wrapper, { key: 'ArrowDown' });
     fireEvent.keyDown(wrapper, { key: 'ArrowUp' });
@@ -90,7 +90,7 @@ describe('Dropdown', () => {
 
   it('closes the menu on Escape key', () => {
     render(<Dropdown trigger="Actions" items={defaultItems} />);
-    const wrapper = screen.getByRole('button', { name: 'Actions' }).parentElement!;
+    const wrapper = screen.getByRole('button', { name: 'Actions' }).parentElement as HTMLElement;
     fireEvent.click(screen.getByRole('button', { name: 'Actions' }));
     expect(screen.getByRole('menu')).toBeInTheDocument();
     fireEvent.keyDown(wrapper, { key: 'Escape' });
@@ -100,7 +100,7 @@ describe('Dropdown', () => {
   it('selects the active item with Enter key', () => {
     const handleSelect = vi.fn();
     render(<Dropdown trigger="Actions" items={defaultItems} onSelect={handleSelect} />);
-    const wrapper = screen.getByRole('button', { name: 'Actions' }).parentElement!;
+    const wrapper = screen.getByRole('button', { name: 'Actions' }).parentElement as HTMLElement;
     fireEvent.keyDown(wrapper, { key: 'ArrowDown' });
     fireEvent.keyDown(wrapper, { key: 'Enter' });
     expect(handleSelect).toHaveBeenCalledWith('edit');
@@ -137,7 +137,7 @@ describe('Dropdown', () => {
         position="bottom-end"
       />,
     );
-    const wrapper = screen.getByRole('button', { name: 'Actions' }).parentElement!;
+    const wrapper = screen.getByRole('button', { name: 'Actions' }).parentElement as HTMLElement;
     expect(wrapper).toHaveClass('uds-dropdown');
     expect(wrapper).toHaveClass('uds-dropdown--context');
     expect(wrapper).toHaveClass('uds-dropdown--lg');
@@ -146,7 +146,7 @@ describe('Dropdown', () => {
 
   it('applies additional className to the wrapper', () => {
     render(<Dropdown trigger="Actions" items={defaultItems} className="custom-dropdown" />);
-    const wrapper = screen.getByRole('button', { name: 'Actions' }).parentElement!;
+    const wrapper = screen.getByRole('button', { name: 'Actions' }).parentElement as HTMLElement;
     expect(wrapper).toHaveClass('custom-dropdown');
   });
 
@@ -161,7 +161,7 @@ describe('Dropdown', () => {
 
   it('adds uds-dropdown--open class when menu is open', () => {
     render(<Dropdown trigger="Actions" items={defaultItems} />);
-    const wrapper = screen.getByRole('button', { name: 'Actions' }).parentElement!;
+    const wrapper = screen.getByRole('button', { name: 'Actions' }).parentElement as HTMLElement;
     expect(wrapper).not.toHaveClass('uds-dropdown--open');
     fireEvent.click(screen.getByRole('button', { name: 'Actions' }));
     expect(wrapper).toHaveClass('uds-dropdown--open');
@@ -184,7 +184,7 @@ describe('Dropdown', () => {
 
   it('opens the menu and focuses the first item when Enter is pressed while closed', () => {
     render(<Dropdown trigger="Actions" items={defaultItems} />);
-    const wrapper = screen.getByRole('button', { name: 'Actions' }).parentElement!;
+    const wrapper = screen.getByRole('button', { name: 'Actions' }).parentElement as HTMLElement;
     fireEvent.keyDown(wrapper, { key: 'Enter' });
     expect(screen.getByRole('menu')).toBeInTheDocument();
     const menuItems = screen.getAllByRole('menuitem');
@@ -214,7 +214,7 @@ describe('Dropdown', () => {
       { label: 'Delete', value: 'delete', disabled: true },
     ];
     render(<Dropdown trigger="Actions" items={allDisabled} />);
-    const wrapper = screen.getByRole('button', { name: 'Actions' }).parentElement!;
+    const wrapper = screen.getByRole('button', { name: 'Actions' }).parentElement as HTMLElement;
     fireEvent.keyDown(wrapper, { key: 'ArrowDown' });
     expect(screen.getByRole('menu')).toBeInTheDocument();
   });
@@ -222,7 +222,7 @@ describe('Dropdown', () => {
   it('selects the active item with Enter key when menu is open', () => {
     const handleSelect = vi.fn();
     render(<Dropdown trigger="Actions" items={defaultItems} onSelect={handleSelect} />);
-    const wrapper = screen.getByRole('button', { name: 'Actions' }).parentElement!;
+    const wrapper = screen.getByRole('button', { name: 'Actions' }).parentElement as HTMLElement;
     fireEvent.click(screen.getByRole('button', { name: 'Actions' }));
     fireEvent.keyDown(wrapper, { key: 'ArrowDown' });
     fireEvent.keyDown(wrapper, { key: 'Enter' });
@@ -231,7 +231,7 @@ describe('Dropdown', () => {
 
   it('ArrowDown cycles through items when menu is open', () => {
     render(<Dropdown trigger="Actions" items={defaultItems} />);
-    const wrapper = screen.getByRole('button', { name: 'Actions' }).parentElement!;
+    const wrapper = screen.getByRole('button', { name: 'Actions' }).parentElement as HTMLElement;
     fireEvent.click(screen.getByRole('button', { name: 'Actions' }));
     fireEvent.keyDown(wrapper, { key: 'ArrowDown' });
     fireEvent.keyDown(wrapper, { key: 'ArrowDown' });

@@ -286,6 +286,14 @@
             "com.tokens.oklch": "oklch(55.5% 0.1455 49.0)"
           }
         },
+        "800": {
+          "$value": "#92400e",
+          "$type": "color",
+          "$description": "Warning text on light warning-bg — WCAG 2.2 AA contrast",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(42.5% 0.1145 55.2)"
+          }
+        },
         "$type": "color"
       },
       "cyan": {
@@ -548,6 +556,11 @@
         "$value": "{color.primitive.green.50}",
         "$type": "color"
       },
+      "success-on-bg": {
+        "$value": "{color.primitive.green.700}",
+        "$type": "color",
+        "$description": "Success text on light success-bg — WCAG 2.2 AA contrast"
+      },
       "warning": {
         "$value": "{color.primitive.amber.600}",
         "$type": "color"
@@ -555,6 +568,19 @@
       "warning-bg": {
         "$value": "{color.primitive.amber.50}",
         "$type": "color"
+      },
+      "warning-on-bg": {
+        "$value": "{color.primitive.amber.800}",
+        "$type": "color",
+        "$description": "Warning text on light warning-bg — WCAG 2.2 AA contrast"
+      },
+      "text-on-error": {
+        "$value": "#171717",
+        "$type": "color",
+        "$description": "Text on light error/destructive background — WCAG 2.2 AA contrast",
+        "$extensions": {
+          "com.tokens.oklch": "oklch(20.0% 0 0)"
+        }
       },
       "error": {
         "$value": "{color.primitive.red.600}",
@@ -2078,15 +2104,15 @@
         "$description": "Light mode"
       },
       "text_on_brand": {
-        "$value": "#1A1523",
-        "$description": "Light mode"
+        "$value": "#FFFFFF",
+        "$description": "Light mode — white on brand-primary (#C2410C) for WCAG 2.2 AA"
       },
       "brand_primary": {
-        "$value": "#E8590C",
-        "$description": "Light mode"
+        "$value": "#C2410C",
+        "$description": "Light mode — darker orange so white text meets WCAG 2.2 AA 4.5:1"
       },
       "brand_primary_rgb": {
-        "$value": "232, 89, 12",
+        "$value": "194, 65, 12",
         "$description": "Light mode"
       },
       "brand_secondary": {
@@ -2142,15 +2168,15 @@
         "$description": "Dark mode"
       },
       "text_on_brand_dark": {
-        "$value": "#1A0D00",
-        "$description": "Dark mode"
+        "$value": "#FFFFFF",
+        "$description": "Dark mode — white on orange brand (#CC4A14) for WCAG 2.2 AA"
       },
       "brand_primary_dark": {
-        "$value": "#FF6B2B",
-        "$description": "Dark mode"
+        "$value": "#CC4A14",
+        "$description": "Dark mode — darker orange so white text meets WCAG 2.2 AA 4.5:1"
       },
       "brand_primary_rgb_dark": {
-        "$value": "255, 107, 43",
+        "$value": "204, 74, 20",
         "$description": "Dark mode"
       },
       "brand_secondary_dark": {
@@ -2502,6 +2528,14 @@
           "$type": "color",
           "$extensions": {
             "com.tokens.oklch": "oklch(20.0% 0.0403 258.3)"
+          }
+        },
+        "text-tertiary": {
+          "$value": "#9e9eac",
+          "$type": "color",
+          "$description": "Tertiary text on dark bg-tertiary — WCAG 2.2 AA (e.g. badge N/A)",
+          "$extensions": {
+            "com.tokens.oklch": "oklch(66.5% 0.022 286.0)"
           }
         }
       },

@@ -2,6 +2,8 @@
 
 Model Context Protocol server for the Universal Design System. Exposes palette queries, component lookups, BM25 search, and token generation to AI coding tools.
 
+**Auto-install:** Run `npx @mkatogui/universal-design-system install` (or `uds install`) in your project; it detects your platform and adds the MCP server. Supported: Claude Code (`.mcp.json`), Cursor (`.cursor/mcp.json`), Windsurf (`.windsurf/mcp.json`), VS Code/Copilot (`.vscode/mcp.json`), Zed (`.zed/settings.json` with `context_servers`), Continue (`.continue/mcpServers/universal-design-system.yaml`), and Cline (`.cline_mcp_servers.json` at project root).
+
 ## Prerequisites
 
 - Node.js 18+
@@ -89,21 +91,53 @@ In `.windsurf/mcp.json`:
 }
 ```
 
+### Cline
+
+`uds install` writes to `.cline_mcp_servers.json` at the project root (Cline’s project-level MCP config). For manual setup, create that file with:
+
+```json
+{
+  "mcpServers": {
+    "universal-design-system": {
+      "command": "node",
+      "args": ["/absolute/path/to/src/mcp/index.js"]
+    }
+  }
+}
+```
+
 ### Zed
 
-In Zed settings (`settings.json`):
+`uds install` writes to `.zed/settings.json` in your project and adds a `context_servers` entry. If you need to configure manually (e.g. user-level settings), use:
 
 ```json
 {
   "context_servers": {
     "universal-design-system": {
-      "command": {
-        "path": "node",
-        "args": ["/absolute/path/to/src/mcp/index.js"]
-      }
+      "source": "custom",
+      "command": "node",
+      "args": ["/absolute/path/to/src/mcp/index.js"],
+      "env": {}
     }
   }
 }
+```
+
+Use `node_modules/@mkatogui/universal-design-system/src/mcp/index.js` when the package is installed in your project.
+
+### Continue
+
+`uds install` creates `.continue/mcpServers/universal-design-system.yaml` with the MCP server entry. For manual setup, create that file with:
+
+```yaml
+name: Universal Design System MCP
+version: 0.4.1
+schema: v1
+mcpServers:
+  - name: universal-design-system
+    command: node
+    args:
+      - "/absolute/path/to/src/mcp/index.js"
 ```
 
 ## Usage Examples
@@ -146,3 +180,9 @@ AI Tool  -->  MCP stdio  -->  index.js  -->  Python subprocess (search/generate)
 ```
 
 The server runs as a stdio process. AI tools spawn it and communicate via JSON-RPC over stdin/stdout per the MCP specification. Python scripts are invoked as subprocesses only for search and generation tasks; palette and component lookups read files directly for speed.
+
+## Troubleshooting
+
+- **"python3" not found:** The server calls Python for `search_design_system` and `generate_tokens`. Ensure `python3` is on the PATH used by the AI tool (often a minimal env). Install Python or point the tool to a venv that has it.
+- **Tool timeout:** Search and generation allow 30s; very large queries may time out. Narrow the query or run the scripts locally (`python3 src/scripts/search.py "query"`).
+- **Wrong path in config:** If the AI tool reports "server failed to start", check that the `args` path in your MCP config points to the real `index.js` (e.g. `node_modules/@mkatogui/universal-design-system/src/mcp/index.js` when the package is installed).

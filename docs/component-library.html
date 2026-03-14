@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Source+Serif+4:wght@600;700&family=DM+Sans:wght@400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="generated-tokens.css">
 <style>
 /* ============================================================
    FOUNDATION — Default governance layer
@@ -98,16 +99,19 @@
    PALETTE: Minimal SaaS (default)
    ============================================================ */
 :root, :root[data-theme="minimal-saas"] {
-  --color-bg-primary: #FFFFFF; --color-bg-secondary: #F8F8FA;
+  /* From tokens: color.primitive.neutral.0; light mode: white text on destructive btn */
+  --color-neutral-0: #FFFFFF;
+  --color-text-on-error: var(--color-neutral-0);
+  --color-bg-primary: var(--color-neutral-0); --color-bg-secondary: #F8F8FA;
   --color-bg-tertiary: #F0F0F5; --color-bg-inverse: #111118;
   --color-text-primary: #111118; --color-text-secondary: #555566;
-  --color-text-tertiary: #6B6B7B; --color-text-on-brand: #FFFFFF;
+  --color-text-tertiary: #6B6B7B; --color-text-on-brand: var(--color-neutral-0);
   --color-brand-primary: #2563EB; --color-brand-primary-rgb: 37, 99, 235;
   --color-brand-secondary: #3B82F6; --color-brand-accent: #60A5FA;
   --color-brand-muted: #DBEAFE;
   --color-border-default: #C8C8D4; --color-border-input: #8E8E9E;
   --color-border-subtle: #E8E8F0;
-  --color-success: #047857; --color-success-bg: #ECFDF5;
+  --color-success: #047857; --color-success-bg: #ECFDF5; --color-success-on-bg: #047857;
   --color-warning: #D97706; --color-warning-bg: #FFFBEB;
   --color-error: #B91C1C; --color-error-bg: #FEF2F2;
   --color-info: #2563EB; --color-info-bg: #EFF6FF;
@@ -119,6 +123,8 @@
   --shadow-glow: 0 0 40px rgba(var(--color-brand-primary-rgb), 0.2);
   --gradient-hero: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   --gradient-cta: linear-gradient(135deg, var(--color-brand-primary), var(--color-brand-secondary));
+  --nav-bg: #111; --nav-text: #fff; --nav-text-muted: #b3b3b3; --nav-border: #333;
+  --color-code-bg: #1E1E2E; --color-code-text: #D4D4E8; --color-code-muted: #9999AA; --color-code-header-bg: #F3F4F6;
 }
 
 /* Palette: AI Futuristic */
@@ -126,7 +132,7 @@
   --color-bg-primary: #0A0A0F; --color-bg-secondary: #111118;
   --color-bg-tertiary: #1A1A24; --color-bg-inverse: #FFFFFF;
   --color-text-primary: #E0E0EE; --color-text-secondary: #B8B8C8;
-  --color-text-tertiary: #7A7A8C; --color-text-on-brand: #0A0A0F;
+  --color-text-tertiary: #9e9eac; --color-text-on-brand: #0A0A0F;
   --color-brand-primary: #00FF88; --color-brand-primary-rgb: 0, 255, 136;
   --color-brand-secondary: #00D4FF; --color-brand-accent: #8B5CF6;
   --color-brand-muted: #0A2A1A;
@@ -191,17 +197,17 @@
   --font-display: 'Inter', -apple-system, sans-serif;
 }
 
-/* Illustration-Driven */
+/* Illustration-Driven — text-on-brand from token (white on orange) */
 :root[data-theme="illustration"] {
   --color-bg-secondary: #FFF8F0; --color-bg-tertiary: #FFF0E6;
   --color-bg-inverse: #1A1523;
   --color-text-primary: #1A1523; --color-text-secondary: #5C5470;
-  --color-text-tertiary: #7A7189; --color-text-on-brand: #1A1523;
-  --color-brand-primary: #E8590C; --color-brand-primary-rgb: 232, 89, 12;
+  --color-text-tertiary: #7A7189; --color-text-on-brand: var(--color-neutral-0);
+  --color-brand-primary: #C2410C; --color-brand-primary-rgb: 194, 65, 12;
   --color-brand-secondary: #7048E8; --color-brand-accent: #12B886;
   --color-brand-muted: #FFF4E6;
   --color-border-default: #C4B5A4; --color-border-input: #9E8E7E;
-  --gradient-hero: linear-gradient(135deg, #FF6B2B 0%, #7048E8 50%, #12B886 100%);
+  --gradient-hero: linear-gradient(135deg, #C2410C 0%, #7048E8 50%, #12B886 100%);
   /* Structural identity — round, warm, friendly */
   --radius-sm: 10px; --radius-md: 14px; --radius-lg: 18px; --radius-xl: 24px; --radius-2xl: 32px;
   --shadow-sm: 0 2px 6px rgba(26,21,35,0.06);
@@ -277,7 +283,7 @@ html.docs-dark[data-theme="ai-futuristic"] {
   --color-brand-secondary: #00D4FF; --color-brand-accent: #8B5CF6;
   --color-brand-muted: #0A2A1A;
   --color-border-default: #2A2A36; --color-border-input: #4A4A58; --color-border-subtle: #1E1E28;
-  --color-success: #34D399; --color-success-bg: #062E1E; --color-warning: #FBBF24; --color-warning-bg: #2A1F00; --color-error: #F87171; --color-error-bg: #2D0A0A; --color-info: #60A5FA; --color-info-bg: #0A1628;
+  --color-success: #34D399; --color-success-bg: #062E1E; --color-warning: #FBBF24; --color-warning-bg: #2A1F00;   --color-error: #F87171; --color-error-bg: #2D0A0A; --color-text-on-error: #171717; --color-info: #60A5FA; --color-info-bg: #0A1628;
   --shadow-sm: 0 0 0 1px rgba(255,255,255,0.06), 0 2px 4px rgba(0,0,0,0.3);
   --shadow-md: 0 0 0 1px rgba(255,255,255,0.06), 0 4px 12px rgba(0,0,0,0.4);
   --shadow-lg: 0 0 0 1px rgba(255,255,255,0.08), 0 12px 32px rgba(0,0,0,0.5);
@@ -295,7 +301,7 @@ html.docs-dark[data-theme="minimal-saas"] {
   --color-border-default: #2C2C3A; --color-border-input: #4A4A5A; --color-border-subtle: #222230;
   --color-success: #10B981; --color-success-bg: #0A2618;
   --color-warning: #FBBF24; --color-warning-bg: #261E0A;
-  --color-error: #F87171; --color-error-bg: #260A0A;
+  --color-error: #F87171; --color-error-bg: #260A0A; --color-text-on-error: #171717;
   --color-info: #60A5FA; --color-info-bg: #0A1426;
   --shadow-sm: 0 2px 4px rgba(0,0,0,0.3); --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
   --shadow-lg: 0 12px 32px rgba(0,0,0,0.5); --shadow-xl: 0 24px 64px rgba(0,0,0,0.6);
@@ -309,7 +315,7 @@ html.docs-dark[data-theme="gradient-startup"] {
   --color-brand-muted: #1E0A3A;
   --color-success: #10B981; --color-success-bg: #0A2618;
   --color-warning: #FBBF24; --color-warning-bg: #261E0A;
-  --color-error: #F87171; --color-error-bg: #260A0A;
+  --color-error: #F87171; --color-error-bg: #260A0A; --color-text-on-error: #171717;
   --color-info: #60A5FA; --color-info-bg: #0A1426;
   --shadow-sm: 0 2px 4px rgba(0,0,0,0.3); --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
   --shadow-lg: 0 12px 32px rgba(0,0,0,0.5);
@@ -324,11 +330,13 @@ html.docs-dark[data-theme="corporate"] {
   --color-bg-inverse: #FFFFFF;
   --color-text-primary: #D8DCE8; --color-text-secondary: #B0BAC5; --color-text-tertiary: #8C94A4;
   --color-brand-primary: #79B8FF; --color-brand-primary-rgb: 121, 184, 255;
+  --color-btn-primary-bg: #1D4ED8;
+  --color-btn-primary-text: #FFFFFF;
   --color-brand-secondary: #5A8ED8; --color-brand-muted: #0E1A30;
   --color-border-default: #283040; --color-border-input: #3E4858; --color-border-subtle: #1E2636;
   --color-success: #10B981; --color-success-bg: #0A2618;
   --color-warning: #FBBF24; --color-warning-bg: #261E0A;
-  --color-error: #F87171; --color-error-bg: #260A0A;
+  --color-error: #F87171; --color-error-bg: #260A0A; --color-text-on-error: #171717;
   --color-info: #60A5FA; --color-info-bg: #0A1426;
   --shadow-sm: 0 2px 4px rgba(0,0,0,0.3); --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
   --shadow-lg: 0 12px 32px rgba(0,0,0,0.5);
@@ -345,7 +353,7 @@ html.docs-dark[data-theme="apple-minimal"] {
   --color-border-default: #2C2C2E; --color-border-input: #48484A; --color-border-subtle: #1C1C1E;
   --color-success: #10B981; --color-success-bg: #0A2618;
   --color-warning: #FBBF24; --color-warning-bg: #261E0A;
-  --color-error: #F87171; --color-error-bg: #260A0A;
+  --color-error: #F87171; --color-error-bg: #260A0A; --color-text-on-error: #171717;
   --color-info: #60A5FA; --color-info-bg: #0A1426;
   --shadow-sm: 0 2px 4px rgba(0,0,0,0.3); --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
   --shadow-lg: 0 12px 32px rgba(0,0,0,0.5);
@@ -358,16 +366,18 @@ html.docs-dark[data-theme="illustration"] {
   --color-bg-primary: #12100E; --color-bg-secondary: #1C1816; --color-bg-tertiary: #262018;
   --color-bg-inverse: #FFFFFF;
   --color-text-primary: #F0E8DC; --color-text-secondary: #C0B8CC; --color-text-tertiary: #9E96AC;
+  --color-text-on-brand: var(--color-neutral-0);
+  --color-brand-primary: #CC4A14; --color-brand-primary-rgb: 204, 74, 20;
   --color-brand-muted: #2A1F12;
   --color-border-default: #342E24; --color-border-input: #544A3A; --color-border-subtle: #242018;
   --color-success: #10B981; --color-success-bg: #0A2618;
   --color-warning: #FBBF24; --color-warning-bg: #261E0A;
-  --color-error: #F87171; --color-error-bg: #260A0A;
+  --color-error: #F87171; --color-error-bg: #260A0A; --color-text-on-error: #171717;
   --color-info: #60A5FA; --color-info-bg: #0A1426;
   --shadow-sm: 0 2px 4px rgba(0,0,0,0.3); --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
   --shadow-lg: 0 12px 32px rgba(0,0,0,0.5);
-  --shadow-glow: 0 0 40px rgba(232, 89, 12, 0.15);
-  --gradient-hero: linear-gradient(135deg, #CC4400 0%, #5030C0 50%, #0A9060 100%);
+  --shadow-glow: 0 0 40px rgba(204, 74, 20, 0.15);
+  --gradient-hero: linear-gradient(135deg, #CC4A14 0%, #5030C0 50%, #0A9060 100%);
 
   /* Structural (same as light) */
   --radius-sm: 10px; --radius-md: 14px; --radius-lg: 18px; --radius-xl: 24px; --radius-2xl: 32px;
@@ -381,7 +391,7 @@ html.docs-dark[data-theme="dashboard"] {
   --color-border-default: #282C3A; --color-border-input: #3E4254; --color-border-subtle: #1E2030;
   --color-success: #10B981; --color-success-bg: #0A2618;
   --color-warning: #FBBF24; --color-warning-bg: #261E0A;
-  --color-error: #F87171; --color-error-bg: #260A0A;
+  --color-error: #F87171; --color-error-bg: #260A0A; --color-text-on-error: #171717;
   --color-info: #60A5FA; --color-info-bg: #0A1426;
   --shadow-sm: 0 2px 4px rgba(0,0,0,0.3); --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
   --shadow-lg: 0 12px 32px rgba(0,0,0,0.5);
@@ -399,7 +409,7 @@ html.docs-dark[data-theme="bold-lifestyle"] {
   --color-border-default: #2A2A2A; --color-border-input: #4A4A4A; --color-border-subtle: #1A1A1A;
   --color-success: #10B981; --color-success-bg: #0A2618;
   --color-warning: #FBBF24; --color-warning-bg: #261E0A;
-  --color-error: #F87171; --color-error-bg: #260A0A;
+  --color-error: #F87171; --color-error-bg: #260A0A; --color-text-on-error: #171717;
   --color-info: #60A5FA; --color-info-bg: #0A1426;
   --shadow-sm: 0 2px 4px rgba(0,0,0,0.4); --shadow-md: 0 4px 12px rgba(0,0,0,0.5);
   --shadow-lg: 0 12px 32px rgba(0,0,0,0.6);
@@ -414,11 +424,13 @@ html.docs-dark[data-theme="minimal-corporate"] {
   --color-bg-inverse: #FFFFFF;
   --color-text-primary: #EDE8E0; --color-text-secondary: #C0BBB8; --color-text-tertiary: #A09A96;
   --color-brand-primary: #FBBF24; --color-brand-primary-rgb: 251, 191, 36;
+  --color-btn-primary-bg: #B45309;
+  --color-btn-primary-text: #FFFFFF;
   --color-brand-muted: #2C2412;
   --color-border-default: #302A20; --color-border-input: #504838; --color-border-subtle: #201C14;
   --color-success: #10B981; --color-success-bg: #0A2618;
   --color-warning: #FBBF24; --color-warning-bg: #261E0A;
-  --color-error: #F87171; --color-error-bg: #260A0A;
+  --color-error: #F87171; --color-error-bg: #260A0A; --color-text-on-error: #171717;
   --color-info: #60A5FA; --color-info-bg: #0A1426;
   --shadow-sm: 0 2px 4px rgba(0,0,0,0.3); --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
   --shadow-lg: 0 12px 32px rgba(0,0,0,0.5);
@@ -467,12 +479,16 @@ html.docs-dark .site-topnav a { color: var(--color-text-secondary); }
 html.docs-dark .site-topnav a:hover { color: var(--color-text-primary); }
 html.docs-dark .site-topnav a.active { color: var(--color-text-primary); }
 html.docs-dark .site-topnav .nav-brand { color: var(--color-text-primary); }
+html.docs-dark .badge--brand { background: var(--color-bg-tertiary); color: var(--color-text-primary); }
+/* WCAG 2.2 AA: corporate/minimal-corporate dark use bright primary that fails with white text */
+html.docs-dark[data-theme="corporate"] .btn--primary { background: var(--color-btn-primary-bg); color: var(--color-btn-primary-text); }
+html.docs-dark[data-theme="minimal-corporate"] .btn--primary { background: var(--color-btn-primary-bg); color: var(--color-btn-primary-text); }
 
-/* Illustration: brand-primary (#E8590C) fails 4.5:1 on white — use accessible alternatives */
+/* Illustration: brand-primary (#C2410C) — WCAG 2.2 AA with white text */
 [data-theme="illustration"] a { color: var(--color-text-secondary); }
 [data-theme="illustration"] .page-footer a { color: var(--color-text-secondary); }
-[data-theme="illustration"] .site-topnav a { color: #999; }
-[data-theme="illustration"] .site-topnav a.active { color: #fff; }
+[data-theme="illustration"] .site-topnav a { color: var(--nav-text-muted); }
+[data-theme="illustration"] .site-topnav a.active { color: var(--nav-text); }
 
 /* ============================================================
    COMPONENT LIBRARY LAYOUT
@@ -571,21 +587,21 @@ a { color: var(--color-brand-primary); }
   display: block;
 }
 /* === Site Navigation Bar === */
-.site-topnav { display: flex; align-items: center; gap: 0; background: #111; color: #fff; font-family: 'Inter', system-ui, sans-serif; font-size: 14px; padding: 0 24px; height: 44px; position: sticky; top: 0; z-index: 9999; }
-.site-topnav .nav-brand { font-weight: 700; color: #fff; margin-right: 32px; text-decoration: none; }
-.site-topnav a { color: #b3b3b3; text-decoration: none; padding: 0 12px; height: 44px; display: flex; align-items: center; font-size: 14px; transition: color 150ms; white-space: nowrap; }
-.site-topnav a:hover { color: #fff; }
-.site-topnav a.active { color: #fff; font-weight: 600; }
+.site-topnav { display: flex; align-items: center; gap: 0; background: var(--nav-bg); color: var(--nav-text); font-family: 'Inter', system-ui, sans-serif; font-size: 14px; padding: 0 24px; height: 44px; position: sticky; top: 0; z-index: 9999; }
+.site-topnav .nav-brand { font-weight: 700; color: var(--nav-text); margin-right: 32px; text-decoration: none; }
+.site-topnav a { color: var(--nav-text-muted); text-decoration: none; padding: 0 12px; height: 44px; display: flex; align-items: center; font-size: 14px; transition: color 150ms; white-space: nowrap; }
+.site-topnav a:hover { color: var(--nav-text); }
+.site-topnav a.active { color: var(--nav-text); font-weight: 600; }
 .topnav-links { display: flex; align-items: center; }
-.topnav-hamburger { display: none; background: none; border: none; cursor: pointer; padding: 8px; color: #fff; width: 44px; height: 44px; align-items: center; justify-content: center; flex-shrink: 0; margin-left: auto; }
+.topnav-hamburger { display: none; background: none; border: none; cursor: pointer; padding: 8px; color: var(--nav-text); width: 44px; height: 44px; align-items: center; justify-content: center; flex-shrink: 0; margin-left: auto; }
 .topnav-hamburger svg { width: 24px; height: 24px; stroke: currentColor; fill: none; stroke-width: 2; }
 @media (max-width: 768px) {
   .site-topnav { flex-wrap: wrap; height: auto; padding: 0 max(12px, env(safe-area-inset-right)) 0 max(12px, env(safe-area-inset-left)); }
   .topnav-hamburger { display: flex; }
-  .topnav-links { display: none; order: 99; width: 100%; flex-direction: column; background: #111; border-top: 1px solid #333; }
+  .topnav-links { display: none; order: 99; width: 100%; flex-direction: column; background: var(--nav-bg); border-top: 1px solid var(--nav-border); }
   .topnav-links--open { display: flex; }
   .topnav-links a { padding: 12px 16px; min-height: 44px; display: flex; align-items: center; font-size: 14px; border-bottom: none; }
-  .topnav-links a.active { border-bottom: none; border-left: 2px solid #3b82f6; }
+  .topnav-links a.active { border-bottom: none; border-left: 2px solid var(--color-brand-primary); }
   .uds-search { order: 98; width: 100%; padding: 8px 16px; }
   .uds-search__input { width: 100%; }
 }
@@ -649,7 +665,7 @@ html, body { overflow-x: clip; }
 .btn--secondary:hover { border-color: var(--color-brand-primary); color: var(--color-brand-primary); }
 .btn--ghost { background: transparent; color: var(--color-text-secondary); }
 .btn--ghost:hover { background: var(--color-bg-secondary); color: var(--color-text-primary); }
-.btn--destructive { background: var(--color-error); color: #fff; }
+.btn--destructive { background: var(--color-error); color: var(--color-text-on-error, var(--color-text-on-brand)); }
 .btn--sm { height: 36px; padding: 0 16px; font-size: var(--text-body-sm); min-width: 44px; }
 .btn--md { height: 44px; padding: 0 20px; font-size: var(--text-body-md); }
 .btn--lg { height: 52px; padding: 0 28px; font-size: var(--text-body-lg); }
@@ -823,11 +839,11 @@ html, body { overflow-x: clip; }
   <button class="palette-btn" data-theme="bold-lifestyle">Bold Lifestyle</button>
   <button class="palette-btn" data-theme="minimal-corporate">Minimal Corporate</button>
   <button id="dark-mode-toggle" class="dark-mode-toggle" aria-label="Toggle appearance mode" title="Appearance">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
     <span>Dark</span>
   </button>
 </div>
-<div class="container" id="main-content">
+<main class="container" id="main-content">
 <h1>Component Library <span class="count">43</span></h1>
 <p class="subtitle">Copy-paste HTML + CSS for every component. Requires design system tokens (see design-tokens.json).</p>
 <div class="component" id="button">
@@ -852,7 +868,7 @@ html, body { overflow-x: clip; }
 .btn--secondary:hover { border-color: var(--color-brand-primary); color: var(--color-brand-primary); }
 .btn--ghost { background: transparent; color: var(--color-text-secondary); }
 .btn--ghost:hover { background: var(--color-bg-secondary); color: var(--color-text-primary); }
-.btn--destructive { background: var(--color-error); color: #fff; }
+.btn--destructive { background: var(--color-error); color: var(--color-text-on-error, var(--color-text-on-brand)); }
 .btn--sm { height: 36px; padding: 0 16px; font-size: var(--text-body-sm); min-width: 44px; }
 .btn--md { height: 44px; padding: 0 20px; font-size: var(--text-body-md); }
 .btn--lg { height: 52px; padding: 0 28px; font-size: var(--text-body-lg); }
@@ -1134,7 +1150,7 @@ defineEmits(['update:modelValue']);
 <div class="component" id="accordion">
 <div class="component-header"><span class="component-name">Accordion</span><span class="component-props">type: single|multi, variant: bordered|flush</span></div><div class="component-preview">
   <span class="preview-label">Preview</span>
-  <div class="accordion"><button class="accordion-trigger" aria-expanded="true"><span>Question</span><svg class="accordion-chevron" viewBox="0 0 20 20" fill="currentColor"><path d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"/></svg></button><div class="accordion-content">Answer content</div></div>
+  <div class="accordion"><button class="accordion-trigger" aria-expanded="true"><span>Question</span><svg class="accordion-chevron" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"/></svg></button><div class="accordion-content">Answer content</div></div>
 </div>
 
 <div class="component-code">
@@ -1637,9 +1653,9 @@ defineProps({ variant: { type: String, default: 'brand' } });
 <div class="component-code">
 <div class="code-label">CSS</div>
 <div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>.code-block { background: #1E1E2E; color: #D4D4E8; border-radius: var(--radius-lg); overflow: hidden; }
-.code-block-header { display: flex; align-items: center; justify-content: space-between; padding: 8px 16px; background: #F3F4F6; font-size: var(--text-label); }
-.code-block-lang { color: #9999AA; }
-.code-block-copy { padding: 4px 10px; font-size: 11px; background: rgba(255,255,255,0.1); color: #9999AA; border: none; border-radius: 4px; cursor: pointer; }
+.code-block-header { display: flex; align-items: center; justify-content: space-between; padding: var(--space-2) var(--space-4); background: var(--color-code-header-bg); font-size: var(--text-label); }
+.code-block-lang { color: var(--color-code-muted); }
+.code-block-copy { padding: var(--space-1) var(--space-3); font-size: 11px; background: rgba(255,255,255,0.1); color: var(--color-code-muted); border: none; border-radius: var(--radius-sm); cursor: pointer; }
 .code-block pre { padding: 20px; font-family: var(--font-mono); font-size: 13px; line-height: 1.6; overflow-x: auto; margin: 0; }</pre></div>
 <div class="code-label">HTML</div>
 <div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>&lt;div class="code-block"&gt;
@@ -1680,7 +1696,7 @@ defineProps({ variant: { type: String, default: 'brand' } });
 </div></div>
 
 <!-- ========== Radio ========== -->
-<div class="component">
+<div class="component" id="radio">
 <div class="component-header"><span class="component-name">Radio</span><span class="component-props">checked: boolean, disabled: boolean, variant: standard|card</span></div><div class="component-preview">
 <div style="padding:20px;display:flex;flex-direction:column;gap:12px;">
 <label style="display:flex;align-items:center;gap:8px;min-height:44px;cursor:pointer;font-size:var(--text-body-md)"><input type="radio" name="demo-plan" checked style="width:20px;height:20px;accent-color:var(--color-brand-primary)" aria-label="Monthly plan"> Monthly</label>
@@ -1709,7 +1725,7 @@ defineProps({ variant: { type: String, default: 'brand' } });
 </div></div>
 
 <!-- ========== Hero Section ========== -->
-<div class="component">
+<div class="component" id="hero">
 <div class="component-header"><span class="component-name">Hero Section</span><span class="component-props">variant: centered|split|gradient-mesh|video-bg, size: full(85vh)|compact(60vh)</span></div>
 <div class="component-code">
 <div class="code-label">CSS</div>
@@ -1717,7 +1733,7 @@ defineProps({ variant: { type: String, default: 'brand' } });
 .hero-headline { font-family: var(--font-display); font-size: var(--text-display-xl); font-weight: 800; letter-spacing: -0.02em; max-width: 800px; margin-bottom: 16px; }
 .hero-subheadline { font-size: var(--text-body-lg); color: var(--color-text-secondary); max-width: 600px; margin-bottom: 32px; }
 .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
-.hero--gradient { background: var(--gradient-hero); color: #fff; }
+.hero--gradient { background: var(--gradient-hero); color: var(--color-text-on-brand); }
 .hero--gradient .hero-subheadline { color: rgba(255,255,255,0.85); }
 .hero--dark { background: var(--color-bg-inverse); color: var(--color-bg-primary); }
 .hero--dark .hero-subheadline { color: rgba(255,255,255,0.7); }</pre></div>
@@ -1733,7 +1749,7 @@ defineProps({ variant: { type: String, default: 'brand' } });
 </div></div>
 
 <!-- ========== Social Proof Bar ========== -->
-<div class="component">
+<div class="component" id="social-proof">
 <div class="component-header"><span class="component-name">Social Proof Bar</span><span class="component-props">variant: logo-strip|stats-counter|testimonial-mini|combined</span></div><div class="component-preview">
 <div style="padding:20px;text-align:center;">
 <div style="font-size:var(--text-label);text-transform:uppercase;letter-spacing:0.08em;font-weight:600;color:var(--color-text-tertiary);margin-bottom:16px;">Trusted by industry leaders</div>
@@ -1762,7 +1778,7 @@ defineProps({ variant: { type: String, default: 'brand' } });
 </div></div>
 
 <!-- ========== Testimonial Card ========== -->
-<div class="component">
+<div class="component" id="testimonial">
 <div class="component-header"><span class="component-name">Testimonial Card</span><span class="component-props">variant: quote-card|video|metric|carousel</span></div><div class="component-preview">
 <div style="padding:20px;">
 <div style="padding:24px;background:var(--color-bg-tertiary);border:1px solid var(--color-border-default);border-radius:12px;max-width:480px;">
@@ -1793,7 +1809,7 @@ defineProps({ variant: { type: String, default: 'brand' } });
 </div></div>
 
 <!-- ========== Progress Indicator ========== -->
-<div class="component">
+<div class="component" id="progress">
 <div class="component-header"><span class="component-name">Progress Indicator</span><span class="component-props">variant: bar|circular|stepper, value: number, max: number, indeterminate: boolean</span></div><div class="component-preview">
 <div style="padding:20px;display:flex;flex-direction:column;gap:16px;max-width:400px;">
 <div><div style="font-size:var(--text-body-sm);font-weight:500;margin-bottom:4px;">Uploading... 65%</div><div style="height:8px;background:var(--color-bg-tertiary);border-radius:9999px;overflow:hidden;"><div style="height:100%;width:65%;background:var(--color-brand-primary);border-radius:9999px;transition:width 0.3s;"></div></div></div>
@@ -1825,7 +1841,7 @@ defineProps({ variant: { type: String, default: 'brand' } });
 </div></div>
 
 <!-- ========== Date Picker ========== -->
-<div class="component">
+<div class="component" id="date-picker">
 <div class="component-header"><span class="component-name">Date Picker</span><span class="component-props">variant: single|range|with-time, min: date, max: date, locale: string</span></div>
 <div class="component-code">
 <div class="code-label">CSS</div>
@@ -1858,7 +1874,7 @@ defineProps({ variant: { type: String, default: 'brand' } });
 </div></div>
 
 <!-- ========== Command Palette ========== -->
-<div class="component">
+<div class="component" id="command-palette">
 <div class="component-header"><span class="component-name">Command Palette</span><span class="component-props">actions: Action[], groups: Group[], placeholder: string</span></div>
 <div class="component-code">
 <div class="code-label">CSS</div>
@@ -1892,7 +1908,7 @@ defineProps({ variant: { type: String, default: 'brand' } });
 </div></div>
 
 <!-- ========== Side Navigation ========== -->
-<div class="component">
+<div class="component" id="side-navigation">
 <div class="component-header"><span class="component-name">Side Navigation</span><span class="component-props">variant: default|collapsed|with-sections, collapsed: boolean, width: default(240px)|collapsed(64px)</span></div>
 <div class="component-code">
 <div class="code-label">CSS</div>
@@ -1927,7 +1943,205 @@ defineProps({ variant: { type: String, default: 'brand' } });
 &lt;/nav&gt;</pre></div>
 </div></div>
 
-</div><!-- /.container -->
+<!-- ========== Feature Card ========== -->
+<div class="component" id="feature-card">
+<div class="component-header"><span class="component-name">Feature Card</span><span class="component-props">variant: icon-top|image-top|horizontal|stat-card, title, description, link</span></div><div class="component-preview">
+  <span class="preview-label">Preview</span>
+  <div class="card" style="padding:24px;max-width:320px;"><div style="width:48px;height:48px;border-radius:var(--radius-md);background:var(--color-brand-muted);margin-bottom:16px;"></div><h3 style="font-size:var(--text-heading-sm);margin-bottom:8px;">Feature title</h3><p style="font-size:var(--text-body-sm);color:var(--color-text-secondary);">Supporting description for the feature.</p></div>
+</div>
+<div class="component-code"><div class="code-label">CSS</div><div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>.feature-card { padding: 24px; border: 1px solid var(--color-border-default); border-radius: var(--radius-lg); background: var(--color-bg-primary); }
+.feature-card__icon { width: 48px; height: 48px; border-radius: var(--radius-md); background: var(--color-brand-muted); margin-bottom: 16px; }
+.feature-card__title { font-size: var(--text-heading-sm); margin-bottom: 8px; }
+.feature-card__desc { font-size: var(--text-body-sm); color: var(--color-text-secondary); }</pre></div>
+<div class="code-label">HTML</div><div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>&lt;div class="feature-card"&gt;
+  &lt;div class="feature-card__icon" aria-hidden="true"&gt;&lt;/div&gt;
+  &lt;h3 class="feature-card__title"&gt;Feature title&lt;/h3&gt;
+  &lt;p class="feature-card__desc"&gt;Supporting description.&lt;/p&gt;
+&lt;/div&gt;</pre></div></div></div>
+
+<!-- ========== File Upload ========== -->
+<div class="component" id="file-upload">
+<div class="component-header"><span class="component-name">File Upload</span><span class="component-props">variant: dropzone|button|avatar-upload, accept, maxSize, multiple</span></div><div class="component-preview">
+  <span class="preview-label">Preview</span>
+  <div style="border:2px dashed var(--color-border-default);border-radius:var(--radius-lg);padding:32px;text-align:center;background:var(--color-bg-tertiary);max-width:400px;"><span style="font-size:var(--text-body-sm);color:var(--color-text-secondary);">Drag and drop files or click to upload</span></div>
+</div>
+<div class="component-code"><div class="code-label">CSS</div><div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>.file-dropzone { border: 2px dashed var(--color-border-default); border-radius: var(--radius-lg); padding: 32px; text-align: center; background: var(--color-bg-tertiary); cursor: pointer; transition: border-color var(--duration-fast); }
+.file-dropzone:hover { border-color: var(--color-brand-primary); }
+.file-dropzone input[type="file"] { position: absolute; opacity: 0; width: 100%; height: 100%; cursor: pointer; }</pre></div>
+<div class="code-label">HTML</div><div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>&lt;label class="file-dropzone"&gt;
+  &lt;input type="file" multiple aria-label="Upload files" /&gt;
+  Drag and drop or click to upload
+&lt;/label&gt;</pre></div></div></div>
+
+<!-- ========== Drawer ========== -->
+<div class="component" id="drawer">
+<div class="component-header"><span class="component-name">Drawer</span><span class="component-props">side: left|right|top|bottom, open: boolean, onClose</span></div>
+<div class="component-code"><div class="code-label">CSS</div><div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>.drawer-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: var(--z-modal); }
+.drawer { position: fixed; top: 0; right: 0; width: 400px; max-width: 100%; height: 100vh; background: var(--color-bg-primary); box-shadow: var(--shadow-xl); z-index: var(--z-modal); padding: 24px; overflow-y: auto; }
+.drawer-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }</pre></div>
+<div class="code-label">HTML</div><div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>&lt;div class="drawer-overlay" aria-hidden="true"&gt;
+  &lt;div class="drawer" role="dialog" aria-modal="true" aria-label="Panel"&gt;
+    &lt;div class="drawer-header"&gt;&lt;h2&gt;Title&lt;/h2&gt;&lt;button aria-label="Close"&gt;&amp;times;&lt;/button&gt;&lt;/div&gt;
+    &lt;p&gt;Drawer content.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre></div></div></div>
+
+<!-- ========== Popover ========== -->
+<div class="component" id="popover">
+<div class="component-header"><span class="component-name">Popover</span><span class="component-props">position: top|bottom|left|right|auto, content, trigger</span></div><div class="component-preview">
+  <span class="preview-label">Preview</span>
+  <div style="display:inline-block;position:relative;"><button class="btn btn--secondary btn--sm">Open popover</button><div style="position:absolute;left:0;top:100%;margin-top:8px;padding:12px;background:var(--color-bg-primary);border:1px solid var(--color-border-default);border-radius:var(--radius-md);box-shadow:var(--shadow-lg);font-size:var(--text-body-sm);min-width:160px;">Popover content</div></div>
+</div>
+<div class="component-code"><div class="code-label">CSS</div><div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>.popover { position: absolute; padding: 12px; background: var(--color-bg-primary); border: 1px solid var(--color-border-default); border-radius: var(--radius-md); box-shadow: var(--shadow-lg); z-index: var(--z-dropdown); font-size: var(--text-body-sm); }</pre></div>
+<div class="code-label">HTML</div><div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>&lt;div style="position:relative"&gt;
+  &lt;button id="popover-trigger" aria-haspopup="true" aria-expanded="false"&gt;Trigger&lt;/button&gt;
+  &lt;div class="popover" role="dialog" id="popover-content" hidden&gt;Content&lt;/div&gt;
+&lt;/div&gt;</pre></div></div></div>
+
+<!-- ========== Combobox ========== -->
+<div class="component" id="combobox">
+<div class="component-header"><span class="component-name">Combobox</span><span class="component-props">variant: autocomplete|multiselect|creatable, options[], placeholder, onSelect</span></div><div class="component-preview">
+  <span class="preview-label">Preview</span>
+  <div style="max-width:280px;"><input class="input" type="text" placeholder="Search or select..." style="width:100%"><div style="margin-top:4px;padding:8px;background:var(--color-bg-primary);border:1px solid var(--color-border-default);border-radius:var(--radius-md);font-size:var(--text-body-sm);">Option 1<br>Option 2<br>Option 3</div></div>
+</div>
+<div class="component-code"><div class="code-label">CSS</div><div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>.combobox-listbox { margin-top: 4px; padding: 8px; background: var(--color-bg-primary); border: 1px solid var(--color-border-default); border-radius: var(--radius-md); max-height: 240px; overflow-y: auto; }
+.combobox-option { padding: 8px 12px; border-radius: var(--radius-sm); cursor: pointer; }
+.combobox-option[aria-selected="true"] { background: var(--color-brand-muted); }</pre></div>
+<div class="code-label">HTML</div><div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>&lt;div role="combobox" aria-expanded="false" aria-haspopup="listbox"&gt;
+  &lt;input type="text" aria-autocomplete="list" aria-controls="listbox" aria-activedescendant="" /&gt;
+  &lt;ul id="listbox" role="listbox" class="combobox-listbox" hidden&gt;&lt;li role="option"&gt;Option 1&lt;/li&gt;&lt;/ul&gt;
+&lt;/div&gt;</pre></div></div></div>
+
+<!-- ========== Alert Dialog ========== -->
+<div class="component" id="alert-dialog">
+<div class="component-header"><span class="component-name">Alert Dialog</span><span class="component-props">variant: info|warning|destructive, title, description, onConfirm, onCancel</span></div>
+<div class="component-code"><div class="code-label">CSS</div><div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>.alert-dialog-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: var(--z-modal); }
+.alert-dialog { max-width: 400px; padding: 24px; background: var(--color-bg-primary); border-radius: var(--radius-lg); box-shadow: var(--shadow-xl); }
+.alert-dialog__actions { display: flex; gap: 12px; justify-content: flex-end; margin-top: 24px; }</pre></div>
+<div class="code-label">HTML</div><div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>&lt;div class="alert-dialog-overlay" role="alertdialog" aria-modal="true" aria-labelledby="alert-title" aria-describedby="alert-desc"&gt;
+  &lt;div class="alert-dialog"&gt;
+    &lt;h2 id="alert-title"&gt;Confirm action&lt;/h2&gt;
+    &lt;p id="alert-desc"&gt;This action cannot be undone.&lt;/p&gt;
+    &lt;div class="alert-dialog__actions"&gt;&lt;button class="btn btn--secondary"&gt;Cancel&lt;/button&gt;&lt;button class="btn btn--primary"&gt;Confirm&lt;/button&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre></div></div></div>
+
+<!-- ========== Carousel ========== -->
+<div class="component" id="carousel">
+<div class="component-header"><span class="component-name">Carousel</span><span class="component-props">variant: slide|fade|auto-play, items[], showDots, showArrows</span></div><div class="component-preview">
+  <span class="preview-label">Preview</span>
+  <div style="position:relative;max-width:400px;overflow:hidden;border-radius:var(--radius-lg);background:var(--color-bg-tertiary);aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;color:var(--color-text-tertiary);">Slide 1</div>
+</div>
+<div class="component-code"><div class="code-label">CSS</div><div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>.carousel { position: relative; overflow: hidden; border-radius: var(--radius-lg); }
+.carousel-track { display: flex; transition: transform var(--duration-normal) var(--ease-default); }
+.carousel-slide { flex: 0 0 100%; min-width: 0; }
+.carousel-dots { display: flex; gap: 8px; justify-content: center; margin-top: 16px; }
+.carousel-dot { width: 8px; height: 8px; border-radius: 9999px; background: var(--color-border-default); cursor: pointer; }
+.carousel-dot--active { background: var(--color-brand-primary); }</pre></div>
+<div class="code-label">HTML</div><div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>&lt;section class="carousel" role="region" aria-roledescription="carousel" aria-label="Content carousel"&gt;
+  &lt;div class="carousel-track"&gt;&lt;div class="carousel-slide"&gt;Slide 1&lt;/div&gt;&lt;div class="carousel-slide"&gt;Slide 2&lt;/div&gt;&lt;/div&gt;
+  &lt;div class="carousel-dots" role="tablist"&gt;&lt;button role="tab" aria-selected="true" class="carousel-dot carousel-dot--active"&gt;&lt;/button&gt;&lt;button role="tab" class="carousel-dot"&gt;&lt;/button&gt;&lt;/div&gt;
+&lt;/section&gt;</pre></div></div></div>
+
+<!-- ========== Chip Input ========== -->
+<div class="component" id="chip-input">
+<div class="component-header"><span class="component-name">Chip Input</span><span class="component-props">chips[], onAdd, onRemove, maxChips, placeholder</span></div><div class="component-preview">
+  <span class="preview-label">Preview</span>
+  <div style="display:flex;flex-wrap:wrap;gap:8px;padding:8px 12px;border:1px solid var(--color-border-input);border-radius:var(--radius-md);min-height:44px;align-items:center;background:var(--color-bg-primary);"><span style="padding:4px 8px;background:var(--color-brand-muted);border-radius:var(--radius-sm);font-size:var(--text-body-sm);">Tag 1</span><span style="padding:4px 8px;background:var(--color-brand-muted);border-radius:var(--radius-sm);font-size:var(--text-body-sm);">Tag 2</span><input type="text" placeholder="Add..." style="border:none;flex:1;min-width:80px;font-size:var(--text-body-md);background:transparent;outline:none;"></div>
+</div>
+<div class="component-code"><div class="code-label">CSS</div><div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>.chip-input { display: flex; flex-wrap: wrap; gap: 8px; padding: 8px 12px; border: 1px solid var(--color-border-input); border-radius: var(--radius-md); min-height: 44px; background: var(--color-bg-primary); }
+.chip { padding: 4px 8px; background: var(--color-brand-muted); border-radius: var(--radius-sm); font-size: var(--text-body-sm); display: inline-flex; align-items: center; gap: 4px; }
+.chip-remove { background: none; border: none; cursor: pointer; padding: 0 2px; }
+.chip-input input { border: none; flex: 1; min-width: 80px; background: transparent; outline: none; font-size: var(--text-body-md); }</pre></div>
+<div class="code-label">HTML</div><div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>&lt;div class="chip-input" role="listbox"&gt;
+  &lt;span class="chip" role="option"&gt;Tag 1 &lt;button class="chip-remove" aria-label="Remove"&gt;&amp;times;&lt;/button&gt;&lt;/span&gt;
+  &lt;input type="text" aria-label="Add chip" placeholder="Add..." /&gt;
+&lt;/div&gt;</pre></div></div></div>
+
+<!-- ========== Stepper ========== -->
+<div class="component" id="stepper">
+<div class="component-header"><span class="component-name">Stepper</span><span class="component-props">steps[], activeStep, orientation: horizontal|vertical, linear: boolean</span></div><div class="component-preview">
+  <span class="preview-label">Preview</span>
+  <div style="display:flex;align-items:center;gap:8px;"><span style="width:28px;height:28px;border-radius:9999px;background:var(--color-brand-primary);color:var(--color-text-on-brand);font-size:var(--text-body-sm);font-weight:600;display:flex;align-items:center;justify-content:center;">1</span><span style="width:40px;height:2px;background:var(--color-brand-primary);"></span><span style="width:28px;height:28px;border-radius:9999px;border:2px solid var(--color-border-default);font-size:var(--text-body-sm);font-weight:600;display:flex;align-items:center;justify-content:center;">2</span><span style="width:40px;height:2px;background:var(--color-border-subtle);"></span><span style="width:28px;height:28px;border-radius:9999px;border:2px solid var(--color-border-default);font-size:var(--text-body-sm);display:flex;align-items:center;justify-content:center;">3</span></div>
+</div>
+<div class="component-code"><div class="code-label">CSS</div><div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>.stepper { display: flex; align-items: center; gap: 8px; }
+.stepper-step { width: 28px; height: 28px; border-radius: 9999px; display: flex; align-items: center; justify-content: center; font-size: var(--text-body-sm); font-weight: 600; }
+.stepper-step--active, .stepper-step--completed { background: var(--color-brand-primary); color: var(--color-text-on-brand); }
+.stepper-step--pending { border: 2px solid var(--color-border-default); color: var(--color-text-tertiary); }
+.stepper-connector { width: 40px; height: 2px; background: var(--color-border-subtle); }
+.stepper-connector--completed { background: var(--color-brand-primary); }</pre></div>
+<div class="code-label">HTML</div><div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>&lt;nav class="stepper" aria-label="Progress"&gt;
+  &lt;span class="stepper-step stepper-step--completed" aria-current="step"&gt;1&lt;/span&gt;
+  &lt;span class="stepper-connector stepper-connector--completed"&gt;&lt;/span&gt;
+  &lt;span class="stepper-step stepper-step--active"&gt;2&lt;/span&gt;
+  &lt;span class="stepper-connector"&gt;&lt;/span&gt;
+  &lt;span class="stepper-step stepper-step--pending"&gt;3&lt;/span&gt;
+&lt;/nav&gt;</pre></div></div></div>
+
+<!-- ========== Segmented Control ========== -->
+<div class="component" id="segmented-control">
+<div class="component-header"><span class="component-name">Segmented Control</span><span class="component-props">options[], value, onChange, variant: default|icon-only</span></div><div class="component-preview">
+  <span class="preview-label">Preview</span>
+  <div style="display:inline-flex;padding:4px;background:var(--color-bg-tertiary);border-radius:var(--radius-md);gap:2px;"><button class="btn btn--primary btn--sm" style="border-radius:6px;">Option A</button><button class="btn btn--ghost btn--sm" style="border-radius:6px;">Option B</button><button class="btn btn--ghost btn--sm" style="border-radius:6px;">Option C</button></div>
+</div>
+<div class="component-code"><div class="code-label">CSS</div><div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>.segmented-control { display: inline-flex; padding: 4px; background: var(--color-bg-tertiary); border-radius: var(--radius-md); gap: 2px; }
+.segmented-control [role="radio"] { border-radius: 6px; }
+.segmented-control [role="radio"][aria-checked="true"] { background: var(--color-bg-primary); box-shadow: var(--shadow-xs); }</pre></div>
+<div class="code-label">HTML</div><div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>&lt;div class="segmented-control" role="radiogroup" aria-label="Options"&gt;
+  &lt;button role="radio" aria-checked="true"&gt;Option A&lt;/button&gt;
+  &lt;button role="radio" aria-checked="false"&gt;Option B&lt;/button&gt;
+  &lt;button role="radio" aria-checked="false"&gt;Option C&lt;/button&gt;
+&lt;/div&gt;</pre></div></div></div>
+
+<!-- ========== Toolbar ========== -->
+<div class="component" id="toolbar">
+<div class="component-header"><span class="component-name">Toolbar</span><span class="component-props">orientation: horizontal|vertical, items[], ariaLabel</span></div><div class="component-preview">
+  <span class="preview-label">Preview</span>
+  <div style="display:flex;gap:4px;padding:8px;background:var(--color-bg-tertiary);border-radius:var(--radius-md);" role="toolbar" aria-label="Formatting"><button class="btn btn--secondary btn--sm">B</button><button class="btn btn--secondary btn--sm">I</button><button class="btn btn--secondary btn--sm">U</button><span style="width:1px;background:var(--color-border-default);align-self:stretch;"></span><button class="btn btn--secondary btn--sm">List</button></div>
+</div>
+<div class="component-code"><div class="code-label">CSS</div><div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>.toolbar { display: flex; gap: 4px; padding: 8px; background: var(--color-bg-tertiary); border-radius: var(--radius-md); }
+.toolbar-divider { width: 1px; background: var(--color-border-default); align-self: stretch; }</pre></div>
+<div class="code-label">HTML</div><div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>&lt;div class="toolbar" role="toolbar" aria-label="Formatting"&gt;
+  &lt;button type="button" aria-label="Bold"&gt;B&lt;/button&gt;
+  &lt;button type="button" aria-label="Italic"&gt;I&lt;/button&gt;
+  &lt;span class="toolbar-divider" aria-hidden="true"&gt;&lt;/span&gt;
+  &lt;button type="button" aria-label="List"&gt;List&lt;/button&gt;
+&lt;/div&gt;</pre></div></div></div>
+
+<!-- ========== Tree View ========== -->
+<div class="component" id="tree-view">
+<div class="component-header"><span class="component-name">Tree View</span><span class="component-props">data[], selectionMode: single|multi|checkbox, onSelect, onExpand</span></div><div class="component-preview">
+  <span class="preview-label">Preview</span>
+  <div style="max-width:280px;font-size:var(--text-body-sm);"><div style="display:flex;align-items:center;gap:8px;padding:8px 12px;cursor:pointer;border-radius:var(--radius-sm);"><span aria-hidden="true">&#9660;</span><strong>Documents</strong></div><div style="padding-left:20px;"><div style="padding:6px 12px;border-radius:var(--radius-sm);">File 1</div><div style="padding:6px 12px;border-radius:var(--radius-sm);">File 2</div></div></div>
+</div>
+<div class="component-code"><div class="code-label">CSS</div><div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>.tree { font-size: var(--text-body-sm); }
+.tree-item { display: flex; align-items: center; gap: 8px; padding: 8px 12px; cursor: pointer; border-radius: var(--radius-sm); }
+.tree-item:hover { background: var(--color-bg-secondary); }
+.tree-item[aria-expanded="true"] { font-weight: 600; }
+.tree-group { padding-left: 20px; }
+.tree-leaf { padding: 6px 12px; border-radius: var(--radius-sm); }</pre></div>
+<div class="code-label">HTML</div><div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>&lt;div class="tree" role="tree" aria-label="Folder structure"&gt;
+  &lt;div class="tree-item" role="treeitem" aria-expanded="true"&gt;&lt;span&gt;&amp;#9660;&lt;/span&gt;&lt;span&gt;Documents&lt;/span&gt;&lt;/div&gt;
+  &lt;div class="tree-group" role="group"&gt;&lt;div class="tree-leaf" role="treeitem"&gt;File 1&lt;/div&gt;&lt;div class="tree-leaf" role="treeitem"&gt;File 2&lt;/div&gt;&lt;/div&gt;
+&lt;/div&gt;</pre></div></div></div>
+
+<!-- ========== OTP Input ========== -->
+<div class="component" id="otp-input">
+<div class="component-header"><span class="component-name">OTP Input</span><span class="component-props">length: 4|6, value, onChange, inputMode: numeric|alphanumeric</span></div><div class="component-preview">
+  <span class="preview-label">Preview</span>
+  <div style="display:flex;gap:8px;"><input type="text" inputmode="numeric" maxlength="1" style="width:48px;height:52px;text-align:center;font-size:1.5rem;border:1px solid var(--color-border-input);border-radius:var(--radius-md);" aria-label="Digit 1"><input type="text" inputmode="numeric" maxlength="1" style="width:48px;height:52px;text-align:center;font-size:1.5rem;border:1px solid var(--color-border-input);border-radius:var(--radius-md);" aria-label="Digit 2"><input type="text" inputmode="numeric" maxlength="1" style="width:48px;height:52px;text-align:center;font-size:1.5rem;border:1px solid var(--color-border-input);border-radius:var(--radius-md);" aria-label="Digit 3"><input type="text" inputmode="numeric" maxlength="1" style="width:48px;height:52px;text-align:center;font-size:1.5rem;border:1px solid var(--color-border-input);border-radius:var(--radius-md);" aria-label="Digit 4"></div>
+</div>
+<div class="component-code"><div class="code-label">CSS</div><div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>.otp-input { display: flex; gap: 8px; }
+.otp-input input { width: 48px; height: 52px; text-align: center; font-size: 1.5rem; border: 1px solid var(--color-border-input); border-radius: var(--radius-md); font-family: var(--font-mono); }
+.otp-input input:focus { outline: none; border-color: var(--color-brand-primary); box-shadow: 0 0 0 3px rgba(var(--color-brand-primary-rgb), 0.15); }</pre></div>
+<div class="code-label">HTML</div><div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>&lt;div class="otp-input" role="group" aria-label="One-time code"&gt;
+  &lt;input type="text" inputmode="numeric" maxlength="1" aria-label="Digit 1" autocomplete="one-time-code" /&gt;
+  &lt;input type="text" inputmode="numeric" maxlength="1" aria-label="Digit 2" /&gt;
+  &lt;input type="text" inputmode="numeric" maxlength="1" aria-label="Digit 3" /&gt;
+  &lt;input type="text" inputmode="numeric" maxlength="1" aria-label="Digit 4" /&gt;
+&lt;/div&gt;</pre></div></div></div>
+
+</main><!-- /.container -->
 
 <footer class="page-footer">
   <p>Universal Design System v__VERSION__ &middot; <a href="https://github.com/mkatogui/universal-design-system">GitHub</a> &middot; MIT License</p>

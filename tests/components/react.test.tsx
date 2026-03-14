@@ -199,7 +199,7 @@ describe('Modal', () => {
   });
 
   it('renders an overlay', () => {
-    const { container } = render(
+    render(
       <Modal open={true} onClose={vi.fn()} title="Overlay">
         Body
       </Modal>,
@@ -216,7 +216,7 @@ describe('Modal', () => {
         Body
       </Modal>,
     );
-    const overlay = document.querySelector('.uds-modal-overlay')!;
+    const overlay = document.querySelector('.uds-modal-overlay') as HTMLElement;
     // Click on overlay itself (not children)
     fireEvent.mouseDown(overlay);
     expect(handleClose).toHaveBeenCalledTimes(1);
@@ -224,7 +224,12 @@ describe('Modal', () => {
 
   it('renders action buttons in the footer', () => {
     render(
-      <Modal open={true} onClose={vi.fn()} title="With Actions" actions={<button>Confirm</button>}>
+      <Modal
+        open={true}
+        onClose={vi.fn()}
+        title="With Actions"
+        actions={<button type="button">Confirm</button>}
+      >
         Body
       </Modal>,
     );
@@ -529,7 +534,7 @@ describe('Toast', () => {
   });
 
   it('renders an action element', () => {
-    render(<Toast message="Deleted" action={<button>Undo</button>} />);
+    render(<Toast message="Deleted" action={<button type="button">Undo</button>} />);
     expect(screen.getByRole('button', { name: 'Undo' })).toBeInTheDocument();
   });
 });
@@ -541,7 +546,7 @@ describe('Tooltip', () => {
   it('renders the trigger child', () => {
     render(
       <Tooltip content="Help text">
-        <button>Hover me</button>
+        <button type="button">Hover me</button>
       </Tooltip>,
     );
     expect(screen.getByRole('button', { name: 'Hover me' })).toBeInTheDocument();
@@ -550,7 +555,7 @@ describe('Tooltip', () => {
   it('adds aria-describedby to the trigger', () => {
     render(
       <Tooltip content="Descriptive text">
-        <button>Trigger</button>
+        <button type="button">Trigger</button>
       </Tooltip>,
     );
     const trigger = screen.getByRole('button', { name: 'Trigger' });
@@ -560,7 +565,7 @@ describe('Tooltip', () => {
   it('renders tooltip content with role="tooltip"', () => {
     render(
       <Tooltip content="Tooltip text">
-        <button>Trigger</button>
+        <button type="button">Trigger</button>
       </Tooltip>,
     );
     expect(screen.getByRole('tooltip', { hidden: true })).toHaveTextContent('Tooltip text');
@@ -569,10 +574,12 @@ describe('Tooltip', () => {
   it('shows tooltip on mouse enter and hides on mouse leave', () => {
     render(
       <Tooltip content="Visible tooltip">
-        <button>Hover</button>
+        <button type="button">Hover</button>
       </Tooltip>,
     );
-    const wrapper = screen.getByRole('tooltip', { hidden: true }).closest('.uds-tooltip')!;
+    const wrapper = screen
+      .getByRole('tooltip', { hidden: true })
+      .closest('.uds-tooltip') as HTMLElement;
 
     expect(wrapper).not.toHaveClass('uds-tooltip--visible');
 
@@ -591,10 +598,12 @@ describe('Tooltip', () => {
   it('shows tooltip on focus and hides on blur', () => {
     render(
       <Tooltip content="Focus tooltip">
-        <button>Focus me</button>
+        <button type="button">Focus me</button>
       </Tooltip>,
     );
-    const wrapper = screen.getByRole('tooltip', { hidden: true }).closest('.uds-tooltip')!;
+    const wrapper = screen
+      .getByRole('tooltip', { hidden: true })
+      .closest('.uds-tooltip') as HTMLElement;
 
     fireEvent.focus(wrapper);
     expect(wrapper).toHaveClass('uds-tooltip--visible');
@@ -611,10 +620,12 @@ describe('Tooltip', () => {
   it('applies variant, size, and position classes', () => {
     render(
       <Tooltip content="Styled" variant="rich" size="md" position="bottom">
-        <button>Trigger</button>
+        <button type="button">Trigger</button>
       </Tooltip>,
     );
-    const wrapper = screen.getByRole('tooltip', { hidden: true }).closest('.uds-tooltip')!;
+    const wrapper = screen
+      .getByRole('tooltip', { hidden: true })
+      .closest('.uds-tooltip') as HTMLElement;
     expect(wrapper).toHaveClass('uds-tooltip--rich');
     expect(wrapper).toHaveClass('uds-tooltip--md');
     expect(wrapper).toHaveClass('uds-tooltip--bottom');
@@ -623,23 +634,25 @@ describe('Tooltip', () => {
   it('applies additional className', () => {
     render(
       <Tooltip content="Custom" className="my-tooltip">
-        <button>Trigger</button>
+        <button type="button">Trigger</button>
       </Tooltip>,
     );
-    const wrapper = screen.getByRole('tooltip', { hidden: true }).closest('.uds-tooltip')!;
+    const wrapper = screen
+      .getByRole('tooltip', { hidden: true })
+      .closest('.uds-tooltip') as HTMLElement;
     expect(wrapper).toHaveClass('my-tooltip');
   });
 
   it('sets aria-hidden based on visibility', () => {
     render(
       <Tooltip content="Hidden state">
-        <button>Trigger</button>
+        <button type="button">Trigger</button>
       </Tooltip>,
     );
     const tooltip = screen.getByRole('tooltip', { hidden: true });
     expect(tooltip).toHaveAttribute('aria-hidden', 'true');
 
-    const wrapper = tooltip.closest('.uds-tooltip')!;
+    const wrapper = tooltip.closest('.uds-tooltip') as HTMLElement;
     fireEvent.mouseEnter(wrapper);
     expect(tooltip).toHaveAttribute('aria-hidden', 'false');
   });

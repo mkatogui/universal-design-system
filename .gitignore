@@ -41,3 +41,4 @@ metrics.json
 *.tmp
 *.log
 .~lock.*
+tmp-uds-install/

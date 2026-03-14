@@ -34,6 +34,7 @@ Expected `npm run check` output:
 | `npm run audit` | WCAG 2.2 AA contrast — 108 checks across 9 palettes x 2 modes |
 | `npm run verify` | HTML docs integrity — no hardcoded values, valid nav links |
 | `npm run sync-data` | CSV cross-reference validation across 20 databases |
+| **`npm run test:accessibility`** | **Playwright + axe-core (same as CI)** — run locally before pushing to avoid accessibility failures in the pipeline. First time: `npx playwright install chromium`. |
 
 You can also run the reasoning engine directly:
 
@@ -64,6 +65,8 @@ cd universal-design-system && npm install
 git checkout -b add-banking-product
 # ... make your changes ...
 npm run check
+# If you changed docs or styles, run the same a11y tests as CI to avoid pipeline failures:
+npm run test:accessibility
 git add -A && git commit -m "Add retail banking product to products.csv"
 git push origin add-banking-product
 # Open a Pull Request on GitHub
@@ -194,6 +197,23 @@ The interactive docs (`docs/docs.html`) are a self-contained HTML file with inli
 3. If adding a new palette, paste the WCAG audit output showing all checks pass
 4. If adding CSV rows, run `npm run sync-data` to verify cross-references
 5. Reviewer will check WCAG compliance and cross-palette rendering
+
+---
+
+## Versioning and publishing
+
+**Published packages:** `@mkatogui/universal-design-system` (root), `@mkatogui/uds-react`, `@mkatogui/uds-tokens`. Vue, Svelte, and primitives may be published separately.
+
+**Version policy:** Keep root and `@mkatogui/uds-react` in sync (e.g. both at `0.4.x`). Bump `@mkatogui/uds-tokens` and other packages when cutting a release or when their contents change. Use a single source of truth (e.g. root `package.json` version) and align the rest before publishing.
+
+**Before publishing:**
+
+- Run `npm run check` (validate + audit + verify).
+- Root publish runs `prepublishOnly: npm run build:cli` (CLI is built; tokens are shipped as source). For built CSS/JS tokens, consumers use `@mkatogui/uds-tokens`.
+- If publishing React or tokens, run `npm run build:react` and/or `npm run build:tokens` and publish from the corresponding package directory (or via your CI).
+- Use **Changesets** for release notes: add a changeset with `npm run changeset`, then `npm run changeset:version` and `npm run changeset:publish` when releasing.
+
+See `docs/LIBRARY-IMPROVEMENTS.md` for a full checklist and consumer-facing notes.
 
 ---
 

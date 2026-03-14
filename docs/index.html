@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&family=Source+Serif+4:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="generated-tokens.css">
 <style>
 /* ==============================================================
    DESIGN TOKENS — Universal Design System v__VERSION__
@@ -15,7 +16,7 @@
 :root {
   --color-bg-primary:#FFFFFF;--color-bg-secondary:#F8F8FA;--color-bg-tertiary:#F0F0F5;
   --color-bg-inverse:#111118;--color-text-primary:#111118;--color-text-secondary:#555566;
-  --color-text-tertiary:#6B6B7B;--color-text-on-brand:#FFFFFF;
+  --color-text-tertiary:#6B6B7B;--color-text-on-brand:#FFFFFF;--color-text-on-error:#FFFFFF;
   --color-border-default:#C8C8D4;--color-border-input:#8E8E9E;--color-border-subtle:#E8E8F0;
   --color-brand-primary:#2563EB;--color-brand-primary-rgb:37,99,235;
   --color-brand-secondary:#3B82F6;--color-brand-accent:#60A5FA;--color-brand-muted:#DBEAFE;
@@ -139,16 +140,16 @@
   --radius-md:12px;--radius-lg:18px;--radius-xl:22px;
 }
 
-/* PALETTE: Illustration */
+/* PALETTE: Illustration — white on brand for WCAG 4.5:1 on #C2410C */
 [data-theme="illustration"]{
   --color-bg-primary:#FFFFFF;--color-bg-secondary:#FFF8F0;--color-bg-tertiary:#FFF0E6;
   --color-bg-inverse:#1A1523;--color-text-primary:#1A1523;--color-text-secondary:#5C5470;
-  --color-text-tertiary:#7A7189;--color-text-on-brand:#1A1523;
+  --color-text-tertiary:#7A7189;--color-text-on-brand:#FFFFFF;
   --color-border-default:#C4B5A4;--color-border-input:#9E8E7E;--color-border-subtle:#E8DDD0;
-  --color-brand-primary:#E8590C;--color-brand-primary-rgb:232,89,12;
+  --color-brand-primary:#C2410C;--color-brand-primary-rgb:194,65,12;
   --color-brand-secondary:#7048E8;--color-brand-accent:#12B886;--color-brand-muted:#FFF4E6;
-  --gradient-hero:linear-gradient(135deg,#FF6B2B 0%,#7048E8 50%,#12B886 100%);
-  --shadow-glow:0 0 40px rgba(232,89,12,0.15);
+  --gradient-hero:linear-gradient(135deg,#C2410C 0%,#7048E8 50%,#12B886 100%);
+  --shadow-glow:0 0 40px rgba(194,65,12,0.15);
   --font-display:'Inter',system-ui,sans-serif;
   --radius-sm:10px;--radius-md:14px;--radius-lg:18px;--radius-xl:24px;--radius-2xl:32px;
 }
@@ -1112,7 +1113,7 @@ var PALETTES=[
   {id:'gradient-startup',name:'Gradient Startup',best:'Startups, Marketing, Events',primary:'#7C3AED',secondary:'#EC4899',accent:'#F59E0B',bg:'#FFFFFF',text:'#111118'},
   {id:'corporate',name:'Corporate',best:'Finance, Insurance, Government',primary:'#1A365D',secondary:'#2B6CB0',accent:'#4299E1',bg:'#FFFFFF',text:'#1A202C'},
   {id:'apple-minimal',name:'Apple Minimal',best:'Luxury, Consumer Tech, Premium',primary:'#0071E3',secondary:'#147CE5',accent:'#5AC8FA',bg:'#FFFFFF',text:'#1D1D1F'},
-  {id:'illustration',name:'Illustration',best:'Education, Kids, Nonprofit',primary:'#E8590C',secondary:'#7048E8',accent:'#12B886',bg:'#FFFFFF',text:'#1A1523'},
+  {id:'illustration',name:'Illustration',best:'Education, Kids, Nonprofit',primary:'#C2410C',secondary:'#7048E8',accent:'#12B886',bg:'#FFFFFF',text:'#1A1523'},
   {id:'dashboard',name:'Dashboard',best:'Analytics, Data Viz, Reporting',primary:'#4F46E5',secondary:'#0EA5E9',accent:'#06B6D4',bg:'#FFFFFF',text:'#0F1117'},
   {id:'bold-lifestyle',name:'Bold Lifestyle',best:'Fashion, Sports, Entertainment',primary:'#111111',secondary:'#FF4500',accent:'#FFD700',bg:'#FFFFFF',text:'#111111'},
   {id:'minimal-corporate',name:'Minimal Corporate',best:'Legal, News, Architecture',primary:'#B45309',secondary:'#92400E',accent:'#D97706',bg:'#FDFCFB',text:'#1C1917'}
@@ -1129,7 +1130,7 @@ var QUERIES={
   'saas landing page':{palette:'minimal-saas',colors:['#2563EB','#3B82F6','#60A5FA','#FFFFFF','#111118'],components:['Hero','Navigation','Feature Card','Pricing Table','Testimonial','CTA','Footer','Button'],reasoning:'SaaS landing pages need clean conversion-focused design. The Minimal SaaS palette uses trustworthy blue tones with generous whitespace. Clear hierarchy guides visitors from value prop to pricing to CTA.',anti:['Dark themes','Complex animations','Dense layouts','Multiple CTAs per section']},
   'fitness app':{palette:'bold-lifestyle',colors:['#111111','#FF4500','#FFD700','#FFFFFF','#111111'],components:['Button','Progress Indicator','Avatar','Badge','Card','Tabs','Toggle','Toast'],reasoning:'Fitness apps need high-energy visual language that motivates action. The Bold Lifestyle palette uses bold contrast with orange-gold accents. Sharp edges and strong typography project strength and determination.',anti:['Pastel colors','Rounded corners','Corporate styling','Subtle animations']},
   'dating app':{palette:'gradient-startup',colors:['#7C3AED','#EC4899','#F59E0B','#FFFFFF','#1A1A2E'],components:['Card','Avatar','Button','Badge','Modal','Toast','Input','Tabs'],reasoning:'Dating apps need warm, approachable design that feels personal. The Gradient Startup palette uses purple-pink gradients for romance and warmth. Rounded corners and playful accents create an inviting atmosphere.',anti:['Corporate colors','Angular designs','Dense layouts','Dark themes']},
-  'restaurant menu':{palette:'illustration',colors:['#E8590C','#7048E8','#12B886','#FFFFFF','#1A1523'],components:['Card','Button','Badge','Grid','Hero','Footer','Navigation'],reasoning:'Restaurant sites benefit from warm, appetizing visual design. The Illustration palette uses warm orange and rich colors that evoke food photography. Generous spacing and rounded elements create a welcoming browsing experience.',anti:['Corporate styling','Dark themes','Dense layouts','Cold color palettes']},
+  'restaurant menu':{palette:'illustration',colors:['#C2410C','#7048E8','#12B886','#FFFFFF','#1A1523'],components:['Card','Button','Badge','Grid','Hero','Footer','Navigation'],reasoning:'Restaurant sites benefit from warm, appetizing visual design. The Illustration palette uses warm orange and rich colors that evoke food photography. Generous spacing and rounded elements create a welcoming browsing experience.',anti:['Corporate styling','Dark themes','Dense layouts','Cold color palettes']},
   'real estate portal':{palette:'minimal-corporate',colors:['#B45309','#92400E','#D97706','#FDFCFB','#1C1917'],components:['Card','Input','Select','Data Table','Modal','Hero','Navigation','Pagination','Badge'],reasoning:'Real estate demands professional warmth and trustworthiness. The Minimal Corporate palette uses amber-brown tones suggesting stability and premium quality. Clean layouts with prominent imagery and clear property details.',anti:['Neon colors','Playful animations','Casual typography','Experimental layouts']},
   'travel booking':{palette:'gradient-startup',colors:['#7C3AED','#EC4899','#F59E0B','#FFFFFF','#1A1A2E'],components:['Hero','Card','Input','Select','Button','Badge','Modal','Tabs','Pagination'],reasoning:'Travel platforms need inspiring, aspirational design that excites exploration. The Gradient Startup palette brings vibrancy and energy. Bold imagery, clear search flows, and prominent CTAs drive booking conversions.',anti:['Corporate styling','Dense layouts','Monochrome design','Small imagery']},
   'ecommerce store':{palette:'apple-minimal',colors:['#0071E3','#147CE5','#5AC8FA','#FFFFFF','#1D1D1F'],components:['Card','Button','Badge','Navigation','Hero','Grid','Modal','Input','Toast','Pagination'],reasoning:'E-commerce requires clean product showcase with minimal distraction. The Apple Minimal palette lets products shine with restrained UI. Generous whitespace, subtle shadows, and precise typography create a premium shopping experience.',anti:['Busy layouts','Bright backgrounds','Playful animations','Heavy borders']},

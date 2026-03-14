@@ -30,11 +30,14 @@ const __dirname = dirname(__filename);
 const CLI_ROOT = resolve(__dirname, '..', '..');
 const PKG_ROOT = resolve(CLI_ROOT, '..');
 
+type McpFormat = 'standard' | 'zed' | 'continue';
+
 interface PlatformConfig {
   name: string;
   dotDir: string;
   skillDir: string;
   mcpConfig?: string;
+  mcpFormat?: McpFormat;
 }
 
 const PLATFORMS: Record<string, PlatformConfig> = {
@@ -66,10 +69,23 @@ const PLATFORMS: Record<string, PlatformConfig> = {
     name: 'Zed',
     dotDir: '.zed',
     skillDir: '.zed/skills',
+    mcpConfig: '.zed/settings.json',
+    mcpFormat: 'zed',
   },
   aider: { name: 'Aider', dotDir: '.aider', skillDir: '.aider/skills' },
-  cline: { name: 'Cline', dotDir: '.cline', skillDir: '.cline/skills' },
-  continue: { name: 'Continue', dotDir: '.continue', skillDir: '.continue/skills' },
+  cline: {
+    name: 'Cline',
+    dotDir: '.cline',
+    skillDir: '.cline/skills',
+    mcpConfig: '.cline_mcp_servers.json',
+  },
+  continue: {
+    name: 'Continue',
+    dotDir: '.continue',
+    skillDir: '.continue/skills',
+    mcpConfig: '.continue/mcpServers/universal-design-system.yaml',
+    mcpFormat: 'continue',
+  },
   bolt: { name: 'Bolt', dotDir: '.bolt', skillDir: '.bolt/skills' },
   lovable: { name: 'Lovable', dotDir: '.lovable', skillDir: '.lovable/skills' },
   replit: { name: 'Replit Agent', dotDir: '.replit', skillDir: '.replit/skills' },
@@ -91,6 +107,7 @@ const PLATFORMS: Record<string, PlatformConfig> = {
 
 /** Names of all skill directories to install */
 const SKILL_NAMES = [
+  'uds-getting-started',
   'universal-design-system',
   'brand-identity',
   'design-audit',
@@ -149,8 +166,62 @@ function copyDir(src: string, dest: string): number {
   return count;
 }
 
+function readJsonSafe(path: string): Record<string, unknown> {
+  try {
+    return JSON.parse(readFileSync(path, 'utf-8')) as Record<string, unknown>;
+  } catch {
+    return {};
+  }
+}
+
+function writeZedMcpConfig(configFile: string, serverPath: string): void {
+  const settings = readJsonSafe(configFile);
+  const contextServers = (settings.context_servers ?? {}) as Record<string, unknown>;
+  if (contextServers['universal-design-system']) return;
+  contextServers['universal-design-system'] = {
+    source: 'custom',
+    command: 'node',
+    args: [serverPath],
+    env: {},
+  };
+  settings.context_servers = contextServers;
+  writeFileSync(configFile, `${JSON.stringify(settings, null, 2)}\n`);
+}
+
+function writeContinueMcpConfig(yamlPath: string, serverPath: string): void {
+  const pathArg = serverPath.replace(/\\/g, '/');
+  const yaml = `name: Universal Design System MCP
+version: 0.4.1
+schema: v1
+mcpServers:
+  - name: universal-design-system
+    command: node
+    args:
+      - "${pathArg}"
+`;
+  try {
+    writeFileSync(yamlPath, yaml, { flag: 'wx' });
+  } catch (err: unknown) {
+    if ((err as NodeJS.ErrnoException)?.code !== 'EEXIST') throw err;
+  }
+}
+
+function writeStandardMcpConfig(
+  configFile: string,
+  serverPath: string,
+  mcpConfigPath: string,
+): void {
+  const config = readJsonSafe(configFile);
+  const useServersKey = mcpConfigPath.includes('vscode');
+  const existing = (config.mcpServers ?? config.servers ?? {}) as Record<string, unknown>;
+  if (existing['universal-design-system']) return;
+  existing['universal-design-system'] = { command: 'node', args: [serverPath] };
+  config[useServersKey ? 'servers' : 'mcpServers'] = existing;
+  writeFileSync(configFile, `${JSON.stringify(config, null, 2)}\n`);
+}
+
 /** Generate MCP server configuration for the platform */
-function generateMcpConfig(targetDir: string, mcpConfigPath: string): void {
+function generateMcpConfig(targetDir: string, mcpConfigPath: string, mcpFormat?: McpFormat): void {
   const mcpServerPath = join(
     targetDir,
     'node_modules',
@@ -160,39 +231,22 @@ function generateMcpConfig(targetDir: string, mcpConfigPath: string): void {
     'mcp',
     'index.js',
   );
-  // Fallback to relative path if node_modules doesn't exist
   const serverPath = existsSync(mcpServerPath)
     ? mcpServerPath
     : join(PKG_ROOT, 'src', 'mcp', 'index.js');
 
   const configFile = join(targetDir, mcpConfigPath);
-  const configDir = dirname(configFile);
+  mkdirSync(dirname(configFile), { recursive: true });
 
-  mkdirSync(configDir, { recursive: true });
-
-  // Read existing config or start fresh
-  let config: Record<string, unknown> = {};
-  try {
-    config = JSON.parse(readFileSync(configFile, 'utf-8'));
-  } catch {
-    // File doesn't exist or is malformed — start fresh
+  if (mcpFormat === 'zed') {
+    writeZedMcpConfig(configFile, serverPath);
+    return;
   }
-
-  // Add UDS MCP server entry
-  const mcpServers = (config.mcpServers ?? config.servers ?? {}) as Record<string, unknown>;
-  if (!mcpServers['universal-design-system']) {
-    mcpServers['universal-design-system'] = {
-      command: 'node',
-      args: [serverPath],
-    };
-    // Use the key that already exists, or default to mcpServers
-    if (config.servers) {
-      config.servers = mcpServers;
-    } else {
-      config.mcpServers = mcpServers;
-    }
-    writeFileSync(configFile, `${JSON.stringify(config, null, 2)}\n`);
+  if (mcpFormat === 'continue') {
+    writeContinueMcpConfig(configFile, serverPath);
+    return;
   }
+  writeStandardMcpConfig(configFile, serverPath, mcpConfigPath);
 }
 
 export interface InstallOptions {
@@ -332,7 +386,7 @@ export async function installCommand(options: InstallOptions): Promise<void> {
   // ── Configure MCP Server ──
   if (config.mcpConfig) {
     console.log(cyan('\n  MCP Server'));
-    generateMcpConfig(targetDir, config.mcpConfig);
+    generateMcpConfig(targetDir, config.mcpConfig, config.mcpFormat);
     console.log(`  ${green('+')} ${config.mcpConfig}`);
   }
 
@@ -346,6 +400,11 @@ export async function installCommand(options: InstallOptions): Promise<void> {
 
   // ── Quick Start ──
   console.log(bold('\n  Quick Start'));
+  console.log(
+    dim(
+      '  Ask:       "how to use UDS skills" or "which skills are installed" (uds-getting-started skill)',
+    ),
+  );
   console.log(
     dim(
       `  Search:    python ${join(config.skillDir, 'universal-design-system', 'scripts', 'search.py')} "your query"`,

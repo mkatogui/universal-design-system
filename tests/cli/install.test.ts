@@ -2,7 +2,7 @@
  * Tests for cli/src/commands/install.ts
  */
 
-import { mkdirSync, mkdtempSync, rmSync } from 'node:fs';
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync } from 'node:fs';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
@@ -22,7 +22,10 @@ describe('installCommand', () => {
   let logSpy: ReturnType<typeof vi.spyOn>;
 
   beforeEach(() => {
-    tempDir = mkdtempSync(join(tmpdir(), 'uds-install-test-'));
+    // Use workspace-relative temp dir so sandboxed CI can create .cursor, .vscode, etc.
+    const workspaceTmp = join(process.cwd(), 'tmp-uds-install');
+    mkdirSync(workspaceTmp, { recursive: true });
+    tempDir = mkdtempSync(join(workspaceTmp, 'run-'));
     exitSpy = vi.spyOn(process, 'exit').mockImplementation(((code?: number) => {
       throw new ExitError(code ?? 0);
     }) as never);
@@ -33,6 +36,10 @@ describe('installCommand', () => {
   afterEach(() => {
     vi.restoreAllMocks();
     rmSync(tempDir, { recursive: true, force: true });
+    const workspaceTmp = join(process.cwd(), 'tmp-uds-install');
+    if (existsSync(workspaceTmp)) {
+      rmSync(workspaceTmp, { recursive: true, force: true });
+    }
   });
 
   it('throws for unknown platform', async () => {
@@ -131,5 +138,87 @@ describe('installCommand', () => {
     const { existsSync } = await import('node:fs');
     const skillPath = join(tempDir, '.zed', 'skills', 'universal-design-system', 'SKILL.md');
     expect(existsSync(skillPath)).toBe(true);
+  });
+
+  it('writes Zed MCP config to .zed/settings.json with context_servers', async () => {
+    await installCommand({ platform: 'zed', dir: tempDir });
+
+    const { existsSync } = await import('node:fs');
+    const settingsPath = join(tempDir, '.zed', 'settings.json');
+    expect(existsSync(settingsPath)).toBe(true);
+
+    const settings = JSON.parse(readFileSync(settingsPath, 'utf-8'));
+    expect(settings.context_servers).toBeDefined();
+    expect(settings.context_servers['universal-design-system']).toEqual({
+      source: 'custom',
+      command: 'node',
+      args: expect.any(Array),
+      env: {},
+    });
+    expect(settings.context_servers['universal-design-system'].args).toHaveLength(1);
+    expect(settings.context_servers['universal-design-system'].args[0]).toMatch(/index\.js$/);
+  });
+
+  it('writes Continue MCP config to .continue/mcpServers/universal-design-system.yaml', async () => {
+    await installCommand({ platform: 'continue', dir: tempDir });
+
+    const { existsSync } = await import('node:fs');
+    const yamlPath = join(tempDir, '.continue', 'mcpServers', 'universal-design-system.yaml');
+    expect(existsSync(yamlPath)).toBe(true);
+
+    const yaml = readFileSync(yamlPath, 'utf-8');
+    expect(yaml).toContain('name: Universal Design System MCP');
+    expect(yaml).toContain('schema: v1');
+    expect(yaml).toContain('mcpServers:');
+    expect(yaml).toContain('command: node');
+    expect(yaml).toMatch(/args:\s*\n\s+-\s+".*index\.js"/);
+  });
+
+  it('writes Cline MCP config to .cline_mcp_servers.json with mcpServers', async () => {
+    await installCommand({ platform: 'cline', dir: tempDir });
+
+    const { existsSync } = await import('node:fs');
+    const configPath = join(tempDir, '.cline_mcp_servers.json');
+    expect(existsSync(configPath)).toBe(true);
+
+    const config = JSON.parse(readFileSync(configPath, 'utf-8'));
+    expect(config.mcpServers).toBeDefined();
+    expect(config.mcpServers['universal-design-system']).toEqual({
+      command: 'node',
+      args: expect.any(Array),
+    });
+    expect(config.mcpServers['universal-design-system'].args).toHaveLength(1);
+    expect(config.mcpServers['universal-design-system'].args[0]).toMatch(/index\.js$/);
+  });
+
+  it('writes VS Code MCP config with "servers" key not mcpServers', async () => {
+    await installCommand({ platform: 'vscode', dir: tempDir });
+
+    const { existsSync } = await import('node:fs');
+    const configPath = join(tempDir, '.vscode', 'mcp.json');
+    expect(existsSync(configPath)).toBe(true);
+
+    const config = JSON.parse(readFileSync(configPath, 'utf-8'));
+    expect(config.servers).toBeDefined();
+    expect(config.mcpServers).toBeUndefined();
+    expect(config.servers['universal-design-system']).toEqual({
+      command: 'node',
+      args: expect.any(Array),
+    });
+    expect(config.servers['universal-design-system'].args[0]).toMatch(/index\.js$/);
+  });
+
+  it('writes standard MCP config (mcpServers) for cursor', async () => {
+    await installCommand({ platform: 'cursor', dir: tempDir });
+
+    const { existsSync } = await import('node:fs');
+    const configPath = join(tempDir, '.cursor', 'mcp.json');
+    expect(existsSync(configPath)).toBe(true);
+
+    const config = JSON.parse(readFileSync(configPath, 'utf-8'));
+    expect(config.mcpServers).toBeDefined();
+    expect(config.mcpServers['universal-design-system']).toBeDefined();
+    expect(config.mcpServers['universal-design-system'].command).toBe('node');
+    expect(config.mcpServers['universal-design-system'].args).toHaveLength(1);
   });
 });
