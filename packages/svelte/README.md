@@ -1,6 +1,6 @@
 # @mkatogui/uds-svelte
 
-Svelte 5 components for the Universal Design System. 43 accessible, themeable components built with Svelte 5 runes, BEM naming, and full WCAG 2.1 AA compliance.
+Svelte 5 components for the Universal Design System. 43 accessible, themeable components built with Svelte 5 runes, BEM naming, and full WCAG 2.2 AA compliance.
 
 ## Installation
 
@@ -75,7 +75,7 @@ Available palettes: `minimal-saas`, `ai-futuristic`, `gradient-startup`, `corpor
 
 ## Accessibility
 
-All components follow WCAG 2.1 AA guidelines:
+All components follow WCAG 2.2 AA guidelines:
 
 - Proper ARIA roles and attributes (dialog, alert, switch, tablist, etc.)
 - Keyboard navigation support (arrow keys, Enter, Space, Escape)

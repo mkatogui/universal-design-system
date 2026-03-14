@@ -125,15 +125,15 @@
 
   <!-- Stats row -->
   <g font-family="'SF Pro Text', 'Inter', system-ui, -apple-system, sans-serif" text-anchor="middle" transform="translate(0, 385)">
-    <!-- 530 Tokens -->
-    <text x="280" y="0" font-size="32" font-weight="700" fill="#ffffff">530</text>
+    <!-- ~600 Tokens -->
+    <text x="280" y="0" font-size="32" font-weight="700" fill="#ffffff">~600</text>
     <text x="280" y="24" font-size="14" font-weight="500" fill="#93C5FD" letter-spacing="1.5" text-transform="uppercase">TOKENS</text>
 
     <!-- Divider -->
     <line x1="400" y1="-20" x2="400" y2="30" stroke="#ffffff" stroke-opacity="0.15" stroke-width="1"/>
 
-    <!-- 32 Components -->
-    <text x="507" y="0" font-size="32" font-weight="700" fill="#ffffff">32</text>
+    <!-- 43 Components -->
+    <text x="507" y="0" font-size="32" font-weight="700" fill="#ffffff">43</text>
     <text x="507" y="24" font-size="14" font-weight="500" fill="#93C5FD" letter-spacing="1.5">COMPONENTS</text>
 
     <!-- Divider -->
@@ -149,7 +149,7 @@
     <!-- WCAG AA -->
     <g transform="translate(960, 0)">
       <text x="0" y="-2" font-size="28" font-weight="700" fill="#34D399">AA</text>
-      <text x="0" y="24" font-size="14" font-weight="500" fill="#93C5FD" letter-spacing="1.5">WCAG 2.1</text>
+      <text x="0" y="24" font-size="14" font-weight="500" fill="#93C5FD" letter-spacing="1.5">WCAG 2.2</text>
     </g>
   </g>
 

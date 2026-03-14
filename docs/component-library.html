@@ -686,6 +686,7 @@ html, body { overflow-x: hidden; }
   <button class="framework-tab active" onclick="switchFramework(this, 'html')">HTML</button>
   <button class="framework-tab" onclick="switchFramework(this, 'react')">React</button>
   <button class="framework-tab" onclick="switchFramework(this, 'vue')">Vue</button>
+  <button class="framework-tab" onclick="switchFramework(this, 'svelte')">Svelte</button>
 </div>
 
 <div class="framework-content active" id="button-html">
@@ -730,7 +731,7 @@ export const Button = ({ variant = 'primary', size = 'md', children, disabled = 
 <div class="framework-content" id="button-vue">
   <div class="code-label">Vue</div>
   <div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>&lt;template&gt;
-  &lt;button :class="['btn', `btn--${variant}`, `btn--${size}`]" :disabled="disabled"&gt;
+  &lt;button :class="['uds-btn', `uds-btn--${variant}`, `uds-btn--${size}`]" :disabled="disabled"&gt;
     &lt;slot&gt;Button&lt;/slot&gt;
   &lt;/button&gt;
 &lt;/template&gt;
@@ -742,6 +743,34 @@ defineProps({
   disabled: { type: Boolean, default: false }
 });
 &lt;/script&gt;</pre></div>
+</div>
+
+<div class="framework-content" id="button-svelte">
+  <div class="code-label">Svelte 5</div>
+  <div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>&lt;script lang="ts"&gt;
+  let { variant = 'primary', size = 'md', onclick, children, ...restProps }: {
+    variant?: 'primary' | 'secondary' | 'ghost' | 'destructive';
+    size?: 'sm' | 'md' | 'lg';
+    onclick?: (e: MouseEvent) =&gt; void;
+    children?: import('svelte').Snippet;
+    [key: string]: unknown;
+  } = $props();
+&lt;/script&gt;
+
+&lt;button class="uds-btn uds-btn--{variant} uds-btn--{size}" {onclick} {...restProps}&gt;
+  {@render children?.()}
+&lt;/button&gt;
+
+&lt;style&gt;
+  .uds-btn { display: inline-flex; align-items: center; justify-content: center; border-radius: var(--radius-md); font-weight: 500; transition: all var(--duration-fast) var(--ease-out); cursor: pointer; border: none; }
+  .uds-btn--primary { background: var(--color-brand-primary); color: var(--color-text-on-brand); }
+  .uds-btn--secondary { background: var(--color-bg-secondary); color: var(--color-text-primary); }
+  .uds-btn--ghost { background: transparent; color: var(--color-text-primary); }
+  .uds-btn--destructive { background: var(--color-error); color: white; }
+  .uds-btn--sm { height: 36px; padding: 0 12px; font-size: 0.875rem; }
+  .uds-btn--md { height: 44px; padding: 0 16px; }
+  .uds-btn--lg { height: 48px; padding: 0 24px; font-size: 1.125rem; }
+&lt;/style&gt;</pre></div>
 </div>
 </div>
 
@@ -755,6 +784,7 @@ defineProps({
   <button class="framework-tab active" onclick="switchFramework(this, 'html')">HTML</button>
   <button class="framework-tab" onclick="switchFramework(this, 'react')">React</button>
   <button class="framework-tab" onclick="switchFramework(this, 'vue')">Vue</button>
+  <button class="framework-tab" onclick="switchFramework(this, 'svelte')">Svelte</button>
 </div>
 
 <div class="framework-content active" id="input-html">
@@ -834,6 +864,40 @@ defineProps({
 });
 defineEmits(['update:modelValue']);
 &lt;/script&gt;</pre></div>
+</div>
+
+<div class="framework-content" id="input-svelte">
+  <div class="code-label">Svelte 5</div>
+  <div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>&lt;script lang="ts"&gt;
+  let { type = 'text', value = $bindable(''), placeholder = '', label = '', error = '', helper = '', disabled = false, ...restProps }: {
+    type?: string;
+    value?: string;
+    placeholder?: string;
+    label?: string;
+    error?: string;
+    helper?: string;
+    disabled?: boolean;
+    [key: string]: unknown;
+  } = $props();
+&lt;/script&gt;
+
+{#if label}
+  &lt;label class="input-label"&gt;{label}&lt;/label&gt;
+{/if}
+&lt;input
+  class={['input', error ? 'input--error' : ''].filter(Boolean).join(' ')}
+  {type}
+  bind:value
+  {placeholder}
+  {disabled}
+  aria-invalid={error ? 'true' : undefined}
+  {...restProps}
+/&gt;
+{#if error}
+  &lt;div class="input-error" role="alert"&gt;{error}&lt;/div&gt;
+{:else if helper}
+  &lt;div class="input-helper"&gt;{helper}&lt;/div&gt;
+{/if}</pre></div>
 </div>
 </div>
 
@@ -947,6 +1011,7 @@ defineEmits(['update:modelValue']);
   <button class="framework-tab active" onclick="switchFramework(this, 'html')">HTML</button>
   <button class="framework-tab" onclick="switchFramework(this, 'react')">React</button>
   <button class="framework-tab" onclick="switchFramework(this, 'vue')">Vue</button>
+  <button class="framework-tab" onclick="switchFramework(this, 'svelte')">Svelte</button>
 </div>
 
 <div class="framework-content active" id="card-html">
@@ -975,7 +1040,7 @@ export const Card = ({ title, children }) =&gt; (
 <div class="framework-content" id="card-vue">
   <div class="code-label">Vue</div>
   <div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>&lt;template&gt;
-  &lt;div class="card"&gt;
+  &lt;div class="uds-card"&gt;
     &lt;h3 v-if="title"&gt;{{ title }}&lt;/h3&gt;
     &lt;slot /&gt;
   &lt;/div&gt;
@@ -984,6 +1049,21 @@ export const Card = ({ title, children }) =&gt; (
 &lt;script setup&gt;
 defineProps({ title: String });
 &lt;/script&gt;</pre></div>
+</div>
+
+<div class="framework-content" id="card-svelte">
+  <div class="code-label">Svelte 5</div>
+  <div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>&lt;script lang="ts"&gt;
+  let { title = '', children }: {
+    title?: string;
+    children?: import('svelte').Snippet;
+  } = $props();
+&lt;/script&gt;
+
+&lt;div class="uds-card"&gt;
+  {#if title}&lt;h3&gt;{title}&lt;/h3&gt;{/if}
+  {@render children?.()}
+&lt;/div&gt;</pre></div>
 </div>
 </div>
 
@@ -997,6 +1077,7 @@ defineProps({ title: String });
   <button class="framework-tab active" onclick="switchFramework(this, 'html')">HTML</button>
   <button class="framework-tab" onclick="switchFramework(this, 'react')">React</button>
   <button class="framework-tab" onclick="switchFramework(this, 'vue')">Vue</button>
+  <button class="framework-tab" onclick="switchFramework(this, 'svelte')">Svelte</button>
 </div>
 
 <div class="framework-content active" id="alert-html">
@@ -1045,12 +1126,12 @@ export const Alert = ({ variant = 'info', title, message, dismissible = false })
 <div class="framework-content" id="alert-vue">
   <div class="code-label">Vue</div>
   <div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>&lt;template&gt;
-  &lt;div v-if="visible" :class="['alert', `alert--${variant}`]"&gt;
+  &lt;div v-if="visible" :class="['uds-alert', `uds-alert--${variant}`]"&gt;
     &lt;div&gt;
-      &lt;div v-if="title" class="alert-title"&gt;{{ title }}&lt;/div&gt;
-      &lt;div v-if="message" class="alert-body"&gt;{{ message }}&lt;/div&gt;
+      &lt;div v-if="title" class="uds-alert-title"&gt;{{ title }}&lt;/div&gt;
+      &lt;div v-if="message" class="uds-alert-body"&gt;{{ message }}&lt;/div&gt;
     &lt;/div&gt;
-    &lt;button v-if="dismissible" @click="visible = false"&gt;✕&lt;/button&gt;
+    &lt;button v-if="dismissible" @click="visible = false" aria-label="Dismiss"&gt;✕&lt;/button&gt;
   &lt;/div&gt;
 &lt;/template&gt;
 
@@ -1059,6 +1140,31 @@ import { ref } from 'vue';
 defineProps({ variant: { type: String, default: 'info' }, title: String, message: String, dismissible: Boolean });
 const visible = ref(true);
 &lt;/script&gt;</pre></div>
+</div>
+
+<div class="framework-content" id="alert-svelte">
+  <div class="code-label">Svelte 5</div>
+  <div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>&lt;script lang="ts"&gt;
+  let { variant = 'info', title = '', message = '', dismissible = false }: {
+    variant?: 'success' | 'warning' | 'error' | 'info';
+    title?: string;
+    message?: string;
+    dismissible?: boolean;
+  } = $props();
+  let visible = $state(true);
+&lt;/script&gt;
+
+{#if visible}
+  &lt;div class={`uds-alert uds-alert--${variant}`} role={variant === 'error' ? 'alert' : 'status'}&gt;
+    &lt;div&gt;
+      {#if title}&lt;div class="uds-alert-title"&gt;{title}&lt;/div&gt;{/if}
+      {#if message}&lt;div class="uds-alert-body"&gt;{message}&lt;/div&gt;{/if}
+    &lt;/div&gt;
+    {#if dismissible}
+      &lt;button onclick={() =&gt; visible = false} aria-label="Dismiss"&gt;✕&lt;/button&gt;
+    {/if}
+  &lt;/div&gt;
+{/if}</pre></div>
 </div>
 </div>
 
@@ -1100,7 +1206,7 @@ export const Badge = ({ variant = 'brand', children }) =&gt; (
 <div class="framework-content" id="badge-vue">
   <div class="code-label">Vue</div>
   <div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>&lt;template&gt;
-  &lt;span :class="['badge', `badge--${variant}`]"&gt;&lt;slot /&gt;&lt;/span&gt;
+  &lt;span :class="['uds-badge', `uds-badge--${variant}`]"&gt;&lt;slot /&gt;&lt;/span&gt;
 &lt;/template&gt;
 
 &lt;script setup&gt;

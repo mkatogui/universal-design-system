@@ -45,8 +45,8 @@
   <text x="187" y="103" class="layer-label">LAYER 1</text>
   <text x="187" y="120" class="stage-title">Domain</text>
   <text x="187" y="133" class="stage-title">Detection</text>
-  <text x="187" y="151" class="stage-stat">21 sectors</text>
-  <text x="187" y="164" class="stage-stat">8 product types</text>
+  <text x="187" y="151" class="stage-stat">55 sectors</text>
+  <text x="187" y="164" class="stage-stat">21 product types</text>
 
   <!-- Arrow 2 -->
   <line x1="245" y1="130" x2="267" y2="130" class="arrow" />
@@ -58,8 +58,8 @@
   <text x="326" y="103" class="layer-label">LAYER 2</text>
   <text x="326" y="120" class="stage-title">BM25</text>
   <text x="326" y="133" class="stage-title">Search</text>
-  <text x="326" y="151" class="stage-stat">16 CSV databases</text>
-  <text x="326" y="164" class="stage-stat">1,528 rows</text>
+  <text x="326" y="151" class="stage-stat">20 CSV databases</text>
+  <text x="326" y="164" class="stage-stat">1,676+ rows</text>
 
   <!-- Arrow 3 -->
   <line x1="384" y1="130" x2="406" y2="130" class="arrow" />
@@ -71,8 +71,8 @@
   <text x="465" y="103" class="layer-label">LAYER 3</text>
   <text x="465" y="120" class="stage-title">Rule</text>
   <text x="465" y="133" class="stage-title">Engine</text>
-  <text x="465" y="151" class="stage-stat">~170 rules</text>
-  <text x="465" y="164" class="stage-stat">55 anti-patterns</text>
+  <text x="465" y="151" class="stage-stat">190 rules</text>
+  <text x="465" y="164" class="stage-stat">84 anti-patterns</text>
 
   <!-- Arrow 4 -->
   <line x1="523" y1="130" x2="545" y2="130" class="arrow" />
@@ -83,9 +83,9 @@
   </g>
   <text x="604" y="110" class="stage-title">Token</text>
   <text x="604" y="123" class="stage-title">Resolution</text>
-  <text x="604" y="141" class="stage-stat">530 tokens</text>
+  <text x="604" y="141" class="stage-stat">~600 tokens</text>
   <text x="604" y="154" class="stage-stat">9 palettes</text>
-  <text x="604" y="167" class="stage-stat">32 components</text>
+  <text x="604" y="167" class="stage-stat">43 components</text>
 
   <!-- Arrow 5 -->
   <line x1="662" y1="130" x2="684" y2="130" class="arrow" />
