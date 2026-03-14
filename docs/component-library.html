@@ -572,10 +572,10 @@ a { color: var(--color-brand-primary); }
 }
 /* === Site Navigation Bar === */
 .site-topnav { display: flex; align-items: center; gap: 0; background: #111; color: #fff; font-family: 'Inter', system-ui, sans-serif; font-size: 14px; padding: 0 24px; height: 44px; position: sticky; top: 0; z-index: 9999; }
-.site-topnav .nav-brand { font-weight: 700; margin-right: 32px; white-space: nowrap; font-size: 15px; letter-spacing: -0.02em; }
-.site-topnav a { color: #999; text-decoration: none; padding: 10px 14px; transition: color 0.15s; white-space: nowrap; }
+.site-topnav .nav-brand { font-weight: 700; color: #fff; margin-right: 32px; text-decoration: none; }
+.site-topnav a { color: #b3b3b3; text-decoration: none; padding: 0 12px; height: 44px; display: flex; align-items: center; font-size: 14px; transition: color 150ms; white-space: nowrap; }
 .site-topnav a:hover { color: #fff; }
-.site-topnav a.active { color: #fff; border-bottom: 2px solid #3b82f6; }
+.site-topnav a.active { color: #fff; font-weight: 600; }
 .topnav-hamburger { display: none; background: none; border: none; cursor: pointer; padding: 8px; color: #fff; width: 44px; height: 44px; align-items: center; justify-content: center; flex-shrink: 0; margin-left: auto; }
 .topnav-hamburger svg { width: 24px; height: 24px; stroke: currentColor; fill: none; stroke-width: 2; }
 @media (max-width: 768px) {
@@ -644,7 +644,6 @@ html, body { overflow-x: hidden; }
   </button>
   <div class="topnav-links" id="topnavLinks">
     <a href="docs.html">Docs</a>
-    <a href="component-library.html" class="active">Components</a>
     <a href="visual-framework.html">Visual Framework</a>
     <a href="reference.html">Reference</a>
     <a href="case-studies.html">Case Studies</a>

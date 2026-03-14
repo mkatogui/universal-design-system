@@ -420,7 +420,7 @@ body { font-family: var(--font-sans); background: var(--color-bg-primary); color
 
 /* Sidebar */
 .docs-layout { display: flex; min-height: 100vh; }
-.sidebar { width: 280px; position: sticky; top: 0; height: 100vh; overflow-y: auto; background: var(--color-bg-secondary); border-right: 1px solid var(--color-border-default); padding: 24px 0; flex-shrink: 0; }
+.sidebar { width: 280px; position: sticky; top: 44px; height: calc(100vh - 44px); overflow-y: auto; background: var(--color-bg-secondary); border-right: 1px solid var(--color-border-default); padding: 24px 0; flex-shrink: 0; }
 .sidebar-header { padding: 0 20px 20px; border-bottom: 1px solid var(--color-border-subtle); margin-bottom: 16px; }
 .sidebar-header h1 { font-family: var(--font-display); font-size: var(--text-heading-sm); font-weight: var(--font-weight-bold); }
 .sidebar-header .version { font-size: var(--text-label); color: var(--color-text-secondary); margin-top: 4px; }
@@ -1081,7 +1081,6 @@ html.docs-dark .playground-control-group select {
   </button>
   <div class="topnav-links" id="topnavLinks">
     <a href="docs.html" class="active">Docs</a>
-    <a href="component-library.html">Components</a>
     <a href="visual-framework.html">Visual Framework</a>
     <a href="reference.html">Reference</a>
     <a href="case-studies.html">Case Studies</a>
@@ -1111,7 +1110,7 @@ html.docs-dark .playground-control-group select {
     <span>Light</span>
   </button>
 </div>
-<nav class="sidebar-nav" aria-label="Component navigation">
+<nav class="sidebar-nav" aria-label="Documentation navigation">
   <div class="nav-section">
     <button class="section-title" data-group="foundation" aria-expanded="true">Foundation</button>
     <ul class="section-group" data-group="foundation">

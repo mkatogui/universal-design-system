@@ -578,11 +578,13 @@ body { font-family: var(--font-sans); background: var(--color-bg-primary); color
   background: var(--color-bg-secondary);
   border: 1px solid var(--color-border-default);
   border-radius: var(--radius-lg);
-  padding: var(--spacing-10);
+  padding: var(--spacing-8);
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   min-height: 300px;
+  max-height: 520px;
+  overflow-y: auto;
   flex: 1;
 }
 
@@ -1142,6 +1144,1194 @@ body { font-family: var(--font-sans); background: var(--color-bg-primary); color
   margin-left: -4px;
 }
 
+/* Navigation Bar */
+.uds-navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--spacing-6);
+  height: 60px;
+  background: var(--color-bg-primary);
+  border-bottom: 1px solid var(--color-border-subtle);
+  box-shadow: var(--shadow-sm);
+}
+.uds-navbar--dark { background: var(--color-bg-inverse); border-color: transparent; }
+.uds-navbar--transparent { background: transparent; border-color: transparent; box-shadow: none; }
+.uds-navbar__brand {
+  font-family: var(--font-display);
+  font-size: var(--text-body-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  text-decoration: none;
+}
+.uds-navbar--dark .uds-navbar__brand { color: var(--color-bg-primary); }
+.uds-navbar__links {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-1);
+  list-style: none;
+}
+.uds-navbar__link {
+  padding: var(--spacing-2) var(--spacing-3);
+  font-size: var(--text-body-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  border-radius: var(--radius-sm);
+  transition: color var(--duration-fast) var(--ease-default), background var(--duration-fast) var(--ease-default);
+}
+.uds-navbar__link:hover { color: var(--color-text-primary); background: var(--color-bg-tertiary); }
+.uds-navbar__link--active { color: var(--color-brand-primary); }
+.uds-navbar--dark .uds-navbar__link { color: rgba(255,255,255,0.7); }
+.uds-navbar--dark .uds-navbar__link:hover { color: #fff; background: rgba(255,255,255,0.1); }
+.uds-navbar__cta { margin-left: var(--spacing-3); }
+
+/* Hero Section */
+.uds-hero {
+  padding: var(--spacing-16) var(--spacing-8);
+  text-align: center;
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  position: relative;
+}
+.uds-hero--gradient-mesh {
+  background: var(--gradient-hero, linear-gradient(135deg, var(--color-brand-primary), var(--color-brand-secondary)));
+  color: var(--color-text-on-brand);
+}
+.uds-hero__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  font-size: var(--text-label);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-brand-primary);
+  background: var(--color-brand-muted);
+  padding: var(--spacing-1) var(--spacing-3);
+  border-radius: var(--radius-full);
+  margin-bottom: var(--spacing-4);
+}
+.uds-hero--gradient-mesh .uds-hero__eyebrow { background: rgba(255,255,255,0.15); color: #fff; }
+.uds-hero__heading {
+  font-family: var(--font-display);
+  font-size: var(--text-heading-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  line-height: var(--line-height-tight);
+  margin-bottom: var(--spacing-4);
+}
+.uds-hero--gradient-mesh .uds-hero__heading { color: #fff; }
+.uds-hero__sub {
+  font-size: var(--text-body-md);
+  color: var(--color-text-secondary);
+  max-width: 520px;
+  margin: 0 auto var(--spacing-6);
+  line-height: var(--line-height-relaxed);
+}
+.uds-hero--gradient-mesh .uds-hero__sub { color: rgba(255,255,255,0.85); }
+.uds-hero--gradient-mesh .uds-hero__ghost-btn { color: rgba(255,255,255,0.85); border-color: rgba(255,255,255,0.4); }
+.uds-hero__actions {
+  display: flex;
+  gap: var(--spacing-3);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.uds-hero__screenshot {
+  margin-top: var(--spacing-8);
+  background: var(--color-bg-tertiary);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-lg);
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-tertiary);
+  font-size: var(--text-body-sm);
+}
+
+/* Pricing Table */
+.uds-pricing {
+  display: grid;
+  gap: var(--spacing-4);
+}
+.uds-pricing--2-column { grid-template-columns: 1fr 1fr; }
+.uds-pricing--3-column { grid-template-columns: repeat(3, 1fr); }
+.uds-pricing--4-column { grid-template-columns: repeat(4, 1fr); }
+.uds-pricing__card {
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+}
+.uds-pricing__card--featured {
+  border-color: var(--color-brand-primary);
+  box-shadow: var(--shadow-md);
+  position: relative;
+}
+.uds-pricing__badge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--color-brand-primary);
+  color: var(--color-text-on-brand);
+  font-size: var(--text-label);
+  font-weight: var(--font-weight-semibold);
+  padding: 2px var(--spacing-3);
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+}
+.uds-pricing__name {
+  font-size: var(--text-body-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.uds-pricing__price {
+  font-family: var(--font-display);
+  font-size: var(--text-heading-md);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  line-height: 1;
+}
+.uds-pricing__period { font-size: var(--text-body-sm); font-weight: var(--font-weight-regular); color: var(--color-text-secondary); }
+.uds-pricing__features {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  font-size: var(--text-body-sm);
+  color: var(--color-text-secondary);
+}
+.uds-pricing__features li::before { content: "✓ "; color: var(--color-success); font-weight: var(--font-weight-semibold); }
+.uds-pricing__toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-3);
+  margin-bottom: var(--spacing-4);
+  font-size: var(--text-body-sm);
+  color: var(--color-text-secondary);
+}
+
+/* Social Proof */
+.uds-social-proof {
+  padding: var(--spacing-8) 0;
+  text-align: center;
+}
+.uds-social-proof__label {
+  font-size: var(--text-label);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-tertiary);
+  margin-bottom: var(--spacing-4);
+}
+.uds-social-proof__logos {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-8);
+  flex-wrap: wrap;
+}
+.uds-social-proof__logo {
+  font-size: var(--text-body-md);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-tertiary);
+  opacity: var(--opacity-muted);
+  font-family: var(--font-display);
+  letter-spacing: -0.03em;
+}
+.uds-social-proof__stats {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-12);
+  flex-wrap: wrap;
+}
+.uds-social-proof__stat-value {
+  font-family: var(--font-display);
+  font-size: var(--text-heading-md);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+}
+.uds-social-proof__stat-label {
+  font-size: var(--text-body-sm);
+  color: var(--color-text-secondary);
+  margin-top: var(--spacing-1);
+}
+
+/* Testimonial */
+.uds-testimonial {
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-6);
+  box-shadow: var(--shadow-sm);
+  max-width: 480px;
+}
+.uds-testimonial__quote {
+  font-size: var(--text-body-md);
+  color: var(--color-text-primary);
+  line-height: var(--line-height-relaxed);
+  margin-bottom: var(--spacing-5);
+  font-style: italic;
+}
+.uds-testimonial__quote::before { content: "\201C"; }
+.uds-testimonial__quote::after { content: "\201D"; }
+.uds-testimonial__author {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+}
+.uds-testimonial__meta { display: flex; flex-direction: column; }
+.uds-testimonial__name {
+  font-size: var(--text-body-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+.uds-testimonial__role { font-size: var(--text-label); color: var(--color-text-tertiary); }
+.uds-testimonial__metric {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: var(--spacing-8) var(--spacing-6);
+}
+.uds-testimonial__metric-value {
+  font-family: var(--font-display);
+  font-size: var(--text-heading-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-brand-primary);
+  line-height: 1;
+}
+.uds-testimonial__metric-label { font-size: var(--text-body-sm); color: var(--color-text-secondary); margin-top: var(--spacing-2); }
+
+/* Footer */
+.uds-footer {
+  background: var(--color-bg-secondary);
+  border-top: 1px solid var(--color-border-subtle);
+  padding: var(--spacing-8) var(--spacing-6);
+}
+.uds-footer--simple {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--spacing-4);
+}
+.uds-footer__brand {
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  font-size: var(--text-body-md);
+}
+.uds-footer__copy { font-size: var(--text-body-sm); color: var(--color-text-tertiary); }
+.uds-footer__links {
+  display: flex;
+  gap: var(--spacing-4);
+  list-style: none;
+  flex-wrap: wrap;
+}
+.uds-footer__link {
+  font-size: var(--text-body-sm);
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  transition: color var(--duration-fast) var(--ease-default);
+}
+.uds-footer__link:hover { color: var(--color-text-primary); }
+.uds-footer__columns {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-6);
+  margin-bottom: var(--spacing-6);
+}
+.uds-footer__col-title {
+  font-size: var(--text-label);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: var(--spacing-3);
+}
+.uds-footer__newsletter {
+  display: flex;
+  gap: var(--spacing-2);
+  margin-top: var(--spacing-3);
+}
+.uds-footer__newsletter input {
+  flex: 1;
+  padding: 0 var(--spacing-3);
+  height: 40px;
+  font-family: var(--font-sans);
+  font-size: var(--text-body-sm);
+  color: var(--color-text-primary);
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border-input);
+  border-radius: var(--radius-md);
+  min-width: 0;
+}
+
+/* Code Block */
+.uds-code-block {
+  background: var(--color-bg-inverse);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
+.uds-code-block__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-3) var(--spacing-4);
+  background: rgba(255,255,255,0.06);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.uds-code-block__lang {
+  font-size: var(--text-label);
+  font-weight: var(--font-weight-medium);
+  color: rgba(255,255,255,0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.uds-code-block__copy {
+  font-size: var(--text-label);
+  color: rgba(255,255,255,0.5);
+  background: none;
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: var(--radius-sm);
+  padding: 2px var(--spacing-3);
+  cursor: pointer;
+  font-family: var(--font-sans);
+  transition: color var(--duration-fast) var(--ease-default);
+}
+.uds-code-block__copy:hover { color: rgba(255,255,255,0.9); }
+.uds-code-block__body {
+  padding: var(--spacing-5);
+  overflow-x: auto;
+}
+.uds-code-block__body pre {
+  margin: 0;
+  color: rgba(255,255,255,0.85);
+  line-height: 1.7;
+  white-space: pre;
+}
+.uds-code-block--terminal .uds-code-block__body pre { color: var(--color-success); }
+.uds-code-block__tabs {
+  display: flex;
+  background: rgba(255,255,255,0.04);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.uds-code-block__tab {
+  padding: var(--spacing-2) var(--spacing-4);
+  font-size: var(--text-label);
+  color: rgba(255,255,255,0.5);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  transition: color var(--duration-fast) var(--ease-default);
+}
+.uds-code-block__tab--active { color: rgba(255,255,255,0.9); border-bottom-color: var(--color-brand-primary); }
+
+/* Select */
+.uds-select {
+  width: 100%;
+  padding: 0 var(--spacing-3);
+  font-family: var(--font-sans);
+  font-size: var(--text-body-md);
+  color: var(--color-text-primary);
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border-input);
+  border-radius: var(--radius-md);
+  height: 44px;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236B6B7B' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 32px;
+  transition: border-color var(--duration-fast) var(--ease-default);
+}
+.uds-select:focus { outline: 2px solid var(--color-brand-primary); outline-offset: 2px; }
+.uds-select--sm { height: 36px; font-size: var(--text-body-sm); }
+.uds-select--lg { height: 52px; font-size: var(--text-body-lg); }
+
+/* Checkbox */
+.uds-checkbox {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+}
+.uds-checkbox__item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  cursor: pointer;
+}
+.uds-checkbox__item input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--color-brand-primary);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.uds-checkbox__label {
+  font-size: var(--text-body-sm);
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-medium);
+}
+
+/* Radio */
+.uds-radio {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+}
+.uds-radio__item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  cursor: pointer;
+}
+.uds-radio__item input[type="radio"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--color-brand-primary);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.uds-radio__label {
+  font-size: var(--text-body-sm);
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-medium);
+}
+.uds-radio__card {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-3);
+}
+.uds-radio__card-item {
+  border: 2px solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-4);
+  cursor: pointer;
+  transition: border-color var(--duration-fast) var(--ease-default);
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-3);
+}
+.uds-radio__card-item--selected { border-color: var(--color-brand-primary); background: var(--color-brand-muted); }
+.uds-radio__card-label { font-size: var(--text-body-sm); font-weight: var(--font-weight-semibold); color: var(--color-text-primary); }
+.uds-radio__card-desc { font-size: var(--text-label); color: var(--color-text-secondary); margin-top: var(--spacing-1); }
+
+/* Accordion */
+.uds-accordion {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+.uds-accordion--flush { border: none; border-radius: 0; }
+.uds-accordion__item {
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+.uds-accordion__item:last-child { border-bottom: none; }
+.uds-accordion__trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-4) var(--spacing-5);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: var(--text-body-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  text-align: left;
+  transition: background var(--duration-fast) var(--ease-default);
+}
+.uds-accordion__trigger:hover { background: var(--color-bg-tertiary); }
+.uds-accordion__icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  transition: transform var(--duration-fast) var(--ease-default);
+}
+.uds-accordion__item--open .uds-accordion__icon { transform: rotate(180deg); }
+.uds-accordion__panel {
+  padding: 0 var(--spacing-5) var(--spacing-5);
+  font-size: var(--text-body-sm);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+  display: none;
+}
+.uds-accordion__item--open .uds-accordion__panel { display: block; }
+
+/* Breadcrumb */
+.uds-breadcrumb { display: flex; align-items: center; gap: 0; }
+.uds-breadcrumb__list { display: flex; align-items: center; gap: 0; list-style: none; flex-wrap: wrap; }
+.uds-breadcrumb__item { display: flex; align-items: center; }
+.uds-breadcrumb__link {
+  font-size: var(--text-body-sm);
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  padding: var(--spacing-1) var(--spacing-2);
+  border-radius: var(--radius-sm);
+  transition: color var(--duration-fast) var(--ease-default);
+}
+.uds-breadcrumb__link:hover { color: var(--color-text-primary); background: var(--color-bg-tertiary); }
+.uds-breadcrumb__current {
+  font-size: var(--text-body-sm);
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-medium);
+  padding: var(--spacing-1) var(--spacing-2);
+}
+.uds-breadcrumb__sep {
+  color: var(--color-text-tertiary);
+  font-size: var(--text-body-sm);
+  margin: 0 var(--spacing-1);
+}
+.uds-breadcrumb__ellipsis {
+  font-size: var(--text-body-sm);
+  color: var(--color-text-tertiary);
+  padding: var(--spacing-1) var(--spacing-2);
+}
+
+/* Dropdown */
+.uds-dropdown { position: relative; display: inline-block; }
+.uds-dropdown__trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  padding: 0 var(--spacing-4);
+  height: 40px;
+  font-family: var(--font-sans);
+  font-size: var(--text-body-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: border-color var(--duration-fast) var(--ease-default);
+}
+.uds-dropdown__trigger:hover { border-color: var(--color-brand-primary); }
+.uds-dropdown__menu {
+  position: static;
+  margin-top: var(--spacing-2);
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  min-width: 200px;
+  z-index: var(--z-dropdown);
+}
+.uds-dropdown__item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  padding: var(--spacing-3) var(--spacing-4);
+  font-size: var(--text-body-sm);
+  color: var(--color-text-primary);
+  cursor: pointer;
+  transition: background var(--duration-fast) var(--ease-default);
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+  font-family: var(--font-sans);
+  text-decoration: none;
+}
+.uds-dropdown__item:hover { background: var(--color-bg-tertiary); }
+.uds-dropdown__item--destructive { color: var(--color-error); }
+.uds-dropdown__sep { height: 1px; background: var(--color-border-subtle); margin: var(--spacing-1) 0; }
+
+/* Skeleton */
+.uds-skeleton__line {
+  background: var(--color-bg-tertiary);
+  border-radius: var(--radius-sm);
+  height: 14px;
+  margin-bottom: var(--spacing-2);
+}
+.uds-skeleton__line--short { width: 40%; }
+.uds-skeleton__line--medium { width: 65%; }
+.uds-skeleton__line--full { width: 100%; }
+.uds-skeleton__circle {
+  background: var(--color-bg-tertiary);
+  border-radius: var(--radius-full);
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+}
+.uds-skeleton__card {
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-5);
+}
+.uds-skeleton__img {
+  background: var(--color-bg-tertiary);
+  border-radius: var(--radius-md);
+  height: 120px;
+  margin-bottom: var(--spacing-4);
+}
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes uds-skeleton-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+  .uds-skeleton__line,
+  .uds-skeleton__circle,
+  .uds-skeleton__img {
+    animation: uds-skeleton-pulse 1.5s var(--ease-default) infinite;
+  }
+}
+
+/* Toast */
+.uds-toast {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-3);
+  padding: var(--spacing-4);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  font-size: var(--text-body-sm);
+  min-width: 280px;
+  max-width: 400px;
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border-default);
+}
+.uds-toast--success { border-left: 4px solid var(--color-success); }
+.uds-toast--error { border-left: 4px solid var(--color-error); }
+.uds-toast--warning { border-left: 4px solid var(--color-warning); }
+.uds-toast--info { border-left: 4px solid var(--color-info); }
+.uds-toast__icon { flex-shrink: 0; width: 20px; height: 20px; margin-top: 1px; }
+.uds-toast--success .uds-toast__icon { color: var(--color-success); }
+.uds-toast--error .uds-toast__icon { color: var(--color-error); }
+.uds-toast--warning .uds-toast__icon { color: var(--color-warning); }
+.uds-toast--info .uds-toast__icon { color: var(--color-info); }
+.uds-toast__content { flex: 1; }
+.uds-toast__title { font-weight: var(--font-weight-semibold); color: var(--color-text-primary); margin-bottom: 2px; }
+.uds-toast__message { color: var(--color-text-secondary); line-height: var(--line-height-relaxed); }
+.uds-toast__close { background: none; border: none; cursor: pointer; color: var(--color-text-tertiary); padding: 0; line-height: 1; }
+.uds-toast__close:hover { color: var(--color-text-primary); }
+
+/* Pagination */
+.uds-pagination {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-1);
+}
+.uds-pagination__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 36px;
+  height: 36px;
+  padding: 0 var(--spacing-2);
+  font-family: var(--font-sans);
+  font-size: var(--text-body-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-default);
+  text-decoration: none;
+}
+.uds-pagination__btn:hover { border-color: var(--color-brand-primary); color: var(--color-brand-primary); }
+.uds-pagination__btn--active {
+  background: var(--color-brand-primary);
+  color: var(--color-text-on-brand);
+  border-color: var(--color-brand-primary);
+}
+.uds-pagination__btn--active:hover { opacity: 0.9; color: var(--color-text-on-brand); }
+.uds-pagination__btn:disabled { opacity: var(--opacity-disabled); cursor: not-allowed; }
+.uds-pagination__ellipsis {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  color: var(--color-text-tertiary);
+  font-size: var(--text-body-sm);
+}
+.uds-pagination__load-more {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-3);
+  width: 100%;
+}
+.uds-pagination__info { font-size: var(--text-body-sm); color: var(--color-text-secondary); }
+.uds-pagination__progress {
+  width: 100%;
+  max-width: 300px;
+  height: 4px;
+  background: var(--color-bg-tertiary);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+.uds-pagination__progress-fill {
+  height: 100%;
+  background: var(--color-brand-primary);
+  border-radius: var(--radius-full);
+  width: 40%;
+}
+
+/* Data Table */
+.uds-data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-body-sm);
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+.uds-data-table thead { background: var(--color-bg-secondary); }
+.uds-data-table th {
+  padding: var(--spacing-3) var(--spacing-4);
+  text-align: left;
+  font-size: var(--text-label);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid var(--color-border-default);
+  white-space: nowrap;
+}
+.uds-data-table td {
+  padding: var(--spacing-3) var(--spacing-4);
+  color: var(--color-text-primary);
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+.uds-data-table tr:last-child td { border-bottom: none; }
+.uds-data-table tbody tr { transition: background var(--duration-fast) var(--ease-default); }
+.uds-data-table tbody tr:hover { background: var(--color-bg-secondary); }
+.uds-data-table__sort-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-text-secondary);
+  font-size: var(--text-label);
+  font-weight: var(--font-weight-semibold);
+  font-family: var(--font-sans);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-1);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0;
+}
+.uds-data-table__sort-btn:hover { color: var(--color-text-primary); }
+.uds-data-table__sort-icon { opacity: var(--opacity-muted); }
+.uds-data-table__checkbox { width: 18px; height: 18px; accent-color: var(--color-brand-primary); cursor: pointer; }
+
+/* Date Picker */
+.uds-date-picker {
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  padding: var(--spacing-4);
+  max-width: 320px;
+}
+.uds-date-picker__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-4);
+}
+.uds-date-picker__nav {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-text-secondary);
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  transition: background var(--duration-fast) var(--ease-default);
+  font-size: 16px;
+}
+.uds-date-picker__nav:hover { background: var(--color-bg-tertiary); color: var(--color-text-primary); }
+.uds-date-picker__month {
+  font-size: var(--text-body-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+.uds-date-picker__grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+}
+.uds-date-picker__day-name {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  font-size: var(--text-label);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-tertiary);
+  text-transform: uppercase;
+}
+.uds-date-picker__day {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  width: 100%;
+  font-size: var(--text-body-sm);
+  color: var(--color-text-primary);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  border: none;
+  background: none;
+  transition: background var(--duration-fast) var(--ease-default);
+  font-family: var(--font-sans);
+}
+.uds-date-picker__day:hover { background: var(--color-bg-tertiary); }
+.uds-date-picker__day--today { font-weight: var(--font-weight-bold); color: var(--color-brand-primary); }
+.uds-date-picker__day--selected { background: var(--color-brand-primary); color: var(--color-text-on-brand); }
+.uds-date-picker__day--selected:hover { opacity: 0.9; }
+.uds-date-picker__day--in-range { background: var(--color-brand-muted); color: var(--color-brand-primary); }
+.uds-date-picker__day--muted { color: var(--color-text-tertiary); opacity: var(--opacity-muted); }
+
+/* Command Palette */
+.uds-command-palette {
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-xl, var(--shadow-lg));
+  overflow: hidden;
+  max-width: 560px;
+  width: 100%;
+}
+.uds-command-palette__search {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  padding: var(--spacing-4);
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+.uds-command-palette__search-icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  color: var(--color-text-tertiary);
+}
+.uds-command-palette__input {
+  flex: 1;
+  border: none;
+  background: none;
+  font-family: var(--font-sans);
+  font-size: var(--text-body-md);
+  color: var(--color-text-primary);
+  outline: none;
+}
+.uds-command-palette__input::placeholder { color: var(--color-text-tertiary); }
+.uds-command-palette__kbd {
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  color: var(--color-text-tertiary);
+  background: var(--color-bg-tertiary);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-sm);
+  padding: 2px var(--spacing-2);
+}
+.uds-command-palette__list { padding: var(--spacing-2) 0; max-height: 240px; overflow-y: auto; }
+.uds-command-palette__group-label {
+  padding: var(--spacing-2) var(--spacing-4);
+  font-size: var(--text-label);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.uds-command-palette__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-3);
+  padding: var(--spacing-3) var(--spacing-4);
+  cursor: pointer;
+  transition: background var(--duration-fast) var(--ease-default);
+}
+.uds-command-palette__item:hover,
+.uds-command-palette__item--active { background: var(--color-bg-tertiary); }
+.uds-command-palette__item-left { display: flex; align-items: center; gap: var(--spacing-3); }
+.uds-command-palette__item-icon {
+  width: 32px;
+  height: 32px;
+  background: var(--color-bg-tertiary);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--color-text-secondary);
+}
+.uds-command-palette__item-active .uds-command-palette__item-icon { background: var(--color-brand-muted); color: var(--color-brand-primary); }
+.uds-command-palette__item-label {
+  font-size: var(--text-body-sm);
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-medium);
+}
+.uds-command-palette__item-sub { font-size: var(--text-label); color: var(--color-text-tertiary); }
+.uds-command-palette__footer {
+  padding: var(--spacing-3) var(--spacing-4);
+  border-top: 1px solid var(--color-border-subtle);
+  display: flex;
+  gap: var(--spacing-4);
+  font-size: var(--text-label);
+  color: var(--color-text-tertiary);
+}
+.uds-command-palette__footer span { display: flex; align-items: center; gap: var(--spacing-2); }
+
+/* Progress Indicator */
+.uds-progress-bar {
+  height: 8px;
+  background: var(--color-bg-tertiary);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+.uds-progress-bar--sm { height: 4px; }
+.uds-progress-bar--lg { height: 12px; }
+.uds-progress-bar__fill {
+  height: 100%;
+  background: var(--color-brand-primary);
+  border-radius: var(--radius-full);
+  transition: width var(--duration-normal) var(--ease-default);
+}
+.uds-progress-bar__label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-2);
+  font-size: var(--text-body-sm);
+  color: var(--color-text-secondary);
+}
+.uds-progress-circular {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.uds-progress-circular svg { transform: rotate(-90deg); }
+.uds-progress-circular__track { fill: none; stroke: var(--color-bg-tertiary); }
+.uds-progress-circular__fill { fill: none; stroke: var(--color-brand-primary); stroke-linecap: round; }
+.uds-progress-circular__label {
+  position: absolute;
+  font-size: var(--text-body-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+.uds-progress-stepper {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+.uds-progress-stepper__step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  position: relative;
+}
+.uds-progress-stepper__step + .uds-progress-stepper__step::before {
+  content: '';
+  position: absolute;
+  top: 16px;
+  right: 50%;
+  left: -50%;
+  height: 2px;
+  background: var(--color-border-default);
+}
+.uds-progress-stepper__step--done + .uds-progress-stepper__step::before { background: var(--color-brand-primary); }
+.uds-progress-stepper__dot {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  background: var(--color-bg-tertiary);
+  border: 2px solid var(--color-border-default);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-label);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-tertiary);
+  z-index: 1;
+  position: relative;
+}
+.uds-progress-stepper__step--done .uds-progress-stepper__dot {
+  background: var(--color-brand-primary);
+  border-color: var(--color-brand-primary);
+  color: var(--color-text-on-brand);
+}
+.uds-progress-stepper__step--active .uds-progress-stepper__dot {
+  background: var(--color-bg-primary);
+  border-color: var(--color-brand-primary);
+  color: var(--color-brand-primary);
+}
+.uds-progress-stepper__label {
+  margin-top: var(--spacing-2);
+  font-size: var(--text-label);
+  color: var(--color-text-tertiary);
+  text-align: center;
+}
+.uds-progress-stepper__step--active .uds-progress-stepper__label,
+.uds-progress-stepper__step--done .uds-progress-stepper__label { color: var(--color-text-primary); font-weight: var(--font-weight-medium); }
+
+/* Side Navigation */
+.uds-side-nav {
+  width: 240px;
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-3) 0;
+  overflow-y: auto;
+}
+.uds-side-nav--collapsed { width: 60px; }
+.uds-side-nav__section-label {
+  padding: var(--spacing-3) var(--spacing-4) var(--spacing-1);
+  font-size: var(--text-label);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.uds-side-nav__item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  padding: var(--spacing-2) var(--spacing-4);
+  font-size: var(--text-body-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  border-radius: 0;
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-default);
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+  font-family: var(--font-sans);
+  position: relative;
+}
+.uds-side-nav__item:hover { background: var(--color-bg-tertiary); color: var(--color-text-primary); }
+.uds-side-nav__item--active {
+  background: var(--color-brand-muted);
+  color: var(--color-brand-primary);
+  font-weight: var(--font-weight-semibold);
+}
+.uds-side-nav__item--active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--color-brand-primary);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+.uds-side-nav__item-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+.uds-side-nav__badge {
+  margin-left: auto;
+  background: var(--color-brand-primary);
+  color: var(--color-text-on-brand);
+  font-size: 11px;
+  font-weight: var(--font-weight-semibold);
+  padding: 1px 7px;
+  border-radius: var(--radius-full);
+}
+.uds-side-nav__sep { height: 1px; background: var(--color-border-subtle); margin: var(--spacing-2) var(--spacing-4); }
+
+/* File Upload */
+.uds-file-upload__dropzone {
+  border: 2px dashed var(--color-border-input);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-10) var(--spacing-8);
+  text-align: center;
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-default);
+  background: var(--color-bg-secondary);
+}
+.uds-file-upload__dropzone:hover { border-color: var(--color-brand-primary); background: var(--color-brand-muted); }
+.uds-file-upload__icon {
+  width: 48px;
+  height: 48px;
+  background: var(--color-brand-muted);
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto var(--spacing-4);
+  color: var(--color-brand-primary);
+}
+.uds-file-upload__title {
+  font-size: var(--text-body-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-1);
+}
+.uds-file-upload__sub {
+  font-size: var(--text-label);
+  color: var(--color-text-tertiary);
+}
+.uds-file-upload__sub strong { color: var(--color-brand-primary); }
+.uds-file-upload__input { display: none; }
+.uds-file-upload__btn-wrap { display: flex; flex-direction: column; align-items: flex-start; gap: var(--spacing-2); }
+.uds-file-upload__hint { font-size: var(--text-label); color: var(--color-text-tertiary); }
+.uds-file-upload__avatar-wrap {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-5);
+}
+.uds-file-upload__avatar-preview {
+  width: 80px;
+  height: 80px;
+  border-radius: var(--radius-full);
+  background: var(--color-bg-tertiary);
+  border: 2px dashed var(--color-border-input);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  overflow: hidden;
+  color: var(--color-text-tertiary);
+  flex-shrink: 0;
+  transition: border-color var(--duration-fast) var(--ease-default);
+}
+.uds-file-upload__avatar-preview:hover { border-color: var(--color-brand-primary); }
+.uds-file-upload__avatar-meta { display: flex; flex-direction: column; gap: var(--spacing-2); }
+.uds-file-upload__avatar-label {
+  font-size: var(--text-body-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+.uds-file-upload__avatar-hint { font-size: var(--text-label); color: var(--color-text-tertiary); }
+
 /* ============================================================
    DARK MODE OVERRIDES FOR PAGE CHROME
    ============================================================ */
@@ -1188,6 +2378,85 @@ html.docs-dark .uds-modal__header { border-color: var(--color-border-subtle); }
 html.docs-dark .uds-modal__footer { border-color: var(--color-border-subtle); }
 html.docs-dark .uds-modal__title { color: var(--color-text-primary); }
 html.docs-dark .uds-toggle__label { color: var(--color-text-primary); }
+html.docs-dark .uds-navbar { background: var(--color-bg-secondary); border-color: var(--color-border-default); }
+html.docs-dark .uds-navbar__brand { color: var(--color-text-primary); }
+html.docs-dark .uds-navbar__link { color: var(--color-text-secondary); }
+html.docs-dark .uds-navbar__link:hover { background: var(--color-bg-tertiary); color: var(--color-text-primary); }
+html.docs-dark .uds-hero { background: var(--color-bg-secondary); }
+html.docs-dark .uds-hero__heading { color: var(--color-text-primary); }
+html.docs-dark .uds-hero__sub { color: var(--color-text-secondary); }
+html.docs-dark .uds-hero__screenshot { background: var(--color-bg-tertiary); border-color: var(--color-border-subtle); color: var(--color-text-tertiary); }
+html.docs-dark .uds-pricing__card { background: var(--color-bg-secondary); border-color: var(--color-border-default); }
+html.docs-dark .uds-pricing__name { color: var(--color-text-secondary); }
+html.docs-dark .uds-pricing__price { color: var(--color-text-primary); }
+html.docs-dark .uds-pricing__features { color: var(--color-text-secondary); }
+html.docs-dark .uds-social-proof { background: none; }
+html.docs-dark .uds-social-proof__logo { color: var(--color-text-tertiary); }
+html.docs-dark .uds-social-proof__stat-value { color: var(--color-text-primary); }
+html.docs-dark .uds-social-proof__stat-label { color: var(--color-text-secondary); }
+html.docs-dark .uds-testimonial { background: var(--color-bg-secondary); border-color: var(--color-border-default); }
+html.docs-dark .uds-testimonial__quote { color: var(--color-text-primary); }
+html.docs-dark .uds-testimonial__name { color: var(--color-text-primary); }
+html.docs-dark .uds-testimonial__role { color: var(--color-text-tertiary); }
+html.docs-dark .uds-footer { background: var(--color-bg-secondary); border-color: var(--color-border-subtle); }
+html.docs-dark .uds-footer__brand { color: var(--color-text-primary); }
+html.docs-dark .uds-footer__link { color: var(--color-text-secondary); }
+html.docs-dark .uds-footer__link:hover { color: var(--color-text-primary); }
+html.docs-dark .uds-footer__col-title { color: var(--color-text-primary); }
+html.docs-dark .uds-footer__newsletter input { background: var(--color-bg-tertiary); border-color: var(--color-border-default); color: var(--color-text-primary); }
+html.docs-dark .uds-select { background: var(--color-bg-tertiary); border-color: var(--color-border-default); color: var(--color-text-primary); }
+html.docs-dark .uds-checkbox__label { color: var(--color-text-primary); }
+html.docs-dark .uds-radio__label { color: var(--color-text-primary); }
+html.docs-dark .uds-radio__card-item { border-color: var(--color-border-default); }
+html.docs-dark .uds-radio__card-item--selected { border-color: var(--color-brand-primary); background: var(--color-brand-muted); }
+html.docs-dark .uds-radio__card-label { color: var(--color-text-primary); }
+html.docs-dark .uds-accordion { border-color: var(--color-border-default); }
+html.docs-dark .uds-accordion__item { border-color: var(--color-border-subtle); }
+html.docs-dark .uds-accordion__trigger { color: var(--color-text-primary); }
+html.docs-dark .uds-accordion__trigger:hover { background: var(--color-bg-tertiary); }
+html.docs-dark .uds-accordion__panel { color: var(--color-text-secondary); }
+html.docs-dark .uds-breadcrumb__link { color: var(--color-text-secondary); }
+html.docs-dark .uds-breadcrumb__link:hover { background: var(--color-bg-tertiary); color: var(--color-text-primary); }
+html.docs-dark .uds-breadcrumb__current { color: var(--color-text-primary); }
+html.docs-dark .uds-dropdown__trigger { background: var(--color-bg-secondary); border-color: var(--color-border-default); color: var(--color-text-primary); }
+html.docs-dark .uds-dropdown__menu { background: var(--color-bg-secondary); border-color: var(--color-border-default); }
+html.docs-dark .uds-dropdown__item { color: var(--color-text-primary); }
+html.docs-dark .uds-dropdown__item:hover { background: var(--color-bg-tertiary); }
+html.docs-dark .uds-skeleton__line, html.docs-dark .uds-skeleton__circle, html.docs-dark .uds-skeleton__img { background: var(--color-bg-tertiary); }
+html.docs-dark .uds-skeleton__card { background: var(--color-bg-secondary); border-color: var(--color-border-subtle); }
+html.docs-dark .uds-toast { background: var(--color-bg-secondary); border-color: var(--color-border-default); }
+html.docs-dark .uds-toast__title { color: var(--color-text-primary); }
+html.docs-dark .uds-toast__message { color: var(--color-text-secondary); }
+html.docs-dark .uds-pagination__btn { background: var(--color-bg-secondary); border-color: var(--color-border-default); color: var(--color-text-secondary); }
+html.docs-dark .uds-pagination__btn:hover { border-color: var(--color-brand-primary); color: var(--color-brand-primary); }
+html.docs-dark .uds-pagination__progress { background: var(--color-bg-tertiary); }
+html.docs-dark .uds-data-table { background: var(--color-bg-secondary); border-color: var(--color-border-default); }
+html.docs-dark .uds-data-table thead { background: var(--color-bg-tertiary); }
+html.docs-dark .uds-data-table th { color: var(--color-text-secondary); border-color: var(--color-border-default); }
+html.docs-dark .uds-data-table td { color: var(--color-text-primary); border-color: var(--color-border-subtle); }
+html.docs-dark .uds-data-table tbody tr:hover { background: var(--color-bg-tertiary); }
+html.docs-dark .uds-date-picker { background: var(--color-bg-secondary); border-color: var(--color-border-default); }
+html.docs-dark .uds-date-picker__month { color: var(--color-text-primary); }
+html.docs-dark .uds-date-picker__day { color: var(--color-text-primary); }
+html.docs-dark .uds-date-picker__day:hover { background: var(--color-bg-tertiary); }
+html.docs-dark .uds-command-palette { background: var(--color-bg-secondary); border-color: var(--color-border-default); }
+html.docs-dark .uds-command-palette__input { color: var(--color-text-primary); }
+html.docs-dark .uds-command-palette__item:hover, html.docs-dark .uds-command-palette__item--active { background: var(--color-bg-tertiary); }
+html.docs-dark .uds-command-palette__item-icon { background: var(--color-bg-tertiary); }
+html.docs-dark .uds-command-palette__item-label { color: var(--color-text-primary); }
+html.docs-dark .uds-progress-bar { background: var(--color-bg-tertiary); }
+html.docs-dark .uds-progress-circular__track { stroke: var(--color-bg-tertiary); }
+html.docs-dark .uds-progress-stepper__step::before { background: var(--color-border-default); }
+html.docs-dark .uds-progress-stepper__dot { background: var(--color-bg-tertiary); border-color: var(--color-border-default); color: var(--color-text-tertiary); }
+html.docs-dark .uds-progress-stepper__label { color: var(--color-text-tertiary); }
+html.docs-dark .uds-side-nav { background: var(--color-bg-secondary); border-color: var(--color-border-subtle); }
+html.docs-dark .uds-side-nav__item { color: var(--color-text-secondary); }
+html.docs-dark .uds-side-nav__item:hover { background: var(--color-bg-tertiary); color: var(--color-text-primary); }
+html.docs-dark .uds-file-upload__dropzone { background: var(--color-bg-secondary); border-color: var(--color-border-input); }
+html.docs-dark .uds-file-upload__dropzone:hover { background: var(--color-brand-muted); border-color: var(--color-brand-primary); }
+html.docs-dark .uds-file-upload__title { color: var(--color-text-primary); }
+html.docs-dark .uds-file-upload__avatar-label { color: var(--color-text-primary); }
+html.docs-dark .uds-file-upload__avatar-preview { background: var(--color-bg-tertiary); border-color: var(--color-border-input); }
 html.docs-dark .page-footer { border-color: var(--color-border-default); color: var(--color-text-secondary); }
 html.docs-dark .page-footer a { color: var(--color-text-secondary); }
 
@@ -1293,7 +2562,6 @@ html, body { overflow-x: hidden; }
   </button>
   <div class="topnav-links" id="topnavLinks">
     <a href="docs.html">Docs</a>
-    <a href="component-library.html">Components</a>
     <a href="visual-framework.html">Visual Framework</a>
     <a href="reference.html">Reference</a>
     <a href="case-studies.html">Case Studies</a>
@@ -1402,37 +2670,37 @@ html, body { overflow-x: hidden; }
    ============================================================ */
 const COMPONENTS = [
   { id: 1, name: 'Button', slug: 'button', category: 'action', variants: ['primary','secondary','ghost','destructive'], sizes: ['sm','md','lg','xl'], css_class: 'uds-btn', accessibility: 'role=button; aria-disabled; aria-busy for loading; focus ring 2px offset', use_when: 'Primary actions; Secondary actions; Navigation CTAs', hasTemplate: true },
-  { id: 2, name: 'Navigation Bar', slug: 'navigation', category: 'navigation', variants: ['standard','minimal','dark','transparent'], sizes: ['desktop','mobile'], css_class: 'uds-navbar', accessibility: 'nav landmark; aria-label; mobile toggle aria-expanded', use_when: 'Top-level site navigation on every page', hasTemplate: false },
-  { id: 3, name: 'Hero Section', slug: 'hero', category: 'layout', variants: ['centered','product-screenshot','video-bg','gradient-mesh'], sizes: ['full','compact'], css_class: 'uds-hero', accessibility: 'h1 for headline; meaningful alt on images', use_when: 'Landing pages; Marketing pages; Product launches', hasTemplate: false },
+  { id: 2, name: 'Navigation Bar', slug: 'navigation', category: 'navigation', variants: ['standard','minimal','dark','transparent'], sizes: ['desktop','mobile'], css_class: 'uds-navbar', accessibility: 'nav landmark; aria-label; mobile toggle aria-expanded', use_when: 'Top-level site navigation on every page', hasTemplate: true },
+  { id: 3, name: 'Hero Section', slug: 'hero', category: 'layout', variants: ['centered','product-screenshot','video-bg','gradient-mesh'], sizes: ['full','compact'], css_class: 'uds-hero', accessibility: 'h1 for headline; meaningful alt on images', use_when: 'Landing pages; Marketing pages; Product launches', hasTemplate: true },
   { id: 4, name: 'Feature Card', slug: 'feature-card', category: 'content', variants: ['icon-top','image-top','horizontal'], sizes: ['sm','md','lg'], css_class: 'uds-card', accessibility: 'heading hierarchy; alt on images; focus on link', use_when: 'Showcasing features or benefits in a grid', hasTemplate: true },
-  { id: 5, name: 'Pricing Table', slug: 'pricing-table', category: 'commerce', variants: ['2-column','3-column','4-column','toggle'], sizes: ['standard','compact'], css_class: 'uds-pricing', accessibility: 'aria-label on toggle; heading hierarchy', use_when: 'SaaS pricing with 2-4 tiers', hasTemplate: false },
-  { id: 6, name: 'Social Proof Bar', slug: 'social-proof', category: 'trust', variants: ['logo-strip','stats-counter','testimonial-mini'], sizes: ['standard','compact'], css_class: 'uds-social-proof', accessibility: 'alt text on logos; aria-hidden on decorative', use_when: 'Below hero to build trust; B2B logo strips', hasTemplate: false },
-  { id: 7, name: 'Testimonial Card', slug: 'testimonial', category: 'trust', variants: ['quote-card','video','metric'], sizes: ['sm','md','lg'], css_class: 'uds-testimonial', accessibility: 'blockquote element; cite for attribution', use_when: 'Building trust with user quotes', hasTemplate: false },
-  { id: 8, name: 'Footer', slug: 'footer', category: 'navigation', variants: ['simple','multi-column','newsletter'], sizes: ['standard','compact'], css_class: 'uds-footer', accessibility: 'nav landmark; aria-label; link list structure', use_when: 'Every page - multi-column for marketing', hasTemplate: false },
-  { id: 9, name: 'Code Block', slug: 'code-block', category: 'content', variants: ['syntax-highlighted','terminal','multi-tab'], sizes: ['sm','md','lg'], css_class: 'uds-code-block', accessibility: 'pre+code elements; aria-label on copy button', use_when: 'Displaying code snippets or terminal commands', hasTemplate: false },
+  { id: 5, name: 'Pricing Table', slug: 'pricing-table', category: 'commerce', variants: ['2-column','3-column','4-column','toggle'], sizes: ['standard','compact'], css_class: 'uds-pricing', accessibility: 'aria-label on toggle; heading hierarchy', use_when: 'SaaS pricing with 2-4 tiers', hasTemplate: true },
+  { id: 6, name: 'Social Proof Bar', slug: 'social-proof', category: 'trust', variants: ['logo-strip','stats-counter','testimonial-mini'], sizes: ['standard','compact'], css_class: 'uds-social-proof', accessibility: 'alt text on logos; aria-hidden on decorative', use_when: 'Below hero to build trust; B2B logo strips', hasTemplate: true },
+  { id: 7, name: 'Testimonial Card', slug: 'testimonial', category: 'trust', variants: ['quote-card','video','metric'], sizes: ['sm','md','lg'], css_class: 'uds-testimonial', accessibility: 'blockquote element; cite for attribution', use_when: 'Building trust with user quotes', hasTemplate: true },
+  { id: 8, name: 'Footer', slug: 'footer', category: 'navigation', variants: ['simple','multi-column','newsletter'], sizes: ['standard','compact'], css_class: 'uds-footer', accessibility: 'nav landmark; aria-label; link list structure', use_when: 'Every page - multi-column for marketing', hasTemplate: true },
+  { id: 9, name: 'Code Block', slug: 'code-block', category: 'content', variants: ['syntax-highlighted','terminal','multi-tab'], sizes: ['sm','md','lg'], css_class: 'uds-code-block', accessibility: 'pre+code elements; aria-label on copy button', use_when: 'Displaying code snippets or terminal commands', hasTemplate: true },
   { id: 10, name: 'Modal', slug: 'modal', category: 'overlay', variants: ['confirmation','task','alert'], sizes: ['sm','md','lg'], css_class: 'uds-modal', accessibility: 'role=dialog; aria-modal; focus trap; escape dismiss', use_when: 'Confirmations; Focused tasks; Critical alerts', hasTemplate: true },
   { id: 11, name: 'Form Input', slug: 'input', category: 'form', variants: ['default','error','disabled'], sizes: ['sm','md','lg'], css_class: 'uds-input', accessibility: 'for/id label association; aria-invalid; aria-describedby', use_when: 'Any text entry - names, emails, passwords', hasTemplate: true },
-  { id: 12, name: 'Select', slug: 'select', category: 'form', variants: ['native','custom'], sizes: ['sm','md','lg'], css_class: 'uds-select', accessibility: 'native select for accessibility; aria-invalid', use_when: 'Choosing one option from 5-15 choices', hasTemplate: false },
-  { id: 13, name: 'Checkbox', slug: 'checkbox', category: 'form', variants: ['standard','indeterminate'], sizes: ['md'], css_class: 'uds-checkbox', accessibility: 'input+label association; aria-checked', use_when: 'Multi-select; Terms acceptance', hasTemplate: false },
-  { id: 14, name: 'Radio', slug: 'radio', category: 'form', variants: ['standard','card'], sizes: ['md'], css_class: 'uds-radio', accessibility: 'fieldset+legend grouping; aria-checked', use_when: 'Single-select from 2-5 visible options', hasTemplate: false },
+  { id: 12, name: 'Select', slug: 'select', category: 'form', variants: ['native','custom'], sizes: ['sm','md','lg'], css_class: 'uds-select', accessibility: 'native select for accessibility; aria-invalid', use_when: 'Choosing one option from 5-15 choices', hasTemplate: true },
+  { id: 13, name: 'Checkbox', slug: 'checkbox', category: 'form', variants: ['standard','indeterminate'], sizes: ['md'], css_class: 'uds-checkbox', accessibility: 'input+label association; aria-checked', use_when: 'Multi-select; Terms acceptance', hasTemplate: true },
+  { id: 14, name: 'Radio', slug: 'radio', category: 'form', variants: ['standard','card'], sizes: ['md'], css_class: 'uds-radio', accessibility: 'fieldset+legend grouping; aria-checked', use_when: 'Single-select from 2-5 visible options', hasTemplate: true },
   { id: 15, name: 'Toggle Switch', slug: 'toggle', category: 'form', variants: ['default','checked'], sizes: ['md'], css_class: 'uds-toggle', accessibility: 'role=switch; aria-checked; aria-label', use_when: 'Binary on/off settings with immediate effect', hasTemplate: true },
   { id: 16, name: 'Alert', slug: 'alert', category: 'feedback', variants: ['info','success','warning','error'], sizes: ['sm','md','lg'], css_class: 'uds-alert', accessibility: 'role=alert for error/warning; role=status for success/info', use_when: 'Persistent contextual messages within a page', hasTemplate: true },
   { id: 17, name: 'Badge', slug: 'badge', category: 'data-display', variants: ['default','success','warning','error'], sizes: ['sm','md'], css_class: 'uds-badge', accessibility: 'aria-label for icon badges; semantic color', use_when: 'Status indicators; Counts; Category tags', hasTemplate: true },
   { id: 18, name: 'Tabs', slug: 'tabs', category: 'navigation', variants: ['default'], sizes: ['sm','md','lg'], css_class: 'uds-tabs', accessibility: 'role=tablist/tab/tabpanel; aria-selected; arrow key nav', use_when: 'Switching between 2-6 related content panels', hasTemplate: true },
-  { id: 19, name: 'Accordion', slug: 'accordion', category: 'content', variants: ['single','multi','flush'], sizes: ['standard'], css_class: 'uds-accordion', accessibility: 'aria-expanded; aria-controls; keyboard Enter/Space', use_when: 'FAQ pages; Settings panels; Collapsible sections', hasTemplate: false },
-  { id: 20, name: 'Breadcrumb', slug: 'breadcrumb', category: 'navigation', variants: ['standard','truncated'], sizes: ['standard'], css_class: 'uds-breadcrumb', accessibility: 'nav aria-label=Breadcrumb; ol element; aria-current=page', use_when: 'Hierarchical navigation with 3+ levels', hasTemplate: false },
+  { id: 19, name: 'Accordion', slug: 'accordion', category: 'content', variants: ['single','multi','flush'], sizes: ['standard'], css_class: 'uds-accordion', accessibility: 'aria-expanded; aria-controls; keyboard Enter/Space', use_when: 'FAQ pages; Settings panels; Collapsible sections', hasTemplate: true },
+  { id: 20, name: 'Breadcrumb', slug: 'breadcrumb', category: 'navigation', variants: ['standard','truncated'], sizes: ['standard'], css_class: 'uds-breadcrumb', accessibility: 'nav aria-label=Breadcrumb; ol element; aria-current=page', use_when: 'Hierarchical navigation with 3+ levels', hasTemplate: true },
   { id: 21, name: 'Tooltip', slug: 'tooltip', category: 'overlay', variants: ['top','bottom'], sizes: ['sm','md'], css_class: 'uds-tooltip', accessibility: 'role=tooltip; aria-describedby; show on hover+focus', use_when: 'Brief supplementary info on hover/focus', hasTemplate: true },
-  { id: 22, name: 'Dropdown Menu', slug: 'dropdown', category: 'navigation', variants: ['action','context','nav-sub'], sizes: ['sm','md','lg'], css_class: 'uds-dropdown', accessibility: 'role=menu; aria-haspopup; aria-expanded', use_when: 'Action menus; Context menus; Navigation submenus', hasTemplate: false },
+  { id: 22, name: 'Dropdown Menu', slug: 'dropdown', category: 'navigation', variants: ['action','context','nav-sub'], sizes: ['sm','md','lg'], css_class: 'uds-dropdown', accessibility: 'role=menu; aria-haspopup; aria-expanded', use_when: 'Action menus; Context menus; Navigation submenus', hasTemplate: true },
   { id: 23, name: 'Avatar', slug: 'avatar', category: 'data-display', variants: ['initials','icon'], sizes: ['sm','md','lg'], css_class: 'uds-avatar', accessibility: 'alt text; aria-label for status', use_when: 'User profiles; Team lists; Comment authors', hasTemplate: true },
-  { id: 24, name: 'Skeleton', slug: 'skeleton', category: 'loading', variants: ['text','card','avatar'], sizes: ['sm','md','lg'], css_class: 'uds-skeleton', accessibility: 'aria-busy=true on container; aria-hidden=true on skeleton', use_when: 'Content placeholders while data loads', hasTemplate: false },
-  { id: 25, name: 'Toast', slug: 'toast', category: 'feedback', variants: ['success','error','warning','info'], sizes: ['sm','md','lg'], css_class: 'uds-toast', accessibility: 'role=alert for error/warning; role=status for success/info', use_when: 'Transient feedback after user actions', hasTemplate: false },
-  { id: 26, name: 'Pagination', slug: 'pagination', category: 'navigation', variants: ['numbered','simple','load-more'], sizes: ['sm','md'], css_class: 'uds-pagination', accessibility: 'nav aria-label=Pagination; aria-current=page', use_when: 'Large datasets; Tables; Search results', hasTemplate: false },
-  { id: 27, name: 'Data Table', slug: 'data-table', category: 'data-display', variants: ['basic','sortable','selectable'], sizes: ['compact','default','comfortable'], css_class: 'uds-data-table', accessibility: 'scope=col; aria-sort; role=table', use_when: 'Structured multi-column data; Admin panels', hasTemplate: false },
-  { id: 28, name: 'Date Picker', slug: 'date-picker', category: 'form', variants: ['single','range'], sizes: ['md','lg'], css_class: 'uds-date-picker', accessibility: 'role=grid; aria-selected; keyboard arrow nav', use_when: 'Selecting dates or date ranges', hasTemplate: false },
-  { id: 29, name: 'Command Palette', slug: 'command-palette', category: 'navigation', variants: ['standard'], sizes: ['md','lg'], css_class: 'uds-command-palette', accessibility: 'role=combobox; role=listbox; aria-activedescendant', use_when: 'Power-user keyboard navigation for large apps', hasTemplate: false },
-  { id: 30, name: 'Progress Indicator', slug: 'progress-indicator', category: 'feedback', variants: ['bar','circular','stepper'], sizes: ['sm','md','lg'], css_class: 'uds-progress', accessibility: 'role=progressbar; aria-valuenow; aria-valuemin; aria-valuemax', use_when: 'Multi-step flows; Uploads; Loading states', hasTemplate: false },
-  { id: 31, name: 'Side Navigation', slug: 'side-navigation', category: 'navigation', variants: ['default','collapsed','with-sections'], sizes: ['default','collapsed'], css_class: 'uds-side-nav', accessibility: 'nav aria-label; aria-current=page; aria-expanded', use_when: 'Dashboard apps with deep page hierarchies', hasTemplate: false },
-  { id: 32, name: 'File Upload', slug: 'file-upload', category: 'form', variants: ['dropzone','button','avatar-upload'], sizes: ['sm','md','lg'], css_class: 'uds-file-upload', accessibility: 'input type=file aria-label; role=button on dropzone', use_when: 'Uploading files from device', hasTemplate: false }
+  { id: 24, name: 'Skeleton', slug: 'skeleton', category: 'loading', variants: ['text','card','avatar'], sizes: ['sm','md','lg'], css_class: 'uds-skeleton', accessibility: 'aria-busy=true on container; aria-hidden=true on skeleton', use_when: 'Content placeholders while data loads', hasTemplate: true },
+  { id: 25, name: 'Toast', slug: 'toast', category: 'feedback', variants: ['success','error','warning','info'], sizes: ['sm','md','lg'], css_class: 'uds-toast', accessibility: 'role=alert for error/warning; role=status for success/info', use_when: 'Transient feedback after user actions', hasTemplate: true },
+  { id: 26, name: 'Pagination', slug: 'pagination', category: 'navigation', variants: ['numbered','simple','load-more'], sizes: ['sm','md'], css_class: 'uds-pagination', accessibility: 'nav aria-label=Pagination; aria-current=page', use_when: 'Large datasets; Tables; Search results', hasTemplate: true },
+  { id: 27, name: 'Data Table', slug: 'data-table', category: 'data-display', variants: ['basic','sortable','selectable'], sizes: ['compact','default','comfortable'], css_class: 'uds-data-table', accessibility: 'scope=col; aria-sort; role=table', use_when: 'Structured multi-column data; Admin panels', hasTemplate: true },
+  { id: 28, name: 'Date Picker', slug: 'date-picker', category: 'form', variants: ['single','range'], sizes: ['md','lg'], css_class: 'uds-date-picker', accessibility: 'role=grid; aria-selected; keyboard arrow nav', use_when: 'Selecting dates or date ranges', hasTemplate: true },
+  { id: 29, name: 'Command Palette', slug: 'command-palette', category: 'navigation', variants: ['standard'], sizes: ['md','lg'], css_class: 'uds-command-palette', accessibility: 'role=combobox; role=listbox; aria-activedescendant', use_when: 'Power-user keyboard navigation for large apps', hasTemplate: true },
+  { id: 30, name: 'Progress Indicator', slug: 'progress-indicator', category: 'feedback', variants: ['bar','circular','stepper'], sizes: ['sm','md','lg'], css_class: 'uds-progress', accessibility: 'role=progressbar; aria-valuenow; aria-valuemin; aria-valuemax', use_when: 'Multi-step flows; Uploads; Loading states', hasTemplate: true },
+  { id: 31, name: 'Side Navigation', slug: 'side-navigation', category: 'navigation', variants: ['default','collapsed','with-sections'], sizes: ['default','collapsed'], css_class: 'uds-side-nav', accessibility: 'nav aria-label; aria-current=page; aria-expanded', use_when: 'Dashboard apps with deep page hierarchies', hasTemplate: true },
+  { id: 32, name: 'File Upload', slug: 'file-upload', category: 'form', variants: ['dropzone','button','avatar-upload'], sizes: ['sm','md','lg'], css_class: 'uds-file-upload', accessibility: 'input type=file aria-label; role=button on dropzone', use_when: 'Uploading files from device', hasTemplate: true }
 ];
 
 /* ============================================================
@@ -1625,6 +2893,667 @@ function getTemplate(slug, variant, size) {
 </div>`;
     }
 
+    case 'navigation': {
+      const isDark = variant === 'dark';
+      const isTransparent = variant === 'transparent';
+      const modClass = isDark ? ' uds-navbar--dark' : isTransparent ? ' uds-navbar--transparent' : '';
+      return `<nav class="uds-navbar${modClass}" aria-label="Site navigation">
+  <a href="#" class="uds-navbar__brand">BrandName</a>
+  <ul class="uds-navbar__links" role="list">
+    <li><a href="#" class="uds-navbar__link uds-navbar__link--active">Home</a></li>
+    <li><a href="#" class="uds-navbar__link">Features</a></li>
+    <li><a href="#" class="uds-navbar__link">Pricing</a></li>
+    <li><a href="#" class="uds-navbar__link">About</a></li>
+  </ul>
+  <div class="uds-navbar__cta">
+    <button class="uds-btn uds-btn--primary uds-btn--sm">Get Started</button>
+  </div>
+</nav>`;
+    }
+
+    case 'hero': {
+      if (variant === 'gradient-mesh') {
+        return `<section class="uds-hero uds-hero--gradient-mesh">
+  <div class="uds-hero__eyebrow">New in v2.0</div>
+  <h1 class="uds-hero__heading">Build beautiful products faster</h1>
+  <p class="uds-hero__sub">A complete design system with tokens, components, and patterns for modern web apps.</p>
+  <div class="uds-hero__actions">
+    <button class="uds-btn uds-btn--primary">Get started free</button>
+    <button class="uds-btn uds-btn--ghost uds-hero__ghost-btn">Learn more</button>
+  </div>
+</section>`;
+      }
+      if (variant === 'product-screenshot') {
+        return `<section class="uds-hero">
+  <div class="uds-hero__eyebrow">Design System v2</div>
+  <h1 class="uds-hero__heading">Ship faster with confidence</h1>
+  <p class="uds-hero__sub">Consistent components and tokens that scale from prototype to production.</p>
+  <div class="uds-hero__actions">
+    <button class="uds-btn uds-btn--primary">Start building</button>
+    <button class="uds-btn uds-btn--secondary">View docs</button>
+  </div>
+  <div class="uds-hero__screenshot" role="img" aria-label="Product screenshot placeholder">App screenshot preview</div>
+</section>`;
+      }
+      return `<section class="uds-hero">
+  <div class="uds-hero__eyebrow">Introducing v2.0</div>
+  <h1 class="uds-hero__heading">Design systems that scale</h1>
+  <p class="uds-hero__sub">One source of truth for your entire product — tokens, components, and patterns.</p>
+  <div class="uds-hero__actions">
+    <button class="uds-btn uds-btn--primary">Get started free</button>
+    <button class="uds-btn uds-btn--secondary">See demo</button>
+  </div>
+</section>`;
+    }
+
+    case 'pricing-table': {
+      const colClass = (variant === '2-column' || variant === 'toggle') ? ' uds-pricing--2-column' : variant === '4-column' ? ' uds-pricing--4-column' : ' uds-pricing--3-column';
+      const toggleHtml = variant === 'toggle' ? `<div class="uds-pricing__toggle">
+  <span>Monthly</span>
+  <label class="uds-toggle uds-toggle--checked" role="switch" aria-checked="true" style="scale: 0.85;">
+    <span class="uds-toggle__track"><span class="uds-toggle__thumb"></span></span>
+  </label>
+  <span>Annual <span class="uds-badge uds-badge--success uds-badge--sm">Save 20%</span></span>
+</div>` : '';
+      const plans = variant === '2-column' || variant === 'toggle'
+        ? [{ name: 'Starter', price: '$9', period: '/mo', features: ['5 projects', '10GB storage', 'Email support'], featured: false },
+           { name: 'Pro', price: '$29', period: '/mo', features: ['Unlimited projects', '100GB storage', 'Priority support'], featured: true }]
+        : variant === '4-column'
+        ? [{ name: 'Free', price: '$0', period: '/mo', features: ['1 project', '1GB storage'], featured: false },
+           { name: 'Starter', price: '$9', period: '/mo', features: ['5 projects', '10GB storage'], featured: false },
+           { name: 'Pro', price: '$29', period: '/mo', features: ['Unlimited projects', '100GB'], featured: true },
+           { name: 'Enterprise', price: 'Custom', period: '', features: ['Everything in Pro', 'SLA'], featured: false }]
+        : [{ name: 'Free', price: '$0', period: '/mo', features: ['1 project', '1GB storage', 'Community support'], featured: false },
+           { name: 'Pro', price: '$29', period: '/mo', features: ['Unlimited projects', '100GB storage', 'Priority support'], featured: true },
+           { name: 'Enterprise', price: 'Custom', period: '', features: ['Everything in Pro', 'SSO', 'SLA guarantee'], featured: false }];
+      const cardsHtml = plans.map(p => `<div class="uds-pricing__card${p.featured ? ' uds-pricing__card--featured' : ''}">${p.featured ? '<div class="uds-pricing__badge">Most popular</div>' : ''}
+  <div class="uds-pricing__name">${p.name}</div>
+  <div class="uds-pricing__price">${p.price}<span class="uds-pricing__period">${p.period}</span></div>
+  <ul class="uds-pricing__features">${p.features.map(f => `<li>${f}</li>`).join('')}</ul>
+  <button class="uds-btn ${p.featured ? 'uds-btn--primary' : 'uds-btn--secondary'} uds-btn--sm" style="width:100%;">Choose ${p.name}</button>
+</div>`).join('');
+      return `<div>${toggleHtml}<div class="uds-pricing${colClass}">${cardsHtml}</div></div>`;
+    }
+
+    case 'social-proof': {
+      if (variant === 'stats-counter') {
+        return `<div class="uds-social-proof">
+  <p class="uds-social-proof__label">Trusted by teams worldwide</p>
+  <div class="uds-social-proof__stats">
+    <div><div class="uds-social-proof__stat-value">12,000+</div><div class="uds-social-proof__stat-label">Active users</div></div>
+    <div><div class="uds-social-proof__stat-value">98%</div><div class="uds-social-proof__stat-label">Satisfaction rate</div></div>
+    <div><div class="uds-social-proof__stat-value">40+</div><div class="uds-social-proof__stat-label">Countries</div></div>
+  </div>
+</div>`;
+      }
+      if (variant === 'testimonial-mini') {
+        return `<div class="uds-social-proof" style="text-align: left;">
+  <p class="uds-social-proof__label" style="text-align: center;">What our customers say</p>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+    <div class="uds-card" style="padding: 16px;"><div class="uds-card__text">"Saved us weeks of work. Incredible DX."</div><div style="margin-top:8px; font-size: var(--text-label); color: var(--color-text-tertiary);">— Sarah K., CTO</div></div>
+    <div class="uds-card" style="padding: 16px;"><div class="uds-card__text">"The best design system we've used."</div><div style="margin-top:8px; font-size: var(--text-label); color: var(--color-text-tertiary);">— James L., Lead Dev</div></div>
+  </div>
+</div>`;
+      }
+      return `<div class="uds-social-proof">
+  <p class="uds-social-proof__label">Trusted by teams at</p>
+  <div class="uds-social-proof__logos" aria-label="Partner logos">
+    <span class="uds-social-proof__logo" aria-hidden="true">Vercel</span>
+    <span class="uds-social-proof__logo" aria-hidden="true">Linear</span>
+    <span class="uds-social-proof__logo" aria-hidden="true">Notion</span>
+    <span class="uds-social-proof__logo" aria-hidden="true">Figma</span>
+    <span class="uds-social-proof__logo" aria-hidden="true">Stripe</span>
+  </div>
+</div>`;
+    }
+
+    case 'testimonial': {
+      if (variant === 'metric') {
+        return `<div class="uds-testimonial">
+  <div class="uds-testimonial__metric">
+    <div class="uds-testimonial__metric-value" aria-label="68 percent increase">+68%</div>
+    <div class="uds-testimonial__metric-label">Increase in developer productivity after adopting UDS</div>
+    <div class="uds-testimonial__author" style="margin-top: 20px; justify-content: center;">
+      <div class="uds-avatar uds-avatar--sm" aria-hidden="true">JD</div>
+      <div class="uds-testimonial__meta">
+        <span class="uds-testimonial__name">Jordan Davis</span>
+        <span class="uds-testimonial__role">VP Engineering, Acme Corp</span>
+      </div>
+    </div>
+  </div>
+</div>`;
+      }
+      return `<blockquote class="uds-testimonial">
+  <p class="uds-testimonial__quote">This design system transformed how our team works. We ship features 3x faster with consistent quality across every screen.</p>
+  <footer class="uds-testimonial__author">
+    <div class="uds-avatar uds-avatar--sm" aria-label="Alex Morgan">AM</div>
+    <div class="uds-testimonial__meta">
+      <cite class="uds-testimonial__name">Alex Morgan</cite>
+      <span class="uds-testimonial__role">Lead Designer, TechCorp</span>
+    </div>
+  </footer>
+</blockquote>`;
+    }
+
+    case 'footer': {
+      if (variant === 'multi-column') {
+        return `<footer class="uds-footer">
+  <div class="uds-footer__columns">
+    <div><div class="uds-footer__col-title">Product</div><ul class="uds-footer__links" style="flex-direction:column;gap:8px;"><li><a class="uds-footer__link" href="#">Features</a></li><li><a class="uds-footer__link" href="#">Pricing</a></li><li><a class="uds-footer__link" href="#">Changelog</a></li></ul></div>
+    <div><div class="uds-footer__col-title">Company</div><ul class="uds-footer__links" style="flex-direction:column;gap:8px;"><li><a class="uds-footer__link" href="#">About</a></li><li><a class="uds-footer__link" href="#">Blog</a></li><li><a class="uds-footer__link" href="#">Careers</a></li></ul></div>
+    <div><div class="uds-footer__col-title">Legal</div><ul class="uds-footer__links" style="flex-direction:column;gap:8px;"><li><a class="uds-footer__link" href="#">Privacy</a></li><li><a class="uds-footer__link" href="#">Terms</a></li></ul></div>
+  </div>
+  <div class="uds-footer--simple" style="border-top: 1px solid var(--color-border-subtle); padding-top: 20px;">
+    <span class="uds-footer__brand">BrandName</span>
+    <span class="uds-footer__copy">&copy; 2025 BrandName, Inc. All rights reserved.</span>
+  </div>
+</footer>`;
+      }
+      if (variant === 'newsletter') {
+        return `<footer class="uds-footer">
+  <div style="text-align: center; margin-bottom: 24px;">
+    <div class="uds-footer__brand" style="font-size: var(--text-heading-sm); margin-bottom: 8px;">Stay in the loop</div>
+    <p class="uds-footer__copy" style="margin-bottom: 16px;">Get product updates and design tips in your inbox.</p>
+    <div class="uds-footer__newsletter" style="max-width: 400px; margin: 0 auto;">
+      <input type="email" placeholder="you@example.com" aria-label="Email for newsletter">
+      <button class="uds-btn uds-btn--primary uds-btn--sm">Subscribe</button>
+    </div>
+  </div>
+  <div class="uds-footer--simple" style="border-top: 1px solid var(--color-border-subtle); padding-top: 20px;">
+    <span class="uds-footer__copy">&copy; 2025 BrandName</span>
+    <ul class="uds-footer__links"><li><a class="uds-footer__link" href="#">Privacy</a></li><li><a class="uds-footer__link" href="#">Terms</a></li></ul>
+  </div>
+</footer>`;
+      }
+      return `<footer class="uds-footer uds-footer--simple">
+  <span class="uds-footer__brand">BrandName</span>
+  <nav aria-label="Footer navigation">
+    <ul class="uds-footer__links" role="list">
+      <li><a class="uds-footer__link" href="#">Privacy</a></li>
+      <li><a class="uds-footer__link" href="#">Terms</a></li>
+      <li><a class="uds-footer__link" href="#">Contact</a></li>
+    </ul>
+  </nav>
+  <span class="uds-footer__copy">&copy; 2025 BrandName, Inc.</span>
+</footer>`;
+    }
+
+    case 'code-block': {
+      if (variant === 'terminal') {
+        return `<div class="uds-code-block uds-code-block--terminal" aria-label="Terminal output">
+  <div class="uds-code-block__header">
+    <span class="uds-code-block__lang">Terminal</span>
+    <button class="uds-code-block__copy" aria-label="Copy command">Copy</button>
+  </div>
+  <div class="uds-code-block__body">
+    <pre>$ npm install @mkatogui/uds-react
++ @mkatogui/uds-react@0.4.0
+added 12 packages in 1.23s
+
+$ npm run build
+&#x2714; Build complete — 43 components</pre>
+  </div>
+</div>`;
+      }
+      if (variant === 'multi-tab') {
+        return `<div class="uds-code-block" aria-label="Code block with tabs">
+  <div class="uds-code-block__tabs" role="tablist">
+    <button class="uds-code-block__tab uds-code-block__tab--active" role="tab" aria-selected="true">React</button>
+    <button class="uds-code-block__tab" role="tab" aria-selected="false">Vue</button>
+    <button class="uds-code-block__tab" role="tab" aria-selected="false">Svelte</button>
+  </div>
+  <div class="uds-code-block__body" role="tabpanel">
+    <pre><span style="color:#79D7F5">import</span> { Button } <span style="color:#79D7F5">from</span> <span style="color:#A8FF78">'@mkatogui/uds-react'</span>
+
+<span style="color:#C3E88D">&lt;Button</span> <span style="color:#F78C6C">variant</span>=<span style="color:#A8FF78">"primary"</span><span style="color:#C3E88D">&gt;</span>
+  Click me
+<span style="color:#C3E88D">&lt;/Button&gt;</span></pre>
+  </div>
+</div>`;
+      }
+      return `<div class="uds-code-block" aria-label="Code snippet">
+  <div class="uds-code-block__header">
+    <span class="uds-code-block__lang">CSS</span>
+    <button class="uds-code-block__copy" aria-label="Copy code">Copy</button>
+  </div>
+  <div class="uds-code-block__body">
+    <pre><span style="color:#C3E88D">.uds-btn--primary</span> {
+  <span style="color:#F78C6C">background</span>: <span style="color:#A8FF78">var(--color-brand-primary)</span>;
+  <span style="color:#F78C6C">color</span>: <span style="color:#A8FF78">var(--color-text-on-brand)</span>;
+  <span style="color:#F78C6C">border-radius</span>: <span style="color:#A8FF78">var(--radius-md)</span>;
+}</pre>
+  </div>
+</div>`;
+    }
+
+    case 'select': {
+      const selectSize = (size && size !== 'md') ? ` uds-select--${size}` : '';
+      if (variant === 'custom') {
+        return `<div class="uds-input-group" style="max-width: 360px;">
+  <label class="uds-input-label" for="pg-select-custom">Framework</label>
+  <select id="pg-select-custom" class="uds-select${selectSize}" aria-label="Select a framework">
+    <option value="">Choose a framework...</option>
+    <option value="react">React</option>
+    <option value="vue">Vue</option>
+    <option value="svelte">Svelte</option>
+    <option value="angular">Angular</option>
+  </select>
+  <span class="uds-input-helper">Choose your preferred framework.</span>
+</div>`;
+      }
+      return `<div class="uds-input-group" style="max-width: 360px;">
+  <label class="uds-input-label" for="pg-select">Country</label>
+  <select id="pg-select" class="uds-select${selectSize}">
+    <option value="">Choose a country...</option>
+    <option value="us">United States</option>
+    <option value="uk">United Kingdom</option>
+    <option value="ca">Canada</option>
+    <option value="au">Australia</option>
+  </select>
+</div>`;
+    }
+
+    case 'checkbox': {
+      const isIndet = variant === 'indeterminate';
+      return `<fieldset style="border:none;padding:0;">
+  <legend class="uds-input-label" style="margin-bottom: 12px;">Notification preferences</legend>
+  <div class="uds-checkbox">
+    <label class="uds-checkbox__item">
+      <input type="checkbox" class="uds-checkbox__input" checked aria-checked="true">
+      <span class="uds-checkbox__label">Email notifications</span>
+    </label>
+    <label class="uds-checkbox__item">
+      <input type="checkbox" class="uds-checkbox__input"${isIndet ? ' aria-checked="mixed"' : ''}>
+      <span class="uds-checkbox__label">${isIndet ? 'Some items selected (indeterminate)' : 'Push notifications'}</span>
+    </label>
+    <label class="uds-checkbox__item">
+      <input type="checkbox" class="uds-checkbox__input" checked aria-checked="true">
+      <span class="uds-checkbox__label">Weekly digest</span>
+    </label>
+  </div>
+</fieldset>`;
+    }
+
+    case 'radio': {
+      if (variant === 'card') {
+        return `<fieldset style="border:none;padding:0;">
+  <legend class="uds-input-label" style="margin-bottom: 12px;">Choose a plan</legend>
+  <div class="uds-radio__card" role="radiogroup">
+    <div class="uds-radio__card-item uds-radio__card-item--selected" role="radio" aria-checked="true" tabindex="0">
+      <input type="radio" name="plan" value="monthly" checked style="accent-color: var(--color-brand-primary);">
+      <div><div class="uds-radio__card-label">Monthly</div><div class="uds-radio__card-desc">$29/month, cancel anytime</div></div>
+    </div>
+    <div class="uds-radio__card-item" role="radio" aria-checked="false" tabindex="0">
+      <input type="radio" name="plan" value="annual" style="accent-color: var(--color-brand-primary);">
+      <div><div class="uds-radio__card-label">Annual</div><div class="uds-radio__card-desc">$290/year, save 17%</div></div>
+    </div>
+  </div>
+</fieldset>`;
+      }
+      return `<fieldset style="border:none;padding:0;">
+  <legend class="uds-input-label" style="margin-bottom: 12px;">Notification frequency</legend>
+  <div class="uds-radio" role="radiogroup">
+    <label class="uds-radio__item">
+      <input type="radio" name="freq" value="daily" checked aria-checked="true">
+      <span class="uds-radio__label">Daily digest</span>
+    </label>
+    <label class="uds-radio__item">
+      <input type="radio" name="freq" value="weekly" aria-checked="false">
+      <span class="uds-radio__label">Weekly summary</span>
+    </label>
+    <label class="uds-radio__item">
+      <input type="radio" name="freq" value="never" aria-checked="false">
+      <span class="uds-radio__label">Never</span>
+    </label>
+  </div>
+</fieldset>`;
+    }
+
+    case 'accordion': {
+      const modClass = variant === 'flush' ? ' uds-accordion--flush' : '';
+      return `<div class="uds-accordion${modClass}" role="list">
+  <div class="uds-accordion__item uds-accordion__item--open" role="listitem">
+    <button class="uds-accordion__trigger" aria-expanded="true" aria-controls="acc-panel-1">
+      What is a design system?
+      <svg class="uds-accordion__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+    </button>
+    <div class="uds-accordion__panel" id="acc-panel-1" role="region">A design system is a collection of reusable components, guided by clear standards, that can be assembled to build any number of applications.</div>
+  </div>
+  <div class="uds-accordion__item" role="listitem">
+    <button class="uds-accordion__trigger" aria-expanded="false" aria-controls="acc-panel-2">
+      How do I install it?
+      <svg class="uds-accordion__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+    </button>
+    <div class="uds-accordion__panel" id="acc-panel-2" role="region">Run <code>npm install @mkatogui/uds-react</code> and import components directly.</div>
+  </div>
+  <div class="uds-accordion__item" role="listitem">
+    <button class="uds-accordion__trigger" aria-expanded="false" aria-controls="acc-panel-3">
+      Is it accessible?
+      <svg class="uds-accordion__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+    </button>
+    <div class="uds-accordion__panel" id="acc-panel-3" role="region">Yes — all components meet WCAG 2.2 AA standards with full keyboard navigation and screen reader support.</div>
+  </div>
+</div>`;
+    }
+
+    case 'breadcrumb': {
+      if (variant === 'truncated') {
+        return `<nav class="uds-breadcrumb" aria-label="Breadcrumb">
+  <ol class="uds-breadcrumb__list">
+    <li class="uds-breadcrumb__item"><a class="uds-breadcrumb__link" href="#">Home</a></li>
+    <li class="uds-breadcrumb__item"><span class="uds-breadcrumb__sep" aria-hidden="true">/</span></li>
+    <li class="uds-breadcrumb__item"><span class="uds-breadcrumb__ellipsis" aria-label="More pages">…</span></li>
+    <li class="uds-breadcrumb__item"><span class="uds-breadcrumb__sep" aria-hidden="true">/</span></li>
+    <li class="uds-breadcrumb__item"><a class="uds-breadcrumb__link" href="#">Components</a></li>
+    <li class="uds-breadcrumb__item"><span class="uds-breadcrumb__sep" aria-hidden="true">/</span></li>
+    <li class="uds-breadcrumb__item"><span class="uds-breadcrumb__current" aria-current="page">Breadcrumb</span></li>
+  </ol>
+</nav>`;
+      }
+      return `<nav class="uds-breadcrumb" aria-label="Breadcrumb">
+  <ol class="uds-breadcrumb__list">
+    <li class="uds-breadcrumb__item"><a class="uds-breadcrumb__link" href="#">Home</a></li>
+    <li class="uds-breadcrumb__item"><span class="uds-breadcrumb__sep" aria-hidden="true">/</span></li>
+    <li class="uds-breadcrumb__item"><a class="uds-breadcrumb__link" href="#">Docs</a></li>
+    <li class="uds-breadcrumb__item"><span class="uds-breadcrumb__sep" aria-hidden="true">/</span></li>
+    <li class="uds-breadcrumb__item"><a class="uds-breadcrumb__link" href="#">Components</a></li>
+    <li class="uds-breadcrumb__item"><span class="uds-breadcrumb__sep" aria-hidden="true">/</span></li>
+    <li class="uds-breadcrumb__item"><span class="uds-breadcrumb__current" aria-current="page">Breadcrumb</span></li>
+  </ol>
+</nav>`;
+    }
+
+    case 'dropdown': {
+      return `<div style="display: flex; justify-content: center; padding: 8px 0 160px;">
+  <div class="uds-dropdown">
+    <button class="uds-dropdown__trigger" aria-haspopup="menu" aria-expanded="true">
+      Actions
+      <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path fill="currentColor" d="M6 8L1 3h10z"/></svg>
+    </button>
+    <div class="uds-dropdown__menu" role="menu">
+      <button class="uds-dropdown__item" role="menuitem">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        Edit
+      </button>
+      <button class="uds-dropdown__item" role="menuitem">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+        Duplicate
+      </button>
+      <div class="uds-dropdown__sep" role="separator"></div>
+      <button class="uds-dropdown__item uds-dropdown__item--destructive" role="menuitem">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/></svg>
+        Delete
+      </button>
+    </div>
+  </div>
+</div>`;
+    }
+
+    case 'skeleton': {
+      if (variant === 'card') {
+        return `<div class="uds-skeleton__card" aria-busy="true" aria-label="Loading content">
+  <div class="uds-skeleton__img" aria-hidden="true"></div>
+  <div class="uds-skeleton__line uds-skeleton__line--medium" aria-hidden="true"></div>
+  <div class="uds-skeleton__line uds-skeleton__line--full" aria-hidden="true"></div>
+  <div class="uds-skeleton__line uds-skeleton__line--full" aria-hidden="true"></div>
+  <div class="uds-skeleton__line uds-skeleton__line--short" aria-hidden="true"></div>
+</div>`;
+      }
+      if (variant === 'avatar') {
+        return `<div style="display: flex; align-items: center; gap: 12px; max-width: 340px;" aria-busy="true" aria-label="Loading user">
+  <div class="uds-skeleton__circle" aria-hidden="true"></div>
+  <div style="flex: 1;">
+    <div class="uds-skeleton__line uds-skeleton__line--medium" aria-hidden="true"></div>
+    <div class="uds-skeleton__line uds-skeleton__line--short" aria-hidden="true"></div>
+  </div>
+</div>`;
+      }
+      return `<div style="max-width: 360px;" aria-busy="true" aria-label="Loading text content">
+  <div class="uds-skeleton__line uds-skeleton__line--short" aria-hidden="true" style="height:20px; margin-bottom: 12px;"></div>
+  <div class="uds-skeleton__line uds-skeleton__line--full" aria-hidden="true"></div>
+  <div class="uds-skeleton__line uds-skeleton__line--full" aria-hidden="true"></div>
+  <div class="uds-skeleton__line uds-skeleton__line--medium" aria-hidden="true"></div>
+</div>`;
+    }
+
+    case 'toast': {
+      const toastIcons = {
+        success: '<svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>',
+        error: '<svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/></svg>',
+        warning: '<svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>',
+        info: '<svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/></svg>'
+      };
+      const toastTitles = { success: 'Changes saved', error: 'Something went wrong', warning: 'Unsaved changes', info: 'New version available' };
+      const toastMessages = { success: 'Your profile has been updated successfully.', error: 'Unable to save. Please try again.', warning: 'You have unsaved changes that will be lost.', info: 'v2.1.0 is available. Refresh to update.' };
+      const role = (variant === 'error' || variant === 'warning') ? 'alert' : 'status';
+      return `<div style="display: flex; justify-content: center; padding: 24px 0;">
+  <div class="uds-toast uds-toast--${variant}" role="${role}" aria-live="polite">
+    <span class="uds-toast__icon">${toastIcons[variant] || toastIcons.info}</span>
+    <div class="uds-toast__content">
+      <div class="uds-toast__title">${toastTitles[variant] || 'Notification'}</div>
+      <div class="uds-toast__message">${toastMessages[variant] || 'This is a toast message.'}</div>
+    </div>
+    <button class="uds-toast__close" aria-label="Dismiss notification">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+</div>`;
+    }
+
+    case 'pagination': {
+      if (variant === 'simple') {
+        return `<nav class="uds-pagination" aria-label="Pagination">
+  <button class="uds-pagination__btn" aria-label="Previous page">&larr; Prev</button>
+  <span style="font-size: var(--text-body-sm); color: var(--color-text-secondary); padding: 0 8px;">Page 3 of 12</span>
+  <button class="uds-pagination__btn" aria-label="Next page">Next &rarr;</button>
+</nav>`;
+      }
+      if (variant === 'load-more') {
+        return `<div class="uds-pagination__load-more">
+  <p class="uds-pagination__info">Showing 24 of 60 results</p>
+  <div class="uds-pagination__progress" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" aria-label="Loading progress">
+    <div class="uds-pagination__progress-fill"></div>
+  </div>
+  <button class="uds-btn uds-btn--secondary">Load more</button>
+</div>`;
+      }
+      return `<nav class="uds-pagination" aria-label="Pagination">
+  <button class="uds-pagination__btn" aria-label="Previous page" disabled>&lsaquo;</button>
+  <button class="uds-pagination__btn uds-pagination__btn--active" aria-label="Page 1" aria-current="page">1</button>
+  <button class="uds-pagination__btn" aria-label="Page 2">2</button>
+  <button class="uds-pagination__btn" aria-label="Page 3">3</button>
+  <span class="uds-pagination__ellipsis" aria-hidden="true">&hellip;</span>
+  <button class="uds-pagination__btn" aria-label="Page 8">8</button>
+  <button class="uds-pagination__btn" aria-label="Next page">&rsaquo;</button>
+</nav>`;
+    }
+
+    case 'data-table': {
+      const rows = [
+        { name: 'Sarah Connor', email: 'sarah@acme.com', role: 'Admin', status: 'Active' },
+        { name: 'John Doe', email: 'john@acme.com', role: 'Editor', status: 'Active' },
+        { name: 'Jane Smith', email: 'jane@acme.com', role: 'Viewer', status: 'Inactive' }
+      ];
+      if (variant === 'sortable') {
+        const headerHtml = ['Name', 'Email', 'Role', 'Status'].map(h => `<th scope="col"><button class="uds-data-table__sort-btn" aria-sort="none">${h} <span class="uds-data-table__sort-icon" aria-hidden="true">&#8597;</span></button></th>`).join('');
+        const bodyHtml = rows.map(r => `<tr><td>${r.name}</td><td>${r.email}</td><td>${r.role}</td><td><span class="uds-badge ${r.status === 'Active' ? 'uds-badge--success' : 'uds-badge--default'} uds-badge--sm">${r.status}</span></td></tr>`).join('');
+        return `<table class="uds-data-table" role="table" aria-label="Team members"><thead><tr>${headerHtml}</tr></thead><tbody>${bodyHtml}</tbody></table>`;
+      }
+      if (variant === 'selectable') {
+        const bodyHtml = rows.map((r, i) => `<tr><td><input type="checkbox" class="uds-data-table__checkbox" aria-label="Select ${r.name}"></td><td>${r.name}</td><td>${r.role}</td><td><span class="uds-badge ${r.status === 'Active' ? 'uds-badge--success' : 'uds-badge--default'} uds-badge--sm">${r.status}</span></td></tr>`).join('');
+        return `<table class="uds-data-table" role="table" aria-label="Team members"><thead><tr><th scope="col"><input type="checkbox" class="uds-data-table__checkbox" aria-label="Select all"></th><th scope="col">Name</th><th scope="col">Role</th><th scope="col">Status</th></tr></thead><tbody>${bodyHtml}</tbody></table>`;
+      }
+      const bodyHtml = rows.map(r => `<tr><td>${r.name}</td><td>${r.email}</td><td>${r.role}</td><td><span class="uds-badge ${r.status === 'Active' ? 'uds-badge--success' : 'uds-badge--default'} uds-badge--sm">${r.status}</span></td></tr>`).join('');
+      return `<table class="uds-data-table" role="table" aria-label="Team members"><thead><tr><th scope="col">Name</th><th scope="col">Email</th><th scope="col">Role</th><th scope="col">Status</th></tr></thead><tbody>${bodyHtml}</tbody></table>`;
+    }
+
+    case 'date-picker': {
+      const isRange = variant === 'range';
+      const days = ['Su','Mo','Tu','We','Th','Fr','Sa'];
+      const dayNamesHtml = days.map(d => `<div class="uds-date-picker__day-name">${d}</div>`).join('');
+      // March 2026 starts on Sunday (col 0) — 0 blank offset cells needed
+      const blanks = '';
+      const daysHtml = Array.from({length: 31}, (_, i) => {
+        const d = i + 1;
+        const isToday = d === 14;
+        const isSel = d === 10;
+        const isRange2 = isRange && d >= 10 && d <= 17;
+        const isEndRange = isRange && d === 17;
+        const cls = isEndRange ? 'uds-date-picker__day--selected' : isRange2 ? 'uds-date-picker__day--in-range' : isSel ? 'uds-date-picker__day--selected' : isToday ? 'uds-date-picker__day--today' : '';
+        return `<button class="uds-date-picker__day ${cls}" aria-label="March ${d}, 2026"${isToday ? ' aria-current="date"' : ''}${(isSel || isEndRange) ? ' aria-selected="true"' : ''}>${d}</button>`;
+      }).join('');
+      return `<div class="uds-date-picker" role="dialog" aria-label="Date picker">
+  <div class="uds-date-picker__header">
+    <button class="uds-date-picker__nav" aria-label="Previous month">&#8249;</button>
+    <div class="uds-date-picker__month">March 2026</div>
+    <button class="uds-date-picker__nav" aria-label="Next month">&#8250;</button>
+  </div>
+  <div class="uds-date-picker__grid" role="grid" aria-label="Calendar">${dayNamesHtml}${blanks}${daysHtml}</div>
+</div>`;
+    }
+
+    case 'command-palette': {
+      return `<div class="uds-command-palette" role="dialog" aria-modal="true" aria-label="Command palette">
+  <div class="uds-command-palette__search">
+    <svg class="uds-command-palette__search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <input class="uds-command-palette__input" type="text" placeholder="Search commands..." role="combobox" aria-expanded="true" aria-autocomplete="list" aria-activedescendant="cmd-item-1" value="">
+    <kbd class="uds-command-palette__kbd">ESC</kbd>
+  </div>
+  <div class="uds-command-palette__list" role="listbox" id="cmd-list">
+    <div class="uds-command-palette__group-label">Recent</div>
+    <div class="uds-command-palette__item uds-command-palette__item--active" role="option" id="cmd-item-1" aria-selected="true">
+      <div class="uds-command-palette__item-left">
+        <div class="uds-command-palette__item-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        <div><div class="uds-command-palette__item-label">Go to Dashboard</div><div class="uds-command-palette__item-sub">Navigate</div></div>
+      </div>
+      <kbd class="uds-command-palette__kbd">&#x23CE;</kbd>
+    </div>
+    <div class="uds-command-palette__item" role="option" id="cmd-item-2" aria-selected="false">
+      <div class="uds-command-palette__item-left">
+        <div class="uds-command-palette__item-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+        </div>
+        <div><div class="uds-command-palette__item-label">Open Settings</div><div class="uds-command-palette__item-sub">Settings</div></div>
+      </div>
+    </div>
+    <div class="uds-command-palette__item" role="option" id="cmd-item-3" aria-selected="false">
+      <div class="uds-command-palette__item-left">
+        <div class="uds-command-palette__item-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+        </div>
+        <div><div class="uds-command-palette__item-label">Create New Project</div><div class="uds-command-palette__item-sub">Actions</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="uds-command-palette__footer">
+    <span><kbd class="uds-command-palette__kbd">&#8593;&#8595;</kbd> Navigate</span>
+    <span><kbd class="uds-command-palette__kbd">&#x23CE;</kbd> Select</span>
+    <span><kbd class="uds-command-palette__kbd">ESC</kbd> Close</span>
+  </div>
+</div>`;
+    }
+
+    case 'progress-indicator': {
+      if (variant === 'circular') {
+        const r = 36; const circ = 2 * Math.PI * r;
+        const pct = 68; const dash = (pct / 100) * circ;
+        return `<div style="display: flex; gap: 32px; align-items: center; justify-content: center; flex-wrap: wrap;">
+  <div class="uds-progress-circular" aria-label="Upload progress">
+    <svg width="88" height="88" viewBox="0 0 88 88">
+      <circle class="uds-progress-circular__track" cx="44" cy="44" r="${r}" stroke-width="8"/>
+      <circle class="uds-progress-circular__fill" cx="44" cy="44" r="${r}" stroke-width="8" stroke-dasharray="${dash.toFixed(1)} ${circ.toFixed(1)}"/>
+    </svg>
+    <span class="uds-progress-circular__label" role="progressbar" aria-valuenow="68" aria-valuemin="0" aria-valuemax="100">68%</span>
+  </div>
+  <div style="flex: 1; min-width: 180px; max-width: 240px;">
+    <div class="uds-progress-bar__label"><span>Uploading…</span><span>68%</span></div>
+    <div class="uds-progress-bar" role="progressbar" aria-valuenow="68" aria-valuemin="0" aria-valuemax="100" aria-label="Upload progress">
+      <div class="uds-progress-bar__fill" style="width:68%"></div>
+    </div>
+  </div>
+</div>`;
+      }
+      if (variant === 'stepper') {
+        const steps = [{ label: 'Account', state: 'done' }, { label: 'Details', state: 'done' }, { label: 'Review', state: 'active' }, { label: 'Done', state: '' }];
+        const stepsHtml = steps.map((s, i) => `<div class="uds-progress-stepper__step uds-progress-stepper__step--${s.state}" aria-current="${s.state === 'active' ? 'step' : 'false'}">
+  <div class="uds-progress-stepper__dot">${s.state === 'done' ? '&#10003;' : i + 1}</div>
+  <div class="uds-progress-stepper__label">${s.label}</div>
+</div>`).join('');
+        return `<div class="uds-progress-stepper" role="list" aria-label="Setup progress">${stepsHtml}</div>`;
+      }
+      return `<div style="max-width: 400px; display: flex; flex-direction: column; gap: 16px;">
+  <div>
+    <div class="uds-progress-bar__label"><span>Uploading files</span><span>45%</span></div>
+    <div class="uds-progress-bar" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" aria-label="Upload progress">
+      <div class="uds-progress-bar__fill" style="width: 45%"></div>
+    </div>
+  </div>
+  <div>
+    <div class="uds-progress-bar__label"><span>Processing</span><span>78%</span></div>
+    <div class="uds-progress-bar uds-progress-bar--sm" role="progressbar" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100">
+      <div class="uds-progress-bar__fill" style="width: 78%"></div>
+    </div>
+  </div>
+</div>`;
+    }
+
+    case 'side-navigation': {
+      const isCollapsed = variant === 'collapsed';
+      const withSections = variant === 'with-sections';
+      const navIcon = (path) => `<svg class="uds-side-nav__item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">${path}</svg>`;
+      const items = [
+        { icon: navIcon('<path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>'), label: 'Dashboard', active: true },
+        { icon: navIcon('<path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/>'), label: 'Team', badge: '3' },
+        { icon: navIcon('<rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>'), label: 'Projects' },
+        { icon: navIcon('<path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>'), label: 'Messages' }
+      ];
+      const sectionLabel = withSections ? `<div class="uds-side-nav__section-label">Main</div>` : '';
+      const itemsHtml = items.map(item => `<button class="uds-side-nav__item${item.active ? ' uds-side-nav__item--active' : ''}" aria-current="${item.active ? 'page' : 'false'}">${item.icon}${!isCollapsed ? `<span>${item.label}</span>` : ''}${item.badge && !isCollapsed ? `<span class="uds-side-nav__badge">${item.badge}</span>` : ''}</button>`).join('');
+      const settingsSection = withSections ? `<div class="uds-side-nav__sep" role="separator"></div><div class="uds-side-nav__section-label">Settings</div><button class="uds-side-nav__item">${navIcon('<circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/>')}<span>Preferences</span></button>` : '';
+      return `<nav class="uds-side-nav${isCollapsed ? ' uds-side-nav--collapsed' : ''}" aria-label="Main navigation">${sectionLabel}${itemsHtml}${settingsSection}</nav>`;
+    }
+
+    case 'file-upload': {
+      if (variant === 'button') {
+        return `<div class="uds-file-upload__btn-wrap">
+  <label>
+    <span class="uds-input-label" style="display:block; margin-bottom: 8px;">Attachment</span>
+    <button class="uds-btn uds-btn--secondary" onclick="this.previousElementSibling.click()" aria-label="Upload file">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+      Upload file
+    </button>
+    <input type="file" class="uds-file-upload__input" aria-label="Upload file">
+  </label>
+  <span class="uds-file-upload__hint">PDF, PNG, JPG up to 10MB</span>
+</div>`;
+      }
+      if (variant === 'avatar-upload') {
+        return `<div class="uds-file-upload__avatar-wrap">
+  <label>
+    <div class="uds-file-upload__avatar-preview" role="button" aria-label="Upload profile photo" tabindex="0">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    </div>
+    <input type="file" accept="image/*" class="uds-file-upload__input" aria-label="Upload profile photo">
+  </label>
+  <div class="uds-file-upload__avatar-meta">
+    <span class="uds-file-upload__avatar-label">Profile photo</span>
+    <span class="uds-file-upload__avatar-hint">JPG or PNG, max 2MB</span>
+    <button class="uds-btn uds-btn--secondary uds-btn--sm">Change photo</button>
+  </div>
+</div>`;
+      }
+      return `<div class="uds-file-upload__dropzone" role="button" tabindex="0" aria-label="Drop files here or click to upload">
+  <div class="uds-file-upload__icon" aria-hidden="true">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+  </div>
+  <div class="uds-file-upload__title">Drop files here or <strong style="color: var(--color-brand-primary);">browse</strong></div>
+  <div class="uds-file-upload__sub">Supports PNG, JPG, PDF &mdash; up to 10MB</div>
+  <input type="file" class="uds-file-upload__input" aria-label="Upload files" multiple>
+</div>`;
+    }
+
     default:
       return null;
   }
@@ -1695,8 +3624,12 @@ function updatePreview() {
   const comp = getCurrentComponent();
   if (!comp) return;
 
-  const variant = variantSelect.value;
-  const size = sizeSelect.value;
+  // Validate against the component's own allowed values — prevents tainted
+  // DOM data from reaching the innerHTML sink (CodeQL XSS mitigation).
+  const rawVariant = variantSelect.value;
+  const rawSize = sizeSelect.value;
+  const variant = comp.variants.includes(rawVariant) ? rawVariant : comp.variants[0];
+  const size = comp.sizes.includes(rawSize) ? rawSize : comp.sizes[0];
 
   // Update header
   previewName.textContent = comp.name;
