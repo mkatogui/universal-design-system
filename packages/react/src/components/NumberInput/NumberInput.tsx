@@ -1,6 +1,7 @@
 import React from 'react';
 
-export interface NumberInputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type' | 'size'> {
+export interface NumberInputProps
+  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type' | 'size'> {
   value?: number | string;
   min?: number;
   max?: number;

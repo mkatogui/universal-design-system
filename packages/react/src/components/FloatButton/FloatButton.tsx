@@ -8,7 +8,10 @@ export interface FloatButtonProps extends React.ButtonHTMLAttributes<HTMLButtonE
 }
 
 export const FloatButton = React.forwardRef<HTMLButtonElement, FloatButtonProps>(
-  ({ position = 'bottom-right', variant = 'primary', size = 'md', className, children, ...props }, ref) => {
+  (
+    { position = 'bottom-right', variant = 'primary', size = 'md', className, children, ...props },
+    ref,
+  ) => {
     const classes = [
       'uds-float-button',
       `uds-float-button--${position}`,

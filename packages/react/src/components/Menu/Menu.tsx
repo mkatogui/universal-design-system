@@ -1,4 +1,4 @@
-import React from 'react';
+import type React from 'react';
 
 export interface MenuItem {
   id: string;
@@ -22,7 +22,7 @@ export const Menu: React.FC<MenuProps> = ({
 }) => {
   const classes = ['uds-menu', `uds-menu--${orientation}`, className].filter(Boolean).join(' ');
   return (
-    <nav className={classes} role="menubar" aria-label="Menu">
+    <nav className={classes} aria-label="Menu">
       {items.map((item) => (
         <div key={item.id} role="none">
           {item.href ? (
@@ -38,6 +38,7 @@ export const Menu: React.FC<MenuProps> = ({
           ) : (
             <span
               role="menuitem"
+              tabIndex={0}
               className={`uds-menu__item ${activeItemId === item.id ? 'uds-menu__item--active' : ''}`}
               aria-disabled={item.disabled}
             >

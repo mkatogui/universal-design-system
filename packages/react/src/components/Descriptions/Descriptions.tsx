@@ -16,11 +16,13 @@ export const Descriptions: React.FC<DescriptionsProps> = ({
   layout = 'horizontal',
   className,
 }) => {
-  const classes = ['uds-descriptions', `uds-descriptions--${layout}`, className].filter(Boolean).join(' ');
+  const classes = ['uds-descriptions', `uds-descriptions--${layout}`, className]
+    .filter(Boolean)
+    .join(' ');
   return (
     <dl className={classes}>
-      {items.map((item, i) => (
-        <React.Fragment key={i}>
+      {items.map((item) => (
+        <React.Fragment key={String(item.label)}>
           <dt className="uds-descriptions__label">{item.label}</dt>
           <dd className="uds-descriptions__value">{item.value}</dd>
         </React.Fragment>

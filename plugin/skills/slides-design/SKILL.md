@@ -7,7 +7,7 @@ description: >
   "presentation typography", or needs guidance on slide design systems, presentation
   palettes, slide templates, or data visualization colors for presentations.
 metadata:
-  version: "0.4.2"
+  version: "0.5.0"
   author: "Marcelo Katogui"
 ---
 

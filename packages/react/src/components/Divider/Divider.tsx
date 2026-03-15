@@ -17,7 +17,7 @@ export const Divider = React.forwardRef<HTMLHRElement, DividerProps>(
     ]
       .filter(Boolean)
       .join(' ');
-    return <hr ref={ref} className={classes} role="separator" {...props} />;
+    return <hr ref={ref} className={classes} {...props} />;
   },
 );
 

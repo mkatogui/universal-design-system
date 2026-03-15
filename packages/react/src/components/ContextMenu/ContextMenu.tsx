@@ -14,7 +14,12 @@ export interface ContextMenuProps {
   className?: string;
 }
 
-export const ContextMenu: React.FC<ContextMenuProps> = ({ items, onSelect, children, className }) => {
+export const ContextMenu: React.FC<ContextMenuProps> = ({
+  items,
+  onSelect,
+  children,
+  className,
+}) => {
   const [open, setOpen] = React.useState(false);
   const [pos, setPos] = React.useState({ x: 0, y: 0 });
   const ref = React.useRef<HTMLDivElement>(null);
@@ -38,7 +43,14 @@ export const ContextMenu: React.FC<ContextMenuProps> = ({ items, onSelect, child
 
   const classes = ['uds-context-menu', className].filter(Boolean).join(' ');
   return (
-    <div ref={ref} className={classes} onContextMenu={handleContextMenu}>
+    // biome-ignore lint/a11y/useSemanticElements: trigger is a widget wrapper for arbitrary children, not a document section
+    <div
+      ref={ref}
+      className={classes}
+      role="region"
+      aria-label="Context menu trigger"
+      onContextMenu={handleContextMenu}
+    >
       {children}
       {open &&
         ReactDOM.createPortal(
@@ -47,6 +59,7 @@ export const ContextMenu: React.FC<ContextMenuProps> = ({ items, onSelect, child
             role="menu"
             style={{ left: pos.x, top: pos.y }}
             onClick={(e) => e.stopPropagation()}
+            onKeyDown={(e) => e.stopPropagation()}
           >
             {items.map((item) => (
               <button

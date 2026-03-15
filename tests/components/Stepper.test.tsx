@@ -1,5 +1,4 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import React from 'react';
 import '@testing-library/jest-dom/vitest';
 import { describe, expect, it, vi } from 'vitest';
 import { Stepper } from '../../packages/react/src/components/Stepper/Stepper';
@@ -46,7 +45,10 @@ describe('Stepper', () => {
   });
 
   it('renders optional label when step has optional', () => {
-    const stepsWithOptional = [{ id: '1', label: 'Step 1' }, { id: '2', label: 'Step 2', optional: true }];
+    const stepsWithOptional = [
+      { id: '1', label: 'Step 1' },
+      { id: '2', label: 'Step 2', optional: true },
+    ];
     render(<Stepper steps={stepsWithOptional} />);
     expect(screen.getByText('(optional)')).toBeInTheDocument();
   });

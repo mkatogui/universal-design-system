@@ -7,7 +7,7 @@ description: >
   "color psychology for my brand", "logo usage guidelines", or needs guidance on
   brand design, visual identity rules, or color psychology mapped to design system palettes.
 metadata:
-  version: "0.4.2"
+  version: "0.5.0"
   author: "Marcelo Katogui"
 ---
 

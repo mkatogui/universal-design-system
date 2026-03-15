@@ -1,6 +1,6 @@
 {
   "name": "@mkatogui/uds-mcp-server",
-  "version": "0.4.2",
+  "version": "0.5.0",
   "description": "MCP server for Universal Design System — AI-native design system queries",
   "main": "index.js",
   "type": "module",

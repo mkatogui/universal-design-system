@@ -1,6 +1,7 @@
 import React from 'react';
 
-export interface SliderProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type' | 'size'> {
+export interface SliderProps
+  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type' | 'size'> {
   value?: number;
   min?: number;
   max?: number;
@@ -22,7 +23,6 @@ export const Slider = React.forwardRef<HTMLInputElement, SliderProps>(
           step={step}
           value={val}
           onChange={onChange}
-          role="slider"
           aria-valuemin={min}
           aria-valuemax={max}
           aria-valuenow={val}

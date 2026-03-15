@@ -1,5 +1,4 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import React from 'react';
 import '@testing-library/jest-dom/vitest';
 import { describe, expect, it, vi } from 'vitest';
 import { SegmentedControl } from '../../packages/react/src/components/SegmentedControl/SegmentedControl';
@@ -27,7 +26,10 @@ describe('SegmentedControl', () => {
   it('marks selected option with aria-checked="true"', () => {
     render(<SegmentedControl options={options} value="b" />);
     expect(screen.getByRole('radio', { name: 'Option B' })).toHaveAttribute('aria-checked', 'true');
-    expect(screen.getByRole('radio', { name: 'Option A' })).toHaveAttribute('aria-checked', 'false');
+    expect(screen.getByRole('radio', { name: 'Option A' })).toHaveAttribute(
+      'aria-checked',
+      'false',
+    );
   });
 
   it('calls onChange when an option is clicked', () => {

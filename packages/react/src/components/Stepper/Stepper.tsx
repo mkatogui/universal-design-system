@@ -48,11 +48,7 @@ export const Stepper: React.FC<StepperProps> = ({
     [activeStep, linear, controlledActiveStep, onChange, onStepClick],
   );
 
-  const classes = [
-    'uds-stepper',
-    `uds-stepper--${orientation}`,
-    className,
-  ]
+  const classes = ['uds-stepper', `uds-stepper--${orientation}`, className]
     .filter(Boolean)
     .join(' ');
 
@@ -66,6 +62,7 @@ export const Stepper: React.FC<StepperProps> = ({
 
         return (
           <React.Fragment key={step.id}>
+            {/* biome-ignore lint/a11y/useSemanticElements: step div uses role=button for a11y */}
             <div
               className={[
                 'uds-stepper__step',
@@ -90,7 +87,15 @@ export const Stepper: React.FC<StepperProps> = ({
             >
               <span className="uds-stepper__step-indicator">
                 {isCompleted ? (
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    aria-hidden="true"
+                  >
                     <path d="M20 6L9 17l-5-5" />
                   </svg>
                 ) : (
@@ -98,9 +103,7 @@ export const Stepper: React.FC<StepperProps> = ({
                 )}
               </span>
               <span className="uds-stepper__step-label">{step.label}</span>
-              {step.optional && (
-                <span className="uds-stepper__step-optional">(optional)</span>
-              )}
+              {step.optional && <span className="uds-stepper__step-optional">(optional)</span>}
             </div>
             {index < steps.length - 1 && (
               <span

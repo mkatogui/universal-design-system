@@ -7,7 +7,9 @@ export interface ContainerProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export const Container = React.forwardRef<HTMLDivElement, ContainerProps>(
   ({ size = 'lg', className, children, ...props }, ref) => {
-    const classes = ['uds-container', `uds-container--${size}`, className].filter(Boolean).join(' ');
+    const classes = ['uds-container', `uds-container--${size}`, className]
+      .filter(Boolean)
+      .join(' ');
     return (
       <div ref={ref} className={classes} {...props}>
         {children}

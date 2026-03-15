@@ -11,7 +11,7 @@ description: >
   "fintech", "healthcare", "ecommerce", "startup", "enterprise", "crypto", "luxury brand",
   "education app", "mobile app design", "react native", or "app interface".
 metadata:
-  version: "0.4.2"
+  version: "0.5.0"
   author: "Marcelo Katogui"
 ---
 

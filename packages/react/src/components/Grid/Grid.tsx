@@ -9,12 +9,7 @@ export interface GridProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export const Grid = React.forwardRef<HTMLDivElement, GridProps>(
   ({ columns = 1, gap = 'md', className, children, ...props }, ref) => {
-    const classes = [
-      'uds-grid',
-      `uds-grid--cols-${columns}`,
-      `uds-grid--gap-${gap}`,
-      className,
-    ]
+    const classes = ['uds-grid', `uds-grid--cols-${columns}`, `uds-grid--gap-${gap}`, className]
       .filter(Boolean)
       .join(' ');
     return (

@@ -27,25 +27,23 @@ export const Collapsible: React.FC<CollapsibleProps> = ({
   const classes = ['uds-collapsible', className].filter(Boolean).join(' ');
   return (
     <div className={classes}>
-      <div
-        role="button"
-        tabIndex={0}
+      <button
+        type="button"
         aria-expanded={isOpen}
         aria-controls={contentId}
         onClick={() => setOpen(!isOpen)}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            setOpen(!isOpen);
-          }
-        }}
         className="uds-collapsible__trigger"
       >
         {trigger}
-      </div>
-      <div id={contentId} className="uds-collapsible__content" hidden={!isOpen} role="region">
+      </button>
+      <section
+        id={contentId}
+        className="uds-collapsible__content"
+        hidden={!isOpen}
+        aria-hidden={!isOpen}
+      >
         {children}
-      </div>
+      </section>
     </div>
   );
 };

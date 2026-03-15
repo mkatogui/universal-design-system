@@ -1,4 +1,4 @@
-import React from 'react';
+import type React from 'react';
 
 export interface NotificationItem {
   id: string;
@@ -19,14 +19,16 @@ export const Notification: React.FC<NotificationProps> = ({
   onDismiss,
   className,
 }) => {
-  const classes = ['uds-notification', `uds-notification--${position}`, className].filter(Boolean).join(' ');
+  const classes = ['uds-notification', `uds-notification--${position}`, className]
+    .filter(Boolean)
+    .join(' ');
   return (
-    <div className={classes} role="region" aria-label="Notifications">
+    <section className={classes} aria-label="Notifications">
       {items.map((item) => (
-        <div
+        <output
           key={item.id}
           className={`uds-notification__item uds-notification__item--${item.variant ?? 'neutral'}`}
-          role="status"
+          htmlFor=""
         >
           <span className="uds-notification__message">{item.message}</span>
           {onDismiss && (
@@ -39,9 +41,9 @@ export const Notification: React.FC<NotificationProps> = ({
               ×
             </button>
           )}
-        </div>
+        </output>
       ))}
-    </div>
+    </section>
   );
 };
 

@@ -1,4 +1,5 @@
-import React, { useCallback, useRef, useState } from 'react';
+import type React from 'react';
+import { useCallback, useRef, useState } from 'react';
 
 export interface ChipInputProps {
   /** Current chip values (controlled). */
@@ -86,11 +87,7 @@ export const ChipInput: React.FC<ChipInputProps> = ({
     [inputValue, chips.length, handleAdd, handleRemove, inputProps],
   );
 
-  const classes = [
-    'uds-chip-input',
-    disabled && 'uds-chip-input--disabled',
-    className,
-  ]
+  const classes = ['uds-chip-input', disabled && 'uds-chip-input--disabled', className]
     .filter(Boolean)
     .join(' ');
 
@@ -101,13 +98,15 @@ export const ChipInput: React.FC<ChipInputProps> = ({
       aria-label="Chips"
       aria-disabled={disabled}
       onClick={() => inputRef.current?.focus()}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          inputRef.current?.focus();
+        }
+      }}
     >
-      {chips.map((chip, index) => (
-        <span
-          key={`${chip}-${index}`}
-          className="uds-chip-input__chip"
-          role="option"
-        >
+      {chips.map((chip) => (
+        <span key={chip} className="uds-chip-input__chip" role="option" tabIndex={-1}>
           <span className="uds-chip-input__chip-label">{chip}</span>
           <button
             type="button"
@@ -116,16 +115,24 @@ export const ChipInput: React.FC<ChipInputProps> = ({
             disabled={disabled}
             onClick={(e) => {
               e.stopPropagation();
-              handleRemove(index);
+              handleRemove(chips.indexOf(chip));
             }}
           >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              aria-hidden="true"
+            >
               <path d="M18 6L6 18M6 6l12 12" />
             </svg>
           </button>
         </span>
       ))}
-      { (maxChips == null || chips.length < maxChips) && (
+      {(maxChips == null || chips.length < maxChips) && (
         <input
           ref={inputRef}
           type="text"

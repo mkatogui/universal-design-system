@@ -1,4 +1,4 @@
-import React from 'react';
+import type React from 'react';
 
 export interface EmptyProps {
   title?: string;
@@ -17,12 +17,12 @@ export const Empty: React.FC<EmptyProps> = ({
 }) => {
   const classes = ['uds-empty', className].filter(Boolean).join(' ');
   return (
-    <div className={classes} role="status" aria-label={title}>
+    <output className={classes} aria-label={title} htmlFor="">
       {illustration && <div className="uds-empty__illustration">{illustration}</div>}
       <h3 className="uds-empty__title">{title}</h3>
       {description && <p className="uds-empty__description">{description}</p>}
       {action && <div className="uds-empty__action">{action}</div>}
-    </div>
+    </output>
   );
 };
 

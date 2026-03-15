@@ -1,14 +1,9 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import React from 'react';
 import '@testing-library/jest-dom/vitest';
 import { describe, expect, it, vi } from 'vitest';
 import { Carousel } from '../../packages/react/src/components/Carousel/Carousel';
 
-const items = [
-  <div key="1">Slide 1</div>,
-  <div key="2">Slide 2</div>,
-  <div key="3">Slide 3</div>,
-];
+const items = [<div key="1">Slide 1</div>, <div key="2">Slide 2</div>, <div key="3">Slide 3</div>];
 
 describe('Carousel', () => {
   it('renders with region role and aria-roledescription', () => {

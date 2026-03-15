@@ -97,7 +97,12 @@ export const Popover: React.FC<PopoverProps> = ({
 
   const triggerRef = useRef<HTMLElement | null>(null);
   const contentRef = useRef<HTMLDivElement | null>(null);
-  const [contentStyle, setContentStyle] = useState<React.CSSProperties>({ position: 'fixed', left: 0, top: 0, zIndex: 9999 });
+  const [contentStyle, setContentStyle] = useState<React.CSSProperties>({
+    position: 'fixed',
+    left: 0,
+    top: 0,
+    zIndex: 9999,
+  });
 
   useDialogOverlay(open, () => setOpen(false), contentRef);
 
@@ -124,11 +129,14 @@ export const Popover: React.FC<PopoverProps> = ({
           triggerRef.current = node;
           const origRef = (trigger as unknown as { ref?: React.Ref<HTMLElement> }).ref;
           if (typeof origRef === 'function') origRef(node);
-          else if (origRef && typeof origRef === 'object') (origRef as React.MutableRefObject<HTMLElement | null>).current = node;
+          else if (origRef && typeof origRef === 'object')
+            (origRef as React.MutableRefObject<HTMLElement | null>).current = node;
         },
         onClick: (e: React.MouseEvent) => {
           handleTriggerClick();
-          (trigger as unknown as { props?: { onClick?: (e: React.MouseEvent) => void } }).props?.onClick?.(e);
+          (
+            trigger as unknown as { props?: { onClick?: (e: React.MouseEvent) => void } }
+          ).props?.onClick?.(e);
         },
         'aria-haspopup': 'dialog',
         'aria-expanded': open,
@@ -141,12 +149,7 @@ export const Popover: React.FC<PopoverProps> = ({
 
   if (typeof document === 'undefined') return <>{triggerWithRef}</>;
 
-  const classes = [
-    'uds-popover',
-    `uds-popover--${size}`,
-    `uds-popover--${placement}`,
-    className,
-  ]
+  const classes = ['uds-popover', `uds-popover--${size}`, `uds-popover--${placement}`, className]
     .filter(Boolean)
     .join(' ');
 

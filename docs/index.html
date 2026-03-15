@@ -1147,6 +1147,58 @@ var QUERIES={
   'project management':{palette:'dashboard',colors:['#4F46E5','#0EA5E9','#06B6D4','#FFFFFF','#0F1117'],components:['Data Table','Tabs','Badge','Side Navigation','Card','Button','Modal','Toast','Progress Indicator','Toggle'],reasoning:'Project management tools need organized, scannable interfaces. The Dashboard palette provides clean data hierarchy with indigo-cyan tones. Dense but readable layouts help teams track progress across multiple projects.',anti:['Playful animations','Bright neon','Casual typography','Experimental layouts']}
 };
 
+/* Fuzzy match: synonyms so "children learning app" matches "kids education app" */
+var QUERY_SYNONYMS={
+  'kids':['children','child','young','learners'],
+  'education':['learning','educational','teach','teaching','school','elearning','edtech'],
+  'app':['application','mobile','webapp'],
+  'fintech':['finance','financial','banking','trading'],
+  'dashboard':['analytics','admin','overview'],
+  'healthcare':['health','medical','patient','clinic','hospital'],
+  'portal':['platform','site','website'],
+  'luxury':['premium','fashion','high-end'],
+  'store':['shop','ecommerce','storefront'],
+  'travel':['booking','trip','vacation','flight','hotel'],
+  'fitness':['workout','exercise','gym','sport'],
+  'restaurant':['food','menu','dining','cafe'],
+  'estate':['property','realty','housing'],
+  'crypto':['cryptocurrency','exchange','bitcoin'],
+  'developer':['dev','coding','programming'],
+  'tools':['tool','ide'],
+  'saas':['software','landing','product'],
+  'music':['streaming','audio','playlist']
+};
+function tokenize(s){return s.toLowerCase().replace(/[^\w\s-]/g,' ').split(/\s+/).filter(function(w){return w.length>1;});}
+function keyWordMatchesQuery(keyWord,queryWords){
+  var k=keyWord.toLowerCase();
+  if(queryWords.some(function(q){return q.indexOf(k)!==-1||k.indexOf(q)!==-1;}))return true;
+  var syns=QUERY_SYNONYMS[k]||[];
+  return syns.some(function(s){return queryWords.some(function(q){return q.indexOf(s)!==-1||s.indexOf(q)!==-1;});});
+}
+function queryWordMatchesKey(queryWord,keyWords){
+  var q=queryWord.toLowerCase();
+  if(keyWords.some(function(k){return k.indexOf(q)!==-1||q.indexOf(k)!==-1;}))return true;
+  for(var canon in QUERY_SYNONYMS){
+    if(QUERY_SYNONYMS[canon].indexOf(q)!==-1&&keyWords.some(function(k){return k===canon;}))return true;
+  }
+  return false;
+}
+function fuzzyMatchQuery(query){
+  query=query.toLowerCase().trim();
+  if(QUERIES[query])return query;
+  var queryWords=tokenize(query);
+  var bestKey=null,bestScore=0;
+  for(var key in QUERIES){
+    if(!QUERIES.hasOwnProperty(key))continue;
+    var keyWords=key.split(/\s+/);
+    var score=0;
+    keyWords.forEach(function(w){if(keyWordMatchesQuery(w,queryWords))score++;});
+    queryWords.forEach(function(w){if(queryWordMatchesKey(w,keyWords))score++;});
+    if(score>bestScore){bestScore=score;bestKey=key;}
+  }
+  return bestKey||'ai developer tools';
+}
+
 /* Render palette showcase cards */
 function renderPaletteShowcase(){
   var grid=document.getElementById('paletteShowcase');if(!grid)return;
@@ -1210,19 +1262,14 @@ function switchPalette(id){
   renderResultSwatches(getPaletteColors(id));
 }
 
-/* Run playground */
+/* Run playground — uses fuzzy match so "children learning app" → kids education app */
 function runPlayground(query){
   if(!query)return;
   query=query.toLowerCase().trim();
   document.getElementById('playgroundInput').value=query;
   document.getElementById('heroQuery').value=query;
-  var match=null,bestScore=0;
-  for(var key in QUERIES){
-    if(!QUERIES.hasOwnProperty(key))continue;
-    var words=key.split(' '),score=0;
-    words.forEach(function(w){if(query.indexOf(w)!==-1)score++;});
-    if(score>bestScore){bestScore=score;match=QUERIES[key];}
-  }
+  var matchedKey=fuzzyMatchQuery(query);
+  var match=QUERIES[matchedKey];
   if(!match)match=QUERIES['ai developer tools'];
   renderResultSwatches(getPaletteColors(match.palette));
   document.getElementById('resultComponents').innerHTML=match.components.map(function(c){

@@ -1,4 +1,5 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import type React from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 export interface CarouselProps {
   /** Slide content. */
@@ -58,19 +59,13 @@ export const Carousel: React.FC<CarouselProps> = ({
     };
   }, [autoPlay, isPaused, interval, items.length, onSlideChange]);
 
-  const classes = [
-    'uds-carousel',
-    className,
-  ]
-    .filter(Boolean)
-    .join(' ');
+  const classes = ['uds-carousel', className].filter(Boolean).join(' ');
 
   if (items.length === 0) return null;
 
   return (
     <section
       className={classes}
-      role="region"
       aria-roledescription="carousel"
       aria-label={ariaLabel}
       aria-live="off"
@@ -81,8 +76,9 @@ export const Carousel: React.FC<CarouselProps> = ({
     >
       <div className="uds-carousel__track" style={{ transform: `translateX(-${current * 100}%)` }}>
         {items.map((item, i) => (
+          // biome-ignore lint/a11y/useSemanticElements: carousel slides use role=group per ARIA pattern, not fieldset
           <div
-            key={i}
+            key={`slide-${i}`}
             className="uds-carousel__slide"
             role="group"
             aria-roledescription="slide"
@@ -101,7 +97,15 @@ export const Carousel: React.FC<CarouselProps> = ({
             onClick={prev}
             disabled={current === 0}
           >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              aria-hidden="true"
+            >
               <path d="M15 18l-6-6 6-6" />
             </svg>
           </button>
@@ -112,7 +116,15 @@ export const Carousel: React.FC<CarouselProps> = ({
             onClick={next}
             disabled={current === items.length - 1}
           >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              aria-hidden="true"
+            >
               <path d="M9 18l6-6-6-6" />
             </svg>
           </button>
@@ -122,12 +134,14 @@ export const Carousel: React.FC<CarouselProps> = ({
         <div className="uds-carousel__dots" role="tablist" aria-label="Slide indicators">
           {items.map((_, i) => (
             <button
-              key={i}
+              key={`dot-${i}`}
               type="button"
               role="tab"
               aria-selected={i === current}
               aria-label={`Slide ${i + 1}`}
-              className={['uds-carousel__dot', i === current && 'uds-carousel__dot--active'].filter(Boolean).join(' ')}
+              className={['uds-carousel__dot', i === current && 'uds-carousel__dot--active']
+                .filter(Boolean)
+                .join(' ')}
               onClick={() => goTo(i)}
             />
           ))}
