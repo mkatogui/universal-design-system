@@ -52,3 +52,6 @@ jobs:
 
       - name: Bundle size analysis
         run: node scripts/bundle-analysis.js
+
+      - name: Bundle size budget (100KB JS / 30KB CSS)
+        run: npm run size:check

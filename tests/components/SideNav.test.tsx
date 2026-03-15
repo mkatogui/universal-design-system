@@ -173,9 +173,10 @@ describe('SideNav', () => {
   });
 
   it('does not prevent default when onNavigate is not provided', () => {
-    render(<SideNav items={defaultItems} />);
-    const link = screen.getByRole('link', { name: 'Settings' });
-    // click should not throw; no navigation handler
+    // Use hash href so jsdom does not emit "Not implemented: navigation to another Document"
+    const items = [{ label: 'Anchor', href: '#' }];
+    render(<SideNav items={items} />);
+    const link = screen.getByRole('link', { name: 'Anchor' });
     fireEvent.click(link);
     expect(link).toBeInTheDocument();
   });

@@ -63,8 +63,8 @@ jobs:
     name: Accessibility
     runs-on: ubuntu-latest
     needs: validate
-    # Set to 'true' to run a11y tests in CI; 'false' to skip (run locally with: npm run test:accessibility)
-    if: false
+    # Re-enabled per state-of-the-art plan. Run locally with: npm run test:accessibility
+    if: true
     # Use pre-built GHCR image — Chromium + system deps already installed,
     # eliminates the ~2 min `playwright install --with-deps` step on every run.
     # Official Microsoft Playwright image — Chromium + all system deps pre-installed.

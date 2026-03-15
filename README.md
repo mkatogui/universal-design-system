@@ -142,6 +142,12 @@ document.documentElement.setAttribute("data-theme", "minimal-saas");
 
 See [examples/react-app](https://github.com/mkatogui/universal-design-system/tree/main/examples/react-app) for a full demo with palette switching and dark mode.
 
+**Frontend integration notes:**
+
+- **PowerShell (Windows):** `&&` is not valid in older PowerShell. Use `;` to chain commands, e.g.  
+  `cd "C:\path\to\frontend"; npm install @mkatogui/uds-react @mkatogui/uds-tokens --save`
+- **ESLint:** Import only the components you use to avoid `@typescript-eslint/no-unused-vars` (e.g. use `Card`, `CardTitle`, `CardContent`, `CardFooter` and omit `CardHeader` if you don’t render it).
+
 ---
 
 ## Published packages
@@ -345,8 +351,8 @@ universal-design-system/
   packages/
     tokens/               # Standalone token package (@mkatogui/uds-tokens)
     react/                # React components (@mkatogui/uds-react)
-    vue/                  # Vue 43 components (@mkatogui/uds-vue)
-    svelte/               # Svelte 43 components (@mkatogui/uds-svelte)
+    vue/                  # Vue components (@mkatogui/uds-vue)
+    svelte/               # Svelte components (@mkatogui/uds-svelte)
     primitives/           # Headless accessible primitives (@mkatogui/uds-primitives)
   docs/                   # Interactive HTML documentation (8 pages)
     assets/               # Architecture diagram, palette swatches

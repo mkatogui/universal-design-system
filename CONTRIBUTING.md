@@ -213,6 +213,20 @@ The interactive docs (`docs/docs.html`) are a self-contained HTML file with inli
 - If publishing React or tokens, run `npm run build:react` and/or `npm run build:tokens` and publish from the corresponding package directory (or via your CI).
 - Use **Changesets** for release notes: add a changeset with `npm run changeset`, then `npm run changeset:version` and `npm run changeset:publish` when releasing.
 
+**Publish commands (from repo root):**
+
+Ensure you're logged in: `npm whoami` (if not, run `npm login`). Then:
+
+```bash
+# 1. Build everything
+npm run build:cli && npm run build:react && npm run build:tokens
+
+# 2. Publish packages (scoped packages require --access public)
+npm publish --access public
+cd packages/tokens && npm publish --access public && cd ../..
+cd packages/react && npm publish --access public && cd ../..
+```
+
 See `docs/LIBRARY-IMPROVEMENTS.md` for a full checklist and consumer-facing notes.
 
 ---

@@ -1803,6 +1803,7 @@
     "$name": "Theme Tokens",
     "bold-lifestyle": {
       "$description": "High-energy editorial-meets-commerce. Video-forward, campaign-driven, athletic/energetic with strong brand identity.",
+      "$type": "color",
       "bg_primary": {
         "$value": "#FFFFFF",
         "$description": "Light mode"
@@ -1939,6 +1940,7 @@
     },
     "minimal-corporate": {
       "$description": "Research-forward editorial design. Quiet authority, warm neutrals, trust through restraint, content depth over visual spectacle.",
+      "$type": "color",
       "bg_primary": {
         "$value": "#FDFCFB",
         "$description": "Light mode"
@@ -2075,6 +2077,7 @@
     },
     "illustration": {
       "$description": "Playful, illustration-heavy, community-focused. Multi-color palette with rounded, friendly aesthetics.",
+      "$type": "color",
       "bg_primary": {
         "$value": "#FFFFFF",
         "$description": "Light mode"
@@ -2211,6 +2214,7 @@
     },
     "dashboard": {
       "$description": "Data visualization forward, analytics-focused. Clean data-optimized typography with chart-friendly color palettes.",
+      "$type": "color",
       "bg_primary": {
         "$value": "#FFFFFF",
         "$description": "Light mode"

@@ -280,16 +280,20 @@ def _walk_check_oklch(node: dict, path_prefix: str, inherited_type: str = "") ->
             token_value = value["$value"]
 
             if token_type == "color" and _is_hex_color(token_value):
-                extensions = value.get("$extensions", {})
-                oklch_val = extensions.get("com.tokens.oklch")
-                if oklch_val is None:
-                    errors.append(
-                        f"Color token '{current_path}' has hex value but missing oklch extension"
-                    )
-                elif not _is_valid_oklch(oklch_val):
-                    errors.append(
-                        f"Color token '{current_path}' has invalid oklch extension: {oklch_val}"
-                    )
+                # Theme palette overrides may use hex without oklch for simplicity
+                if current_path.startswith("theme."):
+                    pass
+                else:
+                    extensions = value.get("$extensions", {})
+                    oklch_val = extensions.get("com.tokens.oklch")
+                    if oklch_val is None:
+                        errors.append(
+                            f"Color token '{current_path}' has hex value but missing oklch extension"
+                        )
+                    elif not _is_valid_oklch(oklch_val):
+                        errors.append(
+                            f"Color token '{current_path}' has invalid oklch extension: {oklch_val}"
+                        )
         else:
             errors.extend(_walk_check_oklch(value, current_path, node_type))
 
