@@ -1,0 +1,86 @@
+id,heading_font,body_font,mood,category,heading_weight,body_weight,best_for,google_fonts_url,palette_match
+1,Inter,Inter,clean-professional,sans-sans,700,400,"saas;dashboards;productivity","https://fonts.google.com/specimen/Inter",minimal-saas
+2,DM Sans,Inter,modern-friendly,sans-sans,700,400,"startups;marketing;consumer","https://fonts.google.com/specimen/DM+Sans",gradient-startup
+3,Plus Jakarta Sans,Inter,contemporary-rounded,sans-sans,700,400,"saas;education;consumer","https://fonts.google.com/specimen/Plus+Jakarta+Sans",minimal-saas
+4,Manrope,Inter,geometric-modern,sans-sans,800,400,"tech;fintech;saas","https://fonts.google.com/specimen/Manrope",minimal-saas
+5,Space Grotesk,Inter,technical-modern,sans-sans,700,400,"tech;ai;devtools","https://fonts.google.com/specimen/Space+Grotesk",ai-futuristic
+6,Outfit,Inter,balanced-contemporary,sans-sans,700,400,"general;marketing;product","https://fonts.google.com/specimen/Outfit",minimal-saas
+7,Sora,Inter,futuristic-clean,sans-sans,700,400,"tech;crypto;ai","https://fonts.google.com/specimen/Sora",ai-futuristic
+8,General Sans,Inter,minimal-versatile,sans-sans,600,400,"portfolios;agencies;saas","https://fonts.google.com/specimen/General+Sans",minimal-saas
+9,Oswald,Inter,bold-condensed,sans-sans,700,400,"fashion;lifestyle;sports","https://fonts.google.com/specimen/Oswald",bold-lifestyle
+10,Bebas Neue,Inter,dramatic-impact,sans-sans,400,400,"fashion;headlines;posters","https://fonts.google.com/specimen/Bebas+Neue",bold-lifestyle
+11,Montserrat,Inter,geometric-versatile,sans-sans,700,400,"general;corporate;marketing","https://fonts.google.com/specimen/Montserrat",gradient-startup
+12,Poppins,Inter,rounded-friendly,sans-sans,600,400,"education;consumer;lifestyle","https://fonts.google.com/specimen/Poppins",illustration
+13,Nunito,Inter,soft-approachable,sans-sans,700,400,"kids;education;wellness","https://fonts.google.com/specimen/Nunito",illustration
+14,Rubik,Inter,geometric-playful,sans-sans,700,400,"apps;consumer;education","https://fonts.google.com/specimen/Rubik",illustration
+15,Work Sans,Inter,practical-readable,sans-sans,600,400,"saas;enterprise;content","https://fonts.google.com/specimen/Work+Sans",minimal-saas
+16,Lexend,Inter,readability-optimized,sans-sans,600,400,"accessibility;education;content","https://fonts.google.com/specimen/Lexend",minimal-saas
+17,Source Serif 4,Inter,editorial-classic,serif-sans,700,400,"publishing;news;editorial","https://fonts.google.com/specimen/Source+Serif+4",minimal-corporate
+18,Playfair Display,Inter,elegant-dramatic,serif-sans,700,400,"luxury;fashion;editorial","https://fonts.google.com/specimen/Playfair+Display",apple-minimal
+19,Lora,Inter,literary-warm,serif-sans,700,400,"blogs;editorial;books","https://fonts.google.com/specimen/Lora",minimal-corporate
+20,Merriweather,Inter,readable-traditional,serif-sans,700,400,"news;legal;government","https://fonts.google.com/specimen/Merriweather",corporate
+21,Crimson Pro,Inter,refined-literary,serif-sans,700,400,"publishing;academic;editorial","https://fonts.google.com/specimen/Crimson+Pro",minimal-corporate
+22,DM Serif Display,DM Sans,contrast-elegant,serif-sans,400,400,"marketing;luxury;editorial","https://fonts.google.com/specimen/DM+Serif+Display",apple-minimal
+23,Fraunces,Inter,quirky-editorial,serif-sans,700,400,"creative;editorial;artisanal","https://fonts.google.com/specimen/Fraunces",illustration
+24,Bitter,Inter,sturdy-readable,serif-sans,700,400,"content-heavy;news;blogs","https://fonts.google.com/specimen/Bitter",minimal-corporate
+25,Libre Baskerville,Inter,traditional-refined,serif-sans,700,400,"legal;academic;classic","https://fonts.google.com/specimen/Libre+Baskerville",corporate
+26,JetBrains Mono,Inter,technical-precise,mono-sans,700,400,"devtools;terminals;code","https://fonts.google.com/specimen/JetBrains+Mono",ai-futuristic
+27,Fira Code,Inter,code-friendly,mono-sans,700,400,"devtools;documentation;code","https://fonts.google.com/specimen/Fira+Code",ai-futuristic
+28,IBM Plex Mono,IBM Plex Sans,enterprise-technical,mono-sans,600,400,"enterprise;devtools;analytics","https://fonts.google.com/specimen/IBM+Plex+Mono",dashboard
+29,Space Mono,Inter,retro-technical,mono-sans,700,400,"creative-tech;retro;portfolios","https://fonts.google.com/specimen/Space+Mono",ai-futuristic
+30,Roboto Mono,Roboto,google-technical,mono-sans,700,400,"android;material;dashboards","https://fonts.google.com/specimen/Roboto+Mono",dashboard
+31,Archivo,Inter,strong-geometric,sans-sans,800,400,"sports;automotive;bold","https://fonts.google.com/specimen/Archivo",bold-lifestyle
+32,Barlow,Inter,slightly-rounded,sans-sans,700,400,"government;industrial;transport","https://fonts.google.com/specimen/Barlow",corporate
+33,Figtree,Inter,friendly-modern,sans-sans,700,400,"saas;consumer;education","https://fonts.google.com/specimen/Figtree",minimal-saas
+34,Albert Sans,Inter,humanist-modern,sans-sans,700,400,"healthcare;wellness;friendly","https://fonts.google.com/specimen/Albert+Sans",minimal-saas
+35,Geist,Inter,vercel-inspired,sans-sans,700,400,"tech;saas;modern","https://fonts.google.com/specimen/Geist",minimal-saas
+36,Clash Display,Inter,contemporary-bold,display-sans,700,400,"agencies;fashion;tech","https://fonts.google.com/specimen/Clash+Display",bold-lifestyle
+37,Cabinet Grotesk,Inter,refined-geometric,sans-sans,800,400,"luxury;fashion;premium","https://fonts.google.com/specimen/Cabinet+Grotesk",apple-minimal
+38,Satoshi,Inter,modern-neutral,sans-sans,700,400,"portfolios;saas;minimal","https://fonts.google.com/specimen/Satoshi",minimal-saas
+39,Bricolage Grotesque,Inter,quirky-distinctive,sans-sans,800,400,"creative;branding;startups","https://fonts.google.com/specimen/Bricolage+Grotesque",gradient-startup
+40,Instrument Sans,Inter,precision-clean,sans-sans,700,400,"fintech;dashboards;professional","https://fonts.google.com/specimen/Instrument+Sans",dashboard
+41,Newsreader,Inter,editorial-digital,serif-sans,600,400,"news;magazines;editorial","https://fonts.google.com/specimen/Newsreader",minimal-corporate
+42,Cormorant Garamond,Inter,elegant-classic,serif-sans,700,400,"luxury;weddings;wine","https://fonts.google.com/specimen/Cormorant+Garamond",apple-minimal
+43,Cardo,Inter,academic-classical,serif-sans,700,400,"academic;library;classical","https://fonts.google.com/specimen/Cardo",corporate
+44,Spectral,Inter,scientific-readable,serif-sans,700,400,"research;academic;publishing","https://fonts.google.com/specimen/Spectral",minimal-corporate
+45,Noto Serif,Noto Sans,universal-readable,serif-sans,700,400,"multilingual;government;education","https://fonts.google.com/specimen/Noto+Serif",corporate
+46,Vollkorn,Inter,warm-literary,serif-sans,700,400,"books;poetry;artisanal","https://fonts.google.com/specimen/Vollkorn",illustration
+47,Josefin Sans,Inter,art-deco-modern,sans-sans,700,400,"fashion;luxury;creative","https://fonts.google.com/specimen/Josefin+Sans",bold-lifestyle
+48,Raleway,Inter,elegant-thin,sans-sans,700,400,"fashion;photography;premium","https://fonts.google.com/specimen/Raleway",apple-minimal
+49,Quicksand,Inter,rounded-geometric,sans-sans,700,400,"kids;wellness;consumer","https://fonts.google.com/specimen/Quicksand",illustration
+50,Comfortaa,Inter,ultra-rounded,sans-sans,700,400,"kids;playful;consumer","https://fonts.google.com/specimen/Comfortaa",illustration
+51,Urbanist,Inter,sharp-modern,sans-sans,700,400,"fintech;tech;premium","https://fonts.google.com/specimen/Urbanist",minimal-saas
+52,Red Hat Display,Red Hat Text,ibm-inspired,sans-sans,700,400,"enterprise;open-source;tech","https://fonts.google.com/specimen/Red+Hat+Display",dashboard
+53,Atkinson Hyperlegible,Inter,accessibility-first,sans-sans,700,400,"accessibility;government;senior","https://fonts.google.com/specimen/Atkinson+Hyperlegible",minimal-saas
+54,Commissioner,Inter,variable-versatile,sans-sans,700,400,"general;content;product","https://fonts.google.com/specimen/Commissioner",minimal-saas
+55,Epilogue,Inter,modern-editorial,sans-sans,800,400,"editorial;agencies;marketing","https://fonts.google.com/specimen/Epilogue",gradient-startup
+56,Archivo,Work Sans,sharp-modern,sans-sans,800,400,"sports;automotive;bold-headlines","https://fonts.google.com/specimen/Archivo",bold-lifestyle
+57,Sora,Nunito Sans,futuristic-clean,sans-sans,700,400,"crypto;ai;fintech;modern-tech","https://fonts.google.com/specimen/Sora",ai-futuristic
+58,Outfit,Jost,minimalist-geometric,sans-sans,700,400,"corporate;fintech;professional-services","https://fonts.google.com/specimen/Outfit",minimal-corporate
+59,Bricolage Grotesque,Inter,editorial-modern,sans-sans,800,400,"startups;creative;editorial;saas","https://fonts.google.com/specimen/Bricolage+Grotesque",minimal-saas
+60,Figtree,Atkinson Hyperlegible,friendly-accessible,sans-sans,700,400,"accessibility;education;government;inclusive","https://fonts.google.com/specimen/Figtree",illustration
+61,Lexend,Lexend,readability-first,sans-sans,600,400,"accessibility;education;government;all-purpose","https://fonts.google.com/specimen/Lexend",minimal-saas
+62,Urbanist,Inter,geometric-elegant,sans-sans,700,400,"fintech;premium-tech;luxury-digital","https://fonts.google.com/specimen/Urbanist",apple-minimal
+63,Montserrat,Source Sans 3,geometric-classic,sans-sans,700,400,"corporate;enterprise;marketing;general","https://fonts.google.com/specimen/Montserrat",corporate
+64,Rubik,Karla,rounded-modern,sans-sans,700,400,"consumer-apps;startups;education;friendly","https://fonts.google.com/specimen/Rubik",gradient-startup
+65,Geist,Geist Mono,developer-first,sans-mono,700,400,"developer-tools;terminals;tech;next.js","https://fonts.google.com/specimen/Geist",ai-futuristic
+66,Instrument Sans,Inter,refined-minimal,sans-sans,700,400,"fintech;dashboards;professional;analytics","https://fonts.google.com/specimen/Instrument+Sans",minimal-corporate
+67,General Sans,Cabinet Grotesk,editorial-bold,sans-sans,600,800,"agencies;fashion;luxury;editorial","https://fonts.google.com/specimen/General+Sans",bold-lifestyle
+68,Satoshi,Inter,modern-geometric,sans-sans,700,400,"portfolios;saas;minimal;tech","https://fonts.google.com/specimen/Satoshi",minimal-saas
+69,Switzer,Inter,swiss-clean,sans-sans,600,400,"corporate;finance;legal;professional","https://fonts.google.com/specimen/Switzer",corporate
+70,Clash Display,Inter,display-bold,display-sans,700,400,"agencies;fashion;tech;bold-headlines","https://fonts.google.com/specimen/Clash+Display",bold-lifestyle
+71,Poppins,Lato,rounded-friendly,sans-sans,600,400,"education;consumer;kids;wellness","https://fonts.google.com/specimen/Poppins",illustration
+72,Libre Baskerville,Source Sans 3,editorial-serif,serif-sans,700,400,"legal;publishing;editorial;academic","https://fonts.google.com/specimen/Libre+Baskerville",minimal-corporate
+73,Merriweather,Open Sans,readable-serif,serif-sans,700,400,"news;government;legal;long-form","https://fonts.google.com/specimen/Merriweather",corporate
+74,Bitter,Inter,warm-serif,serif-sans,700,400,"content-heavy;blogs;news;editorial","https://fonts.google.com/specimen/Bitter",minimal-corporate
+75,Fraunces,Outfit,display-serif,serif-sans,700,400,"creative;artisanal;premium;editorial","https://fonts.google.com/specimen/Fraunces",apple-minimal
+76,Nunito,Work Sans,eco-friendly,sans-sans,700,400,"sustainability;agritech;pettech;wellness;kids","https://fonts.google.com/specimen/Nunito",illustration
+77,Barlow,Source Sans 3,government-clear,sans-sans,700,400,"govtech;government;transport;industrial","https://fonts.google.com/specimen/Barlow",corporate
+78,Libre Baskerville,Inter,legal-formal,serif-sans,700,400,"legaltech;regtech;legal;compliance;government","https://fonts.google.com/specimen/Libre+Baskerville",minimal-corporate
+79,Instrument Sans,Work Sans,proptech-refined,sans-sans,700,400,"proptech;real-estate;professional-services;consulting","https://fonts.google.com/specimen/Instrument+Sans",minimal-corporate
+80,Archivo,Inter,automotive-strong,sans-sans,800,400,"automotive;sporttech;sports;motorsport;industrial","https://fonts.google.com/specimen/Archivo",bold-lifestyle
+81,Sora,Inter,cleantech-futuristic,sans-sans,700,400,"cleantech;spacetech;ai;energy;aerospace","https://fonts.google.com/specimen/Sora",ai-futuristic
+82,Merriweather,Open Sans,insurtech-trustworthy,serif-sans,700,400,"insurtech;insurance;finance;compliance","https://fonts.google.com/specimen/Merriweather",corporate
+83,Playfair Display,Inter,fashion-elegant,serif-sans,700,400,"fashiontech;fashion;luxury;editorial","https://fonts.google.com/specimen/Playfair+Display",apple-minimal
+84,Oswald,Inter,foodtech-bold,sans-sans,700,400,"foodtech;food;restaurants;lifestyle","https://fonts.google.com/specimen/Oswald",bold-lifestyle
+85,DM Sans,Inter,musictech-modern,sans-sans,700,400,"musictech;music;creative;startups;entertainment","https://fonts.google.com/specimen/DM+Sans",gradient-startup

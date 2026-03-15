@@ -1,0 +1,181 @@
+id,name,industry,primary,secondary,accent,bg_primary,bg_secondary,text_primary,mood,wcag_aa,palette_match
+1,Classic Blue Trust,finance,#1A365D,#2B6CB0,#4299E1,#FFFFFF,#F7F8FA,#1A202C,trustworthy-stable,yes,corporate
+2,Navy Professional,legal,#0F2B46,#1A4B7A,#3B82F6,#FFFFFF,#F8F9FB,#111827,authoritative-professional,yes,corporate
+3,Royal Blue Enterprise,enterprise,#1E3A5F,#2D5F8B,#4A90D9,#FFFFFF,#F5F7FA,#1C2D3F,corporate-reliable,yes,corporate
+4,Deep Teal Corporate,consulting,#0D4F4F,#157575,#2AA1A1,#FFFFFF,#F5FAFA,#0A3333,sophisticated-calm,yes,corporate
+5,Slate Gray Formal,government,#374151,#4B5563,#6B7280,#FFFFFF,#F9FAFB,#111827,neutral-formal,yes,corporate
+6,Electric Blue SaaS,saas,#2563EB,#3B82F6,#60A5FA,#FFFFFF,#FAFAFA,#111827,modern-clean,yes,minimal-saas
+7,Indigo Product,saas,#4F46E5,#6366F1,#818CF8,#FFFFFF,#F9FAFB,#1E1B4B,refined-digital,yes,minimal-saas
+8,Cobalt Action,productivity,#0052CC,#2684FF,#4C9AFF,#FFFFFF,#FAFBFC,#172B4D,focused-productive,yes,minimal-saas
+9,Sky Blue Friendly,education,#0284C7,#0EA5E9,#38BDF8,#FFFFFF,#F0F9FF,#0C4A6E,approachable-open,yes,minimal-saas
+10,Steel Blue Neutral,dashboards,#475569,#64748B,#94A3B8,#FFFFFF,#F8FAFC,#0F172A,analytical-neutral,yes,dashboard
+11,Neon Green Matrix,ai,#00FF88,#00D4FF,#8B5CF6,#0A0A0F,#111118,#E0E0EE,futuristic-electric,yes,ai-futuristic
+12,Cyan Glow Tech,devtools,#00D4FF,#00B4D8,#0077B6,#0A0A12,#12121F,#E0E8F0,technical-precise,yes,ai-futuristic
+13,Neon Purple Cyber,gaming,#8B5CF6,#A78BFA,#C4B5FD,#0A0A14,#141422,#E8E0F0,digital-intense,yes,ai-futuristic
+14,Matrix Green,security,#00FF41,#39FF14,#7FFF00,#0D0D0D,#1A1A1A,#E0FFE0,hacker-alert,yes,ai-futuristic
+15,Midnight Blue Dark,fintech,#1E3A5F,#2D5F8B,#4A90D9,#0F1117,#1A1F2E,#E0E4EB,premium-dark,yes,ai-futuristic
+16,Violet Startup,startups,#7C3AED,#8B5CF6,#A78BFA,#FFFFFF,#FAF5FF,#2E1065,creative-bold,yes,gradient-startup
+17,Hot Pink Energy,marketing,#EC4899,#F472B6,#F9A8D4,#FFFFFF,#FFF1F2,#831843,energetic-vibrant,yes,gradient-startup
+18,Coral Warm,lifestyle,#F97316,#FB923C,#FDBA74,#FFFFFF,#FFF7ED,#7C2D12,warm-inviting,yes,gradient-startup
+19,Sunset Gradient,events,#F59E0B,#EF4444,#8B5CF6,#FFFFFF,#FFFBEB,#78350F,exciting-dynamic,yes,gradient-startup
+20,Emerald Fresh,wellness,#10B981,#34D399,#6EE7B7,#FFFFFF,#ECFDF5,#064E3B,natural-healthy,yes,gradient-startup
+21,Apple Blue Premium,consumer-tech,#0071E3,#0077ED,#147CE5,#FFFFFF,#FBFBFD,#1D1D1F,premium-precise,yes,apple-minimal
+22,Space Gray Apple,premium,#1D1D1F,#515154,#6E6E73,#FFFFFF,#F5F5F7,#1D1D1F,refined-subtle,yes,apple-minimal
+23,Silver Premium,luxury,#86868B,#A1A1A6,#C7C7CC,#FFFFFF,#FAFAFA,#1D1D1F,elegant-understated,yes,apple-minimal
+24,Rose Gold Soft,beauty,#B76E79,#D4A0A7,#E8C4C8,#FFFFFF,#FDF8F8,#2D1F22,feminine-premium,yes,apple-minimal
+25,Champagne Luxury,luxury,#C9B037,#D4C46A,#E3D99E,#FFFFFF,#FDFCF5,#3D3200,luxurious-warm,yes,apple-minimal
+26,Burnt Orange Creative,education,#E8590C,#F97316,#FB923C,#FFFFFF,#FFF8F0,#1A1523,warm-creative,yes,illustration
+27,Purple Playful,kids,#7048E8,#845EF7,#9775FA,#FFFFFF,#F8F0FF,#2E1A5E,playful-imaginative,yes,illustration
+28,Teal Friendly,nonprofit,#12B886,#20C997,#63E6BE,#FFFFFF,#F0FFF8,#0A4B33,friendly-trustworthy,yes,illustration
+29,Coral Play,education,#FF6B6B,#FFA8A8,#FFC9C9,#FFFFFF,#FFF5F5,#4A1515,warm-playful,yes,illustration
+30,Lime Green Fresh,kids,#82C91E,#A9E34B,#C0EB75,#FFFFFF,#F4FCE3,#2B4A0A,fresh-energetic,yes,illustration
+31,Indigo Dashboard,analytics,#4F46E5,#6366F1,#818CF8,#FFFFFF,#F7F8FC,#0F1117,analytical-focused,yes,dashboard
+32,Teal Analytics,reporting,#0D9488,#14B8A6,#2DD4BF,#FFFFFF,#F0FDFA,#0F2D29,data-clear,yes,dashboard
+33,Purple Metrics,marketing-analytics,#7C3AED,#8B5CF6,#A78BFA,#FFFFFF,#F5F3FF,#1E1248,insightful-modern,yes,dashboard
+34,Orange Alert,monitoring,#EA580C,#F97316,#FB923C,#FFFFFF,#FFF7ED,#431407,alert-attention,yes,dashboard
+35,Multi-Color Charts,analytics,#4F46E5,#0EA5E9,#10B981,#FFFFFF,#F8FAFC,#0F172A,diverse-informative,yes,dashboard
+36,Pure Black Bold,fashion,#111111,#333333,#555555,#FFFFFF,#F5F5F5,#111111,stark-dramatic,yes,bold-lifestyle
+37,Red Hot,entertainment,#FF4500,#FF6347,#FF7F50,#FFFFFF,#FFF5F2,#1A0500,bold-exciting,yes,bold-lifestyle
+38,Gold Luxury,premium-retail,#FFD700,#FFC107,#FFB300,#FFFFFF,#FFFDF0,#3D3200,luxurious-bold,yes,bold-lifestyle
+39,Electric Yellow,sports,#FFE000,#FFD60A,#FFC800,#111111,#1A1A00,#FFFFFF,energetic-sporty,yes,bold-lifestyle
+40,Neon Pink Punk,nightlife,#FF1493,#FF69B4,#FFB6C1,#0A0A0A,#1A0010,#FFE0EB,rebellious-vibrant,yes,bold-lifestyle
+41,Warm Stone,professional-services,#B45309,#92400E,#78350F,#FDFCFB,#F7F5F2,#1C1917,understated-warm,yes,minimal-corporate
+42,Sage Green,law,#4D7C0F,#65A30D,#84CC16,#FDFCFB,#F7F7F2,#1C1917,calm-natural,yes,minimal-corporate
+43,Muted Navy,consulting,#1E3A5F,#2D5F8B,#4A8BC2,#FDFCFB,#F5F3F0,#1C1917,professional-subtle,yes,minimal-corporate
+44,Burgundy Classic,wine,#7F1D1D,#991B1B,#B91C1C,#FDFCFB,#FAF5F5,#1C1917,classic-refined,yes,minimal-corporate
+45,Charcoal Elegant,architecture,#374151,#4B5563,#6B7280,#FDFCFB,#F5F5F3,#1C1917,sophisticated-quiet,yes,minimal-corporate
+46,Healthcare Blue,healthcare,#0369A1,#0284C7,#0EA5E9,#FFFFFF,#F0F9FF,#0C4A6E,calming-trustworthy,yes,minimal-saas
+47,Medical Green,pharmacy,#047857,#059669,#10B981,#FFFFFF,#ECFDF5,#022C22,clinical-clean,yes,minimal-saas
+48,Therapy Lavender,mental-health,#7C3AED,#8B5CF6,#A78BFA,#FFFFFF,#F5F3FF,#2E1065,calming-gentle,yes,minimal-saas
+49,Safety Orange,construction,#EA580C,#F97316,#FB923C,#FFFFFF,#FFF7ED,#431407,alert-visible,yes,corporate
+50,Natural Wood,furniture,#92400E,#B45309,#D97706,#FFFFFF,#FFFBEB,#451A03,organic-warm,yes,illustration
+51,Ocean Deep,marine,#0C4A6E,#0369A1,#0284C7,#FFFFFF,#F0F9FF,#082F49,deep-refreshing,yes,minimal-saas
+52,Forest Green,outdoor,#14532D,#166534,#15803D,#FFFFFF,#F0FDF4,#052E16,natural-grounding,yes,illustration
+53,Terracotta Warm,food,#C2410C,#EA580C,#F97316,#FFFFFF,#FFF7ED,#431407,earthy-appetizing,yes,illustration
+54,Midnight Purple,entertainment,#3B0764,#581C87,#7E22CE,#FFFFFF,#FAF5FF,#2E1065,mysterious-exciting,yes,gradient-startup
+55,Electric Lime,fitness,#4D7C0F,#65A30D,#84CC16,#FFFFFF,#F7FEE7,#1A2E05,energetic-active,yes,gradient-startup
+56,Sapphire Blue,jewelry,#1E3A8A,#1D4ED8,#3B82F6,#FFFFFF,#EFF6FF,#1E1B4B,luxurious-precious,yes,apple-minimal
+57,Ruby Red,luxury-fashion,#9F1239,#BE123C,#E11D48,#FFFFFF,#FFF1F2,#4C0519,passionate-bold,yes,bold-lifestyle
+58,Pearl White,bridal,#F5F5F5,#E5E5E5,#D4D4D4,#FFFFFF,#FAFAFA,#262626,pure-elegant,yes,apple-minimal
+59,Copper Metal,craft-beer,#B87333,#CD853F,#DEB887,#FFFFFF,#FDF8F0,#3D2200,artisanal-warm,yes,minimal-corporate
+60,Blockchain Blue,crypto,#2563EB,#3B82F6,#60A5FA,#0F1117,#1A1F2E,#E0E4EB,technical-modern,yes,ai-futuristic
+61,Gaming Red,gaming,#DC2626,#EF4444,#F87171,#0A0A0F,#1A1118,#F0E0E0,intense-competitive,yes,ai-futuristic
+62,Cloud Blue,cloud-services,#0284C7,#0EA5E9,#38BDF8,#FFFFFF,#F0F9FF,#0C4A6E,reliable-modern,yes,minimal-saas
+63,Dev Purple,developer-tools,#7C3AED,#8B5CF6,#A78BFA,#0F0A1F,#1A142E,#E0D8F0,creative-technical,yes,ai-futuristic
+64,Data Viz Rainbow,data-science,#4F46E5,#EC4899,#F59E0B,#FFFFFF,#F8FAFC,#0F172A,informative-diverse,yes,dashboard
+65,School Blue,k12-education,#1D4ED8,#3B82F6,#60A5FA,#FFFFFF,#EFF6FF,#1E3A5F,structured-approachable,yes,illustration
+66,University Maroon,higher-ed,#7F1D1D,#991B1B,#B91C1C,#FFFFFF,#FEF2F2,#450A0A,academic-traditional,yes,corporate
+67,Startup Teal,early-stage,#0F766E,#0D9488,#14B8A6,#FFFFFF,#F0FDFA,#042F2E,innovative-fresh,yes,gradient-startup
+68,Solar Yellow,energy,#CA8A04,#EAB308,#FACC15,#FFFFFF,#FEFCE8,#422006,sustainable-bright,yes,illustration
+69,AgriGreen,agriculture,#15803D,#16A34A,#22C55E,#FFFFFF,#F0FDF4,#052E16,organic-growth,yes,illustration
+70,Pet Orange,pet-care,#EA580C,#F97316,#FB923C,#FFFFFF,#FFF8F0,#431407,friendly-warm,yes,illustration
+71,Real Estate Teal,real-estate,#0F766E,#0D9488,#14B8A6,#FFFFFF,#F0FDFA,#042F2E,reliable-modern,yes,minimal-saas
+72,Automotive Steel,automotive,#374151,#4B5563,#6B7280,#FFFFFF,#F3F4F6,#111827,powerful-precise,yes,bold-lifestyle
+73,Aviation Navy,aerospace,#0F172A,#1E293B,#334155,#FFFFFF,#F8FAFC,#0F172A,precision-trust,yes,corporate
+74,Wedding Blush,weddings,#FECDD3,#FDA4AF,#FB7185,#FFFFFF,#FFF1F2,#881337,romantic-delicate,yes,apple-minimal
+75,Restaurant Warm,dining,#92400E,#B45309,#D97706,#FFFFFF,#FFFBEB,#451A03,appetizing-cozy,yes,bold-lifestyle
+76,Spa Sage,spa-wellness,#6B8E6B,#8FBC8F,#A8D8A8,#FFFFFF,#F0FAF0,#2D4A2D,tranquil-natural,yes,illustration
+77,Film Noir,cinema,#1A1A1A,#2D2D2D,#404040,#0A0A0A,#1A1A1A,#E0E0E0,dramatic-cinematic,yes,ai-futuristic
+78,Music Festival,live-events,#F59E0B,#EC4899,#8B5CF6,#111111,#1A1020,#F0E8FF,festive-electric,yes,gradient-startup
+79,Insurance Blue,insurance,#1E40AF,#2563EB,#3B82F6,#FFFFFF,#EFF6FF,#1E3A5F,stable-protective,yes,corporate
+80,Logistics Gray,logistics,#475569,#64748B,#94A3B8,#FFFFFF,#F8FAFC,#0F172A,efficient-organized,yes,dashboard
+81,Charity Green,nonprofit,#047857,#059669,#10B981,#FFFFFF,#ECFDF5,#022C22,hopeful-trustworthy,yes,illustration
+82,Government Blue,government,#1E3A5F,#2563EB,#3B82F6,#FFFFFF,#F0F4FF,#1E293B,official-accessible,yes,corporate
+83,Science Blue,research,#0369A1,#0284C7,#0EA5E9,#FFFFFF,#F0F9FF,#0C4A6E,precise-objective,yes,dashboard
+84,Cafe Brown,coffee,#78350F,#92400E,#B45309,#FFFFFF,#FFFBEB,#451A03,artisanal-cozy,yes,bold-lifestyle
+85,Yoga Lilac,yoga,#7C3AED,#8B5CF6,#C4B5FD,#FFFFFF,#F5F3FF,#2E1065,peaceful-spiritual,yes,illustration
+86,Architecture Gray,architecture,#525252,#737373,#A3A3A3,#FFFFFF,#FAFAFA,#171717,structural-precise,yes,minimal-corporate
+87,Dental Clean,dental,#0891B2,#06B6D4,#22D3EE,#FFFFFF,#ECFEFF,#083344,clean-professional,yes,minimal-saas
+88,Pharmacy White,pharmacy,#059669,#10B981,#34D399,#FFFFFF,#ECFDF5,#022C22,clinical-trustworthy,yes,corporate
+89,Kids Rainbow,children,#EF4444,#F59E0B,#22C55E,#FFFFFF,#FFF8F0,#1A1523,colorful-fun,yes,illustration
+90,Senior Care,elderly-care,#1D4ED8,#3B82F6,#60A5FA,#FFFFFF,#F0F4FF,#1E3A5F,clear-accessible,yes,minimal-saas
+91,Travel Blue,travel,#0284C7,#0EA5E9,#38BDF8,#FFFFFF,#F0F9FF,#0C4A6E,adventurous-open,yes,gradient-startup
+92,Crypto Gold,defi,#CA8A04,#EAB308,#FACC15,#0F1117,#1A1F2E,#F0E8C0,valuable-digital,yes,ai-futuristic
+93,Minimal Black,portfolio,#000000,#262626,#525252,#FFFFFF,#FAFAFA,#000000,stark-sophisticated,yes,minimal-corporate
+94,Gradient Purple,creative-agency,#7C3AED,#EC4899,#F59E0B,#FFFFFF,#F5F3FF,#2E1065,creative-dynamic,yes,gradient-startup
+95,Warm Sand,desert-tourism,#A16207,#CA8A04,#EAB308,#FFFFFF,#FEFCE8,#422006,warm-exotic,yes,illustration
+96,Arctic Blue,cold-climate,#0C4A6E,#0369A1,#0EA5E9,#FFFFFF,#F0F9FF,#082F49,crisp-refreshing,yes,minimal-saas
+97,Heritage Brown,museum,#78350F,#92400E,#B45309,#FDFCFB,#F7F5F2,#1C1917,cultural-timeless,yes,minimal-corporate
+98,Innovation Teal,tech-startup,#0D9488,#14B8A6,#2DD4BF,#FFFFFF,#F0FDFA,#042F2E,innovative-fresh,yes,gradient-startup
+99,Meditation Blue,mindfulness,#1E40AF,#3B82F6,#93C5FD,#FFFFFF,#EFF6FF,#1E3A5F,serene-focused,yes,apple-minimal
+100,Emergency Red,emergency,#B91C1C,#DC2626,#EF4444,#FFFFFF,#FEF2F2,#450A0A,urgent-critical,yes,corporate
+101,Telemedicine Blue,telehealth,#0077B6,#0096C7,#48CAE4,#FFFFFF,#F0F9FF,#023E5F,calming-clinical,yes,minimal-saas
+102,Wellness Green,wellness-health,#2D6A4F,#40916C,#52B788,#FFFFFF,#F0FDF4,#1B4332,natural-healing,yes,illustration
+103,Mental Health Lavender,mental-health,#6D28D9,#7C3AED,#A78BFA,#FFFFFF,#F5F3FF,#3B0764,soothing-gentle,yes,minimal-saas
+104,Pharmacy White Clean,pharmacy,#047857,#059669,#34D399,#FFFFFF,#ECFDF5,#022C22,sterile-trustworthy,yes,corporate
+105,Dental Aqua,dental,#0891B2,#06B6D4,#22D3EE,#FFFFFF,#ECFEFF,#164E63,fresh-clinical,yes,minimal-saas
+106,Pediatric Warmth,pediatric,#EA580C,#F97316,#FDBA74,#FFFFFF,#FFF7ED,#7C2D12,warm-caring,yes,illustration
+107,Medical Tech,health-tech,#1D4ED8,#3B82F6,#93C5FD,#FFFFFF,#EFF6FF,#1E3A5F,precise-innovative,yes,minimal-saas
+108,Clinical Clean,clinical,#475569,#64748B,#CBD5E1,#FFFFFF,#F8FAFC,#0F172A,sterile-neutral,yes,corporate
+109,Cybersecurity Dark,cybersecurity,#00FF41,#22D3EE,#F472B6,#0A0A0F,#111118,#E0FFE0,alert-secure,yes,ai-futuristic
+110,Cloud Platform Blue,cloud-computing,#0369A1,#0EA5E9,#7DD3FC,#FFFFFF,#F0F9FF,#0C4A6E,reliable-scalable,yes,minimal-saas
+111,DevOps Slate,devops,#475569,#64748B,#22D3EE,#0F172A,#1E293B,#E2E8F0,operational-technical,yes,ai-futuristic
+112,ML Purple,machine-learning,#7C3AED,#A78BFA,#C4B5FD,#0F0A1F,#1A142E,#E8E0F5,intelligent-creative,yes,ai-futuristic
+113,Blockchain Neon,blockchain,#00D4FF,#00FF88,#FACC15,#0A0A0F,#111118,#E0F0FF,decentralized-modern,yes,ai-futuristic
+114,AR VR Vibrant,ar-vr,#8B5CF6,#EC4899,#06B6D4,#0F0A14,#1A1422,#F0E0FF,immersive-futuristic,yes,ai-futuristic
+115,Quantum Computing,quantum,#1D4ED8,#8B5CF6,#06B6D4,#0A0A14,#12121F,#E0E0F8,cutting-edge-complex,yes,ai-futuristic
+116,Robotics Steel,robotics,#374151,#6B7280,#0EA5E9,#0F172A,#1E293B,#E2E8F0,industrial-precise,yes,ai-futuristic
+117,Luxury Gold Ecom,luxury-ecommerce,#92400E,#B45309,#D97706,#FFFFFF,#FFFBEB,#451A03,opulent-exclusive,yes,apple-minimal
+118,Streetwear Bold,streetwear,#111111,#DC2626,#FACC15,#FFFFFF,#F5F5F5,#111111,urban-rebellious,yes,bold-lifestyle
+119,Organic Earth,organic-retail,#365314,#4D7C0F,#84CC16,#FFFFFF,#F7FEE7,#1A2E05,natural-sustainable,yes,illustration
+120,Vintage Shop,vintage-retail,#78350F,#92400E,#D97706,#FDFCFB,#F7F5F2,#451A03,nostalgic-curated,yes,minimal-corporate
+121,Tech Gadgets,tech-retail,#1E293B,#334155,#3B82F6,#FFFFFF,#F8FAFC,#0F172A,sleek-modern,yes,minimal-saas
+122,Home Decor,home-decor,#78716C,#A8A29E,#D6D3D1,#FFFFFF,#FAFAF9,#292524,warm-sophisticated,yes,apple-minimal
+123,Artisan Craft,handmade,#92400E,#B45309,#F59E0B,#FFFFFF,#FFFBEB,#451A03,handcrafted-authentic,yes,illustration
+124,Marketplace Multi,marketplace,#2563EB,#F59E0B,#10B981,#FFFFFF,#F8FAFC,#1E293B,diverse-trustworthy,yes,minimal-saas
+125,University Classic,university,#1E3A5F,#991B1B,#CA8A04,#FFFFFF,#F5F7FA,#1E293B,academic-prestigious,yes,corporate
+126,Elementary Playful,elementary,#DC2626,#F59E0B,#2563EB,#FFFFFF,#FFF8F0,#1A1523,fun-educational,yes,illustration
+127,STEM Bright,stem-education,#0284C7,#10B981,#F59E0B,#FFFFFF,#F0F9FF,#0C4A6E,curious-analytical,yes,illustration
+128,Language Colorful,language-learning,#7C3AED,#EC4899,#F59E0B,#FFFFFF,#FAF5FF,#2E1065,multilingual-vibrant,yes,illustration
+129,Music School,music-education,#7C2D12,#B45309,#EAB308,#FFFFFF,#FFFBEB,#451A03,creative-disciplined,yes,illustration
+130,Art Academy,art-education,#BE123C,#7C3AED,#F59E0B,#FFFFFF,#FFF1F2,#4C0519,expressive-inspiring,yes,gradient-startup
+131,Library Quiet,library,#374151,#6B7280,#0369A1,#FDFCFB,#F5F5F3,#1C1917,contemplative-quiet,yes,minimal-corporate
+132,Tutoring Warm,tutoring,#B45309,#D97706,#F59E0B,#FFFFFF,#FFFBEB,#451A03,supportive-encouraging,yes,illustration
+133,Resort Tropical,resort,#0D9488,#14B8A6,#F59E0B,#FFFFFF,#F0FDFA,#042F2E,paradise-relaxing,yes,gradient-startup
+134,Urban Hotel,city-hotel,#1E293B,#475569,#0EA5E9,#FFFFFF,#F8FAFC,#0F172A,cosmopolitan-refined,yes,minimal-corporate
+135,Boutique Hotel,boutique-hotel,#78350F,#92400E,#D4A373,#FFFFFF,#FFFBEB,#451A03,intimate-charming,yes,apple-minimal
+136,Spa Zen,spa,#2D6A4F,#6B8E6B,#A7C4A0,#FFFFFF,#F0FAF0,#1B4332,tranquil-meditative,yes,illustration
+137,Adventure Outdoor,outdoor-tourism,#365314,#4D7C0F,#F59E0B,#FFFFFF,#F7FEE7,#1A2E05,adventurous-bold,yes,gradient-startup
+138,Restaurant Warm Glow,restaurant,#7C2D12,#B45309,#D97706,#FFFFFF,#FFFBEB,#451A03,inviting-appetizing,yes,bold-lifestyle
+139,Cafe Cozy,cafe,#78350F,#92400E,#C2410C,#FFFFFF,#FFFBEB,#451A03,warm-intimate,yes,minimal-corporate
+140,Bakery Pastel,bakery,#BE185D,#EC4899,#FBCFE8,#FFFFFF,#FFF1F2,#831843,sweet-delicate,yes,illustration
+141,Health Food Green,health-food,#166534,#15803D,#4ADE80,#FFFFFF,#F0FDF4,#052E16,fresh-nutritious,yes,gradient-startup
+142,Fine Dining Dark,fine-dining,#1C1917,#292524,#A16207,#FFFFFF,#FAFAF9,#0C0A09,sophisticated-exclusive,yes,apple-minimal
+143,Gym Energy,gym,#DC2626,#EF4444,#1D4ED8,#FFFFFF,#FEF2F2,#450A0A,powerful-motivating,yes,bold-lifestyle
+144,Yoga Calm,yoga-studio,#6D28D9,#8B5CF6,#C4B5FD,#FFFFFF,#F5F3FF,#2E1065,peaceful-balanced,yes,illustration
+145,Running Dynamic,running,#EA580C,#F97316,#0EA5E9,#FFFFFF,#FFF7ED,#431407,dynamic-endurance,yes,gradient-startup
+146,Martial Arts,martial-arts,#111111,#DC2626,#D97706,#FFFFFF,#F5F5F5,#111111,disciplined-powerful,yes,bold-lifestyle
+147,Outdoor Sports,outdoor-fitness,#365314,#4D7C0F,#F59E0B,#FFFFFF,#F7FEE7,#1A2E05,active-natural,yes,gradient-startup
+148,Cinema Dark,cinema,#0A0A0F,#1E293B,#DC2626,#0A0A0F,#18181B,#E4E4E7,dramatic-immersive,yes,ai-futuristic
+149,Music Festival Neon,music-festival,#EC4899,#8B5CF6,#F59E0B,#111111,#1A1020,#F0E8FF,electrifying-festive,yes,gradient-startup
+150,Gaming Neon,gaming-platform,#00FF88,#8B5CF6,#00D4FF,#0A0A0F,#111118,#E0FFE0,competitive-immersive,yes,ai-futuristic
+151,Podcast Warm,podcast,#B45309,#D97706,#F59E0B,#FFFFFF,#FFFBEB,#451A03,conversational-engaging,yes,minimal-saas
+152,Streaming Dark,streaming-platform,#1E293B,#3B82F6,#EC4899,#0F172A,#1E293B,#E2E8F0,binge-worthy-modern,yes,ai-futuristic
+153,Community Bright,community,#2563EB,#10B981,#F59E0B,#FFFFFF,#EFF6FF,#1E3A5F,inclusive-vibrant,yes,gradient-startup
+154,Professional Network,professional-social,#1E3A5F,#2563EB,#0EA5E9,#FFFFFF,#F0F4FF,#1E293B,career-driven-polished,yes,minimal-corporate
+155,Dating Warm,dating-app,#BE123C,#EC4899,#F9A8D4,#FFFFFF,#FFF1F2,#831843,romantic-approachable,yes,gradient-startup
+156,Forum Minimal,online-forum,#374151,#6B7280,#2563EB,#FFFFFF,#F9FAFB,#111827,clean-discussion,yes,minimal-saas
+157,Creator Platform,creator-economy,#7C3AED,#EC4899,#F59E0B,#FFFFFF,#FAF5FF,#2E1065,creative-expressive,yes,gradient-startup
+158,Luxury Auto,luxury-automotive,#1C1917,#374151,#CA8A04,#FFFFFF,#FAFAF9,#0C0A09,prestigious-powerful,yes,apple-minimal
+159,Electric Vehicle,ev-automotive,#0D9488,#14B8A6,#0EA5E9,#FFFFFF,#F0FDFA,#042F2E,sustainable-futuristic,yes,gradient-startup
+160,Racing Red,motorsport,#DC2626,#111111,#F59E0B,#FFFFFF,#FEF2F2,#450A0A,fast-adrenaline,yes,bold-lifestyle
+161,Dealership Blue,auto-dealership,#1E40AF,#2563EB,#3B82F6,#FFFFFF,#EFF6FF,#1E3A5F,trustworthy-professional,yes,corporate
+162,Auto Repair,auto-repair,#78350F,#B45309,#F59E0B,#FFFFFF,#FFFBEB,#451A03,reliable-practical,yes,minimal-corporate
+163,Modern Living,modern-real-estate,#1E293B,#475569,#0EA5E9,#FFFFFF,#F8FAFC,#0F172A,contemporary-aspirational,yes,minimal-corporate
+164,Commercial Property,commercial-realestate,#1E3A5F,#2D5F8B,#4A90D9,#FFFFFF,#F5F7FA,#1C2D3F,professional-investment,yes,corporate
+165,Vacation Rental,vacation-rental,#0D9488,#14B8A6,#F59E0B,#FFFFFF,#F0FDFA,#042F2E,relaxing-inviting,yes,gradient-startup
+166,Sustainability Green,sustainability,#14532D,#166534,#34D399,#FFFFFF,#ECFDF5,#052E16,organic-hopeful,yes,illustration
+167,PropTech Teal,proptech,#0F766E,#0D9488,#14B8A6,#FDFCFB,#F5F3F0,#1C1917,modern-trustworthy,yes,minimal-corporate
+168,Automotive Charcoal,automotive,#1E293B,#374151,#6B7280,#FFFFFF,#F3F4F6,#111827,powerful-engineered,yes,corporate
+169,RegTech Navy,regtech,#0F2B46,#1A4B7A,#3B82F6,#FFFFFF,#F8F9FB,#111827,authoritative-compliant,yes,corporate
+170,LegalTech Slate,legaltech,#374151,#4B5563,#6B7280,#FDFCFB,#F5F5F3,#1C1917,professional-authoritative,yes,minimal-corporate
+171,AgriTech Earth,agritech,#365314,#4D7C0F,#84CC16,#FFFFFF,#F7FEE7,#1A2E05,organic-growth,yes,illustration
+172,GovTech Blue,govtech,#1E3A5F,#2563EB,#3B82F6,#FFFFFF,#F0F4FF,#1E293B,official-trustworthy,yes,corporate
+173,CleanTech Neon,cleantech,#00FF88,#00D4FF,#8B5CF6,#0A0A0F,#111118,#E0E0EE,futuristic-sustainable,yes,ai-futuristic
+174,InsurTech Blue,insurtech,#1E40AF,#2563EB,#3B82F6,#FFFFFF,#EFF6FF,#1E3A5F,stable-reliable,yes,corporate
+175,SportTech Red,sporttech,#DC2626,#EF4444,#F59E0B,#FFFFFF,#FEF2F2,#450A0A,dynamic-energetic,yes,bold-lifestyle
+176,FashionTech Silver,fashiontech,#86868B,#A1A1A6,#C7C7CC,#FFFFFF,#F5F5F7,#1D1D1F,refined-elegant,yes,apple-minimal
+177,FoodTech Warm,foodtech,#C2410C,#EA580C,#F97316,#FFFFFF,#FFF7ED,#431407,appetizing-bold,yes,bold-lifestyle
+178,MusicTech Violet,musictech,#7C3AED,#8B5CF6,#A78BFA,#FFFFFF,#FAF5FF,#2E1065,creative-vibrant,yes,gradient-startup
+179,PetTech Orange,pettech,#EA580C,#F97316,#FB923C,#FFFFFF,#FFF8F0,#431407,friendly-playful,yes,illustration
+180,SpaceTech Cyan,spacetech,#00D4FF,#00B4D8,#0077B6,#0A0A12,#12121F,#E0E8F0,technical-cosmic,yes,ai-futuristic
