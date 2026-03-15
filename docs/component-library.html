@@ -1996,7 +1996,12 @@ defineProps({ variant: { type: String, default: 'brand' } });
 <div class="code-label">HTML</div><div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>&lt;div style="position:relative"&gt;
   &lt;button id="popover-trigger" aria-haspopup="true" aria-expanded="false"&gt;Trigger&lt;/button&gt;
   &lt;div class="popover" role="dialog" id="popover-content" hidden&gt;Content&lt;/div&gt;
-&lt;/div&gt;</pre></div></div></div>
+&lt;/div&gt;</pre></div>
+<div class="framework-content" id="popover-react"><div class="code-label">React</div><div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>import { Popover, Button } from '@mkatogui/uds-react';
+
+&lt;Popover trigger={&lt;Button variant="secondary" size="sm"&gt;Open popover&lt;/Button&gt;} placement="bottom"&gt;
+  Popover content
+&lt;/Popover&gt;</pre></div></div></div></div>
 
 <!-- ========== Combobox ========== -->
 <div class="component" id="combobox">
@@ -2041,7 +2046,11 @@ defineProps({ variant: { type: String, default: 'brand' } });
 <div class="code-label">HTML</div><div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>&lt;section class="carousel" role="region" aria-roledescription="carousel" aria-label="Content carousel"&gt;
   &lt;div class="carousel-track"&gt;&lt;div class="carousel-slide"&gt;Slide 1&lt;/div&gt;&lt;div class="carousel-slide"&gt;Slide 2&lt;/div&gt;&lt;/div&gt;
   &lt;div class="carousel-dots" role="tablist"&gt;&lt;button role="tab" aria-selected="true" class="carousel-dot carousel-dot--active"&gt;&lt;/button&gt;&lt;button role="tab" class="carousel-dot"&gt;&lt;/button&gt;&lt;/div&gt;
-&lt;/section&gt;</pre></div></div></div>
+&lt;/section&gt;</pre></div>
+<div class="framework-content" id="carousel-react"><div class="code-label">React</div><div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>import { Carousel } from '@mkatogui/uds-react';
+
+const items = [&lt;div key="1"&gt;Slide 1&lt;/div&gt;, &lt;div key="2"&gt;Slide 2&lt;/div&gt;];
+&lt;Carousel items={items} showDots showArrows autoPlay={false} /&gt;</pre></div></div></div></div>
 
 <!-- ========== Chip Input ========== -->
 <div class="component" id="chip-input">
@@ -2056,7 +2065,11 @@ defineProps({ variant: { type: String, default: 'brand' } });
 <div class="code-label">HTML</div><div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>&lt;div class="chip-input" role="listbox"&gt;
   &lt;span class="chip" role="option"&gt;Tag 1 &lt;button class="chip-remove" aria-label="Remove"&gt;&amp;times;&lt;/button&gt;&lt;/span&gt;
   &lt;input type="text" aria-label="Add chip" placeholder="Add..." /&gt;
-&lt;/div&gt;</pre></div></div></div>
+&lt;/div&gt;</pre></div>
+<div class="framework-content" id="chip-input-react"><div class="code-label">React</div><div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>import { ChipInput } from '@mkatogui/uds-react';
+
+const [chips, setChips] = useState(['Tag 1', 'Tag 2']);
+&lt;ChipInput value={chips} onChange={setChips} placeholder="Add..." maxChips={10} /&gt;</pre></div></div></div></div>
 
 <!-- ========== Stepper ========== -->
 <div class="component" id="stepper">
@@ -2076,7 +2089,11 @@ defineProps({ variant: { type: String, default: 'brand' } });
   &lt;span class="stepper-step stepper-step--active"&gt;2&lt;/span&gt;
   &lt;span class="stepper-connector"&gt;&lt;/span&gt;
   &lt;span class="stepper-step stepper-step--pending"&gt;3&lt;/span&gt;
-&lt;/nav&gt;</pre></div></div></div>
+&lt;/nav&gt;</pre></div>
+<div class="framework-content" id="stepper-react"><div class="code-label">React</div><div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>import { Stepper } from '@mkatogui/uds-react';
+
+const steps = [{ id: '1', label: 'Details' }, { id: '2', label: 'Review' }, { id: '3', label: 'Complete' }];
+&lt;Stepper steps={steps} activeStep={0} orientation="horizontal" linear /&gt;</pre></div></div></div></div>
 
 <!-- ========== Segmented Control ========== -->
 <div class="component" id="segmented-control">
@@ -2091,7 +2108,11 @@ defineProps({ variant: { type: String, default: 'brand' } });
   &lt;button role="radio" aria-checked="true"&gt;Option A&lt;/button&gt;
   &lt;button role="radio" aria-checked="false"&gt;Option B&lt;/button&gt;
   &lt;button role="radio" aria-checked="false"&gt;Option C&lt;/button&gt;
-&lt;/div&gt;</pre></div></div></div>
+&lt;/div&gt;</pre></div>
+<div class="framework-content" id="segmented-control-react"><div class="code-label">React</div><div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>import { SegmentedControl } from '@mkatogui/uds-react';
+
+const options = [{ value: 'a', label: 'Option A' }, { value: 'b', label: 'Option B' }, { value: 'c', label: 'Option C' }];
+&lt;SegmentedControl options={options} value="a" onChange={(v) =&gt; {}} size="md" /&gt;</pre></div></div></div></div>
 
 <!-- ========== Toolbar ========== -->
 <div class="component" id="toolbar">
@@ -2106,7 +2127,14 @@ defineProps({ variant: { type: String, default: 'brand' } });
   &lt;button type="button" aria-label="Italic"&gt;I&lt;/button&gt;
   &lt;span class="toolbar-divider" aria-hidden="true"&gt;&lt;/span&gt;
   &lt;button type="button" aria-label="List"&gt;List&lt;/button&gt;
-&lt;/div&gt;</pre></div></div></div>
+&lt;/div&gt;</pre></div>
+<div class="framework-content" id="toolbar-react"><div class="code-label">React</div><div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>import { Toolbar, Button } from '@mkatogui/uds-react';
+
+&lt;Toolbar aria-label="Formatting"&gt;
+  &lt;Button variant="secondary" size="sm"&gt;B&lt;/Button&gt;
+  &lt;Button variant="secondary" size="sm"&gt;I&lt;/Button&gt;
+  &lt;Button variant="secondary" size="sm"&gt;U&lt;/Button&gt;
+&lt;/Toolbar&gt;</pre></div></div></div></div>
 
 <!-- ========== Tree View ========== -->
 <div class="component" id="tree-view">
@@ -2123,7 +2151,11 @@ defineProps({ variant: { type: String, default: 'brand' } });
 <div class="code-label">HTML</div><div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>&lt;div class="tree" role="tree" aria-label="Folder structure"&gt;
   &lt;div class="tree-item" role="treeitem" aria-expanded="true"&gt;&lt;span&gt;&amp;#9660;&lt;/span&gt;&lt;span&gt;Documents&lt;/span&gt;&lt;/div&gt;
   &lt;div class="tree-group" role="group"&gt;&lt;div class="tree-leaf" role="treeitem"&gt;File 1&lt;/div&gt;&lt;div class="tree-leaf" role="treeitem"&gt;File 2&lt;/div&gt;&lt;/div&gt;
-&lt;/div&gt;</pre></div></div></div>
+&lt;/div&gt;</pre></div>
+<div class="framework-content" id="tree-view-react"><div class="code-label">React</div><div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>import { TreeView } from '@mkatogui/uds-react';
+
+const nodes = [{ id: '1', label: 'Documents', children: [{ id: '2', label: 'File 1' }, { id: '3', label: 'File 2' }] }];
+&lt;TreeView nodes={nodes} selectionMode="single" defaultExpandedIds={['1']} aria-label="Folder structure" /&gt;</pre></div></div></div></div>
 
 <!-- ========== OTP Input ========== -->
 <div class="component" id="otp-input">
@@ -2139,7 +2171,60 @@ defineProps({ variant: { type: String, default: 'brand' } });
   &lt;input type="text" inputmode="numeric" maxlength="1" aria-label="Digit 2" /&gt;
   &lt;input type="text" inputmode="numeric" maxlength="1" aria-label="Digit 3" /&gt;
   &lt;input type="text" inputmode="numeric" maxlength="1" aria-label="Digit 4" /&gt;
-&lt;/div&gt;</pre></div></div></div>
+&lt;/div&gt;</pre></div>
+<div class="framework-content" id="otp-input-react"><div class="code-label">React</div><div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>import { OTPInput } from '@mkatogui/uds-react';
+
+&lt;OTPInput length={4} value="" onChange={(v) =&gt; {}} inputMode="numeric" autoFocus /&gt;</pre></div></div></div></div>
+
+<!-- ========== Layout & Primitives (Box, Stack, Grid, Divider, Container, Typography, Link) ========== -->
+<div class="component" id="layout-primitives">
+<div class="component-header"><span class="component-name">Box, Stack, Grid, Divider, Container, Typography, Link</span><span class="component-props">Layout primitives: padding/margin (Box), direction/gap (Stack), columns/gap (Grid), orientation (Divider), size (Container), variant (Typography), variant/external (Link)</span></div>
+<div class="component-preview">
+  <span class="preview-label">Preview</span>
+  <div class="uds-container uds-container--lg" style="padding: var(--spacing-4);">
+    <div class="uds-stack uds-stack--column uds-stack--gap-md" style="display:flex;flex-direction:column;gap:var(--spacing-4);">
+      <span class="uds-typography uds-typography--h3" style="font-size:var(--text-heading-sm);font-weight:600;">Typography</span>
+      <hr class="uds-divider uds-divider--horizontal" role="separator" style="height:1px;width:100%;border:none;background:var(--color-border-default);" />
+      <p class="uds-typography uds-typography--body" style="font-size:var(--text-body-md);">Body text. <a href="#" class="uds-link uds-link--primary" style="color:var(--color-brand-primary);text-decoration:underline;">Link</a></p>
+      <div class="uds-grid" style="display:grid;grid-template-columns:repeat(2,1fr);gap:var(--spacing-4);">
+        <div class="uds-box" style="padding:var(--spacing-2);background:var(--color-bg-secondary);border-radius:var(--radius-md);">Box 1</div>
+        <div class="uds-box" style="padding:var(--spacing-2);background:var(--color-bg-secondary);border-radius:var(--radius-md);">Box 2</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="framework-tabs">
+  <button class="framework-tab active" onclick="switchFramework(this, 'html')">HTML</button>
+  <button class="framework-tab" onclick="switchFramework(this, 'react')">React</button>
+</div>
+<div class="framework-content active" id="layout-primitives-html">
+  <div class="code-label">HTML</div>
+  <div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>&lt;div class="uds-container uds-container--lg"&gt;
+  &lt;div class="uds-stack" style="display:flex;flex-direction:column;gap:var(--space-4);"&gt;
+    &lt;span class="uds-typography uds-typography--h3"&gt;Title&lt;/span&gt;
+    &lt;hr class="uds-divider uds-divider--horizontal" role="separator" /&gt;
+    &lt;p class="uds-typography uds-typography--body"&gt;Body. &lt;a href="#" class="uds-link uds-link--primary"&gt;Link&lt;/a&gt;&lt;/p&gt;
+    &lt;div class="uds-grid uds-grid--cols-2 uds-grid--gap-md"&gt;&lt;div class="uds-box"&gt;Box&lt;/div&gt;&lt;div class="uds-box"&gt;Box&lt;/div&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre></div>
+</div>
+<div class="framework-content" id="layout-primitives-react">
+  <div class="code-label">React</div>
+  <div style="position:relative"><button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button><pre>import { Box, Stack, Grid, Divider, Container, Typography, Link } from '@mkatogui/uds-react';
+
+&lt;Container size="lg"&gt;
+  &lt;Stack direction="column" gap="md"&gt;
+    &lt;Typography variant="h3"&gt;Title&lt;/Typography&gt;
+    &lt;Divider /&gt;
+    &lt;Typography variant="body"&gt;Body. &lt;Link href="#"&gt;Link&lt;/Link&gt;&lt;/Typography&gt;
+    &lt;Grid columns={2} gap="md"&gt;
+      &lt;Box padding="4"&gt;Box&lt;/Box&gt;
+      &lt;Box padding="4"&gt;Box&lt;/Box&gt;
+    &lt;/Grid&gt;
+  &lt;/Stack&gt;
+&lt;/Container&gt;</pre></div>
+</div>
+</div>
 
 </main><!-- /.container -->
 

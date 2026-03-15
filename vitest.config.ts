@@ -21,6 +21,12 @@ export default defineConfig({
       reporter: ['lcov', 'json-summary', 'text'],
       reportsDirectory: 'coverage',
       include: ['packages/react/src/components/**/*.tsx', 'cli/src/**/*.ts'],
+      thresholds: {
+        lines: 35,
+        functions: 35,
+        branches: 30,
+        statements: 35,
+      },
     },
   },
 });

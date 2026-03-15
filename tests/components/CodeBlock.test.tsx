@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
 import '@testing-library/jest-dom/vitest';
 import { describe, expect, it, vi } from 'vitest';
@@ -34,7 +34,9 @@ describe('CodeBlock', () => {
     });
     render(<CodeBlock code="copy me" />);
     const copyButton = screen.getByRole('button', { name: 'Copy code' });
-    fireEvent.click(copyButton);
+    await act(async () => {
+      fireEvent.click(copyButton);
+    });
     expect(writeText).toHaveBeenCalledWith('copy me');
   });
 

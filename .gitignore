@@ -42,3 +42,6 @@ metrics.json
 *.log
 .~lock.*
 tmp-uds-install/
+
+# Test/Playwright output
+test-results/

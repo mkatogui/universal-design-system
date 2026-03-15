@@ -46,7 +46,9 @@
     "test:visual": "playwright test tests/visual/",
     "test:visual:update": "playwright test tests/visual/ --update-snapshots",
     "storybook": "storybook dev -p 6006",
+    "storybook:react": "storybook dev -p 6007 -c .storybook-react",
     "build:storybook": "storybook build -o docs/storybook",
+    "build:storybook:react": "storybook build -o docs/storybook-react -c .storybook-react",
     "test:contracts": "python3 -m unittest discover tests/contracts/ -v",
     "test:react": "vitest run",
     "test:react:coverage": "vitest run --coverage",
@@ -107,6 +109,7 @@
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "size-limit": "^12.0.1",
+    "@storybook/react-vite": "^10.2.17",
     "storybook": "^10.2.17",
     "style-dictionary": "^5.3.3",
     "vitest": "^4.1.0"
