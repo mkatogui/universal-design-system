@@ -3,6 +3,7 @@
  * into the target platform's expected location.
  */
 
+import { execSync } from 'node:child_process';
 import {
   cpSync,
   existsSync,
@@ -103,6 +104,12 @@ const PLATFORMS: Record<string, PlatformConfig> = {
     mcpConfig: '.vscode/mcp.json',
   },
   droid: { name: 'Droid', dotDir: '.factory', skillDir: '.factory/skills' },
+  cowork: {
+    name: 'Claude Cowork',
+    dotDir: 'plugin',
+    skillDir: 'plugin/skills',
+    mcpConfig: 'plugin/.mcp.json',
+  },
 };
 
 /** Names of all skill directories to install */
@@ -137,6 +144,7 @@ function detectPlatform(dir: string): string | null {
     ['.opencode', 'opencode'],
     ['.factory', 'droid'],
     ['.github/copilot-instructions', 'vscode'],
+    ['plugin/.claude-plugin', 'cowork'],
   ];
 
   for (const [marker, platform] of checks) {
@@ -390,6 +398,60 @@ export async function installCommand(options: InstallOptions): Promise<void> {
     console.log(`  ${green('+')} ${config.mcpConfig}`);
   }
 
+  // ── Cowork Plugin Packaging ──
+  if (platform === 'cowork') {
+    console.log(cyan('\n  Plugin Manifest'));
+    const pluginDir = join(targetDir, 'plugin');
+    const manifestDir = join(pluginDir, '.claude-plugin');
+    mkdirSync(manifestDir, { recursive: true });
+
+    const pkgJson = readJsonSafe(join(PKG_ROOT, 'package.json'));
+    const manifest = {
+      name: 'universal-design-system',
+      version: (pkgJson.version as string) || '0.4.2',
+      description:
+        'Production-grade AI-native design system with 9 structural palettes, 43 components, 600 W3C DTCG tokens, BM25 reasoning engine, WCAG 2.2 AA compliance, and Tailwind/React/Vue/Svelte output.',
+      author: { name: (pkgJson.author as string) || 'Marcelo Katogui' },
+      homepage: 'https://github.com/mkatogui/universal-design-system',
+      repository: 'https://github.com/mkatogui/universal-design-system',
+      license: 'MIT',
+      keywords: [
+        'design-system',
+        'ui',
+        'ux',
+        'wcag',
+        'accessibility',
+        'tailwind',
+        'react',
+        'vue',
+        'svelte',
+        'design-tokens',
+      ],
+      mcpServers: './.mcp.json',
+    };
+    writeFileSync(join(manifestDir, 'plugin.json'), `${JSON.stringify(manifest, null, 2)}\n`);
+    console.log(`  ${green('+')} plugin/.claude-plugin/plugin.json`);
+
+    // Copy plugin README
+    const pluginReadme = join(PKG_ROOT, 'plugin', 'README.md');
+    if (existsSync(pluginReadme)) {
+      cpSync(pluginReadme, join(pluginDir, 'README.md'));
+    }
+
+    // Package as .plugin zip
+    console.log(cyan('\n  Packaging'));
+    const pluginFile = join(targetDir, 'universal-design-system.plugin');
+    try {
+      execSync(`cd "${pluginDir}" && zip -r "${pluginFile}" . -x "*.DS_Store"`, {
+        stdio: 'pipe',
+      });
+      console.log(`  ${green('+')} universal-design-system.plugin`);
+    } catch {
+      console.log(yellow('  ⚠ Could not create .plugin zip (zip command not available).'));
+      console.log(dim('    The plugin/ directory is ready — zip it manually.'));
+    }
+  }
+
   // ── Summary ──
   console.log(bold(green(`\n  Installed for ${config.name}`)));
   console.log(dim(`  ${skillCount} skills, ${agentCount} agents, ${commandCount} commands`));
@@ -399,26 +461,33 @@ export async function installCommand(options: InstallOptions): Promise<void> {
   console.log(dim(`  Location: ${join(targetDir, config.dotDir)}`));
 
   // ── Quick Start ──
-  console.log(bold('\n  Quick Start'));
-  console.log(
-    dim(
-      '  Ask:       "how to use UDS skills" or "which skills are installed" (uds-getting-started skill)',
-    ),
-  );
-  console.log(
-    dim(
-      `  Search:    python ${join(config.skillDir, 'universal-design-system', 'scripts', 'search.py')} "your query"`,
-    ),
-  );
-  console.log(
-    dim(
-      '  Commands:  /pre-pr-review, /palette-sync, /a11y-fix, /align-metrics, /new-component, /docs-sync',
-    ),
-  );
-  if (config.mcpConfig) {
+  if (platform === 'cowork') {
+    console.log(bold('\n  Quick Start'));
+    console.log(dim('  Open the .plugin file in Claude Cowork, or share it with your team.'));
+    console.log(dim('  The plugin includes 5 skills and an MCP server config.'));
+    console.log(dim('  Skills work immediately; MCP requires Node.js 18+ and Python 3.8+.'));
+  } else {
+    console.log(bold('\n  Quick Start'));
     console.log(
-      dim('  MCP tools: search_design_system, get_palette, get_component, generate_tokens'),
+      dim(
+        '  Ask:       "how to use UDS skills" or "which skills are installed" (uds-getting-started skill)',
+      ),
     );
+    console.log(
+      dim(
+        `  Search:    python ${join(config.skillDir, 'universal-design-system', 'scripts', 'search.py')} "your query"`,
+      ),
+    );
+    console.log(
+      dim(
+        '  Commands:  /pre-pr-review, /palette-sync, /a11y-fix, /align-metrics, /new-component, /docs-sync',
+      ),
+    );
+    if (config.mcpConfig) {
+      console.log(
+        dim('  MCP tools: search_design_system, get_palette, get_component, generate_tokens'),
+      );
+    }
   }
   console.log('');
 }

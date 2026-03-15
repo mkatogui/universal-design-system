@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "universal-design-system": {
+      "command": "npx",
+      "args": ["-y", "@mkatogui/universal-design-system@latest", "mcp"],
+      "env": {}
+    }
+  }
+}

@@ -60,7 +60,8 @@
     "changeset:publish": "changeset publish",
     "prepare": "husky",
     "size": "npm run build:react && size-limit",
-    "size:check": "npm run build:react && size-limit --limit"
+    "size:check": "npm run build:react && size-limit --limit",
+    "build:plugin": "npm run build:cli && node cli/dist/index.js install --platform cowork --dir ."
   },
   "keywords": [
     "design-system",
@@ -124,6 +125,7 @@
     ".claude/agents/",
     ".claude/commands/",
     ".claude-plugin/",
+    "plugin/",
     "SPECIFICATION.md",
     "SKILL.md",
     "CLAUDE.md"

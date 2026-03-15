@@ -83,7 +83,7 @@ function showHelp(): void {
   Usage: uds <command> [options]
 
   Commands:
-    install              Install the design system skill into your AI coding platform
+    install              Install the design system into any AI platform (incl. Cowork plugin)
     search <query>       Search the design system databases
     generate <query>     Generate a full design system specification
     tailwind <query>     Generate a Tailwind CSS config from tokens
