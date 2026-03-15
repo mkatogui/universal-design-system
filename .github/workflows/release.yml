@@ -1,0 +1,55 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build CLI
+        run: npm run build:cli
+
+      - name: Build Cowork plugin
+        run: npm run build:plugin
+
+      - name: Extract version from tag
+        id: version
+        run: echo "version=${GITHUB_REF#refs/tags/v}" >> "$GITHUB_OUTPUT"
+
+      - name: Create GitHub Release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "universal-design-system.plugin"
+          artifactContentType: application/zip
+          name: "v${{ steps.version.outputs.version }}"
+          body: |
+            ## Universal Design System v${{ steps.version.outputs.version }}
+
+            ### Cowork Plugin
+            Download `universal-design-system.plugin` and open it in Claude Cowork to install.
+
+            **Included:** 5 skills (design-system, brand-identity, design-audit, ui-styling, slides-design), MCP server config, 4 reference files.
+
+            ### npm
+            ```bash
+            npm install @mkatogui/universal-design-system
+            npx @mkatogui/universal-design-system install
+            ```
+          token: ${{ secrets.GITHUB_TOKEN }}
+          draft: false
+          prerelease: false

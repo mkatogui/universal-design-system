@@ -1,0 +1,26 @@
+{
+  "name": "universal-design-system",
+  "version": "0.4.2",
+  "description": "Production-grade AI-native design system with 9 structural palettes, 43 components, 600 W3C DTCG tokens, BM25 reasoning engine, WCAG 2.2 AA compliance, and Tailwind/React/Vue/Svelte output. Reverse-engineered from 100 modern websites.",
+  "author": {
+    "name": "Marcelo Katogui"
+  },
+  "homepage": "https://github.com/mkatogui/universal-design-system",
+  "repository": "https://github.com/mkatogui/universal-design-system",
+  "license": "MIT",
+  "keywords": [
+    "design-system",
+    "ui",
+    "ux",
+    "wcag",
+    "accessibility",
+    "tailwind",
+    "react",
+    "vue",
+    "svelte",
+    "design-tokens",
+    "color-palette",
+    "components"
+  ],
+  "mcpServers": "./.mcp.json"
+}
