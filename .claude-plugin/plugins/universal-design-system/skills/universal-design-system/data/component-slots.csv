@@ -1,0 +1,48 @@
+id,component_slug,slot_name,slot_element,slot_role,slot_description,required,accepts_children
+1,modal,Trigger,button,button,The element that opens the modal when activated; receives aria-haspopup and aria-controls,true,true
+2,modal,Overlay,div,presentation,Full-screen backdrop rendered behind modal content; clicking it closes the dialog,false,false
+3,modal,Content,div,dialog,The modal container; receives role=dialog aria-modal aria-labelledby and focus trap,true,true
+4,modal,Header,div,,Visual header region grouping Title and optional Close button,false,true
+5,modal,Title,h2,,Primary heading that labels the dialog; referenced by aria-labelledby on Content,true,true
+6,modal,Description,p,,Secondary descriptive text referenced by aria-describedby on Content,false,true
+7,modal,Footer,div,,Action area at the bottom of the modal containing confirmation or cancel buttons,false,true
+8,modal,Close,button,button,Icon button that dismisses the modal; requires accessible aria-label,false,false
+9,tabs,Root,div,,Outermost wrapper that owns state and coordinates List and Panel relationships,true,true
+10,tabs,List,div,tablist,Container for Tab buttons; receives role=tablist and aria-orientation,true,true
+11,tabs,Tab,button,tab,Individual tab button; receives role=tab aria-selected and aria-controls pointing to its Panel,true,true
+12,tabs,Panel,div,tabpanel,Content region associated with a Tab; receives role=tabpanel aria-labelledby and tabindex=0,true,true
+13,accordion,Root,div,,Outermost wrapper managing expanded state and allowMultiple behaviour,true,true
+14,accordion,Item,div,,Single accordion entry grouping one Trigger and one Content section,true,true
+15,accordion,Trigger,button,,Clickable header that toggles the associated Content; receives aria-expanded and aria-controls,true,true
+16,accordion,Content,div,,Collapsible body region; receives aria-hidden when collapsed and is referenced by Trigger via aria-controls,true,true
+17,accordion,Icon,span,,Decorative chevron indicating open/closed state; hidden from assistive technology with aria-hidden=true,false,false
+18,dropdown,Root,div,,Outermost wrapper managing open state and keyboard navigation for the menu,true,true
+19,dropdown,Trigger,button,button,Element that opens the Menu; receives aria-haspopup=menu aria-expanded and aria-controls,true,true
+20,dropdown,Menu,ul,menu,Popup list of interactive items; receives role=menu and is positioned relative to Trigger,true,true
+21,dropdown,Item,li,menuitem,Individual action; receives role=menuitem and handles keyboard activation,true,true
+22,dropdown,Separator,hr,separator,Visual divider between groups of Items; receives role=separator,false,false
+23,dropdown,Label,li,,Non-interactive descriptive label for a Group; receives aria-hidden=true or role=presentation,false,false
+24,dropdown,Group,li,group,Logical grouping of related Items; receives role=group and aria-labelledby pointing to its Label,false,true
+25,feature-card,Root,article,,Outermost card wrapper providing a semantic content landmark,true,true
+26,feature-card,Header,div,,Top section of the card typically containing Media or an icon,false,true
+27,feature-card,Title,h3,,Primary heading identifying the card content; level should reflect document hierarchy,true,true
+28,feature-card,Description,p,,Supporting text expanding on the Title,false,true
+29,feature-card,Content,div,,Main body area for arbitrary card content,false,true
+30,feature-card,Footer,div,,Bottom section for actions or supplementary metadata,false,true
+31,feature-card,Media,figure,,Image or illustration slot; img inside must have descriptive alt text,false,false
+32,alert,Root,div,,Outermost wrapper; receives role=alert for error/warning or role=status for success/info,true,true
+33,alert,Icon,span,,Decorative status icon reinforcing severity; hidden from assistive technology with aria-hidden=true,false,false
+34,alert,Title,p,,Short bold summary of the alert message,false,true
+35,alert,Description,p,,Expanded details following the Title,false,true
+36,alert,Action,div,,Inline action area for links or buttons related to the alert,false,true
+37,alert,Close,button,button,Dismiss button for dismissible alerts; requires aria-label describing the action,false,false
+38,tooltip,Root,span,,Outermost wrapper managing hover and focus show/hide state,true,true
+39,tooltip,Trigger,span,,Element that receives focus and mouse events; wraps the target widget and links it via aria-describedby,true,true
+40,tooltip,Content,div,tooltip,The visible tooltip bubble; receives role=tooltip and a stable id referenced by Trigger's aria-describedby,true,true
+41,tooltip,Arrow,span,,Decorative directional pointer; hidden from assistive technology with aria-hidden=true,false,false
+42,input,Root,div,,Outermost field wrapper grouping all sub-elements for layout and spacing,true,true
+43,input,Label,label,,Visible text label; associated with Field via htmlFor/id pairing,true,false
+44,input,Field,input,,The actual form control; receives id type aria-invalid aria-describedby and aria-required,true,false
+45,input,HelperText,p,,Supplementary hint below the field; referenced by Field via aria-describedby when no error is present,false,false
+46,input,ErrorMessage,p,,Validation error text; referenced by Field via aria-describedby and Field receives aria-invalid=true when visible,false,false
+47,input,Icon,span,,Decorative or functional icon inside the field boundary; decorative instances use aria-hidden=true,false,false

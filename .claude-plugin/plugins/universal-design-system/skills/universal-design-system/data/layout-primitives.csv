@@ -1,0 +1,9 @@
+id,name,slug,description,css_display,default_gap,accepts_children,container_query_aware
+1,Box,box,Base layout element with padding and background,block,0,true,false
+2,Stack,stack,Vertical flex layout with consistent gap,flex,space-4,true,true
+3,Inline,inline,Horizontal flex layout with wrapping,flex,space-2,true,true
+4,Grid,grid,CSS Grid layout with responsive columns,grid,space-4,true,true
+5,Center,center,Centered content with max-width constraint,flex,0,true,false
+6,Container,container,Responsive container with breakpoint awareness,block,0,true,true
+7,Spacer,spacer,Flexible space element for layout adjustment,block,0,false,false
+8,Divider,divider,Visual separator between content sections,block,0,false,false

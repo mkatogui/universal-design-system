@@ -1,0 +1,31 @@
+physical_property,logical_property,direction_sensitive,description
+margin-left,margin-inline-start,true,Left margin in LTR; right in RTL
+margin-right,margin-inline-end,true,Right margin in LTR; left in RTL
+padding-left,padding-inline-start,true,Left padding in LTR; right in RTL
+padding-right,padding-inline-end,true,Right padding in LTR; left in RTL
+margin-top,margin-block-start,false,Top margin (block-start)
+margin-bottom,margin-block-end,false,Bottom margin (block-end)
+padding-top,padding-block-start,false,Top padding (block-start)
+padding-bottom,padding-block-end,false,Bottom padding (block-end)
+left,inset-inline-start,true,Left position in LTR
+right,inset-inline-end,true,Right position in LTR
+top,inset-block-start,false,Top position
+bottom,inset-block-end,false,Bottom position
+border-left,border-inline-start,true,Left border in LTR
+border-right,border-inline-end,true,Right border in LTR
+border-top,border-block-start,false,Top border
+border-bottom,border-block-end,false,Bottom border
+width,inline-size,false,Inline dimension
+height,block-size,false,Block dimension
+min-width,min-inline-size,false,Min inline dimension
+max-width,max-inline-size,false,Max inline dimension
+min-height,min-block-size,false,Min block dimension
+max-height,max-block-size,false,Max block dimension
+text-align: left,text-align: start,true,Start-aligned text
+text-align: right,text-align: end,true,End-aligned text
+float: left,float: inline-start,true,Float to start
+float: right,float: inline-end,true,Float to end
+border-top-left-radius,border-start-start-radius,true,Top-left corner in LTR
+border-top-right-radius,border-start-end-radius,true,Top-right corner in LTR
+border-bottom-left-radius,border-end-start-radius,true,Bottom-left corner in LTR
+border-bottom-right-radius,border-end-end-radius,true,Bottom-right corner in LTR

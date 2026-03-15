@@ -1,0 +1,191 @@
+id,condition,field,operator,value,then_field,then_value,priority,reasoning,category
+1,sector,sector,equals,finance,palette,corporate,9,"Financial services require conservative trustworthy design to build user confidence",sector-palette
+2,sector,sector,equals,fintech,palette,corporate,8,"Fintech needs trust signals despite being tech-forward",sector-palette
+3,sector,sector,equals,banking,palette,corporate,9,"Banking requires maximum conservatism and regulatory compliance",sector-palette
+4,sector,sector,equals,insurance,palette,corporate,9,"Insurance products need stability and trust above all",sector-palette
+5,sector,sector,equals,healthcare,palette,minimal-saas,8,"Healthcare UI must be calming and highly accessible",sector-palette
+6,sector,sector,equals,education,palette,illustration,7,"Education benefits from friendly approachable visual language",sector-palette
+7,sector,sector,equals,ai,palette,ai-futuristic,8,"AI products signal technical sophistication with dark futuristic design",sector-palette
+8,sector,sector,equals,devtools,palette,ai-futuristic,8,"Developer tools use dark themes to reduce eye strain",sector-palette
+9,sector,sector,equals,saas,palette,minimal-saas,7,"SaaS products default to clean minimal for broad appeal",sector-palette
+10,sector,sector,equals,ecommerce,palette,minimal-saas,6,"E-commerce needs clean uncluttered product-focused design",sector-palette
+11,sector,sector,equals,fashion,palette,bold-lifestyle,8,"Fashion brands need bold dramatic visual presence",sector-palette
+12,sector,sector,equals,luxury,palette,apple-minimal,8,"Luxury products demand refined understated elegance",sector-palette
+13,sector,sector,equals,gaming,palette,ai-futuristic,7,"Gaming platforms use immersive dark interfaces",sector-palette
+14,sector,sector,equals,crypto,palette,ai-futuristic,8,"Crypto platforms signal technical credibility with dark themes",sector-palette
+15,sector,sector,equals,government,palette,corporate,9,"Government portals need maximum accessibility and conservatism",sector-palette
+16,sector,sector,equals,legal,palette,minimal-corporate,8,"Legal services need understated professional authority",sector-palette
+17,sector,sector,equals,nonprofit,palette,illustration,7,"Nonprofits benefit from warm approachable visual language",sector-palette
+18,sector,sector,equals,startup,palette,gradient-startup,7,"Startups need energetic bold visual presence to stand out",sector-palette
+19,sector,sector,equals,analytics,palette,dashboard,8,"Analytics products need data-dense optimized interfaces",sector-palette
+20,sector,sector,equals,marketing,palette,gradient-startup,6,"Marketing products can use vibrant engaging visuals",sector-palette
+21,product,product_type,equals,dashboard,palette,dashboard,8,"Dashboards need compact data-dense optimized layouts",product-palette
+22,product,product_type,equals,landing-page,palette,gradient-startup,6,"Landing pages benefit from bold visual energy",product-palette
+23,product,product_type,equals,mobile-app,anti_pattern,complex-navigation,8,"Mobile apps must minimize navigation depth and complexity",product-constraint
+24,product,product_type,equals,admin-panel,palette,dashboard,8,"Admin panels need efficient data-dense layouts",product-palette
+25,product,product_type,equals,documentation,palette,ai-futuristic,6,"Documentation sites benefit from dark low-strain themes",product-palette
+26,audience,audience,equals,developers,font_preference,monospace-accent,7,"Developers prefer monospace elements and code-style typography",audience-style
+27,audience,audience,equals,children,font_size,large,9,"Children's interfaces need larger text and touch targets",audience-accessibility
+28,audience,audience,equals,seniors,font_size,large,9,"Senior-focused interfaces need large readable text",audience-accessibility
+29,audience,audience,equals,executives,style,conservative,8,"Executive audiences expect polished conservative design",audience-style
+30,audience,audience,equals,creative,style,expressive,6,"Creative audiences appreciate bold design choices",audience-style
+31,anti_pattern,sector,equals,finance,anti_pattern,playful-animations,9,"Financial UIs must not use playful bouncy animations — erodes trust",sector-anti
+32,anti_pattern,sector,equals,finance,anti_pattern,neon-colors,9,"Neon colors in finance signal unprofessionalism",sector-anti
+33,anti_pattern,sector,equals,finance,anti_pattern,dark-themes,7,"Dark themes in banking can feel untrustworthy to older demographics",sector-anti
+34,anti_pattern,sector,equals,healthcare,anti_pattern,aggressive-colors,9,"Healthcare must avoid alarming color choices that cause anxiety",sector-anti
+35,anti_pattern,sector,equals,healthcare,anti_pattern,dark-themes,7,"Dark themes in healthcare can feel clinical or unwelcoming",sector-anti
+36,anti_pattern,sector,equals,healthcare,anti_pattern,complex-animations,8,"Healthcare UIs need calm predictable interactions",sector-anti
+37,anti_pattern,sector,equals,education,anti_pattern,dark-themes,6,"Dark themes can feel unwelcoming for educational contexts",sector-anti
+38,anti_pattern,sector,equals,education,anti_pattern,angular-designs,6,"Angular sharp designs feel cold for learning environments",sector-anti
+39,anti_pattern,sector,equals,government,anti_pattern,trendy-designs,9,"Government portals must prioritize accessibility over trends",sector-anti
+40,anti_pattern,sector,equals,government,anti_pattern,playful-animations,8,"Government UIs need serious professional tone",sector-anti
+41,anti_pattern,sector,equals,legal,anti_pattern,playful-elements,8,"Legal services need authoritative not playful presentation",sector-anti
+42,anti_pattern,sector,equals,legal,anti_pattern,bright-colors,7,"Legal UIs should use muted professional colors",sector-anti
+43,anti_pattern,sector,equals,luxury,anti_pattern,busy-layouts,9,"Luxury brands need whitespace and breathing room",sector-anti
+44,anti_pattern,sector,equals,luxury,anti_pattern,discount-badges,9,"Discount badges destroy luxury brand perception",sector-anti
+45,anti_pattern,sector,equals,luxury,anti_pattern,playful-elements,7,"Luxury demands refinement not playfulness",sector-anti
+46,anti_pattern,sector,equals,fashion,anti_pattern,corporate-styling,8,"Fashion brands must avoid corporate business aesthetics",sector-anti
+47,anti_pattern,sector,equals,fashion,anti_pattern,pastel-colors,6,"Pastel colors can undermine fashion brand edge",sector-anti
+48,anti_pattern,sector,equals,kids,anti_pattern,small-text,9,"Children's interfaces must use large readable text",sector-anti
+49,anti_pattern,sector,equals,kids,anti_pattern,dark-themes,9,"Dark themes are inappropriate for children's products",sector-anti
+50,anti_pattern,sector,equals,kids,anti_pattern,complex-navigation,9,"Children need simple direct navigation paths",sector-anti
+51,component,product_type,equals,dashboard,required_components,"data-table;tabs;badge;side-navigation",8,"Dashboards need core data display and navigation components",product-component
+52,component,product_type,equals,landing-page,required_components,"hero;navigation;feature-card;social-proof;footer;button",8,"Landing pages need conversion-optimized component set",product-component
+53,component,product_type,equals,ecommerce,required_components,"feature-card;badge;breadcrumb;pagination;button;modal",7,"E-commerce needs product browsing and purchase components",product-component
+54,component,product_type,equals,saas-app,required_components,"button;input;modal;toast;tabs;dropdown;avatar;side-navigation",8,"SaaS apps need comprehensive interaction components",product-component
+55,component,product_type,equals,blog,required_components,"navigation;breadcrumb;footer;accordion;tabs",6,"Blogs need content navigation components",product-component
+56,pattern,product_type,equals,landing-page,required_patterns,"homepage",8,"Landing pages follow the proven homepage pattern",product-pattern
+57,pattern,product_type,equals,dashboard,required_patterns,"dashboard;settings-page",8,"Dashboard products need dashboard and settings patterns",product-pattern
+58,pattern,product_type,equals,saas-app,required_patterns,"dashboard;form;authentication;settings-page;empty-state",8,"SaaS apps need comprehensive page pattern coverage",product-pattern
+59,pattern,product_type,equals,ecommerce,required_patterns,"homepage;form;authentication",7,"E-commerce needs browsing and checkout patterns",product-pattern
+60,wcag,audience,contains,accessibility,wcag_level,AAA,9,"Accessibility-focused products should target WCAG AAA",accessibility
+61,wcag,sector,equals,government,wcag_level,AAA,9,"Government portals should target WCAG AAA compliance",accessibility
+62,wcag,sector,equals,healthcare,wcag_level,AA,8,"Healthcare must meet at minimum WCAG AA compliance",accessibility
+63,wcag,sector,equals,education,wcag_level,AA,8,"Education platforms must be accessible to all learners",accessibility
+64,motion,sector,equals,finance,motion_level,minimal,8,"Finance UIs should minimize animation to maintain professionalism",sector-motion
+65,motion,sector,equals,healthcare,motion_level,minimal,8,"Healthcare interfaces should use calm minimal motion",sector-motion
+66,motion,sector,equals,government,motion_level,minimal,9,"Government UIs must minimize motion for accessibility",sector-motion
+67,motion,sector,equals,gaming,motion_level,rich,6,"Gaming interfaces can use rich engaging animations",sector-motion
+68,motion,sector,equals,entertainment,motion_level,rich,6,"Entertainment platforms benefit from dynamic motion",sector-motion
+69,motion,product_type,equals,dashboard,motion_level,minimal,7,"Dashboards should minimize animation to avoid distraction",product-motion
+70,motion,product_type,equals,landing-page,motion_level,moderate,6,"Landing pages benefit from scroll-reveal and entrance animations",product-motion
+71,density,product_type,equals,dashboard,layout_density,dense,8,"Dashboards prioritize information density",product-density
+72,density,product_type,equals,landing-page,layout_density,spacious,7,"Landing pages need generous whitespace for readability",product-density
+73,density,product_type,equals,mobile-app,layout_density,moderate,7,"Mobile apps balance density with touch-friendly spacing",product-density
+74,density,sector,equals,analytics,layout_density,dense,8,"Analytics products maximize data visibility",sector-density
+75,density,sector,equals,luxury,layout_density,spacious,8,"Luxury products use generous whitespace",sector-density
+76,typography,sector,equals,legal,font_preference,serif-headings,7,"Legal services benefit from authoritative serif typography",sector-typography
+77,typography,sector,equals,finance,font_preference,professional-sans,7,"Finance uses clean professional sans-serif typography",sector-typography
+78,typography,sector,equals,editorial,font_preference,serif-body,8,"Editorial content benefits from serif body text",sector-typography
+79,typography,sector,equals,tech,font_preference,modern-sans,6,"Tech products use modern geometric sans-serif fonts",sector-typography
+80,typography,sector,equals,devtools,font_preference,monospace-accent,8,"Developer tools incorporate monospace elements",sector-typography
+81,color,sector,equals,healthcare,color_constraint,avoid-red-dominant,8,"Healthcare should avoid dominant red as it signals danger",sector-color
+82,color,sector,equals,finance,color_constraint,use-blue-family,7,"Finance benefits from blue which signals trust and stability",sector-color
+83,color,sector,equals,food,color_constraint,use-warm-tones,7,"Food products benefit from warm appetizing color palettes",sector-color
+84,color,sector,equals,wellness,color_constraint,use-nature-tones,7,"Wellness products use natural calming green and earth tones",sector-color
+85,color,sector,equals,kids,color_constraint,use-bright-primary,7,"Children's products benefit from bright primary colors",sector-color
+86,shadow,palette,equals,ai-futuristic,shadow_style,glow-border,8,"Dark themes need glow-border shadows since dark shadows are invisible",palette-shadow
+87,shadow,palette,equals,corporate,shadow_style,conservative-subtle,7,"Corporate palettes use subtle restrained shadow",palette-shadow
+88,shadow,palette,equals,bold-lifestyle,shadow_style,none-or-hard,7,"Brutalist palettes avoid soft shadows — use none or hard offset",palette-shadow
+89,shadow,palette,equals,apple-minimal,shadow_style,smooth-diffused,8,"Apple-style palettes use smooth highly diffused shadows",palette-shadow
+90,shadow,palette,equals,illustration,shadow_style,soft-warm,6,"Illustration palettes use soft warm-toned shadows",palette-shadow
+91,radius,palette,equals,bold-lifestyle,radius_style,sharp-0px,9,"Brutalist palette uses 0px radius for stark angular feel",palette-radius
+92,radius,palette,equals,illustration,radius_style,rounded-large,8,"Illustration palette uses large radii for friendly feel",palette-radius
+93,radius,palette,equals,corporate,radius_style,small-conservative,7,"Corporate palette uses small conservative radii",palette-radius
+94,radius,palette,equals,ai-futuristic,radius_style,small-sharp,7,"AI Futuristic uses small radii for technical precise feel",palette-radius
+95,radius,palette,equals,apple-minimal,radius_style,smooth-medium,8,"Apple palette uses smooth medium radii for refined feel",palette-radius
+96,layout,product_type,equals,landing-page,layout_type,single-column-sections,7,"Landing pages use full-width stacked sections",product-layout
+97,layout,product_type,equals,dashboard,layout_type,sidebar-content,8,"Dashboards use sidebar plus content area layout",product-layout
+98,layout,product_type,equals,blog,layout_type,narrow-content,7,"Blogs use narrow centered content column",product-layout
+99,layout,product_type,equals,ecommerce,layout_type,grid-browsing,7,"E-commerce uses grid layouts for product browsing",product-layout
+100,layout,product_type,equals,documentation,layout_type,sidebar-content,7,"Documentation uses sidebar navigation with content area",product-layout
+101,contrast,theme_mode,equals,dark,contrast_requirement,glow-borders,8,"Dark mode requires glow-border technique for visible elevation",theme-contrast
+102,contrast,theme_mode,equals,light,contrast_requirement,standard-shadow,6,"Light mode uses standard drop shadow for elevation",theme-contrast
+103,responsive,product_type,equals,dashboard,mobile_strategy,collapse-sidebar,8,"Dashboard sidebars collapse to icons then off-canvas on mobile",responsive
+104,responsive,product_type,equals,landing-page,mobile_strategy,stack-sections,7,"Landing page sections stack vertically on mobile",responsive
+105,responsive,product_type,equals,data-table,mobile_strategy,card-transform,8,"Data tables transform to card layouts on mobile",responsive
+106,performance,product_type,equals,landing-page,performance_target,lcp-2.5s,8,"Landing pages must achieve sub-2.5s LCP",performance
+107,performance,product_type,equals,ecommerce,performance_target,lcp-2.0s,9,"E-commerce has strict performance requirements for conversion",performance
+108,performance,sector,equals,finance,performance_target,lcp-2.0s,8,"Financial products need fast reliable performance",performance
+109,icon,product_type,equals,dashboard,icon_style,line-16px,7,"Dashboards use 16px line icons for density",product-icon
+110,icon,product_type,equals,landing-page,icon_style,filled-24px,6,"Landing pages use 24px filled icons for visual impact",product-icon
+111,sector,sector,equals,crypto,palette,ai-futuristic,8,"Crypto platforms signal technical credibility and innovation with dark futuristic themes",sector-palette
+112,sector,sector,equals,web3,palette,ai-futuristic,8,"Web3 products use dark immersive themes to convey decentralized technology",sector-palette
+113,sector,sector,equals,defi,palette,ai-futuristic,8,"DeFi dashboards need technical dark interfaces for data-heavy trading displays",sector-palette
+114,sector,sector,equals,iot,palette,dashboard,7,"IoT dashboards prioritize data density and real-time monitoring layouts",sector-palette
+115,sector,sector,equals,gaming,palette,ai-futuristic,7,"Gaming platforms use immersive dark interfaces with neon accents for engagement",sector-palette
+116,sector,sector,equals,esports,palette,ai-futuristic,8,"Esports platforms need high-energy dark themes with competitive visual language",sector-palette
+117,sector,sector,equals,social-media,palette,minimal-saas,6,"Social platforms default to clean minimal to keep focus on user content",sector-palette
+118,sector,sector,equals,real-estate,palette,minimal-corporate,7,"Real estate platforms need professional understated design to build buyer confidence",sector-palette
+119,product,product_type,equals,telehealth,required_components,"button;input;modal;avatar;badge;tabs;toast;toggle",8,"Telehealth apps need video-call support components and patient interaction elements",product-component
+120,product,product_type,equals,streaming,required_components,"button;feature-card;tabs;badge;avatar;modal;navigation;progress-indicator",7,"Streaming platforms need media browsing and playback control components",product-component
+121,product,product_type,equals,marketplace,required_components,"feature-card;badge;pagination;input;select;modal;avatar;data-table;breadcrumb",8,"Marketplaces need product browsing search and transaction components",product-component
+122,product,product_type,equals,community,required_components,"button;avatar;badge;tabs;input;toast;modal;dropdown;pagination",7,"Community platforms need user interaction and content discussion components",product-component
+123,product,product_type,equals,portfolio,required_components,"hero;feature-card;navigation;footer;modal;button;testimonial",6,"Portfolio sites need visual showcase and contact conversion components",product-component
+124,anti_pattern,sector,equals,crypto,anti_pattern,pastel-colors,8,"Crypto platforms using pastels signal lack of technical sophistication",sector-anti
+125,anti_pattern,sector,equals,crypto,anti_pattern,playful-illustrations,7,"Playful illustrations undermine the serious financial nature of crypto trading",sector-anti
+126,anti_pattern,sector,equals,web3,anti_pattern,corporate-conservative,7,"Web3 products should avoid traditional corporate aesthetics that contradict decentralization",sector-anti
+127,anti_pattern,sector,equals,iot,anti_pattern,playful-animations,7,"IoT dashboards showing real-time data should not use distracting animations",sector-anti
+128,anti_pattern,sector,equals,gaming,anti_pattern,corporate-styling,8,"Gaming platforms using corporate aesthetics alienate their core audience",sector-anti
+129,anti_pattern,sector,equals,esports,anti_pattern,muted-colors,7,"Esports needs high-energy visuals and muted colors fail to generate excitement",sector-anti
+130,anti_pattern,sector,equals,social-media,anti_pattern,data-dense,6,"Social platforms should not look like analytics dashboards to casual users",sector-anti
+131,anti_pattern,sector,equals,real-estate,anti_pattern,neon-colors,7,"Real estate is a trust-based purchase and neon colors erode buyer confidence",sector-anti
+132,responsive,product_type,equals,mobile-app,mobile_strategy,mobile-first,9,"Mobile apps must be designed mobile-first then scaled up for tablets",responsive
+133,responsive,product_type,equals,streaming,mobile_strategy,adaptive-media,8,"Streaming platforms must adapt media player and grid layouts to screen size",responsive
+134,responsive,product_type,equals,community,mobile_strategy,stack-cards,7,"Community content cards stack vertically on mobile for thumb scrolling",responsive
+135,density,sector,equals,crypto,layout_density,dense,8,"Crypto trading interfaces maximize data visibility for price monitoring",sector-density
+136,density,sector,equals,defi,layout_density,dense,8,"DeFi dashboards need dense layouts for yield and liquidity pool data",sector-density
+137,density,sector,equals,social-media,layout_density,moderate,6,"Social platforms balance content density with comfortable scrolling",sector-density
+138,density,sector,equals,real-estate,layout_density,moderate,6,"Real estate listings need balanced density for property card browsing",sector-density
+139,motion,sector,equals,crypto,motion_level,minimal,8,"Crypto trading UIs should minimize animation to avoid distracting from price data",sector-motion
+140,motion,sector,equals,social-media,motion_level,moderate,6,"Social platforms use moderate animations for engagement without overwhelming",sector-motion
+141,motion,sector,equals,esports,motion_level,rich,7,"Esports platforms can use rich animations to match the competitive energy",sector-motion
+142,color,sector,equals,crypto,color_constraint,use-neon-accents,7,"Crypto interfaces benefit from neon accent colors on dark backgrounds for data emphasis",sector-color
+143,color,sector,equals,iot,color_constraint,use-status-colors,8,"IoT dashboards rely heavily on semantic status colors for device state indication",sector-color
+144,color,sector,equals,gaming,color_constraint,use-vibrant-neon,6,"Gaming platforms use vibrant neon palettes for immersive visual experiences",sector-color
+145,color,sector,equals,real-estate,color_constraint,use-neutral-warm,7,"Real estate benefits from warm neutral palettes that feel like home",sector-color
+146,typography,sector,equals,crypto,font_preference,monospace-accent,7,"Crypto platforms use monospace for numerical data display and code elements",sector-typography
+147,typography,sector,equals,social-media,font_preference,friendly-sans,6,"Social platforms use rounded friendly sans-serif for approachable feel",sector-typography
+148,typography,sector,equals,gaming,font_preference,bold-technical,7,"Gaming platforms use bold technical fonts for competitive aggressive feel",sector-typography
+149,performance,product_type,equals,streaming,performance_target,lcp-1.5s,9,"Streaming platforms need extremely fast load for media content delivery",performance
+150,performance,product_type,equals,marketplace,performance_target,lcp-2.0s,8,"Marketplaces need fast product loading for browse-and-buy conversion",performance
+151,performance,product_type,equals,community,performance_target,lcp-2.5s,7,"Community platforms need fast feed loading for engagement retention",performance
+152,cross_cutting,preference,equals,dark-mode,palette_override,ai-futuristic,6,"Dark mode preference users benefit from AI futuristic dark-first palettes",cross-cutting
+153,cross_cutting,preference,equals,mobile-first,touch_target,48px-minimum,9,"Mobile-first products must ensure all interactive elements meet 48px touch targets",cross-cutting
+154,cross_cutting,data_type,equals,data-visualization,required_components,"data-table;tabs;badge;tooltip;progress-indicator",8,"Data visualization products require comprehensive data display components",cross-cutting
+155,cross_cutting,form_density,equals,form-heavy,layout_type,progressive-disclosure,8,"Form-heavy products should use progressive disclosure to reduce cognitive load",cross-cutting
+156,performance,loading_strategy,equals,lazy-loading,pattern,skeleton-first,7,"Lazy-loaded content should show skeleton states before actual content appears",performance
+157,performance,loading_strategy,equals,skeleton-states,animation,shimmer-pulse,6,"Skeleton states should use shimmer animation to indicate active loading",performance
+158,performance,data_volume,equals,large-dataset,pagination_type,cursor-pagination,8,"Large datasets should use cursor-based pagination for consistent performance",performance
+159,performance,data_volume,equals,moderate-dataset,pagination_type,offset-pagination,6,"Moderate datasets can use traditional offset pagination with page numbers",performance
+160,performance,content_type,equals,feed,scroll_type,infinite-scroll,6,"Social feeds and content streams benefit from infinite scroll for engagement",performance
+161,performance,content_type,equals,catalog,scroll_type,paginated,7,"Product catalogs and search results should use pagination for findability",performance
+162,layout,product_type,equals,telehealth,layout_type,split-panel,7,"Telehealth apps use split-panel layouts for video call plus notes",product-layout
+163,layout,product_type,equals,streaming,layout_type,grid-media,7,"Streaming platforms use media grid layouts for content discovery",product-layout
+164,layout,product_type,equals,community,layout_type,feed-sidebar,6,"Community platforms use feed-with-sidebar layouts for content and context",product-layout
+165,layout,product_type,equals,marketplace,layout_type,grid-browsing,7,"Marketplace platforms use product grid layouts with filter sidebars",product-layout
+166,transition,sector,equals,luxury,transition_style,elegant,7,"Luxury brands benefit from smooth elegant transitions that convey premium feel",sector-transition
+167,transition,sector,equals,dashboard,transition_style,instant,7,"Dashboard UIs use instant transitions to avoid slowing down data-dense workflows",sector-transition
+168,transition,sector,equals,healthcare,transition_style,gentle,7,"Healthcare interfaces use gentle transitions to maintain calm user experience",sector-transition
+169,transition,sector,equals,finance,transition_style,snappy,7,"Finance UIs use snappy transitions for responsive data-driven interactions",sector-transition
+170,transition,sector,equals,entertainment,transition_style,elegant,6,"Entertainment platforms use elegant transitions for immersive visual experiences",sector-transition
+171,component,product_type,equals,admin-panel,required_components,"data-table;tabs;badge;side-navigation;drawer;alert-dialog;combobox",8,"Admin panels need data management components with confirmation dialogs and advanced selection",product-component
+172,component,product_type,equals,documentation,required_components,"code-block;tabs;breadcrumb;side-navigation;accordion;command-palette;tree-view",8,"Documentation sites need content navigation hierarchy and code display components",product-component
+173,component,product_type,equals,mobile-app,required_components,"button;input;modal;toast;tabs;toggle;drawer;stepper;otp-input",8,"Mobile apps need touch-friendly interaction components with progressive flows",product-component
+174,component,form_density,equals,form-heavy,required_components,"input;select;checkbox;radio;alert;combobox;date-picker;file-upload;stepper",8,"Form-heavy products need comprehensive form controls for data collection workflows",cross-cutting
+175,component,data_type,equals,data-heavy,required_components,"skeleton;progress-indicator;pagination;data-table;toast",7,"Data-heavy products need loading states and data navigation components",cross-cutting
+176,component,sector,equals,devtools,required_components,"code-block;command-palette;tabs;drawer;popover;toolbar;tree-view;segmented-control",8,"Developer tools need code-centric components with keyboard-first navigation",sector-component
+177,component,sector,equals,finance,required_components,"data-table;alert-dialog;stepper;otp-input;combobox;badge;tabs",8,"Finance products need secure verification flows and confirmation dialogs for transactions",sector-component
+178,component,sector,equals,healthcare,required_components,"stepper;alert;checkbox;radio;date-picker;file-upload;skeleton",7,"Healthcare products need multi-step intake forms with document upload capabilities",sector-component
+179,component,sector,equals,ecommerce,required_components,"carousel;pricing-table;skeleton;stepper;drawer;badge;pagination",7,"E-commerce products need product browsing components with loading states and checkout flows",sector-component
+180,component,sector,equals,crypto,required_components,"data-table;alert-dialog;otp-input;skeleton;drawer;code-block",8,"Crypto platforms need secure transaction confirmations with real-time data loading states",sector-component
+181,component,product_type,equals,booking,required_components,"date-picker;stepper;select;modal;alert-dialog;skeleton",7,"Booking products need date selection with multi-step reservation confirmation flows",product-component
+182,component,product_type,equals,social-app,required_components,"chip-input;file-upload;popover;carousel;skeleton;otp-input",7,"Social apps need content creation components with verification and media upload",product-component
+183,component,product_type,equals,editor,required_components,"toolbar;command-palette;popover;tree-view;code-block;drawer",7,"Editor products need formatting toolbars with file navigation and command access",product-component
+184,component,product_type,equals,onboarding,required_components,"stepper;checkbox;radio;otp-input;progress-indicator;alert",7,"Onboarding flows need step-by-step progression with verification and selection controls",product-component
+185,component,product_type,equals,crm,required_components,"data-table;combobox;chip-input;drawer;date-picker;skeleton",8,"CRM products need advanced filtering with relationship tagging and loading states",product-component
+186,component,product_type,equals,productivity,required_components,"toolbar;command-palette;drawer;segmented-control;skeleton;popover",7,"Productivity tools need keyboard-first command access with quick navigation panels",product-component
+187,component,product_type,equals,analytics,required_components,"data-table;skeleton;popover;segmented-control;date-picker;tooltip",8,"Analytics products need data visualization support with loading states and date filtering",product-component
+188,cross_cutting,content_type,equals,marketing,required_components,"carousel;pricing-table;testimonial;social-proof;hero",7,"Marketing content needs conversion-optimized components for social proof and pricing",cross-cutting
+189,cross_cutting,interaction,equals,destructive-actions,required_components,"alert-dialog;alert;toast",8,"Destructive action flows require explicit confirmation dialogs and feedback notifications",cross-cutting
+190,cross_cutting,interaction,equals,keyboard-first,required_components,"command-palette;toolbar;popover;tree-view;combobox",7,"Keyboard-first interfaces need command access and navigable hierarchical components",cross-cutting

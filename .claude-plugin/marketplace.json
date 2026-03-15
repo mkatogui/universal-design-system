@@ -16,10 +16,7 @@
         "name": "mkatogui",
         "email": "mkatogui@gmail.com"
       },
-      "source": {
-        "source": "url",
-        "url": "https://github.com/mkatogui/universal-design-system.git"
-      },
+      "source": "./plugins/universal-design-system",
       "category": "design"
     }
   ]
