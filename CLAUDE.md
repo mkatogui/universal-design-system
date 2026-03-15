@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Universal Design System v0.4.0 — a deterministic UI recommendation engine powered by retrieval and rule evaluation that recommends palettes, components, patterns, and anti-patterns based on product domain. 9 structural palettes, 43 components, ~600 tokens, 20 CSV databases (1,676+ rows), 84 anti-pattern rules, Tailwind CSS generation, React/Vue/Svelte/Web Components output, WCAG 2.2 AA + APCA dual reporting, 20 AI platform support.
+Universal Design System v0.4.0 — a deterministic UI recommendation engine powered by retrieval and rule evaluation that recommends palettes, components, patterns, and anti-patterns based on product domain. 9 structural palettes, 72 components (43 core + 29 from roadmap), ~600 tokens, 20 CSV databases (1,676+ rows), 84 anti-pattern rules, Tailwind CSS generation, React/Vue/Svelte/Web Components output, WCAG 2.2 AA + APCA dual reporting, 20 AI platform support.
 
 ## Key Commands
 
@@ -89,7 +89,7 @@ User Query → DomainDetector → BM25 Search → Rule Application → Token Res
 - **src/scripts/** — Python: `core.py` (BM25 engine + domain detector + reasoning), `search.py` (CLI search), `design_system.py` (full spec generator with Tailwind/React/Vue/Svelte output), `palette.py` (custom palette CLI)
 - **src/mcp/** — MCP server (Node.js) exposing 6 tools: `search_design_system`, `get_palette`, `get_component`, `generate_tokens`, `list_palettes`, `list_components`. Config examples in `src/mcp/README.md`
 - **cli/** — TypeScript CLI (Commander.js). Commands: `install` (20 platforms), `search`, `init`, `generate`. Auto-detects platform by checking for `.claude/`, `.cursor/`, etc. directories
-- **packages/react/** — React component library (`@mkatogui/uds-react`). 8 accessible components, bundled with tsup, size-limited (100KB JS, 30KB CSS)
+- **packages/react/** — React component library (`@mkatogui/uds-react`). 72 components (aligned with components.csv; Vue/Svelte have Phase 1–2 parity), bundled with tsup, size-limited (100KB JS, 30KB CSS)
 - **docs/** — 8 self-contained HTML docs pages (see Docs Structure below)
 - **scripts/** — Python validators (tokens, WCAG, docs)
 - **tests/accessibility/** — Playwright + axe-core: `axe-ci.spec.ts` (144 tests: 8 pages × 9 palettes × 2 modes), `aria-attributes.spec.ts`, `keyboard-nav.spec.ts`
