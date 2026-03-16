@@ -452,10 +452,10 @@ code{font-family:var(--font-mono);font-size:0.9em;padding:2px 6px;border-radius:
   font-size:var(--text-label);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;
   color:var(--color-text-tertiary);margin-bottom:var(--space-3);
 }
-.playground__swatches{display:flex;gap:var(--space-2);flex-wrap:wrap;}
+.playground__swatches{display:flex;gap:var(--space-2) var(--space-2);flex-wrap:wrap;}
 .playground__swatch{
   width:44px;height:44px;border-radius:var(--radius-md);border:2px solid var(--color-border-default);
-  position:relative;flex-shrink:0;
+  position:relative;flex-shrink:0;margin-bottom:16px;
 }
 .playground__swatch-label{
   position:absolute;bottom:-18px;left:50%;transform:translateX(-50%);
@@ -688,7 +688,7 @@ html,body{overflow-x:hidden;}
   .playground__palette-grid{grid-template-columns:repeat(2,1fr);}
   .playground__result{padding:var(--space-4);}
   .playground__swatches{gap:var(--space-1);}
-  .playground__swatch{width:36px;height:36px;}
+  .playground__swatch{width:36px;height:36px;margin-bottom:14px;}
   .playground__swatch-label{font-size:8px;}
 }
 /* Touch feedback */
