@@ -1,5 +1,25 @@
 # Changelog
 
+## 0.5.1 (unreleased)
+
+### Added
+
+- **FormSection** — New React component for form field groups (title + optional description + grouped fields). Use for consistent structure on form pages (e.g. ATS, settings). Exported from `@mkatogui/uds-react`.
+- **Input `type` and `multiline`** — Native input kind via `type` ('text' | 'email' | 'password' | 'number' | 'search'); use `multiline` for `<textarea>`. `variant` kept for backward compatibility but deprecated in favor of `type` + `multiline`.
+- **Input `optional` and `optionalLabel`** — First-class optional field semantics; component can show "Optional" (or custom `optionalLabel`) in the helper area.
+- **FileUpload `error`** — Public prop to show an error message below the zone (e.g. from parent validation). Internal validation errors still apply when `error` is not set.
+- **FileUpload placeholder props** — `placeholderTitle`, `placeholderDescription`, `acceptLabel` to customize dropzone/button text without replacing `children`.
+- **Form patterns doc** — `docs/FORM_PATTERNS.md` (required/optional, validation, FormSection, public BEM for form components).
+- **Adoption feedback doc** — `docs/ADOPTION_FEEDBACK.md` with implemented summary and remaining suggestions.
+- **Playground** — Form Section added to interactive playground with default and with-description variants.
+
+### Changed
+
+- **Input** — `required` and `optional` together: when `optional` is true, asterisk is not shown and helper shows optional label.
+- **FileUpload** — Placeholder uses `uds-file-upload__text` and optional `uds-file-upload__sub` for description.
+
+---
+
 ## 0.5.0
 
 ### Added

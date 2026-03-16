@@ -1,9 +1,19 @@
 {
   "name": "@mkatogui/uds-mcp-server",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "MCP server for Universal Design System — AI-native design system queries",
   "main": "index.js",
   "type": "module",
+  "publishConfig": { "access": "public" },
+  "files": ["index.js", "README.md"],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mkatogui/universal-design-system.git",
+    "directory": "src/mcp"
+  },
+  "keywords": ["mcp", "design-system", "model-context-protocol", "claude", "cursor"],
+  "author": "Marcelo Katogui",
+  "license": "MIT",
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.0.0"
   }
