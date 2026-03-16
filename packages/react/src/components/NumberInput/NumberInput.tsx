@@ -39,7 +39,12 @@ export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
 
     const handleStep = (delta: number) => {
       const next = (Number(numValue) || 0) + delta;
-      const clamped = min != null && next < min ? min : max != null && next > max ? max : next;
+      let clamped = next;
+      if (min != null && next < min) {
+        clamped = min;
+      } else if (max != null && next > max) {
+        clamped = max;
+      }
       onChange?.({
         target: { value: String(clamped) },
       } as React.ChangeEvent<HTMLInputElement>);
@@ -67,7 +72,7 @@ export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
           step={step}
           disabled={disabled}
           onChange={onChange}
-          aria-valuenow={numValue !== '' ? Number(numValue) : undefined}
+          aria-valuenow={numValue === '' ? undefined : Number(numValue)}
           aria-valuemin={min}
           aria-valuemax={max}
           className="uds-number-input__input"

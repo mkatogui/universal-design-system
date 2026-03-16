@@ -38,7 +38,7 @@ describe('Stepper', () => {
   it('calls onChange when a step is clicked (non-linear allows going back)', () => {
     const onChange = vi.fn();
     render(<Stepper steps={steps} activeStep={2} linear={false} onChange={onChange} />);
-    const step1 = screen.getByText('Details').closest('[role="button"]');
+    const step1 = screen.getByText('Details').closest('button');
     expect(step1).toBeInTheDocument();
     fireEvent.click(step1!);
     expect(onChange).toHaveBeenCalledWith(0);

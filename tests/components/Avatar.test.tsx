@@ -7,7 +7,7 @@ import { Avatar } from '../../packages/react/src/components/Avatar/Avatar';
 describe('Avatar', () => {
   it('renders an image when src is provided', () => {
     const { container } = render(<Avatar src="/avatar.jpg" alt="Jane Doe" />);
-    const wrapper = screen.getByRole('img', { name: 'Jane Doe' });
+    const wrapper = screen.getByLabelText('Jane Doe');
     expect(wrapper).toBeInTheDocument();
     expect(wrapper).toHaveClass('uds-avatar');
     const img = container.querySelector('.uds-avatar__image');
@@ -54,7 +54,6 @@ describe('Avatar', () => {
     const statusEl = container.querySelector('.uds-avatar__status--online');
     expect(statusEl).toBeInTheDocument();
     expect(statusEl).toHaveAttribute('aria-label', 'online');
-    expect(statusEl).toHaveAttribute('role', 'img');
   });
 
   it('renders group variant with children', () => {

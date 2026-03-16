@@ -62,8 +62,8 @@ export const Stepper: React.FC<StepperProps> = ({
 
         return (
           <React.Fragment key={step.id}>
-            {/* biome-ignore lint/a11y/useSemanticElements: step div uses role=button for a11y */}
-            <div
+            <button
+              type="button"
               className={[
                 'uds-stepper__step',
                 isCompleted && 'uds-stepper__step--completed',
@@ -73,17 +73,8 @@ export const Stepper: React.FC<StepperProps> = ({
                 .filter(Boolean)
                 .join(' ')}
               aria-current={isCurrent ? 'step' : undefined}
-              aria-disabled={isPending && linear ? 'true' : undefined}
-              role="button"
-              tabIndex={isClickable ? 0 : -1}
-              onClick={() => isClickable && handleStepClick(index)}
-              onKeyDown={(e) => {
-                if (!isClickable) return;
-                if (e.key === 'Enter' || e.key === ' ') {
-                  e.preventDefault();
-                  handleStepClick(index);
-                }
-              }}
+              disabled={!isClickable}
+              onClick={() => handleStepClick(index)}
             >
               <span className="uds-stepper__step-indicator">
                 {isCompleted ? (
@@ -104,7 +95,7 @@ export const Stepper: React.FC<StepperProps> = ({
               </span>
               <span className="uds-stepper__step-label">{step.label}</span>
               {step.optional && <span className="uds-stepper__step-optional">(optional)</span>}
-            </div>
+            </button>
             {index < steps.length - 1 && (
               <span
                 className={[
