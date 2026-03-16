@@ -14,8 +14,8 @@
     "skills": [
       {
         "name": "universal-design-system",
-        "description": "Core design system skill — domain detection, BM25 search, rule engine, palette selection, token resolution, Tailwind/React/Vue/Svelte output",
-        "triggers": ["design system", "ui design", "component library", "design tokens", "color palette"]
+        "description": "MAIN — Design system generator: build/design/implement any UI. Domain detection, BM25 search, rule engine, palette selection, token resolution, Tailwind/React/Vue/Svelte output. Use for landing pages, dashboards, apps, style guides.",
+        "triggers": ["build a landing page", "build a dashboard", "create a design system", "design a ui", "design system", "ui design", "component library", "design tokens", "color palette"]
       },
       {
         "name": "brand-identity",
@@ -41,6 +41,36 @@
         "name": "pre-pr-review",
         "description": "Deep code review and CI simulation — Biome lint, TypeScript type-check, Vitest, SonarCloud code smell detection",
         "triggers": ["pre-pr review", "code quality check", "review before pr"]
+      },
+      {
+        "name": "i18n-and-rtl",
+        "description": "Internationalization and RTL layout: logical CSS, dir=rtl, text expansion, RTL mapper using UDS localization.csv",
+        "triggers": ["rtl", "right to left", "arabic layout", "hebrew", "i18n", "localization", "logical properties", "multilingual ui", "l10n"]
+      },
+      {
+        "name": "figma-handoff",
+        "description": "Figma to code handoff: UDS Figma tokens, design-tokens.json sync, naming conventions, Dev Mode alignment",
+        "triggers": ["figma to code", "design handoff", "dev mode", "figma tokens", "design to code", "Figma variables", "Tokens Studio", "design specs"]
+      },
+      {
+        "name": "component-docs",
+        "description": "Component documentation and Storybook: stories, MDX, props tables, usage guidelines from UDS component specs",
+        "triggers": ["storybook", "component documentation", "document a component", "usage guidelines", "props table", "design system docs", "component catalog", "MDX"]
+      },
+      {
+        "name": "design-system-governance",
+        "description": "Design system governance and scaling: centralized vs federated, lifecycle, contribution model, multi-team adoption",
+        "triggers": ["design system governance", "scaling design system", "multi-team", "federated", "contribution model", "design ops", "design system adoption", "multi-brand"]
+      },
+      {
+        "name": "multi-brand-theming",
+        "description": "Multi-brand and theming: customize colors; palette generated from user input (hex). Derive palettes, data-theme, white-label UI using UDS tokens.",
+        "triggers": ["multi-brand", "white label", "theming", "custom colors", "my brand colors", "palette from hex", "customize colors", "custom palette", "theme variant", "white-label ui"]
+      },
+      {
+        "name": "ui-spec-prd",
+        "description": "UI spec and PRD: product type, sector, key components, palette, anti-patterns; plan before building; design_system.py --persist",
+        "triggers": ["product requirements", "ui spec", "prd for ui", "plan a landing page", "spec the dashboard", "requirements for design", "before building"]
       }
     ],
     "agents": [

@@ -31,12 +31,18 @@ This skill explains what was installed when you ran `uds install` (or `npx @mkat
 
 | Skill | When to use |
 |-------|-------------|
-| **universal-design-system** | Design system overview, palettes, components, tokens, reasoning engine, BM25 search, Tailwind/React/Vue/Svelte output. |
+| **universal-design-system** (MAIN) | **Design system generator** — use when the user wants to build, design, or implement any UI (landing page, dashboard, app). Full flow: domain detection → BM25 search → rules → palette, components, patterns, typography, anti-patterns, pre-delivery checklist. Tailwind/React/Vue/Svelte output. |
 | **brand-identity** | Brand systems: color psychology, typography pairings, visual identity rules mapped to UDS palettes. |
 | **design-audit** | Audit UIs for WCAG, contrast, typography, spacing, anti-patterns; scored reports and fixes. |
 | **ui-styling** | Concrete CSS help with UDS tokens: snippets, dark mode, responsive breakpoints, no hardcoded values. |
 | **slides-design** | Presentation design: slide templates, typography, colors mapped to UDS palettes. |
 | **pre-pr-review** | Deep review before PR: TypeScript, lint, tests, SonarCloud-style checks that would run in CI. |
+| **i18n-and-rtl** | RTL and i18n: logical CSS (localization.csv), dir=rtl, text expansion, rtl_mapper.py for existing CSS. |
+| **figma-handoff** | Figma to code: align Figma variables with design-tokens.json, naming conventions, Dev Mode, token sync. |
+| **component-docs** | Component documentation and Storybook: stories, MDX, props tables, usage guidelines from UDS component specs. |
+| **design-system-governance** | Governance and scaling: centralized vs federated, lifecycle, contribution model, multi-team adoption. |
+| **multi-brand-theming** | Customize colors: palette generated from user input (hex). Multi-brand, custom palettes (palette.py), data-theme, white-label UI. |
+| **ui-spec-prd** | UI spec/PRD before building: product type, sector, palette, key components, anti-patterns; design_system.py --persist. |
 
 The AI **picks skills by triggers**: when the user says things like “design system”, “brand colors”, “accessibility audit”, “button style”, “slides”, or “review before PR”, the matching skill is used. You don’t have to “enable” them one by one; they are all available and the model chooses based on the conversation.
 
