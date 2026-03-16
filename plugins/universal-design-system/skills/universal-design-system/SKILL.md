@@ -1,14 +1,29 @@
 ---
 name: Universal Design System
-description: Production-grade AI-native design system with 9 structural palettes, 600 W3C DTCG tokens, 43 BEM components, BM25 reasoning engine, WCAG 2.2 AA compliance, Tailwind CSS generation, React/Vue/Svelte output, and industry-specific design rules across 1,600+ data rows. Reverse-engineered from 100 modern websites.
-version: 0.4.0
+description: MAIN skill — Intelligent design system generation. Domain detection, BM25 search, rule engine, palette selection, token resolution, Tailwind/React/Vue/Svelte output. Use when the user wants to build, design, or implement any UI (landing page, dashboard, app, component set, style guide).
+version: 0.6.0
 triggers:
+  - build a landing page
+  - build a dashboard
+  - build an app
+  - create a landing page
+  - create a dashboard
+  - create a design system
+  - design a ui
+  - design a landing page
+  - design a dashboard
   - design system
+  - implement a ui
+  - style a dashboard
+  - style a landing page
   - ui design
   - ux design
   - component library
   - design tokens
   - color palette
+  - custom colors
+  - my brand colors
+  - palette from hex
   - typography
   - landing page design
   - dashboard design
@@ -77,13 +92,46 @@ triggers:
   - education app
 ---
 
-# Universal Design System — Claude Code Skill
+# Universal Design System — MAIN Skill (Design System Generator)
 
 > Other tools tell AI what colors to use. We give it a complete, accessible, WCAG-validated design system it can ship.
 
-A production-grade AI-native design system analyzed from 100 modern websites, distilled into one governed brand foundation with 9 structural palettes, 43 components, 8 patterns, and automated WCAG 2.2 AA compliance.
+**This is the MAIN skill.** Use it whenever the user wants to **build**, **design**, or **implement** a UI: landing page, dashboard, app, component set, or style guide. One flow produces palette, components, patterns, typography, anti-patterns to avoid, and a pre-delivery checklist — in seconds.
+
+A production-grade AI-native design system analyzed from 100 modern websites: 9 structural palettes, 43 components, 8 patterns, automated WCAG 2.2 AA compliance.
 
 **Key stats:** 600 tokens | 43 components | 9 palettes | 100% WCAG AA | 1,600+ data rows across 20 databases | BM25 reasoning engine | 190 product rules | 75 font pairings | 200+ icon libraries | Tailwind config generation | React/Vue/Svelte output | 20 AI platform support
+
+---
+
+## Design System Generation Flow
+
+```
+User request → Domain detection (sector + product type)
+            → BM25 search (20 CSV databases)
+            → Rule engine (190 rules, palette + overrides)
+            → Token resolution (design-tokens.json)
+            → Output: Pattern | Palette | Components | Typography | Avoid (anti-patterns) | Pre-delivery checklist
+```
+
+For a **one-shot ASCII summary** (pattern, palette, components, typography, avoid, checklist), run:
+
+```bash
+python src/scripts/design_system.py "fintech dashboard" --format box
+```
+
+For full specs: `--format markdown` (default), `--format tailwind`, `--format json`, or `--framework react|vue|svelte`.
+
+### Customize Colors (Palette from User Input)
+
+Users can **generate a palette from their own colors** (e.g. brand hex values). UDS derives a full token set (primary, secondary, accent, neutrals) with WCAG-aware guidance and merges it into the design system. Use the **multi-brand-theming** skill when the user says "use my brand colors", "custom colors", or "palette from hex". Quick command:
+
+```bash
+python src/scripts/palette.py create --name my-brand --colors "#3B82F6"
+python src/scripts/palette.py preview --colors "#E8590C,#7048E8"   # preview before creating
+```
+
+Then apply with `data-theme="my-brand"`. See **multi-brand-theming** for full options (--shape, multiple colors, list, export).
 
 ---
 
@@ -134,19 +182,18 @@ Produce a complete design system specification using `src/scripts/design_system.
 - **Framework-specific components** (`--framework react|vue|svelte`)
 
 ```bash
-# Generate markdown specification
+# One-shot summary (pattern, palette, components, typography, avoid, checklist)
+python src/scripts/design_system.py "fintech dashboard" --format box
+
+# Full markdown specification (default)
 python src/scripts/design_system.py "fintech dashboard"
 
-# Generate with Tailwind config
+# Tailwind config
 python src/scripts/design_system.py "saas landing page" --format tailwind
 
-# Generate with React components
+# Framework-specific components
 python src/scripts/design_system.py "healthcare portal" --framework react
-
-# Generate with Vue components
 python src/scripts/design_system.py "ecommerce store" --framework vue
-
-# Generate with Svelte components
 python src/scripts/design_system.py "education app" --framework svelte
 ```
 
