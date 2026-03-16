@@ -36,6 +36,12 @@ python src/scripts/search.py "kids education app" --verbose --json
 python src/scripts/design_system.py "saas landing page"
 python src/scripts/design_system.py "healthcare portal" --format json
 
+# Generate and persist a design system so your AI assistant can read it when building specific pages
+python src/scripts/design_system.py "saas landing" --persist
+python src/scripts/design_system.py "saas dashboard" --persist --page dashboard
+# Creates design-system/MASTER.md and optionally design-system/pages/<name>.md. Page files override master for hierarchical retrieval.
+# From CLI: uds generate "saas landing" --persist --page dashboard. Run uds generate --help for full options (--format box, --framework, etc.).
+
 # Generate with Tailwind CSS config
 python src/scripts/design_system.py "saas landing page" --format tailwind
 

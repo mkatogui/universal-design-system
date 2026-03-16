@@ -34,15 +34,18 @@ Two parallel workflows run on every PR to `main`:
 6. `npx vitest run --coverage` — React tests + coverage
 7. SonarCloud scan — code smells, bugs, vulnerabilities, coverage gate
 8. `node scripts/bundle-analysis.js` — bundle size
+9. `npm run size:check` — bundle size budget (100KB JS / 30KB CSS)
 
 **ci.yml** (Validation):
 1. `npm run validate` — W3C DTCG token format
 2. `npm run audit` — WCAG 2.2 AA contrast
 3. `npm run verify` — HTML docs integrity
 4. `npm run sync-data` — CSV cross-reference
-5. `npm run build` — Style Dictionary build
-6. `cd cli && npx tsc` — CLI compilation
-7. `npm run test:contracts` — contract tests
+5. Dataset schema validation — `test -f scripts/validate-datasets.py && python3 scripts/validate-datasets.py`
+6. Expanded contrast audit — `test -f scripts/contrast-audit-expanded.py && python3 scripts/contrast-audit-expanded.py`
+7. `npm run build` — Style Dictionary build
+8. `cd cli && npx tsc` — CLI compilation
+9. `npm run test:contracts` — contract tests
 
 ### Biome configuration (biome.json)
 - Formatter: 2-space indent, 100 char line width, single quotes, trailing commas
@@ -194,6 +197,13 @@ grep "^export " packages/tokens/dist/index.mjs | head -5
 grep "export declare" packages/tokens/dist/index.d.ts | head -5
 ```
 
+If `packages/react/` changed (mirrors quality.yml bundle steps):
+```bash
+node scripts/bundle-analysis.js
+npm run size:check
+```
+**Pass criteria:** size:check must pass (100KB JS, 30KB CSS limits). Fix or report if over budget.
+
 If docs/ changed:
 ```bash
 npm run check
@@ -208,7 +218,8 @@ npm run build
 
 ### Phase 7: Validation Pipeline (mirrors ci.yml)
 
-Only if relevant files changed:
+Run these so the same steps as ci.yml validate job are covered:
+
 ```bash
 # Token format (if tokens/ changed)
 npm run validate
@@ -221,7 +232,17 @@ npm run verify
 
 # CSV cross-reference (if src/data/ changed)
 npm run sync-data
+
+# Dataset schema validation (ci.yml runs if script exists)
+test -f scripts/validate-datasets.py && python3 scripts/validate-datasets.py || echo "Skipped (file not found)"
+
+# Expanded contrast audit (ci.yml runs if script exists)
+test -f scripts/contrast-audit-expanded.py && python3 scripts/contrast-audit-expanded.py || echo "Skipped (file not found)"
 ```
+
+**Pass criteria:** validate-datasets.py must exit 0 (fix CSV column count / enum values if it fails). contrast-audit-expanded.py must exit 0; it may report many contrast pairs — treat exit code only as pass/fail.
+
+**Not run locally (CI only):** SonarCloud scan (requires SONAR_TOKEN); Playwright accessibility (`npm run test:accessibility`); Playwright visual regression. Mention in the report that these run in CI.
 
 ### Phase 8: Final Report
 
@@ -249,9 +270,13 @@ Output this exact format:
 - contracts:  PASS / FAIL / N/A
 
 ### Build
-- tokens build:    PASS / FAIL / N/A
-- npm run check:   PASS / FAIL / N/A
-- npm run validate: PASS / FAIL / N/A
+- tokens build:      PASS / FAIL / N/A
+- bundle-analysis:   PASS / FAIL / N/A
+- size:check:        PASS / FAIL / N/A
+- npm run check:     PASS / FAIL / N/A
+- npm run validate:  PASS / FAIL / N/A
+- validate-datasets: PASS / FAIL / N/A
+- contrast-expanded:  PASS / FAIL / N/A
 
 ### SonarCloud Simulation
 - Issues found: X

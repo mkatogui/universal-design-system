@@ -19,9 +19,32 @@ import re
 import sys
 from collections import Counter
 from pathlib import Path
-from typing import Optional
+from typing import Optional, Protocol
 
 DATA_DIR = Path(__file__).parent.parent / "data"
+
+
+# ---------------------------------------------------------------------------
+# Protocols (DIP: depend on abstractions)
+# ---------------------------------------------------------------------------
+
+class SearchIndexProtocol(Protocol):
+    """Protocol for search index: add_documents and search."""
+
+    def add_documents(self, rows: list[dict], source: str, text_fields: list[str]) -> None:
+        ...
+
+    def search(
+        self, query: str, top_k: int = 10, source_filter: Optional[str] = None
+    ) -> list[dict]:
+        ...
+
+
+class DomainDetectorProtocol(Protocol):
+    """Protocol for domain detection: detect(query) -> domain dict."""
+
+    def detect(self, query: str) -> dict:
+        ...
 
 
 # ---------------------------------------------------------------------------
@@ -547,9 +570,13 @@ class DomainDetector:
 class ReasoningEngine:
     """Apply design reasoning rules based on detected domain."""
 
-    def __init__(self):
-        self.index = BM25Index()
-        self.detector = DomainDetector()
+    def __init__(
+        self,
+        index: Optional[SearchIndexProtocol] = None,
+        detector: Optional[DomainDetectorProtocol] = None,
+    ):
+        self.index = index if index is not None else BM25Index()
+        self.detector = detector if detector is not None else DomainDetector()
         self.rules = load_csv("ui-reasoning.csv")
         self.anti_patterns = load_csv("anti-patterns.csv")
         self._build_index()

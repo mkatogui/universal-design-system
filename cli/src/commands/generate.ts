@@ -17,9 +17,11 @@ const PKG_ROOT = resolve(CLI_ROOT, '..');
 interface GenerateOptions {
   format?: string;
   framework?: string;
+  persist?: boolean;
+  page?: string;
 }
 
-const VALID_FORMATS = ['markdown', 'json', 'tailwind', 'css-in-js'] as const;
+const VALID_FORMATS = ['markdown', 'json', 'tailwind', 'css-in-js', 'box'] as const;
 const VALID_FRAMEWORKS = ['react', 'vue', 'svelte', 'web-components', 'html'] as const;
 
 export async function generateCommand(query: string, options: GenerateOptions): Promise<void> {
@@ -61,6 +63,8 @@ export async function generateCommand(query: string, options: GenerateOptions): 
   const args: string[] = [script, query];
   if (options.format) args.push('--format', options.format);
   if (options.framework) args.push('--framework', options.framework);
+  if (options.persist) args.push('--persist');
+  if (options.page) args.push('--page', options.page);
 
   try {
     const result = execFileSync(python, args, {

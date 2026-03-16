@@ -83,6 +83,20 @@ npx style-dictionary build --config style-dictionary.config.json
 
 **Exceptions:** To use a non-default palette, file a design-system exception request with: (1) the surface name, (2) the requested palette, (3) rationale, and (4) sign-off from the design-system owner. Approved exceptions are logged in the governance registry.
 
+### 0.6 Ecosystem and token pipeline
+
+UDS infers design decisions (palette, components, anti-patterns) from a query; it does not replace build or documentation tooling. **Style Dictionary** (integrated via `npm run build`) compiles `tokens/design-tokens.json` to CSS, JS, iOS Swift, and Android XML. Optional tools you can use downstream: **Tokens Studio** (Figma ↔ Git), **Specify** (enterprise token lifecycle), **Storybook** (component testing), **Zeroheight** (design system docs). Where UDS stops: it produces the spec and tokens; other tools govern, test, or document.
+
+### 0.7 Reference design systems
+
+UDS uses mature design systems as **reference only** (no direct dependency). Lessons from **Material Design**, **Polaris** (Shopify), and **Primer** (GitHub) are reflected in `src/data`: e.g. consistent semantic colors, touch-target and focus-ring requirements, and primary-action hierarchy have been added to `ux-guidelines.csv`. Anti-patterns and ui-reasoning rules can be enriched similarly from their accessibility and interaction patterns.
+
+### 0.8 Future directions and strategic notes
+
+- **Analytics and quality (future):** Tools like [Project Wallace](https://www.projectwallace.com/) or [CSS Stats](https://cssstats.com/) can analyze token and CSS usage (complexity, color count, selector depth). Their output could feed back into UDS to detect unused tokens, simplify palettes, or flag redundancy. No implementation in the short term; document integration points when needed.
+- **Multi-agent orchestration (future):** If UDS evolves to multiple agents (e.g. domain detector, pattern search, token generator, component synthesizer), orchestration could be documented or prototyped with **LangChain**/ **LangGraph** or **CrewAI**/ **AutoGen**. Kept as a strategic note; out of scope for the current plan.
+- **Visual token interaction (research):** Approaches like **Brickify** (CHI 2025)—where users select style and color from reference images and manipulate design tokens visually—could inform future UIs for design intent. No implementation in this plan; note as a research direction.
+
 ---
 
 ## 1. Design Principles

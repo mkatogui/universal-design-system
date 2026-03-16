@@ -851,7 +851,7 @@ html, body { overflow-x: clip; }
 <p class="subtitle">Copy-paste HTML + CSS for every component. Requires design system tokens (see design-tokens.json).</p>
 <section class="naming-callout" aria-labelledby="naming-heading">
   <h2 id="naming-heading">Class names: React and Playground use the <code>uds-*</code> prefix</h2>
-  <p>When using <code>@mkatogui/uds-react</code> or the <a href="playground.html">Playground</a>, components use BEM with the <code>uds-</code> prefix. The token reference and some snippets below use short names for brevity. Mapping: <code>.btn</code> → <code>.uds-btn</code>, <code>.card</code> → <code>.uds-card</code>, <code>.input</code> → <code>.uds-input</code>. Use the <code>uds-*</code> class names when integrating with the React package, or rely on the React components which apply them automatically.</p>
+  <p>When using <code>@mkatogui/uds-react</code> or the <a href="playground.html">Playground</a>, components use BEM with the <code>uds-</code> prefix. Form pages can use <code>FormSection</code> (title, optional description, <code>__fields</code> wrapper); see <a href="FORM_PATTERNS.md">FORM_PATTERNS</a>. The token reference and some snippets below use short names for brevity. Mapping: <code>.btn</code> → <code>.uds-btn</code>, <code>.card</code> → <code>.uds-card</code>, <code>.input</code> → <code>.uds-input</code>. Use the <code>uds-*</code> class names when integrating with the React package, or rely on the React components which apply them automatically.</p>
 </section>
 <div class="component" id="button">
 <div class="component-header"><span class="component-name">Button</span><span class="component-props">variant: primary|secondary|ghost|destructive, size: sm|md|lg, disabled: boolean</span></div><div class="component-preview">
@@ -952,7 +952,7 @@ defineProps({
 </div>
 
 <div class="component" id="input">
-<div class="component-header"><span class="component-name">Input</span><span class="component-props">type: text|email|password|number|search, multiline: boolean, size: sm|md|lg, state: default|focus|error|disabled</span></div><div class="component-preview">
+<div class="component-header"><span class="component-name">Input</span><span class="component-props">type: text|email|password|number|search, multiline: boolean, optional/optionalLabel, required, size: sm|md|lg, error, state: default|focus|disabled</span></div><div class="component-preview">
   <span class="preview-label">Preview</span>
   <div><label class="input-label">Full name</label><input class="input" type="text" placeholder="Enter your name"></div>
 </div>
@@ -1968,7 +1968,7 @@ defineProps({ variant: { type: String, default: 'brand' } });
 
 <!-- ========== File Upload ========== -->
 <div class="component" id="file-upload">
-<div class="component-header"><span class="component-name">File Upload</span><span class="component-props">variant: dropzone|button|avatar-upload, accept, maxSize, multiple</span></div><div class="component-preview">
+<div class="component-header"><span class="component-name">File Upload</span><span class="component-props">variant: dropzone|button|avatar-upload, error, placeholderTitle, placeholderDescription, acceptLabel, accept, maxSize, multiple</span></div><div class="component-preview">
   <span class="preview-label">Preview</span>
   <div style="border:2px dashed var(--color-border-default);border-radius:var(--radius-lg);padding:32px;text-align:center;background:var(--color-bg-tertiary);max-width:400px;"><span style="font-size:var(--text-body-sm);color:var(--color-text-secondary);">Drag and drop files or click to upload</span></div>
 </div>

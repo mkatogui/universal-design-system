@@ -84,3 +84,10 @@ id,heading_font,body_font,mood,category,heading_weight,body_weight,best_for,goog
 83,Playfair Display,Inter,fashion-elegant,serif-sans,700,400,"fashiontech;fashion;luxury;editorial","https://fonts.google.com/specimen/Playfair+Display",apple-minimal
 84,Oswald,Inter,foodtech-bold,sans-sans,700,400,"foodtech;food;restaurants;lifestyle","https://fonts.google.com/specimen/Oswald",bold-lifestyle
 85,DM Sans,Inter,musictech-modern,sans-sans,700,400,"musictech;music;creative;startups;entertainment","https://fonts.google.com/specimen/DM+Sans",gradient-startup
+86,Cormorant Garamond,Montserrat,elegant-calming,serif-sans,600,400,"wellness;beauty;luxury;spa;editorial","https://fonts.google.com/specimen/Cormorant+Garamond",apple-minimal
+87,Fraunces,Open Sans,editorial-friendly,serif-sans,700,400,"editorial;publishing;blog;news;magazine","https://fonts.google.com/specimen/Fraunces",minimal-corporate
+88,Literata,Lato,literary-refined,serif-sans,600,400,"books;editorial;long-form;publishing","https://fonts.google.com/specimen/Literata",minimal-corporate
+89,Libre Baskerville,Source Sans 3,classic-trustworthy,serif-sans,700,400,"finance;legal;corporate;publishing","https://fonts.google.com/specimen/Libre+Baskerville",corporate
+90,DM Serif Display,DM Sans,editorial-modern,serif-sans,400,400,"magazine;editorial;marketing;premium","https://fonts.google.com/specimen/DM+Serif+Display",apple-minimal
+91,Instrument Serif,Instrument Sans,refined-contrast,serif-sans,400,400,"portfolios;creative;premium;proptech","https://fonts.google.com/specimen/Instrument+Serif",minimal-corporate
+92,Figtree,Lato,friendly-approachable,sans-sans,700,400,"consumer;education;community;lifestyle","https://fonts.google.com/specimen/Figtree",illustration

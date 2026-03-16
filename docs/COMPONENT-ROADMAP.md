@@ -11,7 +11,7 @@ This document tracks UDS components and plans expansion to match or exceed the c
 | Layer | Count | Source |
 |-------|--------|--------|
 | **components.csv** (canonical) | **72** | `src/data/components.csv` |
-| **React** (`@mkatogui/uds-react`) | **72** | `packages/react/src/index.ts` |
+| **React** (`@mkatogui/uds-react`) | **72+** | `packages/react/src/index.ts` (includes ThemeCheck utility) |
 | **Vue** (`@mkatogui/uds-vue`) | **47+** | `packages/vue/src/index.ts` (Phase 1–2 parity) |
 | **Svelte** (`@mkatogui/uds-svelte`) | **47+** | `packages/svelte/src/index.js` (Phase 1–2 parity) |
 
@@ -199,9 +199,11 @@ For each new component:
 
 | Metric | Current (implemented) | Target |
 |--------|------------------------|--------|
-| **components.csv** | **72** | 72 ✓ |
-| **React** | **72** | 72 ✓ |
+| **components.csv** | **73** | 73 ✓ |
+| **React** | **72 components + ThemeCheck** | In sync with CSV (ThemeCheck is dev-only, not in CSV) |
 | **Vue / Svelte** | 47+ (Phase 1–2 full parity) | 72 (Phases 3–5 React-only for now) |
+
+**Keeping in sync:** When adding a component, follow section 5 (Tracking checklist). Update this table and section 1.2 when new components ship. Run `npm run sync-data` after CSV changes.
 
 **Phases 1–5 implemented (React):** Box, Stack, Grid, Divider, Container, Typography, Link, Number Input, Slider, Form, Time Picker, Rating, Color Picker, List, Empty, Image, Chip, Descriptions, Statistic, Timeline, Aspect Ratio, Context Menu, Popconfirm, Notification, Collapsible, Icon, Float Button, Menu, Anchor.
 

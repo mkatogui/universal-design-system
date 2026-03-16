@@ -532,8 +532,8 @@ const TOOLS = [
         format: {
           type: 'string',
           description:
-            "Output format: 'json' for structured data, 'tailwind' for Tailwind CSS config preset, 'css-in-js' for styled-components/Emotion theme object",
-          enum: ['json', 'tailwind', 'css-in-js'],
+            "Output format: 'json' for structured data, 'tailwind' for Tailwind CSS config preset, 'css-in-js' for styled-components/Emotion theme object, 'markdown' for human-readable spec, 'box' for ASCII box summary",
+          enum: ['json', 'tailwind', 'css-in-js', 'markdown', 'box'],
           default: 'json',
         },
       },
@@ -553,7 +553,7 @@ const TOOLS = [
   {
     name: 'list_components',
     description:
-      'List all 43 UDS components with their names, slugs, and categories. ' +
+      'List all UDS components (72 in React package) with their names, slugs, and categories. ' +
       'Use this to discover available components before requesting details with get_component.',
     inputSchema: {
       type: 'object',
@@ -712,11 +712,11 @@ async function handleGenerateTokens(args) {
   }
 
   const format = args.format || 'json';
-  if (!['json', 'tailwind', 'css-in-js'].includes(format)) {
+  if (!['json', 'tailwind', 'css-in-js', 'markdown', 'box'].includes(format)) {
     return {
       isError: true,
       content: [
-        { type: 'text', text: "Parameter 'format' must be 'json', 'tailwind', or 'css-in-js'." },
+        { type: 'text', text: "Parameter 'format' must be 'json', 'tailwind', 'css-in-js', 'markdown', or 'box'." },
       ],
     };
   }
