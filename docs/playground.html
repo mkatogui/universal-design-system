@@ -4019,21 +4019,22 @@ const copyBtn = document.getElementById('copy-btn');
     'commerce': 'Commerce',
     'loading': 'Loading'
   };
-  const seen = new Set();
+  // Build ordered list of unique categories from the array
+  const categories = [];
   for (const comp of COMPONENTS) {
-    const cat = comp.category;
-    if (!seen.has(cat)) {
-      seen.add(cat);
-      const group = document.createElement('optgroup');
-      group.label = (categoryLabels[cat] || cat) + ' (' + COMPONENTS.filter(c => c.category === cat).length + ')';
-      COMPONENTS.filter(c => c.category === cat).forEach(c => {
-        const opt = document.createElement('option');
-        opt.value = c.slug;
-        opt.textContent = c.hasTemplate ? c.name : c.name + ' ○';
-        componentSelect.appendChild(group);
-        group.appendChild(opt);
-      });
+    if (!categories.includes(comp.category)) categories.push(comp.category);
+  }
+  for (const cat of categories) {
+    const group = document.createElement('optgroup');
+    const items = COMPONENTS.filter(c => c.category === cat);
+    group.label = (categoryLabels[cat] || cat) + ' (' + items.length + ')';
+    for (const c of items) {
+      const opt = document.createElement('option');
+      opt.value = c.slug;
+      opt.textContent = c.hasTemplate ? c.name : c.name + ' ○';
+      group.appendChild(opt);
     }
+    componentSelect.appendChild(group);
   }
 }
 
