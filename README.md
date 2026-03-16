@@ -65,6 +65,15 @@ User Query -> Domain Detection -> BM25 Search -> Rule Application -> Output
 
 ## Quick Start
 
+### For a React app (recommended path)
+
+1. **Install:** `npm install @mkatogui/uds-react react react-dom`
+2. **Set theme:** Put `data-theme="minimal-saas"` (or another palette) on `<html>` in your root HTML or layout, e.g. `<html lang="en" data-theme="minimal-saas">`.
+3. **Import styles first:** In your app entry (e.g. `main.tsx`), add `import '@mkatogui/uds-react/styles.css'` before other imports.
+4. **Use components:** Wrap layout in `<Container size="lg">` if desired, then use `<Button>`, `<Card>`, `<Input>`, etc. from `@mkatogui/uds-react`.
+
+See [Install React components](#install-react-components) below for a full code snippet, or [examples/minimal-react](examples/minimal-react) for a minimal playground-style app.
+
 ### Install on any AI coding platform
 
 ```bash
@@ -92,8 +101,10 @@ python3 src/scripts/design_system.py "fintech dashboard" --framework svelte
 
 ### Apply a palette
 
+**Required:** set `data-theme` on `<html>` (or your root app wrapper) for correct theming. Example:
+
 ```html
-<html lang="en" data-theme="corporate">
+<html lang="en" data-theme="minimal-saas">
 ```
 
 ```js
@@ -130,6 +141,8 @@ import { tokens } from '@mkatogui/uds-tokens'; // JS/TS object
 npm install @mkatogui/uds-react react react-dom
 ```
 
+Import UDS styles once at your app entry: `import '@mkatogui/uds-react/styles.css'`. Then:
+
 ```tsx
 import { Button, Card } from "@mkatogui/uds-react";
 import "@mkatogui/uds-react/styles.css";
@@ -140,7 +153,9 @@ document.documentElement.setAttribute("data-theme", "minimal-saas");
 <Button variant="primary">Get Started</Button>
 ```
 
-See [examples/react-app](https://github.com/mkatogui/universal-design-system/tree/main/examples/react-app) for a full demo with palette switching and dark mode.
+See [examples/react-app](https://github.com/mkatogui/universal-design-system/tree/main/examples/react-app) for a full demo with palette switching and dark mode, or [examples/minimal-react](examples/minimal-react) for a minimal playground-style starter (Container + Card + Button in 3 files).
+
+When using the React package, components use the `uds-*` BEM prefix (e.g. `.uds-btn`, `.uds-card`, `.uds-input`). The [Component Library](https://mkatogui.github.io/universal-design-system/component-library.html) documents both short and `uds-*` class names.
 
 **Frontend integration notes:**
 

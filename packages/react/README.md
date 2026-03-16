@@ -15,7 +15,7 @@ npm install @mkatogui/uds-react
 
 ## Quick Start
 
-Import the stylesheet once at your app's entry point, then use any component:
+Import UDS styles once at your app entry: `import '@mkatogui/uds-react/styles.css'`. Then use any component:
 
 ```tsx
 import '@mkatogui/uds-react/styles.css';
@@ -203,7 +203,7 @@ Props: `tabs` (`TabItem[]`, required), `defaultIndex`, `variant` (`'line'` | `'p
 
 ## Palette Switching
 
-Apply any palette by setting the `data-theme` attribute on a container element:
+**Required:** set `data-theme` on `<html>` (or your root app wrapper) for correct theming. Example: `<html lang="en" data-theme="minimal-saas">`. You can also set it on a container:
 
 ```tsx
 <div data-theme="corporate">
@@ -274,6 +274,7 @@ import type {
 ## Links
 
 - [Full Documentation](https://mkatogui.github.io/universal-design-system/) | [GitHub](https://github.com/mkatogui/universal-design-system) | [Component Library](https://mkatogui.github.io/universal-design-system/component-library.html)
+- **Minimal starter:** [examples/minimal-react](https://github.com/mkatogui/universal-design-system/tree/main/examples/minimal-react) — playground-style app in 3 files (entry, one page, one CSS import). Use it to compare with your app if styling doesn’t match the playground.
 
 ## License
 

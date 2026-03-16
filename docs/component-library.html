@@ -498,6 +498,9 @@ body { font-family: var(--font-sans); background: var(--color-bg-secondary); col
 .container { max-width: 960px; margin: 0 auto; padding: 40px 24px; }
 h1 { font-size: 2rem; font-weight: 800; margin-bottom: 8px; }
 .subtitle { color: var(--color-text-secondary); margin-bottom: 48px; }
+.naming-callout { background: var(--color-bg-secondary); border: 1px solid var(--color-border-default); border-radius: var(--radius-md); padding: 16px 20px; margin-bottom: 32px; }
+.naming-callout h2 { font-size: var(--text-heading-sm); font-weight: 600; margin: 0 0 8px 0; }
+.naming-callout p { margin: 0; font-size: var(--text-body-sm); color: var(--color-text-secondary); line-height: 1.5; }
 .component { margin-bottom: 48px; border: 1px solid var(--color-border-default); border-radius: 12px; overflow: hidden; background: var(--color-bg-primary); }
 .component-header { padding: 16px 20px; background: var(--color-bg-tertiary); display: flex; justify-content: space-between; align-items: center; }
 .component-name { font-size: 1.125rem; font-weight: 700; }
@@ -846,6 +849,10 @@ html, body { overflow-x: clip; }
 <main class="container" id="main-content">
 <h1>Component Library <span class="count">43</span></h1>
 <p class="subtitle">Copy-paste HTML + CSS for every component. Requires design system tokens (see design-tokens.json).</p>
+<section class="naming-callout" aria-labelledby="naming-heading">
+  <h2 id="naming-heading">Class names: React and Playground use the <code>uds-*</code> prefix</h2>
+  <p>When using <code>@mkatogui/uds-react</code> or the <a href="playground.html">Playground</a>, components use BEM with the <code>uds-</code> prefix. The token reference and some snippets below use short names for brevity. Mapping: <code>.btn</code> → <code>.uds-btn</code>, <code>.card</code> → <code>.uds-card</code>, <code>.input</code> → <code>.uds-input</code>. Use the <code>uds-*</code> class names when integrating with the React package, or rely on the React components which apply them automatically.</p>
+</section>
 <div class="component" id="button">
 <div class="component-header"><span class="component-name">Button</span><span class="component-props">variant: primary|secondary|ghost|destructive, size: sm|md|lg, disabled: boolean</span></div><div class="component-preview">
   <span class="preview-label">Preview</span>

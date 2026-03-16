@@ -21,6 +21,16 @@
   --text-body-sm: 0.875rem;
   --text-label: 0.75rem;
 
+  /* Font-size aliases (map to semantic text tokens so forms/headings work without app overrides) */
+  --font-size-xs: var(--text-label);
+  --font-size-sm: var(--text-body-sm);
+  --font-size-base: var(--text-body-md);
+  --font-size-md: var(--text-body-md);
+  --font-size-lg: var(--text-body-lg);
+  --font-size-xl: var(--text-heading-sm);
+  --font-size-2xl: var(--text-heading-md);
+  --font-size-3xl: var(--text-heading-lg);
+
   --space-1: 4px;
   --space-2: 8px;
   --space-3: 12px;
