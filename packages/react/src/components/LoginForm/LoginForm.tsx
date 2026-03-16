@@ -116,7 +116,7 @@ export const LoginForm = React.forwardRef<HTMLFormElement, LoginFormProps>(
     }, [email, password, emailLabel, passwordLabel]);
 
     const handleSubmit = useCallback(
-      (e: React.FormEvent<HTMLFormElement>) => {
+      (e: React.SyntheticEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (!validate()) return;
         onSubmit?.({ email: email.trim(), password, rememberMe });

@@ -50,14 +50,17 @@ export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElem
  * <Input label="Email" variant="email" errorText="Invalid address" />
  * ```
  */
+type InputType = 'text' | 'email' | 'password' | 'number' | 'search';
+type VariantCompat = InputType | 'textarea';
+
 function resolveInputMode(
-  variant?: InputProps['variant'],
-  type?: InputProps['type'],
+  variant?: VariantCompat,
+  type?: InputType,
   multiline?: boolean,
-): { inputType: 'text' | 'email' | 'password' | 'number' | 'search'; isTextarea: boolean } {
+): { inputType: InputType; isTextarea: boolean } {
   const isTextarea = Boolean(multiline ?? variant === 'textarea');
   if (isTextarea) return { inputType: 'text', isTextarea: true };
-  const inputType: InputProps['type'] = type ?? (variant as InputProps['type']) ?? 'text';
+  const inputType: InputType = type ?? (variant as InputType) ?? 'text';
   return { inputType, isTextarea: false };
 }
 
