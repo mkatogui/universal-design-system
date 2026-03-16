@@ -19,7 +19,7 @@ export interface FormSectionProps extends React.HTMLAttributes<HTMLDivElement> {
  */
 export const FormSection = React.forwardRef<HTMLDivElement, FormSectionProps>(
   ({ title, description, titleLevel = 2, className, children, ...props }, ref) => {
-    const TitleTag = `h${titleLevel}` as keyof JSX.IntrinsicElements;
+    const TitleTag = `h${titleLevel}` as React.ElementType;
     const classes = ['uds-form-section', className].filter(Boolean).join(' ');
     return (
       <div ref={ref} className={classes} {...props}>
