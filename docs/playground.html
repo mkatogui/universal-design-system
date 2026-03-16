@@ -2923,8 +2923,8 @@ html, body { overflow-x: clip; }
 const COMPONENTS = [
   /* ── ACTION ──────────────────────────────────────────────── */
   { id: 1, name: 'Button', slug: 'button', category: 'action', variants: ['primary','secondary','ghost','gradient','destructive','icon-only'], sizes: ['sm','md','lg','xl'], css_class: 'uds-btn', accessibility: 'role=button; aria-disabled; aria-busy for loading; focus ring 2px offset', use_when: 'Primary actions; Secondary actions; Navigation CTAs', hasTemplate: true },
-  { id: 50, name: 'Link', slug: 'link', category: 'action', variants: ['default','muted','primary'], sizes: ['sm','md'], css_class: 'uds-link', accessibility: 'Focus ring; underline on focus', use_when: 'Inline navigation and external links', hasTemplate: false },
-  { id: 70, name: 'Float Button', slug: 'float-button', category: 'action', variants: ['primary','extended'], sizes: ['md','lg'], css_class: 'uds-float-button', accessibility: 'Fixed position; aria-label', use_when: 'Floating action button; Mobile primary action', hasTemplate: false },
+  { id: 50, name: 'Link', slug: 'link', category: 'action', variants: ['default','muted','primary'], sizes: ['sm','md'], css_class: 'uds-link', accessibility: 'Focus ring; underline on focus', use_when: 'Inline navigation and external links', hasTemplate: true },
+  { id: 70, name: 'Float Button', slug: 'float-button', category: 'action', variants: ['primary','extended'], sizes: ['md','lg'], css_class: 'uds-float-button', accessibility: 'Fixed position; aria-label', use_when: 'Floating action button; Mobile primary action', hasTemplate: true },
 
   /* ── FORM ────────────────────────────────────────────────── */
   { id: 11, name: 'Input', slug: 'input', category: 'form', variants: ['default','error','disabled'], sizes: ['sm','md','lg'], css_class: 'uds-input', accessibility: 'for/id label association; aria-invalid; aria-describedby; aria-required', use_when: 'Any text entry — names, emails, passwords, search', hasTemplate: true },
@@ -2934,17 +2934,17 @@ const COMPONENTS = [
   { id: 15, name: 'Toggle Switch', slug: 'toggle', category: 'form', variants: ['standard','with-label'], sizes: ['md'], css_class: 'uds-toggle', accessibility: 'role=switch; aria-checked; aria-label', use_when: 'Binary on/off settings with immediate effect', hasTemplate: true },
   { id: 28, name: 'Date Picker', slug: 'date-picker', category: 'form', variants: ['single','range'], sizes: ['md','lg'], css_class: 'uds-date-picker', accessibility: 'role=grid; aria-selected; keyboard arrow nav', use_when: 'Selecting dates or date ranges', hasTemplate: true },
   { id: 32, name: 'File Upload', slug: 'file-upload', category: 'form', variants: ['dropzone','button','avatar-upload'], sizes: ['sm','md','lg'], css_class: 'uds-file-upload', accessibility: 'input type=file aria-label; role=button on dropzone; error prop', use_when: 'Uploading files from device', hasTemplate: true },
-  { id: 35, name: 'Combobox', slug: 'combobox', category: 'form', variants: ['autocomplete','multiselect','creatable'], sizes: ['sm','md','lg'], css_class: 'uds-combobox', accessibility: 'role=combobox; aria-expanded; aria-autocomplete; listbox pattern', use_when: 'Searchable select with keyboard navigation', hasTemplate: false },
-  { id: 38, name: 'Chip Input', slug: 'chip-input', category: 'form', variants: ['single','multi','removable'], sizes: ['sm','md','lg'], css_class: 'uds-chip-input', accessibility: 'role=listbox for chips; Delete removes chip', use_when: 'Tag/token input with add/remove chips', hasTemplate: false },
-  { id: 40, name: 'Segmented Control', slug: 'segmented-control', category: 'form', variants: ['default','icon-only','icon-label'], sizes: ['sm','md','lg'], css_class: 'uds-segmented-control', accessibility: 'role=radiogroup; role=radio; aria-checked; Arrow keys', use_when: 'Mutually exclusive option selection', hasTemplate: false },
-  { id: 43, name: 'OTP Input', slug: 'otp-input', category: 'form', variants: ['4-digit','6-digit','alphanumeric'], sizes: ['md','lg'], css_class: 'uds-otp-input', accessibility: 'autocomplete=one-time-code; inputmode=numeric; aria-label per digit', use_when: 'One-time password entry with auto-advance', hasTemplate: false },
-  { id: 51, name: 'Number Input', slug: 'number-input', category: 'form', variants: ['default','with-stepper'], sizes: ['sm','md','lg'], css_class: 'uds-number-input', accessibility: 'Numeric entry with optional stepper buttons', use_when: 'Numeric entry with increment/decrement', hasTemplate: false },
-  { id: 52, name: 'Slider', slug: 'slider', category: 'form', variants: ['single','range'], sizes: ['sm','md','lg'], css_class: 'uds-slider', accessibility: 'role=slider; keyboard arrow keys; aria-valuenow', use_when: 'Selecting value from a continuous range', hasTemplate: false },
-  { id: 53, name: 'Form', slug: 'form', category: 'form', variants: ['default'], sizes: ['standard'], css_class: 'uds-form', accessibility: 'form landmark; label association', use_when: 'Grouping form fields and actions', hasTemplate: false },
+  { id: 35, name: 'Combobox', slug: 'combobox', category: 'form', variants: ['autocomplete','multiselect','creatable'], sizes: ['sm','md','lg'], css_class: 'uds-combobox', accessibility: 'role=combobox; aria-expanded; aria-autocomplete; listbox pattern', use_when: 'Searchable select with keyboard navigation', hasTemplate: true },
+  { id: 38, name: 'Chip Input', slug: 'chip-input', category: 'form', variants: ['single','multi','removable'], sizes: ['sm','md','lg'], css_class: 'uds-chip-input', accessibility: 'role=listbox for chips; Delete removes chip', use_when: 'Tag/token input with add/remove chips', hasTemplate: true },
+  { id: 40, name: 'Segmented Control', slug: 'segmented-control', category: 'form', variants: ['default','icon-only','icon-label'], sizes: ['sm','md','lg'], css_class: 'uds-segmented-control', accessibility: 'role=radiogroup; role=radio; aria-checked; Arrow keys', use_when: 'Mutually exclusive option selection', hasTemplate: true },
+  { id: 43, name: 'OTP Input', slug: 'otp-input', category: 'form', variants: ['4-digit','6-digit','alphanumeric'], sizes: ['md','lg'], css_class: 'uds-otp-input', accessibility: 'autocomplete=one-time-code; inputmode=numeric; aria-label per digit', use_when: 'One-time password entry with auto-advance', hasTemplate: true },
+  { id: 51, name: 'Number Input', slug: 'number-input', category: 'form', variants: ['default','with-stepper'], sizes: ['sm','md','lg'], css_class: 'uds-number-input', accessibility: 'Numeric entry with optional stepper buttons', use_when: 'Numeric entry with increment/decrement', hasTemplate: true },
+  { id: 52, name: 'Slider', slug: 'slider', category: 'form', variants: ['single','range'], sizes: ['sm','md','lg'], css_class: 'uds-slider', accessibility: 'role=slider; keyboard arrow keys; aria-valuenow', use_when: 'Selecting value from a continuous range', hasTemplate: true },
+  { id: 53, name: 'Form', slug: 'form', category: 'form', variants: ['default'], sizes: ['standard'], css_class: 'uds-form', accessibility: 'form landmark; label association', use_when: 'Grouping form fields and actions', hasTemplate: true },
   { id: 33, name: 'Form Section', slug: 'form-section', category: 'form', variants: ['default','with-description'], sizes: ['standard'], css_class: 'uds-form-section', accessibility: 'heading level for title; optional description; grouped fields', use_when: 'Form pages; field groups with heading and optional description', hasTemplate: true },
-  { id: 54, name: 'Time Picker', slug: 'time-picker', category: 'form', variants: ['dropdown','native'], sizes: ['md','lg'], css_class: 'uds-time-picker', accessibility: 'input type=time or combobox; aria-label', use_when: 'Time selection in forms', hasTemplate: false },
-  { id: 55, name: 'Rating', slug: 'rating', category: 'form', variants: ['stars','custom'], sizes: ['sm','md','lg'], css_class: 'uds-rating', accessibility: 'Rating N of M; keyboard arrow keys', use_when: 'Star or custom icon rating input', hasTemplate: false },
-  { id: 56, name: 'Color Picker', slug: 'color-picker', category: 'form', variants: ['swatch','input','combined'], sizes: ['md','lg'], css_class: 'uds-color-picker', accessibility: 'input type=color; aria-describedby', use_when: 'Color selection in forms or settings', hasTemplate: false },
+  { id: 54, name: 'Time Picker', slug: 'time-picker', category: 'form', variants: ['dropdown','native'], sizes: ['md','lg'], css_class: 'uds-time-picker', accessibility: 'input type=time or combobox; aria-label', use_when: 'Time selection in forms', hasTemplate: true },
+  { id: 55, name: 'Rating', slug: 'rating', category: 'form', variants: ['stars','custom'], sizes: ['sm','md','lg'], css_class: 'uds-rating', accessibility: 'Rating N of M; keyboard arrow keys', use_when: 'Star or custom icon rating input', hasTemplate: true },
+  { id: 56, name: 'Color Picker', slug: 'color-picker', category: 'form', variants: ['swatch','input','combined'], sizes: ['md','lg'], css_class: 'uds-color-picker', accessibility: 'input type=color; aria-describedby', use_when: 'Color selection in forms or settings', hasTemplate: true },
   { id: 73, name: 'Login Form', slug: 'login-form', category: 'form', variants: ['default','with-social'], sizes: ['standard'], css_class: 'uds-login-form', accessibility: 'form aria-label; label association; password type; remember-me; autocomplete', use_when: 'Authentication flows; Login pages; Sign-in interfaces', hasTemplate: true },
 
   /* ── NAVIGATION ──────────────────────────────────────────── */
@@ -2956,56 +2956,56 @@ const COMPONENTS = [
   { id: 26, name: 'Pagination', slug: 'pagination', category: 'navigation', variants: ['numbered','simple','load-more'], sizes: ['sm','md'], css_class: 'uds-pagination', accessibility: 'nav aria-label=Pagination; aria-current=page', use_when: 'Large datasets; Tables; Search results', hasTemplate: true },
   { id: 29, name: 'Command Palette', slug: 'command-palette', category: 'navigation', variants: ['standard'], sizes: ['md','lg'], css_class: 'uds-command-palette', accessibility: 'role=combobox; role=listbox; aria-activedescendant', use_when: 'Power-user keyboard navigation for large apps', hasTemplate: true },
   { id: 31, name: 'Side Navigation', slug: 'side-navigation', category: 'navigation', variants: ['default','collapsed','with-sections'], sizes: ['default','collapsed'], css_class: 'uds-side-nav', accessibility: 'nav aria-label; aria-current=page; aria-expanded', use_when: 'Dashboard apps with deep page hierarchies', hasTemplate: true },
-  { id: 39, name: 'Stepper', slug: 'stepper', category: 'navigation', variants: ['horizontal','vertical','linear','non-linear'], sizes: ['sm','md','lg'], css_class: 'uds-stepper', accessibility: 'role=list; aria-current=step; aria-disabled for future steps', use_when: 'Multi-step process indicator and navigation', hasTemplate: false },
-  { id: 71, name: 'Menu', slug: 'menu', category: 'navigation', variants: ['horizontal','vertical'], sizes: ['sm','md','lg'], css_class: 'uds-menu', accessibility: 'nav; role=menubar; role=menuitem', use_when: 'Menu bar of links/actions', hasTemplate: false },
-  { id: 72, name: 'Anchor', slug: 'anchor', category: 'navigation', variants: ['default'], sizes: ['standard'], css_class: 'uds-anchor', accessibility: 'nav aria-label; in-page links; smooth scroll', use_when: 'Smooth-scroll in-page link group', hasTemplate: false },
+  { id: 39, name: 'Stepper', slug: 'stepper', category: 'navigation', variants: ['horizontal','vertical','linear','non-linear'], sizes: ['sm','md','lg'], css_class: 'uds-stepper', accessibility: 'role=list; aria-current=step; aria-disabled for future steps', use_when: 'Multi-step process indicator and navigation', hasTemplate: true },
+  { id: 71, name: 'Menu', slug: 'menu', category: 'navigation', variants: ['horizontal','vertical'], sizes: ['sm','md','lg'], css_class: 'uds-menu', accessibility: 'nav; role=menubar; role=menuitem', use_when: 'Menu bar of links/actions', hasTemplate: true },
+  { id: 72, name: 'Anchor', slug: 'anchor', category: 'navigation', variants: ['default'], sizes: ['standard'], css_class: 'uds-anchor', accessibility: 'nav aria-label; in-page links; smooth scroll', use_when: 'Smooth-scroll in-page link group', hasTemplate: true },
 
   /* ── LAYOUT ──────────────────────────────────────────────── */
   { id: 3, name: 'Hero Section', slug: 'hero', category: 'layout', variants: ['centered','product-screenshot','video-bg','gradient-mesh','split'], sizes: ['full','compact'], css_class: 'uds-hero', accessibility: 'h1 for headline; meaningful alt on images', use_when: 'Landing pages; Marketing pages; Product launches', hasTemplate: true },
-  { id: 44, name: 'Box', slug: 'box', category: 'layout', variants: ['default'], sizes: ['sm','md','lg'], css_class: 'uds-box', accessibility: 'Layout primitive for spacing and composition', use_when: 'Generic container with token-based spacing', hasTemplate: false },
-  { id: 45, name: 'Stack', slug: 'stack', category: 'layout', variants: ['row','column'], sizes: ['sm','md','lg'], css_class: 'uds-stack', accessibility: 'Flex layout with consistent gap', use_when: 'Vertical/horizontal flex stack', hasTemplate: false },
-  { id: 46, name: 'Grid', slug: 'grid', category: 'layout', variants: ['responsive','fixed'], sizes: ['sm','md','lg'], css_class: 'uds-grid', accessibility: 'CSS Grid layout', use_when: 'Multi-column grid layouts', hasTemplate: false },
-  { id: 47, name: 'Divider', slug: 'divider', category: 'layout', variants: ['horizontal','vertical','line','dashed'], sizes: ['standard'], css_class: 'uds-divider', accessibility: 'Visual separator; decorative only', use_when: 'Visual separation between content sections', hasTemplate: false },
-  { id: 48, name: 'Container', slug: 'container', category: 'layout', variants: ['sm','md','lg','full'], sizes: ['standard'], css_class: 'uds-container', accessibility: 'Max-width centered wrapper', use_when: 'Max-width centered content wrapper', hasTemplate: false },
-  { id: 64, name: 'Aspect Ratio', slug: 'aspect-ratio', category: 'layout', variants: ['16:9','1:1','4:3','custom'], sizes: ['standard'], css_class: 'uds-aspect-ratio', accessibility: 'CSS aspect-ratio property', use_when: 'Enforcing consistent media ratios', hasTemplate: false },
+  { id: 44, name: 'Box', slug: 'box', category: 'layout', variants: ['default'], sizes: ['sm','md','lg'], css_class: 'uds-box', accessibility: 'Layout primitive for spacing and composition', use_when: 'Generic container with token-based spacing', hasTemplate: true },
+  { id: 45, name: 'Stack', slug: 'stack', category: 'layout', variants: ['row','column'], sizes: ['sm','md','lg'], css_class: 'uds-stack', accessibility: 'Flex layout with consistent gap', use_when: 'Vertical/horizontal flex stack', hasTemplate: true },
+  { id: 46, name: 'Grid', slug: 'grid', category: 'layout', variants: ['responsive','fixed'], sizes: ['sm','md','lg'], css_class: 'uds-grid', accessibility: 'CSS Grid layout', use_when: 'Multi-column grid layouts', hasTemplate: true },
+  { id: 47, name: 'Divider', slug: 'divider', category: 'layout', variants: ['horizontal','vertical','line','dashed'], sizes: ['standard'], css_class: 'uds-divider', accessibility: 'Visual separator; decorative only', use_when: 'Visual separation between content sections', hasTemplate: true },
+  { id: 48, name: 'Container', slug: 'container', category: 'layout', variants: ['sm','md','lg','full'], sizes: ['standard'], css_class: 'uds-container', accessibility: 'Max-width centered wrapper', use_when: 'Max-width centered content wrapper', hasTemplate: true },
+  { id: 64, name: 'Aspect Ratio', slug: 'aspect-ratio', category: 'layout', variants: ['16:9','1:1','4:3','custom'], sizes: ['standard'], css_class: 'uds-aspect-ratio', accessibility: 'CSS aspect-ratio property', use_when: 'Enforcing consistent media ratios', hasTemplate: true },
 
   /* ── CONTENT ─────────────────────────────────────────────── */
   { id: 4, name: 'Card', slug: 'feature-card', category: 'content', variants: ['icon-top','image-top','horizontal','stat-card','dashboard-preview'], sizes: ['sm','md','lg'], css_class: 'uds-card', accessibility: 'heading hierarchy; alt on images; focus on link', use_when: 'Showcasing features, benefits, or content in a grid', hasTemplate: true },
   { id: 9, name: 'Code Block', slug: 'code-block', category: 'content', variants: ['syntax-highlighted','terminal','multi-tab'], sizes: ['sm','md','lg'], css_class: 'uds-code-block', accessibility: 'pre+code elements; aria-label on copy button', use_when: 'Displaying code snippets or terminal commands', hasTemplate: true },
   { id: 19, name: 'Accordion', slug: 'accordion', category: 'content', variants: ['single','multi','flush'], sizes: ['standard'], css_class: 'uds-accordion', accessibility: 'aria-expanded; aria-controls; keyboard Enter/Space', use_when: 'FAQ pages; Settings panels; Collapsible sections', hasTemplate: true },
-  { id: 37, name: 'Carousel', slug: 'carousel', category: 'content', variants: ['slide','fade','auto-play'], sizes: ['sm','md','lg'], css_class: 'uds-carousel', accessibility: 'role=region; aria-roledescription=carousel; pause auto-play on focus', use_when: 'Image or content rotation with manual controls', hasTemplate: false },
-  { id: 49, name: 'Typography', slug: 'typography', category: 'content', variants: ['h1','h2','h3','body','caption','code'], sizes: ['sm','md','lg'], css_class: 'uds-typography', accessibility: 'Heading hierarchy; semantic HTML elements', use_when: 'Headings, body text, captions, inline code', hasTemplate: false },
-  { id: 68, name: 'Collapsible', slug: 'collapsible', category: 'content', variants: ['default'], sizes: ['standard'], css_class: 'uds-collapsible', accessibility: 'aria-expanded; aria-controls', use_when: 'Single expand/collapse panel', hasTemplate: false },
-  { id: 69, name: 'Icon', slug: 'icon', category: 'content', variants: ['default','outline','filled'], sizes: ['sm','md','lg'], css_class: 'uds-icon', accessibility: 'aria-hidden when decorative; role=img with aria-label when semantic', use_when: 'Icon wrapper with size/color from tokens', hasTemplate: false },
+  { id: 37, name: 'Carousel', slug: 'carousel', category: 'content', variants: ['slide','fade','auto-play'], sizes: ['sm','md','lg'], css_class: 'uds-carousel', accessibility: 'role=region; aria-roledescription=carousel; pause auto-play on focus', use_when: 'Image or content rotation with manual controls', hasTemplate: true },
+  { id: 49, name: 'Typography', slug: 'typography', category: 'content', variants: ['h1','h2','h3','body','caption','code'], sizes: ['sm','md','lg'], css_class: 'uds-typography', accessibility: 'Heading hierarchy; semantic HTML elements', use_when: 'Headings, body text, captions, inline code', hasTemplate: true },
+  { id: 68, name: 'Collapsible', slug: 'collapsible', category: 'content', variants: ['default'], sizes: ['standard'], css_class: 'uds-collapsible', accessibility: 'aria-expanded; aria-controls', use_when: 'Single expand/collapse panel', hasTemplate: true },
+  { id: 69, name: 'Icon', slug: 'icon', category: 'content', variants: ['default','outline','filled'], sizes: ['sm','md','lg'], css_class: 'uds-icon', accessibility: 'aria-hidden when decorative; role=img with aria-label when semantic', use_when: 'Icon wrapper with size/color from tokens', hasTemplate: true },
 
   /* ── DATA DISPLAY ────────────────────────────────────────── */
   { id: 17, name: 'Badge', slug: 'badge', category: 'data-display', variants: ['status','count','tag'], sizes: ['sm','md'], css_class: 'uds-badge', accessibility: 'aria-label for icon badges; semantic color', use_when: 'Status indicators; Counts; Category tags', hasTemplate: true },
   { id: 23, name: 'Avatar', slug: 'avatar', category: 'data-display', variants: ['image','initials','icon','group'], sizes: ['xs','sm','md','lg','xl'], css_class: 'uds-avatar', accessibility: 'alt text; aria-label for status', use_when: 'User profiles; Team lists; Comment authors', hasTemplate: true },
   { id: 27, name: 'Data Table', slug: 'data-table', category: 'data-display', variants: ['basic','sortable','selectable','expandable'], sizes: ['compact','default','comfortable'], css_class: 'uds-data-table', accessibility: 'scope=col; aria-sort; role=table', use_when: 'Structured multi-column data; Admin panels', hasTemplate: true },
-  { id: 42, name: 'Tree View', slug: 'tree-view', category: 'data-display', variants: ['single-select','multi-select','checkbox'], sizes: ['sm','md','lg'], css_class: 'uds-tree-view', accessibility: 'role=tree; role=treeitem; aria-expanded; aria-level', use_when: 'Hierarchical data display with expand/collapse', hasTemplate: false },
-  { id: 57, name: 'List', slug: 'list', category: 'data-display', variants: ['bullet','numbered','none'], sizes: ['standard','dense'], css_class: 'uds-list', accessibility: 'ul/ol semantic markup; list role', use_when: 'Simple list of items', hasTemplate: false },
-  { id: 58, name: 'Empty', slug: 'empty', category: 'data-display', variants: ['default','compact'], sizes: ['standard'], css_class: 'uds-empty', accessibility: 'role=status; heading', use_when: 'Empty state with optional illustration and action', hasTemplate: false },
-  { id: 59, name: 'Image', slug: 'image', category: 'data-display', variants: ['default','rounded','thumbnail'], sizes: ['sm','md','lg','full'], css_class: 'uds-image', accessibility: 'alt required; loading=lazy', use_when: 'Images with fallback and aspect ratio', hasTemplate: false },
-  { id: 60, name: 'Chip', slug: 'chip', category: 'data-display', variants: ['default','outlined','removable'], sizes: ['sm','md'], css_class: 'uds-chip', accessibility: 'aria-label Remove; button for remove', use_when: 'Standalone tag or filter chip', hasTemplate: false },
-  { id: 61, name: 'Descriptions', slug: 'descriptions', category: 'data-display', variants: ['horizontal','vertical','bordered'], sizes: ['standard'], css_class: 'uds-descriptions', accessibility: 'dl/dt/dd semantic markup', use_when: 'Key-value pairs display', hasTemplate: false },
-  { id: 62, name: 'Statistic', slug: 'statistic', category: 'data-display', variants: ['default','inline'], sizes: ['sm','md','lg'], css_class: 'uds-statistic', accessibility: 'Typography tokens; semantic number', use_when: 'Large metric display with label and trend', hasTemplate: false },
-  { id: 63, name: 'Timeline', slug: 'timeline', category: 'data-display', variants: ['default','compact'], sizes: ['standard'], css_class: 'uds-timeline', accessibility: 'Vertical list with connector; time element', use_when: 'Chronological event list', hasTemplate: false },
+  { id: 42, name: 'Tree View', slug: 'tree-view', category: 'data-display', variants: ['single-select','multi-select','checkbox'], sizes: ['sm','md','lg'], css_class: 'uds-tree-view', accessibility: 'role=tree; role=treeitem; aria-expanded; aria-level', use_when: 'Hierarchical data display with expand/collapse', hasTemplate: true },
+  { id: 57, name: 'List', slug: 'list', category: 'data-display', variants: ['bullet','numbered','none'], sizes: ['standard','dense'], css_class: 'uds-list', accessibility: 'ul/ol semantic markup; list role', use_when: 'Simple list of items', hasTemplate: true },
+  { id: 58, name: 'Empty', slug: 'empty', category: 'data-display', variants: ['default','compact'], sizes: ['standard'], css_class: 'uds-empty', accessibility: 'role=status; heading', use_when: 'Empty state with optional illustration and action', hasTemplate: true },
+  { id: 59, name: 'Image', slug: 'image', category: 'data-display', variants: ['default','rounded','thumbnail'], sizes: ['sm','md','lg','full'], css_class: 'uds-image', accessibility: 'alt required; loading=lazy', use_when: 'Images with fallback and aspect ratio', hasTemplate: true },
+  { id: 60, name: 'Chip', slug: 'chip', category: 'data-display', variants: ['default','outlined','removable'], sizes: ['sm','md'], css_class: 'uds-chip', accessibility: 'aria-label Remove; button for remove', use_when: 'Standalone tag or filter chip', hasTemplate: true },
+  { id: 61, name: 'Descriptions', slug: 'descriptions', category: 'data-display', variants: ['horizontal','vertical','bordered'], sizes: ['standard'], css_class: 'uds-descriptions', accessibility: 'dl/dt/dd semantic markup', use_when: 'Key-value pairs display', hasTemplate: true },
+  { id: 62, name: 'Statistic', slug: 'statistic', category: 'data-display', variants: ['default','inline'], sizes: ['sm','md','lg'], css_class: 'uds-statistic', accessibility: 'Typography tokens; semantic number', use_when: 'Large metric display with label and trend', hasTemplate: true },
+  { id: 63, name: 'Timeline', slug: 'timeline', category: 'data-display', variants: ['default','compact'], sizes: ['standard'], css_class: 'uds-timeline', accessibility: 'Vertical list with connector; time element', use_when: 'Chronological event list', hasTemplate: true },
 
   /* ── OVERLAY ─────────────────────────────────────────────── */
   { id: 10, name: 'Modal', slug: 'modal', category: 'overlay', variants: ['confirmation','task','alert'], sizes: ['sm','md','lg'], css_class: 'uds-modal', accessibility: 'role=dialog; aria-modal; focus trap; escape dismiss', use_when: 'Confirmations; Focused tasks; Critical alerts', hasTemplate: true },
   { id: 21, name: 'Tooltip', slug: 'tooltip', category: 'overlay', variants: ['simple','rich'], sizes: ['sm','md'], css_class: 'uds-tooltip', accessibility: 'role=tooltip; aria-describedby; show on hover+focus', use_when: 'Brief supplementary info on hover/focus', hasTemplate: true },
-  { id: 74, name: 'Drawer', slug: 'drawer', category: 'overlay', variants: ['left','right','top','bottom'], sizes: ['sm','md','lg'], css_class: 'uds-drawer', accessibility: 'role=dialog; aria-modal; focus trap; escape closes', use_when: 'Side panel for navigation, detail views, or forms', hasTemplate: false },
-  { id: 34, name: 'Popover', slug: 'popover', category: 'overlay', variants: ['top','bottom','left','right','auto'], sizes: ['sm','md'], css_class: 'uds-popover', accessibility: 'role=dialog; focus trap optional; Escape closes', use_when: 'Contextual content anchored to trigger element', hasTemplate: false },
-  { id: 36, name: 'Alert Dialog', slug: 'alert-dialog', category: 'overlay', variants: ['info','warning','destructive'], sizes: ['sm','md'], css_class: 'uds-alert-dialog', accessibility: 'role=alertdialog; aria-modal; auto-focus action button', use_when: 'Critical confirmations requiring user action', hasTemplate: false },
-  { id: 65, name: 'Context Menu', slug: 'context-menu', category: 'overlay', variants: ['default'], sizes: ['sm','md','lg'], css_class: 'uds-context-menu', accessibility: 'role=menu; role=menuitem; right-click trigger', use_when: 'Right-click context menu', hasTemplate: false },
-  { id: 66, name: 'Popconfirm', slug: 'popconfirm', category: 'overlay', variants: ['default'], sizes: ['sm','md'], css_class: 'uds-popconfirm', accessibility: 'aria-describedby; focus trap; confirm/cancel buttons', use_when: 'Inline confirmation popover', hasTemplate: false },
+  { id: 74, name: 'Drawer', slug: 'drawer', category: 'overlay', variants: ['left','right','top','bottom'], sizes: ['sm','md','lg'], css_class: 'uds-drawer', accessibility: 'role=dialog; aria-modal; focus trap; escape closes', use_when: 'Side panel for navigation, detail views, or forms', hasTemplate: true },
+  { id: 34, name: 'Popover', slug: 'popover', category: 'overlay', variants: ['top','bottom','left','right','auto'], sizes: ['sm','md'], css_class: 'uds-popover', accessibility: 'role=dialog; focus trap optional; Escape closes', use_when: 'Contextual content anchored to trigger element', hasTemplate: true },
+  { id: 36, name: 'Alert Dialog', slug: 'alert-dialog', category: 'overlay', variants: ['info','warning','destructive'], sizes: ['sm','md'], css_class: 'uds-alert-dialog', accessibility: 'role=alertdialog; aria-modal; auto-focus action button', use_when: 'Critical confirmations requiring user action', hasTemplate: true },
+  { id: 65, name: 'Context Menu', slug: 'context-menu', category: 'overlay', variants: ['default'], sizes: ['sm','md','lg'], css_class: 'uds-context-menu', accessibility: 'role=menu; role=menuitem; right-click trigger', use_when: 'Right-click context menu', hasTemplate: true },
+  { id: 66, name: 'Popconfirm', slug: 'popconfirm', category: 'overlay', variants: ['default'], sizes: ['sm','md'], css_class: 'uds-popconfirm', accessibility: 'aria-describedby; focus trap; confirm/cancel buttons', use_when: 'Inline confirmation popover', hasTemplate: true },
 
   /* ── FEEDBACK ────────────────────────────────────────────── */
   { id: 16, name: 'Alert', slug: 'alert', category: 'feedback', variants: ['info','success','warning','error'], sizes: ['sm','md','lg'], css_class: 'uds-alert', accessibility: 'role=alert for error/warning; role=status for success/info', use_when: 'Persistent contextual messages within a page', hasTemplate: true },
   { id: 25, name: 'Toast', slug: 'toast', category: 'feedback', variants: ['success','error','warning','info'], sizes: ['sm','md','lg'], css_class: 'uds-toast', accessibility: 'role=alert for error/warning; role=status for success/info', use_when: 'Transient feedback after user actions', hasTemplate: true },
   { id: 30, name: 'Progress Indicator', slug: 'progress-indicator', category: 'feedback', variants: ['bar','circular','stepper'], sizes: ['sm','md','lg'], css_class: 'uds-progress', accessibility: 'role=progressbar; aria-valuenow; aria-valuemin; aria-valuemax', use_when: 'Multi-step flows; Uploads; Loading states', hasTemplate: true },
   { id: 24, name: 'Skeleton', slug: 'skeleton', category: 'feedback', variants: ['text','card','avatar','table'], sizes: ['sm','md','lg'], css_class: 'uds-skeleton', accessibility: 'aria-busy=true on container; aria-hidden=true on skeleton', use_when: 'Content placeholders while data loads', hasTemplate: true },
-  { id: 67, name: 'Notification', slug: 'notification', category: 'feedback', variants: ['top-right','top-left','bottom-right','bottom-left'], sizes: ['sm','md','lg'], css_class: 'uds-notification', accessibility: 'role=region; aria-label; positioned toast stack', use_when: 'Persistent notification stack', hasTemplate: false },
+  { id: 67, name: 'Notification', slug: 'notification', category: 'feedback', variants: ['top-right','top-left','bottom-right','bottom-left'], sizes: ['sm','md','lg'], css_class: 'uds-notification', accessibility: 'role=region; aria-label; positioned toast stack', use_when: 'Persistent notification stack', hasTemplate: true },
 
   /* ── TRUST & COMMERCE ────────────────────────────────────── */
   { id: 6, name: 'Social Proof Bar', slug: 'social-proof', category: 'trust', variants: ['logo-strip','stats-counter','testimonial-mini','combined'], sizes: ['standard','compact'], css_class: 'uds-social-proof', accessibility: 'alt text on logos; aria-hidden on decorative', use_when: 'Below hero to build trust; B2B logo strips', hasTemplate: true },
@@ -3964,6 +3964,491 @@ $ npm run build
 </form>`;
     }
 
+    /* ── ACTION ── */
+    case 'link': {
+      return `<div style="display:flex;gap:24px;align-items:center;">
+  <a href="#" class="uds-link uds-link--${variant}" onclick="event.preventDefault()">Default link</a>
+  <a href="#" class="uds-link uds-link--${variant}" onclick="event.preventDefault()">Another link</a>
+  <a href="#" class="uds-link uds-link--${variant}" onclick="event.preventDefault()">External ↗</a>
+</div>`;
+    }
+
+    case 'float-button': {
+      if (variant === 'extended') {
+        return `<button class="uds-float-button uds-float-button--extended" aria-label="Create new item" style="position:relative;display:inline-flex;align-items:center;gap:var(--spacing-2);padding:var(--spacing-3) var(--spacing-5);border-radius:var(--radius-lg);background:var(--color-brand-primary);color:var(--color-text-on-brand);border:none;font-size:var(--text-body-sm);font-weight:600;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,.15);">
+  <span aria-hidden="true" style="font-size:1.2em;">+</span> Create
+</button>`;
+      }
+      return `<button class="uds-float-button uds-float-button--primary" aria-label="Add item" style="position:relative;display:inline-flex;align-items:center;justify-content:center;width:56px;height:56px;border-radius:50%;background:var(--color-brand-primary);color:var(--color-text-on-brand);border:none;font-size:1.5em;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,.15);">
+  <span aria-hidden="true">+</span>
+</button>`;
+    }
+
+    /* ── FORM (missing) ── */
+    case 'combobox': {
+      return `<div class="uds-combobox uds-combobox--${variant}" style="max-width:320px;" role="combobox" aria-expanded="true" aria-haspopup="listbox">
+  <label class="uds-input__label" style="display:block;margin-bottom:var(--spacing-1);font-size:var(--text-body-sm);font-weight:500;color:var(--color-text-primary);">Country</label>
+  <input class="uds-input__field" type="text" value="Uni" placeholder="Search..." aria-autocomplete="list" style="width:100%;padding:var(--spacing-2) var(--spacing-3);border:1px solid var(--color-border-default);border-radius:var(--radius-md);font-size:var(--text-body-md);color:var(--color-text-primary);background:var(--color-bg-primary);box-sizing:border-box;">
+  <ul role="listbox" style="margin:4px 0 0;padding:var(--spacing-1) 0;border:1px solid var(--color-border-default);border-radius:var(--radius-md);background:var(--color-bg-primary);list-style:none;box-shadow:var(--shadow-md);">
+    <li role="option" aria-selected="true" style="padding:var(--spacing-2) var(--spacing-3);background:var(--color-bg-secondary);color:var(--color-text-primary);font-size:var(--text-body-sm);cursor:pointer;">United States</li>
+    <li role="option" aria-selected="false" style="padding:var(--spacing-2) var(--spacing-3);color:var(--color-text-primary);font-size:var(--text-body-sm);cursor:pointer;">United Kingdom</li>
+    <li role="option" aria-selected="false" style="padding:var(--spacing-2) var(--spacing-3);color:var(--color-text-primary);font-size:var(--text-body-sm);cursor:pointer;">United Arab Emirates</li>
+  </ul>
+</div>`;
+    }
+
+    case 'chip-input': {
+      return `<div class="uds-chip-input uds-chip-input--${variant}" style="max-width:360px;">
+  <label style="display:block;margin-bottom:var(--spacing-1);font-size:var(--text-body-sm);font-weight:500;color:var(--color-text-primary);">Tags</label>
+  <div style="display:flex;flex-wrap:wrap;gap:var(--spacing-1);padding:var(--spacing-2);border:1px solid var(--color-border-default);border-radius:var(--radius-md);background:var(--color-bg-primary);min-height:44px;align-items:center;">
+    <span class="uds-chip" style="display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:var(--radius-sm);background:var(--color-bg-secondary);font-size:var(--text-label);color:var(--color-text-primary);">React <button aria-label="Remove React" style="background:none;border:none;cursor:pointer;color:var(--color-text-tertiary);font-size:1em;padding:0 2px;">×</button></span>
+    <span class="uds-chip" style="display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:var(--radius-sm);background:var(--color-bg-secondary);font-size:var(--text-label);color:var(--color-text-primary);">TypeScript <button aria-label="Remove TypeScript" style="background:none;border:none;cursor:pointer;color:var(--color-text-tertiary);font-size:1em;padding:0 2px;">×</button></span>
+    <input type="text" placeholder="Add tag…" style="border:none;outline:none;flex:1;min-width:80px;font-size:var(--text-body-sm);background:transparent;color:var(--color-text-primary);">
+  </div>
+</div>`;
+    }
+
+    case 'segmented-control': {
+      return `<div class="uds-segmented-control uds-segmented-control--${variant}" role="radiogroup" aria-label="View" style="display:inline-flex;border:1px solid var(--color-border-default);border-radius:var(--radius-md);overflow:hidden;">
+  <button role="radio" aria-checked="true" class="uds-segmented-control__item uds-segmented-control__item--active" style="padding:var(--spacing-2) var(--spacing-4);font-size:var(--text-body-sm);font-weight:500;border:none;cursor:pointer;background:var(--color-brand-primary);color:var(--color-text-on-brand);">Day</button>
+  <button role="radio" aria-checked="false" class="uds-segmented-control__item" style="padding:var(--spacing-2) var(--spacing-4);font-size:var(--text-body-sm);font-weight:500;border:none;border-left:1px solid var(--color-border-default);cursor:pointer;background:var(--color-bg-primary);color:var(--color-text-primary);">Week</button>
+  <button role="radio" aria-checked="false" class="uds-segmented-control__item" style="padding:var(--spacing-2) var(--spacing-4);font-size:var(--text-body-sm);font-weight:500;border:none;border-left:1px solid var(--color-border-default);cursor:pointer;background:var(--color-bg-primary);color:var(--color-text-primary);">Month</button>
+</div>`;
+    }
+
+    case 'otp-input': {
+      const digits = variant === '4-digit' ? 4 : 6;
+      const boxes = Array.from({length: digits}, (_, i) => `<input class="uds-otp-input__digit" type="text" maxlength="1" inputmode="numeric" aria-label="Digit ${i+1}" value="${i < 3 ? (i+1) : ''}" style="width:44px;height:52px;text-align:center;font-size:var(--text-heading-sm);font-weight:600;border:1px solid var(--color-border-default);border-radius:var(--radius-md);background:var(--color-bg-primary);color:var(--color-text-primary);">`).join('\n  ');
+      return `<div class="uds-otp-input uds-otp-input--${variant}" style="max-width:360px;">
+  <label style="display:block;margin-bottom:var(--spacing-2);font-size:var(--text-body-sm);font-weight:500;color:var(--color-text-primary);">Verification code</label>
+  <div style="display:flex;gap:var(--spacing-2);" role="group" aria-label="One-time code">
+  ${boxes}
+  </div>
+  <p style="margin:var(--spacing-2) 0 0;font-size:var(--text-label);color:var(--color-text-tertiary);">Enter the ${digits}-digit code sent to your email</p>
+</div>`;
+    }
+
+    case 'number-input': {
+      return `<div class="uds-number-input uds-number-input--${variant}" style="max-width:200px;">
+  <label style="display:block;margin-bottom:var(--spacing-1);font-size:var(--text-body-sm);font-weight:500;color:var(--color-text-primary);">Quantity</label>
+  <div style="display:flex;align-items:center;border:1px solid var(--color-border-default);border-radius:var(--radius-md);overflow:hidden;">
+    <button aria-label="Decrease" style="width:40px;height:40px;border:none;background:var(--color-bg-secondary);color:var(--color-text-primary);font-size:1.2em;cursor:pointer;">−</button>
+    <input type="number" value="3" min="0" max="99" aria-label="Quantity" style="width:60px;height:40px;border:none;border-left:1px solid var(--color-border-default);border-right:1px solid var(--color-border-default);text-align:center;font-size:var(--text-body-md);background:var(--color-bg-primary);color:var(--color-text-primary);">
+    <button aria-label="Increase" style="width:40px;height:40px;border:none;background:var(--color-bg-secondary);color:var(--color-text-primary);font-size:1.2em;cursor:pointer;">+</button>
+  </div>
+</div>`;
+    }
+
+    case 'slider': {
+      if (variant === 'range') {
+        return `<div class="uds-slider uds-slider--range" style="max-width:320px;">
+  <label style="display:block;margin-bottom:var(--spacing-2);font-size:var(--text-body-sm);font-weight:500;color:var(--color-text-primary);">Price range</label>
+  <div style="display:flex;align-items:center;gap:var(--spacing-3);">
+    <span style="font-size:var(--text-body-sm);color:var(--color-text-secondary);">$20</span>
+    <input type="range" min="0" max="100" value="70" role="slider" aria-label="Price" aria-valuenow="70" style="flex:1;accent-color:var(--color-brand-primary);">
+    <span style="font-size:var(--text-body-sm);color:var(--color-text-secondary);">$200</span>
+  </div>
+</div>`;
+      }
+      return `<div class="uds-slider uds-slider--single" style="max-width:320px;">
+  <label style="display:block;margin-bottom:var(--spacing-2);font-size:var(--text-body-sm);font-weight:500;color:var(--color-text-primary);">Volume</label>
+  <input type="range" min="0" max="100" value="60" role="slider" aria-label="Volume" aria-valuenow="60" style="width:100%;accent-color:var(--color-brand-primary);">
+  <div style="display:flex;justify-content:space-between;font-size:var(--text-label);color:var(--color-text-tertiary);"><span>0</span><span>60</span><span>100</span></div>
+</div>`;
+    }
+
+    case 'form': {
+      return `<form class="uds-form" style="max-width:360px;" aria-label="Contact form">
+  <div style="margin-bottom:var(--spacing-4);">
+    <label style="display:block;margin-bottom:var(--spacing-1);font-size:var(--text-body-sm);font-weight:500;color:var(--color-text-primary);" for="pg-form-name">Name</label>
+    <input id="pg-form-name" class="uds-input__field" type="text" placeholder="Jane Doe" style="width:100%;padding:var(--spacing-2) var(--spacing-3);border:1px solid var(--color-border-default);border-radius:var(--radius-md);font-size:var(--text-body-md);color:var(--color-text-primary);background:var(--color-bg-primary);box-sizing:border-box;">
+  </div>
+  <div style="margin-bottom:var(--spacing-4);">
+    <label style="display:block;margin-bottom:var(--spacing-1);font-size:var(--text-body-sm);font-weight:500;color:var(--color-text-primary);" for="pg-form-email">Email</label>
+    <input id="pg-form-email" class="uds-input__field" type="email" placeholder="jane@example.com" style="width:100%;padding:var(--spacing-2) var(--spacing-3);border:1px solid var(--color-border-default);border-radius:var(--radius-md);font-size:var(--text-body-md);color:var(--color-text-primary);background:var(--color-bg-primary);box-sizing:border-box;">
+  </div>
+  <button class="uds-btn uds-btn--primary" type="submit" style="width:100%;">Submit</button>
+</form>`;
+    }
+
+    case 'time-picker': {
+      return `<div class="uds-time-picker uds-time-picker--${variant}" style="max-width:200px;">
+  <label style="display:block;margin-bottom:var(--spacing-1);font-size:var(--text-body-sm);font-weight:500;color:var(--color-text-primary);" for="pg-time">Time</label>
+  <input id="pg-time" type="time" value="14:30" aria-label="Select time" style="width:100%;padding:var(--spacing-2) var(--spacing-3);border:1px solid var(--color-border-default);border-radius:var(--radius-md);font-size:var(--text-body-md);color:var(--color-text-primary);background:var(--color-bg-primary);box-sizing:border-box;">
+</div>`;
+    }
+
+    case 'rating': {
+      const stars = [1,2,3,4,5].map(i => `<span style="font-size:1.5em;cursor:pointer;color:${i <= 4 ? 'var(--color-warning)' : 'var(--color-border-default)'};" aria-hidden="true">${i <= 4 ? '★' : '☆'}</span>`).join('');
+      return `<div class="uds-rating uds-rating--${variant}" role="group" aria-label="Rating: 4 out of 5 stars">
+  <div style="display:flex;gap:4px;">${stars}</div>
+  <p style="margin:var(--spacing-1) 0 0;font-size:var(--text-body-sm);color:var(--color-text-secondary);">4 out of 5</p>
+</div>`;
+    }
+
+    case 'color-picker': {
+      if (variant === 'swatch') {
+        return `<div class="uds-color-picker uds-color-picker--swatch">
+  <label style="display:block;margin-bottom:var(--spacing-2);font-size:var(--text-body-sm);font-weight:500;color:var(--color-text-primary);">Brand color</label>
+  <div style="display:flex;gap:var(--spacing-2);">
+    <button style="width:36px;height:36px;border-radius:var(--radius-sm);border:2px solid var(--color-brand-primary);background:#3B82F6;cursor:pointer;" aria-label="Blue" aria-pressed="true"></button>
+    <button style="width:36px;height:36px;border-radius:var(--radius-sm);border:2px solid transparent;background:#10B981;cursor:pointer;" aria-label="Green"></button>
+    <button style="width:36px;height:36px;border-radius:var(--radius-sm);border:2px solid transparent;background:#F59E0B;cursor:pointer;" aria-label="Amber"></button>
+    <button style="width:36px;height:36px;border-radius:var(--radius-sm);border:2px solid transparent;background:#EF4444;cursor:pointer;" aria-label="Red"></button>
+    <button style="width:36px;height:36px;border-radius:var(--radius-sm);border:2px solid transparent;background:#8B5CF6;cursor:pointer;" aria-label="Purple"></button>
+  </div>
+</div>`;
+      }
+      return `<div class="uds-color-picker uds-color-picker--${variant}" style="max-width:200px;">
+  <label style="display:block;margin-bottom:var(--spacing-1);font-size:var(--text-body-sm);font-weight:500;color:var(--color-text-primary);" for="pg-color">Color</label>
+  <div style="display:flex;align-items:center;gap:var(--spacing-2);">
+    <input id="pg-color" type="color" value="#3B82F6" style="width:40px;height:40px;border:1px solid var(--color-border-default);border-radius:var(--radius-sm);cursor:pointer;padding:2px;">
+    <input type="text" value="#3B82F6" readonly style="flex:1;padding:var(--spacing-2);border:1px solid var(--color-border-default);border-radius:var(--radius-md);font-size:var(--text-body-sm);font-family:var(--font-mono);color:var(--color-text-primary);background:var(--color-bg-primary);box-sizing:border-box;">
+  </div>
+</div>`;
+    }
+
+    case 'stepper': {
+      if (variant === 'vertical') {
+        return `<div class="uds-stepper uds-stepper--vertical" role="list" aria-label="Checkout progress" style="display:flex;flex-direction:column;gap:0;">
+  <div role="listitem" aria-current="false" style="display:flex;gap:var(--spacing-3);padding-bottom:var(--spacing-4);">
+    <div style="display:flex;flex-direction:column;align-items:center;"><span style="width:28px;height:28px;border-radius:50%;background:var(--color-success);color:#fff;display:flex;align-items:center;justify-content:center;font-size:var(--text-label);font-weight:600;">✓</span><span style="flex:1;width:2px;background:var(--color-success);margin-top:4px;"></span></div>
+    <div><div style="font-size:var(--text-body-sm);font-weight:600;color:var(--color-text-primary);">Cart</div><div style="font-size:var(--text-label);color:var(--color-text-tertiary);">Items confirmed</div></div>
+  </div>
+  <div role="listitem" aria-current="step" style="display:flex;gap:var(--spacing-3);padding-bottom:var(--spacing-4);">
+    <div style="display:flex;flex-direction:column;align-items:center;"><span style="width:28px;height:28px;border-radius:50%;background:var(--color-brand-primary);color:var(--color-text-on-brand);display:flex;align-items:center;justify-content:center;font-size:var(--text-label);font-weight:600;">2</span><span style="flex:1;width:2px;background:var(--color-border-default);margin-top:4px;"></span></div>
+    <div><div style="font-size:var(--text-body-sm);font-weight:600;color:var(--color-brand-primary);">Shipping</div><div style="font-size:var(--text-label);color:var(--color-text-tertiary);">Enter address</div></div>
+  </div>
+  <div role="listitem" aria-disabled="true" style="display:flex;gap:var(--spacing-3);">
+    <div><span style="width:28px;height:28px;border-radius:50%;background:var(--color-bg-tertiary);color:var(--color-text-tertiary);display:flex;align-items:center;justify-content:center;font-size:var(--text-label);font-weight:600;">3</span></div>
+    <div><div style="font-size:var(--text-body-sm);font-weight:500;color:var(--color-text-tertiary);">Payment</div></div>
+  </div>
+</div>`;
+      }
+      return `<div class="uds-stepper uds-stepper--horizontal" role="list" aria-label="Checkout progress" style="display:flex;align-items:center;gap:var(--spacing-2);">
+  <div role="listitem" style="display:flex;align-items:center;gap:var(--spacing-2);"><span style="width:28px;height:28px;border-radius:50%;background:var(--color-success);color:#fff;display:flex;align-items:center;justify-content:center;font-size:var(--text-label);font-weight:600;">✓</span><span style="font-size:var(--text-body-sm);font-weight:500;color:var(--color-text-primary);">Cart</span></div>
+  <span style="flex:0 0 32px;height:2px;background:var(--color-success);"></span>
+  <div role="listitem" aria-current="step" style="display:flex;align-items:center;gap:var(--spacing-2);"><span style="width:28px;height:28px;border-radius:50%;background:var(--color-brand-primary);color:var(--color-text-on-brand);display:flex;align-items:center;justify-content:center;font-size:var(--text-label);font-weight:600;">2</span><span style="font-size:var(--text-body-sm);font-weight:600;color:var(--color-brand-primary);">Shipping</span></div>
+  <span style="flex:0 0 32px;height:2px;background:var(--color-border-default);"></span>
+  <div role="listitem" aria-disabled="true" style="display:flex;align-items:center;gap:var(--spacing-2);"><span style="width:28px;height:28px;border-radius:50%;background:var(--color-bg-tertiary);color:var(--color-text-tertiary);display:flex;align-items:center;justify-content:center;font-size:var(--text-label);font-weight:600;">3</span><span style="font-size:var(--text-body-sm);color:var(--color-text-tertiary);">Payment</span></div>
+</div>`;
+    }
+
+    /* ── NAVIGATION (missing) ── */
+    case 'menu': {
+      const isVert = variant === 'vertical';
+      return `<nav class="uds-menu uds-menu--${variant}" aria-label="Main menu">
+  <ul role="menubar" style="display:flex;${isVert ? 'flex-direction:column;' : ''}gap:0;list-style:none;margin:0;padding:0;${isVert ? 'border:1px solid var(--color-border-default);border-radius:var(--radius-md);overflow:hidden;max-width:200px;' : ''}">
+    <li role="none"><a role="menuitem" href="#" aria-current="page" style="display:block;padding:var(--spacing-2) var(--spacing-4);font-size:var(--text-body-sm);font-weight:600;color:var(--color-brand-primary);background:var(--color-bg-secondary);text-decoration:none;${isVert ? '' : 'border-bottom:2px solid var(--color-brand-primary);'}">Dashboard</a></li>
+    <li role="none"><a role="menuitem" href="#" style="display:block;padding:var(--spacing-2) var(--spacing-4);font-size:var(--text-body-sm);color:var(--color-text-primary);text-decoration:none;">Projects</a></li>
+    <li role="none"><a role="menuitem" href="#" style="display:block;padding:var(--spacing-2) var(--spacing-4);font-size:var(--text-body-sm);color:var(--color-text-primary);text-decoration:none;">Team</a></li>
+    <li role="none"><a role="menuitem" href="#" style="display:block;padding:var(--spacing-2) var(--spacing-4);font-size:var(--text-body-sm);color:var(--color-text-primary);text-decoration:none;">Settings</a></li>
+  </ul>
+</nav>`;
+    }
+
+    case 'anchor': {
+      return `<nav class="uds-anchor" aria-label="On this page" style="max-width:200px;">
+  <ul style="list-style:none;margin:0;padding:0;border-left:2px solid var(--color-border-default);">
+    <li><a href="#overview" style="display:block;padding:var(--spacing-1) var(--spacing-3);font-size:var(--text-body-sm);color:var(--color-brand-primary);font-weight:600;text-decoration:none;border-left:2px solid var(--color-brand-primary);margin-left:-2px;">Overview</a></li>
+    <li><a href="#installation" style="display:block;padding:var(--spacing-1) var(--spacing-3);font-size:var(--text-body-sm);color:var(--color-text-secondary);text-decoration:none;">Installation</a></li>
+    <li><a href="#usage" style="display:block;padding:var(--spacing-1) var(--spacing-3);font-size:var(--text-body-sm);color:var(--color-text-secondary);text-decoration:none;">Usage</a></li>
+    <li><a href="#api" style="display:block;padding:var(--spacing-1) var(--spacing-3);font-size:var(--text-body-sm);color:var(--color-text-secondary);text-decoration:none;">API Reference</a></li>
+  </ul>
+</nav>`;
+    }
+
+    /* ── LAYOUT (missing) ── */
+    case 'box': {
+      return `<div class="uds-box" style="padding:var(--spacing-4);background:var(--color-bg-secondary);border:1px solid var(--color-border-default);border-radius:var(--radius-md);">
+  <p style="margin:0;font-size:var(--text-body-sm);color:var(--color-text-primary);">This is a Box — a layout primitive for spacing and composition. It wraps content with consistent token-based padding.</p>
+</div>`;
+    }
+
+    case 'stack': {
+      const isRow = variant === 'row';
+      return `<div class="uds-stack uds-stack--${variant}" style="display:flex;${isRow ? 'flex-direction:row;' : 'flex-direction:column;'}gap:var(--spacing-3);">
+  <div style="padding:var(--spacing-3) var(--spacing-4);background:var(--color-bg-secondary);border:1px solid var(--color-border-default);border-radius:var(--radius-md);font-size:var(--text-body-sm);color:var(--color-text-primary);${isRow ? 'flex:1;' : ''}text-align:center;">Item 1</div>
+  <div style="padding:var(--spacing-3) var(--spacing-4);background:var(--color-bg-secondary);border:1px solid var(--color-border-default);border-radius:var(--radius-md);font-size:var(--text-body-sm);color:var(--color-text-primary);${isRow ? 'flex:1;' : ''}text-align:center;">Item 2</div>
+  <div style="padding:var(--spacing-3) var(--spacing-4);background:var(--color-bg-secondary);border:1px solid var(--color-border-default);border-radius:var(--radius-md);font-size:var(--text-body-sm);color:var(--color-text-primary);${isRow ? 'flex:1;' : ''}text-align:center;">Item 3</div>
+</div>`;
+    }
+
+    case 'grid': {
+      return `<div class="uds-grid uds-grid--${variant}" style="display:grid;grid-template-columns:repeat(3,1fr);gap:var(--spacing-3);">
+  <div style="padding:var(--spacing-4);background:var(--color-bg-secondary);border:1px solid var(--color-border-default);border-radius:var(--radius-md);text-align:center;font-size:var(--text-body-sm);color:var(--color-text-primary);">Cell 1</div>
+  <div style="padding:var(--spacing-4);background:var(--color-bg-secondary);border:1px solid var(--color-border-default);border-radius:var(--radius-md);text-align:center;font-size:var(--text-body-sm);color:var(--color-text-primary);">Cell 2</div>
+  <div style="padding:var(--spacing-4);background:var(--color-bg-secondary);border:1px solid var(--color-border-default);border-radius:var(--radius-md);text-align:center;font-size:var(--text-body-sm);color:var(--color-text-primary);">Cell 3</div>
+  <div style="padding:var(--spacing-4);background:var(--color-bg-secondary);border:1px solid var(--color-border-default);border-radius:var(--radius-md);text-align:center;font-size:var(--text-body-sm);color:var(--color-text-primary);">Cell 4</div>
+  <div style="padding:var(--spacing-4);background:var(--color-bg-secondary);border:1px solid var(--color-border-default);border-radius:var(--radius-md);text-align:center;font-size:var(--text-body-sm);color:var(--color-text-primary);">Cell 5</div>
+  <div style="padding:var(--spacing-4);background:var(--color-bg-secondary);border:1px solid var(--color-border-default);border-radius:var(--radius-md);text-align:center;font-size:var(--text-body-sm);color:var(--color-text-primary);">Cell 6</div>
+</div>`;
+    }
+
+    case 'divider': {
+      if (variant === 'vertical') {
+        return `<div style="display:flex;align-items:center;gap:var(--spacing-4);height:80px;">
+  <span style="font-size:var(--text-body-sm);color:var(--color-text-primary);">Left</span>
+  <hr class="uds-divider uds-divider--vertical" style="width:1px;height:100%;border:none;background:var(--color-border-default);margin:0;">
+  <span style="font-size:var(--text-body-sm);color:var(--color-text-primary);">Right</span>
+</div>`;
+      }
+      return `<div>
+  <p style="font-size:var(--text-body-sm);color:var(--color-text-primary);margin:0 0 var(--spacing-3);">Content above</p>
+  <hr class="uds-divider uds-divider--${variant}" style="border:none;border-top:1px ${variant === 'dashed' ? 'dashed' : 'solid'} var(--color-border-default);margin:0;">
+  <p style="font-size:var(--text-body-sm);color:var(--color-text-primary);margin:var(--spacing-3) 0 0;">Content below</p>
+</div>`;
+    }
+
+    case 'container': {
+      const widths = { sm: '640px', md: '768px', lg: '1024px', full: '100%' };
+      return `<div class="uds-container uds-container--${variant}" style="max-width:${widths[variant] || '768px'};margin:0 auto;padding:var(--spacing-4);background:var(--color-bg-secondary);border:1px dashed var(--color-border-default);border-radius:var(--radius-md);text-align:center;">
+  <p style="margin:0;font-size:var(--text-body-sm);color:var(--color-text-secondary);">Container (${variant}) — max-width: ${widths[variant] || '768px'}</p>
+</div>`;
+    }
+
+    case 'aspect-ratio': {
+      const ratioMap = { '16:9': '16/9', '1:1': '1/1', '4:3': '4/3', 'custom': '21/9' };
+      return `<div class="uds-aspect-ratio" style="max-width:320px;aspect-ratio:${ratioMap[variant] || '16/9'};background:var(--color-bg-secondary);border:1px solid var(--color-border-default);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;">
+  <span style="font-size:var(--text-body-sm);color:var(--color-text-tertiary);">${variant} aspect ratio</span>
+</div>`;
+    }
+
+    /* ── CONTENT (missing) ── */
+    case 'carousel': {
+      return `<div class="uds-carousel uds-carousel--${variant}" role="region" aria-roledescription="carousel" aria-label="Featured content" style="max-width:400px;border:1px solid var(--color-border-default);border-radius:var(--radius-md);overflow:hidden;">
+  <div style="position:relative;background:var(--color-bg-secondary);padding:var(--spacing-6);text-align:center;min-height:160px;display:flex;align-items:center;justify-content:center;">
+    <div>
+      <div style="font-size:var(--text-heading-sm);font-weight:600;color:var(--color-text-primary);margin-bottom:var(--spacing-2);">Slide 1 of 3</div>
+      <div style="font-size:var(--text-body-sm);color:var(--color-text-secondary);">Featured content goes here</div>
+    </div>
+    <button aria-label="Previous slide" style="position:absolute;left:8px;top:50%;transform:translateY(-50%);width:32px;height:32px;border-radius:50%;border:1px solid var(--color-border-default);background:var(--color-bg-primary);color:var(--color-text-primary);cursor:pointer;font-size:1em;">‹</button>
+    <button aria-label="Next slide" style="position:absolute;right:8px;top:50%;transform:translateY(-50%);width:32px;height:32px;border-radius:50%;border:1px solid var(--color-border-default);background:var(--color-bg-primary);color:var(--color-text-primary);cursor:pointer;font-size:1em;">›</button>
+  </div>
+  <div style="display:flex;justify-content:center;gap:var(--spacing-2);padding:var(--spacing-2);">
+    <span style="width:8px;height:8px;border-radius:50%;background:var(--color-brand-primary);"></span>
+    <span style="width:8px;height:8px;border-radius:50%;background:var(--color-border-default);"></span>
+    <span style="width:8px;height:8px;border-radius:50%;background:var(--color-border-default);"></span>
+  </div>
+</div>`;
+    }
+
+    case 'typography': {
+      const tags = { h1:'h1', h2:'h2', h3:'h3', body:'p', caption:'small', code:'code' };
+      const sizes = { h1:'var(--text-heading-xl)', h2:'var(--text-heading-lg)', h3:'var(--text-heading-sm)', body:'var(--text-body-md)', caption:'var(--text-label)', code:'var(--text-body-sm)' };
+      const tag = tags[variant] || 'p';
+      const fs = sizes[variant] || 'var(--text-body-md)';
+      const isCode = variant === 'code';
+      return `<${tag} class="uds-typography uds-typography--${variant}" style="margin:0;font-size:${fs};${isCode ? 'font-family:var(--font-mono);background:var(--color-bg-tertiary);padding:var(--spacing-2) var(--spacing-3);border-radius:var(--radius-sm);display:inline-block;' : 'font-weight:' + (variant.startsWith('h') ? '600' : '400') + ';'}color:var(--color-text-primary);">
+  ${isCode ? 'const theme = "minimal-saas";' : variant.startsWith('h') ? 'The quick brown fox jumps over the lazy dog' : variant === 'caption' ? 'Caption text — smaller supporting content' : 'Body text with consistent font sizing from design tokens. This paragraph shows the default reading experience.'}
+</${tag}>`;
+    }
+
+    case 'collapsible': {
+      return `<div class="uds-collapsible" style="max-width:400px;border:1px solid var(--color-border-default);border-radius:var(--radius-md);overflow:hidden;">
+  <button class="uds-collapsible__trigger" aria-expanded="true" aria-controls="pg-collapsible-content" style="width:100%;display:flex;justify-content:space-between;align-items:center;padding:var(--spacing-3) var(--spacing-4);border:none;background:var(--color-bg-secondary);cursor:pointer;font-size:var(--text-body-sm);font-weight:600;color:var(--color-text-primary);text-align:left;">
+    <span>More details</span><span aria-hidden="true">▼</span>
+  </button>
+  <div id="pg-collapsible-content" class="uds-collapsible__content" style="padding:var(--spacing-3) var(--spacing-4);border-top:1px solid var(--color-border-default);">
+    <p style="margin:0;font-size:var(--text-body-sm);color:var(--color-text-secondary);">This content is visible when the collapsible is expanded. It can contain any markup — text, forms, images, or other components.</p>
+  </div>
+</div>`;
+    }
+
+    case 'icon': {
+      return `<div style="display:flex;gap:var(--spacing-4);align-items:center;">
+  <span class="uds-icon uds-icon--sm" aria-hidden="true" style="display:inline-flex;width:16px;height:16px;border-radius:50%;background:var(--color-text-tertiary);"></span>
+  <span class="uds-icon uds-icon--md" aria-hidden="true" style="display:inline-flex;width:24px;height:24px;border-radius:50%;background:var(--color-brand-primary);"></span>
+  <span class="uds-icon uds-icon--lg" role="img" aria-label="Alert" style="display:inline-flex;width:32px;height:32px;border-radius:50%;background:var(--color-warning);"></span>
+  <span style="font-size:var(--text-label);color:var(--color-text-tertiary);">Icon sizes: sm (16) · md (24) · lg (32)</span>
+</div>`;
+    }
+
+    /* ── DATA DISPLAY (missing) ── */
+    case 'tree-view': {
+      return `<div class="uds-tree-view uds-tree-view--${variant}" role="tree" aria-label="File explorer" style="font-size:var(--text-body-sm);color:var(--color-text-primary);max-width:280px;">
+  <ul role="group" style="list-style:none;padding:0;margin:0;">
+    <li role="treeitem" aria-expanded="true" style="padding:var(--spacing-1) 0;">
+      <span style="cursor:pointer;font-weight:600;">▼ src/</span>
+      <ul role="group" style="list-style:none;padding-left:var(--spacing-4);margin:0;">
+        <li role="treeitem" aria-expanded="true" style="padding:var(--spacing-1) 0;">
+          <span style="cursor:pointer;font-weight:600;">▼ components/</span>
+          <ul role="group" style="list-style:none;padding-left:var(--spacing-4);margin:0;">
+            <li role="treeitem" style="padding:var(--spacing-1) 0;color:var(--color-text-secondary);">Button.tsx</li>
+            <li role="treeitem" style="padding:var(--spacing-1) 0;color:var(--color-text-secondary);">Modal.tsx</li>
+            <li role="treeitem" style="padding:var(--spacing-1) 0;color:var(--color-text-secondary);">Input.tsx</li>
+          </ul>
+        </li>
+        <li role="treeitem" aria-expanded="false" style="padding:var(--spacing-1) 0;">
+          <span style="cursor:pointer;font-weight:600;">▶ utils/</span>
+        </li>
+        <li role="treeitem" style="padding:var(--spacing-1) 0;color:var(--color-text-secondary);">index.ts</li>
+      </ul>
+    </li>
+  </ul>
+</div>`;
+    }
+
+    case 'list': {
+      const tag = variant === 'numbered' ? 'ol' : 'ul';
+      return `<${tag} class="uds-list uds-list--${variant}" style="margin:0;padding-left:${variant === 'none' ? '0' : 'var(--spacing-5)'};${variant === 'none' ? 'list-style:none;' : ''}font-size:var(--text-body-sm);color:var(--color-text-primary);line-height:1.8;">
+  <li>Install the package with npm or yarn</li>
+  <li>Import the CSS at your app entry point</li>
+  <li>Import components and start building</li>
+  <li>Switch palettes with data-theme attribute</li>
+</${tag}>`;
+    }
+
+    case 'empty': {
+      return `<div class="uds-empty uds-empty--${variant}" role="status" style="text-align:center;padding:var(--spacing-6);">
+  <div style="font-size:2.5em;margin-bottom:var(--spacing-3);color:var(--color-text-tertiary);" aria-hidden="true">📭</div>
+  <h3 style="margin:0 0 var(--spacing-1);font-size:var(--text-body-md);font-weight:600;color:var(--color-text-primary);">No results found</h3>
+  <p style="margin:0 0 var(--spacing-4);font-size:var(--text-body-sm);color:var(--color-text-secondary);max-width:280px;margin-left:auto;margin-right:auto;">Try adjusting your search or filters to find what you're looking for.</p>
+  <button class="uds-btn uds-btn--secondary uds-btn--sm" style="padding:var(--spacing-2) var(--spacing-4);border:1px solid var(--color-border-default);border-radius:var(--radius-md);background:var(--color-bg-primary);color:var(--color-text-primary);font-size:var(--text-body-sm);cursor:pointer;">Clear filters</button>
+</div>`;
+    }
+
+    case 'image': {
+      const radius = variant === 'rounded' ? 'var(--radius-lg)' : variant === 'thumbnail' ? 'var(--radius-sm)' : 'var(--radius-md)';
+      const imgSize = variant === 'thumbnail' ? 'width:80px;height:80px;' : 'width:100%;max-width:320px;aspect-ratio:16/9;';
+      return `<div class="uds-image uds-image--${variant}">
+  <div style="${imgSize}border-radius:${radius};background:var(--color-bg-secondary);border:1px solid var(--color-border-default);display:flex;align-items:center;justify-content:center;overflow:hidden;object-fit:cover;">
+    <span style="font-size:var(--text-body-sm);color:var(--color-text-tertiary);">${variant === 'thumbnail' ? '80×80' : '16:9 image'}</span>
+  </div>
+</div>`;
+    }
+
+    case 'chip': {
+      return `<div style="display:flex;flex-wrap:wrap;gap:var(--spacing-2);">
+  <span class="uds-chip uds-chip--${variant}" style="display:inline-flex;align-items:center;gap:4px;padding:var(--spacing-1) var(--spacing-3);border-radius:999px;font-size:var(--text-label);${variant === 'outlined' ? 'border:1px solid var(--color-border-default);color:var(--color-text-primary);background:transparent;' : 'background:var(--color-bg-secondary);color:var(--color-text-primary);'}">Design${variant === 'removable' ? ' <button aria-label="Remove Design" style="background:none;border:none;color:var(--color-text-tertiary);cursor:pointer;padding:0;font-size:1em;">×</button>' : ''}</span>
+  <span class="uds-chip uds-chip--${variant}" style="display:inline-flex;align-items:center;gap:4px;padding:var(--spacing-1) var(--spacing-3);border-radius:999px;font-size:var(--text-label);${variant === 'outlined' ? 'border:1px solid var(--color-border-default);color:var(--color-text-primary);background:transparent;' : 'background:var(--color-bg-secondary);color:var(--color-text-primary);'}">Development${variant === 'removable' ? ' <button aria-label="Remove Development" style="background:none;border:none;color:var(--color-text-tertiary);cursor:pointer;padding:0;font-size:1em;">×</button>' : ''}</span>
+  <span class="uds-chip uds-chip--${variant}" style="display:inline-flex;align-items:center;gap:4px;padding:var(--spacing-1) var(--spacing-3);border-radius:999px;font-size:var(--text-label);${variant === 'outlined' ? 'border:1px solid var(--color-border-default);color:var(--color-text-primary);background:transparent;' : 'background:var(--color-bg-secondary);color:var(--color-text-primary);'}">Accessibility${variant === 'removable' ? ' <button aria-label="Remove Accessibility" style="background:none;border:none;color:var(--color-text-tertiary);cursor:pointer;padding:0;font-size:1em;">×</button>' : ''}</span>
+</div>`;
+    }
+
+    case 'descriptions': {
+      const isHoriz = variant === 'horizontal';
+      return `<dl class="uds-descriptions uds-descriptions--${variant}" style="margin:0;max-width:400px;${variant === 'bordered' ? 'border:1px solid var(--color-border-default);border-radius:var(--radius-md);overflow:hidden;' : ''}">
+  <div style="display:${isHoriz || variant === 'bordered' ? 'flex' : 'block'};${variant === 'bordered' ? 'border-bottom:1px solid var(--color-border-default);' : 'margin-bottom:var(--spacing-2);'}${isHoriz ? 'gap:var(--spacing-3);' : ''}padding:${variant === 'bordered' ? 'var(--spacing-2) var(--spacing-3)' : '0'};">
+    <dt style="font-size:var(--text-body-sm);font-weight:600;color:var(--color-text-primary);${isHoriz || variant === 'bordered' ? 'min-width:120px;' : 'margin-bottom:2px;'}">Name</dt>
+    <dd style="margin:0;font-size:var(--text-body-sm);color:var(--color-text-secondary);">Jane Cooper</dd>
+  </div>
+  <div style="display:${isHoriz || variant === 'bordered' ? 'flex' : 'block'};${variant === 'bordered' ? 'border-bottom:1px solid var(--color-border-default);' : 'margin-bottom:var(--spacing-2);'}${isHoriz ? 'gap:var(--spacing-3);' : ''}padding:${variant === 'bordered' ? 'var(--spacing-2) var(--spacing-3)' : '0'};">
+    <dt style="font-size:var(--text-body-sm);font-weight:600;color:var(--color-text-primary);${isHoriz || variant === 'bordered' ? 'min-width:120px;' : 'margin-bottom:2px;'}">Email</dt>
+    <dd style="margin:0;font-size:var(--text-body-sm);color:var(--color-text-secondary);">jane@example.com</dd>
+  </div>
+  <div style="display:${isHoriz || variant === 'bordered' ? 'flex' : 'block'};${isHoriz ? 'gap:var(--spacing-3);' : ''}padding:${variant === 'bordered' ? 'var(--spacing-2) var(--spacing-3)' : '0'};">
+    <dt style="font-size:var(--text-body-sm);font-weight:600;color:var(--color-text-primary);${isHoriz || variant === 'bordered' ? 'min-width:120px;' : 'margin-bottom:2px;'}">Role</dt>
+    <dd style="margin:0;font-size:var(--text-body-sm);color:var(--color-text-secondary);">Product Designer</dd>
+  </div>
+</dl>`;
+    }
+
+    case 'statistic': {
+      const isInline = variant === 'inline';
+      return `<div class="uds-statistic uds-statistic--${variant}" style="${isInline ? 'display:flex;align-items:baseline;gap:var(--spacing-2);' : ''}">
+  <div style="font-size:${isInline ? 'var(--text-heading-sm)' : 'var(--text-heading-xl)'};font-weight:700;color:var(--color-text-primary);line-height:1;">1,234</div>
+  <div style="font-size:var(--text-body-sm);color:var(--color-text-secondary);${isInline ? '' : 'margin-top:var(--spacing-1);'}">Active users</div>
+  <div style="font-size:var(--text-label);color:var(--color-success);margin-top:var(--spacing-1);">↑ 12.5%</div>
+</div>`;
+    }
+
+    case 'timeline': {
+      return `<ul class="uds-timeline uds-timeline--${variant}" style="list-style:none;padding:0;margin:0;max-width:360px;">
+  <li style="display:flex;gap:var(--spacing-3);padding-bottom:var(--spacing-4);">
+    <div style="display:flex;flex-direction:column;align-items:center;"><span style="width:10px;height:10px;border-radius:50%;background:var(--color-brand-primary);flex-shrink:0;margin-top:5px;"></span><span style="flex:1;width:2px;background:var(--color-border-default);margin-top:4px;"></span></div>
+    <div><time style="font-size:var(--text-label);color:var(--color-text-tertiary);">Mar 16, 2026</time><div style="font-size:var(--text-body-sm);font-weight:600;color:var(--color-text-primary);margin-top:2px;">Project created</div><div style="font-size:var(--text-body-sm);color:var(--color-text-secondary);">Initial repository setup with CI/CD pipeline.</div></div>
+  </li>
+  <li style="display:flex;gap:var(--spacing-3);padding-bottom:var(--spacing-4);">
+    <div style="display:flex;flex-direction:column;align-items:center;"><span style="width:10px;height:10px;border-radius:50%;background:var(--color-success);flex-shrink:0;margin-top:5px;"></span><span style="flex:1;width:2px;background:var(--color-border-default);margin-top:4px;"></span></div>
+    <div><time style="font-size:var(--text-label);color:var(--color-text-tertiary);">Mar 14, 2026</time><div style="font-size:var(--text-body-sm);font-weight:600;color:var(--color-text-primary);margin-top:2px;">v0.5.0 released</div><div style="font-size:var(--text-body-sm);color:var(--color-text-secondary);">74 components across React, Vue, and Svelte.</div></div>
+  </li>
+  <li style="display:flex;gap:var(--spacing-3);">
+    <div><span style="width:10px;height:10px;border-radius:50%;background:var(--color-border-default);display:inline-block;flex-shrink:0;margin-top:5px;"></span></div>
+    <div><time style="font-size:var(--text-label);color:var(--color-text-tertiary);">Mar 10, 2026</time><div style="font-size:var(--text-body-sm);font-weight:600;color:var(--color-text-primary);margin-top:2px;">Design tokens finalized</div><div style="font-size:var(--text-body-sm);color:var(--color-text-secondary);">600 W3C DTCG tokens locked for production.</div></div>
+  </li>
+</ul>`;
+    }
+
+    /* ── OVERLAY (missing) ── */
+    case 'drawer': {
+      const side = variant === 'right' ? 'right' : variant === 'top' ? 'top' : variant === 'bottom' ? 'bottom' : 'left';
+      return `<div class="uds-drawer uds-drawer--${variant}" style="position:relative;border:1px solid var(--color-border-default);border-radius:var(--radius-md);overflow:hidden;height:200px;background:var(--color-bg-primary);">
+  <div style="position:absolute;${side === 'left' || side === 'right' ? 'top:0;bottom:0;' + side + ':0;width:240px;' : 'left:0;right:0;' + side + ':0;height:120px;'}background:var(--color-bg-secondary);border-${side === 'left' ? 'right' : side === 'right' ? 'left' : side === 'top' ? 'bottom' : 'top'}:1px solid var(--color-border-default);padding:var(--spacing-4);" role="dialog" aria-modal="true" aria-label="Drawer panel">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--spacing-3);">
+      <h3 style="margin:0;font-size:var(--text-body-md);font-weight:600;color:var(--color-text-primary);">Drawer</h3>
+      <button aria-label="Close" style="background:none;border:none;color:var(--color-text-tertiary);cursor:pointer;font-size:1.2em;">×</button>
+    </div>
+    <p style="margin:0;font-size:var(--text-body-sm);color:var(--color-text-secondary);">Panel content from ${side}</p>
+  </div>
+</div>`;
+    }
+
+    case 'popover': {
+      return `<div style="padding:var(--spacing-6);text-align:center;">
+  <div style="display:inline-block;position:relative;">
+    <button class="uds-btn uds-btn--secondary" style="padding:var(--spacing-2) var(--spacing-4);border:1px solid var(--color-border-default);border-radius:var(--radius-md);background:var(--color-bg-primary);color:var(--color-text-primary);font-size:var(--text-body-sm);cursor:pointer;" aria-haspopup="dialog" aria-expanded="true">Show popover</button>
+    <div class="uds-popover uds-popover--${variant}" role="dialog" style="position:absolute;${variant === 'bottom' ? 'top:calc(100% + 8px);' : 'bottom:calc(100% + 8px);'}left:50%;transform:translateX(-50%);width:240px;padding:var(--spacing-3);background:var(--color-bg-primary);border:1px solid var(--color-border-default);border-radius:var(--radius-md);box-shadow:var(--shadow-md);text-align:left;z-index:10;">
+      <div style="font-size:var(--text-body-sm);font-weight:600;color:var(--color-text-primary);margin-bottom:var(--spacing-1);">Popover title</div>
+      <p style="margin:0;font-size:var(--text-body-sm);color:var(--color-text-secondary);">Additional contextual information anchored to the trigger.</p>
+    </div>
+  </div>
+</div>`;
+    }
+
+    case 'alert-dialog': {
+      const isDestructive = variant === 'destructive';
+      return `<div class="uds-alert-dialog uds-alert-dialog--${variant}" role="alertdialog" aria-modal="true" aria-label="${isDestructive ? 'Delete item' : 'Confirm action'}" style="max-width:400px;padding:var(--spacing-5);background:var(--color-bg-primary);border:1px solid var(--color-border-default);border-radius:var(--radius-lg);box-shadow:var(--shadow-lg);">
+  <h2 style="margin:0 0 var(--spacing-2);font-size:var(--text-body-md);font-weight:600;color:var(--color-text-primary);">${isDestructive ? 'Delete this item?' : variant === 'warning' ? 'Warning' : 'Confirm'}</h2>
+  <p style="margin:0 0 var(--spacing-4);font-size:var(--text-body-sm);color:var(--color-text-secondary);">${isDestructive ? 'This action cannot be undone. All data associated with this item will be permanently removed.' : 'Are you sure you want to proceed with this action?'}</p>
+  <div style="display:flex;justify-content:flex-end;gap:var(--spacing-2);">
+    <button class="uds-btn uds-btn--ghost" style="padding:var(--spacing-2) var(--spacing-4);border:1px solid var(--color-border-default);border-radius:var(--radius-md);background:transparent;color:var(--color-text-primary);font-size:var(--text-body-sm);cursor:pointer;">Cancel</button>
+    <button class="uds-btn uds-btn--${isDestructive ? 'destructive' : 'primary'}" style="padding:var(--spacing-2) var(--spacing-4);border:none;border-radius:var(--radius-md);background:${isDestructive ? 'var(--color-error)' : 'var(--color-brand-primary)'};color:${isDestructive ? '#fff' : 'var(--color-text-on-brand)'};font-size:var(--text-body-sm);cursor:pointer;">${isDestructive ? 'Delete' : 'Confirm'}</button>
+  </div>
+</div>`;
+    }
+
+    case 'context-menu': {
+      return `<div class="uds-context-menu" role="menu" style="width:200px;padding:var(--spacing-1) 0;background:var(--color-bg-primary);border:1px solid var(--color-border-default);border-radius:var(--radius-md);box-shadow:var(--shadow-md);">
+  <button role="menuitem" style="width:100%;text-align:left;padding:var(--spacing-2) var(--spacing-3);border:none;background:transparent;color:var(--color-text-primary);font-size:var(--text-body-sm);cursor:pointer;">Cut</button>
+  <button role="menuitem" style="width:100%;text-align:left;padding:var(--spacing-2) var(--spacing-3);border:none;background:transparent;color:var(--color-text-primary);font-size:var(--text-body-sm);cursor:pointer;">Copy</button>
+  <button role="menuitem" style="width:100%;text-align:left;padding:var(--spacing-2) var(--spacing-3);border:none;background:transparent;color:var(--color-text-primary);font-size:var(--text-body-sm);cursor:pointer;">Paste</button>
+  <hr style="margin:var(--spacing-1) 0;border:none;border-top:1px solid var(--color-border-default);">
+  <button role="menuitem" style="width:100%;text-align:left;padding:var(--spacing-2) var(--spacing-3);border:none;background:transparent;color:var(--color-error);font-size:var(--text-body-sm);cursor:pointer;">Delete</button>
+</div>`;
+    }
+
+    case 'popconfirm': {
+      return `<div style="padding:var(--spacing-6);text-align:center;">
+  <div style="display:inline-block;position:relative;">
+    <button class="uds-btn uds-btn--destructive" style="padding:var(--spacing-2) var(--spacing-4);border:none;border-radius:var(--radius-md);background:var(--color-error);color:#fff;font-size:var(--text-body-sm);cursor:pointer;">Delete</button>
+    <div class="uds-popconfirm" style="position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);width:240px;padding:var(--spacing-3);background:var(--color-bg-primary);border:1px solid var(--color-border-default);border-radius:var(--radius-md);box-shadow:var(--shadow-md);text-align:left;">
+      <p style="margin:0 0 var(--spacing-3);font-size:var(--text-body-sm);color:var(--color-text-primary);">Are you sure you want to delete this?</p>
+      <div style="display:flex;justify-content:flex-end;gap:var(--spacing-2);">
+        <button style="padding:var(--spacing-1) var(--spacing-3);border:1px solid var(--color-border-default);border-radius:var(--radius-sm);background:transparent;color:var(--color-text-primary);font-size:var(--text-label);cursor:pointer;">No</button>
+        <button style="padding:var(--spacing-1) var(--spacing-3);border:none;border-radius:var(--radius-sm);background:var(--color-brand-primary);color:var(--color-text-on-brand);font-size:var(--text-label);cursor:pointer;">Yes</button>
+      </div>
+    </div>
+  </div>
+</div>`;
+    }
+
+    /* ── FEEDBACK (missing) ── */
+    case 'notification': {
+      return `<div class="uds-notification uds-notification--${variant}" style="display:flex;flex-direction:column;gap:var(--spacing-2);max-width:360px;" role="region" aria-label="Notifications">
+  <output style="display:flex;align-items:flex-start;gap:var(--spacing-3);padding:var(--spacing-3);background:var(--color-bg-primary);border:1px solid var(--color-border-default);border-radius:var(--radius-md);box-shadow:var(--shadow-md);">
+    <span style="color:var(--color-success);font-size:1.2em;flex-shrink:0;" aria-hidden="true">✓</span>
+    <div style="flex:1;"><div style="font-size:var(--text-body-sm);font-weight:600;color:var(--color-text-primary);">Changes saved</div><div style="font-size:var(--text-label);color:var(--color-text-secondary);">Your profile has been updated.</div></div>
+    <button aria-label="Dismiss" style="background:none;border:none;color:var(--color-text-tertiary);cursor:pointer;font-size:1em;">×</button>
+  </output>
+  <output style="display:flex;align-items:flex-start;gap:var(--spacing-3);padding:var(--spacing-3);background:var(--color-bg-primary);border:1px solid var(--color-border-default);border-radius:var(--radius-md);box-shadow:var(--shadow-md);">
+    <span style="color:var(--color-error);font-size:1.2em;flex-shrink:0;" aria-hidden="true">!</span>
+    <div style="flex:1;"><div style="font-size:var(--text-body-sm);font-weight:600;color:var(--color-text-primary);">Upload failed</div><div style="font-size:var(--text-label);color:var(--color-text-secondary);">File exceeds 5MB limit.</div></div>
+    <button aria-label="Dismiss" style="background:none;border:none;color:var(--color-text-tertiary);cursor:pointer;font-size:1em;">×</button>
+  </output>
+</div>`;
+    }
+
     default:
       return null;
   }
@@ -4031,7 +4516,7 @@ const copyBtn = document.getElementById('copy-btn');
     for (const c of items) {
       const opt = document.createElement('option');
       opt.value = c.slug;
-      opt.textContent = c.hasTemplate ? c.name : c.name + ' ○';
+      opt.textContent = c.name;
       group.appendChild(opt);
     }
     componentSelect.appendChild(group);
