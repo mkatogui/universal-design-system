@@ -34,6 +34,7 @@ Expected `npm run check` output:
 | `npm run audit` | WCAG 2.2 AA contrast — 108 checks across 9 palettes x 2 modes |
 | `npm run verify` | HTML docs integrity — no hardcoded values, valid nav links |
 | `npm run sync-data` | CSV cross-reference validation across 20 databases |
+| `npm run test:contracts` | Python contract tests (design system output, token resolution, dataset validation) |
 | **`npm run test:accessibility`** | **Playwright + axe-core (same as CI)** — run locally before pushing to avoid accessibility failures in the pipeline. First time: `npx playwright install chromium`. |
 
 You can also run the reasoning engine directly:
@@ -120,9 +121,11 @@ User Query --> DomainDetector --> BM25 Search --> Rule Engine --> Token Resoluti
                 21 product types) 1,600+ rows)     priority-sorted) palette overrides)
 ```
 
-- **Layer 1 — Domain Detection** (`src/scripts/core.py: DomainDetector`): Regex matching against 21 sectors and 8 product types. Returns sector + product_type with confidence.
+- **Layer 1 — Domain Detection** (`src/scripts/core.py: DomainDetector`): Regex matching against 55 sectors and 21 product types. Returns sector + product_type with confidence.
 - **Layer 2 — BM25 Search** (`src/scripts/core.py: BM25Index`): Okapi BM25 ranking (k1=1.5, b=0.75) across all CSV databases. Exact token matching only.
 - **Layer 3 — Rule Engine** (`src/scripts/core.py: ReasoningEngine`): Evaluates rules from `ui-reasoning.csv`. Higher priority first; first match wins.
+
+**Token resolution** lives in `src/scripts/tokens.py` (load/resolve foundation and palette tokens). **Output formatters** (markdown, box, JSON, Tailwind, CSS-in-JS, framework code) live in `src/scripts/formatters/`; add a new format by adding a module and registering it in `formatters/__init__.py`. **Pre-delivery checklist** is in `src/scripts/checklist.py`.
 
 **Palette fallback chain:** rule match --> top search result's palette --> default `minimal-saas`.
 
@@ -204,7 +207,7 @@ The interactive docs (`docs/docs.html`) are a self-contained HTML file with inli
 
 **Published packages:** `@mkatogui/universal-design-system` (root), `@mkatogui/uds-react`, `@mkatogui/uds-tokens`. Vue, Svelte, and primitives may be published separately.
 
-**Version policy:** Keep root and `@mkatogui/uds-react` in sync (e.g. both at `0.4.x`). Bump `@mkatogui/uds-tokens` and other packages when cutting a release or when their contents change. Use a single source of truth (e.g. root `package.json` version) and align the rest before publishing.
+**Version policy:** Keep root, `@mkatogui/uds-react`, CLI, MCP, and other published packages in sync (e.g. all at `0.6.x`). Bump all when cutting a release. Use root `package.json` version as the source of truth and align every `package.json` and plugin `version` field before publishing.
 
 **Before publishing:**
 

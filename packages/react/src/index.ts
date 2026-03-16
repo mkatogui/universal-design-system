@@ -153,6 +153,7 @@ export type { TabItem, TabsProps } from './components/Tabs';
 export { Tabs } from './components/Tabs';
 export type { TestimonialProps } from './components/Testimonial';
 export { Testimonial } from './components/Testimonial';
+export { ThemeCheck } from './components/ThemeCheck';
 export type { TimelineItem, TimelineProps } from './components/Timeline';
 export { Timeline } from './components/Timeline';
 export type { TimePickerProps } from './components/TimePicker';
@@ -173,3 +174,4 @@ export { Typography } from './components/Typography';
 
 // Utilities
 export { loadCustomPalette, unloadCustomPalette } from './utils/loadPalette';
+export { warnIfNoTheme } from './utils/themeWarning';

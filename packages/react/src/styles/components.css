@@ -1036,7 +1036,7 @@
 .uds-chip-input:focus-within {
   border-color: var(--color-brand-primary);
   outline: 2px solid transparent;
-  box-shadow: 0 0 0 2px rgba(var(--color-brand-primary-rgb, 37, 99, 235), 0.2);
+  box-shadow: 0 0 0 2px rgba(var(--color-brand-primary-rgb), 0.2);
 }
 .uds-chip-input--disabled {
   opacity: var(--opacity-disabled);
@@ -1109,7 +1109,7 @@
 .uds-otp-input__digit:focus {
   outline: none;
   border-color: var(--color-brand-primary);
-  box-shadow: 0 0 0 3px rgba(var(--color-brand-primary-rgb, 37, 99, 235), 0.15);
+  box-shadow: 0 0 0 3px rgba(var(--color-brand-primary-rgb), 0.15);
 }
 .uds-otp-input__digit::placeholder {
   color: var(--color-text-tertiary);
@@ -1329,7 +1329,7 @@
 .uds-number-input__input:focus {
   outline: none;
   border-color: var(--color-brand-primary);
-  box-shadow: 0 0 0 3px rgba(var(--color-brand-primary-rgb, 37, 99, 235), 0.15);
+  box-shadow: 0 0 0 3px rgba(var(--color-brand-primary-rgb), 0.15);
 }
 .uds-number-input__stepper {
   width: 32px;
@@ -1526,7 +1526,7 @@
 }
 .uds-login-form__input:focus {
   border-color: var(--color-brand-primary);
-  box-shadow: 0 0 0 2px var(--color-brand-primary-alpha, rgba(59, 130, 246, 0.15));
+  box-shadow: 0 0 0 2px rgba(var(--color-brand-primary-rgb), 0.15);
 }
 .uds-login-form__input--error {
   border-color: var(--color-error-border);
@@ -1650,7 +1650,7 @@
   line-height: 1;
 }
 .uds-rating__star--filled {
-  color: var(--color-warning, #d97706);
+  color: var(--color-warning);
 }
 .uds-rating__star:hover:not(:disabled) {
   opacity: 0.9;

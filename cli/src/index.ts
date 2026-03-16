@@ -102,8 +102,10 @@ function showHelp(): void {
     -j, --json              Output as JSON
 
   Options (generate):
-    -f, --format <format>   Output format (markdown, json, tailwind, css-in-js)
+    -f, --format <format>   Output format (markdown, json, tailwind, css-in-js, box)
     --framework <name>      Framework-specific output (react, vue, svelte)
+    --persist               Write design-system/MASTER.md for reuse by AI/humans
+    --page <name>           With --persist: also write design-system/pages/<name>.md
 
   Options (palette):
     --name <name>           Palette name (slug, e.g. 'my-brand')
@@ -163,6 +165,8 @@ async function main(): Promise<void> {
       await generateCommand(positional[0], {
         format: (flags.format || flags.f) as string | undefined,
         framework: flags.framework as string | undefined,
+        persist: !!flags.persist,
+        page: flags.page as string | undefined,
       });
       break;
 

@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Universal Design System v0.4.0 — a deterministic UI recommendation engine powered by retrieval and rule evaluation that recommends palettes, components, patterns, and anti-patterns based on product domain. 9 structural palettes, 72 components (43 core + 29 from roadmap), ~600 tokens, 20 CSV databases (1,676+ rows), 84 anti-pattern rules, Tailwind CSS generation, React/Vue/Svelte/Web Components output, WCAG 2.2 AA + APCA dual reporting, 20 AI platform support.
+Universal Design System v0.6.0 — a deterministic UI recommendation engine powered by retrieval and rule evaluation that recommends palettes, components, patterns, and anti-patterns based on product domain. 9 structural palettes, 72 components (43 core + 29 from roadmap), ~600 tokens, 20 CSV databases (1,676+ rows), 84 anti-pattern rules, Tailwind CSS generation, React/Vue/Svelte/Web Components output, WCAG 2.2 AA + APCA dual reporting, 20 AI platform support.
 
 ## Key Commands
 
@@ -35,6 +35,12 @@ python src/scripts/search.py "kids education app" --verbose --json
 # Generate a full design system specification
 python src/scripts/design_system.py "saas landing page"
 python src/scripts/design_system.py "healthcare portal" --format json
+
+# Generate and persist a design system so your AI assistant can read it when building specific pages
+python src/scripts/design_system.py "saas landing" --persist
+python src/scripts/design_system.py "saas dashboard" --persist --page dashboard
+# Creates design-system/MASTER.md and optionally design-system/pages/<name>.md. Page files override master for hierarchical retrieval.
+# From CLI: uds generate "saas landing" --persist --page dashboard. Run uds generate --help for full options (--format box, --framework, etc.).
 
 # Generate with Tailwind CSS config
 python src/scripts/design_system.py "saas landing page" --format tailwind

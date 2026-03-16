@@ -61,6 +61,14 @@ User Query -> Domain Detection -> BM25 Search -> Rule Application -> Output
 
 **Layer 3 -- Rule Application:** Evaluates 190 conditional rules and flags 84 industry-specific anti-patterns. First match wins for palette; all matching rules accumulate.
 
+### Ecosystem and token pipeline
+
+UDS is the **inference layer**: it infers design decisions (palette, components, anti-patterns) from your query. The rest of the pipeline is optional and tool-agnostic:
+
+- **Tokens:** UDS uses `tokens/design-tokens.json` as the source of truth. **Style Dictionary** (already integrated via `npm run build`) compiles tokens to CSS, JS, iOS Swift, and Android XML. No extra setup required.
+- **Optional tooling:** You can combine UDS with [Tokens Studio](https://tokens.studio/) (Figma ↔ Git sync), [Specify](https://specifyapp.com/) (enterprise token lifecycle), [Storybook](https://storybook.js.org/) (component testing and docs), or [Zeroheight](https://zeroheight.com/) (design system documentation). UDS does not depend on them; it only produces the spec and tokens. Use these tools to govern, test, or document the system after generation.
+- **Reference systems:** UDS is informed by lessons from Material Design, Polaris, and Primer (see [SPECIFICATION.md](SPECIFICATION.md) §0.7). Future directions (analytics, multi-agent orchestration, visual token interaction) are noted in §0.8.
+
 ---
 
 ## Quick Start
@@ -97,6 +105,10 @@ python3 src/scripts/design_system.py "healthcare portal" --format tailwind
 python3 src/scripts/design_system.py "ecommerce store" --framework react
 python3 src/scripts/design_system.py "education app" --framework vue
 python3 src/scripts/design_system.py "fintech dashboard" --framework svelte
+
+# Persist design system to files for reuse by AI and humans (design-system/MASTER.md, optional design-system/pages/<name>.md)
+python3 src/scripts/design_system.py "saas landing" --persist
+python3 src/scripts/design_system.py "saas dashboard" --persist --page dashboard
 ```
 
 ### Apply a palette
@@ -326,10 +338,15 @@ uds search "query"       # Search all databases
 uds search "query" -v    # Verbose output
 uds search "query" -j    # JSON output
 uds generate "query"     # Generate full design system spec
-uds generate "query" -f tailwind        # Tailwind CSS config
+uds generate "query" -f markdown       # Markdown (default)
+uds generate "query" -f box           # Box-drawing summary
+uds generate "query" -f tailwind      # Tailwind CSS config
+uds generate "query" -f css-in-js     # CSS-in-JS theme
 uds generate "query" --framework react  # React components
 uds generate "query" --framework vue    # Vue components
 uds generate "query" --framework svelte # Svelte components
+uds generate "query" --persist        # Write design-system/MASTER.md
+uds generate "query" --persist --page dashboard  # Also write design-system/pages/dashboard.md
 uds tailwind "query"     # Shortcut for Tailwind generation
 uds palette create       # Create custom palette from brand colors
 uds palette list         # List all palettes
@@ -360,8 +377,8 @@ universal-design-system/
   tokens/                 # W3C DTCG design tokens (source of truth)
   src/
     data/                 # 20 CSV databases (1,676+ rows)
-    scripts/              # BM25 engine, search CLI, spec generator, palette CLI
-    mcp/                  # MCP server for AI coding tool integration
+    scripts/              # Python: core (BM25, reasoning), tokens, checklist, formatters, design_system, search, palette CLI
+    mcp/                  # MCP server (Node.js) for AI coding tool integration
   cli/                    # TypeScript CLI (zero dependencies)
   packages/
     tokens/               # Standalone token package (@mkatogui/uds-tokens)

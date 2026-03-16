@@ -201,9 +201,13 @@ Props: `tabs` (`TabItem[]`, required), `defaultIndex`, `variant` (`'line'` | `'p
 
 `TabItem`: `{ label: string; content: ReactNode; disabled?: boolean }`
 
+## Tokens and theming
+
+Components use design tokens only (no hardcoded colors). For a per-component list of tokens, see [docs/COMPONENT_TOKENS.md](../docs/COMPONENT_TOKENS.md) in the repo.
+
 ## Palette Switching
 
-**Required:** set `data-theme` on `<html>` (or your root app wrapper) for correct theming. Example: `<html lang="en" data-theme="minimal-saas">`. You can also set it on a container:
+**Required:** set `data-theme` on `<html>` (or your root app wrapper) for correct theming. Example: `<html lang="en" data-theme="minimal-saas">`. In development, if you use `<Container>` (or `<ThemeCheck />`) and forget to set `data-theme`, the package will log a one-time console warning. You can also set the theme on a container:
 
 ```tsx
 <div data-theme="corporate">

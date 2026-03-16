@@ -113,3 +113,6 @@ id,category,guideline,priority,applies_to,rationale
 112,form-validation,Show password requirements as a checklist that updates in real-time,7,authentication,"Real-time requirement checklists are 40% more effective than post-submit error messages."
 113,cookies,Place cookie consent in a non-blocking bottom banner with clear reject option,7,all,"Non-blocking banners respect user flow. Easy reject respects privacy regulations and user trust."
 114,keyboard-shortcuts,Display keyboard shortcut hints in tooltips and provide a shortcut reference modal,6,dashboard;admin,"Keyboard shortcuts increase power-user efficiency 40% when discoverable through tooltips."
+115,color,Use consistent semantic colors for status across all components (success=green warning=amber error=red info=blue),8,all,"Reference: Polaris and Material use consistent semantic color meaning so users learn once and recognize everywhere."
+116,interaction,Ensure touch targets are at least 44x44px with a visible focus ring for keyboard users,9,all,"Reference: Material and WCAG 2.5.8. Touch and keyboard users need adequate target size and focus visibility."
+117,hierarchy,Make primary actions visually dominant over secondary; use one primary button per context,8,all,"Reference: Primer and Material. Clear hierarchy reduces decision time and guides users to the main action."
