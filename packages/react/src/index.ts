@@ -1,5 +1,4 @@
 // Action
-
 export type { AccordionItem, AccordionProps } from './components/Accordion';
 export { Accordion } from './components/Accordion';
 export type { AlertProps } from './components/Alert';
