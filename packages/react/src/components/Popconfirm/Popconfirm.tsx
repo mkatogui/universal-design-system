@@ -73,9 +73,9 @@ export const Popconfirm: React.FC<PopconfirmProps> = ({
       </button>
       {open &&
         ReactDOM.createPortal(
-          <div
+          <dialog
+            open
             className="uds-popconfirm__panel"
-            role="dialog"
             aria-describedby="uds-popconfirm-desc"
             style={{ position: 'fixed', top: position.top, left: position.left }}
             onClick={(e) => e.stopPropagation()}
@@ -95,7 +95,7 @@ export const Popconfirm: React.FC<PopconfirmProps> = ({
                 {confirmLabel}
               </button>
             </div>
-          </div>,
+          </dialog>,
           document.body,
         )}
     </div>

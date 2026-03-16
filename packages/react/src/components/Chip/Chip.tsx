@@ -25,8 +25,7 @@ export const Chip: React.FC<ChipProps> = ({
     .filter(Boolean)
     .join(' ');
   return (
-    // biome-ignore lint/a11y/useSemanticElements: Chip is often used outside a list (e.g. flex row)
-    <span className={classes} role="listitem">
+    <li className={classes}>
       <span className="uds-chip__label">{label}</span>
       {onRemove && (
         <button
@@ -38,7 +37,7 @@ export const Chip: React.FC<ChipProps> = ({
           ×
         </button>
       )}
-    </span>
+    </li>
   );
 };
 

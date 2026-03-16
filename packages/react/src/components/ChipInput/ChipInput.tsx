@@ -95,6 +95,7 @@ export const ChipInput: React.FC<ChipInputProps> = ({
     <div
       className={classes}
       role="listbox"
+      tabIndex={0}
       aria-label="Chips"
       aria-disabled={disabled}
       onClick={() => inputRef.current?.focus()}
@@ -106,7 +107,13 @@ export const ChipInput: React.FC<ChipInputProps> = ({
       }}
     >
       {chips.map((chip) => (
-        <span key={chip} className="uds-chip-input__chip" role="option" tabIndex={-1}>
+        <span
+          key={chip}
+          className="uds-chip-input__chip"
+          role="option"
+          aria-selected={true}
+          tabIndex={-1}
+        >
           <span className="uds-chip-input__chip-label">{chip}</span>
           <button
             type="button"

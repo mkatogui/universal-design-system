@@ -76,16 +76,14 @@ export const Carousel: React.FC<CarouselProps> = ({
     >
       <div className="uds-carousel__track" style={{ transform: `translateX(-${current * 100}%)` }}>
         {items.map((item, i) => (
-          // biome-ignore lint/a11y/useSemanticElements: carousel slides use role=group per ARIA pattern, not fieldset
-          <div
+          <section
             key={`slide-${i}`}
             className="uds-carousel__slide"
-            role="group"
             aria-roledescription="slide"
             aria-label={`Slide ${i + 1} of ${items.length}`}
           >
             {item}
-          </div>
+          </section>
         ))}
       </div>
       {showArrows && items.length > 1 && (

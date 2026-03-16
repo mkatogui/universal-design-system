@@ -82,18 +82,20 @@ export const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>(
     };
 
     return (
+      // biome-ignore lint/a11y/useAriaPropsSupportedByRole: role is conditionally set to "img" at runtime for non-image variants
       <div
         ref={ref}
         className={classes}
-        role="img"
+        role={variant !== 'group' && !(src && !imgError) ? 'img' : undefined}
         aria-label={alt || initials || undefined}
         {...props}
       >
         {renderContent()}
         {status && (
+          // biome-ignore lint/a11y/useSemanticElements: status badge is a decorative indicator, not an <output> element
           <span
             className={`uds-avatar__status uds-avatar__status--${status}`}
-            role="img"
+            role="status"
             aria-label={status}
           />
         )}

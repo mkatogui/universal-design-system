@@ -13,14 +13,14 @@ export const List = React.forwardRef<HTMLUListElement | HTMLOListElement, ListPr
       .filter(Boolean)
       .join(' ');
     const content =
-      items != null
-        ? items.map((item, i) => (
-            // biome-ignore lint/suspicious/noArrayIndexKey: items are ReactNode[] without stable ids
-            <li key={i} className="uds-list__item">
+      items == null
+        ? children
+        : items.map((item, i) => (
+            // biome-ignore lint/suspicious/noArrayIndexKey: ReactNode[] items lack stable ids; composite key with content + index is the best option
+            <li key={`list-item-${String(item)}-${i}`} className="uds-list__item">
               {item}
             </li>
-          ))
-        : children;
+          ));
     const listProps = { className: classes, ...props };
     return variant === 'numbered' ? (
       <ol ref={ref as React.Ref<HTMLOListElement>} {...listProps}>

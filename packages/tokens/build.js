@@ -594,7 +594,7 @@ function generateTokenTypes(resolvedMap) {
   }
   lines.push('');
 
-  // ── PaletteName union ──
+  // ── PaletteName union + isPalette type guard ──
   const paletteUnion = PALETTES.map((p) => `'${p}'`).join(' | ');
   lines.push(
     '/**',
@@ -603,10 +603,6 @@ function generateTokenTypes(resolvedMap) {
     ' */',
     `export type PaletteName = ${paletteUnion};`,
     '',
-  );
-
-  // ── isPalette type guard ──
-  lines.push(
     '/**',
     ' * Runtime type guard that checks whether a string is a valid PaletteName.',
     ' */',

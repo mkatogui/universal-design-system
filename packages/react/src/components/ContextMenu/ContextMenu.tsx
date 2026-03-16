@@ -43,11 +43,9 @@ export const ContextMenu: React.FC<ContextMenuProps> = ({
 
   const classes = ['uds-context-menu', className].filter(Boolean).join(' ');
   return (
-    // biome-ignore lint/a11y/useSemanticElements: trigger is a widget wrapper for arbitrary children, not a document section
-    <div
+    <section
       ref={ref}
       className={classes}
-      role="region"
       aria-label="Context menu trigger"
       onContextMenu={handleContextMenu}
     >
@@ -57,6 +55,7 @@ export const ContextMenu: React.FC<ContextMenuProps> = ({
           <div
             className="uds-context-menu__menu"
             role="menu"
+            tabIndex={-1}
             style={{ left: pos.x, top: pos.y }}
             onClick={(e) => e.stopPropagation()}
             onKeyDown={(e) => e.stopPropagation()}
@@ -79,7 +78,7 @@ export const ContextMenu: React.FC<ContextMenuProps> = ({
           </div>,
           document.body,
         )}
-    </div>
+    </section>
   );
 };
 

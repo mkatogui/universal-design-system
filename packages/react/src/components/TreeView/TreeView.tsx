@@ -9,21 +9,103 @@ export interface TreeNode {
 
 export interface TreeViewProps {
   /** Tree data. */
-  nodes: TreeNode[];
+  readonly nodes: readonly TreeNode[];
   /** Selected node id(s) when selectionMode is single, or array for multi. */
-  selectedIds?: string | string[];
+  readonly selectedIds?: string | string[];
   /** Callback when selection changes. */
-  onSelect?: (ids: string[]) => void;
+  readonly onSelect?: (ids: string[]) => void;
   /** Callback when a node is expanded/collapsed. */
-  onExpand?: (id: string, expanded: boolean) => void;
+  readonly onExpand?: (id: string, expanded: boolean) => void;
   /** Selection behavior. @default 'single' */
-  selectionMode?: 'single' | 'multi' | 'none';
+  readonly selectionMode?: 'single' | 'multi' | 'none';
   /** Initially expanded node ids (uncontrolled). */
-  defaultExpandedIds?: string[];
+  readonly defaultExpandedIds?: readonly string[];
   /** Additional CSS class for the root. */
-  className?: string;
+  readonly className?: string;
   /** Accessible label for the tree. */
-  'aria-label'?: string;
+  readonly 'aria-label'?: string;
+}
+
+/** Compute the next selection based on mode, current selection, and target node id. */
+function computeSelection(
+  nodeId: string,
+  selectionMode: 'single' | 'multi' | 'none',
+  selectedSet: Set<string>,
+  onSelect: (ids: string[]) => void,
+): void {
+  if (selectionMode === 'none') return;
+  if (selectionMode === 'single') {
+    onSelect([nodeId]);
+    return;
+  }
+  const next = new Set(selectedSet);
+  if (next.has(nodeId)) next.delete(nodeId);
+  else next.add(nodeId);
+  onSelect(Array.from(next));
+}
+
+/** Handle keyboard interactions for a tree item. */
+function handleTreeItemKeyDown(
+  e: React.KeyboardEvent,
+  nodeId: string,
+  hasChildren: boolean,
+  isExpanded: boolean,
+  selectionMode: 'single' | 'multi' | 'none',
+  selectedSet: Set<string>,
+  onToggle: (id: string, expanded: boolean) => void,
+  onSelect: (ids: string[]) => void,
+): void {
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    if (hasChildren) onToggle(nodeId, !isExpanded);
+    computeSelection(nodeId, selectionMode, selectedSet, onSelect);
+    return;
+  }
+  if (e.key === ' ') {
+    e.preventDefault();
+    computeSelection(nodeId, selectionMode, selectedSet, onSelect);
+    return;
+  }
+  if (e.key === 'ArrowRight' && hasChildren && !isExpanded) {
+    e.preventDefault();
+    onToggle(nodeId, true);
+    return;
+  }
+  if (e.key === 'ArrowLeft' && hasChildren && isExpanded) {
+    e.preventDefault();
+    onToggle(nodeId, false);
+  }
+}
+
+/** Render the children of a tree item. */
+function renderTreeChildren(
+  node: TreeNode,
+  level: number,
+  isExpanded: boolean,
+  expandedSet: Set<string>,
+  onToggle: (id: string, expanded: boolean) => void,
+  selectedSet: Set<string>,
+  onSelect: (ids: string[]) => void,
+  selectionMode: 'single' | 'multi' | 'none',
+) {
+  return (
+    // biome-ignore lint/a11y/useSemanticElements: tree group uses role=group per ARIA tree pattern
+    <div role="group" className="uds-tree__group">
+      {isExpanded &&
+        node.children?.map((child) => (
+          <TreeItemInner
+            key={child.id}
+            node={child}
+            level={level + 1}
+            expandedSet={expandedSet}
+            onToggle={onToggle}
+            selectedSet={selectedSet}
+            onSelect={onSelect}
+            selectionMode={selectionMode}
+          />
+        ))}
+    </div>
+  );
 }
 
 function TreeItemInner({
@@ -49,62 +131,33 @@ function TreeItemInner({
 
   const handleClick = useCallback(() => {
     if (hasChildren) onToggle(node.id, !isExpanded);
-    if (selectionMode !== 'none') {
-      if (selectionMode === 'single') onSelect([node.id]);
-      else {
-        const next = new Set(selectedSet);
-        if (next.has(node.id)) next.delete(node.id);
-        else next.add(node.id);
-        onSelect(Array.from(next));
-      }
-    }
+    computeSelection(node.id, selectionMode, selectedSet, onSelect);
   }, [node.id, hasChildren, isExpanded, selectionMode, selectedSet, onToggle, onSelect]);
 
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent) => {
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        if (hasChildren) onToggle(node.id, !isExpanded);
-        if (selectionMode !== 'none') {
-          if (selectionMode === 'single') onSelect([node.id]);
-          else {
-            const next = new Set(selectedSet);
-            if (next.has(node.id)) next.delete(node.id);
-            else next.add(node.id);
-            onSelect(Array.from(next));
-          }
-        }
-      }
-      if (e.key === ' ') {
-        e.preventDefault();
-        if (selectionMode !== 'none') {
-          if (selectionMode === 'single') onSelect([node.id]);
-          else {
-            const next = new Set(selectedSet);
-            if (next.has(node.id)) next.delete(node.id);
-            else next.add(node.id);
-            onSelect(Array.from(next));
-          }
-        }
-      }
-      if (e.key === 'ArrowRight' && hasChildren && !isExpanded) {
-        e.preventDefault();
-        onToggle(node.id, true);
-      }
-      if (e.key === 'ArrowLeft' && hasChildren && isExpanded) {
-        e.preventDefault();
-        onToggle(node.id, false);
-      }
+      handleTreeItemKeyDown(
+        e,
+        node.id,
+        !!hasChildren,
+        isExpanded,
+        selectionMode,
+        selectedSet,
+        onToggle,
+        onSelect,
+      );
     },
     [node.id, hasChildren, isExpanded, selectionMode, selectedSet, onToggle, onSelect],
   );
+
+  const ariaSelected = selectionMode === 'none' ? undefined : isSelected;
 
   return (
     <div
       role="treeitem"
       aria-expanded={hasChildren ? isExpanded : undefined}
       aria-level={level}
-      aria-selected={selectionMode !== 'none' ? isSelected : undefined}
+      aria-selected={ariaSelected}
       className={[
         'uds-tree__item',
         hasChildren && 'uds-tree__item--branch',
@@ -117,24 +170,17 @@ function TreeItemInner({
       onKeyDown={handleKeyDown}
     >
       <span className="uds-tree__item-label">{node.label}</span>
-      {hasChildren && (
-        // biome-ignore lint/a11y/useSemanticElements: tree group uses role=group per ARIA tree pattern
-        <div role="group" className="uds-tree__group">
-          {isExpanded &&
-            node.children?.map((child) => (
-              <TreeItemInner
-                key={child.id}
-                node={child}
-                level={level + 1}
-                expandedSet={expandedSet}
-                onToggle={onToggle}
-                selectedSet={selectedSet}
-                onSelect={onSelect}
-                selectionMode={selectionMode}
-              />
-            ))}
-        </div>
-      )}
+      {hasChildren &&
+        renderTreeChildren(
+          node,
+          level,
+          isExpanded,
+          expandedSet,
+          onToggle,
+          selectedSet,
+          onSelect,
+          selectionMode,
+        )}
     </div>
   );
 }
@@ -151,11 +197,14 @@ export const TreeView: React.FC<TreeViewProps> = ({
 }) => {
   const [expanded, setExpanded] = useState<Set<string>>(new Set(defaultExpandedIds));
 
-  const selectedArray = Array.isArray(selectedIds)
-    ? selectedIds
-    : selectedIds != null
-      ? [selectedIds]
-      : [];
+  let selectedArray: string[];
+  if (Array.isArray(selectedIds)) {
+    selectedArray = selectedIds;
+  } else if (selectedIds == null) {
+    selectedArray = [];
+  } else {
+    selectedArray = [selectedIds];
+  }
   const selectedSet = new Set(selectedArray);
 
   const handleSelect = useCallback(

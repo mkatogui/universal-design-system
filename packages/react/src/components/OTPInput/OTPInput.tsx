@@ -51,7 +51,8 @@ export const OTPInput: React.FC<OTPInputProps> = ({
 
   const handleChange = useCallback(
     (index: number, digit: string) => {
-      const char = inputMode === 'numeric' ? digit.replace(/\D/g, '').slice(-1) : digit.slice(-1);
+      const char =
+        inputMode === 'numeric' ? digit.replaceAll(/\D/g, '').slice(-1) : digit.slice(-1);
       const arr = value.split('');
       arr[index] = char;
       const next = arr.join('');
@@ -83,7 +84,7 @@ export const OTPInput: React.FC<OTPInputProps> = ({
   const handlePaste = useCallback(
     (e: React.ClipboardEvent) => {
       e.preventDefault();
-      const pasted = (e.clipboardData.getData('text') || '').replace(/\D/g, '').slice(0, length);
+      const pasted = (e.clipboardData.getData('text') || '').replaceAll(/\D/g, '').slice(0, length);
       if (inputMode === 'numeric' && pasted) {
         setValue(pasted);
         const nextIndex = Math.min(pasted.length, length - 1);

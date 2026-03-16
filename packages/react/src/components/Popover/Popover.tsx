@@ -30,15 +30,11 @@ function getPlacementStyles(
   const gap = 8;
   const padding = 8;
   let top = 0;
-  let left = triggerRect.left;
+  let left = 0;
 
   switch (placement) {
     case 'top':
       top = triggerRect.top - contentHeight - gap;
-      left = triggerRect.left + (triggerRect.width - contentWidth) / 2;
-      break;
-    case 'bottom':
-      top = triggerRect.bottom + gap;
       left = triggerRect.left + (triggerRect.width - contentWidth) / 2;
       break;
     case 'left':
@@ -60,9 +56,11 @@ function getPlacementStyles(
       left = triggerRect.left + (triggerRect.width - contentWidth) / 2;
       break;
     }
+    // 'bottom' is the default placement
     default:
       top = triggerRect.bottom + gap;
       left = triggerRect.left + (triggerRect.width - contentWidth) / 2;
+      break;
   }
 
   left = Math.max(padding, Math.min(window.innerWidth - contentWidth - padding, left));
@@ -130,7 +128,7 @@ export const Popover: React.FC<PopoverProps> = ({
           const origRef = (trigger as unknown as { ref?: React.Ref<HTMLElement> }).ref;
           if (typeof origRef === 'function') origRef(node);
           else if (origRef && typeof origRef === 'object')
-            (origRef as React.MutableRefObject<HTMLElement | null>).current = node;
+            (origRef as { current: HTMLElement | null }).current = node;
         },
         onClick: (e: React.MouseEvent) => {
           handleTriggerClick();
@@ -157,15 +155,15 @@ export const Popover: React.FC<PopoverProps> = ({
     <>
       {triggerWithRef}
       {createPortal(
-        <div
-          ref={contentRef}
+        <dialog
+          ref={contentRef as React.RefObject<HTMLDialogElement>}
+          open
           className={classes}
-          role="dialog"
           aria-modal="false"
           style={contentStyle}
         >
           <div className="uds-popover__content">{children}</div>
-        </div>,
+        </dialog>,
         document.body,
       )}
     </>

@@ -19,8 +19,8 @@ export const Rating: React.FC<RatingProps> = ({
 }) => {
   const classes = ['uds-rating', `uds-rating--${size}`, className].filter(Boolean).join(' ');
   return (
-    // biome-ignore lint/a11y/useSemanticElements: rating group is not a form fieldset
-    <div className={classes} role="group" aria-label={`Rating ${value} of ${max}`}>
+    <fieldset className={classes}>
+      <legend className="uds-rating__legend">{`Rating ${value} of ${max}`}</legend>
       {Array.from({ length: max }, (_, i) => {
         const starValue = i + 1;
         const filled = value >= starValue;
@@ -37,7 +37,7 @@ export const Rating: React.FC<RatingProps> = ({
           </button>
         );
       })}
-    </div>
+    </fieldset>
   );
 };
 

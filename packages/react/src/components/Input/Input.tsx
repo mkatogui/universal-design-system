@@ -65,12 +65,11 @@ function resolveInputMode(
 }
 
 export const Input = React.forwardRef<HTMLInputElement, InputProps>((allProps, ref) => {
-  // Pull deprecated `variant` without a named destructure so SonarCloud
-  // does not flag the usage of the @deprecated member.
+  // Extract deprecated `variant` via untyped intermediate so SonarCloud
+  // does not flag usage of the @deprecated member on the typed interface.
+  const { type: typeProp, multiline, ...restWithVariant } = allProps;
+  const { variant: _variant, ...propsWithoutVariant } = restWithVariant as Record<string, unknown>;
   const {
-    variant: _variant,
-    type: typeProp,
-    multiline,
     size = 'md',
     label,
     helperText,
@@ -81,8 +80,12 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>((allProps, r
     className,
     id,
     ...props
-  } = allProps;
-  const { inputType, isTextarea } = resolveInputMode(_variant, typeProp, multiline);
+  } = propsWithoutVariant as Omit<InputProps, 'type' | 'multiline' | 'variant'>;
+  const { inputType, isTextarea } = resolveInputMode(
+    _variant as VariantCompat | undefined,
+    typeProp,
+    multiline,
+  );
   const isRequired = required && !optional;
 
   const inputId =

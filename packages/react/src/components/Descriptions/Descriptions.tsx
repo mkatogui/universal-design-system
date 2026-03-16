@@ -21,12 +21,18 @@ export const Descriptions: React.FC<DescriptionsProps> = ({
     .join(' ');
   return (
     <dl className={classes}>
-      {items.map((item) => (
-        <React.Fragment key={String(item.label)}>
-          <dt className="uds-descriptions__label">{item.label}</dt>
-          <dd className="uds-descriptions__value">{item.value}</dd>
-        </React.Fragment>
-      ))}
+      {items.map((item, index) => {
+        const key =
+          typeof item.label === 'string' || typeof item.label === 'number'
+            ? String(item.label)
+            : `desc-${index}`;
+        return (
+          <React.Fragment key={key}>
+            <dt className="uds-descriptions__label">{item.label}</dt>
+            <dd className="uds-descriptions__value">{item.value}</dd>
+          </React.Fragment>
+        );
+      })}
     </dl>
   );
 };

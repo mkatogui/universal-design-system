@@ -197,7 +197,7 @@ function writeZedMcpConfig(configFile: string, serverPath: string): void {
 }
 
 function writeContinueMcpConfig(yamlPath: string, serverPath: string): void {
-  const pathArg = serverPath.replace(/\\/g, '/');
+  const pathArg = serverPath.replaceAll('\\', '/');
   const yaml = `name: Universal Design System MCP
 version: 0.5.0
 schema: v1
