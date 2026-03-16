@@ -14,11 +14,11 @@ npm install @mkatogui/uds-react
 
 ## Quick start
 
-Import the CSS once at your app's entry point, then use components anywhere.
+Import the CSS once at your app's entry point, then use components anywhere. Always use the package subpath `@mkatogui/uds-react/styles.css` (do not rely on importing from `dist/`).
 
 ```tsx
 // main.tsx or App.tsx
-import '@mkatogui/uds-react/dist/styles.css';
+import '@mkatogui/uds-react/styles.css';
 ```
 
 ```tsx
@@ -38,10 +38,10 @@ function App() {
 
 ## Theming with palettes
 
-UDS ships with **9 structural palettes**. Apply one by setting `data-theme` on a root element (typically `<html>` or a wrapper `<div>`):
+UDS ships with **9 structural palettes**. **Required:** set `data-theme` on `<html>` (or your root app wrapper) for correct theming. Example:
 
 ```html
-<html data-theme="minimal-saas">
+<html lang="en" data-theme="minimal-saas">
 ```
 
 Available palettes:
