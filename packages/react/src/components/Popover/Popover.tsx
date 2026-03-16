@@ -94,7 +94,7 @@ export const Popover: React.FC<PopoverProps> = ({
   );
 
   const triggerRef = useRef<HTMLElement | null>(null);
-  const contentRef = useRef<HTMLDivElement | null>(null);
+  const contentRef = useRef<HTMLDialogElement | null>(null);
   const [contentStyle, setContentStyle] = useState<React.CSSProperties>({
     position: 'fixed',
     left: 0,
@@ -155,13 +155,7 @@ export const Popover: React.FC<PopoverProps> = ({
     <>
       {triggerWithRef}
       {createPortal(
-        <dialog
-          ref={contentRef as React.RefObject<HTMLDialogElement>}
-          open
-          className={classes}
-          aria-modal="false"
-          style={contentStyle}
-        >
+        <dialog ref={contentRef} open className={classes} aria-modal="false" style={contentStyle}>
           <div className="uds-popover__content">{children}</div>
         </dialog>,
         document.body,
