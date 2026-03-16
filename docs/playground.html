@@ -3973,10 +3973,19 @@ $ npm run build
    PLACEHOLDER TEMPLATE FOR COMPONENTS WITHOUT LIVE PREVIEW
    ============================================================ */
 function getPlaceholderTemplate(comp, variant, size) {
-  return `<div style="text-align: center; padding: 48px 24px; color: var(--color-text-tertiary);">
-  <div style="font-size: var(--text-heading-sm); font-weight: 600; color: var(--color-text-secondary); margin-bottom: 8px;">${comp.name}</div>
-  <div style="font-size: var(--text-body-sm); margin-bottom: 16px;">variant: ${variant} | size: ${size}</div>
-  <code style="font-family: var(--font-mono); font-size: var(--text-label); background: var(--color-bg-tertiary); padding: 4px 12px; border-radius: var(--radius-sm); color: var(--color-text-secondary);">.${comp.css_class}</code>
+  const variantList = comp.variants.map(v => `<span style="display:inline-block;padding:2px 8px;margin:2px;border-radius:var(--radius-sm);background:var(--color-bg-tertiary);font-size:var(--text-label);color:var(--color-text-secondary);font-family:var(--font-mono);">${v}</span>`).join('');
+  return `<div style="text-align:center;padding:40px 24px;color:var(--color-text-tertiary);">
+  <div style="font-size:var(--text-heading-sm);font-weight:600;color:var(--color-text-primary);margin-bottom:4px;">${comp.name}</div>
+  <div style="font-size:var(--text-label);color:var(--color-text-tertiary);margin-bottom:16px;">${comp.category}</div>
+  <code style="display:inline-block;font-family:var(--font-mono);font-size:var(--text-body-sm);background:var(--color-bg-tertiary);padding:4px 12px;border-radius:var(--radius-sm);color:var(--color-brand-primary);margin-bottom:16px;">.${comp.css_class}</code>
+  <div style="font-size:var(--text-body-sm);color:var(--color-text-secondary);margin-bottom:12px;max-width:360px;margin-left:auto;margin-right:auto;">${comp.use_when.replaceAll(';', ' · ')}</div>
+  <div style="margin-bottom:12px;">${variantList}</div>
+  <div style="font-size:var(--text-label);color:var(--color-text-tertiary);max-width:400px;margin:0 auto;line-height:1.5;">
+    <strong style="color:var(--color-text-secondary);">Accessibility:</strong> ${comp.accessibility}
+  </div>
+  <div style="margin-top:16px;font-size:var(--text-label);color:var(--color-text-tertiary);">
+    Live preview coming soon — available in React, Vue &amp; Svelte
+  </div>
 </div>`;
 }
 
@@ -3995,13 +4004,38 @@ const infoA11y = document.getElementById('info-a11y');
 const infoUseWhen = document.getElementById('info-use-when');
 const copyBtn = document.getElementById('copy-btn');
 
-// Populate component dropdown
-COMPONENTS.forEach(comp => {
-  const opt = document.createElement('option');
-  opt.value = comp.slug;
-  opt.textContent = comp.name;
-  componentSelect.appendChild(opt);
-});
+// Populate component dropdown grouped by category
+{
+  const categoryLabels = {
+    'action': 'Action',
+    'form': 'Form',
+    'navigation': 'Navigation',
+    'layout': 'Layout',
+    'content': 'Content',
+    'data-display': 'Data Display',
+    'overlay': 'Overlay',
+    'feedback': 'Feedback',
+    'trust': 'Trust',
+    'commerce': 'Commerce',
+    'loading': 'Loading'
+  };
+  const seen = new Set();
+  for (const comp of COMPONENTS) {
+    const cat = comp.category;
+    if (!seen.has(cat)) {
+      seen.add(cat);
+      const group = document.createElement('optgroup');
+      group.label = (categoryLabels[cat] || cat) + ' (' + COMPONENTS.filter(c => c.category === cat).length + ')';
+      COMPONENTS.filter(c => c.category === cat).forEach(c => {
+        const opt = document.createElement('option');
+        opt.value = c.slug;
+        opt.textContent = c.hasTemplate ? c.name : c.name + ' ○';
+        componentSelect.appendChild(group);
+        group.appendChild(opt);
+      });
+    }
+  }
+}
 
 function populateVariants(comp) {
   variantSelect.innerHTML = '';
