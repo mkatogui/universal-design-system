@@ -9,23 +9,36 @@ interface Props {
   maxFiles?: number
   multiple?: boolean
   disabled?: boolean
+  /** Accessible label for the upload zone. @default 'Upload files' */
+  label?: string
+  /** Error message shown below the zone (e.g. validation from parent). Overrides internal validation error. */
+  error?: string
+  /** Main placeholder text. @default 'Drag and drop files here, or click to browse' (dropzone) or 'Choose file' (button) */
+  placeholderTitle?: string
+  /** Optional second line in placeholder (e.g. accepted types or size limit). */
+  placeholderDescription?: string
+  /** Label for the browse action. @default 'browse' */
+  acceptLabel?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
   variant: 'dropzone',
   size: 'md',
   maxFiles: 1,
+  label: 'Upload files',
+  acceptLabel: 'browse',
 })
 
 const emit = defineEmits<{
   upload: [files: File[]]
   remove: [file: File]
-  error: [message: string]
 }>()
 
 const dragOver = ref(false)
-const uploading = ref(false)
+const internalError = ref<string | null>(null)
 const fileInputRef = ref<HTMLInputElement | null>(null)
+
+const displayError = computed(() => props.error ?? internalError.value)
 
 const classes = computed(() =>
   [
@@ -33,29 +46,38 @@ const classes = computed(() =>
     `uds-file-upload--${props.variant}`,
     `uds-file-upload--${props.size}`,
     dragOver.value && 'uds-file-upload--drag-over',
-    uploading.value && 'uds-file-upload--uploading',
     props.disabled && 'uds-file-upload--disabled',
   ]
     .filter(Boolean)
     .join(' ')
 )
 
+const placeholderText = computed(() =>
+  props.placeholderTitle ??
+    (props.variant === 'button'
+      ? 'Choose file'
+      : `Drag and drop files here, or click to ${props.acceptLabel}`)
+)
+
 function validateFiles(files: File[]): File[] {
-  return files.filter((file) => {
-    if (props.maxSize && file.size > props.maxSize) {
-      emit('error', `File "${file.name}" exceeds max size`)
-      return false
+  internalError.value = null
+  let valid = files
+  if (props.maxSize) {
+    const oversized = valid.filter((f) => f.size > props.maxSize!)
+    if (oversized.length > 0) {
+      internalError.value = `File too large: ${oversized[0].name}`
+      valid = valid.filter((f) => f.size <= props.maxSize!)
     }
-    return true
-  })
+  }
+  if (props.maxFiles) {
+    valid = valid.slice(0, props.maxFiles)
+  }
+  return valid
 }
 
 function handleFiles(fileList: FileList | null) {
   if (!fileList) return
-  let files = Array.from(fileList)
-  if (props.maxFiles) {
-    files = files.slice(0, props.maxFiles)
-  }
+  const files = Array.from(fileList)
   const valid = validateFiles(files)
   if (valid.length) {
     emit('upload', valid)
@@ -98,51 +120,53 @@ function handleInputChange(e: Event) {
       :accept="accept"
       :multiple="multiple"
       :disabled="disabled"
-      aria-label="Upload file"
+      :aria-label="label"
+      hidden
       @change="handleInputChange"
     />
 
-    <div
+    <button
       v-if="variant === 'dropzone'"
-      class="uds-file-upload__dropzone"
-      role="button"
-      tabindex="0"
+      type="button"
+      class="uds-file-upload__zone"
       :aria-disabled="disabled || undefined"
-      aria-live="polite"
       @drop="handleDrop"
       @dragover="handleDragOver"
       @dragleave="handleDragLeave"
       @click="openFileDialog"
-      @keydown.enter="openFileDialog"
-      @keydown.space.prevent="openFileDialog"
     >
       <slot>
-        <p class="uds-file-upload__text">Drag and drop files here, or click to browse</p>
+        <div class="uds-file-upload__placeholder">
+          <p class="uds-file-upload__text">{{ placeholderText }}</p>
+          <p v-if="placeholderDescription" class="uds-file-upload__sub">{{ placeholderDescription }}</p>
+        </div>
       </slot>
-    </div>
+    </button>
 
     <button
       v-else-if="variant === 'button'"
-      class="uds-file-upload__button"
+      type="button"
+      class="uds-file-upload__zone uds-file-upload__zone--button"
       :disabled="disabled"
       @click="openFileDialog"
     >
-      <slot>Choose file</slot>
+      <slot>{{ placeholderText }}</slot>
     </button>
 
-    <div
+    <button
       v-else-if="variant === 'avatar-upload'"
-      class="uds-file-upload__avatar"
-      role="button"
-      tabindex="0"
+      type="button"
+      class="uds-file-upload__zone uds-file-upload__zone--avatar"
       :aria-disabled="disabled || undefined"
       @click="openFileDialog"
-      @keydown.enter="openFileDialog"
-      @keydown.space.prevent="openFileDialog"
     >
       <slot>
         <span class="uds-file-upload__avatar-placeholder" aria-hidden="true">+</span>
       </slot>
-    </div>
+    </button>
+
+    <p v-if="displayError" class="uds-file-upload__error" role="alert">
+      {{ displayError }}
+    </p>
   </div>
 </template>
