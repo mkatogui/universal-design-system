@@ -111,6 +111,7 @@ All components follow BEM naming (`.uds-{component}`) and use CSS custom propert
 | `ChipInput` | `import { ChipInput } from '@mkatogui/uds-react'` | Multi-value tag input |
 | `Form` | `import { Form } from '@mkatogui/uds-react'` | Form wrapper |
 | `FormSection` | `import { FormSection } from '@mkatogui/uds-react'` | Field group with heading |
+| `LoginForm` | `import { LoginForm } from '@mkatogui/uds-react'` | Ready-to-use login page with social login, remember me, forgot password |
 
 ### Navigation
 
@@ -195,6 +196,52 @@ All components follow BEM naming (`.uds-{component}`) and use CSS custom propert
 ---
 
 ## Common patterns
+
+### Login page
+
+```tsx
+import { LoginForm } from '@mkatogui/uds-react';
+
+function LoginPage() {
+  return (
+    <div style={{ minHeight: '100vh', display: 'grid', placeItems: 'center' }}>
+      <LoginForm
+        title="Welcome back"
+        description="Sign in to your account"
+        onSubmit={({ email, password, rememberMe }) => {
+          // call your auth API
+        }}
+        onForgotPassword={() => navigate('/forgot-password')}
+        onSignUp={() => navigate('/register')}
+        socialProviders={[
+          { name: 'Google', icon: <GoogleIcon />, onClick: handleGoogleSSO },
+          { name: 'GitHub', icon: <GitHubIcon />, onClick: handleGitHubSSO },
+        ]}
+        error={authError}
+        loading={isSubmitting}
+      />
+    </div>
+  );
+}
+```
+
+**LoginForm props:**
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | `'Sign in'` | Form heading |
+| `description` | `string` | — | Subtitle below heading |
+| `onSubmit` | `(data) => void` | — | Called with `{ email, password, rememberMe }` |
+| `onForgotPassword` | `() => void` | — | Shows "Forgot password?" link when set |
+| `onSignUp` | `() => void` | — | Shows sign-up link when set |
+| `socialProviders` | `SocialProvider[]` | — | Social/OAuth buttons above the form |
+| `socialDividerLabel` | `string` | `'or continue with'` | Divider text between social and credentials |
+| `loading` | `boolean` | `false` | Disables form and shows spinner |
+| `error` | `string` | — | Global error alert (e.g. "Invalid credentials") |
+| `showRememberMe` | `boolean` | `true` | Show/hide "Remember me" checkbox |
+| `emailLabel` | `string` | `'Email'` | i18n override |
+| `passwordLabel` | `string` | `'Password'` | i18n override |
+| `submitLabel` | `string` | `'Sign in'` | i18n override |
 
 ### Form with validation
 

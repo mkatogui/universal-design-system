@@ -1410,6 +1410,217 @@
   gap: var(--space-4);
 }
 
+/* ---- LOGIN FORM ---- */
+.uds-login-form {
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto;
+  padding: var(--space-6);
+  font-family: var(--font-sans);
+}
+.uds-login-form__header {
+  text-align: center;
+  margin-bottom: var(--space-6);
+}
+.uds-login-form__title {
+  margin: 0 0 var(--space-1);
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+.uds-login-form__description {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+.uds-login-form__social {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+.uds-login-form__social-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  width: 100%;
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--font-size-sm);
+  font-family: var(--font-sans);
+  font-weight: 500;
+  color: var(--color-text-primary);
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+.uds-login-form__social-btn:hover:not(:disabled) {
+  background: var(--color-bg-secondary);
+}
+.uds-login-form__social-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.uds-login-form__social-icon {
+  display: inline-flex;
+  width: 1em;
+  height: 1em;
+}
+.uds-login-form__divider {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+  color: var(--color-text-tertiary);
+  font-size: var(--font-size-xs);
+}
+.uds-login-form__divider::before,
+.uds-login-form__divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--color-border-default);
+}
+.uds-login-form__error {
+  padding: var(--space-2) var(--space-3);
+  margin-bottom: var(--space-4);
+  font-size: var(--font-size-sm);
+  color: var(--color-error-text);
+  background: var(--color-error-bg);
+  border: 1px solid var(--color-error-border);
+  border-radius: var(--radius-md);
+}
+.uds-login-form__fields {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin-bottom: var(--space-4);
+}
+.uds-login-form__field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+.uds-login-form__label {
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--color-text-primary);
+}
+.uds-login-form__required {
+  color: var(--color-error-text);
+}
+.uds-login-form__input {
+  width: 100%;
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--font-size-base);
+  font-family: var(--font-sans);
+  color: var(--color-text-primary);
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.15s ease;
+}
+.uds-login-form__input:focus {
+  border-color: var(--color-brand-primary);
+  box-shadow: 0 0 0 2px var(--color-brand-primary-alpha, rgba(59, 130, 246, 0.15));
+}
+.uds-login-form__input--error {
+  border-color: var(--color-error-border);
+}
+.uds-login-form__input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.uds-login-form__field-error {
+  margin: 0;
+  font-size: var(--font-size-xs);
+  color: var(--color-error-text);
+}
+.uds-login-form__options {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-4);
+  font-size: var(--font-size-sm);
+}
+.uds-login-form__remember {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+}
+.uds-login-form__link {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: var(--font-size-sm);
+  font-family: var(--font-sans);
+  color: var(--color-brand-primary);
+  cursor: pointer;
+  text-decoration: none;
+}
+.uds-login-form__link:hover:not(:disabled) {
+  text-decoration: underline;
+}
+.uds-login-form__link:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.uds-login-form__submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  width: 100%;
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--font-size-base);
+  font-family: var(--font-sans);
+  font-weight: 600;
+  color: var(--color-text-on-brand);
+  background: var(--color-brand-primary);
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+.uds-login-form__submit:hover:not(:disabled) {
+  opacity: 0.9;
+}
+.uds-login-form__submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.uds-login-form__submit--loading {
+  position: relative;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .uds-login-form__spinner {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    border: 2px solid currentcolor;
+    border-right-color: transparent;
+    border-radius: 50%;
+    animation: uds-login-spin 0.6s linear infinite;
+  }
+  @keyframes uds-login-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+}
+.uds-login-form__signup {
+  margin: var(--space-4) 0 0;
+  text-align: center;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
 /* ---- TIME PICKER ---- */
 .uds-time-picker {
   padding: var(--space-2) var(--space-3);

@@ -2404,6 +2404,162 @@ html.docs-dark .site-topnav .nav-brand { color: var(--color-text-primary); }
   gap: var(--spacing-4);
 }
 
+/* Login Form */
+.uds-login-form {
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto;
+  padding: var(--spacing-6);
+  font-family: var(--font-family-sans);
+}
+.uds-login-form__header { text-align: center; margin-bottom: var(--spacing-6); }
+.uds-login-form__title {
+  margin: 0 0 var(--spacing-1);
+  font-size: var(--text-heading-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+.uds-login-form__description {
+  margin: 0;
+  font-size: var(--text-body-sm);
+  color: var(--color-text-secondary);
+}
+.uds-login-form__social {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  margin-bottom: var(--spacing-4);
+}
+.uds-login-form__social-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2);
+  width: 100%;
+  padding: var(--spacing-2) var(--spacing-4);
+  font-size: var(--text-body-sm);
+  font-family: var(--font-family-sans);
+  font-weight: 500;
+  color: var(--color-text-primary);
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+.uds-login-form__social-btn:hover { background: var(--color-bg-secondary); }
+.uds-login-form__social-icon { display: inline-flex; width: 1em; height: 1em; }
+.uds-login-form__divider {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  margin-bottom: var(--spacing-4);
+  color: var(--color-text-tertiary);
+  font-size: var(--text-label);
+}
+.uds-login-form__divider::before,
+.uds-login-form__divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--color-border-default);
+}
+.uds-login-form__error {
+  padding: var(--spacing-2) var(--spacing-3);
+  margin-bottom: var(--spacing-4);
+  font-size: var(--text-body-sm);
+  color: var(--color-error);
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-error);
+  border-radius: var(--radius-md);
+}
+.uds-login-form__fields {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  margin-bottom: var(--spacing-4);
+}
+.uds-login-form__field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+}
+.uds-login-form__label {
+  font-size: var(--text-body-sm);
+  font-weight: 500;
+  color: var(--color-text-primary);
+}
+.uds-login-form__required { color: var(--color-error); }
+.uds-login-form__input {
+  width: 100%;
+  padding: var(--spacing-2) var(--spacing-3);
+  font-size: var(--text-body-md);
+  font-family: var(--font-family-sans);
+  color: var(--color-text-primary);
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  outline: none;
+  box-sizing: border-box;
+}
+.uds-login-form__input:focus {
+  border-color: var(--color-brand-primary);
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.15);
+}
+.uds-login-form__input--error { border-color: var(--color-error); }
+.uds-login-form__field-error {
+  margin: 0;
+  font-size: var(--text-label);
+  color: var(--color-error);
+}
+.uds-login-form__options {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-4);
+  font-size: var(--text-body-sm);
+}
+.uds-login-form__remember {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+}
+.uds-login-form__link {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: var(--text-body-sm);
+  font-family: var(--font-family-sans);
+  color: var(--color-brand-primary);
+  cursor: pointer;
+  text-decoration: none;
+}
+.uds-login-form__link:hover { text-decoration: underline; }
+.uds-login-form__submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2);
+  width: 100%;
+  padding: var(--spacing-2) var(--spacing-4);
+  font-size: var(--text-body-md);
+  font-family: var(--font-family-sans);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-on-brand);
+  background: var(--color-brand-primary);
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+.uds-login-form__submit:hover { opacity: 0.9; }
+.uds-login-form__signup {
+  margin: var(--spacing-4) 0 0;
+  text-align: center;
+  font-size: var(--text-body-sm);
+  color: var(--color-text-secondary);
+}
+
 /* ============================================================
    DARK MODE OVERRIDES FOR PAGE CHROME
    ============================================================ */
@@ -2795,7 +2951,8 @@ const COMPONENTS = [
   { id: 30, name: 'Progress Indicator', slug: 'progress-indicator', category: 'feedback', variants: ['bar','circular','stepper'], sizes: ['sm','md','lg'], css_class: 'uds-progress', accessibility: 'role=progressbar; aria-valuenow; aria-valuemin; aria-valuemax', use_when: 'Multi-step flows; Uploads; Loading states', hasTemplate: true },
   { id: 31, name: 'Side Navigation', slug: 'side-navigation', category: 'navigation', variants: ['default','collapsed','with-sections'], sizes: ['default','collapsed'], css_class: 'uds-side-nav', accessibility: 'nav aria-label; aria-current=page; aria-expanded', use_when: 'Dashboard apps with deep page hierarchies', hasTemplate: true },
   { id: 32, name: 'File Upload', slug: 'file-upload', category: 'form', variants: ['dropzone','button','avatar-upload'], sizes: ['sm','md','lg'], css_class: 'uds-file-upload', accessibility: 'input type=file aria-label; role=button on dropzone', use_when: 'Uploading files from device', hasTemplate: true },
-  { id: 33, name: 'Form Section', slug: 'form-section', category: 'form', variants: ['default','with-description'], sizes: ['standard'], css_class: 'uds-form-section', accessibility: 'heading level for title; optional description; grouped fields', use_when: 'Form pages; field groups with heading and optional description', hasTemplate: true }
+  { id: 33, name: 'Form Section', slug: 'form-section', category: 'form', variants: ['default','with-description'], sizes: ['standard'], css_class: 'uds-form-section', accessibility: 'heading level for title; optional description; grouped fields', use_when: 'Form pages; field groups with heading and optional description', hasTemplate: true },
+  { id: 73, name: 'Login Form', slug: 'login-form', category: 'form', variants: ['default','with-social'], sizes: ['standard'], css_class: 'uds-login-form', accessibility: 'form landmark aria-label; label association; password type; remember-me checkbox; submit button', use_when: 'Authentication flows; Login pages; Sign-in interfaces', hasTemplate: true }
 ];
 
 /* ============================================================
@@ -3685,6 +3842,68 @@ $ npm run build
     </div>
   </div>
 </div>`;
+    }
+
+    case 'login-form': {
+      if (variant === 'with-social') {
+        return `<form class="uds-login-form" aria-label="Sign in" novalidate>
+  <div class="uds-login-form__header">
+    <h2 class="uds-login-form__title">Sign in</h2>
+    <p class="uds-login-form__description">Welcome back — pick a provider or use your email.</p>
+  </div>
+  <div class="uds-login-form__social">
+    <button type="button" class="uds-login-form__social-btn">
+      <span class="uds-login-form__social-icon" aria-hidden="true">G</span>
+      Google
+    </button>
+    <button type="button" class="uds-login-form__social-btn">
+      <span class="uds-login-form__social-icon" aria-hidden="true">GH</span>
+      GitHub
+    </button>
+  </div>
+  <div class="uds-login-form__divider">
+    <span class="uds-login-form__divider-text">or continue with</span>
+  </div>
+  <div class="uds-login-form__fields">
+    <div class="uds-login-form__field">
+      <label class="uds-login-form__label" for="pg-login-email-s">Email <span class="uds-login-form__required" aria-hidden="true"> *</span></label>
+      <input id="pg-login-email-s" type="email" class="uds-login-form__input" placeholder="you@example.com" autocomplete="email" required>
+    </div>
+    <div class="uds-login-form__field">
+      <label class="uds-login-form__label" for="pg-login-pass-s">Password <span class="uds-login-form__required" aria-hidden="true"> *</span></label>
+      <input id="pg-login-pass-s" type="password" class="uds-login-form__input" autocomplete="current-password" required>
+    </div>
+  </div>
+  <div class="uds-login-form__options">
+    <label class="uds-login-form__remember"><input type="checkbox"> <span>Remember me</span></label>
+    <button type="button" class="uds-login-form__link">Forgot password?</button>
+  </div>
+  <button type="submit" class="uds-login-form__submit">Sign in</button>
+  <p class="uds-login-form__signup"><button type="button" class="uds-login-form__link">Don't have an account? Sign up</button></p>
+</form>`;
+      }
+      return `<form class="uds-login-form" aria-label="Sign in" novalidate>
+  <div class="uds-login-form__header">
+    <h2 class="uds-login-form__title">Sign in</h2>
+    <p class="uds-login-form__description">Enter your credentials to continue.</p>
+  </div>
+  <div class="uds-login-form__fields">
+    <div class="uds-login-form__field">
+      <label class="uds-login-form__label" for="pg-login-email">Email <span class="uds-login-form__required" aria-hidden="true"> *</span></label>
+      <input id="pg-login-email" type="email" class="uds-login-form__input" placeholder="you@example.com" autocomplete="email" required>
+    </div>
+    <div class="uds-login-form__field">
+      <label class="uds-login-form__label" for="pg-login-pass">Password <span class="uds-login-form__required" aria-hidden="true"> *</span></label>
+      <input id="pg-login-pass" type="password" class="uds-login-form__input" autocomplete="current-password" required>
+    </div>
+  </div>
+  <div class="uds-login-form__options">
+    <label class="uds-login-form__remember"><input type="checkbox"> <span>Remember me</span></label>
+    <button type="button" class="uds-login-form__link">Forgot password?</button>
+  </div>
+  <button type="submit" class="uds-login-form__submit">Sign in</button>
+  <p class="uds-login-form__signup"><button type="button" class="uds-login-form__link">Don't have an account? Sign up</button></p>
+</form>`;
     }
 
     default:

@@ -93,6 +93,8 @@ export type { LinkProps } from './components/Link';
 export { Link } from './components/Link';
 export type { ListProps } from './components/List';
 export { List } from './components/List';
+export type { LoginFormData, LoginFormProps, SocialProvider } from './components/LoginForm';
+export { LoginForm } from './components/LoginForm';
 export type { MenuItem, MenuProps } from './components/Menu';
 export { Menu } from './components/Menu';
 export type { ModalProps } from './components/Modal';
