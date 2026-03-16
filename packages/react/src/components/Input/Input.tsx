@@ -14,11 +14,6 @@ export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElem
   type?: 'text' | 'email' | 'password' | 'number' | 'search';
   /** When true, renders a `<textarea>`; ignores `type`. @default false */
   multiline?: boolean;
-  /**
-   * @deprecated Use `type` and `multiline` instead. Kept for backward compatibility:
-   * variant="textarea" → multiline; variant="email" etc. → type.
-   */
-  variant?: 'text' | 'email' | 'password' | 'number' | 'search' | 'textarea';
   /** Controls padding and font-size. @default 'md' */
   size?: 'sm' | 'md' | 'lg';
   /** Visible label rendered above the field. Also used to derive the `id`. */
@@ -38,38 +33,34 @@ export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElem
 /**
  * A form input field with optional label, helper text, and error state.
  *
- * Renders a `<textarea>` when `variant="textarea"`, otherwise a standard
- * `<input>`. Automatically wires `aria-invalid`, `aria-describedby`, and
- * `aria-required` for accessibility.
+ * Renders a `<textarea>` when `multiline` is true, otherwise a standard
+ * `<input>` with the given `type`. Automatically wires `aria-invalid`,
+ * `aria-describedby`, and `aria-required` for accessibility.
  *
  * Uses BEM class `uds-input` with size and error modifiers.
  * Forwards its ref to the underlying `<input>` (or `<textarea>`) element.
  *
  * @example
  * ```tsx
- * <Input label="Email" variant="email" errorText="Invalid address" />
+ * <Input label="Email" type="email" errorText="Invalid address" />
+ * <Input label="Bio" multiline />
  * ```
  */
 type InputType = 'text' | 'email' | 'password' | 'number' | 'search';
-type VariantCompat = InputType | 'textarea';
 
 function resolveInputMode(
-  variant?: VariantCompat,
   type?: InputType,
   multiline?: boolean,
 ): { inputType: InputType; isTextarea: boolean } {
-  const isTextarea = Boolean(multiline ?? variant === 'textarea');
+  const isTextarea = Boolean(multiline);
   if (isTextarea) return { inputType: 'text', isTextarea: true };
-  const inputType: InputType = type ?? (variant as InputType) ?? 'text';
-  return { inputType, isTextarea: false };
+  return { inputType: type ?? 'text', isTextarea: false };
 }
 
 export const Input = React.forwardRef<HTMLInputElement, InputProps>((allProps, ref) => {
-  // Extract deprecated `variant` via untyped intermediate so SonarCloud
-  // does not flag usage of the @deprecated member on the typed interface.
-  const { type: typeProp, multiline, ...restWithVariant } = allProps;
-  const { variant: _variant, ...propsWithoutVariant } = restWithVariant as Record<string, unknown>;
   const {
+    type: typeProp,
+    multiline,
     size = 'md',
     label,
     helperText,
@@ -80,12 +71,8 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>((allProps, r
     className,
     id,
     ...props
-  } = propsWithoutVariant as Omit<InputProps, 'type' | 'multiline' | 'variant'>;
-  const { inputType, isTextarea } = resolveInputMode(
-    _variant as VariantCompat | undefined,
-    typeProp,
-    multiline,
-  );
+  } = allProps;
+  const { inputType, isTextarea } = resolveInputMode(typeProp, multiline);
   const isRequired = required && !optional;
 
   const inputId =

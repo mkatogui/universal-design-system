@@ -91,7 +91,7 @@ All components follow WCAG 2.1 AA guidelines:
 Form components support Vue's `v-model` directive:
 
 ```vue
-<UdsInput v-model="email" variant="email" label="Email" />
+<UdsInput v-model="email" type="email" label="Email" />
 <UdsSelect v-model="country" :options="countries" label="Country" />
 <UdsCheckbox v-model="agreed" label="I agree to the terms" />
 <UdsToggle v-model="darkMode" label="Dark mode" />

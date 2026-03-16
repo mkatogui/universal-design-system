@@ -112,7 +112,8 @@
     "FormInput": {
       "figmaNodeUrl": "figma.com/file/universal-design-system/form-input",
       "props": {
-        "variant": { "type": "enum", "values": ["text", "email", "password", "number", "search", "textarea"] },
+        "type": { "type": "enum", "values": ["text", "email", "password", "number", "search"] },
+        "multiline": { "type": "boolean", "default": false },
         "size": { "type": "enum", "values": ["sm", "md", "lg"] },
         "state": { "type": "enum", "values": ["default", "focus", "error", "disabled", "readonly"] },
         "label": { "type": "string" },
@@ -120,7 +121,7 @@
         "errorText": { "type": "string" },
         "required": { "type": "boolean", "default": false }
       },
-      "template": "<FormInput variant=\"{{variant}}\" size=\"{{size}}\" state=\"{{state}}\" label=\"{{label}}\" helperText=\"{{helperText}}\" required={{{required}}} />"
+      "template": "<FormInput type=\"{{type}}\" multiline={{{multiline}}} size=\"{{size}}\" state=\"{{state}}\" label=\"{{label}}\" helperText=\"{{helperText}}\" required={{{required}}} />"
     },
     "Select": {
       "figmaNodeUrl": "figma.com/file/universal-design-system/select",

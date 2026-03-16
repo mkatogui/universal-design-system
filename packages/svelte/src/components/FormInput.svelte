@@ -1,6 +1,7 @@
 <script lang="ts">
   interface Props {
-    variant?: 'text' | 'email' | 'password' | 'number' | 'search' | 'textarea';
+    type?: 'text' | 'email' | 'password' | 'number' | 'search';
+    multiline?: boolean;
     size?: 'sm' | 'md' | 'lg';
     state?: 'default' | 'focus' | 'error' | 'disabled' | 'readonly';
     label?: string;
@@ -17,7 +18,8 @@
   }
 
   let {
-    variant = 'text',
+    type = 'text',
+    multiline = false,
     size = 'md',
     state = 'default',
     label = '',
@@ -41,7 +43,6 @@
   let classes = $derived(
     [
       'uds-input',
-      `uds-input--${variant}`,
       `uds-input--${size}`,
       isError && 'uds-input--error',
       disabled && 'uds-input--disabled',
@@ -66,7 +67,7 @@
       {/if}
     </label>
   {/if}
-  {#if variant === 'textarea'}
+  {#if multiline}
     <textarea
       class="uds-input__field"
       id={inputId}
@@ -82,7 +83,7 @@
   {:else}
     <input
       class="uds-input__field"
-      type={variant}
+      type={type}
       id={inputId}
       bind:value
       {placeholder}

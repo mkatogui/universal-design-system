@@ -523,11 +523,12 @@ Recommended icon library: Lucide (MIT license, tree-shakeable, 1000+ icons). Ico
 > **When to use:** Any text entry — names, emails, passwords, searches, numbers. Use the appropriate `type` attribute for mobile keyboard optimization.
 > **When not to use:** Selecting from a predefined list (use Select or Radio). Don't use textarea for single-line inputs.
 
-**Variants:** Text, Email, Password, Number, Search, Textarea
+**Variants:** Text, Email, Password, Number, Search; use `multiline` for textarea.
 
 | Prop | Options | Default |
 |------|---------|---------|
-| `variant` | text, email, password, number, search, textarea | text |
+| `type` | text, email, password, number, search | text |
+| `multiline` | boolean (when true, renders `<textarea>`) | false |
 | `size` | sm (36px), md (44px), lg (52px) | md |
 | `state` | default, focus, error, disabled, readonly | default |
 | `label` | string | — |

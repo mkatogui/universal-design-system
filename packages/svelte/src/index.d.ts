@@ -179,7 +179,8 @@ export declare const Modal: Component<ModalProps>;
 
 // FormInput
 export interface FormInputProps {
-  variant?: 'text' | 'email' | 'password' | 'number' | 'search' | 'textarea';
+  type?: 'text' | 'email' | 'password' | 'number' | 'search';
+  multiline?: boolean;
   size?: 'sm' | 'md' | 'lg';
   state?: 'default' | 'focus' | 'error' | 'disabled' | 'readonly';
   label?: string;
