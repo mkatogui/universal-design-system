@@ -338,10 +338,15 @@ uds search "query"       # Search all databases
 uds search "query" -v    # Verbose output
 uds search "query" -j    # JSON output
 uds generate "query"     # Generate full design system spec
-uds generate "query" -f tailwind        # Tailwind CSS config
+uds generate "query" -f markdown       # Markdown (default)
+uds generate "query" -f box           # Box-drawing summary
+uds generate "query" -f tailwind      # Tailwind CSS config
+uds generate "query" -f css-in-js     # CSS-in-JS theme
 uds generate "query" --framework react  # React components
 uds generate "query" --framework vue    # Vue components
 uds generate "query" --framework svelte # Svelte components
+uds generate "query" --persist        # Write design-system/MASTER.md
+uds generate "query" --persist --page dashboard  # Also write design-system/pages/dashboard.md
 uds tailwind "query"     # Shortcut for Tailwind generation
 uds palette create       # Create custom palette from brand colors
 uds palette list         # List all palettes
@@ -372,8 +377,8 @@ universal-design-system/
   tokens/                 # W3C DTCG design tokens (source of truth)
   src/
     data/                 # 20 CSV databases (1,676+ rows)
-    scripts/              # BM25 engine, search CLI, spec generator, palette CLI
-    mcp/                  # MCP server for AI coding tool integration
+    scripts/              # Python: core (BM25, reasoning), tokens, checklist, formatters, design_system, search, palette CLI
+    mcp/                  # MCP server (Node.js) for AI coding tool integration
   cli/                    # TypeScript CLI (zero dependencies)
   packages/
     tokens/               # Standalone token package (@mkatogui/uds-tokens)

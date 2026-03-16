@@ -1,6 +1,6 @@
 {
   "name": "universal-design-system",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Production-grade AI-native design system with 9 structural palettes, 43 components, 600 W3C DTCG tokens, BM25 reasoning engine, WCAG 2.2 AA compliance, and Tailwind/React/Vue/Svelte output. Reverse-engineered from 100 modern websites.",
   "author": {
     "name": "Marcelo Katogui"

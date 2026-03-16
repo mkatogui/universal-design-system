@@ -1,21 +1,23 @@
 # Changelog
 
-## 0.5.1 (unreleased)
+## 0.6.0
 
 ### Added
 
-- **FormSection** — New React component for form field groups (title + optional description + grouped fields). Use for consistent structure on form pages (e.g. ATS, settings). Exported from `@mkatogui/uds-react`.
+- **SOLID refactor (Python scripts)** — Single-responsibility split: `tokens.py` (token resolution), `checklist.py` (pre-delivery checklist), `formatters/` package (markdown, box, JSON, Tailwind, CSS-in-JS, framework, unstyled). Dependency inversion in `core.py`: `SearchIndexProtocol` and `DomainDetectorProtocol`; `ReasoningEngine` accepts optional `index` and `detector`. Formatter registry (OCP): new formats can be added without editing `main()`. Backward compatibility preserved via re-exports from `design_system`.
+- **ThemeCheck and theme warning** — React `ThemeCheck` component and `warnIfNoTheme()` utility; dev-only warning when `data-theme` is missing on document root. Exported from `@mkatogui/uds-react`.
+- **CLI `--persist` and `--page`** — `uds generate "query" --persist` writes `design-system/MASTER.md`; `--page <name>` adds `design-system/pages/<name>.md`. Box format added to `--format` options.
+- **Contract tests** — `test_design_system.py`, `test_tokens.py`, `test_validate_datasets.py` for design system output, token resolution, and dataset validation.
+- **FormSection** — New React component for form field groups (title + optional description + grouped fields). Exported from `@mkatogui/uds-react`.
 - **Input `type` and `multiline`** — Native input kind via `type` ('text' | 'email' | 'password' | 'number' | 'search'); use `multiline` for `<textarea>`. The old `variant` prop has been removed; use `type` and `multiline` only.
 - **Input `optional` and `optionalLabel`** — First-class optional field semantics; component can show "Optional" (or custom `optionalLabel`) in the helper area.
-- **FileUpload `error`** — Public prop to show an error message below the zone (e.g. from parent validation). Internal validation errors still apply when `error` is not set.
-- **FileUpload placeholder props** — `placeholderTitle`, `placeholderDescription`, `acceptLabel` to customize dropzone/button text without replacing `children`.
-- **Form patterns doc** — `docs/FORM_PATTERNS.md` (required/optional, validation, FormSection, public BEM for form components).
-- **Adoption feedback doc** — `docs/ADOPTION_FEEDBACK.md` with implemented summary and remaining suggestions.
-- **Playground** — Form Section added to interactive playground with default and with-description variants.
+- **FileUpload `error`** — Public prop to show an error message below the zone (e.g. from parent validation).
+- **FileUpload placeholder props** — `placeholderTitle`, `placeholderDescription`, `acceptLabel` to customize dropzone/button text.
+- **Form patterns doc** — `docs/FORM_PATTERNS.md`. **Adoption feedback doc** — `docs/ADOPTION_FEEDBACK.md`. **Playground** — Form Section in interactive playground.
 
 ### Changed
 
-- **Input** — `required` and `optional` together: when `optional` is true, asterisk is not shown and helper shows optional label.
+- **Input** — When `optional` is true, asterisk is not shown and helper shows optional label.
 - **FileUpload** — Placeholder uses `uds-file-upload__text` and optional `uds-file-upload__sub` for description.
 
 ---

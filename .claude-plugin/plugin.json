@@ -1,7 +1,7 @@
 {
   "name": "universal-design-system",
   "description": "Production-grade AI-native design system with 9 palettes, 600 W3C DTCG tokens, 43 components, BM25 reasoning engine, and WCAG 2.2 AA compliance.",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "author": {
     "name": "mkatogui",
     "email": "mkatogui@gmail.com"

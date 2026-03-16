@@ -1,6 +1,6 @@
 {
   "name": "@mkatogui/uds-tokens",
-  "version": "0.5.1",
+  "version": "0.6.0",
   "description": "600 W3C DTCG design tokens from Universal Design System — CSS, JS, TypeScript, and JSON exports",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
