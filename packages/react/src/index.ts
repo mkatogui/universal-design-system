@@ -75,6 +75,8 @@ export type { FooterColumn, FooterProps } from './components/Footer';
 export { Footer } from './components/Footer';
 export type { FormProps } from './components/Form';
 export { Form } from './components/Form';
+export type { FormSectionProps } from './components/FormSection';
+export { FormSection } from './components/FormSection';
 export type { GridProps } from './components/Grid';
 export { Grid } from './components/Grid';
 export type { HeroProps } from './components/Hero';

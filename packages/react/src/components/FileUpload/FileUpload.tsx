@@ -26,6 +26,14 @@ export interface FileUploadProps extends Omit<React.HTMLAttributes<HTMLDivElemen
   disabled?: boolean;
   /** Accessible label for the upload zone. @default 'Upload files' */
   label?: string;
+  /** Error message shown below the zone (e.g. validation from parent). Overrides internal validation error when set. */
+  error?: string;
+  /** Main placeholder text when no custom children. @default 'Drag and drop files here, or click to browse' (dropzone) or 'Choose file' (button) */
+  placeholderTitle?: string;
+  /** Optional second line in placeholder (e.g. accepted types or size limit). */
+  placeholderDescription?: string;
+  /** Label for the browse action in placeholder. @default 'browse' */
+  acceptLabel?: string;
 }
 
 /**
@@ -62,6 +70,10 @@ export const FileUpload = React.forwardRef<HTMLDivElement, FileUploadProps>(
       onRemove,
       disabled,
       label,
+      error: errorProp,
+      placeholderTitle,
+      placeholderDescription,
+      acceptLabel = 'browse',
       className,
       children,
       ...props
@@ -70,17 +82,18 @@ export const FileUpload = React.forwardRef<HTMLDivElement, FileUploadProps>(
   ) => {
     const [dragOver, setDragOver] = useState(false);
     const [files, setFiles] = useState<File[]>([]);
-    const [error, setError] = useState<string | null>(null);
+    const [internalError, setInternalError] = useState<string | null>(null);
+    const error = errorProp ?? internalError;
     const inputRef = useRef<HTMLInputElement>(null);
 
     const validateFiles = useCallback(
       (incoming: File[]): File[] => {
-        setError(null);
+        setInternalError(null);
         let valid = incoming;
         if (maxSize) {
           const oversized = valid.filter((f) => f.size > maxSize);
           if (oversized.length > 0) {
-            setError(`File too large: ${oversized[0].name}`);
+            setInternalError(`File too large: ${oversized[0].name}`);
             valid = valid.filter((f) => f.size <= maxSize);
           }
         }
@@ -174,13 +187,17 @@ export const FileUpload = React.forwardRef<HTMLDivElement, FileUploadProps>(
             aria-label={label || 'Upload files'}
             hidden
           />
-          {children || (
+          {children ?? (
             <div className="uds-file-upload__placeholder">
               <p className="uds-file-upload__text">
-                {variant === 'button'
-                  ? 'Choose file'
-                  : 'Drag and drop files here, or click to browse'}
+                {placeholderTitle ??
+                  (variant === 'button'
+                    ? 'Choose file'
+                    : `Drag and drop files here, or click to ${acceptLabel}`)}
               </p>
+              {placeholderDescription && (
+                <p className="uds-file-upload__sub">{placeholderDescription}</p>
+              )}
             </div>
           )}
         </button>

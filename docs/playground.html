@@ -2385,6 +2385,25 @@ html.docs-dark .site-topnav .nav-brand { color: var(--color-text-primary); }
 }
 .uds-file-upload__avatar-hint { font-size: var(--text-label); color: var(--color-text-tertiary); }
 
+/* Form Section */
+.uds-form-section { margin-bottom: var(--spacing-6); }
+.uds-form-section__title {
+  margin: 0 0 var(--spacing-2);
+  font-size: var(--text-body-md);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+.uds-form-section__description {
+  margin: 0 0 var(--spacing-4);
+  font-size: var(--text-body-sm);
+  color: var(--color-text-secondary);
+}
+.uds-form-section__fields {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+}
+
 /* ============================================================
    DARK MODE OVERRIDES FOR PAGE CHROME
    ============================================================ */
@@ -2775,7 +2794,8 @@ const COMPONENTS = [
   { id: 29, name: 'Command Palette', slug: 'command-palette', category: 'navigation', variants: ['standard'], sizes: ['md','lg'], css_class: 'uds-command-palette', accessibility: 'role=combobox; role=listbox; aria-activedescendant', use_when: 'Power-user keyboard navigation for large apps', hasTemplate: true },
   { id: 30, name: 'Progress Indicator', slug: 'progress-indicator', category: 'feedback', variants: ['bar','circular','stepper'], sizes: ['sm','md','lg'], css_class: 'uds-progress', accessibility: 'role=progressbar; aria-valuenow; aria-valuemin; aria-valuemax', use_when: 'Multi-step flows; Uploads; Loading states', hasTemplate: true },
   { id: 31, name: 'Side Navigation', slug: 'side-navigation', category: 'navigation', variants: ['default','collapsed','with-sections'], sizes: ['default','collapsed'], css_class: 'uds-side-nav', accessibility: 'nav aria-label; aria-current=page; aria-expanded', use_when: 'Dashboard apps with deep page hierarchies', hasTemplate: true },
-  { id: 32, name: 'File Upload', slug: 'file-upload', category: 'form', variants: ['dropzone','button','avatar-upload'], sizes: ['sm','md','lg'], css_class: 'uds-file-upload', accessibility: 'input type=file aria-label; role=button on dropzone', use_when: 'Uploading files from device', hasTemplate: true }
+  { id: 32, name: 'File Upload', slug: 'file-upload', category: 'form', variants: ['dropzone','button','avatar-upload'], sizes: ['sm','md','lg'], css_class: 'uds-file-upload', accessibility: 'input type=file aria-label; role=button on dropzone', use_when: 'Uploading files from device', hasTemplate: true },
+  { id: 33, name: 'Form Section', slug: 'form-section', category: 'form', variants: ['default','with-description'], sizes: ['standard'], css_class: 'uds-form-section', accessibility: 'heading level for title; optional description; grouped fields', use_when: 'Form pages; field groups with heading and optional description', hasTemplate: true }
 ];
 
 /* ============================================================
@@ -3626,6 +3646,44 @@ $ npm run build
   <div class="uds-file-upload__title">Drop files here or <strong style="color: var(--color-brand-primary);">browse</strong></div>
   <div class="uds-file-upload__sub">Supports PNG, JPG, PDF &mdash; up to 10MB</div>
   <input type="file" class="uds-file-upload__input" aria-label="Upload files" multiple>
+</div>`;
+    }
+
+    case 'form-section': {
+      if (variant === 'with-description') {
+        return `<div class="uds-form-section">
+  <h2 class="uds-form-section__title">Contact details</h2>
+  <p class="uds-form-section__description">We'll use this to reach you about your application.</p>
+  <div class="uds-form-section__fields">
+    <div class="uds-input-group" style="max-width: 360px;">
+      <label class="uds-input-label" for="pg-fs-email">Email</label>
+      <input id="pg-fs-email" type="email" class="uds-input uds-input--md" placeholder="you@example.com">
+    </div>
+    <div class="uds-input-group" style="max-width: 360px;">
+      <label class="uds-input-label" for="pg-fs-phone">Phone</label>
+      <input id="pg-fs-phone" type="text" class="uds-input uds-input--md" placeholder="+1 234 567 8900">
+    </div>
+  </div>
+</div>`;
+      }
+      return `<div class="uds-form-section">
+  <h2 class="uds-form-section__title">Payment</h2>
+  <div class="uds-form-section__fields">
+    <div class="uds-input-group" style="max-width: 360px;">
+      <label class="uds-input-label" for="pg-fs-card">Card number</label>
+      <input id="pg-fs-card" type="text" class="uds-input uds-input--md" placeholder="4242 4242 4242 4242">
+    </div>
+    <div style="display: flex; gap: 12px; max-width: 360px;">
+      <div class="uds-input-group" style="flex: 1;">
+        <label class="uds-input-label" for="pg-fs-exp">Expiry</label>
+        <input id="pg-fs-exp" type="text" class="uds-input uds-input--md" placeholder="MM/YY">
+      </div>
+      <div class="uds-input-group" style="flex: 1;">
+        <label class="uds-input-label" for="pg-fs-cvc">CVC</label>
+        <input id="pg-fs-cvc" type="text" class="uds-input uds-input--md" placeholder="123">
+      </div>
+    </div>
+  </div>
 </div>`;
     }
 

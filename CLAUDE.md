@@ -111,6 +111,9 @@ All pages are self-contained HTML with inline CSS. They share an identical `site
 | `docs/case-studies.html` | 5 real-world design system case studies |
 | `docs/playground.html` | Interactive component playground |
 | `docs/conformance.html` | WCAG 2.2 AA conformance documentation |
+| `docs/ADOPTION_FEEDBACK.md` | Adoption feedback and improvement suggestions from real app usage |
+| `docs/FORM_PATTERNS.md` | Form patterns: required/optional, validation, FormSection, public BEM for form components |
+| `docs/REACT_GUIDE.md` | Getting started guide for the UDS React component library |
 
 **CSS format groups:** docs.html, component-library.html, playground.html, reference.html use expanded CSS (spaces after colons). visual-framework.html, case-studies.html, conformance.html use minified CSS (no spaces after colons).
 

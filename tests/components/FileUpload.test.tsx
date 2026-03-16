@@ -194,4 +194,17 @@ describe('FileUpload', () => {
     fireEvent.click(zone);
     expect(clickSpy).not.toHaveBeenCalled();
   });
+
+  it('shows external error when error prop is set', () => {
+    render(<FileUpload error="Please upload a PDF file." />);
+    expect(screen.getByRole('alert')).toHaveTextContent('Please upload a PDF file.');
+  });
+
+  it('uses placeholderTitle and placeholderDescription when provided', () => {
+    render(
+      <FileUpload placeholderTitle="Drop your resume here" placeholderDescription="PDF, max 5MB" />,
+    );
+    expect(screen.getByText('Drop your resume here')).toBeInTheDocument();
+    expect(screen.getByText('PDF, max 5MB')).toBeInTheDocument();
+  });
 });
