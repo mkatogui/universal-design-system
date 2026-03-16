@@ -1,10 +1,17 @@
-import type React from 'react';
-import { useCallback, useRef, useState } from 'react';
+import {
+  type FC,
+  Fragment,
+  type KeyboardEvent,
+  type ReactNode,
+  useCallback,
+  useRef,
+  useState,
+} from 'react';
 
 export interface SegmentedControlOption {
   value: string;
   label: string;
-  icon?: React.ReactNode;
+  icon?: ReactNode;
 }
 
 export interface SegmentedControlProps {
@@ -26,7 +33,7 @@ export interface SegmentedControlProps {
   className?: string;
 }
 
-export const SegmentedControl: React.FC<SegmentedControlProps> = ({
+export const SegmentedControl: FC<SegmentedControlProps> = ({
   options,
   value: controlledValue,
   defaultValue,
@@ -50,7 +57,7 @@ export const SegmentedControl: React.FC<SegmentedControlProps> = ({
   );
 
   const handleKeyDown = useCallback(
-    (e: React.KeyboardEvent, currentIndex: number) => {
+    (e: KeyboardEvent, currentIndex: number) => {
       if (disabled) return;
       let nextIndex = currentIndex;
       if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
@@ -90,7 +97,7 @@ export const SegmentedControl: React.FC<SegmentedControlProps> = ({
       {options.map((option, index) => {
         const isSelected = value === option.value;
         return (
-          <React.Fragment key={option.value}>
+          <Fragment key={option.value}>
             {/* biome-ignore lint/a11y/useSemanticElements: segmented control uses role=radio per ARIA */}
             <button
               ref={(el) => {
@@ -116,7 +123,7 @@ export const SegmentedControl: React.FC<SegmentedControlProps> = ({
               )}
               {!iconOnly && <span className="uds-segmented-control__label">{option.label}</span>}
             </button>
-          </React.Fragment>
+          </Fragment>
         );
       })}
     </div>
