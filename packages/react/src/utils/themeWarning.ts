@@ -11,7 +11,7 @@ export function warnIfNoTheme(): void {
   if (process.env.NODE_ENV !== 'development') return;
   if (hasWarned) return;
 
-  const theme = document.documentElement.getAttribute('data-theme');
+  const theme = document.documentElement.dataset.theme;
   if (theme != null && theme !== '') return;
 
   hasWarned = true;
