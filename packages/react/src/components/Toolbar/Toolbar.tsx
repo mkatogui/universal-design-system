@@ -1,4 +1,4 @@
-import React from 'react';
+import type React from 'react';
 
 export interface ToolbarProps {
   /** Toolbar content (buttons, dropdowns, etc.). */
@@ -17,20 +17,12 @@ export const Toolbar: React.FC<ToolbarProps> = ({
   'aria-label': ariaLabel,
   className,
 }) => {
-  const classes = [
-    'uds-toolbar',
-    orientation === 'vertical' && 'uds-toolbar--vertical',
-    className,
-  ]
+  const classes = ['uds-toolbar', orientation === 'vertical' && 'uds-toolbar--vertical', className]
     .filter(Boolean)
     .join(' ');
 
   return (
-    <div
-      className={classes}
-      role="toolbar"
-      aria-label={ariaLabel}
-    >
+    <div className={classes} role="toolbar" aria-label={ariaLabel}>
       {children}
     </div>
   );

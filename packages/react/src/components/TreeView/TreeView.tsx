@@ -1,4 +1,5 @@
-import React, { useCallback, useState } from 'react';
+import type React from 'react';
+import { useCallback, useState } from 'react';
 
 export interface TreeNode {
   id: string;
@@ -24,7 +25,6 @@ export interface TreeViewProps {
   /** Accessible label for the tree. */
   'aria-label'?: string;
 }
-
 
 function TreeItemInner({
   node,
@@ -118,9 +118,10 @@ function TreeItemInner({
     >
       <span className="uds-tree__item-label">{node.label}</span>
       {hasChildren && (
+        // biome-ignore lint/a11y/useSemanticElements: tree group uses role=group per ARIA tree pattern
         <div role="group" className="uds-tree__group">
           {isExpanded &&
-            node.children!.map((child) => (
+            node.children?.map((child) => (
               <TreeItemInner
                 key={child.id}
                 node={child}

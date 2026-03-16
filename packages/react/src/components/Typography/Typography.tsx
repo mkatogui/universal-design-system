@@ -19,7 +19,9 @@ const defaultTag: Record<TypographyVariant, 'h1' | 'h2' | 'h3' | 'p' | 'span' | 
 export const Typography = React.forwardRef<HTMLElement, TypographyProps>(
   ({ variant = 'body', className, children, ...props }, ref) => {
     const Tag = defaultTag[variant];
-    const classes = ['uds-typography', `uds-typography--${variant}`, className].filter(Boolean).join(' ');
+    const classes = ['uds-typography', `uds-typography--${variant}`, className]
+      .filter(Boolean)
+      .join(' ');
     return React.createElement(
       Tag,
       { ref, className: classes, ...props },

@@ -1,4 +1,4 @@
-import React from 'react';
+import type React from 'react';
 
 export interface AnchorItem {
   href: string;
@@ -16,8 +16,8 @@ export const Anchor: React.FC<AnchorProps> = ({ items, smoothScroll = true, clas
   return (
     <nav className={classes} aria-label="On this page">
       <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-        {items.map((item, i) => (
-          <li key={i}>
+        {items.map((item) => (
+          <li key={item.href}>
             <a
               href={item.href}
               style={smoothScroll ? { scrollBehavior: 'smooth' } : undefined}

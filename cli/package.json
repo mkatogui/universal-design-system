@@ -1,6 +1,6 @@
 {
   "name": "@mkatogui/universal-design-system",
-  "version": "0.4.2",
+  "version": "0.5.0",
   "description": "Universal Design System — AI-powered design system for any product",
   "type": "module",
   "bin": {

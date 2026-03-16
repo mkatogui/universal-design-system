@@ -1,6 +1,10 @@
 import React from 'react';
 
-export interface TimePickerProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type' | 'value' | 'onChange' | 'size'> {
+export interface TimePickerProps
+  extends Omit<
+    React.InputHTMLAttributes<HTMLInputElement>,
+    'type' | 'value' | 'onChange' | 'size'
+  > {
   value?: string;
   /** HH:mm format. */
   onChange?: (value: string) => void;
@@ -9,7 +13,9 @@ export interface TimePickerProps extends Omit<React.InputHTMLAttributes<HTMLInpu
 
 export const TimePicker = React.forwardRef<HTMLInputElement, TimePickerProps>(
   ({ value = '', size = 'md', className, onChange, ...props }, ref) => {
-    const classes = ['uds-time-picker', `uds-time-picker--${size}`, className].filter(Boolean).join(' ');
+    const classes = ['uds-time-picker', `uds-time-picker--${size}`, className]
+      .filter(Boolean)
+      .join(' ');
     return (
       <input
         ref={ref}

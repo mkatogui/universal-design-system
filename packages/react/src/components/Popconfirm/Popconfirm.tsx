@@ -33,7 +33,7 @@ export const Popconfirm: React.FC<PopconfirmProps> = ({
     if (!isControlled) setInternalOpen(v);
     onOpenChange?.(v);
   };
-  const anchorRef = React.useRef<HTMLDivElement>(null);
+  const anchorRef = React.useRef<HTMLButtonElement>(null);
   const [position, setPosition] = React.useState({ top: 0, left: 0 });
 
   React.useEffect(() => {
@@ -43,6 +43,7 @@ export const Popconfirm: React.FC<PopconfirmProps> = ({
     }
   }, [open]);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: setOpen is a stable state-setter wrapper, omitting is intentional
   React.useEffect(() => {
     if (!open) return;
     const close = () => setOpen(false);
@@ -62,9 +63,14 @@ export const Popconfirm: React.FC<PopconfirmProps> = ({
   const classes = ['uds-popconfirm', className].filter(Boolean).join(' ');
   return (
     <div className={classes}>
-      <div ref={anchorRef} onClick={() => setOpen(true)}>
+      <button
+        type="button"
+        ref={anchorRef}
+        onClick={() => setOpen(true)}
+        className="uds-popconfirm__trigger"
+      >
         {children}
-      </div>
+      </button>
       {open &&
         ReactDOM.createPortal(
           <div
@@ -73,12 +79,21 @@ export const Popconfirm: React.FC<PopconfirmProps> = ({
             aria-describedby="uds-popconfirm-desc"
             style={{ position: 'fixed', top: position.top, left: position.left }}
             onClick={(e) => e.stopPropagation()}
+            onKeyDown={(e) => e.stopPropagation()}
           >
             <p className="uds-popconfirm__title">{title}</p>
-            {description && <p id="uds-popconfirm-desc" className="uds-popconfirm__description">{description}</p>}
+            {description && (
+              <p id="uds-popconfirm-desc" className="uds-popconfirm__description">
+                {description}
+              </p>
+            )}
             <div className="uds-popconfirm__actions">
-              <button type="button" className="uds-popconfirm__cancel" onClick={handleCancel}>{cancelLabel}</button>
-              <button type="button" className="uds-popconfirm__confirm" onClick={handleConfirm}>{confirmLabel}</button>
+              <button type="button" className="uds-popconfirm__cancel" onClick={handleCancel}>
+                {cancelLabel}
+              </button>
+              <button type="button" className="uds-popconfirm__confirm" onClick={handleConfirm}>
+                {confirmLabel}
+              </button>
             </div>
           </div>,
           document.body,

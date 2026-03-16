@@ -1,4 +1,4 @@
-import React from 'react';
+import type React from 'react';
 
 export interface IconProps {
   name?: string;
@@ -25,8 +25,7 @@ export const Icon: React.FC<IconProps> = ({
       className={classes}
       style={style}
       aria-hidden={decorative}
-      role={decorative ? undefined : 'img'}
-      aria-label={decorative ? undefined : name}
+      {...(decorative ? {} : { role: 'img' as const, 'aria-label': name })}
     >
       {children ?? (name && <span className="uds-icon__symbol">{name}</span>)}
     </span>

@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.5.0
+
+### Added
+
+- **29 new React components** — Box, Stack, Grid, Divider, Container, Typography, Link, NumberInput, Slider, Form, TimePicker, Rating, ColorPicker, List, Empty, Image, Chip, Descriptions, Statistic, Timeline, AspectRatio, ContextMenu, Popconfirm, Notification, Collapsible, Icon, FloatButton, Menu, Anchor (43 → 72 total)
+- **Vue/Svelte parity (Phase 1–2)** — 13 components added to Vue and Svelte packages
+- **Component roadmap** — `docs/COMPONENT-ROADMAP.md` with inventory and phase tracking
+- **Storybook for React** — `.storybook-react/` and stories for new components
+
+### Changed
+
+- **Token validation** — Theme palette `$type` in design-tokens.json; `validate-tokens.py` oklch exemption for theme.* color tokens
+- **Tests** — SideNav jsdom navigation message fix; CodeBlock act() wrap; controlled input handlers for NumberInput/Slider
+- **CI / tooling** — `.gitignore` includes `test-results/`
+
 ## 0.4.0
 
 ### Added

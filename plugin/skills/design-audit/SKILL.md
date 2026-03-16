@@ -7,7 +7,7 @@ description: >
   structured evaluation of an existing UI for WCAG compliance, color contrast, typography
   hierarchy, spacing consistency, and industry anti-patterns.
 metadata:
-  version: "0.4.2"
+  version: "0.5.0"
   author: "Marcelo Katogui"
 ---
 

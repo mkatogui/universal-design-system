@@ -1,5 +1,4 @@
 import { render } from '@testing-library/react';
-import React from 'react';
 import '@testing-library/jest-dom/vitest';
 import { describe, expect, it } from 'vitest';
 import { Container } from '../../packages/react/src/components/Container/Container';

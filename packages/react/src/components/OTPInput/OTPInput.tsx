@@ -1,4 +1,5 @@
-import React, { useCallback, useRef, useState } from 'react';
+import type React from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 export interface OTPInputProps {
   /** Number of digits. @default 4 */
@@ -32,6 +33,12 @@ export const OTPInput: React.FC<OTPInputProps> = ({
   const [internalValue, setInternalValue] = useState(defaultValue.slice(0, length));
   const value = (controlledValue ?? internalValue).slice(0, length).padEnd(length, '');
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
+
+  useEffect(() => {
+    if (autoFocus && inputRefs.current[0]) {
+      inputRefs.current[0].focus();
+    }
+  }, [autoFocus]);
 
   const setValue = useCallback(
     (next: string) => {
@@ -91,15 +98,13 @@ export const OTPInput: React.FC<OTPInputProps> = ({
     .join(' ');
 
   return (
-    <div
-      className={classes}
-      role="group"
-      aria-label="One-time code"
-    >
+    <fieldset className={classes} aria-label="One-time code">
       {Array.from({ length }, (_, i) => (
         <input
-          key={i}
-          ref={(el) => { inputRefs.current[i] = el; }}
+          key={`digit-${i}`}
+          ref={(el) => {
+            inputRefs.current[i] = el;
+          }}
           type="text"
           inputMode={inputMode}
           maxLength={1}
@@ -111,10 +116,9 @@ export const OTPInput: React.FC<OTPInputProps> = ({
           onPaste={handlePaste}
           disabled={disabled}
           aria-label={`Digit ${i + 1}`}
-          autoFocus={autoFocus && i === 0}
         />
       ))}
-    </div>
+    </fieldset>
   );
 };
 

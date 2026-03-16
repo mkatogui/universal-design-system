@@ -199,7 +199,7 @@ function writeZedMcpConfig(configFile: string, serverPath: string): void {
 function writeContinueMcpConfig(yamlPath: string, serverPath: string): void {
   const pathArg = serverPath.replace(/\\/g, '/');
   const yaml = `name: Universal Design System MCP
-version: 0.4.2
+version: 0.5.0
 schema: v1
 mcpServers:
   - name: universal-design-system
@@ -408,7 +408,7 @@ export async function installCommand(options: InstallOptions): Promise<void> {
     const pkgJson = readJsonSafe(join(PKG_ROOT, 'package.json'));
     const manifest = {
       name: 'universal-design-system',
-      version: (pkgJson.version as string) || '0.4.2',
+      version: (pkgJson.version as string) || '0.5.0',
       description:
         'Production-grade AI-native design system with 9 structural palettes, 43 components, 600 W3C DTCG tokens, BM25 reasoning engine, WCAG 2.2 AA compliance, and Tailwind/React/Vue/Svelte output.',
       author: { name: (pkgJson.author as string) || 'Marcelo Katogui' },

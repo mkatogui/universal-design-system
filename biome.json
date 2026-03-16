@@ -18,14 +18,17 @@
       },
       "suspicious": {
         "noArrayIndexKey": "warn",
-        "noPrototypeBuiltins": "warn"
+        "noPrototypeBuiltins": "warn",
+        "noExplicitAny": "warn"
       },
       "complexity": {
         "noForEach": "warn"
       },
       "correctness": {
         "noSelfAssign": "warn",
-        "noUnusedVariables": "warn"
+        "noUnusedVariables": "warn",
+        "noUnusedFunctionParameters": "warn",
+        "useExhaustiveDependencies": "warn"
       },
       "style": {
         "noNonNullAssertion": "warn"
@@ -49,6 +52,26 @@
       "trailingCommas": "none"
     }
   },
+  "overrides": [
+    {
+      "includes": ["tests/**", "**/*.test.js", "**/*.test.ts", "**/*.test.tsx"],
+      "linter": {
+        "rules": {
+          "complexity": { "noForEach": "off" },
+          "correctness": { "noSelfAssign": "off" },
+          "style": { "noNonNullAssertion": "off" }
+        }
+      }
+    },
+    {
+      "includes": ["**/*.css"],
+      "linter": { "rules": { "style": { "noDescendingSpecificity": "off" } } }
+    },
+    {
+      "includes": ["**/Carousel/Carousel.tsx", "**/OTPInput/OTPInput.tsx"],
+      "linter": { "rules": { "suspicious": { "noArrayIndexKey": "off" } } }
+    }
+  ],
   "files": {
     "includes": [
       "**/cli/src/**",

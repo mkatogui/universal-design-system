@@ -8,7 +8,7 @@ description: >
   "tailwind classes", "css custom properties", "transition", "transform",
   or needs copy-paste CSS/Tailwind snippets using design system tokens.
 metadata:
-  version: "0.4.2"
+  version: "0.5.0"
   author: "Marcelo Katogui"
 ---
 

@@ -1,5 +1,4 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import React from 'react';
 import '@testing-library/jest-dom/vitest';
 import { describe, expect, it, vi } from 'vitest';
 import { TreeView } from '../../packages/react/src/components/TreeView/TreeView';
@@ -35,13 +34,22 @@ describe('TreeView', () => {
 
   it('calls onSelect when a node is clicked (selectionMode single)', () => {
     const onSelect = vi.fn();
-    render(<TreeView nodes={nodes} defaultExpandedIds={['1']} onSelect={onSelect} selectionMode="single" />);
+    render(
+      <TreeView
+        nodes={nodes}
+        defaultExpandedIds={['1']}
+        onSelect={onSelect}
+        selectionMode="single"
+      />,
+    );
     fireEvent.click(screen.getByText('File 1'));
     expect(onSelect).toHaveBeenCalledWith(['2']);
   });
 
   it('marks selected node when selectedIds is provided', () => {
-    render(<TreeView nodes={nodes} defaultExpandedIds={['1']} selectedIds="2" selectionMode="single" />);
+    render(
+      <TreeView nodes={nodes} defaultExpandedIds={['1']} selectedIds="2" selectionMode="single" />,
+    );
     const item = screen.getByText('File 1').closest('[role="treeitem"]');
     expect(item).toHaveAttribute('aria-selected', 'true');
   });

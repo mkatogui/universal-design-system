@@ -12,7 +12,8 @@ export const Box = React.forwardRef<HTMLDivElement, BoxProps>(
     const resolvedStyle: React.CSSProperties = {
       ...style,
       ...(padding != null && {
-        padding: typeof padding === 'number' ? `${padding}px` : `var(--space-${padding}, ${padding})`,
+        padding:
+          typeof padding === 'number' ? `${padding}px` : `var(--space-${padding}, ${padding})`,
       }),
       ...(margin != null && {
         margin: typeof margin === 'number' ? `${margin}px` : `var(--space-${margin}, ${margin})`,

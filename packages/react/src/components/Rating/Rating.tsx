@@ -1,4 +1,4 @@
-import React from 'react';
+import type React from 'react';
 
 export interface RatingProps {
   value?: number;
@@ -19,17 +19,14 @@ export const Rating: React.FC<RatingProps> = ({
 }) => {
   const classes = ['uds-rating', `uds-rating--${size}`, className].filter(Boolean).join(' ');
   return (
-    <div
-      className={classes}
-      role="group"
-      aria-label={`Rating ${value} of ${max}`}
-    >
+    // biome-ignore lint/a11y/useSemanticElements: rating group is not a form fieldset
+    <div className={classes} role="group" aria-label={`Rating ${value} of ${max}`}>
       {Array.from({ length: max }, (_, i) => {
         const starValue = i + 1;
         const filled = value >= starValue;
         return (
           <button
-            key={i}
+            key={starValue}
             type="button"
             className={`uds-rating__star ${filled ? 'uds-rating__star--filled' : ''}`}
             aria-label={`${starValue} star${starValue > 1 ? 's' : ''}`}

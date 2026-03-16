@@ -1,4 +1,5 @@
-import React, { useCallback, useRef, useState } from 'react';
+import type React from 'react';
+import { useCallback, useRef, useState } from 'react';
 
 export interface SegmentedControlOption {
   value: string;
@@ -85,34 +86,37 @@ export const SegmentedControl: React.FC<SegmentedControlProps> = ({
     .join(' ');
 
   return (
-    <div
-      className={classes}
-      role="radiogroup"
-      aria-label="Options"
-      aria-disabled={disabled}
-    >
+    <div className={classes} role="radiogroup" aria-label="Options" aria-disabled={disabled}>
       {options.map((option, index) => {
         const isSelected = value === option.value;
         return (
-          <button
-            key={option.value}
-            ref={(el) => { buttonRefs.current[index] = el; }}
-            type="button"
-            role="radio"
-            aria-checked={isSelected}
-            disabled={disabled}
-            className={[
-              'uds-segmented-control__option',
-              isSelected && 'uds-segmented-control__option--selected',
-            ]
-              .filter(Boolean)
-              .join(' ')}
-            onClick={() => handleSelect(option.value)}
-            onKeyDown={(e) => handleKeyDown(e, index)}
-          >
-            {option.icon && <span className="uds-segmented-control__icon" aria-hidden="true">{option.icon}</span>}
-            {!iconOnly && <span className="uds-segmented-control__label">{option.label}</span>}
-          </button>
+          <React.Fragment key={option.value}>
+            {/* biome-ignore lint/a11y/useSemanticElements: segmented control uses role=radio per ARIA */}
+            <button
+              ref={(el) => {
+                buttonRefs.current[index] = el;
+              }}
+              type="button"
+              role="radio"
+              aria-checked={isSelected}
+              disabled={disabled}
+              className={[
+                'uds-segmented-control__option',
+                isSelected && 'uds-segmented-control__option--selected',
+              ]
+                .filter(Boolean)
+                .join(' ')}
+              onClick={() => handleSelect(option.value)}
+              onKeyDown={(e) => handleKeyDown(e, index)}
+            >
+              {option.icon && (
+                <span className="uds-segmented-control__icon" aria-hidden="true">
+                  {option.icon}
+                </span>
+              )}
+              {!iconOnly && <span className="uds-segmented-control__label">{option.label}</span>}
+            </button>
+          </React.Fragment>
         );
       })}
     </div>
