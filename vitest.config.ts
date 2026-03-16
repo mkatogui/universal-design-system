@@ -13,14 +13,18 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'jsdom',
-    include: ['tests/components/**/*.test.tsx', 'tests/cli/**/*.test.ts'],
+    include: ['tests/components/**/*.test.{ts,tsx}', 'tests/cli/**/*.test.ts'],
     environmentMatchGlobs: [['tests/cli/**', 'node']],
     setupFiles: [],
     coverage: {
       provider: 'v8',
       reporter: ['lcov', 'json-summary', 'text'],
       reportsDirectory: 'coverage',
-      include: ['packages/react/src/components/**/*.tsx', 'cli/src/**/*.ts'],
+      include: [
+        'packages/react/src/components/**/*.tsx',
+        'packages/react/src/utils/**/*.ts',
+        'cli/src/**/*.ts',
+      ],
       thresholds: {
         lines: 35,
         functions: 35,

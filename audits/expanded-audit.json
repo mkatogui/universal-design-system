@@ -1,7 +1,7 @@
 {
   "title": "Expanded WCAG 2.1 AA Contrast Audit",
   "description": "Tests ALL foreground/background token combinations across every palette and mode, not just the 6 critical pairs.",
-  "generated": "2026-03-16T23:03:08.718007",
+  "generated": "2026-03-16T23:21:21.302183",
   "standard": "WCAG 2.1 AA",
   "thresholds": {
     "normal_text": "4.5:1",
