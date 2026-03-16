@@ -20,7 +20,7 @@ Recommended patterns for forms: required vs optional, validation, errors, and st
 
 - Use **`type`** for the native input kind: `'text' | 'email' | 'password' | 'number' | 'search'`.
 - Use **`multiline`** for a `<textarea>`.
-- **`variant`** is deprecated: use `type` + `multiline` instead. `variant="textarea"` still works and is equivalent to `multiline`.
+- **Input:** Use `type` ('text' | 'email' | 'password' | 'number' | 'search') for the native input kind, and `multiline` for `<textarea>`.
 
 ```tsx
 <Input label="Email" type="email" />

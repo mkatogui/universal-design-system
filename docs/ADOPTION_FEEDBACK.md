@@ -8,7 +8,7 @@ Feedback from using UDS as the default in a real application (e.g. ATS/product a
 
 | # | Area | What was done |
 |---|------|----------------|
-| 1 | API consistency | **Input:** Added `type` and `multiline`; `variant` deprecated but still supported. **FileUpload:** `error` prop added to public API. |
+| 1 | API consistency | **Input:** Use `type` and `multiline` only; `variant` removed. **FileUpload:** `error` prop added to public API. |
 | 2 | FileUpload customization | **FileUpload:** Added `placeholderTitle`, `placeholderDescription`, `acceptLabel` so apps can customize without replacing `children`. |
 | 3 | Required/optional | **Input:** Added `optional` and `optionalLabel`; component renders "Optional" in helper area when `optional` is true. |
 | 4 | Docs | **Form patterns:** Added `docs/FORM_PATTERNS.md` (required vs optional, validation, errors, FormSection, public BEM/CSS for form components). |
@@ -20,14 +20,14 @@ Feedback from using UDS as the default in a real application (e.g. ATS/product a
 
 ## 1. API consistency
 
-**Issue:** `Input` uses `variant` for both semantic type and control shape: `variant="email"` vs `variant="textarea"`. So "variant" means both "input type" and "multiline," which differs from the usual `type` + "is it a textarea?" split and can be surprising.
+**Issue (resolved):** Input previously used `variant` for both semantic type and control shape. It now uses `type` ('text' | 'email' | 'password' | 'number' | 'search') and `multiline` for `<textarea>` only.
 
 **Issue:** `FileUpload` appears to support an error state in the rendered UI (e.g. `uds-file-upload__error`), but the public TypeScript props do not include `error`. So either the API is incomplete or the feature is internal only — either way it's confusing for adopters.
 
-**Suggestions:**
+**Suggestions (implemented):**
 
-- Use `variant` only for visual variants; use `type` (or a dedicated prop) for input kind.
-- Document and expose `error` (and any other state) on `FileUpload` in the public API and types.
+- Input now uses `type` and `multiline` only; `variant` has been removed.
+- `error` (and placeholder props) are documented and exposed on `FileUpload` in the public API and types.
 
 ---
 
@@ -83,7 +83,7 @@ Feedback from using UDS as the default in a real application (e.g. ATS/product a
 
 | Area | Main criticism |
 |------|----------------|
-| **API** | Some oddities and missing/undocumented props (e.g. Input `variant` overload, FileUpload `error`). |
+| **API** | Input now uses `type` + `multiline`; FileUpload `error` and placeholder props are public. |
 | **FileUpload** | Not easily customizable without replacing content and mimicking internal class names. |
 | **Forms** | No built-in "optional" semantics and no clear, documented form patterns. |
 | **Docs** | Docs don't yet make it easy to adopt UDS as the default without reading built CSS and types. |

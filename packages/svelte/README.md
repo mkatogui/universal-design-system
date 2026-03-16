@@ -50,7 +50,7 @@ Available palettes: `minimal-saas`, `ai-futuristic`, `gradient-startup`, `corpor
 | Footer | `uds-footer` | simple, multi-column, newsletter, mega-footer |
 | CodeBlock | `uds-code-block` | syntax-highlighted, terminal, multi-tab |
 | Modal | `uds-modal` | confirmation, task, alert |
-| FormInput | `uds-input` | text, email, password, number, search, textarea |
+| FormInput | `uds-input` | type: text, email, password, number, search; multiline for textarea |
 | Select | `uds-select` | native, custom |
 | Checkbox | `uds-checkbox` | standard, indeterminate |
 | Radio | `uds-radio` | standard, card |

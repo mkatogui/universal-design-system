@@ -9,11 +9,6 @@ interface Props {
   type?: 'text' | 'email' | 'password' | 'number' | 'search'
   /** When true, renders a <textarea>; ignores type. @default false */
   multiline?: boolean
-  /**
-   * @deprecated Use `type` and `multiline` instead.
-   * variant="textarea" → multiline; variant="email" etc. → type.
-   */
-  variant?: 'text' | 'email' | 'password' | 'number' | 'search' | 'textarea'
   /** Controls padding and font-size. @default 'md' */
   size?: 'sm' | 'md' | 'lg'
   /** Visual label above the field. */
@@ -55,10 +50,10 @@ const inputId = useId()
 const helperId = useId()
 const errorId = useId()
 
-const isTextarea = computed(() => Boolean(props.multiline || props.variant === 'textarea'))
+const isTextarea = computed(() => Boolean(props.multiline))
 const inputType = computed(() => {
   if (isTextarea.value) return 'text'
-  return props.type ?? (props.variant as Props['type']) ?? 'text'
+  return props.type ?? 'text'
 })
 const isRequired = computed(() => props.required && !props.optional)
 

@@ -5,7 +5,7 @@
 ### Added
 
 - **FormSection** — New React component for form field groups (title + optional description + grouped fields). Use for consistent structure on form pages (e.g. ATS, settings). Exported from `@mkatogui/uds-react`.
-- **Input `type` and `multiline`** — Native input kind via `type` ('text' | 'email' | 'password' | 'number' | 'search'); use `multiline` for `<textarea>`. `variant` kept for backward compatibility but deprecated in favor of `type` + `multiline`.
+- **Input `type` and `multiline`** — Native input kind via `type` ('text' | 'email' | 'password' | 'number' | 'search'); use `multiline` for `<textarea>`. The old `variant` prop has been removed; use `type` and `multiline` only.
 - **Input `optional` and `optionalLabel`** — First-class optional field semantics; component can show "Optional" (or custom `optionalLabel`) in the helper area.
 - **FileUpload `error`** — Public prop to show an error message below the zone (e.g. from parent validation). Internal validation errors still apply when `error` is not set.
 - **FileUpload placeholder props** — `placeholderTitle`, `placeholderDescription`, `acceptLabel` to customize dropzone/button text without replacing `children`.

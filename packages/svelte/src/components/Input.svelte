@@ -7,11 +7,6 @@
     type?: 'text' | 'email' | 'password' | 'number' | 'search';
     /** When true, renders a `<textarea>`; ignores `type`. @default false */
     multiline?: boolean;
-    /**
-     * @deprecated Use `type` and `multiline` instead. Kept for backward compatibility:
-     * variant="textarea" -> multiline; variant="email" etc. -> type.
-     */
-    variant?: 'text' | 'email' | 'password' | 'number' | 'search' | 'textarea';
     /** Controls padding and font-size. @default 'md' */
     size?: 'sm' | 'md' | 'lg';
     /** Visible label rendered above the field. Also used to derive the `id`. */
@@ -36,7 +31,6 @@
   let {
     type: typeProp,
     multiline = false,
-    variant,
     size = 'md',
     label,
     helperText,
@@ -50,9 +44,9 @@
     ...rest
   }: Props = $props();
 
-  let isTextarea = $derived(Boolean(multiline || variant === 'textarea'));
+  let isTextarea = $derived(Boolean(multiline));
   let inputType = $derived<'text' | 'email' | 'password' | 'number' | 'search'>(
-    isTextarea ? 'text' : (typeProp ?? (variant as Props['type']) ?? 'text')
+    isTextarea ? 'text' : (typeProp ?? 'text')
   );
   let isRequired = $derived(required && !optional);
 
