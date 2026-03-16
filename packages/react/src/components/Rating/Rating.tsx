@@ -19,8 +19,18 @@ export const Rating: React.FC<RatingProps> = ({
 }) => {
   const classes = ['uds-rating', `uds-rating--${size}`, className].filter(Boolean).join(' ');
   return (
-    <fieldset className={classes}>
-      <legend className="uds-rating__legend">{`Rating ${value} of ${max}`}</legend>
+    <fieldset className={classes} style={{ border: 'none', margin: 0, padding: 0 }}>
+      <legend
+        className="uds-rating__legend"
+        style={{
+          position: 'absolute',
+          width: '1px',
+          height: '1px',
+          overflow: 'hidden',
+          clip: 'rect(0,0,0,0)',
+          whiteSpace: 'nowrap',
+        }}
+      >{`Rating ${value} of ${max}`}</legend>
       {Array.from({ length: max }, (_, i) => {
         const starValue = i + 1;
         const filled = value >= starValue;

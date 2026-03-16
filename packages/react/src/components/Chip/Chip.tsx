@@ -25,7 +25,7 @@ export const Chip: React.FC<ChipProps> = ({
     .filter(Boolean)
     .join(' ');
   return (
-    <li className={classes}>
+    <span className={classes}>
       <span className="uds-chip__label">{label}</span>
       {onRemove && (
         <button
@@ -37,7 +37,7 @@ export const Chip: React.FC<ChipProps> = ({
           ×
         </button>
       )}
-    </li>
+    </span>
   );
 };
 

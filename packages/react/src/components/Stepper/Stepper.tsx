@@ -73,9 +73,8 @@ export const Stepper: React.FC<StepperProps> = ({
                 .filter(Boolean)
                 .join(' ')}
               aria-current={isCurrent ? 'step' : undefined}
-              aria-disabled={isPending && linear ? 'true' : undefined}
-              tabIndex={isClickable ? 0 : -1}
-              onClick={() => isClickable && handleStepClick(index)}
+              disabled={!isClickable}
+              onClick={() => handleStepClick(index)}
             >
               <span className="uds-stepper__step-indicator">
                 {isCompleted ? (

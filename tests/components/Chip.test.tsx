@@ -39,9 +39,9 @@ describe('Chip', () => {
     expect(chip).toHaveClass('uds-chip--sm');
   });
 
-  it('has role="listitem" on the root span', () => {
-    render(<Chip label="Item" />);
-    expect(screen.getByRole('listitem')).toBeInTheDocument();
+  it('renders as a span element', () => {
+    const { container } = render(<Chip label="Item" />);
+    expect(container.querySelector('span.uds-chip')).toBeInTheDocument();
   });
 
   it('does not render a remove button by default', () => {

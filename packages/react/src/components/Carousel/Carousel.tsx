@@ -76,14 +76,15 @@ export const Carousel: React.FC<CarouselProps> = ({
     >
       <div className="uds-carousel__track" style={{ transform: `translateX(-${current * 100}%)` }}>
         {items.map((item, i) => (
-          <section
+          <div
             key={`slide-${i}`}
+            role="group"
             className="uds-carousel__slide"
             aria-roledescription="slide"
             aria-label={`Slide ${i + 1} of ${items.length}`}
           >
             {item}
-          </section>
+          </div>
         ))}
       </div>
       {showArrows && items.length > 1 && (
