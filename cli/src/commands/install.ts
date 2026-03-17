@@ -3,7 +3,6 @@
  * into the target platform's expected location.
  */
 
-import AdmZip from 'adm-zip';
 import {
   cpSync,
   existsSync,
@@ -15,6 +14,7 @@ import {
 } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import AdmZip from 'adm-zip';
 
 // ANSI colors
 const bold = (s: string) => `\x1b[1m${s}\x1b[0m`;
