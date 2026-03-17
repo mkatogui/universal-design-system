@@ -1,7 +1,7 @@
 ---
 name: figma-handoff
 description: Figma to code handoff using UDS tokens. Align Figma variables with design-tokens.json, naming conventions, Dev Mode, and token sync.
-version: 0.6.0
+version: 0.6.2
 triggers:
   - figma to code
   - design handoff

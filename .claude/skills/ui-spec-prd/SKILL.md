@@ -1,7 +1,7 @@
 ---
 name: ui-spec-prd
 description: UI spec and PRD: product type, sector, key components, palette, anti-patterns; plan before building; design_system.py --persist.
-version: 0.6.0
+version: 0.6.2
 triggers:
   - product requirements
   - ui spec

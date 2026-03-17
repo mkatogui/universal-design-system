@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.6.2
+
+### Changed
+
+- Version bump to 0.6.2 across all packages, plugin manifests, and skills.
+
+---
+
 ## 0.6.1
 
 ### Changed

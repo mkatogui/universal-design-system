@@ -1,7 +1,7 @@
 ---
 name: component-docs
 description: Component documentation and Storybook: stories, MDX, props tables, usage guidelines from UDS component specs.
-version: 0.6.0
+version: 0.6.2
 triggers:
   - storybook
   - component documentation

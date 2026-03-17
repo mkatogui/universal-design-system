@@ -1,7 +1,7 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "universal-design-system",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "description": "Production-grade AI-native design system with 9 structural palettes, 600 W3C DTCG tokens, 43 BEM components, BM25 reasoning engine, WCAG 2.2 AA compliance, and industry-specific design rules across 1,676+ data rows.",
   "owner": {
     "name": "mkatogui",
@@ -11,7 +11,7 @@
     {
       "name": "universal-design-system",
       "description": "AI-native design system that reasons about your product. 9 switchable palettes, 600 design tokens, 43 accessible components, BM25 search engine across 20 databases, 190 industry rules, and automated WCAG validation. Ships with 6 skills, 6 autonomous agents, 6 slash commands, and an MCP server with 8 tools.",
-      "version": "0.6.1",
+      "version": "0.6.2",
       "author": {
         "name": "mkatogui",
         "email": "mkatogui@gmail.com"

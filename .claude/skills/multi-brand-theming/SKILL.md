@@ -1,7 +1,7 @@
 ---
 name: multi-brand-theming
 description: Multi-brand and theming: derive palettes from base, palette overrides, data-theme, white-label UI using UDS tokens.
-version: 0.6.0
+version: 0.6.2
 triggers:
   - multi-brand
   - white label

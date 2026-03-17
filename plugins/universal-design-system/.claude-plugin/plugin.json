@@ -1,7 +1,7 @@
 {
   "name": "universal-design-system",
   "description": "A production-grade design system with 9 structural palettes, 72 components, and automated WCAG 2.2 AA compliance. Deterministic UI recommendation engine powered by retrieval and rule evaluation.",
-  "version": "0.6.0",
+  "version": "0.6.2",
   "author": {
     "name": "Marcelo Katogui"
   }

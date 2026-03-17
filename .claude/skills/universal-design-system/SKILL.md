@@ -1,7 +1,7 @@
 ---
 name: universal-design-system
 description: MAIN skill — Intelligent design system generation. Domain detection, BM25 search, rule engine, palette selection, token resolution, Tailwind/React/Vue/Svelte output. Use when the user wants to build, design, or implement any UI (landing page, dashboard, app, component set, style guide).
-version: 0.6.0
+version: 0.6.2
 triggers:
   - build a landing page
   - build a dashboard
