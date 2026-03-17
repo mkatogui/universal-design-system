@@ -76,6 +76,7 @@ export const Carousel: React.FC<CarouselProps> = ({
     >
       <div className="uds-carousel__track" style={{ transform: `translateX(-${current * 100}%)` }}>
         {items.map((item, i) => (
+          // biome-ignore lint/a11y/useSemanticElements: Carousel slide uses role="group" + aria-roledescription="slide" per WAI-ARIA; fieldset is for form grouping only
           <div
             key={`slide-${i}`}
             role="group"

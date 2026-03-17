@@ -452,7 +452,8 @@ export async function installCommand(options: InstallOptions): Promise<void> {
       for (const entry of readdirSync(srcSkillDir)) {
         if (entry === 'SKILL.md') continue;
         // universal-design-system: skip data/scripts (replaced by repo src/data and src/scripts)
-        if (name === 'universal-design-system' && (entry === 'data' || entry === 'scripts')) continue;
+        if (name === 'universal-design-system' && (entry === 'data' || entry === 'scripts'))
+          continue;
         const srcPath = join(srcSkillDir, entry);
         const destPath = join(destSkillDir, entry);
         if (statSync(srcPath).isDirectory()) {
@@ -504,9 +505,7 @@ export async function installCommand(options: InstallOptions): Promise<void> {
       }
       console.log(`  ${green('+')} universal-design-system.plugin`);
     } catch {
-      console.log(
-        yellow('  ⚠ Could not create .plugin zip (zip/PowerShell failed).'),
-      );
+      console.log(yellow('  ⚠ Could not create .plugin zip (zip/PowerShell failed).'));
       console.log(dim('    The plugin/ directory is ready — zip it manually.'));
     }
   }
@@ -523,7 +522,11 @@ export async function installCommand(options: InstallOptions): Promise<void> {
   if (platform === 'cowork') {
     console.log(bold('\n  Quick Start'));
     console.log(dim('  Open the .plugin file in Claude Cowork, or share it with your team.'));
-    console.log(dim(`  The plugin includes ${skillNames.length} skills, agents, and commands plus MCP server config.`));
+    console.log(
+      dim(
+        `  The plugin includes ${skillNames.length} skills, agents, and commands plus MCP server config.`,
+      ),
+    );
     console.log(dim('  Skills work immediately; MCP requires Node.js 18+ and Python 3.8+.'));
   } else {
     console.log(bold('\n  Quick Start'));
