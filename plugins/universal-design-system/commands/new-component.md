@@ -1,4 +1,5 @@
 ---
+name: new-component
 description: Generate a complete React component scaffold — TSX file, tests, CSV entry, index export, ARIA attributes. Usage - /new-component ComponentName [category]
 ---
 

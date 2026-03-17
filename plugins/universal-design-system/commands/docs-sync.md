@@ -1,4 +1,5 @@
 ---
+name: docs-sync
 description: Validate and synchronize shared elements across all 8 docs pages — nav bar, palette CSS, version placeholders, CSS format conventions, and cross-page link integrity.
 ---
 

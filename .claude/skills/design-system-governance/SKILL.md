@@ -1,5 +1,5 @@
 ---
-name: Design System Governance
+name: design-system-governance
 description: Design system governance and scaling: centralized vs federated, lifecycle, contribution model, multi-team adoption.
 version: 0.6.0
 triggers:

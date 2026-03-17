@@ -43,5 +43,15 @@ metrics.json
 .~lock.*
 tmp-uds-install/
 
+# Cowork plugin build output (source: .claude/; only plugin/README.md is tracked)
+plugin/skills/
+plugin/agents/
+plugin/commands/
+plugin/.claude-plugin/
+plugin/.mcp.json
+plugin/plugin.json
+universal-design-system.zip
+universal-design-system.plugin
+
 # Test/Playwright output
 test-results/

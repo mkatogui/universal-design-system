@@ -1,4 +1,5 @@
 ---
+name: a11y-fix
 description: Diagnose and fix accessibility test failures (144 axe-core tests). Traces contrast failures to specific tokens, adjusts values, cascades fixes across all docs pages, and re-runs tests.
 ---
 

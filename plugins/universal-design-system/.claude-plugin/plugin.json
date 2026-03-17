@@ -1,9 +1,8 @@
 {
   "name": "universal-design-system",
-  "description": "AI-native design system that reasons about your product. 9 palettes, 600 design tokens, 43 accessible components, BM25 search engine across 20 databases, 190 industry rules, and automated WCAG validation.",
+  "description": "A production-grade design system with 9 structural palettes, 72 components, and automated WCAG 2.2 AA compliance. Deterministic UI recommendation engine powered by retrieval and rule evaluation.",
   "version": "0.6.0",
   "author": {
-    "name": "mkatogui",
-    "email": "mkatogui@gmail.com"
+    "name": "Marcelo Katogui"
   }
 }

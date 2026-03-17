@@ -56,6 +56,11 @@ jobs:
       - name: CLI compilation check
         run: cd cli && npm install && npx tsc
 
+      - name: Sync plugin from .claude and verify
+        run: |
+          npm run build:plugin
+          git diff --exit-code plugins/ || (echo "::error::plugins/ is out of sync with .claude/. Run: npm run build:plugin" && exit 1)
+
       - name: Contract tests
         run: npm run test:contracts
 

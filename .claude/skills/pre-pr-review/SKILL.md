@@ -1,6 +1,7 @@
 ---
-name: Pre-PR Deep Review
-description: Deep review and test all code changes before creating a PR. Catches TypeScript errors, lint regressions, SonarCloud code smells, test failures, and output correctness issues that would fail CI.
+name: pre-pr-review
+description: Performs deep review and testing of all code changes before creating a PR. Catches TypeScript errors, lint regressions, SonarCloud code smells, test failures, and output correctness issues that would fail CI. Use when the user asks for pre-PR review, deep review, or CI simulation.
+disable-model-invocation: true
 version: 0.4.0
 triggers:
   - pre-pr review

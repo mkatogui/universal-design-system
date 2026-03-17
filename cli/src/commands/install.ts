@@ -10,6 +10,7 @@ import {
   mkdirSync,
   readdirSync,
   readFileSync,
+  renameSync,
   statSync,
   writeFileSync,
 } from 'node:fs';
@@ -112,16 +113,17 @@ const PLATFORMS: Record<string, PlatformConfig> = {
   },
 };
 
-/** Names of all skill directories to install */
-const SKILL_NAMES = [
-  'uds-getting-started',
-  'universal-design-system',
-  'brand-identity',
-  'design-audit',
-  'ui-styling',
-  'slides-design',
-  'pre-pr-review',
-];
+/** Derive skill names from .claude/skills (dirs that contain SKILL.md). */
+function getSkillNames(pkgRoot: string): string[] {
+  const base = join(pkgRoot, '.claude', 'skills');
+  if (!existsSync(base)) return [];
+  return readdirSync(base)
+    .filter((name) => {
+      const dir = join(base, name);
+      return existsSync(dir) && statSync(dir).isDirectory() && existsSync(join(dir, 'SKILL.md'));
+    })
+    .sort();
+}
 
 function detectPlatform(dir: string): string | null {
   const checks: [string, string][] = [
@@ -280,14 +282,15 @@ export async function installCommand(options: InstallOptions): Promise<void> {
   console.log(dim(`  Target: ${config.name}`));
   console.log(dim(`  Dir:    ${targetDir}\n`));
 
-  // Detect if running from within the UDS package itself
-  if (resolve(targetDir) === resolve(PKG_ROOT)) {
+  // Detect if running from within the UDS package itself (skip for cowork so we can build the .plugin zip)
+  if (resolve(targetDir) === resolve(PKG_ROOT) && platform !== 'cowork') {
     console.log(green('  Already inside the Universal Design System project.'));
     console.log(dim('  No files need to be copied — everything is already in place.\n'));
     return;
   }
 
   const srcSkillsBase = join(PKG_ROOT, '.claude', 'skills');
+  const skillNames = getSkillNames(PKG_ROOT);
   const srcAgents = join(PKG_ROOT, '.claude', 'agents');
   const srcCommands = join(PKG_ROOT, '.claude', 'commands');
   const srcData = join(PKG_ROOT, 'src', 'data');
@@ -297,7 +300,7 @@ export async function installCommand(options: InstallOptions): Promise<void> {
   if (options.dryRun) {
     console.log(yellow('  [DRY RUN] Would install:\n'));
     console.log(cyan('  Skills:'));
-    for (const name of SKILL_NAMES) {
+    for (const name of skillNames) {
       const exists = existsSync(join(srcSkillsBase, name, 'SKILL.md'));
       console.log(`    ${exists ? green('+') : dim('?')} ${name}/SKILL.md`);
     }
@@ -330,7 +333,7 @@ export async function installCommand(options: InstallOptions): Promise<void> {
   // ── Install Skills ──
   console.log(cyan('  Skills'));
   let skillCount = 0;
-  for (const name of SKILL_NAMES) {
+  for (const name of skillNames) {
     const srcSkillDir = join(srcSkillsBase, name);
     const srcSkillFile = join(srcSkillDir, 'SKILL.md');
     if (!existsSync(srcSkillFile)) continue;
@@ -432,22 +435,78 @@ export async function installCommand(options: InstallOptions): Promise<void> {
     writeFileSync(join(manifestDir, 'plugin.json'), `${JSON.stringify(manifest, null, 2)}\n`);
     console.log(`  ${green('+')} plugin/.claude-plugin/plugin.json`);
 
-    // Copy plugin README
+    // Copy plugin README (skip when building from repo root — src and dest are the same)
+    const buildingFromRepoRoot = resolve(targetDir) === resolve(PKG_ROOT);
     const pluginReadme = join(PKG_ROOT, 'plugin', 'README.md');
-    if (existsSync(pluginReadme)) {
+    if (existsSync(pluginReadme) && !buildingFromRepoRoot) {
       cpSync(pluginReadme, join(pluginDir, 'README.md'));
     }
 
-    // Package as .plugin zip
+    // Copy skills, agents, commands from .claude/ into plugin so the zip is self-contained
+    const destSkillBase = join(pluginDir, 'skills');
+    for (const name of skillNames) {
+      const srcSkillDir = join(srcSkillsBase, name);
+      const destSkillDir = join(destSkillBase, name);
+      mkdirSync(destSkillDir, { recursive: true });
+      cpSync(join(srcSkillDir, 'SKILL.md'), join(destSkillDir, 'SKILL.md'));
+      for (const entry of readdirSync(srcSkillDir)) {
+        if (entry === 'SKILL.md') continue;
+        // universal-design-system: skip data/scripts (replaced by repo src/data and src/scripts)
+        if (name === 'universal-design-system' && (entry === 'data' || entry === 'scripts')) continue;
+        const srcPath = join(srcSkillDir, entry);
+        const destPath = join(destSkillDir, entry);
+        if (statSync(srcPath).isDirectory()) {
+          copyDir(srcPath, destPath);
+        } else if (existsSync(srcPath)) {
+          cpSync(srcPath, destPath);
+        }
+      }
+      if (name === 'universal-design-system') {
+        copyDir(srcData, join(destSkillDir, 'data'));
+        copyDir(srcScripts, join(destSkillDir, 'scripts'));
+      }
+    }
+    if (existsSync(srcAgents)) {
+      const destAgents = join(pluginDir, 'agents');
+      mkdirSync(destAgents, { recursive: true });
+      for (const file of readdirSync(srcAgents)) {
+        if (!file.endsWith('.md')) continue;
+        cpSync(join(srcAgents, file), join(destAgents, file));
+      }
+    }
+    if (existsSync(srcCommands)) {
+      const destCommands = join(pluginDir, 'commands');
+      mkdirSync(destCommands, { recursive: true });
+      for (const file of readdirSync(srcCommands)) {
+        if (!file.endsWith('.md')) continue;
+        cpSync(join(srcCommands, file), join(destCommands, file));
+      }
+    }
+
+    // Package as .plugin zip (cross-platform: PowerShell on Windows, zip on Unix)
     console.log(cyan('\n  Packaging'));
     const pluginFile = join(targetDir, 'universal-design-system.plugin');
+    const isWin = process.platform === 'win32';
     try {
-      execSync(`cd "${pluginDir}" && zip -r "${pluginFile}" . -x "*.DS_Store"`, {
-        stdio: 'pipe',
-      });
+      if (isWin) {
+        const psDir = resolve(pluginDir).replace(/'/g, "''");
+        const zipPath = resolve(targetDir, 'universal-design-system.zip');
+        const psZip = resolve(zipPath).replace(/'/g, "''");
+        execSync(
+          `powershell -NoProfile -Command "Compress-Archive -Path '${psDir}\\*' -DestinationPath '${psZip}' -Force"`,
+          { stdio: 'pipe' },
+        );
+        renameSync(zipPath, pluginFile);
+      } else {
+        execSync(`cd "${pluginDir}" && zip -r "${pluginFile}" . -x "*.DS_Store"`, {
+          stdio: 'pipe',
+        });
+      }
       console.log(`  ${green('+')} universal-design-system.plugin`);
     } catch {
-      console.log(yellow('  ⚠ Could not create .plugin zip (zip command not available).'));
+      console.log(
+        yellow('  ⚠ Could not create .plugin zip (zip/PowerShell failed).'),
+      );
       console.log(dim('    The plugin/ directory is ready — zip it manually.'));
     }
   }
@@ -464,7 +523,7 @@ export async function installCommand(options: InstallOptions): Promise<void> {
   if (platform === 'cowork') {
     console.log(bold('\n  Quick Start'));
     console.log(dim('  Open the .plugin file in Claude Cowork, or share it with your team.'));
-    console.log(dim('  The plugin includes 5 skills and an MCP server config.'));
+    console.log(dim(`  The plugin includes ${skillNames.length} skills, agents, and commands plus MCP server config.`));
     console.log(dim('  Skills work immediately; MCP requires Node.js 18+ and Python 3.8+.'));
   } else {
     console.log(bold('\n  Quick Start'));

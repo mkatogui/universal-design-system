@@ -390,7 +390,7 @@ universal-design-system/
     assets/               # Architecture diagram, palette swatches
   scripts/                # Validation scripts (WCAG, tokens, docs, axe-core, APCA)
   audits/                 # Audit results (WCAG, axe-core, APCA)
-  .claude/skills/         # Claude Code skills (7 skills, including uds-getting-started)
+  .claude/skills/         # Claude Code skills (source of truth; run npm run build:plugin to sync plugins/)
 ```
 
 ---
@@ -416,7 +416,7 @@ Available tools: `search_design_system`, `get_palette`, `get_component`, `genera
 
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on adding palettes, components, and reasoning rules.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on adding palettes, components, and reasoning rules. Skills, agents, and commands live under `.claude/`; run `npm run build:plugin` to regenerate `plugins/universal-design-system/` for the marketplace.
 
 ## License
 

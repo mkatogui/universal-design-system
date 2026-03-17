@@ -189,3 +189,4 @@ id,condition,field,operator,value,then_field,then_value,priority,reasoning,categ
 188,cross_cutting,content_type,equals,marketing,required_components,"carousel;pricing-table;testimonial;social-proof;hero",7,"Marketing content needs conversion-optimized components for social proof and pricing",cross-cutting
 189,cross_cutting,interaction,equals,destructive-actions,required_components,"alert-dialog;alert;toast",8,"Destructive action flows require explicit confirmation dialogs and feedback notifications",cross-cutting
 190,cross_cutting,interaction,equals,keyboard-first,required_components,"command-palette;toolbar;popover;tree-view;combobox",7,"Keyboard-first interfaces need command access and navigable hierarchical components",cross-cutting
+191,sector,sector,equals,wellness,palette,illustration,7,"Wellness and beauty products benefit from friendly approachable visual language",sector-palette

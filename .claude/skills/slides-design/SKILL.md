@@ -1,6 +1,6 @@
 ---
-name: Slides Design System
-description: Generate presentation design systems with consistent slide templates, typography rules, and color schemes mapped to Universal Design System palettes.
+name: slides-design-system
+description: Generates presentation design systems with consistent slide templates, typography rules, and color schemes mapped to Universal Design System palettes. Use when the user asks for slide design, presentation design, or deck templates.
 version: 0.4.0
 triggers:
   - presentation design

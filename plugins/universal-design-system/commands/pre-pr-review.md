@@ -1,4 +1,5 @@
 ---
+name: pre-pr-review
 description: Deep code review + CI simulation before creating a PR. Catches SonarCloud code smells, TypeScript errors, lint regressions, test failures, and build issues.
 ---
 

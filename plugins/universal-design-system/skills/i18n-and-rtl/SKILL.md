@@ -1,5 +1,5 @@
 ---
-name: i18n and RTL
+name: i18n-and-rtl
 description: Internationalization and right-to-left layout using UDS localization data. Logical CSS properties, dir="rtl", text expansion, and RTL mapper for existing CSS.
 version: 0.6.0
 triggers:

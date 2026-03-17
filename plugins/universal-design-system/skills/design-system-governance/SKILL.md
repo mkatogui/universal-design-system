@@ -1,5 +1,5 @@
 ---
-name: Design System Governance
+name: design-system-governance
 description: Design system governance and scaling: centralized vs federated, lifecycle, contribution model, multi-team adoption.
 version: 0.6.0
 triggers:
@@ -32,7 +32,7 @@ Use this skill when the user needs **governance**, **scaling**, or **adoption** 
 
 - **Centralized:** One team owns the system; other teams consume. Works well early and for single-product companies. Can become a bottleneck when many products or brands have conflicting needs (accessibility, brand, features).
 - **Federated:** Representatives from different products/brands share decision-making. Better for diverse portfolios and different maturity levels. Requires clear decision frameworks and a mix of skills (design, eng, a11y, product).
-- **Hybrid:** Core system is centralized (tokens, base components); product- or brand-specific extensions or surfaces are federated. UDS fits this: one token/component foundation, palette overrides and optional custom palettes per brand.
+- **Hybrid:** Core system is centralized (tokens, base components); product- or brand-specific extensions or separate surfaces are federated. UDS fits this: one token/component foundation, palette overrides and optional custom palettes per brand.
 
 ## UDS as Single Source of Truth
 
