@@ -1,24 +1,29 @@
 ---
-name: slides-design
-description: >
-  This skill should be used when the user asks to "design a presentation",
-  "create slide templates", "pitch deck design", "slide layout", "presentation colors",
-  "keynote design", "powerpoint design", "google slides design", "deck design",
-  "presentation typography", or needs guidance on slide design systems, presentation
-  palettes, slide templates, or data visualization colors for presentations.
-metadata:
-  version: "0.5.0"
-  author: "Marcelo Katogui"
+name: slides-design-system
+description: Generates presentation design systems with consistent slide templates, typography rules, and color schemes mapped to Universal Design System palettes. Use when the user asks for slide design, presentation design, or deck templates.
+version: 0.4.0
+triggers:
+  - presentation design
+  - slide design
+  - slide deck
+  - pitch deck
+  - keynote
+  - powerpoint
+  - google slides
+  - slide template
+  - presentation template
+  - deck design
+  - presentation palette
+  - slide layout
 ---
 
-# Slides Design System
+# Slides Design System — Claude Code Skill
 
 Generate consistent presentation design systems with slide templates, typography rules for large-screen readability, data visualization colors, and animation recommendations — all driven by Universal Design System palettes.
 
-## Workflow
+## How This Skill Works
 
 ### Step 1: Determine Presentation Context
-
 Classify the presentation:
 - **Pitch Deck** — Startup fundraising, investor meeting
 - **Product Demo** — Feature showcase, sales deck
@@ -28,6 +33,7 @@ Classify the presentation:
 - **Marketing** — Brand presentation, case study
 
 ### Step 2: Select Palette
+Map context to Universal Design System palette:
 
 | Context | Palette | Reasoning |
 |---------|---------|-----------|
@@ -40,23 +46,55 @@ Classify the presentation:
 | Creative Agency | `bold-lifestyle` | Bold, impactful |
 | Professional Services | `minimal-corporate` | Subtle, authoritative |
 
-### Step 3: Generate 7 Core Slide Types
+### Step 3: Generate Slide Templates
 
-**1. Title Slide** — Logo, large headline (48-72pt), subtitle (24-28pt), date/presenter (16-18pt), palette primary or gradient background.
+#### 7 Core Slide Types
 
-**2. Content Slide** — Section title (36-44pt, weight 700), body text (24-28pt, weight 400, max 6 bullets), max 40 words per slide, left-aligned with 10% margins.
+**1. Title Slide**
+- Company logo (top-left or centered)
+- Large headline: `--text-display-xl` equivalent (48-72pt)
+- Subtitle: `--text-body-lg` equivalent (24-28pt)
+- Date/presenter name: `--text-body-sm` equivalent (16-18pt)
+- Background: palette primary or gradient
 
-**3. Comparison Slide** — Two-column with divider, column headers (28-32pt bold), items (20-24pt), brand-primary vs neutral.
+**2. Content Slide**
+- Section title: 36-44pt, font-weight 700
+- Body text: 24-28pt, font-weight 400, max 6 bullet points
+- Rule: Maximum 40 words per slide
+- Left-align text, generous margins (10% of slide width)
 
-**4. Data/Chart Slide** — Single chart (70% of slide area), chart title (28-32pt), axis labels (16-18pt), 8-color palette scale, source citation (14pt, bottom-right).
+**3. Comparison Slide**
+- Two-column layout with divider
+- Column headers: 28-32pt bold
+- Comparison items: 20-24pt
+- Use brand-primary vs neutral for contrast
 
-**5. Quote Slide** — Large quotation marks in brand-accent, quote (32-40pt italic), attribution (20-24pt right-aligned), generous whitespace.
+**4. Data/Chart Slide**
+- Single chart per slide, large (70% of slide area)
+- Chart title: 28-32pt
+- Axis labels: 16-18pt
+- Use palette chart colors (8-color distinguishable scale)
+- Source citation: 14pt, bottom-right
 
-**6. Section Divider** — Full-bleed brand-primary/gradient, section number (120pt, semi-transparent), title (48-60pt white/on-brand), optional subtitle (24pt).
+**5. Quote Slide**
+- Large quotation marks in brand-accent color
+- Quote text: 32-40pt italic
+- Attribution: 20-24pt, right-aligned
+- Minimal background, generous whitespace
 
-**7. Closing/CTA Slide** — Clear CTA (36-44pt), contact/next steps (20-24pt), logo, optional social/QR.
+**6. Section Divider**
+- Full-bleed background color (brand-primary or gradient)
+- Section number: 120pt, semi-transparent
+- Section title: 48-60pt, white or on-brand text
+- Optional subtitle: 24pt
 
-### Step 4: Typography Rules
+**7. Closing/CTA Slide**
+- Clear call-to-action: 36-44pt
+- Contact info or next steps: 20-24pt
+- Company logo
+- Social links/QR code (optional)
+
+### Step 4: Typography Rules for Slides
 
 | Element | Size | Weight | Line Height |
 |---------|------|--------|-------------|
@@ -70,7 +108,7 @@ Classify the presentation:
 **Rules:**
 - Never go below 18pt for any projected text
 - Maximum 3 font sizes per slide
-- One font family for headings, one for body
+- One font family for headings, one for body (from typography.csv pairings)
 - Use font-weight contrast instead of size contrast where possible
 
 ### Step 5: Slide Dimensions & Safe Areas
@@ -95,7 +133,7 @@ Classify the presentation:
 - Build animations: fade-in items one by one (60ms stagger)
 - Charts: animate data points sequentially
 
-## Example
+## Example Output
 
 ### "Create a pitch deck design for an AI startup"
 
@@ -114,3 +152,7 @@ Classify the presentation:
 9. Team — Headshots + titles
 10. The Ask — Funding amount + use of funds
 11. Closing — Contact + CTA
+
+---
+
+*Powered by Universal Design System v0.4.0*

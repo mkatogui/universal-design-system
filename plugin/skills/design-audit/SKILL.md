@@ -1,24 +1,30 @@
 ---
 name: design-audit
-description: >
-  This skill should be used when the user asks to "audit my UI", "review this design",
-  "check accessibility", "critique this mockup", "score my website", "check contrast",
-  "wcag audit", "design feedback", "ux review", "is this accessible?", or needs a
-  structured evaluation of an existing UI for WCAG compliance, color contrast, typography
-  hierarchy, spacing consistency, and industry anti-patterns.
-metadata:
-  version: "0.5.0"
-  author: "Marcelo Katogui"
+description: Audits existing UIs for WCAG accessibility, color contrast, typography hierarchy, spacing consistency, and industry anti-patterns. Generates scored reports with actionable fixes. Use when the user asks for design audit, UI audit, accessibility audit, or design review.
+version: 0.4.0
+triggers:
+  - design audit
+  - ui audit
+  - accessibility audit
+  - ux review
+  - design review
+  - design critique
+  - ui review
+  - design feedback
+  - wcag audit
+  - contrast check
+  - design score
+  - accessibility check
+  - ui analysis
 ---
 
-# Design Audit
+# Design Audit — Claude Code Skill
 
-Audit existing UIs against Universal Design System standards. Evaluate WCAG accessibility, color contrast, typography, spacing, component patterns, and industry anti-patterns. Produce a scored report with actionable CSS fixes.
+Audit existing UIs against Universal Design System standards. Evaluates WCAG accessibility, color contrast, typography, spacing, component patterns, and industry anti-patterns. Produces a scored report with actionable CSS fixes.
 
-## Workflow
+## How This Skill Works
 
 ### Step 1: Identify the Target
-
 Accept input as:
 - A URL to screenshot/analyze
 - A description of the current UI
@@ -26,8 +32,7 @@ Accept input as:
 - A screenshot to visually inspect
 
 ### Step 2: Detect Industry Context
-
-Classify the product's sector and type, then load relevant anti-patterns for that industry (finance: no playful animations; healthcare: no aggressive reds; education/kids: no small text; luxury: no busy layouts; government: target WCAG AAA).
+Use `src/scripts/core.py: DomainDetector` to classify the product's sector and type, then load relevant anti-patterns from `src/data/anti-patterns.csv`.
 
 ### Step 3: Evaluate 10 Categories
 
@@ -55,14 +60,16 @@ Score each category 1-10:
 **Industry: [sector] | Product: [type]**
 
 ## Category Scores
+
 | Category | Score | Issues |
 |----------|-------|--------|
 | Color Contrast | 8/10 | 2 minor issues |
+| Typography | 6/10 | 4 issues found |
 | ... | ... | ... |
 
 ## Critical Issues (Fix Immediately)
 1. [Issue]: [Description]
-   Fix: [CSS snippet using var() tokens]
+   Fix: [CSS snippet]
 
 ## Quick Wins (< 1 hour each)
 1. [Issue]: [Fix]
@@ -72,7 +79,7 @@ Score each category 1-10:
 
 ## Anti-Patterns Detected
 - [CRITICAL] [anti-pattern name]: [description]
-  Alternative: [recommendation]
+  Alternative: [from anti-patterns.csv]
 ```
 
 ### Step 5: Provide CSS Fixes
@@ -82,7 +89,7 @@ All fixes use Universal Design System tokens:
 ```css
 /* Fix: Low contrast text */
 .problematic-text {
-  color: var(--color-text-primary);  /* was: #999 */
+  color: var(--color-text-primary);  /* was: #999 → now: #111118 */
 }
 
 /* Fix: Missing focus indicator */
@@ -111,3 +118,17 @@ button:focus-visible {
 | C | 60-69 | Below average, major rework needed |
 | D | 50-59 | Poor, fundamental problems |
 | F | <50 | Failing, rebuild recommended |
+
+## WCAG Quick Reference
+
+| Criterion | Requirement | How to Test |
+|-----------|-------------|-------------|
+| 1.4.3 Contrast | 4.5:1 normal text, 3:1 large | Color contrast checker |
+| 2.1.1 Keyboard | All functionality via keyboard | Tab through entire page |
+| 2.4.7 Focus Visible | Visible focus indicator | Tab and check visual ring |
+| 2.5.5 Target Size | 44x44px touch targets | Inspect element dimensions |
+| 1.1.1 Non-text | Alt text on images | Check all img elements |
+
+---
+
+*Powered by Universal Design System v0.4.0*

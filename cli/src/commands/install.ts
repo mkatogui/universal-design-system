@@ -3,14 +3,13 @@
  * into the target platform's expected location.
  */
 
-import { execSync } from 'node:child_process';
+import AdmZip from 'adm-zip';
 import {
   cpSync,
   existsSync,
   mkdirSync,
   readdirSync,
   readFileSync,
-  renameSync,
   statSync,
   writeFileSync,
 } from 'node:fs';
@@ -484,28 +483,16 @@ export async function installCommand(options: InstallOptions): Promise<void> {
       }
     }
 
-    // Package as .plugin zip (cross-platform: PowerShell on Windows, zip on Unix)
+    // Package as .plugin zip (pure Node; no shell — avoids command injection / CodeQL S4721)
     console.log(cyan('\n  Packaging'));
     const pluginFile = join(targetDir, 'universal-design-system.plugin');
-    const isWin = process.platform === 'win32';
     try {
-      if (isWin) {
-        const psDir = resolve(pluginDir).replace(/'/g, "''");
-        const zipPath = resolve(targetDir, 'universal-design-system.zip');
-        const psZip = resolve(zipPath).replace(/'/g, "''");
-        execSync(
-          `powershell -NoProfile -Command "Compress-Archive -Path '${psDir}\\*' -DestinationPath '${psZip}' -Force"`,
-          { stdio: 'pipe' },
-        );
-        renameSync(zipPath, pluginFile);
-      } else {
-        execSync(`cd "${pluginDir}" && zip -r "${pluginFile}" . -x "*.DS_Store"`, {
-          stdio: 'pipe',
-        });
-      }
+      const zip = new AdmZip();
+      zip.addLocalFolder(pluginDir);
+      zip.writeZip(pluginFile);
       console.log(`  ${green('+')} universal-design-system.plugin`);
     } catch {
-      console.log(yellow('  ⚠ Could not create .plugin zip (zip/PowerShell failed).'));
+      console.log(yellow('  ⚠ Could not create .plugin zip.'));
       console.log(dim('    The plugin/ directory is ready — zip it manually.'));
     }
   }

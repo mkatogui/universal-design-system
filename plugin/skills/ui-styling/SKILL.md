@@ -1,24 +1,39 @@
 ---
-name: ui-styling
-description: >
-  This skill should be used when the user asks for "CSS help", "styling help",
-  "how to style a button", "card hover effect", "dark mode CSS", "glassmorphism",
-  "gradient background", "box shadow", "border radius", "responsive grid",
-  "animation CSS", "focus style", "input style", "table style", "backdrop effect",
-  "tailwind classes", "css custom properties", "transition", "transform",
-  or needs copy-paste CSS/Tailwind snippets using design system tokens.
-metadata:
-  version: "0.5.0"
-  author: "Marcelo Katogui"
+name: ui-styling-assistant
+description: Focused CSS/styling helper that answers specific styling questions using Universal Design System tokens. Provides copy-paste CSS snippets with dark mode variants and responsive breakpoints.
+version: 0.4.0
+triggers:
+  - css help
+  - styling help
+  - shadow
+  - gradient
+  - animation css
+  - hover effect
+  - button style
+  - card style
+  - dark mode css
+  - responsive css
+  - tailwind class
+  - css custom property
+  - border radius
+  - box shadow
+  - transition
+  - transform
+  - backdrop effect
+  - glassmorphism
+  - css gradient
+  - focus style
+  - input style
+  - table style
 ---
 
-# UI Styling Assistant
+# UI Styling Assistant — Claude Code Skill
 
 A focused CSS/styling helper that provides copy-paste snippets using Universal Design System tokens. Always uses `var()` custom properties, includes dark mode variants, and shows responsive breakpoints.
 
 ## Core Rule
 
-**Never output hardcoded values.** Always reference design tokens:
+**Never output hardcoded values.** Always reference Universal Design System tokens:
 
 ```css
 /* WRONG */
@@ -45,22 +60,38 @@ var(--color-success)           /* Success state */
 
 ### Spacing
 ```css
-var(--space-1)   /* 4px */    var(--space-2)   /* 8px */
-var(--space-3)   /* 12px */   var(--space-4)   /* 16px */
-var(--space-6)   /* 24px */   var(--space-8)   /* 32px */
+var(--space-1)   /* 4px - tight gaps */
+var(--space-2)   /* 8px - inline gaps */
+var(--space-3)   /* 12px - form padding */
+var(--space-4)   /* 16px - component padding */
+var(--space-6)   /* 24px - section padding */
+var(--space-8)   /* 32px - group spacing */
 ```
 
-### Radius & Shadows
+### Radius
 ```css
-var(--radius-sm)  var(--radius-md)  var(--radius-lg)  var(--radius-xl)
-var(--shadow-sm)  var(--shadow-md)  var(--shadow-lg)
+var(--radius-sm)   /* Small elements (badges, chips) */
+var(--radius-md)   /* Default (inputs, buttons, cards) */
+var(--radius-lg)   /* Large (modals, panels) */
+var(--radius-xl)   /* Extra-large (hero sections) */
+```
+
+### Shadows
+```css
+var(--shadow-sm)   /* Subtle elevation (cards at rest) */
+var(--shadow-md)   /* Medium elevation (hover state, dropdowns) */
+var(--shadow-lg)   /* High elevation (modals, dialogs) */
 ```
 
 ### Motion
 ```css
-var(--duration-instant) /* 100ms */  var(--duration-fast) /* 150ms */
-var(--duration-normal)  /* 250ms */  var(--duration-slow) /* 400ms */
-var(--ease-default)  var(--ease-out)  var(--ease-in)  var(--ease-spring)
+var(--duration-instant)  /* 100ms - hover color */
+var(--duration-fast)     /* 150ms - button state */
+var(--duration-normal)   /* 250ms - card transitions */
+var(--duration-slow)     /* 400ms - section reveals */
+var(--ease-default)      /* General purpose */
+var(--ease-out)          /* Entering elements */
+var(--ease-in)           /* Exiting elements */
 ```
 
 ## Common Styling Recipes
@@ -117,12 +148,17 @@ var(--ease-default)  var(--ease-out)  var(--ease-in)  var(--ease-spring)
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-brand-primary) 15%, transparent);
   outline: none;
 }
+.input::placeholder { color: var(--color-text-tertiary); }
 ```
 
 ### Gradient Background
 ```css
 .gradient-hero {
-  background: linear-gradient(135deg, var(--color-brand-primary) 0%, var(--color-brand-secondary) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--color-brand-primary) 0%,
+    var(--color-brand-secondary) 100%
+  );
 }
 ```
 
@@ -139,6 +175,7 @@ var(--ease-default)  var(--ease-out)  var(--ease-in)  var(--ease-spring)
 
 ### Dark Mode Glow Border
 ```css
+/* AI Futuristic palette technique */
 .glow-card {
   background: var(--color-bg-secondary);
   border: 1px solid color-mix(in srgb, var(--color-brand-primary) 30%, transparent);
@@ -157,7 +194,10 @@ var(--ease-default)  var(--ease-out)  var(--ease-in)  var(--ease-spring)
   transition: opacity var(--duration-slow) var(--ease-out),
               transform var(--duration-slow) var(--ease-out);
 }
-.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
 
 @media (prefers-reduced-motion: reduce) {
   .reveal { opacity: 1; transform: none; transition: none; }
@@ -171,15 +211,19 @@ var(--ease-default)  var(--ease-out)  var(--ease-in)  var(--ease-spring)
   gap: var(--space-6);
   grid-template-columns: 1fr;
 }
-@media (min-width: 768px) { .grid { grid-template-columns: repeat(2, 1fr); } }
-@media (min-width: 1024px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+@media (min-width: 768px) {
+  .grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 1024px) {
+  .grid { grid-template-columns: repeat(3, 1fr); }
+}
 ```
 
 ## Framework Output
 
-When asked, provide the same styles as Tailwind classes, CSS Modules, or styled-components:
+When asked, provide the same styles as:
 
-### Tailwind
+### Tailwind Classes
 ```html
 <div class="bg-[var(--color-bg-primary)] border border-[var(--color-border-default)]
             rounded-[var(--radius-lg)] p-6 shadow-[var(--shadow-sm)]
@@ -189,7 +233,12 @@ When asked, provide the same styles as Tailwind classes, CSS Modules, or styled-
 
 ### CSS Modules
 ```css
-.card { background: var(--color-bg-primary); border-radius: var(--radius-lg); }
+/* card.module.css */
+.card {
+  background: var(--color-bg-primary);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
 ```
 
 ### styled-components
@@ -197,5 +246,10 @@ When asked, provide the same styles as Tailwind classes, CSS Modules, or styled-
 const Card = styled.div`
   background: var(--color-bg-primary);
   border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
 `;
 ```
+
+---
+
+*Powered by Universal Design System v0.4.0*
