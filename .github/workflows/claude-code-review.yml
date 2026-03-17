@@ -12,6 +12,8 @@ on:
 
 jobs:
   claude-review:
+    # Do not block PR when review fails (e.g. Claude credits/rate limit)
+    continue-on-error: true
     # Optional: Filter by PR author
     # if: |
     #   github.event.pull_request.user.login == 'external-contributor' ||

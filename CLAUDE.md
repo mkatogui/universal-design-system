@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Universal Design System v0.6.0 — a deterministic UI recommendation engine powered by retrieval and rule evaluation that recommends palettes, components, patterns, and anti-patterns based on product domain. 9 structural palettes, 72 components (43 core + 29 from roadmap), ~600 tokens, 20 CSV databases (1,676+ rows), 84 anti-pattern rules, Tailwind CSS generation, React/Vue/Svelte/Web Components output, WCAG 2.2 AA + APCA dual reporting, 20 AI platform support.
+Universal Design System v0.6.1 — a deterministic UI recommendation engine powered by retrieval and rule evaluation that recommends palettes, components, patterns, and anti-patterns based on product domain. 9 structural palettes, 72 components (43 core + 29 from roadmap), ~600 tokens, 20 CSV databases (1,676+ rows), 84 anti-pattern rules, Tailwind CSS generation, React/Vue/Svelte/Web Components output, WCAG 2.2 AA + APCA dual reporting, 20 AI platform support.
 
 ## Key Commands
 

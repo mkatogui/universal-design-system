@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.6.1
+
+### Changed
+
+- **Single source of truth for skills/agents/commands** — `.claude/` is the source; `npm run build:plugin` generates `plugins/universal-design-system/` for the Claude Code marketplace. CLI install derives skill list from `.claude/skills` at runtime (all skills included).
+- **Cowork plugin** — CLI copies skills, agents, and commands into the plugin zip; zip created via `adm-zip` (no shell, fixes CodeQL/SonarCloud command-injection hotspot). `continue-on-error: true` for claude-review job when credits/limits hit.
+
+---
+
 ## 0.6.0
 
 ### Added
