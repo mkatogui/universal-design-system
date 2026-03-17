@@ -39,6 +39,9 @@
   "engines": {
     "node": ">=18"
   },
+  "dependencies": {
+    "adm-zip": "^0.5.16"
+  },
   "devDependencies": {
     "@types/node": "^25.5.0",
     "typescript": "^5.4.0"

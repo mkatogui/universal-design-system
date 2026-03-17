@@ -1,4 +1,5 @@
 ---
+name: palette-sync
 description: Sync palette token values from design-tokens.json into all 8 docs pages (light + dark mode CSS blocks). Handles expanded vs minified CSS formatting per page.
 ---
 

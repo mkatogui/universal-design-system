@@ -90,38 +90,18 @@ User Query → DomainDetector → BM25 Search → Rule Application → Token Res
 
 ### Directory Structure
 
-- **tokens/** — W3C DTCG design tokens (source of truth). 3-tier: primitive (raw color scales) → semantic (functional names) → palette-overrides (per-palette customizations). 20 categories: color, spacing, typography, motion, shadow, radius, opacity, z-index, etc.
-- **src/data/** — 20 CSV databases (1,676+ rows). `products.csv` references `components.csv` and `patterns.csv` via slug. Includes mobile-native databases (`app-interface.csv`, `react-performance.csv`, `stacks/react-native.csv`)
-- **src/scripts/** — Python: `core.py` (BM25 engine + domain detector + reasoning), `search.py` (CLI search), `design_system.py` (full spec generator with Tailwind/React/Vue/Svelte output), `palette.py` (custom palette CLI)
-- **src/mcp/** — MCP server (Node.js) exposing 6 tools: `search_design_system`, `get_palette`, `get_component`, `generate_tokens`, `list_palettes`, `list_components`. Config examples in `src/mcp/README.md`
-- **cli/** — TypeScript CLI (Commander.js). Commands: `install` (20 platforms), `search`, `init`, `generate`. Auto-detects platform by checking for `.claude/`, `.cursor/`, etc. directories
-- **packages/react/** — React component library (`@mkatogui/uds-react`). 72 components (aligned with components.csv; Vue/Svelte have Phase 1–2 parity), bundled with tsup, size-limited (100KB JS, 30KB CSS)
-- **docs/** — 8 self-contained HTML docs pages (see Docs Structure below)
-- **scripts/** — Python validators (tokens, WCAG, docs)
-- **tests/accessibility/** — Playwright + axe-core: `axe-ci.spec.ts` (144 tests: 8 pages × 9 palettes × 2 modes), `aria-attributes.spec.ts`, `keyboard-nav.spec.ts`
-- **.claude/skills/** — Claude Code skills: `uds-getting-started/`, `universal-design-system/`, `brand-identity/`, `design-audit/`, `slides-design/`, `ui-styling/`, `pre-pr-review/`
-- **.claude/agents/** — Claude Code agents: `pre-pr-reviewer.md` (CI simulation), `palette-sync.md` (token→docs sync), `a11y-remediator.md` (WCAG fix), `metrics-aligner.md` (count sync), `component-scaffold.md` (React scaffolding), `docs-sync.md` (cross-page consistency)
-- **.claude/commands/** — Slash commands: `/pre-pr-review`, `/palette-sync`, `/a11y-fix`, `/align-metrics`, `/new-component`, `/docs-sync`
+- For a full directory table and docs listing, see `docs/CLAUDE-REFERENCE.md`.
+- High-signal anchors:
+  - **tokens/** — design tokens source of truth (W3C DTCG).
+  - **src/data/** — CSV databases powering the reasoning engine.
+  - **src/scripts/** — Python BM25 engine, design-system generator, palette CLI.
+  - **packages/react/** — `@mkatogui/uds-react` component library.
+  - **docs/** — static docs pages used in accessibility and visual regression tests.
+  - **tests/accessibility/** — Playwright + axe-core test suite.
 
 ### Docs Structure (8 Pages)
 
-All pages are self-contained HTML with inline CSS. They share an identical `site-topnav` nav bar (each marks itself `class="active"`). Version uses `__VERSION__` placeholder injected by CI via `sed`.
-
-| File | Purpose |
-|------|---------|
-| `docs/index.html` | Landing/showcase — GitHub Pages entry point |
-| `docs/docs.html` | Interactive documentation (heaviest page, sidebar + demos) |
-| `docs/component-library.html` | Component code reference with copy buttons |
-| `docs/reference.html` | Visual token reference (colors, spacing, typography) |
-| `docs/visual-framework.html` | Visual framework guide with palette cards |
-| `docs/case-studies.html` | 5 real-world design system case studies |
-| `docs/playground.html` | Interactive component playground |
-| `docs/conformance.html` | WCAG 2.2 AA conformance documentation |
-| `docs/ADOPTION_FEEDBACK.md` | Adoption feedback and improvement suggestions from real app usage |
-| `docs/FORM_PATTERNS.md` | Form patterns: required/optional, validation, FormSection, public BEM for form components |
-| `docs/REACT_GUIDE.md` | Getting started guide for the UDS React component library |
-
-**CSS format groups:** docs.html, component-library.html, playground.html, reference.html use expanded CSS (spaces after colons). visual-framework.html, case-studies.html, conformance.html use minified CSS (no spaces after colons).
+Docs pages live under `docs/` and share a common `site-topnav` plus a `__VERSION__` placeholder injected by CI. See `docs/CLAUDE-REFERENCE.md` for the full table and CSS format groups.
 
 ## Token Architecture
 
@@ -137,22 +117,29 @@ Dark mode is CSS variable override — same `--color-*` tokens redefined under `
 
 Apply with `data-theme`: minimal-saas, ai-futuristic, gradient-startup, corporate, apple-minimal, illustration, dashboard, bold-lifestyle, minimal-corporate.
 
-One palette per surface. No mixing.
+One palette per surface — no mixing. This preserves identity and keeps contrast assumptions valid.
 
 **Palette-specific contrast gotchas:** illustration has orange brand-primary (#E8590C) that fails 4.5:1 on white/light backgrounds. ai-futuristic has inherently dark backgrounds even in "light" mode. corporate and minimal-corporate have bright brand-primary in dark mode (#79B8FF, #FBBF24) that fail with white text-on-brand. bold-lifestyle lacks gradient support in some contexts.
 
 ## Conventions
 
-- **No hardcoded colors:** Do not hardcode hex/rgb in docs or components. Semantic colors (e.g. `text-on-brand`, `text-on-error`, `warning-on-bg`, `neutral.0`) are defined once in `tokens/design-tokens.json` or generated by the palette deriver (`src/scripts/color_engine.py`). Docs and components must use `var(--color-*)` (or equivalent) so values come from the token source or from palette generation — never paste literal hex in CSS.
-- **Single primary → full palette:** The system generates a complete palette from one user-supplied primary via the Python palette CLI and the color harmony engine (complementary, analogous, triadic, split-complementary, tetradic, monochromatic, balanced). Use `palette.py create --colors "#HEX" --harmony <mode>` or `preview --colors "#HEX" --harmony <mode>`; the CLI prints a professional recommendation (WCAG contrast, recommended-as-primary).
-- Tokens use CSS custom properties (`--color-*`, `--space-*`, `--font-size-*`)
-- Components use BEM naming: `.uds-{component}`, `.uds-{component}--{variant}`
-- All palettes must pass WCAG 2.2 AA (4.5:1 body text, 3:1 large text/UI). Large text = ≥24px normal or ≥18.66px bold
-- Components must use `var(--token-name)`, never hardcoded values
-- Doc and playground CSS must use design tokens only; `npm run verify` checks for hardcoded color (and radius) in component/utility rules
-- All animations must be wrapped in `@media (prefers-reduced-motion: no-preference)`
-- CSV validation is permissive — only required columns are checked, extra columns allowed
-- HTML docs use `__VERSION__` placeholder — never hardcode version numbers
+- **No hardcoded colors:** Do not hardcode hex/rgb in docs or components — prevents palette drift and keeps WCAG contrast checks valid. Semantic colors (e.g. `text-on-brand`, `text-on-error`, `warning-on-bg`, `neutral.0`) are defined once in `tokens/design-tokens.json` or generated by the palette deriver (`src/scripts/color_engine.py`). Docs and components must use `var(--color-*)` (or equivalent) so values come from the token source or from palette generation — never paste literal hex in CSS.
+- **Single primary → full palette:** The system generates a complete palette from one user-supplied primary via the Python palette CLI and the color harmony engine (complementary, analogous, triadic, split-complementary, tetradic, monochromatic, balanced). Use `palette.py create --colors "#HEX" --harmony <mode>` or `preview --colors "#HEX" --harmony <mode>`; the CLI prints a professional recommendation (WCAG contrast, recommended-as-primary) so new palettes stay accessible.
+- Tokens use CSS custom properties (`--color-*`, `--space-*`, `--font-size-*`) — keeps theming consistent across frameworks and surfaces.
+- Components use BEM naming: `.uds-{component}`, `.uds-{component}--{variant}` — avoids selector collisions and makes states easy to target.
+- All palettes must pass WCAG 2.2 AA (4.5:1 body text, 3:1 large text/UI). Large text = ≥24px normal or ≥18.66px bold — ensures text and UI controls remain readable.
+- Components must use `var(--token-name)`, never hardcoded values — keeps components aligned with tokens and lets palette changes propagate automatically.
+- Doc and playground CSS must use design tokens only; `npm run verify` checks for hardcoded color (and radius) in component/utility rules — prevents undocumented visual differences between docs and runtime components.
+- All animations must be wrapped in `@media (prefers-reduced-motion: no-preference)` — respects user motion sensitivity preferences.
+- CSV validation is permissive — only required columns are checked, extra columns allowed — enables iterative extension of CSVs without breaking validators.
+- HTML docs use `__VERSION__` placeholder — never hardcode version numbers, so docs stay aligned with releases.
+
+## Boundaries
+
+- Do not hardcode visual values (colors, radius) directly in components or docs — always go through design tokens to keep palettes, contrast checks, and docs in sync.
+- Use exactly one `data-theme` palette per surface — mixing palettes on the same surface breaks the visual system and weakens contrast guarantees.
+- Treat docs generated assets (for example, `docs/generated-tokens.css`) as read-only — update `tokens/design-tokens.json` and regenerate instead of editing outputs.
+- Keep CLAUDE guidance in `CLAUDE.md` focused on high-signal rules and move long tables/procedures into `docs/CLAUDE-REFERENCE.md` — improves agent compliance by keeping this file scannable.
 
 ## Code Quality
 
@@ -180,12 +167,21 @@ cd packages/react && npx tsc --noEmit  # React type-check
 
 **Dependabot:** Configured in `.github/dependabot.yml` for npm (root, cli, packages/react, src/mcp) and GitHub Actions. Weekly schedule, minor/patch grouped.
 
+## Testing
+
+- `npm run check` — full validation suite (tokens, WCAG, docs); run before pushing to catch most integration issues early.
+- `npm run test:accessibility` — Playwright + axe-core against docs; CI runs the same suite, so run locally for fast feedback.
+- `npm run test:a11y` — Puppeteer axe audit of key docs pages; complements the Playwright suite.
+- `npm run test:react` / `npm run test:react:coverage` — React component tests and coverage; keeps `@mkatogui/uds-react` stable.
+- `npm run test:primitives` / `npm run test:contracts` — validate token primitives and cross-language contracts.
+- `npm run audit` / `npm run audit:apca` — verify WCAG 2.2 AA and APCA contrast across palettes.
+
 ## Adding to the System
 
-**New palette:** Add overrides in `tokens/design-tokens.json` (color, shadow, radius, font-display) + `tokens/figma-tokens.json` → add to valid palette lists in `_sync_all.py`, `validate-tokens.py`, `wcag-audit.py` → add CSS defs (light + dark) to ALL 8 docs pages (match each file's CSS format) → add rules to `ui-reasoning.csv` → run `npm run check`.
+High-level patterns for extending the system. See `docs/CLAUDE-REFERENCE.md` for full step-by-step workflows.
 
-**New component:** Add row to `src/data/components.csv` (id, name, slug, category, variants, use_when, accessibility, states) → reference slug in `products.csv` key_components → add CSS to docs using `var()` references → test across all 9 palettes + light/dark → run `npm run check`.
+- **New palette:** Update design/palette tokens, sync validator allowlists, add docs CSS (light + dark) for all palettes, add reasoning rules, then run `npm run check` — keeps the engine, tokens, and docs aligned.
+- **New component:** Add a row in `components.csv`, reference it from `products.csv`, implement with token-based CSS, test across all palettes + light/dark, then run `npm run check` — ensures new components respect tokens and accessibility rules.
+- **New reasoning rule:** Add a row in `ui-reasoning.csv` with clear conditions and reasoning, then run `npm run sync-data` — keeps the rule engine deterministic and explainable.
+- **Changing dark mode tokens:** Update `design-tokens.json` first, then update dark-mode CSS blocks in all docs pages, for all palettes — prevents drift between token definitions and docs.
 
-**New reasoning rule:** Add row to `src/data/ui-reasoning.csv` (id, condition, field, operator, value, then_field, then_value, priority, reasoning, category) → higher priority = evaluated first → run `npm run sync-data`.
-
-**Changing dark mode tokens:** Update `tokens/design-tokens.json` first, then sync the inline CSS in ALL 7 docs pages (index.html has no dark mode blocks). Each page has per-palette dark mode blocks — update all 9 palettes in each file.

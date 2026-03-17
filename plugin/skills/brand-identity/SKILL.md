@@ -1,24 +1,30 @@
 ---
-name: brand-identity
-description: >
-  This skill should be used when the user asks to "create a brand identity",
-  "generate brand colors", "build a visual identity", "design a brand system",
-  "pick brand typography", "create a style guide", "brand palette", "brand book",
-  "color psychology for my brand", "logo usage guidelines", or needs guidance on
-  brand design, visual identity rules, or color psychology mapped to design system palettes.
-metadata:
-  version: "0.5.0"
-  author: "Marcelo Katogui"
+name: brand-identity-generator
+description: Generates complete brand identity systems with color psychology, typography pairings, and visual identity rules mapped to Universal Design System palettes. Use when the user asks for brand identity, brand design, brand colors, style guide, or visual identity.
+version: 0.4.0
+triggers:
+  - brand identity
+  - brand design
+  - brand colors
+  - brand guidelines
+  - visual identity
+  - brand book
+  - style guide
+  - logo usage
+  - brand voice
+  - color psychology
+  - brand palette
+  - brand typography
+  - brand system
 ---
 
-# Brand Identity Generator
+# Brand Identity Generator — Claude Code Skill
 
 Generate complete brand identity systems with color psychology reasoning, typography pairings, logo guidelines, and visual identity rules — all mapped to Universal Design System's 9 structural palettes.
 
-## Workflow
+## How This Skill Works
 
 ### Step 1: Gather Brand Context
-
 Ask for or infer:
 - Company name and industry
 - Brand values (e.g., trustworthy, innovative, friendly)
@@ -27,8 +33,7 @@ Ask for or infer:
 - Existing brand colors (if any — to evolve, not replace)
 
 ### Step 2: Map to Palette
-
-Use the industry → palette mapping:
+Use the industry → palette mapping from Universal Design System:
 
 | Industry | Default Palette | Reasoning |
 |----------|----------------|-----------|
@@ -57,10 +62,10 @@ Use the industry → palette mapping:
 
 ### Step 4: Generate Brand System
 
-Output a complete brand identity:
+Output a complete brand identity including:
 
 1. **Color Palette** — Primary, secondary, accent, neutrals as CSS custom properties
-2. **Typography Pairing** — Heading + body font from the 75 curated pairings
+2. **Typography Pairing** — Heading + body font from the 75 pairings in `src/data/typography.csv`
 3. **Logo Usage Rules** — Minimum size, clear space, color variants (full color, mono, reversed)
 4. **Brand Voice** — Tone descriptors, writing style, vocabulary guidelines
 5. **Visual Identity Rules** — Border radius, shadow style, animation style, photography direction
@@ -100,3 +105,7 @@ Output a complete brand identity:
 - **Typography:** Nunito (headings) + Inter (body) — soft-approachable mood
 - **Voice:** Fun, encouraging, simple language, age-appropriate
 - **Radius:** 12-32px (heavily rounded), soft warm shadows
+
+---
+
+*Powered by Universal Design System v0.4.0*

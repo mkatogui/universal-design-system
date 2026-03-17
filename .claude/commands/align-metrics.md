@@ -1,4 +1,5 @@
 ---
+name: align-metrics
 description: Compute actual project metrics from source files and update all references in CLAUDE.md, README.md, and docs to match. Prevents documentation number drift.
 ---
 

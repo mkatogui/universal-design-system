@@ -1,6 +1,6 @@
 ---
-name: Design Audit
-description: Audit existing UIs for WCAG accessibility, color contrast, typography hierarchy, spacing consistency, and industry anti-patterns. Generates scored reports with actionable fixes.
+name: design-audit
+description: Audits existing UIs for WCAG accessibility, color contrast, typography hierarchy, spacing consistency, and industry anti-patterns. Generates scored reports with actionable fixes. Use when the user asks for design audit, UI audit, accessibility audit, or design review.
 version: 0.4.0
 triggers:
   - design audit

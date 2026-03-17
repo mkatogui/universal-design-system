@@ -24,8 +24,11 @@ jobs:
       - name: Build CLI
         run: npm run build:cli
 
-      - name: Build Cowork plugin
+      - name: Sync plugin from .claude
         run: npm run build:plugin
+
+      - name: Build Cowork plugin
+        run: npm run build:plugin:cowork
 
       - name: Extract version from tag
         id: version

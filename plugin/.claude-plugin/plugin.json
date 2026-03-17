@@ -1,7 +1,7 @@
 {
   "name": "universal-design-system",
   "version": "0.6.0",
-  "description": "Production-grade AI-native design system with 9 structural palettes, 43 components, 600 W3C DTCG tokens, BM25 reasoning engine, WCAG 2.2 AA compliance, and Tailwind/React/Vue/Svelte output. Reverse-engineered from 100 modern websites.",
+  "description": "Production-grade AI-native design system with 9 structural palettes, 43 components, 600 W3C DTCG tokens, BM25 reasoning engine, WCAG 2.2 AA compliance, and Tailwind/React/Vue/Svelte output.",
   "author": {
     "name": "Marcelo Katogui"
   },
@@ -18,9 +18,7 @@
     "react",
     "vue",
     "svelte",
-    "design-tokens",
-    "color-palette",
-    "components"
+    "design-tokens"
   ],
   "mcpServers": "./.mcp.json"
 }

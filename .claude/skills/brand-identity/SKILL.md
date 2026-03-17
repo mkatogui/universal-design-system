@@ -1,6 +1,6 @@
 ---
-name: Brand Identity Generator
-description: Generate complete brand identity systems with color psychology, typography pairings, and visual identity rules mapped to Universal Design System palettes.
+name: brand-identity-generator
+description: Generates complete brand identity systems with color psychology, typography pairings, and visual identity rules mapped to Universal Design System palettes. Use when the user asks for brand identity, brand design, brand colors, style guide, or visual identity.
 version: 0.4.0
 triggers:
   - brand identity

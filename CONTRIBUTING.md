@@ -46,6 +46,18 @@ python3 src/scripts/design_system.py "healthcare portal" --format json
 
 ---
 
+## Skills, agents, and commands (single source of truth)
+
+The **single source of truth** for skills, agents, and commands is **`.claude/`** (`.claude/skills`, `.claude/agents`, `.claude/commands`). Do not edit `plugins/universal-design-system/` by hand — it is generated. After changing anything under `.claude/`, run:
+
+```bash
+npm run build:plugin
+```
+
+This regenerates `plugins/universal-design-system/` for the Claude Code marketplace. CI runs this and fails if `plugins/` has uncommitted changes, so keep the generated output in sync.
+
+---
+
 ## Your First Contribution
 
 New here? Start with one of these — no deep architecture knowledge required:
