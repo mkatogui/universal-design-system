@@ -40,7 +40,7 @@
     "node": ">=18"
   },
   "dependencies": {
-    "adm-zip": "^0.5.16"
+    "adm-zip": "^0.5.17"
   },
   "devDependencies": {
     "@types/node": "^25.5.0",
